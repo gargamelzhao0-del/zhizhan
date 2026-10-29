@@ -1,0 +1,2835 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B04a" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>Python 语言基础 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">Python 语言基础</div>
+    <div class="m-subtitle">零基础入口 · 12 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">12 模块 · 56 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol cur" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">主线辅助语言 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">Python 学习路径.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">从 C 到 Python：第一印象<span class="m-nav-sub">解释器 · print · 动态类型</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-1" data-target="m01-1">1.1 第一个 Python 程序</a><a class="m-sec" href="#m01-2" data-target="m01-2">1.2 与 C 的对照</a><a class="m-sec" href="#m01-4" data-target="m01-4">01.4 与 C 的对照速查</a><a class="m-sec" href="#m01-5" data-target="m01-5">01.5 常见错误与修复</a><a class="m-sec" href="#m01-6" data-target="m01-6">01.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">类型与运算符<span class="m-nav-sub">int/float/str/bool · f-string</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-1" data-target="m02-1">2.1 基本类型与运算</a><a class="m-sec" href="#m02-2" data-target="m02-2">2.2 类型转换</a><a class="m-sec" href="#m02-4" data-target="m02-4">02.4 与 C 的对照速查</a><a class="m-sec" href="#m02-5" data-target="m02-5">02.5 常见错误与修复</a><a class="m-sec" href="#m02-6" data-target="m02-6">02.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">控制流<span class="m-nav-sub">if/for/while · range · 真值</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-1" data-target="m03-1">3.1 分支与两种循环</a><a class="m-sec" href="#m03-2" data-target="m03-2">3.2 &quot;真值&quot;：什么算假</a><a class="m-sec" href="#m03-4" data-target="m03-4">03.4 与 C 的对照速查</a><a class="m-sec" href="#m03-5" data-target="m03-5">03.5 常见错误与修复</a><a class="m-sec" href="#m03-6" data-target="m03-6">03.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">函数<span class="m-nav-sub">def · 默认/关键字参数 · lambda</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-1" data-target="m04-1">4.1 定义、参数与返回值</a><a class="m-sec" href="#m04-2" data-target="m04-2">4.2 参数形态速查</a><a class="m-sec" href="#m04-4" data-target="m04-4">04.4 与 C 的对照速查</a><a class="m-sec" href="#m04-5" data-target="m04-5">04.5 常见错误与修复</a><a class="m-sec" href="#m04-6" data-target="m04-6">04.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">数据结构<span class="m-nav-sub">list/tuple/dict/set · 推导式</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-1" data-target="m05-1">5.1 四种容器</a><a class="m-sec" href="#m05-2" data-target="m05-2">5.2 推导式：一行生成容器</a><a class="m-sec" href="#m05-4" data-target="m05-4">05.4 与 C 的对照速查</a><a class="m-sec" href="#m05-5" data-target="m05-5">05.5 常见错误与修复</a><a class="m-sec" href="#m05-6" data-target="m05-6">05.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">字符串与文件<span class="m-nav-sub">字符串方法 · open/with</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-1" data-target="m06-1">6.1 字符串方法</a><a class="m-sec" href="#m06-2" data-target="m06-2">6.2 with open：文件自动关闭</a><a class="m-sec" href="#m06-4" data-target="m06-4">06.4 与 C 的对照速查</a><a class="m-sec" href="#m06-5" data-target="m06-5">06.5 常见错误与修复</a><a class="m-sec" href="#m06-6" data-target="m06-6">06.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">类与模块<span class="m-nav-sub">class · __init__ · import</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-1" data-target="m07-1">7.1 类：数据 + 方法</a><a class="m-sec" href="#m07-2" data-target="m07-2">7.2 模块与包：拆文件、复用</a><a class="m-sec" href="#m07-4" data-target="m07-4">07.4 与 C 的对照速查</a><a class="m-sec" href="#m07-5" data-target="m07-5">07.5 常见错误与修复</a><a class="m-sec" href="#m07-6" data-target="m07-6">07.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">异常、迭代器与测试<span class="m-nav-sub">try/except · 生成器 · 过渡到 B04</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-1" data-target="m08-1">8.1 异常：try / except</a><a class="m-sec" href="#m08-2" data-target="m08-2">8.2 生成器：惰性、省内存</a><a class="m-sec" href="#m08-3" data-target="m08-3">8.3 你已经会 Python 了——下一步</a><a class="m-sec" href="#m08-4" data-target="m08-4">08.4 与 C 的对照速查</a><a class="m-sec" href="#m08-5" data-target="m08-5">08.5 常见错误与修复</a><a class="m-sec" href="#m08-6" data-target="m08-6">08.6 速查与检查清单</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">环境、包与项目组织<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-mechanism" data-target="m09-mechanism">机制与契约</a><a class="m-sec" href="#m09-boundary" data-target="m09-boundary">边界与误用</a><a class="m-sec" href="#m09-run" data-target="m09-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">标准库与可靠 IO<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-mechanism" data-target="m10-mechanism">机制与契约</a><a class="m-sec" href="#m10-boundary" data-target="m10-boundary">边界与误用</a><a class="m-sec" href="#m10-run" data-target="m10-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m11"><summary><span class="m-nav-num">11</span><span class="m-nav-t">并发、异步与后台任务<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m11-mechanism" data-target="m11-mechanism">机制与契约</a><a class="m-sec" href="#m11-boundary" data-target="m11-boundary">边界与误用</a><a class="m-sec" href="#m11-run" data-target="m11-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m12"><summary><span class="m-nav-num">12</span><span class="m-nav-t">测试、CLI 与综合项目<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m12-mechanism" data-target="m12-mechanism">机制与契约</a><a class="m-sec" href="#m12-boundary" data-target="m12-boundary">边界与误用</a><a class="m-sec" href="#m12-run" data-target="m12-run">运行完整示例</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num">§</span><span class="m-nav-t">术语与符号对照表<span class="m-nav-sub">单一事实源 · 构建期比对</span></span></summary><div class="m-secs"><a class="m-sec" href="#glossary-terms" data-target="glossary-terms">术语</a><a class="m-sec" href="#glossary-symbols" data-target="glossary-symbols">符号 / 构件</a></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B04a-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE 01–12 · 阶段 ② 现代语言 · 基</div>
+    <h1>Python <span class="g">语言基础</span><br>从零到能读《Python 嵌入式》<span class="cursor"></span></h1>
+    <p class="lead">
+      这一册把 <strong>Python 当作一门语言从零讲</strong>：动态类型、控制流、函数、数据结构、字符串与文件、类与模块、异常与生成器、测试。
+      零基础也能读（会 C 更好理解"差异"）。学完它，你就能顺畅进入《Python（嵌入式向）》(B04)，用它做上位机工具与 MicroPython。
+      标<b>「可运行」</b>的示例都用本机 <code class="ic">python</code> <strong>真实运行</strong>（正文末尾附真实输出）；其余为补充片段。
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>12</b><span>核心模块</span></div>
+      <div class="hero-stat"><b>40</b><span>代码与命令</span></div>
+      <div class="hero-stat"><b>18</b><span>原理图示</span></div>
+      <div class="hero-stat"><b>41</b><span>对照表格</span></div>
+    </div>
+    <div class="box key" style="margin-top:26px">
+      <div class="box-t">◆ 谁该读 / 读完能做什么</div>
+      <ul style="margin-bottom:0">
+        <li><strong>零基础或会 C</strong>：都适合。Python 语法直观，是"入门第一门语言"的好选择，也是嵌入式工程师做工具的首选。</li>
+        <li>学完你能：写函数与类、用 list/dict 处理数据、读写文件、处理异常、用标准库与第三方库。</li>
+        <li>然后进入 B04：用 Python 做串口工具、数据分析、构建脚本与 MicroPython。</li>
+      </ul>
+    </div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B04a-labs.zip" download>下载 B04a 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B04a 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">主线辅助语言 · 读到能完成什么？</h2><p><strong>交付可安装 CLI，读取串口回放文件、校验数据、生成统计并返回可供脚本判断的退出码。</strong></p><p>入门条件：会使用终端；不要求先学 C++/Rust。</p><p>首次阅读：<a href="#m02">类型与运算符</a> → <a href="#m03">控制流</a> → <a href="#m04">函数</a> → <a href="#m05">数据结构</a> → <a href="#m06">字符串与文件</a> → <a href="#m08">异常、迭代器与测试</a> → <a href="#m09">环境、包与项目组织</a> → <a href="#m10">标准库与可靠 IO</a> → <a href="#m12">测试、CLI 与综合项目</a></p><p>按需延后：GUI 与异步先按工具需求选读；数据分析无需先掌握整套 Python 元编程。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>输入损坏文件、未知编码和权限错误；从另一目录启动并运行测试。</p><p><strong>通过判据：</strong>正常与失败路径均有测试，文件总能关闭，依赖可重建，统计用小样本手算对照。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P06">P06</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">Python 学习路径<span class="acc">.</span></h1>
+      <p class="ch-lead">本册是"阶段②基础"，与 B04（Python 上位机工具 + MicroPython）配对：先学语言本体，再学它在嵌入式里的用法。</p>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item"><div class="rm-n">⓪</div><div><div class="rm-t">编程与 C 语言基础</div><div class="rm-d">（可选前置）</div></div><div class="rm-s">已发布</div></div>
+      <div class="rm-item now"><div class="rm-n">②基</div><div><div class="rm-t">Python 语言基础（本册）</div><div class="rm-d">类型/控制流/函数/数据结构/类/异常</div></div><div class="rm-s">进行中</div></div>
+      <div class="rm-item"><div class="rm-n">②</div><div><div class="rm-t">Python（嵌入式向）</div><div class="rm-d">上位机工具链 + MicroPython</div></div><div class="rm-s">已发布</div></div>
+      <div class="rm-item"><div class="rm-n">③–⑩</div><div><div class="rm-t">外设 · RTOS · 通信 · 应用 · …</div><div class="rm-d">语言之后是硬件与应用</div></div><div class="rm-s">已发布</div></div>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 学 Python 的正确方式</div>
+      <p style="margin-bottom:0">Python 是<strong>解释型</strong>：改一行、立刻就能跑。请务必把每段示例<strong>亲手运行</strong>，并在交互式解释器里随手试——这是 Python 最舒服的地方。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 起步</div>
+      <h1 class="ch-title">从 C 到 Python：<span class="acc">第一印象</span></h1>
+      <p class="ch-lead">
+        Python 与 C 最大的不同：<strong>解释执行、动态类型、用缩进分块</strong>。这一节先跑起来，建立第一印象。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ 解释器 · print · 动态类型</span><span>⚑ 无需编译</span>
+      </div>
+    </div>
+
+    <h2 id="m01-1">1.1 第一个 Python 程序</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m01_hello.py — 变量与输出（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>name = "Python"          # 无需声明类型
+count = 3
+pi = 3.14
+nothing = None           # 表示"没有值"
+print("Hello,", name)
+print("count =", count, "pi =", pi, "nothing =", nothing)
+# 动态类型：同一个名字可以指向不同类型
+count = "now a string"   # 合法，但类型变了（C 里不允许）
+print(count)</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M01）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m01_hello.py
+<span class="o">Hello, Python
+count = 3 pi = 3.14 nothing = None
+now a string</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三个与 C 不同的地方</div>
+      <ul style="margin-bottom:0">
+        <li><strong>不用编译</strong>：<code class="ic">python m.py</code> 直接跑；也可以进交互解释器（REPL）逐句试。</li>
+        <li><strong>动态类型</strong>：变量不绑定类型，同一个名字可以先后指向不同类型（<code class="ic">count</code> 从整数变字符串）。</li>
+        <li><strong>缩进分块</strong>：用缩进（通常 4 空格）代替 C 的 <code class="ic">{}</code>；缩进错就是语法错误。</li>
+      </ul>
+    </div>
+
+    <h2 id="m01-2">1.2 与 C 的对照</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">想做的事</th><th style="width:32%">C</th><th>Python</th></tr></thead>
+        <tbody>
+          <tr><td>输出</td><td><code class="ic">printf("%d\n", x)</code></td><td><code class="ic">print(x)</code>（自动加换行）</td></tr>
+          <tr><td>变量</td><td><code class="ic">int x = 5;</code>（要声明类型）</td><td><code class="ic">x = 5</code>（类型自动）</td></tr>
+          <tr><td>代码块</td><td><code class="ic">{ }</code></td><td>缩进</td></tr>
+          <tr><td>运行</td><td>先 <code class="ic">gcc</code> 编译再执行</td><td><code class="ic">python m.py</code> 直接执行</td></tr>
+          <tr><td>空值</td><td><code class="ic">NULL</code>（指针）</td><td><code class="ic">None</code>（一个对象）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 交互式解释器（REPL）</div>
+      <p style="margin-bottom:0">命令行敲 <code class="ic">python</code> 进入 <code class="ic">&gt;&gt;&gt;</code> 提示符，随手输入 <code class="ic">2+3</code>、<code class="ic">"hi".upper()</code> 立刻见结果——学习 Python 最快的工具。</p>
+    </div>
+
+    <h2 id="m01-4">01.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>输出</td><td><code class="ic">printf</code></td><td><code class="ic">print()</code></td></tr>
+          <tr><td>分号</td><td>必须</td><td>不需要</td></tr>
+          <tr><td>类型</td><td>声明</td><td>动态</td></tr>
+          <tr><td>编译</td><td>需编译</td><td>直接解释运行</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.2</b> 写 → 运行</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="源码交给解释器直接运行">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">main.py</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">python 解释器</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">输出</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">没有独立编译步骤。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.3</b> 缩进就是语法</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="同一块代码缩进要一致">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">if x:</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">    缩进块</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">缩进不一致 → 报错</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">缩进不是排版，是语法。</div>
+    </div>
+    <h2 id="m01-5">01.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>缩进不一致</td><td>IndentationError</td><td>统一 4 空格</td></tr>
+          <tr><td>中文标点</td><td>SyntaxError</td><td>用英文标点</td></tr>
+          <tr><td>忘了冒号</td><td>SyntaxError</td><td><code class="ic">if x:</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m01-6">01.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>REPL</td><td><code class="ic">python</code> 交互</td></tr>
+          <tr><td>注释</td><td><code class="ic">#</code></td></tr>
+          <tr><td>版本</td><td>用 <code class="ic">python3</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">hello.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>name = "embedded"
+print("Hello,", name)</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">sum.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>a = 2
+b = 3
+print(a + b)</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>用 Python 写一个"读入两个数打印和"的程序（可用 <code class="ic">input</code> + <code class="ic">int()</code>），对比 C 的写法。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>Python 解释执行、无需编译；<code class="ic">python m.py</code> 直接运行。</li>
+        <li>变量动态类型：<code class="ic">x = 5</code>，无需声明；同一名字可改指不同类型。</li>
+        <li>用缩进表示代码块，替代 C 的 <code class="ic">{}</code>。</li>
+        <li><code class="ic">print(x)</code> 自动换行；<code class="ic">None</code> 表示"没有值"。</li>
+        <li>REPL 是随手的实验台。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：Python 变量要像 C 那样先声明类型。</p>
+          <details><summary></summary><p>不用。Python 动态类型：<code class="ic">x = 5</code> 直接赋值，类型由值决定。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：<code class="ic">count = 3</code> 之后又 <code class="ic">count = "hi"</code>，能运行吗？</p>
+          <details><summary></summary><p>能。变量是名字，可重新绑定到不同类型的对象（这是与 C 的关键差异；也要求你更注意类型）。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：程序报 <code class="ic">IndentationError</code>，最可能是什么原因？</p>
+          <details><summary></summary><p>缩进不一致（该缩进的没缩进，或混用空格与 Tab）。Python 用缩进划分代码块。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：进入 REPL（<code class="ic">python</code>），输入 <code class="ic">2 + 3 * 4</code>、<code class="ic">"abc".upper()</code>，观察即时结果。</p>
+          <details><summary></summary><p>得到 <code class="ic">14</code> 与 <code class="ic">'ABC'</code>——REPL 立即求值，非常适合做小实验。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">None</code> 和 C 的 <code class="ic">0</code> 是一回事。</p>
+          <details><summary></summary><p>不同。<code class="ic">None</code> 是表示"没有值"的独立对象；<code class="ic">0</code> 是整数。判断用 <code class="ic">x is None</code>——<strong><code class="ic">is</code> 比较"是不是同一个对象"（身份），<code class="ic">==</code> 比较"值是否相等"</strong>；<code class="ic">None</code> 是单例，所以惯用 <code class="ic">is None</code>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 01 完成？</b> 运行 <code class="ic">m01_hello.py</code>，再用 REPL 试三条表达式。</div>
+      <button class="done-btn" data-done="m01">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>在隔离环境运行脚本，解释解释器与工作目录，并保留完整异常信息。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 数据</div>
+      <h1 class="ch-title">类型与<span class="acc">运算符</span></h1>
+      <p class="ch-lead">
+        Python 的基本类型与 C 类似（整数/小数/字符串/布尔），但更省心：<strong>整数不会溢出</strong>、字符串功能丰富、
+        还有好用的 <strong>f-string</strong> 格式化。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ int/float/str/bool · f-string</span><span>⚑ 类型转换</span>
+      </div>
+    </div>
+
+    <h2 id="m02-1">2.1 基本类型与运算</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m02_types.py — 类型、运算、f-string（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>n = 7
+x = 3.5
+s = "embedded"
+b = True
+print(type(n).__name__, type(x).__name__, type(s).__name__, type(b).__name__)
+print("7 / 2  =", 7 / 2)        # 真除法：3.5
+print("7 // 2 =", 7 // 2)       # 地板除（向下取整）：3
+print("7 % 2 =", 7 % 2)
+print("7 ** 2 =", 7 ** 2)       # 幂
+print(f"n={n}, x={x}, s={s}")   # f-string
+print("int('42') + 1 =", int("42") + 1)
+print("'value=' + str(n) =", "value=" + str(n))</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M02）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m02_types.py
+<span class="o">int float str bool
+7 / 2  = 3.5
+7 // 2 = 3
+7 % 2 = 1
+7 ** 2 = 49
+n=7, x=3.5, s=embedded
+int('42') + 1 = 43
+'value=' + str(n) = value=7</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 与 C 的三个关键差异</div>
+      <ul style="margin-bottom:0">
+        <li><strong><code class="ic">/</code> 是真除法</strong>（<code class="ic">7/2 = 3.5</code>）；<code class="ic">//</code> 是<b>地板除（向下取整）</b>。与 C 的"整数除"差异要留意<b>负数</b>：Python 里 <code class="ic">-7 // 2 == -4</code>（向下取整），而 C 的 <code class="ic">-7 / 2 == -3</code>（向零截断）；<code class="ic">-7 % 2 == 1</code>（Python 取余符号跟除数走）。</li>
+        <li><strong>整数不溢出</strong>：Python 的 <code class="ic">int</code> 是任意精度（要多大有多大），所以在 MCU 上要留心"行为与 C 不同"。</li>
+        <li><strong>f-string</strong>：<code class="ic">f"{x:.2f}"</code> 直接在字符串里嵌入表达式与格式。</li>
+      </ul>
+    </div>
+
+    <h2 id="m02-2">2.2 类型转换</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">转换</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">int("42")</code></td><td>字符串 → 整数（失败抛 <code class="ic">ValueError</code>）</td></tr>
+          <tr><td><code class="ic">float("3.5")</code></td><td>字符串 → 小数</td></tr>
+          <tr><td><code class="ic">str(7)</code></td><td>任意 → 字符串</td></tr>
+          <tr><td><code class="ic">bool(0)</code></td><td><strong>数值零、空字符串、空容器（<code class="ic">[] () {} set()</code>）、<code class="ic">None</code> → False</strong>，其余 → True</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 布尔与"真值"</div>
+      <p style="margin-bottom:0">
+        在条件判断里，<code class="ic">0</code>、<code class="ic">0.0</code>、<code class="ic">""</code>、<code class="ic">[]</code>、<code class="ic">None</code> 都算"假"，其余算"真"（M03 详讲）。
+      </p>
+    </div>
+
+    <h2 id="m02-4">02.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>整数</td><td><code class="ic">int</code></td><td><code class="ic">int</code>（任意精度）</td></tr>
+          <tr><td>浮点</td><td><code class="ic">double</code></td><td><code class="ic">float</code></td></tr>
+          <tr><td>布尔</td><td><code class="ic">int</code></td><td><code class="ic">bool</code></td></tr>
+          <tr><td>转换</td><td>强制转换</td><td><code class="ic">int()/float()/str()</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.2</b> 动态类型</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="变量没有固定类型，值有">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">x=1</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">x="a"</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">x=3.5</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">同名变量可先后指向不同类型。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.3</b> 常见转换</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="显式转换避免类型错误">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">"3"</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">int("3")</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">3</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft"><code class="ic">input()</code> 得到的是字符串。</div>
+    </div>
+    <h2 id="m02-5">02.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>整数除得浮点</td><td>—</td><td><code class="ic">//</code> 才是整除</td></tr>
+          <tr><td>字符串拼数字</td><td>TypeError</td><td>先 <code class="ic">str()</code></td></tr>
+          <tr><td><code class="ic">input()</code> 当数字用</td><td>TypeError</td><td><code class="ic">int(input())</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m02-6">02.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>整除</td><td><code class="ic">7 // 2 → 3</code></td></tr>
+          <tr><td>取余</td><td><code class="ic">7 % 2 → 1</code></td></tr>
+          <tr><td>幂</td><td><code class="ic">2 ** 10</code></td></tr>
+          <tr><td>真除</td><td><code class="ic">7 / 2 → 3.5</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">types.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>a = 7
+b = 2
+print(a / b, a // b, a % b, a ** b)</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">convert.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>s = input() if False else "42"   # 演示
+n = int(s)
+print(n + 1)</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个温度转换程序（摄氏↔华氏），注意用 <code class="ic">float()</code> 转换并保留一位小数。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>基本类型：<code class="ic">int</code>/<code class="ic">float</code>/<code class="ic">str</code>/<code class="ic">bool</code>；<code class="ic">type(x)</code> 看类型。</li>
+        <li><code class="ic">/</code> 真除法、<code class="ic">//</code> 地板除（向下取整）、<code class="ic">%</code> 取余、<code class="ic">**</code> 幂；负数下方差注意。</li>
+        <li>Python 整数<b>任意精度</b>，不会溢出（与 C 不同）。</li>
+        <li><code class="ic">f"{x}"</code> 是最常用的格式化方式。</li>
+        <li>类型转换 <code class="ic">int()/float()/str()</code>。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：<code class="ic">7 / 2</code> 的结果是 ______，<code class="ic">7 // 2</code> 是 ______。</p>
+          <details><summary></summary><p><code class="ic">3.5</code>（真除法）/ <code class="ic">3</code>（地板除）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：Python 的 <code class="ic">int</code> 到了 2^32 会像 C 一样溢出。</p>
+          <details><summary></summary><p>不会。Python 的 <code class="ic">int</code> 是任意精度，会继续增大（代价是变慢/占内存）。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">"3" + 4</code> 报 <code class="ic">TypeError</code>，怎么修？</p>
+          <details><summary></summary><p>字符串与整数不能直接相加。应显式转换：<code class="ic">int("3") + 4</code> 或 <code class="ic">"3" + str(4)</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写 <code class="ic">f"{3.14159:.2f}"</code>、<code class="ic">f"{255:08b}"</code>（二进制），观察格式控制。</p>
+          <details><summary></summary><p>分别得到 <code class="ic">3.14</code> 与 <code class="ic">11111111</code>——f-string 支持宽度/精度/进制格式。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">bool([])</code> 是 <code class="ic">True</code>。</p>
+          <details><summary></summary><p>是 <code class="ic">False</code>。空列表（以及空字符串、0、None）在布尔上下文里都是假。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 02 完成？</b> 读入一个数字字符串（如 <code class="ic">"3.5"</code>），转成 float 并计算它的平方，用 f-string 保留两位小数输出。</div>
+      <button class="done-btn" data-done="m02">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>解释可变对象别名、整数/浮点及负数整除，不把 Python 结果直接当 C 的结果。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 控制流</div>
+      <h1 class="ch-title">控制流：<span class="acc">分支与循环</span></h1>
+      <p class="ch-lead">
+        <code class="ic">if/elif/else</code> 做分支，<code class="ic">for/while</code> 做循环，<code class="ic">break/continue</code> 提前跳出。
+        与 C 类似，但 Python 用<strong>缩进</strong>分块、<code class="ic">for</code> 是"遍历"而非"计数"。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ if/for/while · range · 真值</span><span>⚑ 缩进即结构</span>
+      </div>
+    </div>
+
+    <h2 id="m03-1">3.1 分支与两种循环</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m03_control.py — if/for/while（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>for i in range(1, 6):          # 1..5
+    if i % 2 == 0:
+        print(i, "even")
+    else:
+        print(i, "odd")
+
+total = 0
+n = 10
+while n > 0:
+    total += n
+    n -= 1
+print("sum 1..10 =", total)
+
+for x in range(1, 10):
+    if x == 3:
+        continue               # 跳过 3
+    if x == 6:
+        break                  # 到 6 停止
+    print("x =", x)</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M03）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m03_control.py
+<span class="o">1 odd
+2 even
+3 odd
+4 even
+5 odd
+sum 1..10 = 55
+x = 1
+x = 2
+x = 4
+x = 5</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ Python 的 <code>for</code> 是"遍历"</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">for i in range(1, 6)</code>：<code class="ic">range(a, b)</code> 生成 <code class="ic">a..b-1</code>（含左不含右）。</li>
+        <li>它遍历的是"可迭代对象"，不只是数字——可以直接 <code class="ic">for x in [3,1,4]</code>、<code class="ic">for k in d</code>（字典键）。</li>
+        <li><code class="ic">range(5)</code> 是 <code class="ic">0..4</code>；<code class="ic">range(1, 6)</code> 是 <code class="ic">1..5</code>；<code class="ic">range(0, 10, 2)</code> 是偶数步进。</li>
+        <li><strong>负步长</strong>：<code class="ic">range(5, 0, -1)</code> 得到 <code class="ic">5 4 3 2 1</code>（含左不含右）；注意 <code class="ic">range(5, 0)</code>（步长为正）是<b>空</b>的——这正对应 C 里写 <code class="ic">for(i=5;i&gt;0;i--)</code>。</li>
+      </ul>
+    </div>
+
+    <h2 id="m03-2">3.2 "真值"：什么算假</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">表达式</th><th>布尔值</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">0</code> / <code class="ic">0.0</code></td><td class="n">False</td></tr>
+          <tr><td><code class="ic">""</code>（空字符串）</td><td class="n">False</td></tr>
+          <tr><td>空容器：<code class="ic">[]</code> / <code class="ic">()</code> / <code class="ic">{}</code> / <code class="ic">set()</code></td><td class="n">False</td></tr>
+          <tr><td><code class="ic">None</code></td><td class="n">False</td></tr>
+          <tr><td>其余非零/非空</td><td class="y">True</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>所以 <code class="ic">if xs:</code> 常用来判断"列表非空"，<code class="ic">if not s:</code> 判断"字符串为空"——比 C 里写 <code class="ic">len > 0</code> 更自然。</p>
+
+    <h2 id="m03-4">03.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>分支</td><td><code class="ic">if/else</code></td><td><code class="ic">if/elif/else</code></td></tr>
+          <tr><td>循环</td><td><code class="ic">for(;;)</code></td><td><code class="ic">for x in ...</code></td></tr>
+          <tr><td>遍历</td><td>下标</td><td>直接迭代元素</td></tr>
+          <tr><td>区间</td><td>手动</td><td><code class="ic">range()</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.2</b> if / elif / else</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="从上到下匹配第一个为真的分支">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">if</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">elif</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">else</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">只执行第一个命中的分支。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.3</b> for 直接迭代</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="不用下标，直接拿元素">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">for x in xs</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">x 是元素</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">循环体</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">也可以 <code class="ic">enumerate</code> 拿下标。</div>
+    </div>
+    <h2 id="m03-5">03.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">elif</code> 写成 <code class="ic">else if</code></td><td>SyntaxError</td><td>用 <code class="ic">elif</code></td></tr>
+          <tr><td><code class="ic">range(n)</code> 少循环一次</td><td>—</td><td><code class="ic">range</code> 不含尾部</td></tr>
+          <tr><td>循环里改不了原列表</td><td>—</td><td>用索引或新列表</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m03-6">03.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>假值</td><td><code class="ic">0 / 0.0 / "" / [] / None</code></td></tr>
+          <tr><td>真值</td><td>其它</td></tr>
+          <tr><td><code class="ic">for</code></td><td>已知次数/可迭代</td></tr>
+          <tr><td><code class="ic">while</code></td><td>条件驱动</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">branch.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>score = 85
+if score >= 90:
+    print("A")
+elif score >= 60:
+    print("pass")
+else:
+    print("fail")</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">loop.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>total = 0
+for i in range(1, 6):
+    total += i
+print(total)</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个 FizzBuzz：1–20，3 的倍数打印 Fizz，5 的倍数打印 Buzz，15 的倍数打印 FizzBuzz。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">if/elif/else</code> 从上往下，命中第一个为真的分支。</li>
+        <li><code class="ic">for</code> 遍历可迭代对象；<code class="ic">range(a,b)</code> 含左不含右。</li>
+        <li><code class="ic">while</code> 按条件循环；<code class="ic">break</code> 跳出、<code class="ic">continue</code> 跳过本次。</li>
+        <li>用缩进划分代码块——缩进错就是语法错误。</li>
+        <li>空/零/None 在条件里是假。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：<code class="ic">range(1, 5)</code> 会产生 ______ 到 ______。</p>
+          <details><summary></summary><p><strong>1</strong> 到 <strong>4</strong>（含左不含右，共 4 个数）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">for i in range(10)</code> 里 <code class="ic">i</code> 会取到 10。</p>
+          <details><summary></summary><p>不会，取 0..9。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">while x < 10: print(x)</code> 停不下来，为什么？</p>
+          <details><summary></summary><p>循环体没改 <code class="ic">x</code>，条件恒真。应加 <code class="ic">x += 1</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：用 <code class="ic">for n in range(1, 16)</code> 实现 FizzBuzz（3 的倍数 Fizz、5 的倍数 Buzz、15 的倍数 FizzBuzz）。</p>
+          <details><summary></summary><p>先判 15、再判 3、再判 5，其余打印数字——与 C 版思路一致，但代码更短。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">if []:</code> 会执行它的分支。</p>
+          <details><summary></summary><p>不会。空列表为假，<code class="ic">if []:</code> 不进入。判断"列表非空"直接写 <code class="ic">if xs:</code>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 03 完成？</b> 用 <code class="ic">for</code> 求出 1~100 中所有能被 7 整除的数之和，并打印个数。</div>
+      <button class="done-btn" data-done="m03">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>对迭代零次/一次/多次与异常退出写断言。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 函数</div>
+      <h1 class="ch-title">函数</h1>
+      <p class="ch-lead">
+        <code class="ic">def</code> 定义函数。Python 的函数比 C 更灵活：<strong>默认参数、关键字参数、返回多个值、lambda、闭包</strong>。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ def · 参数 · lambda · 闭包</span><span>⚑ 多返回值</span>
+      </div>
+    </div>
+
+    <h2 id="m04-1">4.1 定义、参数与返回值</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m04_functions.py — 参数/lambda/闭包（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def add(a, b):
+    return a + b
+
+def greet(name, greeting="hello"):    # 默认参数
+    return f"{greeting}, {name}!"
+
+def stats(xs):
+    return min(xs), max(xs), sum(xs)  # 返回多个值（元组）
+
+print(add(3, 4))
+print(greet("world"))
+print(greet("C", greeting="hi"))       # 关键字参数
+print(stats([3, 1, 9, 4]))
+
+square = lambda x: x * x               # lambda：匿名函数
+print("square(5) =", square(5))
+
+def make_counter():
+    c = 0
+    def inc():
+        nonlocal c                     # 修改外层变量
+        c += 1
+        return c
+    return inc
+
+cnt = make_counter()
+print(cnt(), cnt(), cnt())</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M04）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m04_functions.py
+<span class="o">7
+hello, world!
+hi, C!
+(1, 9, 17)
+square(5) = 25
+1 2 3</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三个亮点</div>
+      <ul style="margin-bottom:0">
+        <li><strong>默认参数 / 关键字参数</strong>：<code class="ic">greet("C", greeting="hi")</code>——按名字传参，可读性更好。</li>
+        <li><strong>返回多个值</strong>：<code class="ic">return a, b</code> 实际返回一个元组，调用方 <code class="ic">x, y = f()</code> 拆包。</li>
+        <li><strong>闭包</strong>：<code class="ic">inc</code> 捕获了外层变量 <code class="ic">c</code>；修改要用 <code class="ic">nonlocal</code>。</li>
+      </ul>
+    </div>
+
+    <h2 id="m04-2">4.2 参数形态速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">写法</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">def f(a, b):</code></td><td>位置参数</td></tr>
+          <tr><td><code class="ic">def f(a, b=0):</code></td><td>默认参数（必须放后面）</td></tr>
+          <tr><td><code class="ic">def f(*args):</code></td><td>可变位置参数（收成元组）</td></tr>
+          <tr><td><code class="ic">def f(**kwargs):</code></td><td>可变关键字参数（收成字典）</td></tr>
+          <tr><td><code class="ic">lambda x: x+1</code></td><td>匿名函数（单表达式）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 作用域与 global/nonlocal</div>
+      <p style="margin-bottom:0">
+        函数内<strong>读</strong>全局变量不需要声明；<strong>改</strong>全局要 <code class="ic">global</code>，改外层函数的变量要 <code class="ic">nonlocal</code>。
+        尽量少用 <code class="ic">global</code>——它让数据流难以追踪（与 C 里到处改全局变量是同一个教训）。
+      </p>
+      <p style="margin-top:10px;margin-bottom:0"><strong>一个必须记住的陷阱——可变默认参数：</strong><code class="ic">def f(x, lst=[])</code> 里的 <code class="ic">[]</code> <b>只在函数定义时求值一次</b>，被所有调用共享：多次调用 <code class="ic">f(1)</code> 会一直往同一个列表里加。正确写法：默认用 <code class="ic">None</code>，函数内再 <code class="ic">if lst is None: lst = []</code>。</p>
+    </div>
+
+    <h2 id="m04-4">04.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>定义</td><td><code class="ic">int f(int)</code></td><td><code class="ic">def f(x):</code></td></tr>
+          <tr><td>返回</td><td><code class="ic">return</code></td><td><code class="ic">return</code>（可多值）</td></tr>
+          <tr><td>默认参</td><td>无</td><td>默认参数</td></tr>
+          <tr><td>关键字参</td><td>无</td><td><code class="ic">f(x=1)</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.2</b> 定义与调用</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="函数把一段逻辑打包复用">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">def f()</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">调用 f()</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">返回结果</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">一个函数只做一件事。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.3</b> 多返回值其实是元组</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="return a, b 返回一个元组">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">return a, b</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">(a, b)</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">a, b = f()</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">解包即得两个值。</div>
+    </div>
+    <h2 id="m04-5">04.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>可变默认参数</td><td>共享状态 bug</td><td>用 <code class="ic">None</code> 占位</td></tr>
+          <tr><td>忘记 return</td><td>返回 <code class="ic">None</code></td><td>显式 return</td></tr>
+          <tr><td>参数顺序错</td><td>TypeError</td><td>关键字传参</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m04-6">04.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>位置参</td><td><code class="ic">f(1,2)</code></td></tr>
+          <tr><td>关键字</td><td><code class="ic">f(a=1,b=2)</code></td></tr>
+          <tr><td>默认值</td><td><code class="ic">def f(a, b=10)</code></td></tr>
+          <tr><td>*args</td><td>可变位置参</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">func.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def add(a, b=10):
+    return a + b
+
+print(add(2))
+print(add(2, 3))</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">multi.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def minmax(xs):
+    return min(xs), max(xs)
+
+lo, hi = minmax([3, 1, 2])
+print(lo, hi)</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把 C 册里的"求数组最大最小"写成 Python 函数，用多返回值一次返回两个结果。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">def</code> 定义函数；用 <code class="ic">return</code> 返回值（无则返回 <code class="ic">None</code>）。</li>
+        <li>支持默认参数、关键字参数、<code class="ic">*args</code>/<code class="ic">**kwargs</code>。</li>
+        <li><code class="ic">return a, b</code> 返回元组，调用方可拆包。</li>
+        <li><code class="ic">lambda</code> 是单表达式匿名函数。</li>
+        <li>闭包捕获外层变量；改外层用 <code class="ic">nonlocal</code>，改全局用 <code class="ic">global</code>（少用）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：函数不写 <code class="ic">return</code>，调用结果是 ______。</p>
+          <details><summary></summary><p><code class="ic">None</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">return a, b</code> 返回两个独立的值。</p>
+          <details><summary></summary><p>实际返回一个<strong>元组</strong> <code class="ic">(a, b)</code>；调用方 <code class="ic">x, y = f()</code> 是"拆包"。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">def f(a=1, b):</code> 报语法错误，为什么？</p>
+          <details><summary></summary><p>默认参数必须排在非默认参数之后。应写成 <code class="ic">def f(b, a=1):</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写一个 <code class="ic">def apply(xs, f): return [f(x) for x in xs]</code>，分别传入 <code class="ic">lambda x: x*x</code> 与 <code class="ic">str</code>。</p>
+          <details><summary></summary><p>能得到平方列表与字符串列表——函数是一等公民，可作为参数传递，这是 Python 简洁的关键之一。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：函数里读到全局变量也必须先 <code class="ic">global</code> 声明。</p>
+          <details><summary></summary><p>不用。只有<strong>修改</strong>全局变量才需要 <code class="ic">global</code>；读取直接用即可。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 04 完成？</b> 写一个函数接收任意个数字（<code class="ic">*nums</code>），返回它们的平均值；再写一个用 <code class="ic">lambda</code> 排序列表的函数。</div>
+      <button class="done-btn" data-done="m04">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>避免可变默认参数共享状态，明确返回值和异常契约。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 数据结构</div>
+      <h1 class="ch-title">数据结构：<span class="acc">list / dict / set</span></h1>
+      <p class="ch-lead">
+        Python 内置了强大的容器，很多在 C 里要手写的东西，这里一行就有：<strong>列表、元组、字典、集合、推导式</strong>。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ list/tuple/dict/set · 推导式</span><span>⚑ 随手可用</span>
+      </div>
+    </div>
+
+    <h2 id="m05-1">5.1 四种容器</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m05_data.py — list/tuple/dict/set + 推导式（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>nums = [3, 1, 4, 1, 5]                 # list
+nums.append(9)
+print("list:", nums, "len:", len(nums))
+print("slice[:2]:", nums[:2], "sorted:", sorted(nums))
+
+point = (3, 4)                          # tuple（不可变）
+print("tuple:", point, "point[0] =", point[0])
+
+person = {"name": "Ann", "age": 30}     # dict
+person["city"] = "Chengdu"
+print("dict:", person, "get('age'):", person.get("age"))
+
+unique = {1, 2, 2, 3, 3, 3}             # set（自动去重）
+print("set:", unique)
+
+squares = [x * x for x in range(1, 6)]  # 推导式
+print("squares:", squares)
+evens = [x for x in range(10) if x % 2 == 0]
+print("evens:", evens)</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M05）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m05_data.py
+<span class="o">list: [3, 1, 4, 1, 5, 9] len: 6
+slice[:2]: [3, 1] sorted: [1, 1, 3, 4, 5, 9]
+tuple: (3, 4) point[0] = 3
+dict: {'name': 'Ann', 'age': 30, 'city': 'Chengdu'} get('age'): 30
+set: {1, 2, 3}
+squares: [1, 4, 9, 16, 25]
+evens: [0, 2, 4, 6, 8]</span></pre></div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:16%">容器</th><th style="width:14%">可变</th><th>用途 / 常用操作</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">list</code></td><td class="y">是</td><td>有序序列：<code class="ic">append / 索引 / 切片 [a:b]</code>；<code class="ic">xs.sort()</code> 原地排序返回 <code class="ic">None</code>，<code class="ic">sorted(xs)</code> 返回新列表</td></tr>
+          <tr><td><code class="ic">tuple</code></td><td class="n">否</td><td>不可变序列：作"记录"或字典键</td></tr>
+          <tr><td><code class="ic">dict</code></td><td class="y">是</td><td>键值表：<code class="ic">d[k] / get(k) / keys()</code></td></tr>
+          <tr><td><code class="ic">set</code></td><td class="y">是</td><td>去重、交并差：<code class="ic">| &amp; -</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m05-2">5.2 推导式：一行生成容器</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">comprehension.py — 三种推导式</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>squares = [x * x for x in range(1, 6)]          # 列表推导式
+scores = {"a": 90, "b": 60}
+passed = {k: v for k, v in scores.items() if v &gt;= 70}   # 字典推导式
+names = {s.strip() for s in ["a ", "b", " a"]}          # 集合推导式（去重）
+print(squares, passed, names)</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 推导式读起来就是"自然语言"</div>
+      <p style="margin-bottom:0">
+        <code class="ic">[x*x for x in xs if x%2==0]</code> 读作"对 xs 里每个偶数 x，取 x*x，组成列表"。
+        它替代了"C 里先建数组、再循环赋值"的样板代码——这是 Python 提高<b>阅读收益/时间比</b>的典型。
+      </p>
+    </div>
+
+    <h2 id="m05-4">05.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>数组</td><td><code class="ic">int a[N]</code></td><td><code class="ic">list</code></td></tr>
+          <tr><td>键值</td><td>手写</td><td><code class="ic">dict</code></td></tr>
+          <tr><td>去重</td><td>手写</td><td><code class="ic">set</code></td></tr>
+          <tr><td>固定</td><td>数组</td><td><code class="ic">tuple</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.2</b> 四种容器</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="按需求选">
+          <rect x="20" y="50" width="140" height="46" rx="6" class="sv-grn-s"/>
+          <text x="90" y="78" class="sv-lbl-hi" text-anchor="middle">list 有序</text>
+          <path d="M160 73 L170 73" class="sv-arrow"/>
+          <rect x="180" y="50" width="140" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="250" y="78" class="sv-lbl-hi" text-anchor="middle">dict 键值</text>
+          <path d="M320 73 L330 73" class="sv-arrow"/>
+          <rect x="340" y="50" width="140" height="46" rx="6" class="sv-amb-s"/>
+          <text x="410" y="78" class="sv-lbl-hi" text-anchor="middle">set 去重</text>
+          <path d="M480 73 L490 73" class="sv-arrow"/>
+          <rect x="500" y="50" width="140" height="46" rx="6" class="sv-box"/>
+          <text x="570" y="78" class="sv-lbl-hi" text-anchor="middle">tuple 不可变</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">先想访问模式再选。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.3</b> 推导式一行生成</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="把循环+条件压缩成一行">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">[x for x in xs]</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">加 if 过滤</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">结果列表</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">可读性优先，别写太复杂。</div>
+    </div>
+    <h2 id="m05-5">05.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>索引越界</td><td>IndexError</td><td>先判断长度</td></tr>
+          <tr><td>字典取不存在的键</td><td>KeyError</td><td>用 <code class="ic">.get()</code></td></tr>
+          <tr><td>遍历时改列表</td><td>行为不确定</td><td>遍历副本</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m05-6">05.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>列表</td><td><code class="ic">[1,2,3]</code></td></tr>
+          <tr><td>元组</td><td><code class="ic">(1,2)</code> 不可变</td></tr>
+          <tr><td>字典</td><td><code class="ic">{"a":1}</code></td></tr>
+          <tr><td>集合</td><td><code class="ic">{1,2}</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">containers.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>xs = [3, 1, 2]
+d = {"a": 1, "b": 2}
+s = {1, 1, 2}
+print(xs, d.get("c"), s)</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">comprehension.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>squares = [x * x for x in range(5) if x % 2 == 0]
+print(squares)</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>用列表/字典/集合处理一组数据：去重、统计频次、用推导式生成平方表。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">list</code> 有序可变、<code class="ic">tuple</code> 不可变、<code class="ic">dict</code> 键值、<code class="ic">set</code> 去重。</li>
+        <li><code class="ic">sorted(xs)</code> 返回<b>新列表</b>；<code class="ic">xs.sort()</code> <b>原地</b>排序且返回 <code class="ic">None</code>（别写 <code class="ic">x = xs.sort()</code>）。</li>
+        <li>切片 <code class="ic">xs[a:b]</code>、<code class="ic">xs[:]</code> 返回新列表，但是<b>浅拷贝</b>——嵌套的可变对象仍共享；要深拷贝用 <code class="ic">copy.deepcopy</code>。</li>
+        <li><code class="ic">set</code> 是<b>无序</b>的：示例输出看着是 <code class="ic">{1, 2, 3}</code>，但那是实现细节，别依赖集合的输出顺序。</li>
+        <li><code class="ic">dict.get(k, default)</code> 安全取值（键不存在不报错）。</li>
+        <li>推导式一行生成 list/dict/set，可读性高。</li>
+        <li>这些容器在嵌入式上位机脚本里极其常用（处理日志/采样/配置）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：想去掉列表里的重复项，最省事的是转成 <code class="ic">______</code>。</p>
+          <details><summary></summary><p><code class="ic">set</code>（集合自动去重）。若要<b>保序去重</b>，可用 <code class="ic">list(dict.fromkeys(xs))</code>（<code class="ic">dict.fromkeys</code> 返回的是 dict，要再 <code class="ic">list(...)</code> 转回列表，否则会误以为得到列表）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">tuple</code> 的元素可以修改。</p>
+          <details><summary></summary><p>不能，tuple 不可变。需要可变就用 <code class="ic">list</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">d["missing"]</code> 报 <code class="ic">KeyError</code>，怎么安全取值？</p>
+          <details><summary></summary><p>用 <code class="ic">d.get("missing")</code>（返回 <code class="ic">None</code>）或 <code class="ic">d.get("missing", 默认值)</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：用列表推导式生成 1~20 中 3 的倍数；再用字典推导式建"数→平方"的表。</p>
+          <details><summary></summary><p><code class="ic">[x for x in range(1,21) if x%3==0]</code> 与 <code class="ic">{x: x*x for x in range(1,6)}</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">nums[:2]</code> 会修改原列表。</p>
+          <details><summary></summary><p>不会。切片返回一个<strong>新列表</strong>（浅拷贝），原列表不变；但若元素本身是可变对象，新旧列表会共享它们。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 05 完成？</b> 用字典统计一段文字里每个单词出现的次数（提示：<code class="ic">split()</code> + <code class="ic">d.get(w, 0) + 1</code>）。</div>
+      <button class="done-btn" data-done="m05">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>按有序性、重复与查找需要选 list/dict/set，并测试空集合。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 文本与 IO</div>
+      <h1 class="ch-title">字符串与<span class="acc">文件</span></h1>
+      <p class="ch-lead">
+        Python 的字符串内置了几十个方法（<code class="ic">strip/split/replace/join</code>…），处理文本非常省事；
+        读写文件用 <code class="ic">with open(...)</code>，<strong>自动关闭</strong>、不用手动 close。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ 字符串方法 · open/with</span><span>⚑ 自动关闭</span>
+      </div>
+    </div>
+
+    <h2 id="m06-1">6.1 字符串方法</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m06_strings_files.py — 字符串 + 文件读写（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>s = "  Hello, Embedded World  "
+print("strip:", repr(s.strip()))
+print("upper:", s.strip().upper())
+print("replace:", s.strip().replace("World", "Rust"))
+print("split:", "a,b,c".split(","))
+print("join:", "-".join(["a", "b", "c"]))
+print(f"len('hello') = {len('hello')}, 'x'*3 = {'x' * 3}")
+
+path = "sample.txt"
+with open(path, "w", encoding="utf-8") as fh:   # with 自动关闭
+    fh.write("line1\nline2\nline3\n")
+
+with open(path, "r", encoding="utf-8") as fh:
+    lines = [ln.strip() for ln in fh]           # 列表推导式读所有行
+print("file lines:", lines)</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M06）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m06_strings_files.py
+<span class="o">strip: 'Hello, Embedded World'
+upper: HELLO, EMBEDDED WORLD
+replace: Hello, Embedded Rust
+split: ['a', 'b', 'c']
+join: a-b-c
+len('hello') = 5, 'x'*3 = xxx
+file lines: ['line1', 'line2', 'line3']</span></pre></div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">方法 / 操作</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">s.strip()</code></td><td>去掉两端空白（含换行）</td></tr>
+          <tr><td><code class="ic">s.split(",")</code></td><td>按分隔符切成列表</td></tr>
+          <tr><td><code class="ic">",".join(list)</code></td><td>把列表拼成字符串</td></tr>
+          <tr><td><code class="ic">s.replace(a, b)</code></td><td>替换子串</td></tr>
+          <tr><td><code class="ic">f"{x:.2f}"</code></td><td>格式化（宽度/精度/进制）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m06-2">6.2 <code>with open</code>：文件自动关闭</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">file_io.py — 写 / 读 / 逐行</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># 写：w 覆盖、a 追加；encoding 明确用 utf-8（跨平台稳）
+with open("log.csv", "w", encoding="utf-8") as fh:
+    fh.write("t,value\n")
+    for i in range(3):
+        fh.write(f"{i},{i * i}\n")
+
+# 读：一次读全部 / 逐行遍历
+with open("log.csv", "r", encoding="utf-8") as fh:
+    header = fh.readline().strip()
+    rows = [ln.strip().split(",") for ln in fh]
+print("header:", header)
+print("rows:", rows)</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 为什么用 <code>with</code></div>
+      <ul style="margin-bottom:0">
+        <li>离开 <code class="ic">with</code> 块时<strong>自动关闭文件</strong>，即使中途出错也会关（等同 C++ 的 RAII）。</li>
+        <li>不用记 <code class="ic">fh.close()</code>，不会泄漏文件句柄。</li>
+        <li><strong>明确 <code class="ic">encoding="utf-8"</code></strong>：跨平台避免中文乱码。</li>
+      </ul>
+    </div>
+
+    <h2 id="m06-4">06.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>字符串</td><td><code class="ic">char[]</code></td><td><code class="ic">str</code></td></tr>
+          <tr><td>长度</td><td><code class="ic">strlen</code></td><td><code class="ic">len()</code></td></tr>
+          <tr><td>拼接</td><td><code class="ic">strcat</code></td><td><code class="ic">+</code> / f-string</td></tr>
+          <tr><td>文件</td><td><code class="ic">fopen</code></td><td><code class="ic">with open</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.2</b> with open 自动关闭</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="离开 with 块自动关文件">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">with open</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">读写</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">自动关闭</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">异常时也会关闭。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.3</b> f-string 格式化</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="把变量嵌进字符串">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">f"{x}"</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">替换表达式</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">结果字符串</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">比 <code class="ic">%</code> 更直观。</div>
+    </div>
+    <h2 id="m06-5">06.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>忘记关文件</td><td>句柄泄漏</td><td>用 <code class="ic">with</code></td></tr>
+          <tr><td>用 + 拼很多字符串</td><td>慢</td><td>用 <code class="ic">join</code></td></tr>
+          <tr><td>下标越界</td><td>IndexError</td><td>—</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m06-6">06.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>去空白</td><td><code class="ic">.strip()</code></td></tr>
+          <tr><td>切分</td><td><code class="ic">.split()</code></td></tr>
+          <tr><td>替换</td><td><code class="ic">.replace()</code></td></tr>
+          <tr><td>判断包含</td><td><code class="ic">in</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">strs.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>s = "  embedded,rust  "
+parts = s.strip().split(",")
+print(parts, len(parts))</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">files.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>with open("data.txt", "w") as f:
+    f.write("hello")
+
+with open("data.txt") as f:
+    print(f.read())</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个程序读一个文本文件，按行统计非空行数、去空白后打印最长的一行。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>字符串方法：<code class="ic">strip/split/join/replace/upper</code>，链式调用很自然。<strong>注意字符串是<b>不可变</b>的：这些方法都返回<b>新字符串</b>，原 <code class="ic">s</code> 不变</strong>（所以代码里都用了返回值）。</li>
+        <li><code class="ic">f"{x:.2f}"</code> 控制格式；<code class="ic">repr()</code> 便于看清空白字符。</li>
+        <li>文件读写用 <code class="ic">with open(...)</code>，自动关闭、异常也安全。</li>
+        <li>模式：<code class="ic">"w"</code> 写、<code class="ic">"a"</code> 追加、<code class="ic">"r"</code> 读；加 <code class="ic">encoding="utf-8"</code>。</li>
+        <li>读 CSV/日志常用"逐行 + split/strip + 推导式"。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：用 <code class="ic">with open(...)</code> 相比手动 <code class="ic">open/close</code> 的好处？</p>
+          <details><summary></summary><p>离开 with 块自动关闭文件（即使抛异常也关），不用手写 close，也不会忘记关闭导致句柄泄漏。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：读文件时每行结尾的 <code class="ic">\n</code> 会自动去掉。</p>
+          <details><summary></summary><p>不会。逐行读到的行<strong>带着换行符</strong>，通常要 <code class="ic">.strip()</code> 去掉。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：中文写入文件后打开是乱码，最可能的原因？</p>
+          <details><summary></summary><p>没指定编码。写/读时都应加 <code class="ic">encoding="utf-8"</code>，避免用系统默认编码。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写一个脚本读入一行 <code class="ic">"3,1,4,1,5"</code>，用 <code class="ic">split(",")</code> 转成整数列表并求和。</p>
+          <details><summary></summary><p><code class="ic">sum(int(x) for x in "3,1,4,1,5".split(","))</code>——字符串处理是上位机解析设备输出的核心。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">"a,b".split(",")</code> 得到 <code class="ic">["a", "b"]</code>。</p>
+          <details><summary></summary><p>对。相对地 <code class="ic">",".join(["a","b"])</code> 得到 <code class="ic">"a,b"</code>——split 与 join 互为逆操作。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 06 完成？</b> 把一组 ADC 读数写进 CSV，再读回来算出平均值——这正是 B04 里"设备日志分析"的雏形。</div>
+      <button class="done-btn" data-done="m06">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>显式声明编码，文件由 with 管理；损坏输入能报告行号。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 类与模块</div>
+      <h1 class="ch-title">类与<span class="acc">模块</span></h1>
+      <p class="ch-lead">
+        <code class="ic">class</code> 把数据和操作打包成自定义类型，<code class="ic">import</code> 把代码拆成模块复用。
+        这两样让程序从"一个脚本"成长为"一个工程"。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ class · __init__ · import</span><span>⚑ 组织代码</span>
+      </div>
+    </div>
+
+    <h2 id="m07-1">7.1 类：数据 + 方法</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m07_classes.py — 类与模块（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>import math                                  # 导入模块
+
+class Circle:
+    def __init__(self, r):                   # 初始化器（真正创建实例的是 __new__）
+        self.r = r                           # 实例属性
+    def area(self):                          # 方法（第一个参数是 self）
+        return math.pi * self.r ** 2
+    def __str__(self):                       # 打印时的表示
+        return f"Circle(r={self.r})"
+
+c = Circle(2.0)
+print(c)
+print(f"area = {c.area():.2f}")
+print("math.sqrt(16) =", math.sqrt(16))</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M07）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m07_classes.py
+<span class="o">Circle(r=2.0)
+area = 12.57
+math.sqrt(16) = 4.0</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三个要点</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">__init__(self, ...)</code>：创建对象时自动调用，初始化实例属性（<code class="ic">self.r</code>）。</li>
+        <li><code class="ic">self</code>：每个方法第一个参数，指向"当前实例"（类似 C++ 的 <code class="ic">this</code>，但要显式写）。</li>
+        <li><code class="ic">__str__</code>：定义 <code class="ic">print(obj)</code> 时显示什么（类似 C++ 的 <code class="ic">operator&lt;&lt;</code>）。</li>
+      </ul>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">常见特殊方法</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">__init__</code></td><td>构造（初始化）</td></tr>
+          <tr><td><code class="ic">__str__</code></td><td><code class="ic">print()</code> / <code class="ic">str()</code> 的表示</td></tr>
+          <tr><td><code class="ic">__repr__</code></td><td>调试用的表示</td></tr>
+          <tr><td><code class="ic">__len__</code></td><td>让 <code class="ic">len(obj)</code> 可用</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m07-2">7.2 模块与包：拆文件、复用</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">import_demo.py — 几种 import 方式</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>import math                      # 用 math.sqrt / math.pi
+from math import sqrt, pi        # 直接用它俩
+import os                        # 标准库：文件/路径
+from collections import Counter  # 标准库：计数
+
+print(math.floor(3.7), sqrt(9), round(pi, 3))
+print("cwd:", os.path.basename(os.getcwd()))
+print("counts:", Counter("hello").most_common(3))</code></pre>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 一个文件就是一个模块</div>
+      <p style="margin-bottom:0">
+        把函数/类放进 <code class="ic">utils.py</code>，别的文件 <code class="ic">import utils</code> 即可用（或 <code class="ic">from utils import foo</code>）。
+        多个模块放进一个目录就构成"常规包"（通常加 <code class="ic">__init__.py</code>；Python 3.3+ 的命名空间包可省）。标准库已经覆盖了数学、路径、网络、JSON、正则等大量功能——<strong>先查有没有，再自己写</strong>。
+      </p>
+    </div>
+
+    <h2 id="m07-4">07.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>数据+方法</td><td>结构体+函数</td><td><code class="ic">class</code></td></tr>
+          <tr><td>构造</td><td>手工初始化</td><td><code class="ic">__init__</code></td></tr>
+          <tr><td>拆文件</td><td><code class="ic">#include</code></td><td><code class="ic">import</code></td></tr>
+          <tr><td>包</td><td>目录</td><td>package（带 __init__）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.2</b> 类＝数据+方法</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="实例持有数据，方法操作它">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">class</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">__init__</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">self.attr</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft"><code class="ic">self</code> 是实例本身。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.3</b> 模块与包</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="文件即模块，目录即包">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">a.py</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">import a</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">pkg/</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">用 import 复用代码。</div>
+    </div>
+    <h2 id="m07-5">07.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>忘记 <code class="ic">self</code></td><td>TypeError</td><td>方法首参写 <code class="ic">self</code></td></tr>
+          <tr><td>模块名冲突</td><td>导入到别的模块</td><td>改文件名</td></tr>
+          <tr><td>循环导入</td><td>ImportError</td><td>调整依赖</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m07-6">07.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>实例属性</td><td><code class="ic">self.x</code></td></tr>
+          <tr><td>实例方法</td><td><code class="ic">def f(self)</code></td></tr>
+          <tr><td>导入</td><td><code class="ic">import m</code></td></tr>
+          <tr><td>从模块导入</td><td><code class="ic">from m import f</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">cls.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def total(self):
+        return self.x + self.y
+
+p = Point(2, 3)
+print(p.total())</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">usemod.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>import math
+from math import sqrt
+
+print(math.pi, sqrt(9))</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把"点"写成一个类（含方法），再拆成两个文件用 <code class="ic">import</code> 复用，体会模块化。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">class</code> 打包数据与方法；<code class="ic">__init__</code> <b>初始化</b>实例（严格说创建实例的是 <code class="ic">__new__</code>）、<code class="ic">self</code> 指实例。</li>
+        <li><strong>类属性 vs 实例属性</strong>：写在 <code class="ic">class</code> 体里、方法外的是<b>类属性</b>（所有实例共享）；<code class="ic">self.x = …</code> 是<b>实例属性</b>。用 <code class="ic">class B(A)</code> + <code class="ic">super().__init__(...)</code> 可继承并复用基类。</li>
+        <li><code class="ic">__str__/__repr__</code> 控制打印表示。</li>
+        <li><code class="ic">import 模块</code> / <code class="ic">from 模块 import 名字</code>。</li>
+        <li>一个 .py 就是模块；含 <code class="ic">__init__.py</code> 的目录是"常规包"（3.3+ 命名空间包可省）。</li>
+        <li>标准库很丰富（math/os/json/csv/collections…），优先复用。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：Python 类里访问当前实例要用 <code class="ic">______</code>。</p>
+          <details><summary></summary><p><code class="ic">self</code>（方法第一个参数，调用时自动传入）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">__init__</code> 是"构造"，创建对象时自动执行。</p>
+          <details><summary></summary><p>对。<code class="ic">Circle(2.0)</code> 创建对象时会自动调用 <code class="ic">__init__(self, 2.0)</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">print(obj)</code> 出来是 <code class="ic">&lt;__main__.Circle object at 0x...&gt;</code>，怎么改好看？</p>
+          <details><summary></summary><p>定义 <code class="ic">__str__</code>（或 <code class="ic">__repr__</code>）返回你想显示的字符串。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写一个 <code class="ic">Stack</code> 类（用 list 实现 push/pop/peek/len），体会"数据+操作"打包。</p>
+          <details><summary></summary><p>这正是把 C 里"函数 + 全局数组"封装成对象的写法；在 B04 的调试台里会用到类似结构。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">from math import *</code> 是好习惯。</p>
+          <details><summary></summary><p>不推荐。它把大量名字倒进来、可能覆盖你的变量。显式 <code class="ic">import math</code> 或 <code class="ic">from math import sqrt</code> 更清晰。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 07 完成？</b> 用一个类封装"一个传感器读数"（值、时间戳、单位），并写一个方法返回格式化字符串。</div>
+      <button class="done-btn" data-done="m07">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>模块导入不触发设备操作；把主入口置于 main，类只封装真实状态。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 错误与收口</div>
+      <h1 class="ch-title">异常、迭代器与测试 + <span class="acc">过渡到 B04</span></h1>
+      <p class="ch-lead">
+        最后三样：用 <code class="ic">try/except</code> 处理错误、用生成器 <code class="ic">yield</code> 惰性产出数据、用断言做测试。
+        然后你就可以进入《Python（嵌入式向）》(B04) 了。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ try/except · 生成器 · 测试</span><span>⚑ 过渡到 B04</span>
+      </div>
+    </div>
+
+    <h2 id="m08-1">8.1 异常：<code>try / except</code></h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m08_exceptions.py — 异常 + 生成器 + 测试（可运行）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def parse(s):
+    try:
+        return int(s)
+    except ValueError:
+        return None                          # 转换失败返回 None
+
+print(parse("42"), parse("abc"))
+
+def countdown(n):                            # 生成器：惰性产出
+    while n &gt; 0:
+        yield n
+        n -= 1
+
+print("countdown:", list(countdown(4)))
+
+# 一个极简"测试"（真实项目用 pytest）
+def test_add():
+    assert 1 + 1 == 2
+test_add()
+print("test_add OK")</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M08）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python m08_exceptions.py
+<span class="o">42 None
+countdown: [4, 3, 2, 1]
+test_add OK</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 异常 vs C 的错误码</div>
+      <ul style="margin-bottom:0">
+        <li>Python 的错误是<strong>异常对象</strong>，沿调用栈传播到最近的 <code class="ic">except</code>；用 <code class="ic">raise ValueError("bad")</code> 主动抛出（也可 <code class="ic">raise</code> 重抛当前异常）。C 用返回值/错误码。</li>
+        <li><code class="ic">assert</code> 只用于<b>内部自检/测试</b>：<code class="ic">python -O</code> 会把它优化掉，所以<b>不要用 assert 校验外部输入</b>（那要用 if + raise）。</li>
+        <li><code class="ic">try/except/else/finally</code>：<code class="ic">finally</code> 无论成败都执行（清理）。</li>
+        <li><strong>只捕获你确实能处理的异常</strong>：<code class="ic">except ValueError</code> 比裸 <code class="ic">except:</code> 好，后者会吞掉所有错误。</li>
+      </ul>
+    </div>
+
+    <h2 id="m08-2">8.2 生成器：惰性、省内存</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">generator.py — 逐行处理大文件（不占内存）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def read_values(path):
+    with open(path, encoding="utf-8") as fh:
+        for line in fh:
+            yield float(line)          # 一行一行吐，不一次性载入
+
+# 处理百万行的日志/采样也不会把内存吃光
+# for v in read_values("adc.csv"):
+#     total += v</code></pre>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 迭代器是 for 的底层</div>
+      <p style="margin-bottom:0">
+        <code class="ic">for</code> 遍历的对象都是"可迭代"的（list/str/dict/生成器…）。生成器让你用"一次一个值"的方式处理大序列——
+        这在 B04 里处理设备回传的长时间日志/采样时非常关键。
+      </p>
+    </div>
+
+    <h2 id="m08-3">8.3 你已经会 Python 了——下一步</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.1</b> 从"会 Python"到"用 Python 做嵌入式工具"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="B04a 到 B04 的过渡">
+          <rect x="20" y="52" width="230" height="46" rx="6" class="sv-box"/>
+          <text x="135" y="72" class="sv-lbl-hi" text-anchor="middle">B04a（本册）</text>
+          <text x="135" y="89" class="sv-lbl-dim" text-anchor="middle">语言本体：类型/函数/类/异常…</text>
+          <path d="M250 75 L310 75" class="sv-arrow"/>
+          <rect x="312" y="30" width="328" height="90" rx="8" class="sv-grn-s"/>
+          <text x="330" y="54" class="sv-lbl-hi" style="fill:var(--grn)">B04《Python（嵌入式向）》</text>
+          <text x="330" y="76" class="sv-lbl-dim">pyserial 串口协议工具链</text>
+          <text x="330" y="96" class="sv-lbl-dim">numpy/pandas/matplotlib 数据分析</text>
+          <text x="330" y="114" class="sv-lbl-dim">构建/CI 脚本、GUI 调试台、MicroPython</text>
+        </svg>
+      </div>
+      <div class="fig-ft">本册教"<strong>Python 怎么写</strong>"；B04 教"<strong>用 Python 在嵌入式里做什么</strong>"——串口、分析、构建、调试台。两册配对。</div>
+    </div>
+
+    <h2 id="m08-4">08.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Python 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>错误处理</td><td>返回码</td><td><code class="ic">try/except</code></td></tr>
+          <tr><td>出错</td><td>errno</td><td>抛异常</td></tr>
+          <tr><td>惰性</td><td>无</td><td>生成器</td></tr>
+          <tr><td>资源</td><td>手工释放</td><td><code class="ic">with</code>/<code class="ic">finally</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.2</b> try / except / finally</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="异常被捕获，finally 一定执行">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">try</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">except</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">finally</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft"><code class="ic">finally</code> 用来释放资源。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.3</b> 生成器惰性产出</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="yield 一次产一个，省内存">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">yield</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">取一个</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">再取</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">适合大数据流。</div>
+    </div>
+    <h2 id="m08-5">08.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Python 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">except</code> 捕获太宽</td><td>掩盖 bug</td><td>捕获具体异常</td></tr>
+          <tr><td>生成器用完再取</td><td>StopIteration</td><td>for 自动处理</td></tr>
+          <tr><td>忘记 <code class="ic">finally</code> 释放</td><td>泄漏</td><td>用 <code class="ic">with</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m08-6">08.6 速查与检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>用法</th><th>写法</th></tr></thead>
+        <tbody>
+          <tr><td>捕获</td><td><code class="ic">try/except</code></td></tr>
+          <tr><td>无论是否异常</td><td><code class="ic">finally</code></td></tr>
+          <tr><td>主动抛</td><td><code class="ic">raise</code></td></tr>
+          <tr><td>惰性序列</td><td><code class="ic">yield</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能运行</td><td><code class="ic">python file.py</code></td></tr>
+          <tr><td>无异常</td><td>处理可能的错误</td></tr>
+          <tr><td>可读</td><td>变量名清晰</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">exc.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>try:
+    x = int("abc")
+except ValueError as e:
+    print("bad:", e)
+finally:
+    print("done")</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">gen.py</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def fib(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+
+print(list(fib(6)))</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个生成器按需产出数据（如斐波那契），并用 <code class="ic">try/except/finally</code> 处理一次文件读取失败。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>异常用 <code class="ic">try/except</code>；只捕获能处理的、<code class="ic">finally</code> 做清理。</li>
+        <li>生成器用 <code class="ic">yield</code> 惰性产出，处理大序列不占内存。</li>
+        <li>测试用 <code class="ic">assert</code>（工程里用 pytest）。</li>
+        <li>你现在能写函数、类、处理数据结构、读写文件、处理异常。</li>
+        <li>进入 B04：把它们用到串口工具、数据分析、构建脚本与 MicroPython。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：为什么"只捕获能处理的异常"（如 <code class="ic">except ValueError</code>）比裸 <code class="ic">except:</code> 好？</p>
+          <details><summary></summary><p>裸 <code class="ic">except:</code> 会吞掉所有异常（包括你没想到的 bug），让问题被隐藏；精确捕获让其它异常正常暴露。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：生成器会一次性算出所有值。</p>
+          <details><summary></summary><p>不会。生成器<strong>按需产出</strong>（惰性），每要一个才算一个——省内存。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">int("abc")</code> 抛出异常使程序崩溃，怎么让它"优雅失败"？</p>
+          <details><summary></summary><p>用 <code class="ic">try/except ValueError</code> 捕获，或先做校验；也可返回 <code class="ic">None</code> 让调用方判断。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写一个生成器 <code class="ic">read_nonempty(path)</code>，逐行产出非空行（用 <code class="ic">yield</code>），再 <code class="ic">for</code> 遍历打印。</p>
+          <details><summary></summary><p>这是"流式处理文件"的标准写法，B04 处理设备日志时会反复用到。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：学完本册就能用 Python 直接跑在单片机上做硬实时控制。</p>
+          <details><summary></summary><p>不能。上位机 Python（CPython）跑在 PC；单片机上是 MicroPython（B04 另讲），且不适合硬实时。本册是"语言 + 上位机工具"的基础。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>B04a 完成？</b> 恭喜——你已经掌握 Python 语言本体。下一步请打开《Python（嵌入式向）》(B04)，学"串口工具链、数据分析、构建脚本与 MicroPython"。</div>
+      <button class="done-btn" data-done="m08">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>区分可恢复异常与程序错误，测试迭代停止与资源释放。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09"><div class="ch-head"><div class="ch-badge">Module 09 · 实现与验收</div><h1 class="ch-title">环境、包与项目组织</h1><p class="ch-lead">把脚本整理成有独立环境、明确入口的可安装工具。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m09-mechanism">机制与契约</h2><p>虚拟环境隔离解释器与第三方包，包组织决定 import 路径。datatool 把数据契约、采集流程和 CLI 分开，pyproject 声明 Python&gt;=3.11 与命令入口。先在项目目录用 python -m datatool.cli，安装后再用 course-data。配置通过命令参数或明确文件传递，不能依赖作者机器的当前目录。示例运行只用标准库；安装构建工具是另一项环境准备。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>python -m venv .venv
+# 激活方法依操作系统；也可直接运行 .venv 内的 python
+python -m pip install .
+python -m datatool.cli --help</code></pre></div>
+<h2 id="m09-boundary">边界与误用</h2><p>同名脚本 json.py/csv.py 会遮蔽标准库；把 sys.path 写死为个人绝对路径不属于可交付安装方式。类型标注帮助检查接口，并不自动在运行时验证输入。</p>
+<h2 id="m09-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cd labs/datatool
+python -m unittest discover -s tests -v
+python -m datatool.cli --help</pre></div><p>完整源码：<a href="../resources/B04a/labs/datatool/pyproject.toml">labs/datatool/pyproject.toml</a> · <a href="../resources/B04a/labs/datatool/datatool/data.py">labs/datatool/datatool/data.py</a> · <a href="../resources/B04a/labs/datatool/datatool/pipeline.py">labs/datatool/datatool/pipeline.py</a> · <a href="../resources/B04a/labs/datatool/datatool/cli.py">labs/datatool/datatool/cli.py</a> · <a href="../resources/B04a/labs/datatool/tests/test_data.py">labs/datatool/tests/test_data.py</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>从新目录复制完整 datatool，建立环境并安装；运行 --help；说明源码执行和已安装命令的区别。</p><p><strong>验收：</strong>版本、入口和依赖明确；导入不依赖个人目录；未激活环境时也能解释使用的是哪个解释器。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么 python -m 包.模块 比随意执行包内某个文件更可靠？</p><details><summary>查看推理</summary><p>它按包上下文解析导入；直接执行内部文件可能丢失包上下文，导致相对导入失败或意外导入错误模块。</p></details></div><p class="lesson-ref">核对来源：<a href="https://docs.python.org/3.13/library/venv.html">Python · venv 与包装</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m09">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>从另一目录安装并调用包，依赖版本和入口点可复现。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10"><div class="ch-head"><div class="ch-badge">Module 10 · 实现与验收</div><h1 class="ch-title">标准库与可靠 IO</h1><p class="ch-lead">使用标准库处理有契约的数据和可靠 IO。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m10-mechanism">机制与契约</h2><p>CSV 每行至少约定 schema、session、seq、time_s、unit、value。load 先校验完整表头，再校验版本、单位、整数序号、有限数和同会话时序；失败包含行号。with 确保资源释放，但不能替你判断内容正确。Path 管理路径，csv/json 管理格式，struct 管理字节布局；读二进制前先约定字节序、位宽和长度上限。调用外部程序优先传参数列表并声明超时、退出码和文本编码。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>with path.open(encoding=&quot;utf-8&quot;, newline=&quot;&quot;) as stream:
+    reader = csv.DictReader(stream)
+    # 验证字段、单位、数值和顺序后才保存记录。</code></pre></div>
+<h2 id="m10-boundary">边界与误用</h2><p>把非法读数转为 0 会污染统计；平均值在空数据上没有定义。混合会话、单位或时基时先统一契约；不要对错误数据继续算出看似精确的结果。</p>
+<h2 id="m10-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cd labs/datatool
+python -m unittest discover -s tests -v
+python -m datatool.cli --help</pre></div><p>完整源码：<a href="../resources/B04a/labs/datatool/pyproject.toml">labs/datatool/pyproject.toml</a> · <a href="../resources/B04a/labs/datatool/datatool/data.py">labs/datatool/datatool/data.py</a> · <a href="../resources/B04a/labs/datatool/datatool/pipeline.py">labs/datatool/datatool/pipeline.py</a> · <a href="../resources/B04a/labs/datatool/datatool/cli.py">labs/datatool/datatool/cli.py</a> · <a href="../resources/B04a/labs/datatool/tests/test_data.py">labs/datatool/tests/test_data.py</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行数据测试，加入错误单位、NaN、重复序号和空文件；对一个文件错误说明在哪个层发生。</p><p><strong>验收：</strong>四类错误被拒绝；缺文件错误退出 2；合法 20/30°C 数据平均 25°C；会话与时基保留。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么文件能打开不代表数据可信？</p><details><summary>查看推理</summary><p>IO 成功只说明取得了字节；格式、schema、单位、范围、时序与来源仍是独立条件，须在计算前验证。</p></details></div><p class="lesson-ref">核对来源：<a href="https://docs.python.org/3.13/library/">Python 3.13 官方标准库文档</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m10">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>检查路径、编码、日期与临时文件生命；可靠 IO 不吞掉异常。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m11"><div class="ch-head"><div class="ch-badge">Module 11 · 实现与验收</div><h1 class="ch-title">并发、异步与后台任务</h1><p class="ch-lead">建立有背压且可以取消的采集任务。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div><!-- COURSE_DIAGRAM_START --><figure class="fig"><div class="fig-hd">有界采集：取消后等待清理完成</div><div class="fig-bd"><svg viewBox="0 0 800 190" role="img" aria-label="有界采集：取消后等待清理完成"><title>有界采集：取消后等待清理完成</title><defs><marker id="mastery-arrow-python-cancel" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="currentColor"/></marker></defs><rect x="10" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="132.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">生产者读取</text><text x="132.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">await port.read()</text><text x="132.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">queue容量=1</text><text x="132.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">满时put等待</text><path d="M257 92H272" stroke="currentColor" marker-end="url(#mastery-arrow-python-cancel)"/><rect x="275" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="397.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">调用者取消</text><text x="397.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">task.cancel()</text><text x="397.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">任务进入finally</text><text x="397.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">await port.close()</text><path d="M522 92H537" stroke="currentColor" marker-end="url(#mastery-arrow-python-cancel)"/><rect x="540" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="662.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">等待任务结束</text><text x="662.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">await task</text><text x="662.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">观察取消与清理</text><text x="662.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">再释放其他依赖</text></svg></div><figcaption>测试在队列满时发起一次取消，确认 mock 端口关闭。真实串口、中途再次取消与关闭超时需按库和设备验证。</figcaption></figure><!-- COURSE_DIAGRAM_END -->
+<h2 id="m11-mechanism">机制与契约</h2><p>采集—处理—存储的速度可能不同，队列把阶段解耦，但无界队列会把速度差变成不断增长的内存。有界 asyncio.Queue 满时 put 等待，生产者因此让出执行；需要预先选择等待、丢弃、降载的策略。collect 用 try/finally 关闭端口。取消调用必须等待任务结束，才知道清理已完成；只调用 cancel 后立即退出无法提供这个保障。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>task.cancel()
+try:
+    await task
+except asyncio.CancelledError:
+    pass  # collect 的 finally 已被执行</code></pre></div>
+<h2 id="m11-boundary">边界与误用</h2><p>不能吞掉取消异常后无限循环；同步串口读或 CPU 大计算仍会阻塞事件循环。线程/进程适用条件不同，Python 不提供 MCU 硬实时保证。真实端口 close 是否可中断正在进行的 IO，要按库文档和实测确认。</p>
+<h2 id="m11-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cd labs/datatool
+python -m unittest discover -s tests -v
+python -m datatool.cli --help</pre></div><p>完整源码：<a href="../resources/B04a/labs/datatool/pyproject.toml">labs/datatool/pyproject.toml</a> · <a href="../resources/B04a/labs/datatool/datatool/data.py">labs/datatool/datatool/data.py</a> · <a href="../resources/B04a/labs/datatool/datatool/pipeline.py">labs/datatool/datatool/pipeline.py</a> · <a href="../resources/B04a/labs/datatool/datatool/cli.py">labs/datatool/datatool/cli.py</a> · <a href="../resources/B04a/labs/datatool/tests/test_data.py">labs/datatool/tests/test_data.py</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行队列满时取消测试；增加消费者故障场景，使生产者能被停止；统计队列最高水位与丢样策略。</p><p><strong>验收：</strong>队列容量有界；取消后 mock 端口关闭且任务结束；真实串口需要另验关闭与重连。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么 cancel 后还必须 await？</p><details><summary>查看推理</summary><p>取消请求在后续调度点才生效；等待任务可以观察异常并确认 finally 清理完成，从而安全释放其依赖或退出进程。</p></details></div><p class="lesson-ref">核对来源：<a href="https://docs.python.org/3.13/library/asyncio-task.html#task-cancellation">Python · Task cancellation</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m11">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m11"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>后台采集取消后任务结束、端口关闭，阻塞队列不导致退出挂起。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m12"><div class="ch-head"><div class="ch-badge">Module 12 · 实现与验收</div><h1 class="ch-title">测试、CLI 与综合项目</h1><p class="ch-lead">交付具有稳定退出码与边界测试的数据 CLI。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m12-mechanism">机制与契约</h2><p>CLI 是可被人和自动化系统调用的接口：成功信息写 stdout，错误诊断写 stderr，失败返回非零退出码。argparse 负责参数形式，核心 load 独立处理数据语义；这样测试不必每次模拟终端。临时文件测试正常、非法、空和缺失输入，异步测试验证取消清理。mock 验证调用与恢复机制，不能替代真实设备兼容性。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>try:
+    records = load(args.input)
+except (OSError, ValueError) as error:
+    print(error, file=sys.stderr)
+    return 2</code></pre></div>
+<h2 id="m12-boundary">边界与误用</h2><p>不应捕获所有异常然后打印“成功”；测试只重复实现公式也不足。选择外部可观察契约：输出、退出码、文件、资源关闭和错误输入。</p>
+<h2 id="m12-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cd labs/datatool
+python -m unittest discover -s tests -v
+python -m datatool.cli --help</pre></div><p>完整源码：<a href="../resources/B04a/labs/datatool/pyproject.toml">labs/datatool/pyproject.toml</a> · <a href="../resources/B04a/labs/datatool/datatool/data.py">labs/datatool/datatool/data.py</a> · <a href="../resources/B04a/labs/datatool/datatool/pipeline.py">labs/datatool/datatool/pipeline.py</a> · <a href="../resources/B04a/labs/datatool/datatool/cli.py">labs/datatool/datatool/cli.py</a> · <a href="../resources/B04a/labs/datatool/tests/test_data.py">labs/datatool/tests/test_data.py</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行 unittest；新增超长数值、乱序时间、坏表头和独立进程 CLI 测试；交付一份固定 CSV 与结果说明。</p><p><strong>验收：</strong>正常和失败路径可复跑；输出单位明确；任务资源被释放；新环境按命令能启动工具。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么数据层不直接调用 sys.exit？</p><details><summary>查看推理</summary><p>库应向调用者返回或抛出可处理错误；只有 CLI 边界负责进程退出，这样同一核心能被界面、测试和其他服务复用。</p></details></div><p class="lesson-ref">核对来源：<a href="https://docs.python.org/3.13/library/">Python 3.13 官方标准库文档</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m12">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m12"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>CLI 的 stdout/stderr/退出码有契约；手算数据、坏输入及取消场景均有测试。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head">
+      <div class="ch-badge">Reference · 对照表</div>
+      <h1 class="ch-title">术语与符号<span class="acc">对照表</span></h1>
+      <p class="ch-lead">本页是 B04a 的<strong>单一事实源</strong>：<code class="ic">verify/glossary.json</code> 与下表逐条比对，漂移即构建失败。可当 Python 术语小词典。</p>
+    </div>
+    <h2 id="glossary-terms">术语</h2>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:16%">术语</th><th>含义</th></tr></thead><tbody>
+          <tr><td data-term="解释器"><strong>解释器</strong></td><td>Python 是解释型语言：代码由解释器逐行执行，改一行即可运行，无需编译成可执行文件。</td></tr>
+          <tr><td data-term="动态类型"><strong>动态类型</strong></td><td>变量的类型在运行时确定；同一个名字可先后指向不同类型的对象（与 C 的静态类型不同）。</td></tr>
+          <tr><td data-term="缩进"><strong>缩进</strong></td><td>Python 用缩进（通常 4 空格）表示代码块，代替 C 的花括号 {} —— 缩进错了就是语法错误。</td></tr>
+          <tr><td data-term="列表"><strong>列表</strong></td><td>list：[1, 2, 3]，可变、有序、可混类型；用 append/索引/切片操作。</td></tr>
+          <tr><td data-term="元组"><strong>元组</strong></td><td>tuple：(1, 2)，不可变的有序序列；可安全用作字典键。</td></tr>
+          <tr><td data-term="字典"><strong>字典</strong></td><td>dict：{&quot;a&quot;: 1}，键值对（哈希表）；用 d[key] 访问、get 安全取值。</td></tr>
+          <tr><td data-term="集合"><strong>集合</strong></td><td>set：无序、不重复的元素集合；用于去重与交并差。</td></tr>
+          <tr><td data-term="推导式"><strong>推导式</strong></td><td>comprehension：[x*x for x in xs if x%2==0]：一行生成列表/字典/集合。</td></tr>
+          <tr><td data-term="函数"><strong>函数</strong></td><td>def 定义函数；有参数、返回值；用 return 返回（无 return 返回 None）。</td></tr>
+          <tr><td data-term="参数"><strong>参数</strong></td><td>支持默认参数、关键字参数、可变参数（*args/**kwargs）；实参按名或按位置绑定。</td></tr>
+          <tr><td data-term="作用域"><strong>作用域</strong></td><td>变量的可见范围：局部/全局；函数内改全局要 global（读则不必）。</td></tr>
+          <tr><td data-term="类"><strong>类</strong></td><td>class 定义对象类型；__init__ 是构造方法；self 指向实例。</td></tr>
+          <tr><td data-term="模块"><strong>模块</strong></td><td>一个 .py 文件就是一个模块；用 import 引入；多个模块组成包（含 __init__.py）。</td></tr>
+          <tr><td data-term="异常"><strong>异常</strong></td><td>try/except/finally 处理错误；raise 抛出；与 C 的错误码不同，错误是&quot;对象&quot;。</td></tr>
+          <tr><td data-term="迭代器"><strong>迭代器</strong></td><td>可被 for 遍历的对象（实现 __iter__/__next__）；for 背后就是迭代器协议。</td></tr>
+          <tr><td data-term="生成器"><strong>生成器</strong></td><td>用 yield 写出的惰性序列，按需产出值，省内存——适合处理大序列/流。</td></tr>
+    </tbody></table></div>
+    <h2 id="glossary-symbols">符号 / 构件</h2>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:22%">符号 / 构件</th><th style="width:16%">类别</th><th>说明</th></tr></thead><tbody>
+          <tr><td data-sym="print"><code class="ic">print</code></td><td>内置函数</td><td>打印到标准输出（可多参数、可 sep/end）</td></tr>
+          <tr><td data-sym="len"><code class="ic">len</code></td><td>内置函数</td><td>求序列/字符串/字典的长度</td></tr>
+          <tr><td data-sym="range"><code class="ic">range</code></td><td>内置函数</td><td>生成整数序列：range(5) → 0..4</td></tr>
+          <tr><td data-sym="f-string"><code class="ic">f-string</code></td><td>字符串语法</td><td>f&quot;x={x}&quot;：把表达式嵌入字符串（Python 3.6+）</td></tr>
+          <tr><td data-sym="def"><code class="ic">def</code></td><td>关键字</td><td>定义函数</td></tr>
+          <tr><td data-sym="lambda"><code class="ic">lambda</code></td><td>关键字</td><td>匿名函数：lambda x: x+1</td></tr>
+          <tr><td data-sym="__init__"><code class="ic">__init__</code></td><td>关键字/方法</td><td>定义类与构造方法（初始化实例属性）</td></tr>
+          <tr><td data-sym="self"><code class="ic">self</code></td><td>约定参数</td><td>类方法里指向当前实例的第一个参数</td></tr>
+          <tr><td data-sym="import"><code class="ic">import</code></td><td>关键字</td><td>引入模块：import math / from math import sqrt</td></tr>
+          <tr><td data-sym="try / except"><code class="ic">try / except</code></td><td>异常</td><td>捕获并处理异常：try: ... except ValueError: ...</td></tr>
+          <tr><td data-sym="with open"><code class="ic">with open</code></td><td>上下文管理</td><td>自动关闭文件：with open(&quot;f&quot;) as fh:</td></tr>
+          <tr><td data-sym="推导式"><code class="ic">推导式</code></td><td>推导式</td><td>列表推导式，一行生成列表</td></tr>
+          <tr><td data-sym="yield"><code class="ic">yield</code></td><td>关键字</td><td>在函数中产出生成器的一个值</td></tr>
+          <tr><td data-sym="None"><code class="ic">None</code></td><td>常量</td><td>表示&quot;没有值&quot;（类似 C 的 NULL，但是常规对象）</td></tr>
+    </tbody></table></div>
+    <p class="done-note">维护提示：正文里新增的术语/符号若要进对照表，先登记到 <code class="ic">verify/glossary.json</code>，再补本表——两处同步后构建才会通过。</p>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "Python 学习路径."}, {"id": "m01", "num": "01", "title": "从 C 到 Python：第一印象"}, {"id": "m02", "num": "02", "title": "类型与运算符"}, {"id": "m03", "num": "03", "title": "控制流：分支与循环"}, {"id": "m04", "num": "04", "title": "函数"}, {"id": "m05", "num": "05", "title": "数据结构：list / dict / set"}, {"id": "m06", "num": "06", "title": "字符串与文件"}, {"id": "m07", "num": "07", "title": "类与模块"}, {"id": "m08", "num": "08", "title": "异常、迭代器与测试 + 过渡到 B04"}, {"id": "m09", "num": "09", "title": "环境、包与项目组织"}, {"id": "m10", "num": "10", "title": "标准库与可靠 IO"}, {"id": "m11", "num": "11", "title": "并发、异步与后台任务"}, {"id": "m12", "num": "12", "title": "测试、CLI 与综合项目"}, {"id": "glossary", "num": "", "title": "术语与符号对照表"}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

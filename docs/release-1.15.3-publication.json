@@ -1,0 +1,19 @@
+{
+  "passed": true,
+  "date": "2026-10-13T11:01:20.175Z",
+  "version": "1.15.3",
+  "url": "https://win-bcgslpa5ria.taile4a98d.ts.net:8443/latest.json",
+  "bytes": 8683825,
+  "sha256": "21fefd5947bb566d9b7370e2ca388b02c322d3f476b887ad35b3c58dabb2d13d",
+  "authenticated": true,
+  "anonymousStatus": 401,
+  "publicHttpsVerified": true,
+  "remotePhoneTested": false,
+  "contentVersion": "2026.10.13.5",
+  "courseCatalogSha256": "4b1d0a6fa7a6f42992d9b868f95d999f8be59eb1422a461a1a48179fe51c7221",
+  "signingCertificateSha256": "726ad22d5bf14cf9f282cdee34f9a545fa18cf3759117853ab283f682979256d",
+  "articles": 437,
+  "books": 27,
+  "report": "docs/library-integrity-repair.html",
+  "personalArticlesUnchanged": 38
+}

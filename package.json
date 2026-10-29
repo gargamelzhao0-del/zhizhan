@@ -1,0 +1,60 @@
+{
+  "name": "zhizhan",
+  "version": "1.15.4",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite --host 127.0.0.1 --port 8462 --strictPort",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --host 127.0.0.1 --port 8462 --strictPort",
+    "test": "vitest run",
+    "test:e2e": "playwright test",
+    "audit:courses": "node scripts/check-course-integrity.mjs",
+    "seed": "node scripts/import-handbook.mjs",
+    "android:sync": "npm run build && cap sync android",
+    "desktop": "node scripts/serve.mjs"
+  },
+  "dependencies": {
+    "@capacitor/android": "8.5.2",
+    "@capacitor/app": "8.1.2",
+    "@capacitor/core": "8.5.2",
+    "dexie": "4.4.6",
+    "dexie-react-hooks": "4.4.0",
+    "dompurify": "3.4.16",
+    "fflate": "0.8.3",
+    "lucide-react": "1.52.0",
+    "mdast-util-from-markdown": "2.1.0",
+    "mdast-util-gfm": "3.1.0",
+    "mdast-util-to-markdown": "2.2.0",
+    "mermaid": "12.1.0",
+    "micromark-extension-gfm": "3.0.0",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "react-markdown": "10.1.0",
+    "rehype-highlight": "7.0.2",
+    "remark-gfm": "4.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2",
+    "@playwright/test": "1.63.0",
+    "@types/node": "26.6.4",
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
+    "@vitejs/plugin-react": "6.1.2",
+    "fake-indexeddb": "6.2.5",
+    "parse5": "8.0.0",
+    "prettier": "3.9.9",
+    "typescript": "7.0.2",
+    "vite": "8.3.3",
+    "vitest": "5.0.3"
+  },
+  "overrides": {
+    "xcode": {
+      "uuid": "11.1.1"
+    },
+    "mermaid": {
+      "katex": "0.18.2"
+    }
+  },
+  "androidVersionCode": 25
+}

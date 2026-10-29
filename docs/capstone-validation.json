@@ -1,0 +1,36 @@
+{
+  "passed": true,
+  "platform": "Windows-11-10.0.26200-SP0",
+  "cmakeTests": 2,
+  "coreAssertions": 11,
+  "cliChecks": [
+    "empty",
+    "mixed",
+    "long",
+    "unicode",
+    "usage",
+    "missing"
+  ],
+  "sources": [
+    {
+      "file": "content/examples/cpp/project/CMakeLists.txt",
+      "sha256": "c726c0b0a26a77ab047600d8c7c65f2374e899d031e0bbc818f907a5208351f8"
+    },
+    {
+      "file": "content/examples/cpp/project/main.cpp",
+      "sha256": "48d9c0abbc627d5c29854b79409257e8ce4bb4e7716cbb13be5c2e213417d3ab"
+    },
+    {
+      "file": "content/examples/cpp/project/record.cpp",
+      "sha256": "9c799173dd57f41a0be1ed85fe25b6a0a527692074a750f038e47ce2e163358c"
+    },
+    {
+      "file": "content/examples/cpp/project/record.hpp",
+      "sha256": "32a114857e63214fce3bcd82b8d2340d045ea881878b728220da208c32b66a1b"
+    },
+    {
+      "file": "content/examples/cpp/project/test_record.cpp",
+      "sha256": "1a1abd810b97998c6f185d6d952929212c565087f028729128bbc2e7003bc456"
+    }
+  ]
+}

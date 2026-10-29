@@ -1,0 +1,41 @@
+{
+  "updatedAt": "2026-10-13T08:31:54.741Z",
+  "version": "1.15.2",
+  "versionCode": 23,
+  "status": "published_and_public_https_verified",
+  "previousServedVersion": "1.15.1",
+  "serviceVersion": "1.15.2",
+  "feedDirectory": "C:/Users/Administrator/Documents/work/TechVault/release/zhizhan-1.15.2-update-feed",
+  "apk": {
+    "url": "./zhizhan-1.15.2-android.apk",
+    "bytes": 8661753,
+    "sha256": "1dd070ae774370460b1d6d74823f36c4c10f2a7dc7d321a42983049539b106d8"
+  },
+  "signatureVerified": true,
+  "signerSha256": "726ad22d5bf14cf9f282cdee34f9a545fa18cf3759117853ab283f682979256d",
+  "localValidation": {
+    "passed": true,
+    "date": "2026-10-13T08:30:15.556Z",
+    "version": "1.15.2",
+    "url": "http://127.0.0.1:8463/latest.json",
+    "bytes": 8661753,
+    "sha256": "1dd070ae774370460b1d6d74823f36c4c10f2a7dc7d321a42983049539b106d8",
+    "authenticated": true,
+    "anonymousStatus": 401,
+    "publicHttpsVerified": false,
+    "remotePhoneTested": false
+  },
+  "remoteValidation": {
+    "passed": true,
+    "date": "2026-10-13T08:31:20.784Z",
+    "version": "1.15.2",
+    "url": "https://win-bcgslpa5ria.taile4a98d.ts.net:8443/latest.json",
+    "bytes": 8661753,
+    "sha256": "1dd070ae774370460b1d6d74823f36c4c10f2a7dc7d321a42983049539b106d8",
+    "authenticated": true,
+    "anonymousStatus": 401,
+    "publicHttpsVerified": true,
+    "remotePhoneTested": false
+  },
+  "physicalPhoneTested": false
+}

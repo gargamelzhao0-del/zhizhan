@@ -1,0 +1,59 @@
+{
+  "dataset": "synthetic make_moons; seed=120+session; dimensionless features",
+  "split": {
+    "train": [
+      0,
+      1
+    ],
+    "validation": [
+      2,
+      3
+    ],
+    "test": [
+      4,
+      5
+    ]
+  },
+  "preprocessing": "fit only on train; embedded in ONNX",
+  "baseline_validation_accuracy": 0.8583333333333333,
+  "mlp_validation_accuracy": 0.9916666666666667,
+  "float_test_accuracy": 0.9958333333333333,
+  "int8_test_accuracy": 0.9958333333333333,
+  "int8_test_f1": 0.99581589958159,
+  "float_reference_max_error": 4.2523426335705494e-07,
+  "quantization_max_score_error": 0.026015639305114746,
+  "host_batch1_us": {
+    "p50": 14.0,
+    "p95": 14.524999999999999,
+    "max": 20.4,
+    "scope": "warm CPUExecutionProvider, includes Python call; not target-board WCET"
+  },
+  "model_bytes": {
+    "model.onnx": 659,
+    "model-int8.onnx": 1806
+  },
+  "versions": {
+    "python": "3.13.12",
+    "numpy": "2.4.4",
+    "sklearn": "1.9.0",
+    "onnx": "1.22.0",
+    "onnxruntime": "1.27.0"
+  },
+  "target_board": {
+    "latency": null,
+    "peak_ram": null,
+    "power": null,
+    "status": "requires separate measurement"
+  },
+  "model_sha256": "90dededa0020d2973457457be18d2658d6f16b0496c70875a858bbf844998559",
+  "release_policy": {
+    "validation_candidate": "int8",
+    "chosen": "int8",
+    "validation_max_error": 0.005962789058685303,
+    "validation_accuracy_drop": 0.0,
+    "independent_test_score_error": 0.026015639305114746,
+    "allowed_score_error": 0.05,
+    "allowed_accuracy_drop": 0.01,
+    "decision_basis": "candidate selected on validation; independent qualification can reject int8, no retuning; batch=1; no speedup/size benefit assumed"
+  }
+}

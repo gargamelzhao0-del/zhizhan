@@ -1,0 +1,171 @@
+{
+  "books": 27,
+  "modules": 317,
+  "platformComparisonsCollapsed": 85,
+  "errors": [],
+  "rows": [
+    {
+      "book": "B00",
+      "modules": 12,
+      "panels": 12,
+      "platforms": 0
+    },
+    {
+      "book": "B01",
+      "modules": 9,
+      "panels": 9,
+      "platforms": 0
+    },
+    {
+      "book": "B02a",
+      "modules": 12,
+      "panels": 12,
+      "platforms": 0
+    },
+    {
+      "book": "B03a",
+      "modules": 12,
+      "panels": 12,
+      "platforms": 0
+    },
+    {
+      "book": "B04a",
+      "modules": 12,
+      "panels": 12,
+      "platforms": 0
+    },
+    {
+      "book": "B02",
+      "modules": 11,
+      "panels": 11,
+      "platforms": 0
+    },
+    {
+      "book": "B03",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B04",
+      "modules": 8,
+      "panels": 8,
+      "platforms": 0
+    },
+    {
+      "book": "B05",
+      "modules": 21,
+      "panels": 21,
+      "platforms": 22
+    },
+    {
+      "book": "B06",
+      "modules": 12,
+      "panels": 12,
+      "platforms": 12
+    },
+    {
+      "book": "B07",
+      "modules": 13,
+      "panels": 13,
+      "platforms": 13
+    },
+    {
+      "book": "B08",
+      "modules": 15,
+      "panels": 15,
+      "platforms": 15
+    },
+    {
+      "book": "B09",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 10
+    },
+    {
+      "book": "B10",
+      "modules": 13,
+      "panels": 13,
+      "platforms": 12
+    },
+    {
+      "book": "B11",
+      "modules": 11,
+      "panels": 11,
+      "platforms": 1
+    },
+    {
+      "book": "B12",
+      "modules": 12,
+      "panels": 12,
+      "platforms": 0
+    },
+    {
+      "book": "B13",
+      "modules": 13,
+      "panels": 13,
+      "platforms": 0
+    },
+    {
+      "book": "B14",
+      "modules": 11,
+      "panels": 11,
+      "platforms": 0
+    },
+    {
+      "book": "B15",
+      "modules": 14,
+      "panels": 14,
+      "platforms": 0
+    },
+    {
+      "book": "B16",
+      "modules": 8,
+      "panels": 8,
+      "platforms": 0
+    },
+    {
+      "book": "B17",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B18",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B19",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B20",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B21",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B22",
+      "modules": 10,
+      "panels": 10,
+      "platforms": 0
+    },
+    {
+      "book": "B23",
+      "modules": 18,
+      "panels": 18,
+      "platforms": 0
+    }
+  ],
+  "scope": "chapter containment, mobile rendering, learning journal; desktop browser, not physical phone"
+}

@@ -1,0 +1,518 @@
+{
+  "date": "2026-10-13T04:06:02.184026+00:00",
+  "audience": "零基础到能独立完成嵌入式项目",
+  "conclusion": "原书库覆盖广，但存在技术错误、模型证据混淆与阅读路径负担；本轮已进行全量结构与逐册路径审查、重点技术修订和软件验证，不能据此宣称逐句无误、全部实机通过或读者已掌握。",
+  "architecture": {
+    "TechVault": {
+      "path": "C:\\Users\\Administrator\\Documents\\work\\TechVault",
+      "purpose": "个人知识、编辑、笔记与复习",
+      "stack": "React/TypeScript/Vite/Capacitor; Dexie IndexedDB zhizhan-v1",
+      "data_boundary": "个人数据库属于运行时存储，不是教程目录"
+    },
+    "mobile_books": {
+      "path": "C:\\Users\\Administrator\\Documents\\work\\手机端书库",
+      "purpose": "离线阅读与学习状态",
+      "stack": "Python static HTML generation; Android WebView; localStorage reading state",
+      "source_of_truth": "C:\\Users\\Administrator\\Nuwax\\computer-project-workspace\\1785505821\\1695388\\embed-c-course"
+    },
+    "migration_status": "修订版仍在手机端书库；知栈当前旧课程已清空，尚未导入新书库。后续需设计稳定模块 ID、内部链接、资源引用和阅读状态映射，不能视为直接移动一个数据库文件。"
+  },
+  "cleanup": {
+    "retired_article_ids": 175,
+    "retired_shelf_ids": 29,
+    "current_seed_articles": 38,
+    "current_seed_attachments": 157,
+    "existing_user_data": "新版本首次启动执行一次旧内置教程退役，移至回收站并保留笔记/收藏/进度/历史/附件引用；未在本轮操作用户手机数据库。",
+    "backup": "C:\\Users\\Administrator\\Documents\\work\\书库修订备份\\2026-10-13-quality",
+    "publication": "本地生成，未发布私人更新服务"
+  },
+  "library": {
+    "books": 27,
+    "modules": 317,
+    "sections": 407,
+    "specific_acceptance_criteria": 317,
+    "collapsed_platform_sections": 85,
+    "snippet_captions_corrected": 107,
+    "route": "C:\\Users\\Administrator\\Documents\\work\\手机端书库\\projects\\learning-path.html",
+    "per_book_review": "C:\\Users\\Administrator\\Documents\\work\\手机端书库\\projects\\quality-review.html",
+    "technical_corrections": [
+      "RTOS 响应时间、抢占、轮转与过载",
+      "BASEPRI 编码与 ADC 误差边界",
+      "I2C 控制器/线路恢复与 H7 传输状态配置",
+      "真实 Linux GPIO 与主机模型的区分",
+      "Shell pipefail 与 C11 release/acquire 同步",
+      "量化误差边界、真实运行时测量与指标示例边界",
+      "确认水位、有限缓存丢失与幂等",
+      "HMAC 标准向量与长度有界输入解析"
+    ],
+    "additions": [
+      "Zephyr 与 ESP-IDF 工程入口及主机共用数据契约",
+      "ONNX Runtime 基准与后端回退检查",
+      "发布文件完整性反例及 SBOM/来源证明边界",
+      "Matter 互操作与 AI 生成代码验收"
+    ]
+  },
+  "verification": {
+    "host_labs": {
+      "passed": 129,
+      "total": 129,
+      "evidence": "C:\\Users\\Administrator\\Nuwax\\computer-project-workspace\\1785505821\\1695388\\embed-c-course\\verify\\quality-2026-10-13\\host-labs.json",
+      "scope": "standalone host labs only; model assertions are not hardware validation"
+    },
+    "reference_projects": {
+      "passed": 6,
+      "total": 6,
+      "evidence": "C:\\Users\\Administrator\\Nuwax\\computer-project-workspace\\1785505821\\1695388\\embed-c-course\\verify\\quality-2026-10-13\\projects.json"
+    },
+    "ort": {
+      "scope": "real host batch=1; includes Python call, excludes file IO and external sensor preprocessing; not target WCET/power",
+      "python": "3.13.12",
+      "platform": "Windows-11-10.0.26200-SP0",
+      "ort": "1.27.0",
+      "model_sha256": "90dededa0020d2973457457be18d2658d6f16b0496c70875a858bbf844998559",
+      "reference_sha256": "8491cb1eb026c6833e445cdd37311742b3cf77bb6c81d36d1aeb25b390424a07",
+      "data_sha256": "8a4220764e27d510f2d2af6137984479464c672d193f186c40af642fd9ac4ca3",
+      "rows": 240,
+      "warmup": 30,
+      "runs": 300,
+      "threads": 1,
+      "requested_provider": "CPUExecutionProvider",
+      "session_providers": [
+        "CPUExecutionProvider"
+      ],
+      "profile_node_providers": [
+        "CPUExecutionProvider"
+      ],
+      "session_creation_us": 43581.2,
+      "first_run_us": 2716.5,
+      "warm_us": {
+        "p50": 13.9,
+        "p95": 14.3,
+        "p99": 16.200999999999997,
+        "max": 18.2
+      },
+      "max_abs_error": 0.026015639305114746,
+      "allowed_abs_error": 0.05,
+      "profile": "ort_2026-10-13_11-02-02_880.json",
+      "output_check_passed": true,
+      "target_board": {
+        "latency": null,
+        "memory": null,
+        "power": null
+      }
+    },
+    "techvault": {
+      "build": "passed",
+      "unit_tests_passed": 86,
+      "unit_test_files": 11,
+      "targeted_e2e_passed": 2,
+      "targeted_e2e": "e2e/retired-tutorials.spec.ts desktop/mobile; historical full E2E suite not asserted"
+    },
+    "content": {
+      "mobile": {
+        "books": 27,
+        "modules": 317,
+        "chapters": 407,
+        "learning_plans": 27,
+        "assessments": 317,
+        "local_references_checked": 3233,
+        "public_files": 506,
+        "apk_checked": true,
+        "version": "8c29f351529e43ab",
+        "errors": [],
+        "rows": [
+          {
+            "id": "B01",
+            "modules": 9,
+            "chapters": 11,
+            "plan": true,
+            "assessments": 9
+          },
+          {
+            "id": "B00",
+            "modules": 12,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 12
+          },
+          {
+            "id": "B02a",
+            "modules": 12,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 12
+          },
+          {
+            "id": "B03a",
+            "modules": 12,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 12
+          },
+          {
+            "id": "B04a",
+            "modules": 12,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 12
+          },
+          {
+            "id": "B02",
+            "modules": 11,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 11
+          },
+          {
+            "id": "B03",
+            "modules": 10,
+            "chapters": 13,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B04",
+            "modules": 8,
+            "chapters": 10,
+            "plan": true,
+            "assessments": 8
+          },
+          {
+            "id": "B05",
+            "modules": 21,
+            "chapters": 25,
+            "plan": true,
+            "assessments": 21
+          },
+          {
+            "id": "B06",
+            "modules": 12,
+            "chapters": 16,
+            "plan": true,
+            "assessments": 12
+          },
+          {
+            "id": "B07",
+            "modules": 13,
+            "chapters": 17,
+            "plan": true,
+            "assessments": 13
+          },
+          {
+            "id": "B08",
+            "modules": 15,
+            "chapters": 19,
+            "plan": true,
+            "assessments": 15
+          },
+          {
+            "id": "B09",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B10",
+            "modules": 13,
+            "chapters": 17,
+            "plan": true,
+            "assessments": 13
+          },
+          {
+            "id": "B11",
+            "modules": 11,
+            "chapters": 15,
+            "plan": true,
+            "assessments": 11
+          },
+          {
+            "id": "B12",
+            "modules": 12,
+            "chapters": 16,
+            "plan": true,
+            "assessments": 12
+          },
+          {
+            "id": "B13",
+            "modules": 13,
+            "chapters": 17,
+            "plan": true,
+            "assessments": 13
+          },
+          {
+            "id": "B14",
+            "modules": 11,
+            "chapters": 15,
+            "plan": true,
+            "assessments": 11
+          },
+          {
+            "id": "B15",
+            "modules": 14,
+            "chapters": 18,
+            "plan": true,
+            "assessments": 14
+          },
+          {
+            "id": "B16",
+            "modules": 8,
+            "chapters": 12,
+            "plan": true,
+            "assessments": 8
+          },
+          {
+            "id": "B17",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B18",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B19",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B20",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B21",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B22",
+            "modules": 10,
+            "chapters": 14,
+            "plan": true,
+            "assessments": 10
+          },
+          {
+            "id": "B23",
+            "modules": 18,
+            "chapters": 18,
+            "plan": true,
+            "assessments": 18
+          }
+        ]
+      },
+      "browser": {
+        "books": 27,
+        "modules": 317,
+        "platformComparisonsCollapsed": 85,
+        "errors": [],
+        "rows": [
+          {
+            "book": "B00",
+            "modules": 12,
+            "panels": 12,
+            "platforms": 0
+          },
+          {
+            "book": "B01",
+            "modules": 9,
+            "panels": 9,
+            "platforms": 0
+          },
+          {
+            "book": "B02a",
+            "modules": 12,
+            "panels": 12,
+            "platforms": 0
+          },
+          {
+            "book": "B03a",
+            "modules": 12,
+            "panels": 12,
+            "platforms": 0
+          },
+          {
+            "book": "B04a",
+            "modules": 12,
+            "panels": 12,
+            "platforms": 0
+          },
+          {
+            "book": "B02",
+            "modules": 11,
+            "panels": 11,
+            "platforms": 0
+          },
+          {
+            "book": "B03",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B04",
+            "modules": 8,
+            "panels": 8,
+            "platforms": 0
+          },
+          {
+            "book": "B05",
+            "modules": 21,
+            "panels": 21,
+            "platforms": 22
+          },
+          {
+            "book": "B06",
+            "modules": 12,
+            "panels": 12,
+            "platforms": 12
+          },
+          {
+            "book": "B07",
+            "modules": 13,
+            "panels": 13,
+            "platforms": 13
+          },
+          {
+            "book": "B08",
+            "modules": 15,
+            "panels": 15,
+            "platforms": 15
+          },
+          {
+            "book": "B09",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 10
+          },
+          {
+            "book": "B10",
+            "modules": 13,
+            "panels": 13,
+            "platforms": 12
+          },
+          {
+            "book": "B11",
+            "modules": 11,
+            "panels": 11,
+            "platforms": 1
+          },
+          {
+            "book": "B12",
+            "modules": 12,
+            "panels": 12,
+            "platforms": 0
+          },
+          {
+            "book": "B13",
+            "modules": 13,
+            "panels": 13,
+            "platforms": 0
+          },
+          {
+            "book": "B14",
+            "modules": 11,
+            "panels": 11,
+            "platforms": 0
+          },
+          {
+            "book": "B15",
+            "modules": 14,
+            "panels": 14,
+            "platforms": 0
+          },
+          {
+            "book": "B16",
+            "modules": 8,
+            "panels": 8,
+            "platforms": 0
+          },
+          {
+            "book": "B17",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B18",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B19",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B20",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B21",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B22",
+            "modules": 10,
+            "panels": 10,
+            "platforms": 0
+          },
+          {
+            "book": "B23",
+            "modules": 18,
+            "panels": 18,
+            "platforms": 0
+          }
+        ],
+        "scope": "chapter containment, mobile rendering, learning journal; desktop browser, not physical phone"
+      },
+      "techvault_issues": []
+    },
+    "python_snippet_syntax": {
+      "checked": 20,
+      "errors": 0,
+      "scope": "syntax only; omitted dependencies are not validated"
+    },
+    "repeat_assembly_changed": []
+  },
+  "artifacts": [
+    {
+      "kind": "TechVault Android",
+      "path": "C:\\Users\\Administrator\\Documents\\work\\TechVault\\release\\zhizhan-1.14.0-android.apk",
+      "bytes": 6219277,
+      "sha256": "db0f9aa2a5d08a482ebf2f7d5fde5794557ed1684fd55102abc51b74e3654aff"
+    },
+    {
+      "kind": "Mobile books Android",
+      "path": "C:\\Users\\Administrator\\Documents\\work\\手机端书库\\android\\out\\mobilebooks-offline-1.2.0.apk",
+      "bytes": 3248081,
+      "sha256": "eb8986afaf2d9f9a07d7cb3c5d8194250b3f19cae8166d137a91703cfd302d6c"
+    }
+  ],
+  "not_verified": [
+    "目标板/HIL：时序、电气、功耗、真实传感器、长时间运行与故障恢复",
+    "新加入的真实 SDK 工程和 I2C 片段尚未完成 SDK 目标构建",
+    "Linux 内核/BSP 驱动、ROS 2、FPGA、认证专项的真实部署",
+    "Bash 管道探针未在本机执行",
+    "真实零基础读者的独立任务、保留率与时间投入盲测",
+    "Android 真机覆盖安装及完整原生交互",
+    "历史全量 UI 用例仍含已移除课程的旧假设，本轮未宣称全套通过"
+  ]
+}

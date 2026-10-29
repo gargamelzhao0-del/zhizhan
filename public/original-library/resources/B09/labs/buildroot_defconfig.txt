@@ -1,0 +1,9 @@
+# STM32MP1 · Buildroot 配置片段（make menuconfig 的部分产物）
+BR2_arm=y
+BR2_cortex_a7=y
+BR2_LINUX_KERNEL=y
+BR2_LINUX_KERNEL_DEFCONFIG="stm32mp1"
+BR2_LINUX_KERNEL_DTS_SUPPORT=y
+BR2_TARGET_ROOTFS_EXT2=y
+BR2_PACKAGE_BUSYBOX=y
+# 产物：output/images/ 下有 zImage、*.dtb、rootfs.ext2、sdcard.img

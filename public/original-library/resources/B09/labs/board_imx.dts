@@ -1,0 +1,20 @@
+/* i.MX6ULL · 设备树片段：启用 uart1 作为 console */
+/dts-v1/;
+
+/ {
+    model = "i.MX6ULL 14x14 EVK";
+    compatible = "fsl,imx6ull-14x14-evk", "fsl,imx6ull";
+
+    chosen {
+        stdout-path = &uart1;
+    };
+
+    soc {
+        uart1: serial@02020000 {
+            compatible = "fsl,imx6ul-uart", "fsl,imx6q-uart";
+            reg = <0x02020000 0x4000>;
+            interrupts = <GIC_SPI 26 IRQ_TYPE_LEVEL_HIGH>;
+            status = "okay";
+        };
+    };
+};

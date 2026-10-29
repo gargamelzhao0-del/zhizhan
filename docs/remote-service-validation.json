@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "date": "2026-10-13T12:12:09.532Z",
+  "version": "1.15.4",
+  "url": "https://win-bcgslpa5ria.taile4a98d.ts.net:8443/latest.json",
+  "bytes": 12266563,
+  "sha256": "baeff92043406f15125dae1f803ddaa71227181d1de88f5604bb32bc163be616",
+  "authenticated": true,
+  "anonymousStatus": 401,
+  "publicHttpsVerified": true,
+  "remotePhoneTested": false
+}

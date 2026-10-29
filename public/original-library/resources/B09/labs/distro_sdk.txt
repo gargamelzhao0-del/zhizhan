@@ -1,0 +1,6 @@
+# Allwinner V3s · 发行版交叉 SDK 约定（Debian/Ubuntu rootfs）
+export ARCH=arm
+export CROSS_COMPILE=arm-linux-gnueabihf-
+export SYSROOT=/opt/v3s-sdk/sysroot
+# 用 debootstrap 构建 rootfs，再 chroot 安装内核模块与包：
+#   debootstrap --arch=armhf bookworm rootfs http://deb.debian.org/debian

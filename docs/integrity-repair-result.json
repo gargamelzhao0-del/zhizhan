@@ -1,0 +1,560 @@
+{
+  "checkedAt": "2026-10-13T11:01:42.857Z",
+  "appVersion": "1.15.3",
+  "contentVersion": "2026.10.13.5",
+  "scope": "以修复前完整快照和当前手机书库为双重基准，验证迁移完整性与可访问性。",
+  "books": 27,
+  "bodyChapters": 407,
+  "guides": 27,
+  "sharedPages": 3,
+  "articles": 437,
+  "modules": 317,
+  "codeBlocks": 1693,
+  "figures": 618,
+  "tables": 1366,
+  "orderedTextChecks": 81313,
+  "hyperlinks": 868,
+  "sectionLinks": 1574,
+  "originalZipFiles": 408,
+  "currentZipFiles": 719,
+  "personalArticles": 38,
+  "stableIdentities": true,
+  "unresolvedIntegrityIssues": 0,
+  "repairs": [
+    [
+      "B01",
+      "补齐状态机验证脚本及 C 依赖；恢复 assert.h；修复 5 幅 SVG 的元素、说明及画布边界。"
+    ],
+    [
+      "B03a",
+      "恢复 Option<T> 标题中被当作标签解析的泛型参数。"
+    ],
+    [
+      "B03",
+      "补齐 Cargo 工程的 5 个源文件，保留 .cargo/config.toml 和 memory.x；恢复 Uart<Ready>、Cell<u32>；探针支持 PATH 工具链并在构建失败时退出。"
+    ],
+    [
+      "B04",
+      "将 CI 干跑命令统一到实际提供的 tools/probes/m05_src/build_all.py。"
+    ],
+    [
+      "B06",
+      "恢复被 HTML 标记吞掉的 exec<n 比较条件。"
+    ],
+    [
+      "B16",
+      "恢复 Git blob 的 <len> 参数及对应自评判据；两处 README 命令改为实际的 labs/env.sh。"
+    ],
+    [
+      "B17",
+      "恢复两张表内的 fc<Nyquist 条件。"
+    ],
+    [
+      "B18",
+      "保留课程元信息中的 6 个前置章节链接，并逐个点击验证目标。"
+    ],
+    [
+      "全部 27 册",
+      "统一两端实验资源清单；学习指引标题不再被换行拆散；补齐图形使用的 7 个颜色变量，避免色块变黑遮住文字；保留全部章节、原始顺序、代码、表格、图形和折叠答案。"
+    ]
+  ],
+  "delivery": [
+    {
+      "layer": "工作目录",
+      "sha256": "4b1d0a6fa7a6f42992d9b868f95d999f8be59eb1422a461a1a48179fe51c7221",
+      "matchesWorkingSeed": true,
+      "contentVersion": "2026.10.13.5",
+      "courseArticles": 437
+    },
+    {
+      "layer": "当前 8462 网页",
+      "sha256": "4b1d0a6fa7a6f42992d9b868f95d999f8be59eb1422a461a1a48179fe51c7221",
+      "matchesWorkingSeed": true,
+      "contentVersion": "2026.10.13.5",
+      "courseArticles": 437
+    },
+    {
+      "layer": "桌面发布目录",
+      "sha256": "4b1d0a6fa7a6f42992d9b868f95d999f8be59eb1422a461a1a48179fe51c7221",
+      "matchesWorkingSeed": true,
+      "contentVersion": "2026.10.13.5",
+      "courseArticles": 437
+    },
+    {
+      "layer": "Android 安装包",
+      "sha256": "4b1d0a6fa7a6f42992d9b868f95d999f8be59eb1422a461a1a48179fe51c7221",
+      "matchesWorkingSeed": true,
+      "contentVersion": "2026.10.13.5",
+      "courseArticles": 437
+    }
+  ],
+  "liveAssets": [
+    {
+      "name": "b00-experiments.zip",
+      "sha256": "e717acfbcaa8313b5cb8297beaf5afb7353e07fed6d91d7e5f192e348d4e6771",
+      "bytes": 12008,
+      "passed": true
+    },
+    {
+      "name": "sampler.h",
+      "sha256": "1b728653a23289c982e475022cbd2b85dabc8e2a4a6bde533f08af9dc55e1938",
+      "bytes": 491,
+      "passed": true
+    },
+    {
+      "name": "sampler.c",
+      "sha256": "51fe26521ea4399a9655971a5ea71a1d9f32174426726d59a22fb7cb14037f0b",
+      "bytes": 1267,
+      "passed": true
+    },
+    {
+      "name": "sampler_test.c",
+      "sha256": "0202c4b9b60899e1ccc736bac20bab883523190385f6f85b0e0c399514a177b8",
+      "bytes": 1042,
+      "passed": true
+    },
+    {
+      "name": "sampler_cli.c",
+      "sha256": "e5d1625824e6f6bb5e0b2adbb5c5b9fd759fbd362282d75e680379952c7c0e15",
+      "bytes": 666,
+      "passed": true
+    },
+    {
+      "name": "b01-experiments.zip",
+      "sha256": "7d2936398a3699b91b910e326610f34e72a41d02514f19c1df4f14e5fe1af2d5",
+      "bytes": 49465,
+      "passed": true
+    },
+    {
+      "name": "b02a-experiments.zip",
+      "sha256": "970f0a9f0d82e45652d7b84452c789a848af75fa0debac9108e915f70f89e237",
+      "bytes": 7932,
+      "passed": true
+    },
+    {
+      "name": "values.cpp",
+      "sha256": "83ef9604555fd184c246e61dc4573f4f6b767add48642a71d9107b0175d79d66",
+      "bytes": 1692,
+      "passed": true
+    },
+    {
+      "name": "b03a-experiments.zip",
+      "sha256": "93ceb6045e24249f5cd482d725aa8aeb0879197ab8bf5687f41cc602c81d0efb",
+      "bytes": 6757,
+      "passed": true
+    },
+    {
+      "name": "Cargo.toml",
+      "sha256": "797301f15de150951c1f2c53732d64724f9921b9386f5f36def13c66d1dee511",
+      "bytes": 106,
+      "passed": true
+    },
+    {
+      "name": "lib.rs",
+      "sha256": "619d99aad48ba7fdeafa432e410c519f948cafa8c2e77073ade27f28c4347246",
+      "bytes": 2257,
+      "passed": true
+    },
+    {
+      "name": "b04a-experiments.zip",
+      "sha256": "de4e953af4aae56fc189a1d3e363563d6e9613402f193495cc5260f11eb9a4a8",
+      "bytes": 7418,
+      "passed": true
+    },
+    {
+      "name": "pyproject.toml",
+      "sha256": "1ef8d07e474d15e6b4778e3adf93aede5bed4f8b6153fdba639adc8ffe84fb09",
+      "bytes": 314,
+      "passed": true
+    },
+    {
+      "name": "data.py",
+      "sha256": "451130b7640ca05a62833a8a7be61701a7bb40f58fecb63c272d71bba96c8cb8",
+      "bytes": 1443,
+      "passed": true
+    },
+    {
+      "name": "pipeline.py",
+      "sha256": "b2f16bceebb4defef8a8bc4895f58c33ec300de594bee35bcfd2ed83516925e6",
+      "bytes": 281,
+      "passed": true
+    },
+    {
+      "name": "cli.py",
+      "sha256": "c1c495824d02e6d68814b07e2a5f3a366cf05863e84fe39447cd659f1e567b07",
+      "bytes": 564,
+      "passed": true
+    },
+    {
+      "name": "test_data.py",
+      "sha256": "34a3295942079eb868e3816fd2900155d6d04a1811389241eb6cbddb9a148e4d",
+      "bytes": 1692,
+      "passed": true
+    },
+    {
+      "name": "b02-experiments.zip",
+      "sha256": "024c37d76f3a0250368d67b77e47af0a21c92f89baea926abdee12e97b8f5ad9",
+      "bytes": 36291,
+      "passed": true
+    },
+    {
+      "name": "driver_contract.cpp",
+      "sha256": "30c08e949d79e052baaeeb640de264d440dee97aa246bb88131aaa8ca3f950da",
+      "bytes": 1080,
+      "passed": true
+    },
+    {
+      "name": "b03-experiments.zip",
+      "sha256": "69bf97a28157df22f1b02c5c6fad54b6d4331736f1afc9375490c95eaa3f8ab0",
+      "bytes": 21220,
+      "passed": true
+    },
+    {
+      "name": "dma_contract.rs",
+      "sha256": "c1b22a20288d8d57ca2c54e7a64b71c5e17e58b15310cda6497c4fab46c3c098",
+      "bytes": 1029,
+      "passed": true
+    },
+    {
+      "name": "b04-experiments.zip",
+      "sha256": "b19ecaf671e41d5e178139b6403691e50e3c7069e7595d43b78c8eeb5c3383c1",
+      "bytes": 40490,
+      "passed": true
+    },
+    {
+      "name": "replay.py",
+      "sha256": "cc6a0437f8a29906aff5e63f640caf69f0bf95f985922d32480151aab379e4ad",
+      "bytes": 708,
+      "passed": true
+    },
+    {
+      "name": "b05-experiments.zip",
+      "sha256": "1b4d0fd33ed55034208dbb6c02c89b26af86b69103634516f0c23479bf31440c",
+      "bytes": 68142,
+      "passed": true
+    },
+    {
+      "name": "b06-experiments.zip",
+      "sha256": "ac58e21b0d9de788e638d90967c4ea0ff834a2ca6be805eb3589bbac14c05aa3",
+      "bytes": 45046,
+      "passed": true
+    },
+    {
+      "name": "README.txt",
+      "sha256": "56b706b88c083c4a3a817d10cd37ea8645c4c8b8ca2b1a8d238cd75c21e30cdd",
+      "bytes": 2255,
+      "passed": true
+    },
+    {
+      "name": "b07-experiments.zip",
+      "sha256": "5d820eb5db5e957e3d5ff23d2ea6c492c4b6964e59bd6ed55ee9d6baac8432b0",
+      "bytes": 41111,
+      "passed": true
+    },
+    {
+      "name": "b08-experiments.zip",
+      "sha256": "dc58910e5465232148f326995ea8f523df42187c68f244eb3b9702d0189e4136",
+      "bytes": 39152,
+      "passed": true
+    },
+    {
+      "name": "b09-experiments.zip",
+      "sha256": "1640292d6f5c07682282aa3d1bc842eaabd6e6e26a40bbf76be57292cdff5908",
+      "bytes": 25318,
+      "passed": true
+    },
+    {
+      "name": "b10-experiments.zip",
+      "sha256": "fc4e5e1f8656fc34b36cd80e57b7ffcd9d78962a0a1beb9b18a7e36b391156c5",
+      "bytes": 12355,
+      "passed": true
+    },
+    {
+      "name": "b11-experiments.zip",
+      "sha256": "1c9365b4c74a8fd9896ce02192a7093dfb39f9d412eb2f737a1c250c1d5e9583",
+      "bytes": 7970,
+      "passed": true
+    },
+    {
+      "name": "b12-experiments.zip",
+      "sha256": "6abedd564b5454f7de0162f25201dfce8c5fee6b6ed8d308f13e28d11befc9f4",
+      "bytes": 7496,
+      "passed": true
+    },
+    {
+      "name": "release_manifest.py",
+      "sha256": "210c8b7ffe3b4753510e4de9f05a61d4b49ea467ca413e1da712ddfd2c24ff0d",
+      "bytes": 3006,
+      "passed": true
+    },
+    {
+      "name": "b13-experiments.zip",
+      "sha256": "0a01b557c4b9110b95a29002b7abf18becf7ac75419541a5ca68c039617ab8e3",
+      "bytes": 6579,
+      "passed": true
+    },
+    {
+      "name": "benchmark_ort.py",
+      "sha256": "506cbdbe2b2bacd95c2b156ba0a97985af275a00e40dd9219531650b4946f5c0",
+      "bytes": 4792,
+      "passed": true
+    },
+    {
+      "name": "b14-experiments.zip",
+      "sha256": "bcbdd948c477f6df5f07bd278a86fdf6c99eb64ab6e4549fcb91257ae544b371",
+      "bytes": 4888,
+      "passed": true
+    },
+    {
+      "name": "b15-experiments.zip",
+      "sha256": "afe31aca542e8542909cb421c56d4cf71960ba35198bf7d1ca1dcb17127800b6",
+      "bytes": 5126,
+      "passed": true
+    },
+    {
+      "name": "b16-experiments.zip",
+      "sha256": "0a9081d5741f6858185e58cf4d441928ce3cee229582af07991fdce4514929eb",
+      "bytes": 6801,
+      "passed": true
+    },
+    {
+      "name": "b17-experiments.zip",
+      "sha256": "e3a184471819ff6e54f67b952ba8c4050b12a5e5bc43add951e090a5771c9fe4",
+      "bytes": 5366,
+      "passed": true
+    },
+    {
+      "name": "b18-experiments.zip",
+      "sha256": "7c420a9d05601babd77995590521a073b853ac7c27ab8cc3c996287f9b2ce908",
+      "bytes": 12494,
+      "passed": true
+    },
+    {
+      "name": "b19-experiments.zip",
+      "sha256": "a00f8bd7bc6124d27abb796a4836f2e85a32c97b04e5aca19fcfffff2d4a8bbd",
+      "bytes": 6814,
+      "passed": true
+    },
+    {
+      "name": "b20-experiments.zip",
+      "sha256": "4dc2c732b3acbb000a97fee28bafa4e1757d27186a6d581e8048143cb1771914",
+      "bytes": 6556,
+      "passed": true
+    },
+    {
+      "name": "b21-experiments.zip",
+      "sha256": "9fc3dbdb9d797362d52225272ab445f7c319df0a71cf31369eaf5d6eeb5d7d88",
+      "bytes": 6831,
+      "passed": true
+    },
+    {
+      "name": "b22-experiments.zip",
+      "sha256": "cb9f60b9c79fa452f67b4755e4b133ff52e61ee061fe1b4477efaa25b6112858",
+      "bytes": 7474,
+      "passed": true
+    },
+    {
+      "name": "b23-experiments.zip",
+      "sha256": "f1c1d620e11d39747371b6789df2007f4a97bf36c3f4e2de2f0ee4f00725f763",
+      "bytes": 4529,
+      "passed": true
+    },
+    {
+      "name": "thermal_pi.py",
+      "sha256": "4944581fda3618ee42db5aa286138194d1b79cb47edee75204d817c0bdb699b7",
+      "bytes": 4036,
+      "passed": true
+    },
+    {
+      "name": "algorithms.c",
+      "sha256": "91b47a57e88f2d6b75e8fb2768b8aa16ebfa20a33e53ab80f91261e2ea78f5ec",
+      "bytes": 3321,
+      "passed": true
+    },
+    {
+      "name": "requirements.txt",
+      "sha256": "06cdbbd525c3f9c55b90e54d2958e0ab673f703f58eaf13dcb73add73773d9b6",
+      "bytes": 181,
+      "passed": true
+    },
+    {
+      "name": "p01_acquisition.py",
+      "sha256": "a4f6e6b8aa3b748485c8a128423f9d217b110db5de7c1da79f152e64748fdf19",
+      "bytes": 1829,
+      "passed": true
+    },
+    {
+      "name": "main.c",
+      "sha256": "3fc85550fbf41df76d94b7d58f6e891d6f031c3d9f3d2dde9b745faf91554b7b",
+      "bytes": 3265,
+      "passed": true
+    },
+    {
+      "name": "startup.c",
+      "sha256": "aeb39dd3920053fc6b166f02bf6e58d3742c802d0c230095f7355005af103b56",
+      "bytes": 717,
+      "passed": true
+    },
+    {
+      "name": "linker.ld",
+      "sha256": "0ae93fbcfdd4bb3fe32e6bca6dce4264d4f15a1ab2c92c6ea7b49fcd39780775",
+      "bytes": 494,
+      "passed": true
+    },
+    {
+      "name": "Makefile",
+      "sha256": "9eced9b7c361fb58a4555936feeff4dbf85b7daf16db1bf0d511d7b73cd603de",
+      "bytes": 382,
+      "passed": true
+    },
+    {
+      "name": "build-record.json",
+      "sha256": "59c8083100ee5eba48a222a988ec8c60dcf805efb6fde2c82b20baa268e3bf5f",
+      "bytes": 530,
+      "passed": true
+    },
+    {
+      "name": "node.elf",
+      "sha256": "dfde69aaf0b05772a5f1486d292aba32f0237a353441e58bfc49a52cdf8a387e",
+      "bytes": 5876,
+      "passed": true
+    },
+    {
+      "name": "node.map",
+      "sha256": "d7a5c54109ae25d0143f325e453c63cc99355b12ef66a4107ce0236192e1fe3d",
+      "bytes": 4192,
+      "passed": true
+    },
+    {
+      "name": "p02_realtime.py",
+      "sha256": "2d2bbbdfe9213b207d9d22b66f7767c969172b3471cd7c52c8ecef48cb050adf",
+      "bytes": 1623,
+      "passed": true
+    },
+    {
+      "name": "p03_signed_update.py",
+      "sha256": "cffb226263c7d1101943246a0f1d7359716c3fc25143fbee1b298ee53986326d",
+      "bytes": 2785,
+      "passed": true
+    },
+    {
+      "name": "p04_gateway.py",
+      "sha256": "dac8cfaa6440e792ba818f3f818089b4390a92297f022dc64025317df9e4fc0f",
+      "bytes": 4073,
+      "passed": true
+    },
+    {
+      "name": "Makefile",
+      "sha256": "e285b6cefdbd07477791a6aaaee25d9cca40da636c4b84f96261879684ba13d5",
+      "bytes": 177,
+      "passed": true
+    },
+    {
+      "name": "btn_platform.c",
+      "sha256": "786cd607f387ab59cf64648d4b917d4441ba041af52eff56bfc15619e6b95ca0",
+      "bytes": 2499,
+      "passed": true
+    },
+    {
+      "name": "p05_model_pipeline.py",
+      "sha256": "c542abdbd755f6f6ffcc9de8c137ad43273ee8b51a6bfdcd5a114ad5fc2d1fca",
+      "bytes": 6836,
+      "passed": true
+    },
+    {
+      "name": "report.json",
+      "sha256": "ea0708e60bf9713d5c122bc0818f34a27b773e91392c9fb31ec2e38bb9f4cda2",
+      "bytes": 1743,
+      "passed": true
+    },
+    {
+      "name": "data.csv",
+      "sha256": "8a4220764e27d510f2d2af6137984479464c672d193f186c40af642fd9ac4ca3",
+      "bytes": 37076,
+      "passed": true
+    },
+    {
+      "name": "model.onnx",
+      "sha256": "8491cb1eb026c6833e445cdd37311742b3cf77bb6c81d36d1aeb25b390424a07",
+      "bytes": 659,
+      "passed": true
+    },
+    {
+      "name": "model-int8.onnx",
+      "sha256": "90dededa0020d2973457457be18d2658d6f16b0496c70875a858bbf844998559",
+      "bytes": 1806,
+      "passed": true
+    },
+    {
+      "name": "evidence.png",
+      "sha256": "6c457c465735a2c9176908a2ff1c6e0df64d97af091fb7ad89f2b4483c5b931a",
+      "bytes": 122945,
+      "passed": true
+    },
+    {
+      "name": "p06_data_loop.py",
+      "sha256": "f5561a93bdd1bc9742c4dc94fd3b69c72bed3d4ca24f42099494d5cb07d66fea",
+      "bytes": 1941,
+      "passed": true
+    },
+    {
+      "name": "projects.zip",
+      "sha256": "ddac7d0157484aa8d4e08202de12e2b66dc4998fcb191e6054b0c929b447271a",
+      "bytes": 170447,
+      "passed": true
+    }
+  ],
+  "tests": {
+    "unit": 91,
+    "distinctBrowserCases": 28,
+    "browserViewports": [
+      "1440 × 1050",
+      "393 × 852"
+    ],
+    "note": "首次运行中 24 项通过；2 项图形用例错误地将共享箭头定义计入可见图元。修正计数，加入画布边界与两种主题颜色断言后，专项复测 4 项通过。",
+    "productionArticles": 437,
+    "productionDirectories": 27
+  },
+  "execution": [
+    {
+      "book": "B01",
+      "command": "node tools/sm_model.js",
+      "exitCode": 0,
+      "scope": "从解压附件执行静态状态树检查与 JavaScript 影子实现；不代表 C 固件已上板。"
+    },
+    {
+      "book": "B03",
+      "command": "bash tools/probes/m_cargo.sh",
+      "exitCode": 0,
+      "target": "thumbv7m-none-eabi",
+      "text": 1168,
+      "data": 0,
+      "bss": 4,
+      "scope": "解压附件交叉编译、size 与符号检查通过；未烧录硬件。"
+    },
+    {
+      "book": "B04",
+      "command": "python tools/probes/m05_src/build_all.py --dry-run",
+      "exitCode": 0,
+      "scope": "干跑命令通过；不代表完整硬件流水线已实测。"
+    }
+  ],
+  "apk": {
+    "file": "release/zhizhan-1.15.3-android.apk",
+    "bytes": 8683825,
+    "sha256": "21fefd5947bb566d9b7370e2ca388b02c322d3f476b887ad35b3c58dabb2d13d"
+  },
+  "publication": {
+    "passed": true,
+    "date": "2026-10-13T11:01:20.175Z",
+    "version": "1.15.3",
+    "url": "https://win-bcgslpa5ria.taile4a98d.ts.net:8443/latest.json",
+    "bytes": 8683825,
+    "sha256": "21fefd5947bb566d9b7370e2ca388b02c322d3f476b887ad35b3c58dabb2d13d",
+    "authenticated": true,
+    "anonymousStatus": 401,
+    "publicHttpsVerified": true,
+    "remotePhoneTested": false
+  },
+  "backup": "backups/integrity-repair-20261013-182615"
+}

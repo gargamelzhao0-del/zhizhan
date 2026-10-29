@@ -1,0 +1,140 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "compiler": "g++.EXE (GCC) 15.2.0",
+  "flags": [
+    "-std=c++17",
+    "-O2",
+    "-DNDEBUG",
+    "-Wall",
+    "-Wextra",
+    "-Werror",
+    "-pedantic",
+    "-pthread"
+  ],
+  "sources": [
+    {
+      "file": "content/examples/cpp/01-lifetime.cpp",
+      "sha256": "abcf33c8551a4c6fe40763732abe727aa403f8b56330c0f35d8c2cae94f3cc92"
+    },
+    {
+      "file": "content/examples/cpp/02-raii.cpp",
+      "sha256": "e6333ef3c49615e41dce1e81037133307769feeed17bc5875a9b8ac9d32fbc56"
+    },
+    {
+      "file": "content/examples/cpp/03-containers.cpp",
+      "sha256": "1c5f6e0ff877e44c2fe99effca60ef01a17dbd8634526cb4a3fd3852c26cb017"
+    },
+    {
+      "file": "content/examples/cpp/04-concurrency.cpp",
+      "sha256": "2e603ab8d29dddc8cd80d7991e4f66de7e32fd549003b9ac0c2869cd1ca0695c"
+    },
+    {
+      "file": "content/examples/cpp/05-interfaces.cpp",
+      "sha256": "6278651a4cdc2fffbf4e1fa4e8f8ef3094e86d07dae89e9b8fc2ae62fefde756"
+    },
+    {
+      "file": "content/examples/cpp/06-testing.cpp",
+      "sha256": "2bd26a70ede793227a36fff46e634fc189a87845f4e9ea11bdb72a1a35675864"
+    },
+    {
+      "file": "content/examples/cpp/07-project.cpp",
+      "sha256": "cb9f707549ddb1779a2c84997d9d82f67745f193e66f41f888a5df318cd0449d"
+    },
+    {
+      "file": "content/examples/cpp/08-ownership.cpp",
+      "sha256": "6a3d3af061c9e3e5e3c8e5d4c2cd54c159483cac8e675a5deb24fbae52083af2"
+    },
+    {
+      "file": "content/examples/cpp/09-algorithms.cpp",
+      "sha256": "5dab3294c0c1bbe4c20b7111181f457e62fe66436456d6094252203976447702"
+    },
+    {
+      "file": "content/examples/cpp/10-interfaces.cpp",
+      "sha256": "49b13c218ec5fa0d066d8680cc9c340071a67a70649556ba4e3bbba0d2d6a1f0"
+    },
+    {
+      "file": "content/examples/cpp/12-types.cpp",
+      "sha256": "1205a1e4065767b197529446a140fd1438ec4be91e760bf4d21d9c4f340e0041"
+    },
+    {
+      "file": "content/examples/cpp/13-functions.cpp",
+      "sha256": "9d3c62076010699d4f01ebed4b7d66043f5e110a82bd543ea7cd627417f93a82"
+    },
+    {
+      "file": "content/examples/cpp/14-value-types.cpp",
+      "sha256": "797e4276524bd66d6a3178d69129b6381cdc44c99faae195cfb4ecd7dc46a7a9"
+    },
+    {
+      "file": "content/examples/cpp/15-generic.cpp",
+      "sha256": "4606956d7bd770ec7ae67fe8c759ea26d78bc1d8fd0d7616e95438a9af0c29fc"
+    },
+    {
+      "file": "content/examples/cpp/16-errors.cpp",
+      "sha256": "6841c568caaa34042b89531eb458e4880776fb5e3420bc7032717a1866f4b697"
+    },
+    {
+      "file": "content/examples/cpp/17-publication.cpp",
+      "sha256": "eb78fb5e2f6dc7c0692850d83068c06ea02935399038347e11f1368f3e40414f"
+    },
+    {
+      "file": "content/examples/cpp/18-files.cpp",
+      "sha256": "fbaf50fd3becb4084676e27db9f1f7171ee200ad206c22a1d69a36d6675f3ebf"
+    }
+  ],
+  "checks": [
+    "lifetime ownership output",
+    "RAII exact bytes",
+    "RAII empty file",
+    "RAII missing file",
+    "vector size capacity index and bounds",
+    "queue close/drain/empty shutdown: 100 runs, each bounded by 10 s",
+    "parse ''",
+    "parse '0'",
+    "parse '128'",
+    "parse '007'",
+    "parse 'abc'",
+    "parse '+1'",
+    "parse ' 1'",
+    "parse '1 '",
+    "parse '12x'",
+    "parse '-1'",
+    "parse '129'",
+    "parse '999999999999999999999'",
+    "parse '999999999999999999999x'",
+    "capacity and timer boundaries with NDEBUG",
+    "intentional overflow defect detected",
+    "integrated project: empty",
+    "integrated project: blank record",
+    "integrated project: mixed",
+    "integrated project: last record no LF",
+    "integrated project: CRLF",
+    "integrated project: invalid syntax",
+    "integrated project: 64 byte boundary",
+    "integrated project: overlong resync",
+    "integrated project: queue backpressure",
+    "integrated project: record limit never reports partial success",
+    "unique ownership move borrow and weak expiration",
+    "stable algorithm identity ordering and wide sum",
+    "interface failure preserves output and virtual destruction",
+    "integer operation and overflow without output corruption",
+    "optional zero and reference failure guarantee",
+    "value copy owns independent storage",
+    "generic integer constraints and inverted bounds",
+    "typed error result '443'",
+    "typed error result '1'",
+    "typed error result '65535'",
+    "typed error result '00080'",
+    "typed error result '0'",
+    "typed error result '65536'",
+    "typed error result '12x'",
+    "typed error result ''",
+    "typed error result '9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999'",
+    "typed error result '9999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999999x'",
+    "one-shot acquire/release publication: 50 bounded runs",
+    "versioned file exact readback",
+    "independent binary layout check",
+    "file experiment refuses existing directory"
+  ],
+  "linuxExamplesExecuted": false,
+  "passed": true
+}

@@ -1,0 +1,7 @@
+# STM32MP1 · eMMC/SD 分区表（GPT）示例
+# 序号  名称     文件系统   大小      用途
+#  1    fsbl1    (raw)      1MiB      SPL / FSBL
+#  2    fsbl2    (raw)      1MiB      备份 FSBL（A/B 的雏形）
+#  3    ssbl     (raw)      2MiB      U-Boot
+#  4    boot     ext4       64MiB     zImage + dtb
+#  5    rootfs   ext4       (剩余)    根文件系统（可只读 + overlay）

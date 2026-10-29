@@ -1,0 +1,24 @@
+
+_nl.o:     file format elf32-littlearm
+
+
+Disassembly of section .text:
+
+00000000 <framed>:
+   0:	b570      	push	{r4, r5, r6, lr}
+   2:	4606      	mov	r6, r0
+   4:	b150      	cbz	r0, 1c <framed+0x1c>
+   6:	2400      	movs	r4, #0
+   8:	4625      	mov	r5, r4
+   a:	4620      	mov	r0, r4
+   c:	f7ff fffe 	bl	0 <helper>
+  10:	3401      	adds	r4, #1
+  12:	42a6      	cmp	r6, r4
+  14:	4405      	add	r5, r0
+  16:	d1f8      	bne.n	a <framed+0xa>
+  18:	4628      	mov	r0, r5
+  1a:	bd70      	pop	{r4, r5, r6, pc}
+  1c:	4605      	mov	r5, r0
+  1e:	4628      	mov	r0, r5
+  20:	bd70      	pop	{r4, r5, r6, pc}
+  22:	bf00      	nop

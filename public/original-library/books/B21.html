@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B21" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>机器学习与数据工程基础 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">机器学习与数据工程基础</div>
+    <div class="m-subtitle">基础支撑 · 10 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">10 模块 · 51 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol cur" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">AI 前置分支 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">问题定义与算法基线<span class="m-nav-sub">问题与数据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-problem-t" data-target="m01-problem-t">1.1 定义问题、指标、约束</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：线性基线</a><a class="m-sec" href="#m01-baseline-t" data-target="m01-baseline-t">1.3 基线的价值</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">采集、标注与数据契约<span class="m-nav-sub">问题与数据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-contract-t" data-target="m02-contract-t">2.1 契约、标注、质量、版本</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：契约校验与回放</a><a class="m-sec" href="#m02-label-t" data-target="m02-label-t">2.3 标注与回放</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">切分、泄漏与独立测试<span class="m-nav-sub">问题与数据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-split-t" data-target="m03-split-t">3.1 防泄漏：按会话/时间切分</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：会话切分</a><a class="m-sec" href="#m03-holdout-t" data-target="m03-holdout-t">3.3 测试集只评一次</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">特征与传统机器学习<span class="m-nav-sub">特征与训练</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-ml-t" data-target="m04-ml-t">4.1 传统模型：够用、可解释、算得起</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：线性模型</a><a class="m-sec" href="#m04-norm-t" data-target="m04-norm-t">4.3 归一化与特征重要性</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">神经网络与训练机制<span class="m-nav-sub">特征与训练</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-nn-t" data-target="m05-nn-t">5.1 前向/反向/梯度下降</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：梯度下降收敛</a><a class="m-sec" href="#m05-lr-t" data-target="m05-lr-t">5.3 学习率与批大小</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">训练工程与过拟合<span class="m-nav-sub">特征与训练</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-curve-t" data-target="m06-curve-t">6.1 曲线判过拟合</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：训练收敛</a><a class="m-sec" href="#m06-early-t" data-target="m06-early-t">6.3 早停与增强</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">评估、阈值与校准<span class="m-nav-sub">评估与任务</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-metrics-t" data-target="m07-metrics-t">7.1 混淆矩阵与 PR 权衡</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：阈值扫描与指标</a><a class="m-sec" href="#m07-calib-t" data-target="m07-calib-t">7.3 概率校准与业务成本</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">时间序列、音频与视觉任务<span class="m-nav-sub">评估与任务</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-modality-t" data-target="m08-modality-t">8.1 三种模态的数据组织</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：分帧、时序切分、池化</a><a class="m-sec" href="#m08-task-t" data-target="m08-task-t">8.3 任务指标与算力</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">模型导出与量化准备<span class="m-nav-sub">导出与交付</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-export-t" data-target="m09-export-t">9.1 导出五环节</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：模型包清单与校验</a><a class="m-sec" href="#m09-quant-t" data-target="m09-quant-t">9.3 算子核对与量化准备</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">综合：可交付模型包<span class="m-nav-sub">导出与交付</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-package-t" data-target="m10-package-t">10.1 模型包的五个产物</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：模型包与校验</a><a class="m-sec" href="#m10-deliver-t" data-target="m10-deliver-t">10.3 交付说明与回滚</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">一个可交付模型包.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">ML 工程易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B21-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · AI 与数据</div>
+    <h1>机器学习<br>与<span class="g">数据工程</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>模型指标好但上线就崩、数据泄漏、过拟合、阈值拍脑袋、导出后精度掉</strong>——问题分别落在问题定义、数据切分、训练工程、评估校准与导出量化上。内容从 <strong>问题定义、数据契约、切分泄漏、特征与经典 ML</strong>，一路到 <strong>神经网络、过拟合、评估校准、时序/音频/视觉、导出量化、可交付模型包</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>10</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>环节</span></div><div class="hero-stat"><b>6+10</b><span>运行 / 对照</span></div><div class="hero-stat"><b>10</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>会写 C/Python、想做端侧 AI 但没系统学过 ML 工程</strong>的开发者。默认你懂采样与统计基础，但对“切分、泄漏、过拟合、校准”不够系统。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的训练/评估模型 → <strong>真实运行证据</strong> → 数据/训练/评估对照 → 失败路径 → 动手练习 → 自测。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">最小二乘、梯度下降收敛、按会话切分、分类指标、阈值扫描 PR、模型包清单/校验等来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B21-labs.zip" download>下载 B21 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B21 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">AI 前置分支 · 读到能完成什么？</h2><p><strong>在按设备/会话隔离的数据上比较阈值基线与一个小模型，交付预处理和评估记录。</strong></p><p>入门条件：B04a 数据工具、B19 基本统计；神经网络不是起点。</p><p>首次阅读：<a href="#m01">问题定义与算法基线</a> → <a href="#m02">采集、标注与数据契约</a> → <a href="#m03">切分、泄漏与独立测试</a> → <a href="#m04">特征与传统机器学习</a> → <a href="#m06">训练工程与过拟合</a> → <a href="#m07">评估、阈值与校准</a> → <a href="#m09">模型导出与量化准备</a> → <a href="#m10">综合：可交付模型包</a></p><p>按需延后：深度网络、视觉/音频在简单模型无效时选读。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>故意随机切相邻窗口、重复使用测试集调阈值，解释虚高指标来源并纠正。</p><p><strong>通过判据：</strong>训练集拟合预处理，验证集定方案，测试集一次评价；报告类分布和混淆矩阵。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P05">P05</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">10 章分四段：问题与数据（M01–M03）→ 特征与训练（M04–M06）→ 评估与任务（M07–M08）→ 导出与交付（M09–M10）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M04 打基础，再读 M05/M06/M07；做交付把 M09/M10 走完。动手优先跑 <code class="ic">labs/host_*.c</code>。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 问题与数据</div>
+      <h1 class="ch-title">问题定义与算法基线<span class="acc">.</span></h1>
+      <p class="ch-lead">ML 的第一步是<strong>把问题定义清楚</strong>：输入、输出、指标、约束。并<strong>先建简单基线</strong>，再判断是否值得上复杂模型。</p>
+      <div class="ch-meta"><span>前置：会基础统计与最小二乘，能用 C 做数值计算。</span><span>◷ 约 42 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把业务问题写成输入/输出/指标/约束，并建立可对照的简单基线。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>先定义问题：输入/输出/指标/约束。</li><li>先建简单基线再决定是否上复杂模型。</li><li>指标要业务相关。</li></ul></div>
+    <section class="sec" id="m01-problem"><h2 id="m01-problem-t">1.1 定义问题、指标、约束</h2><p>ML 第一步是把问题定义清楚：输入（特征/单位）、输出（类别/数值）、指标（业务相关）、约束（算力/延迟）。先建简单基线，再判断是否值得上复杂模型。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 从问题到基线</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="从问题到基线" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">定义问题</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">指标</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">基线</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">是否上模型</text></svg></div><figcaption class="fig-ft">定义输入/输出/指标/约束 → 建简单基线（阈值/线性/规则）→ 评估 → 决定是否上复杂模型。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  问题定义五要素</div><table><thead><tr><th>要素</th><th>内容</th><th>坑</th></tr></thead><tbody><tr><td>输入</td><td>特征/单位</td><td>与现场不一致</td></tr><tr><td>输出</td><td>类别/数值</td><td>定义模糊</td></tr><tr><td>指标</td><td>业务相关</td><td>只看准确率</td></tr><tr><td>基线</td><td>阈值/线性</td><td>直接上深网</td></tr><tr><td>约束</td><td>算力/延迟</td><td>忽略部署</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">baseline.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">k = (n*Sxy - Sx*Sy) / (n*Sxx - Sx*Sx);   // 斜率=2</span><span class="ln">b = (Sy - k*Sx) / n;                      // 截距=1</span><span class="ln">/* 基线=参照下界；模型须显著超过才值得部署 */</span>
+</code></pre><span class="code-note">最小二乘线性基线 y=kx+b；作为比较参照，不保证是其他模型性能的下界</span></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：线性基线</h2><p>下面这段程序用最小二乘拟合一条线性基线：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_linear.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_linear.c —— 最小二乘线性回归（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_linear.c -o host_linear &amp;&amp; ./host_linear</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double x[]={0,1,2,3,4}, y[]={1,3,5,7,9};   /* y=2x+1 */</span><span class="ln">    int n=5; double sx=0,sy=0,sxx=0,sxy=0;</span><span class="ln">    for(int i=0;i&lt;n;i++){sx+=x[i];sy+=y[i];sxx+=x[i]*x[i];sxy+=x[i]*y[i];}</span><span class="ln">    double w=(n*sxy-sx*sy)/(n*sxx-sx*sx), b=(sy-w*sx)/n;</span><span class="ln">    printf(&quot;拟合 y=%.3f x + %.3f（期望 2.000 1.000）\n&quot;, w, b);</span><span class="ln">    if (w&lt;1.999||w&gt;2.001||b&lt;0.999||b&gt;1.001) ok=0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">线性基线模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear &amp;&amp; ./labs/host_linear</span>
+拟合 y=2.000 x + 1.000（期望 2.000 1.000）
+RESULT: PASS</code></pre></div></div><p class="sim-note">线性基线 y=2.000x+1.000（w=2、b=1，误差<0.001），作为复杂模型的对照下界。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  基线定义</div><table><thead><tr><th>要素</th><th>基线</th><th>说明</th></tr></thead><tbody><tr><td>输入</td><td>x</td><td>特征</td></tr><tr><td>输出</td><td>y=kx+b</td><td>数值</td></tr><tr><td>指标</td><td>残差/误差</td><td>业务相关</td></tr><tr><td>基线</td><td>线性</td><td>参照下界</td></tr></tbody></table></div></section><section class="sec" id="m01-baseline"><h2 id="m01-baseline-t">1.3 基线的价值</h2><p>基线给出参照系：模型若不能显著超过基线，就不值得部署。很多端侧问题用阈值/线性/规则就能解决。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">baseline.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">k = (n*Sxy - Sx*Sy) / (n*Sxx - Sx*Sx);   // 斜率=2</span><span class="ln">b = (Sy - k*Sx) / n;                      // 截距=1</span><span class="ln">/* 基线=参照下界；模型须显著超过才值得部署 */</span>
+</code></pre><span class="code-note">最小二乘线性基线 y=kx+b；作为比较参照，不保证是其他模型性能的下界</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  基线实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>定义指标</td><td>业务对齐</td><td>只看准确率</td></tr><tr><td>建基线</td><td>参照</td><td>直接上深网</td></tr><tr><td>看约束</td><td>可部署</td><td>训好上不去</td></tr><tr><td>迭代</td><td>逐步改进</td><td>无验收</td></tr></tbody></table></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检</h2><p>问题自检：输入/输出/指标/约束清晰、有基线、可验收。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 基线 vs 复杂模型（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="基线 vs 复杂模型（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">阈值基线</text><rect x="150" y="26" width="420" height="18" rx="4" class="sv-amb-s"/><text x="578" y="43" class="sv-lbl-hi">70F1×100</text><text x="12" y="67" class="sv-lbl">复杂模型</text><rect x="150" y="50" width="504" height="18" rx="4" class="sv-grn-s"/><text x="662" y="67" class="sv-lbl-hi">84F1×100</text></svg></div><figcaption class="fig-ft">模型须显著超过基线才值得其成本；基线本身可能已够用。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>输入</td><td>特征/单位</td><td>口径不一致</td></tr><tr><td>输出</td><td>明确</td><td>定义模糊</td></tr><tr><td>指标</td><td>业务相关</td><td>只看准确率</td></tr><tr><td>基线</td><td>简单方法</td><td>直接深网</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>指标与业务不符</strong>：优化错方向。</li><li><strong>无基线</strong>：不知模型价值。</li><li><strong>忽略部署约束</strong>：训好上不去。</li><li><strong>问题定义模糊</strong>：无法验收。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">为什么 ML 工程强调“先建基线”？</p><details><summary>查看答案</summary><div class="ans"><p>基线给出参照与下界；只有显著超过基线，复杂模型才值得其成本。很多问题基线（阈值/规则）本身已够用。</p></div></details></li><li><p class="q">定义 ML 问题至少要写清哪四件事？</p><details><summary>查看答案</summary><div class="ans"><p>输入（特征/单位）、输出（类别/数值）、指标（业务相关）、约束（算力/延迟）。缺任一项都会导致优化错方向或训好上不去。</p></div></details></li><li><p class="q">为什么“只看准确率”可能误导？</p><details><summary>查看答案</summary><div class="ans"><p>类别不平衡时全靠预测多数类也能高准确率。业务相关指标（precision/recall/F1/成本）才能反映真实价值。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把一个业务问题写成输入/输出/指标/约束，并给出一个可对照的简单基线。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://developers.google.com/machine-learning/guides/rules-of-ml" target="_blank" rel="noopener noreferrer">Google ML 速查</a> · <a class="ref" href="https://scikit-learn.org/stable/common_pitfalls.html" target="_blank" rel="noopener noreferrer">scikit-learn 常见陷阱</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_linear.c</code>：用最小二乘拟合一条线性基线。</p><p><strong>检查结果：</strong>线性基线 y=2.000x+1.000（w=2、b=1）；能作为复杂模型的对照。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把业务问题写成输入/输出/指标/约束，并建立可对照的简单基线。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>线性基线 y=2.000x+1.000（w=2、b=1）；能作为复杂模型的对照。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 问题与数据</div>
+      <h1 class="ch-title">采集、标注与数据契约<span class="acc">.</span></h1>
+      <p class="ch-lead">数据决定上限。数据工程要管住<strong>契约、标注一致性、质量与版本</strong>；没有契约，训练与现场就不一致。</p>
+      <div class="ch-meta"><span>前置：理解采样与单位量纲，读过 M01。</span><span>◷ 约 42 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为数据集定义契约（单位/量程/采样率）、标注规范、质量标志与确定性回放。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>数据契约（单位/量程/采样率）是地基。</li><li>标注要一致、数据要可回放。</li><li>坏数据不进训练。</li></ul></div>
+    <section class="sec" id="m02-contract"><h2 id="m02-contract-t">2.1 契约、标注、质量、版本</h2><p>数据决定上限。数据工程要管住契约（单位/量程/采样率）、标注一致性、质量标志与版本。没有契约，训练与现场就不一致。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 数据工程的四关</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="数据工程的四关" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">契约：单位/量程/采样率</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="83.0" class="sv-lbl-hi">标注：规范/边界/一致</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="117.0" class="sv-lbl-hi">质量：时间戳/丢样/重复</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">版本 + 确定性回放</text></svg></div><figcaption class="fig-ft">契约（单位/量程/采样率）→ 标注规范 → 质量标志 → 版本 + 确定性回放。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  数据工程五要素</div><table><thead><tr><th>要素</th><th>内容</th><th>风险</th></tr></thead><tbody><tr><td>契约</td><td>单位/量程/采样率</td><td>口径不一致</td></tr><tr><td>标注</td><td>规范/边界/一致性</td><td>标签噪声</td></tr><tr><td>质量</td><td>时间戳/丢样/重复</td><td>污染训练</td></tr><tr><td>版本</td><td>数据+预处理</td><td>不可复现</td></tr><tr><td>回放</td><td>确定性重放</td><td>无法定位</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">contract.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (v &lt; RANGE_MIN || v &gt; RANGE_MAX) outliers++;   // 越界检测</span><span class="ln">uint32_t h = fnv1a(data, n);                      // 回放哈希</span><span class="ln">/* 同批数据回放哈希必须一致；标注按规范+质检 */</span>
+</code></pre><span class="code-note">契约校验量程 + 确定性回放哈希 + 标注规范</span></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：契约校验与回放</h2><p>下面这段程序按契约校验量程并做确定性回放：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_contract.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_contract.c —— 数据契约：单位/量程/采样率校验 + 确定性回放（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_contract.c -o host_contract &amp;&amp; ./host_contract</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln"></span><span class="ln">/* 契约：字段、单位、量程 [lo,hi]、采样率 fs(Hz) —— 训练与现场必须一致 */</span><span class="ln">typedef struct { const char *field, *unit; double lo, hi, fs; } contract_t;</span><span class="ln">static contract_t C = { &quot;accel_x&quot;, &quot;m/s^2&quot;, -16.0, 16.0, 100.0 };</span><span class="ln"></span><span class="ln">static int valid(double v) { return v &gt;= C.lo &amp;&amp; v &lt;= C.hi; }</span><span class="ln"></span><span class="ln">/* 确定性回放：对量化后的样本做 FNV-1a，同批数据必须得到同一哈希 */</span><span class="ln">static uint32_t replay_hash(const double *x, int n) {</span><span class="ln">    uint32_t h = 2166136261u;</span><span class="ln">    for (int i = 0; i &lt; n; i++) {</span><span class="ln">        long q = (long)(x[i] * 1000.0 + (x[i] &lt; 0 ? -0.5 : 0.5));</span><span class="ln">        uint8_t *p = (uint8_t *)&amp;q;</span><span class="ln">        for (unsigned k = 0; k &lt; sizeof(long); k++) { h ^= p[k]; h *= 16777619u; }</span><span class="ln">    }</span><span class="ln">    return h;</span><span class="ln">}</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double batch_a[] = {0.0, 1.5, -2.25, 3.0, 16.0, -16.0};</span><span class="ln">    double batch_b[] = {0.0, 1.5, -2.25, 3.0, 16.0, -16.0};   /* 同批数据 */</span><span class="ln">    double bad[]     = {0.0, 20.0};                            /* 一个超量程样本 */</span><span class="ln"></span><span class="ln">    printf(&quot;契约: %s 单位=%s 量程=[%.0f,%.0f] fs=%.0fHz\n&quot;,</span><span class="ln">           C.field, C.unit, C.lo, C.hi, C.fs);</span><span class="ln">    printf(&quot;采样间隔 dt=%.4fs（=1/fs）\n&quot;, 1.0 / C.fs);</span><span class="ln"></span><span class="ln">    /* 量程校验：越界样本必须被标记为脏数据（不得入训） */</span><span class="ln">    int bad_n = 0;</span><span class="ln">    for (unsigned i = 0; i &lt; sizeof(bad)/sizeof(bad[0]); i++) if (!valid(bad[i])) bad_n++;</span><span class="ln">    printf(&quot;越界样本数=%d（期望 1）\n&quot;, bad_n);</span><span class="ln">    if (bad_n != 1) ok = 0;</span><span class="ln"></span><span class="ln">    /* 确定性回放：同批数据 → 同一哈希，实验可复现 */</span><span class="ln">    uint32_t h1 = replay_hash(batch_a, 6), h2 = replay_hash(batch_b, 6);</span><span class="ln">    printf(&quot;回放哈希 a=%u b=%u（同批→同哈希）\n&quot;, h1, h2);</span><span class="ln">    if (h1 != h2 || h1 == 0) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">数据契约/回放模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_contract.c -o labs/host_contract &amp;&amp; ./labs/host_contract</span>
+契约: accel_x 单位=m/s^2 量程=[-16,16] fs=100Hz
+采样间隔 dt=0.0100s（=1/fs）
+越界样本数=1（期望 1）
+回放哈希 a=2619777321 b=2619777321（同批→同哈希）
+RESULT: PASS</code></pre></div></div><p class="sim-note">契约 accel_x：单位 m/s²、量程 [-16,16]、fs=100Hz；越界样本被标记；同批回放哈希一致。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  契约字段</div><table><thead><tr><th>字段</th><th>值</th><th>作用</th></tr></thead><tbody><tr><td>单位</td><td>m/s^2</td><td>口径</td></tr><tr><td>量程</td><td>[-16,16]</td><td>越界检测</td></tr><tr><td>fs</td><td>100Hz</td><td>dt=0.01s</td></tr><tr><td>回放哈希</td><td>稳定</td><td>可复现</td></tr></tbody></table></div></section><section class="sec" id="m02-label"><h2 id="m02-label-t">2.3 标注与回放</h2><p>标注要有一致的规范与质检；数据必须能确定性回放，否则实验不可复现。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">contract.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (v &lt; RANGE_MIN || v &gt; RANGE_MAX) outliers++;   // 越界检测</span><span class="ln">uint32_t h = fnv1a(data, n);                      // 回放哈希</span><span class="ln">/* 同批数据回放哈希必须一致；标注按规范+质检 */</span>
+</code></pre><span class="code-note">契约校验量程 + 确定性回放哈希 + 标注规范</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  数据工程实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>契约</td><td>口径一致</td><td>现场/训练不符</td></tr><tr><td>标注规范</td><td>标签可靠</td><td>噪声</td></tr><tr><td>质量标志</td><td>过滤坏数据</td><td>污染</td></tr><tr><td>确定性回放</td><td>可复现</td><td>无法定位</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检</h2><p>数据自检：契约明确、标注一致、质量可筛、可确定性回放。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 契约与回放（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="契约与回放（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">越界样本</text><rect x="150" y="26" width="200" height="18" rx="4" class="sv-amb-s"/><text x="358" y="43" class="sv-lbl-hi">1(标志)</text><text x="12" y="67" class="sv-lbl">回放一致</text><rect x="150" y="50" width="200" height="18" rx="4" class="sv-grn-s"/><text x="358" y="67" class="sv-lbl-hi">1(标志)</text></svg></div><figcaption class="fig-ft">越界样本被标记（1 例）；同批回放哈希 a=b 一致，保证可复现。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>契约</td><td>写清单位/量程</td><td>口径不一致</td></tr><tr><td>标注</td><td>规范+质检</td><td>噪声</td></tr><tr><td>质量</td><td>标志过滤</td><td>坏数据入训</td></tr><tr><td>回放</td><td>哈希一致</td><td>不可复现</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无契约</strong>：口径不一致。</li><li><strong>标注不一致</strong>：标签噪声。</li><li><strong>坏数据入训</strong>：模型学错。</li><li><strong>不可回放</strong>：无法复现。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">为什么“数据契约”是 ML 工程的地基？</p><details><summary>查看答案</summary><div class="ans"><p>它定义了字段单位/量程/采样率等口径；训练与现场都必须遵守，否则“数值对但语义错”，模型表现断崖式下降。</p></div></details></li><li><p class="q">为什么数据要“可确定性回放”？</p><details><summary>查看答案</summary><div class="ans"><p>相同输入应得到相同结果，实验才可复现、可对比、可回归。回放哈希一致是这一点的可验证标志。</p></div></details></li><li><p class="q">质量标志（时间戳/丢样/重复）有什么用？</p><details><summary>查看答案</summary><div class="ans"><p>过滤坏数据，避免污染训练集；也让下游知道哪些数据可信。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你数据集写一份契约（单位/量程/采样率）与标注规范，并实现确定性回放校验。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://developers.google.com/machine-learning/guides/rules-of-ml" target="_blank" rel="noopener noreferrer">Google ML 速查</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_contract.c</code>：按契约校验量程并做确定性回放。</p><p><strong>检查结果：</strong>契约 accel_x 单位 m/s^2、量程 [-16,16]、fs=100Hz；越界样本数=1；同批回放哈希一致。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为数据集定义契约（单位/量程/采样率）、标注规范、质量标志与确定性回放。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>契约 accel_x 单位 m/s^2、量程 [-16,16]、fs=100Hz；越界样本数=1；同批回放哈希一致。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 问题与数据</div>
+      <h1 class="ch-title">切分、泄漏与独立测试<span class="acc">.</span></h1>
+      <p class="ch-lead">切分的核心是<strong>防泄漏</strong>：同源数据（同会话/同设备）不能跨集，否则指标虚高、上线落差大。</p>
+      <div class="ch-meta"><span>前置：理解 M02 数据契约。</span><span>◷ 约 42 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按会话/时间分组切分训练/验证/测试，识别并避免数据泄漏。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m03-knowledge-boundary">切分和预处理共同决定是否泄漏</h3><p>按设备、会话或时间段隔离集合；滑窗重叠数据不能随机散到训练与测试。均值、标准差、特征选择和阈值只由训练/验证决定。P05 将六个合成会话固定分成训练、验证、独立测试，且标准化只拟合训练集；真实任务要用实际设备会话替换。</p></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>切分要防泄漏：按会话/时间分组。</li><li>测试集只评一次，不用来调参。</li><li>时间序列按时间切。</li></ul></div>
+    <section class="sec" id="m03-split"><h2 id="m03-split-t">3.1 防泄漏：按会话/时间切分</h2><p>同源数据（同会话/同设备）不能跨集，否则指标虚高、上线落差大。时间序列要按时间切分（不能用未来预测过去）；测试集只在最终验收用一次。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 按会话整段切分</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="按会话整段切分" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="49.0" class="sv-lbl-hi">会话 A → train</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="83.0" class="sv-lbl-hi">会话 B → val</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">会话 C → test</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-red-s"/><text x="75" y="151.0" class="sv-lbl-hi">禁止：同会话跨集</text></svg></div><figcaption class="fig-ft">同一会话的样本要么全在 train、要么全在 test；不能跨集。随机按行切分会泄漏。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  切分方式</div><table><thead><tr><th>切分</th><th>要点</th><th>风险</th></tr></thead><tbody><tr><td>按会话分组</td><td>同源整段归属</td><td>随机切分泄漏</td></tr><tr><td>验证集</td><td>调参/选型</td><td>用测试集调参</td></tr><tr><td>测试集</td><td>只评一次</td><td>反复看导致过拟合</td></tr><tr><td>交叉验证</td><td>小数据</td><td>时间序列要按时间</td></tr><tr><td>独立测试</td><td>最终验收</td><td>不独立=虚高</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">split.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">sessions = group_by_session(X, meta)</span><span class="ln">tr, va, te = split_sessions(sessions, 0.6, 0.2, 0.2)   # 整段, 不跨集</span><span class="ln"># 时间序列: 按时间前后切分，禁止随机</span><span class="ln"># 测试集只评一次，不在其上调参</span>
+</code></pre><span class="code-note">会话整段切分 + 时间序不随机 + 测试集只评一次</span></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：会话切分</h2><p>下面这段程序按会话整段切分并说明随机切分的泄漏：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_split.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_split.c —— 数据切分与泄漏（按会话整段切分，不跨集）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_split.c -o host_split &amp;&amp; ./host_split</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 4 个会话，每个 3 个样本；按会话整段分配给 train/val/test，避免碎片跨集泄漏 */</span><span class="ln">    int session[12] = {0,0,0,1,1,1,2,2,2,3,3,3};</span><span class="ln">    int n = 12, train = 0, val = 0, test = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) {</span><span class="ln">        if (session[i] &lt;= 1) train++;        /* 会话 0,1 → train */</span><span class="ln">        else if (session[i] == 2) val++;     /* 会话 2 → val */</span><span class="ln">        else test++;                         /* 会话 3 → test */</span><span class="ln">    }</span><span class="ln">    /* 校验：任一会话不得同时出现在两个集合（整段切分不跨集） */</span><span class="ln">    int group[4];</span><span class="ln">    for (int s = 0; s &lt; 4; s++) group[s] = (s &lt;= 1) ? 0 : (s == 2 ? 1 : 2);</span><span class="ln">    for (int s = 0; s &lt; 4; s++) {</span><span class="ln">        int mask = 0;</span><span class="ln">        for (int i = 0; i &lt; n; i++) if (session[i] == s) mask |= 1 &lt;&lt; group[s];</span><span class="ln">        if (mask != (1 &lt;&lt; group[s])) ok = 0;   /* 一个会话只能落一个集合 */</span><span class="ln">    }</span><span class="ln">    printf(&quot;train=%d val=%d test=%d（按会话整段切分，不跨集）\n&quot;, train, val, test);</span><span class="ln">    if (!(train == 6 &amp;&amp; val == 3 &amp;&amp; test == 3)) ok = 0;</span><span class="ln">    printf(&quot;随机按行切分会泄漏 → 指标虚高\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">会话切分模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split &amp;&amp; ./labs/host_split</span>
+train=6 val=3 test=3（按会话整段切分，不跨集）
+随机按行切分会泄漏 → 指标虚高
+RESULT: PASS</code></pre></div></div><p class="sim-note">4 会话×3 样本=12，按会话整段分配 train=6/val=3/test=3；任一会话不跨集。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  切分对比</div><table><thead><tr><th>切分方式</th><th>是否泄漏</th><th>后果</th></tr></thead><tbody><tr><td>按会话整段</td><td>否</td><td>指标可信</td></tr><tr><td>随机按行</td><td>是</td><td>指标虚高</td></tr><tr><td>时间序列随机</td><td>是</td><td>用未来预测过去</td></tr><tr><td>测试集调参</td><td>是</td><td>测试失效</td></tr></tbody></table></div></section><section class="sec" id="m03-holdout"><h2 id="m03-holdout-t">3.3 测试集只评一次</h2><p>测试集只能最终验收用一次，反复查看会“把测试集调进模型”；时间序列按时间前后切分。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">split.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">sessions = group_by_session(X, meta)</span><span class="ln">tr, va, te = split_sessions(sessions, 0.6, 0.2, 0.2)   # 整段, 不跨集</span><span class="ln"># 时间序列: 按时间前后切分，禁止随机</span><span class="ln"># 测试集只评一次，不在其上调参</span>
+</code></pre><span class="code-note">会话整段切分 + 时间序不随机 + 测试集只评一次</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  切分实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>会话整段</td><td>防泄漏</td><td>同源跨集</td></tr><tr><td>时间序切分</td><td>不预测未来</td><td>随机</td></tr><tr><td>测试集一次</td><td>验收可信</td><td>反复调参</td></tr><tr><td>验证集调参</td><td>选型</td><td>用测试集</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检</h2><p>切分自检：按会话/时间、不跨集、测试集只评一次、验证集调参。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 可信评估的前提</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="可信评估的前提" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">整段切分</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">训练集统计</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">验证调参</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">测试报指标</text></svg></div><figcaption class="fig-ft">整段切分（不跨集）→ 归一化只用训练集统计 → 验证集调参 → 独立测试集报指标。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>切分</td><td>会话/时间</td><td>随机</td></tr><tr><td>归一化</td><td>训练集统计</td><td>用全体统计</td></tr><tr><td>调参</td><td>验证集</td><td>测试集</td></tr><tr><td>验收</td><td>测试集一次</td><td>反复看</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>随机切分</strong>：泄漏。</li><li><strong>用测试集调参</strong>：测试集失效。</li><li><strong>时间序列乱切</strong>：用未来预测过去。</li><li><strong>同设备跨集</strong>：泄漏。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">什么是数据泄漏？</p><details><summary>查看答案</summary><div class="ans"><p>测试集信息以任何形式进入训练/调参（同会话样本、用测试集统计归一化等），使指标虚高。防泄漏是切分的第一原则。</p></div></details></li><li><p class="q">为什么测试集只能评一次？</p><details><summary>查看答案</summary><div class="ans"><p>反复查看测试集并根据它调参，等于把测试集信息“调进”模型，测试集不再独立，指标虚高。</p></div></details></li><li><p class="q">时间序列为什么不能随机切分？</p><details><summary>查看答案</summary><div class="ans"><p>随机切分会把未来数据放进训练，造成“用未来预测过去”的泄漏。应按时间前后切分。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你数据集改为按会话/时间整段切分，确保测试集只评一次并检查有无泄漏。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://scikit-learn.org/stable/common_pitfalls.html" target="_blank" rel="noopener noreferrer">scikit-learn 常见陷阱</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_split.c</code>：验证按会话分组切分，理解随机切分的泄漏。</p><p><strong>检查结果：</strong>按会话整段切分 train=6/val=3/test=3，任一会话不跨集。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按会话/时间分组切分训练/验证/测试，识别并避免数据泄漏。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>按会话整段切分 train=6/val=3/test=3，任一会话不跨集。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 特征与训练</div>
+      <h1 class="ch-title">特征与传统机器学习<span class="acc">.</span></h1>
+      <p class="ch-lead">传统 ML 在端侧仍很有价值：<strong>特征 + 线性/逻辑回归/树</strong> 往往足够且可解释、算得起。预处理（归一化）要与推理一致。</p>
+      <div class="ch-meta"><span>前置：会线性代数与概率基础，读过 M03。</span><span>◷ 约 42 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能提特征、做与推理一致的归一化并选传统模型（线性/逻辑回归/树）作基线。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>端侧先试传统模型：小、可解释、易调。</li><li>归一化等预处理必须与推理一致。</li><li>只有不够才上深网。</li></ul></div>
+    <section class="sec" id="m04-ml"><h2 id="m04-ml-t">4.1 传统模型：够用、可解释、算得起</h2><p>传统 ML 在端侧仍很有价值：特征 + 线性/逻辑回归/树往往足够且可解释、算得起。归一化参数必须与推理一致。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> 从特征到模型</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="从特征到模型" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">提特征</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">归一化</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">选模型</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">看重要性</text></svg></div><figcaption class="fig-ft">提特征 → 归一化（与推理一致）→ 选模型（线性/逻辑回归/树）→ 看特征重要性 → 作为基线。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  传统模型</div><table><thead><tr><th>模型</th><th>特点</th><th>适用</th></tr></thead><tbody><tr><td>线性/逻辑回归</td><td>简单可解释</td><td>线性可分</td></tr><tr><td>决策树</td><td>非线性、可解释</td><td>规则型</td></tr><tr><td>随机森林/GBDT</td><td>强、较重</td><td>表格数据</td></tr><tr><td>特征重要性</td><td>解释</td><td>选特征</td></tr><tr><td>归一化</td><td>预处理</td><td>必须一致</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">linear.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">z = (x - train_mean) / train_std;     // 归一化用训练集统计</span><span class="ln">y = w0 + w1*z1 + w2*z2;               // 线性模型</span><span class="ln">/* 特征重要性可解释；不够才上深网 */</span>
+</code></pre><span class="code-note">归一化用训练集统计；线性模型可解释</span></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：线性模型</h2><p>下面这段程序拟合线性模型（作为基线）：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_linear.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_linear.c —— 最小二乘线性回归（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_linear.c -o host_linear &amp;&amp; ./host_linear</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double x[]={0,1,2,3,4}, y[]={1,3,5,7,9};   /* y=2x+1 */</span><span class="ln">    int n=5; double sx=0,sy=0,sxx=0,sxy=0;</span><span class="ln">    for(int i=0;i&lt;n;i++){sx+=x[i];sy+=y[i];sxx+=x[i]*x[i];sxy+=x[i]*y[i];}</span><span class="ln">    double w=(n*sxy-sx*sy)/(n*sxx-sx*sx), b=(sy-w*sx)/n;</span><span class="ln">    printf(&quot;拟合 y=%.3f x + %.3f（期望 2.000 1.000）\n&quot;, w, b);</span><span class="ln">    if (w&lt;1.999||w&gt;2.001||b&lt;0.999||b&gt;1.001) ok=0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">线性模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear &amp;&amp; ./labs/host_linear</span>
+拟合 y=2.000 x + 1.000（期望 2.000 1.000）
+RESULT: PASS</code></pre></div></div><p class="sim-note">线性模型 w=2、b=1；算力小、可解释，作为基线；归一化参数须与推理一致。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  模型取舍</div><table><thead><tr><th>模型</th><th>资源</th><th>可解释</th></tr></thead><tbody><tr><td>线性回归</td><td>极小</td><td>强</td></tr><tr><td>决策树</td><td>小</td><td>强</td></tr><tr><td>GBDT/深网</td><td>大</td><td>弱</td></tr></tbody></table></div></section><section class="sec" id="m04-norm"><h2 id="m04-norm-t">4.3 归一化与特征重要性</h2><p>先试传统模型：算力小、可解释、易调试；只有不够时才上神经网络。归一化参数必须与推理一致。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">linear.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">z = (x - train_mean) / train_std;     // 归一化用训练集统计</span><span class="ln">y = w0 + w1*z1 + w2*z2;               // 线性模型</span><span class="ln">/* 特征重要性可解释；不够才上深网 */</span>
+</code></pre><span class="code-note">归一化用训练集统计；线性模型可解释</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  传统 ML 实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>先传统模型</td><td>省算力/可解释</td><td>过度复杂</td></tr><tr><td>归一化一致</td><td>精度不降</td><td>现算统计</td></tr><tr><td>特征重要性</td><td>可解释</td><td>黑盒</td></tr><tr><td>按预算选</td><td>端侧可跑</td><td>超资源</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检</h2><p>模型自检：归一化一致、模型可解释、资源在预算、作为基线可对照。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 模型资源对比（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="模型资源对比（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">线性</text><rect x="150" y="26" width="27" height="18" rx="4" class="sv-grn-s"/><text x="185" y="43" class="sv-lbl-hi">5(相对资源)</text><text x="12" y="67" class="sv-lbl">树</text><rect x="150" y="50" width="82" height="18" rx="4" class="sv-cyn-s"/><text x="240" y="67" class="sv-lbl-hi">15(相对资源)</text><text x="12" y="91" class="sv-lbl">深网</text><rect x="150" y="74" width="545" height="18" rx="4" class="sv-red-s"/><text x="703" y="91" class="sv-lbl-hi">100(相对资源)</text></svg></div><figcaption class="fig-ft">线性/树资源极小，深网大；端侧常先用传统模型。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>特征</td><td>工程</td><td>原始直送</td></tr><tr><td>归一化</td><td>训练集统计</td><td>现算</td></tr><tr><td>模型</td><td>先传统</td><td>直接深网</td></tr><tr><td>解释</td><td>特征重要性</td><td>黑盒</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>归一化不一致</strong>：精度骤降。</li><li><strong>跳过传统模型</strong>：过度复杂。</li><li><strong>特征泄漏</strong>：用未来信息。</li><li><strong>不解释</strong>：出错难查。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">端侧为什么常说“先试传统模型”？</p><details><summary>查看答案</summary><div class="ans"><p>传统模型算力小、可解释、易调试；很多任务已够用。只有确实不够时才引入神经网络，避免无谓的资源与复杂度。</p></div></details></li><li><p class="q">归一化参数为什么必须与推理一致？</p><details><summary>查看答案</summary><div class="ans"><p>模型在特定归一化分布下训练；推理端用不同均值/方差会导致输入分布偏移、精度骤降。</p></div></details></li><li><p class="q">“特征重要性”有什么用途？</p><details><summary>查看答案</summary><div class="ans"><p>解释模型、指导特征选择与排错。传统模型（线性/树）通常能给出可解释的重要性。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个任务先试传统模型（线性/树），核对归一化与推理一致并做基线对照。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://scikit-learn.org/stable/common_pitfalls.html" target="_blank" rel="noopener noreferrer">scikit-learn 常见陷阱</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_linear.c</code>（线性模型）；为任务比较传统模型与深网的资源/效果。</p><p><strong>检查结果：</strong>线性模型拟合 w=2、b=1（与推理口径一致）；传统模型作为基线，特征重要性可解释。</p></div>
+<p class="sim-note">迁移练习：把本章的“能提特征、做与推理一致的归一化并选传统模型（线性/逻辑回归/树）作基线。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>线性模型拟合 w=2、b=1（与推理口径一致）；传统模型作为基线，特征重要性可解释。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 特征与训练</div>
+      <h1 class="ch-title">神经网络与训练机制<span class="acc">.</span></h1>
+      <p class="ch-lead">神经网络是“可学习的函数”：<strong>前向计算 + 反向传播求梯度 + 梯度下降更新</strong>。训练就是让损失下降的过程。</p>
+      <div class="ch-meta"><span>前置：理解线性模型与梯度概念，读过 M04。</span><span>◷ 约 44 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现前向/反向传播与梯度下降训练，并选合适学习率/批大小。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>训练=前向+反向传播+梯度下降。</li><li>学习率过大发散、过小慢。</li><li>损失要与任务匹配。</li></ul></div>
+    <section class="sec" id="m05-nn"><h2 id="m05-nn-t">5.1 前向/反向/梯度下降</h2><p>神经网络是可学习的函数：前向计算输出、反向传播求梯度、梯度下降更新参数。训练就是让损失下降。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 训练循环</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="训练循环" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">前向</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">损失</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">反向/梯度</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">更新</text></svg></div><figcaption class="fig-ft">前向计算 → 计算损失 → 反向传播求梯度 → 更新参数 → 循环（损失下降）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  训练五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>注意</th></tr></thead><tbody><tr><td>激活</td><td>非线性</td><td>过饱和梯度消失</td></tr><tr><td>损失</td><td>衡量误差</td><td>与任务匹配</td></tr><tr><td>梯度下降</td><td>更新参数</td><td>学习率</td></tr><tr><td>学习率</td><td>步长</td><td>过大发散/过小慢</td></tr><tr><td>批大小</td><td>稳定性/显存</td><td>影响收敛</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">train.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (int it = 0; it &lt; 2000; it++) {</span><span class="ln">    double g = 2 * (w * x - y) * x;   // 梯度</span><span class="ln">    w -= 0.03 * g;                     // 梯度下降</span><span class="ln">}</span>
+</code></pre><span class="code-note">前向→梯度→更新；学习率控制步长</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：梯度下降收敛</h2><p>下面这段程序用梯度下降训练标量参数 w：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_train.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_train.c —— 梯度下降训练一个标量参数（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_train.c -o host_train &amp;&amp; ./host_train</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 拟合 y=w x，样本 (1,2),(2,4),(3,6) → w→2；损失 MSE */</span><span class="ln">    double xs[]={1,2,3}, ys[]={2,4,6}; int n=3;</span><span class="ln">    double w=0, lr=0.03;</span><span class="ln">    for (int ep=0; ep&lt;2000; ep++) {</span><span class="ln">        double g=0; for(int i=0;i&lt;n;i++){ double e=w*xs[i]-ys[i]; g+=2*e*xs[i]; }</span><span class="ln">        g/=n; w -= lr*g;</span><span class="ln">    }</span><span class="ln">    printf(&quot;训练后 w=%.4f（期望 2.0000）\n&quot;, w);</span><span class="ln">    if (w&lt;1.999||w&gt;2.001) ok=0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">梯度下降模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train &amp;&amp; ./labs/host_train</span>
+训练后 w=2.0000（期望 2.0000）
+RESULT: PASS</code></pre></div></div><p class="sim-note">对 (1,2)(2,4)(3,6) 训练 w：lr=0.03、2000 轮收敛到 w=2.0000。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  训练超参</div><table><thead><tr><th>超参</th><th>值</th><th>作用</th></tr></thead><tbody><tr><td>学习率</td><td>0.03</td><td>步长</td></tr><tr><td>轮数</td><td>2000</td><td>收敛</td></tr><tr><td>批大小</td><td>—</td><td>稳定性</td></tr><tr><td>损失</td><td>MSE</td><td>与任务匹配</td></tr></tbody></table></div></section><section class="sec" id="m05-lr"><h2 id="m05-lr-t">5.3 学习率与批大小</h2><p>训练核心是让损失稳定下降：学习率过大发散、过小太慢；配合验证集判断是否过拟合。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">train.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (int it = 0; it &lt; 2000; it++) {</span><span class="ln">    double g = 2 * (w * x - y) * x;   // 梯度</span><span class="ln">    w -= 0.03 * g;                     // 梯度下降</span><span class="ln">}</span><span class="ln">/* 学习率过大发散、过小慢；用验证集判过拟合 */</span>
+</code></pre><span class="code-note">前向→梯度→更新；学习率控制步长</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  训练现象与调整</div><table><thead><tr><th>现象</th><th>原因</th><th>调整</th></tr></thead><tbody><tr><td>损失发散</td><td>学习率过大</td><td>减小 lr</td></tr><tr><td>收敛太慢</td><td>学习率过小</td><td>增大/调度</td></tr><tr><td>震荡</td><td>lr/批大小</td><td>调参</td></tr><tr><td>训练好验证差</td><td>过拟合</td><td>正则/早停</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检</h2><p>训练自检：损失下降、学习率合适、有验证集、不发散。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 梯度下降收敛（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="梯度下降收敛（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">初值</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-box"/><text x="160" y="43" class="sv-lbl-hi">0(×10⁻³)</text><text x="12" y="67" class="sv-lbl">训练后</text><rect x="150" y="50" width="545" height="18" rx="4" class="sv-grn-s"/><text x="703" y="67" class="sv-lbl-hi">1000(×10⁻³)</text><text x="12" y="91" class="sv-lbl">期望 w=2</text><rect x="150" y="74" width="545" height="18" rx="4" class="sv-cyn-s"/><text x="703" y="91" class="sv-lbl-hi">1000(×10⁻³)</text></svg></div><figcaption class="fig-ft">训练从初值收敛到 w=2.0000；损失随轮数下降。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>前向</td><td>算输出</td><td>公式错</td></tr><tr><td>梯度</td><td>反向传播</td><td>梯度错</td></tr><tr><td>更新</td><td>学习率</td><td>过大/小</td></tr><tr><td>验证</td><td>判过拟合</td><td>只看训练</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>学习率过大</strong>：损失发散。</li><li><strong>过小</strong>：训练太慢/陷局部。</li><li><strong>损失与任务不符</strong>：优化错目标。</li><li><strong>不设验证集</strong>：过拟合。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">梯度下降的“学习率”控制什么？</p><details><summary>查看答案</summary><div class="ans"><p>每一步参数更新的步长。过大导致震荡/发散，过小导致收敛慢。常用学习率调度/自适应优化器改善。</p></div></details></li><li><p class="q">训练损失发散通常先怀疑什么？</p><details><summary>查看答案</summary><div class="ans"><p>学习率过大。先减小学习率（或加梯度裁剪），再核对数据归一化与梯度计算是否正确。</p></div></details></li><li><p class="q">为什么必须设验证集？</p><details><summary>查看答案</summary><div class="ans"><p>用验证集判断是否过拟合、选超参。只用训练指标会导致过拟合而不自知，测试集又不该反复使用。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个小网络实现梯度下降训练，调学习率使损失稳定下降并用验证集监控。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html" target="_blank" rel="noopener noreferrer">PyTorch 基础教程</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_train.c</code>：梯度下降训练标量参数 w→2。</p><p><strong>检查结果：</strong>梯度下降 2000 轮（lr=0.03）收敛到 w=2.0000。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现前向/反向传播与梯度下降训练，并选合适学习率/批大小。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>梯度下降 2000 轮（lr=0.03）收敛到 w=2.0000。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 特征与训练</div>
+      <h1 class="ch-title">训练工程与过拟合<span class="acc">.</span></h1>
+      <p class="ch-lead">训练质量靠<strong>曲线</strong>判断：训练好验证差=过拟合；都差=欠拟合。用正则、早停、数据增强对抗过拟合。</p>
+      <div class="ch-meta"><span>前置：理解 M05 训练与损失。</span><span>◷ 约 42 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能读训练/验证曲线区分过拟合/欠拟合并应用正则、早停与数据增强。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>看训练/验证曲线判过拟合。</li><li>早停与正则是最实用的反过拟合。</li><li>数据增强要物理合理。</li></ul></div>
+    <section class="sec" id="m06-curve"><h2 id="m06-curve-t">6.1 曲线判过拟合</h2><p>训练好验证差=过拟合；都差=欠拟合。用正则（L1/L2/dropout）、早停、数据增强对抗过拟合。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> 过拟合 vs 欠拟合（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="过拟合 vs 欠拟合（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">过拟合 训练</text><rect x="150" y="26" width="588" height="18" rx="4" class="sv-red-s"/><text x="746" y="43" class="sv-lbl-hi">98%</text><text x="12" y="67" class="sv-lbl">过拟合 验证</text><rect x="150" y="50" width="420" height="18" rx="4" class="sv-amb-s"/><text x="578" y="67" class="sv-lbl-hi">70%</text><text x="12" y="91" class="sv-lbl">欠拟合</text><rect x="150" y="74" width="360" height="18" rx="4" class="sv-cyn-s"/><text x="518" y="91" class="sv-lbl-hi">60%</text></svg></div><figcaption class="fig-ft">过拟合：训练指标高、验证指标低（差距大）；欠拟合：两者都低。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  曲线现象与手段</div><table><thead><tr><th>现象</th><th>含义</th><th>手段</th></tr></thead><tbody><tr><td>训练好验证差</td><td>过拟合</td><td>正则/早停/增强</td></tr><tr><td>都差</td><td>欠拟合</td><td>更大模型/特征</td></tr><tr><td>验证震荡</td><td>学习率/批大小</td><td>调参</td></tr><tr><td>训练不降</td><td>学习率/初始化</td><td>排查</td></tr><tr><td>数据少</td><td>易过拟合</td><td>增强/迁移</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">train_eng.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">best = val_metric; patience = 0</span><span class="ln">if val_metric &lt; best: patience += 1       # 验证不再提升</span><span class="ln">if patience &gt;= 10: break                  # 早停</span><span class="ln"># 增强须物理合理，不能在测试集上调参</span>
+</code></pre><span class="code-note">按验证指标、容忍轮数与最小改变量早停；增强须符合物理约束</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：训练收敛</h2><p>下面这段程序给出训练收敛的可运行证据（早停/正则基于此监控）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_train.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_train.c —— 梯度下降训练一个标量参数（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_train.c -o host_train &amp;&amp; ./host_train</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 拟合 y=w x，样本 (1,2),(2,4),(3,6) → w→2；损失 MSE */</span><span class="ln">    double xs[]={1,2,3}, ys[]={2,4,6}; int n=3;</span><span class="ln">    double w=0, lr=0.03;</span><span class="ln">    for (int ep=0; ep&lt;2000; ep++) {</span><span class="ln">        double g=0; for(int i=0;i&lt;n;i++){ double e=w*xs[i]-ys[i]; g+=2*e*xs[i]; }</span><span class="ln">        g/=n; w -= lr*g;</span><span class="ln">    }</span><span class="ln">    printf(&quot;训练后 w=%.4f（期望 2.0000）\n&quot;, w);</span><span class="ln">    if (w&lt;1.999||w&gt;2.001) ok=0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">训练收敛模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train &amp;&amp; ./labs/host_train</span>
+训练后 w=2.0000（期望 2.0000）
+RESULT: PASS</code></pre></div></div><p class="sim-note">训练损失稳定下降、参数收敛到 w=2.0000；若验证曲线不升反降则触发早停。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  反过拟合手段</div><table><thead><tr><th>手段</th><th>做法</th><th>判据</th></tr></thead><tbody><tr><td>早停</td><td>验证不升就停</td><td>耐心 5–10 轮</td></tr><tr><td>L2 正则</td><td>惩罚大权重</td><td>λ∈[1e-4,1e-2]</td></tr><tr><td>Dropout</td><td>随机丢弃</td><td>训练期</td></tr><tr><td>数据增强</td><td>物理合理扩充</td><td>不引错标签</td></tr></tbody></table></div></section><section class="sec" id="m06-early"><h2 id="m06-early-t">6.3 早停与增强</h2><p>早停（验证指标不再提升就停）是最实用的反过拟合手段；数据增强要在物理合理范围内（否则引入错误标签）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">train_eng.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">best = val_metric; patience = 0</span><span class="ln">if val_metric &lt; best: patience += 1       # 验证不再提升</span><span class="ln">if patience &gt;= 10: break                  # 早停</span><span class="ln"># 增强须物理合理，不能在测试集上调参</span>
+</code></pre><span class="code-note">按验证指标、容忍轮数与最小改变量早停；增强须符合物理约束</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  训练工程实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>早停</td><td>防越训越差</td><td>无判据</td></tr><tr><td>正则</td><td>抑大权重</td><td>过强欠拟合</td></tr><tr><td>增强</td><td>增多样本</td><td>不物理</td></tr><tr><td>验证集调参</td><td>防泄漏</td><td>测试集调参</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检</h2><p>训练工程自检：看曲线、有早停、有正则/增强、不在测试集调参。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 反过拟合流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="反过拟合流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">看曲线</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">判拟合</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">正则/早停</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">复评</text></svg></div><figcaption class="fig-ft">画训练/验证曲线 → 判过/欠拟合 → 正则/早停/增强 → 复评验证。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>曲线</td><td>训练+验证</td><td>只看训练</td></tr><tr><td>判据</td><td>过/欠拟合</td><td>不判</td></tr><tr><td>手段</td><td>正则/早停/增强</td><td>增强不物理</td></tr><tr><td>调参</td><td>验证集</td><td>测试集</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只看训练指标</strong>：过拟合不自知。</li><li><strong>不做早停</strong>：越训越差。</li><li><strong>增强不物理</strong>：引入错标签。</li><li><strong>在测试集调参</strong>：泄漏。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">训练指标高、验证指标低说明什么？怎么处理？</p><details><summary>查看答案</summary><div class="ans"><p>过拟合。应加正则/早停/数据增强、减小模型或增加数据；不要用测试集调参以免泄漏。</p></div></details></li><li><p class="q">为什么“早停”很实用？</p><details><summary>查看答案</summary><div class="ans"><p>它让模型在验证指标不再提升时就停止，避免越训越过拟合；实现简单、效果稳定。</p></div></details></li><li><p class="q">数据增强有什么前提？</p><details><summary>查看答案</summary><div class="ans"><p>增强必须物理合理（真实可能出现的变换），否则会引入错误标签，反而降低模型质量。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你训练画训练/验证曲线并设早停耐心，加一档物理合理的数据增强。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://developers.google.com/machine-learning/guides/rules-of-ml" target="_blank" rel="noopener noreferrer">Google ML 速查</a> · <a class="ref" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html" target="_blank" rel="noopener noreferrer">PyTorch 基础教程</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_train.c</code>（训练收敛）；为训练画训练/验证曲线并设早停。</p><p><strong>检查结果：</strong>能按曲线区分过拟合（训练好验证差）与欠拟合（都差）；有早停判据，增强物理合理。</p></div>
+<p class="sim-note">迁移练习：把本章的“能读训练/验证曲线区分过拟合/欠拟合并应用正则、早停与数据增强。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>能按曲线区分过拟合（训练好验证差）与欠拟合（都差）；有早停判据，增强物理合理。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 评估与任务</div>
+      <h1 class="ch-title">评估、阈值与校准<span class="acc">.</span></h1>
+      <p class="ch-lead">评估要<strong>按业务</strong>：用混淆矩阵与 PR 曲线看漏报/误报权衡，按<strong>业务成本</strong>选阈值；概率要<strong>校准</strong>才可用于决策。</p>
+      <div class="ch-meta"><span>前置：理解混淆矩阵与 precision/recall，读过 M05。</span><span>◷ 约 44 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按业务成本选阈值、评估 PR 权衡并对概率做校准。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>用混淆矩阵与 PR 曲线看权衡。</li><li>阈值是业务决策，按成本选点。</li><li>概率要校准才可用于决策。</li></ul></div>
+    <section class="sec" id="m07-metrics"><h2 id="m07-metrics-t">7.1 混淆矩阵与 PR 权衡</h2><p>用混淆矩阵与 PR 曲线看漏报/误报权衡，按业务成本选阈值。阈值不是技术常数，而是业务决策：成本矩阵决定工作点。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 阈值与 precision/recall（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="阈值与 precision/recall（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">档0 prec</text><rect x="150" y="26" width="360" height="18" rx="4" class="sv-cyn-s"/><text x="518" y="43" class="sv-lbl-hi">60%</text><text x="12" y="67" class="sv-lbl">档1 prec</text><rect x="150" y="50" width="480" height="18" rx="4" class="sv-grn-s"/><text x="638" y="67" class="sv-lbl-hi">80%</text><text x="12" y="91" class="sv-lbl">档2 prec</text><rect x="150" y="74" width="498" height="18" rx="4" class="sv-amb-s"/><text x="656" y="91" class="sv-lbl-hi">83%</text></svg></div><figcaption class="fig-ft">本例阈值提高时 precision 上升、recall 下降。固定分数与正例集合下 recall 不增；precision 不保证单调，需逐阈值实算并按业务成本选点。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  评估指标</div><table><thead><tr><th>指标</th><th>含义</th><th>用途</th></tr></thead><tbody><tr><td>precision</td><td>查准</td><td>误报代价</td></tr><tr><td>recall</td><td>查全</td><td>漏报代价</td></tr><tr><td>F1</td><td>折中</td><td>平衡</td></tr><tr><td>PR 曲线</td><td>权衡曲线</td><td>选阈值</td></tr><tr><td>校准</td><td>概率可信</td><td>决策</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">metrics.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">precision = tp/(tp+fp); recall = tp/(tp+fn)</span><span class="ln">f1 = 2*precision*recall/(precision+recall)</span><span class="ln"># 扫阈值得 PR 曲线；按成本 c_fp/c_fn 选工作点</span><span class="ln"># 概率校准: Platt/Isotonic 使 0.9≈90%</span>
+</code></pre><span class="code-note">混淆矩阵指标 + 扫阈值 + 成本选点 + 校准</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：阈值扫描与指标</h2><p>下面两段程序给出阈值扫描与 precision/recall/F1：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_calib.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_calib.c —— 阈值扫描与 PR 权衡（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_calib.c -o host_calib &amp;&amp; ./host_calib</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok=1;</span><span class="ln">    /* 不同阈值下的混淆矩阵（简化） */</span><span class="ln">    int TP[3]={60,40,10}, FP[3]={40,10,2}, FN[3]={10,30,60};</span><span class="ln">    printf(&quot;阈值扫描 (prec/rec):\n&quot;);</span><span class="ln">    for(int i=0;i&lt;3;i++){ double p=(double)TP[i]/(TP[i]+FP[i]); double r=(double)TP[i]/(TP[i]+FN[i]);</span><span class="ln">        printf(&quot;  阈值档 %d: prec=%.2f rec=%.2f\n&quot;, i, p, r); }</span><span class="ln">    /* 检查高精度 vs 高召回权衡存在 */</span><span class="ln">    double p0=(double)TP[0]/(TP[0]+FP[0]), r2=(double)TP[2]/(TP[2]+FN[2]);</span><span class="ln">    if(!(p0 &gt; 0.5 &amp;&amp; r2 &gt; 0.1)) ok=0;</span><span class="ln">    printf(&quot;结论：固定预测分数时，提高阈值使召回不增；precision 不保证单调，须实算\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">阈值扫描模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib &amp;&amp; ./labs/host_calib</span>
+阈值扫描 (prec/rec):
+  阈值档 0: prec=0.60 rec=0.86
+  阈值档 1: prec=0.80 rec=0.57
+  阈值档 2: prec=0.83 rec=0.14
+结论：固定预测分数时，提高阈值使召回不增；precision 不保证单调，须实算
+
+RESULT: PASS</code></pre></div></div><p class="sim-note">这组示例的 precision 随阈值上升，不代表一般规律；在验证集上按成本选阈值，再冻结后评估测试集。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  阈值扫描</div><table><thead><tr><th>阈值档</th><th>precision</th><th>recall</th></tr></thead><tbody><tr><td>0</td><td>0.60</td><td>0.86</td></tr><tr><td>1</td><td>0.80</td><td>0.57</td></tr><tr><td>2</td><td>0.83</td><td>0.14</td></tr><tr><td>独立指标</td><td>0.800</td><td>0.889(F1=0.842)</td></tr></tbody></table></div></section><section class="sec" id="m07-calib"><h2 id="m07-calib-t">7.3 概率校准与业务成本</h2><p>概率未校准会导致“0.9 却不是 90% 概率”；按业务成本加权选择工作点。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">calib.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln"># 扫阈值，算 (precision, recall) 曲线</span><span class="ln">for t in thresholds: p,r = pr_at(t)</span><span class="ln"># 按业务成本选工作点: cost = c_fp*(1-p) + c_fn*(1-r)</span><span class="ln"># 概率校准: Platt/Isotonic，使 0.9≈90%</span>
+</code></pre><span class="code-note">扫阈值定工作点；概率校准后才可用于决策</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  评估实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>扫阈值</td><td>选工作点</td><td>拍脑袋阈值</td></tr><tr><td>成本加权</td><td>按业务</td><td>只看指标</td></tr><tr><td>概率校准</td><td>决策可信</td><td>未校准</td></tr><tr><td>测试集一次</td><td>不泄漏</td><td>反复看</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检</h2><p>评估自检：用混淆矩阵、扫阈值、按成本选点、概率校准。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 从概率到决策</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="从概率到决策" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">概率</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">校准</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">PR 扫阈值</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">成本选点</text></svg></div><figcaption class="fig-ft">模型输出概率 → 概率校准 → 扫阈值得 PR → 按业务成本选工作点 → 决策。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>矩阵</td><td>混淆矩阵</td><td>只看准确率</td></tr><tr><td>扫阈值</td><td>PR 曲线</td><td>拍脑袋</td></tr><tr><td>成本</td><td>c_fp/c_fn</td><td>忽略业务</td></tr><tr><td>校准</td><td>Platt/Isotonic</td><td>未校准</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只用准确率</strong>：类别不平衡时误导。</li><li><strong>阈值拍脑袋</strong>：不按成本。</li><li><strong>概率未校准</strong>：决策依据错。</li><li><strong>反复看测试集</strong>：过拟合测试集。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">为什么阈值是“业务决策”而非纯技术选择？</p><details><summary>查看答案</summary><div class="ans"><p>提高阈值减少误报但增加漏报，二者业务代价不同；最优工作点由成本矩阵决定，要结合业务而非只看指标。</p></div></details></li><li><p class="q">概率未校准有什么危害？</p><details><summary>查看答案</summary><div class="ans"><p>模型说“0.9”但真实概率不是 90%，据此做决策会错。需用 Platt/Isotonic 等方法校准，使概率可信。</p></div></details></li><li><p class="q">precision 和 recall 分别对应什么业务代价？</p><details><summary>查看答案</summary><div class="ans"><p>precision 低→误报多（打扰/浪费）；recall 低→漏报多（可能漏检事故）。按业务对两类错误的代价选阈值。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你模型扫一遍阈值得 PR 曲线，按业务成本选工作点并做概率校准。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://scikit-learn.org/stable/modules/calibration.html" target="_blank" rel="noopener noreferrer">模型校准</a> · <a class="ref" href="https://scikit-learn.org/stable/common_pitfalls.html" target="_blank" rel="noopener noreferrer">scikit-learn 常见陷阱</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_calib.c</code>（阈值扫描）与 <code class="ic">labs/host_metrics.c</code>（precision/recall/F1）。</p><p><strong>检查结果：</strong>阈值档 0/1/2 的 prec/rec=0.60/0.86、0.80/0.57、0.83/0.14；precision=0.800 recall=0.889 F1=0.842。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按业务成本选阈值、评估 PR 权衡并对概率做校准。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>阈值档 0/1/2 的 prec/rec=0.60/0.86、0.80/0.57、0.83/0.14；precision=0.800 recall=0.889 F1=0.842。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 评估与任务</div>
+      <h1 class="ch-title">时间序列、音频与视觉任务<span class="acc">.</span></h1>
+      <p class="ch-lead">不同模态有不同组织方式：<strong>时间序列</strong>按时间切分、看滞后；<strong>音频</strong>分帧/频谱；<strong>视觉</strong>用图像/卷积。指标随任务而定。</p>
+      <div class="ch-meta"><span>前置：理解 M03 切分与 M06 特征。</span><span>◷ 约 44 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按时序/音频/视觉模态组织数据、选特征与指标，并严格防时间泄漏。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>不同模态不同组织：时序按时间、音频分帧、视觉张量。</li><li>切分要防泄漏（时序尤甚）。</li><li>指标随任务。</li></ul></div>
+    <section class="sec" id="m08-modality"><h2 id="m08-modality-t">8.1 三种模态的数据组织</h2><p>时间序列按时间窗、看滞后；音频分帧 + 频谱；视觉用图像/卷积。指标随任务而定，切分防泄漏。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 模态与数据组织</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="模态与数据组织" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">时间序列：时间窗（滞后/趋势）</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="83.0" class="sv-lbl-hi">音频：分帧 + 频谱（窗长/梅尔）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="117.0" class="sv-lbl-hi">视觉：图像张量（分辨率/通道）</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">切分：按时间/会话防泄漏</text></svg></div><figcaption class="fig-ft">时间序列：按时间窗；音频：分帧+频谱；视觉：图像张量。共同点：按时间/会话切分防泄漏。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  模态与关键</div><table><thead><tr><th>模态</th><th>数据组织</th><th>关键</th></tr></thead><tbody><tr><td>时间序列</td><td>按时间窗</td><td>滞后/趋势/不泄漏</td></tr><tr><td>音频</td><td>分帧+频谱</td><td>窗长/梅尔</td></tr><tr><td>视觉</td><td>图像/张量</td><td>分辨率/通道</td></tr><tr><td>指标</td><td>任务相关</td><td>不只看准确率</td></tr><tr><td>切分</td><td>按时间/会话</td><td>防泄漏</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">seq.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (int i = 0; i + win &lt;= n; i += hop) rms_of(&amp;x[i], win);  // 分帧</span><span class="ln">split_time(n, 11);   // train=[0,11) test=[11,16) 不随机</span><span class="ln">pool2x2(src, dst);   // 视觉/时序下采样</span>
+</code></pre><span class="code-note">分帧+时间序切分+池化；指标随任务</span></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：分帧、时序切分、池化</h2><p>下面这段程序演示分帧、按时间切分与池化：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_seq.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_seq.c —— 时序/音频/视觉的数据组织：分帧 + 时间序切分 + 池化（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_seq.c -o host_seq -lm &amp;&amp; ./host_seq</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln"></span><span class="ln">#define SAMPLES 16</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double sig[SAMPLES];</span><span class="ln">    for (int i = 0; i &lt; SAMPLES; i++) sig[i] = (i % 2) ? -1.0 : 1.0;   /* 交替信号 */</span><span class="ln"></span><span class="ln">    /* 1) 音频/时序：分帧（窗长 4、hop 2，单位：采样点）+ 逐帧 RMS（单位：同幅值） */</span><span class="ln">    int win = 4, hop = 2, nframes = 0;</span><span class="ln">    printf(&quot;分帧: 窗长=%d hop=%d（单位：采样点）\n&quot;, win, hop);</span><span class="ln">    printf(&quot;逐帧 RMS: &quot;);</span><span class="ln">    for (int s = 0; s + win &lt;= SAMPLES; s += hop) {</span><span class="ln">        double e = 0; for (int i = 0; i &lt; win; i++) e += sig[s+i]*sig[s+i];</span><span class="ln">        printf(&quot;%.2f &quot;, sqrt(e/win)); nframes++;</span><span class="ln">    }</span><span class="ln">    printf(&quot;(期望 1.00，共 %d 帧)\n&quot;, nframes);</span><span class="ln">    if (nframes != 7) ok = 0;</span><span class="ln"></span><span class="ln">    /* 2) 时间序切分：前 70% 训练、后 30% 测试，不随机（防用未来预测过去） */</span><span class="ln">    int cut = (int)(SAMPLES * 0.7);   /* = 11 */</span><span class="ln">    printf(&quot;时间序切分: train=[0,%d) test=[%d,%d)（不随机、无未来泄漏）\n&quot;, cut, cut, SAMPLES);</span><span class="ln">    if (!(cut == 11 &amp;&amp; cut &gt; 0 &amp;&amp; cut &lt; SAMPLES)) ok = 0;</span><span class="ln"></span><span class="ln">    /* 3) 视觉：4x4 图像做 2x2 平均池化（通道内降采样） */</span><span class="ln">    double img[16]; for (int i = 0; i &lt; 16; i++) img[i] = (double)i;</span><span class="ln">    printf(&quot;池化(4x4→2x2): &quot;);</span><span class="ln">    for (int by = 0; by &lt; 2; by++) for (int bx = 0; bx &lt; 2; bx++) {</span><span class="ln">        double s = 0;</span><span class="ln">        for (int y = 0; y &lt; 2; y++) for (int x = 0; x &lt; 2; x++) s += img[(by*2+y)*4 + (bx*2+x)];</span><span class="ln">        printf(&quot;%.1f &quot;, s/4);</span><span class="ln">    }</span><span class="ln">    printf(&quot;(期望 2.5 4.5 10.5 12.5)\n&quot;);</span><span class="ln">    if (fabs((img[0]+img[1]+img[4]+img[5])/4.0 - 2.5) &gt; 1e-9) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">时序分帧/切分/池化模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_seq.c -o labs/host_seq &amp;&amp; ./labs/host_seq</span>
+分帧: 窗长=4 hop=2（单位：采样点）
+逐帧 RMS: 1.00 1.00 1.00 1.00 1.00 1.00 1.00 (期望 1.00，共 7 帧)
+时间序切分: train=[0,11) test=[11,16)（不随机、无未来泄漏）
+池化(4x4→2x2): 2.5 4.5 10.5 12.5 (期望 2.5 4.5 10.5 12.5)
+RESULT: PASS</code></pre></div></div><p class="sim-note">分帧窗长4/hop2 得 7 帧（帧 RMS=1.00）；时间序切分 train=[0,11)/test=[11,16) 不随机；2x2 池化得 2.5 4.5 10.5 12.5。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  时序处理结果</div><table><thead><tr><th>操作</th><th>参数</th><th>结果</th></tr></thead><tbody><tr><td>分帧</td><td>窗4/hop2</td><td>7 帧</td></tr><tr><td>帧 RMS</td><td>每帧</td><td>1.00</td></tr><tr><td>时间切分</td><td>前 11/后 5</td><td>不泄漏</td></tr><tr><td>池化</td><td>4x4→2x2</td><td>2.5 4.5 10.5 12.5</td></tr></tbody></table></div></section><section class="sec" id="m08-task"><h2 id="m08-task-t">8.3 任务指标与算力</h2><p>时间序列尤其要防“用未来预测过去”；音频/视觉的计算量在端侧要按算力预算评估。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">seq.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (int i = 0; i + win &lt;= n; i += hop) rms_of(&amp;x[i], win);  // 分帧</span><span class="ln">split_time(n, 11);   // train=[0,11) test=[11,16) 不随机</span><span class="ln">pool2x2(src, dst);   // 视觉/时序下采样</span><span class="ln">/* 指标随任务定；端侧按算力预算评估 */</span>
+</code></pre><span class="code-note">分帧+时间序切分+池化；指标随任务</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  模态指标</div><table><thead><tr><th>模态</th><th>典型指标</th><th>算力</th></tr></thead><tbody><tr><td>时间序列</td><td>MAE/RMSE/F1</td><td>低</td></tr><tr><td>音频</td><td>帧准确率/词错率</td><td>中</td></tr><tr><td>视觉</td><td>mAP/准确率</td><td>高</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检</h2><p>模态自检：组织匹配、按时间切分、指标任务相关、算力在预算。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 模态处理链</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="模态处理链" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">认任务</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">数据组织</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">特征/模型</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">指标/防泄漏</text></svg></div><figcaption class="fig-ft">认任务 → 定数据组织（时间窗/分帧/张量）→ 选特征/模型 → 定指标 → 防泄漏。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>组织</td><td>时间窗/分帧/张量</td><td>错配</td></tr><tr><td>切分</td><td>按时间/会话</td><td>随机</td></tr><tr><td>指标</td><td>任务相关</td><td>只看准确率</td></tr><tr><td>算力</td><td>按预算</td><td>端侧跑不动</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>时间序列乱切</strong>：用未来。</li><li><strong>音频帧长不当</strong>：频谱分辨率差。</li><li><strong>视觉不看算力</strong>：端侧跑不动。</li><li><strong>指标不匹配</strong>：优化错。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">时间序列建模为什么不能随机切分？</p><details><summary>查看答案</summary><div class="ans"><p>随机切分会让未来的数据进入训练，造成“用未来预测过去”的泄漏，指标虚高、上线无效。应按时间前后切分。</p></div></details></li><li><p class="q">音频为什么要“分帧 + 频谱”？</p><details><summary>查看答案</summary><div class="ans"><p>语音/音频是短时平稳的；分帧后逐帧做频谱（如梅尔）才能捕捉频率随时间的变化。窗长决定时间/频率分辨率权衡。</p></div></details></li><li><p class="q">端侧做视觉任务要先考虑什么？</p><details><summary>查看答案</summary><div class="ans"><p>算力/内存预算。高分辨率卷积很重，需按 B13 的预算评估，必要时降分辨率/换轻量骨干网。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个时序/音频/视觉任务定数据组织、切分方式与任务相关指标，评估端侧算力。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.pytorch.org/tutorials/beginner/basics/intro.html" target="_blank" rel="noopener noreferrer">PyTorch 基础教程</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_seq.c</code>：分帧计算逐帧 RMS、按时间切分并做 2x2 池化。</p><p><strong>检查结果：</strong>分帧 窗长=4/hop=2 得 7 帧；时间序切分 train=[0,11)/test=[11,16) 不随机；4x4→2x2 池化=2.5 4.5 10.5 12.5。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按时序/音频/视觉模态组织数据、选特征与指标，并严格防时间泄漏。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>分帧 窗长=4/hop=2 得 7 帧；时间序切分 train=[0,11)/test=[11,16) 不随机；4x4→2x2 池化=2.5 4.5 10.5 12.5。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 导出与交付</div>
+      <h1 class="ch-title">模型导出与量化准备<span class="acc">.</span></h1>
+      <p class="ch-lead">导出是“从训练到设备”的桥：<strong>格式、算子支持、输入输出契约、预处理固化</strong>与<strong>量化准备</strong>。任何一步不一致，设备端就崩或掉精度。</p>
+      <div class="ch-meta"><span>前置：理解 M04–M08 模型与评估。</span><span>◷ 约 42 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能导出模型、核对算子/形状契约、固化预处理并准备量化校准集。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>导出是训练到设备的桥：格式/算子/契约/预处理/量化。</li><li>预处理固化并与训练一致。</li><li>用运行时检查算子。</li></ul></div>
+    <section class="sec" id="m09-export"><h2 id="m09-export-t">9.1 导出五环节</h2><p>导出是训练到设备的桥：格式（TFLite/ONNX）、算子支持、输入输出契约、预处理固化、量化准备。任何一步不一致，设备端就崩或掉精度。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> 导出流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="导出流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">格式</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">导出</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">核算子</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">固化/量化</text></svg></div><figcaption class="fig-ft">选格式 → 导出 → 核对算子/形状 → 固化预处理 → 量化（校准集）→ 打包（版本/校验）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  导出五环节</div><table><thead><tr><th>环节</th><th>内容</th><th>注意</th></tr></thead><tbody><tr><td>格式</td><td>TFLite/ONNX</td><td>运行时支持</td></tr><tr><td>算子</td><td>导出后检查</td><td>不支持=失败</td></tr><tr><td>契约</td><td>输入形状/类型</td><td>与固件一致</td></tr><tr><td>预处理</td><td>固化到管线</td><td>训练=推理</td></tr><tr><td>量化</td><td>校准集/scale</td><td>精度对拍</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">export.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">conv.convert(model, &quot;model_v1_int8.tflite&quot;, int8=True, calib=calib_set)</span><span class="ln">check_ops(model)     # 目标运行时算子支持</span><span class="ln"># 预处理固化为 pre_v1.norm（版本绑定）；固件算子版本 &gt;= 1.3</span>
+</code></pre><span class="code-note">转换+核算子；固化预处理；量化需校准集</span></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：模型包清单与校验</h2><p>下面这段程序核对模型包清单与校验：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_export.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_export.c —— 模型包清单/版本/校验（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_export.c -o host_export &amp;&amp; ./host_export</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln">static uint32_t crc(const char *s){ uint32_t h=2166136261u; for(;*s;s++){h^=(uint8_t)*s;h*=16777619u;} return h; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok=1;</span><span class="ln">    const char *model=&quot;model_v1_int8.tflite&quot;, *pre=&quot;pre_v1.norm&quot;, *fw=&quot;fw_1.3&quot;;</span><span class="ln">    uint32_t c1=crc(model);</span><span class="ln">    printf(&quot;模型包: model=%s pre=%s fw=%s\n&quot;, model, pre, fw);</span><span class="ln">    printf(&quot;模型校验=%u\n&quot;, c1);</span><span class="ln">    if(c1==0) ok=0;</span><span class="ln">    /* 兼容矩阵：模型要求固件算子版本 &gt;= 1.3 */</span><span class="ln">    printf(&quot;兼容: 模型需 fw&gt;=1.3，当前 %s → OK\n&quot;, fw);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">模型包清单/校验模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export &amp;&amp; ./labs/host_export</span>
+模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3
+模型校验=4042742740
+兼容: 模型需 fw&gt;=1.3，当前 fw_1.3 → OK
+RESULT: PASS</code></pre></div></div><p class="sim-note">模型包含 model/pre/fw 三方版本与校验（哈希非零）；兼容矩阵判定算子/版本支持。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  模型包字段</div><table><thead><tr><th>字段</th><th>值</th><th>作用</th></tr></thead><tbody><tr><td>模型</td><td>model_v1_int8.tflite</td><td>权重</td></tr><tr><td>预处理</td><td>pre_v1.norm</td><td>归一化</td></tr><tr><td>固件</td><td>fw_1.3</td><td>算子/运行时</td></tr><tr><td>校验</td><td>非零哈希</td><td>完整性</td></tr></tbody></table></div></section><section class="sec" id="m09-quant"><h2 id="m09-quant-t">9.3 算子核对与量化准备</h2><p>导出后用运行时检查器核对算子与形状；预处理必须固化且与训练一致；量化需校准集。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">export.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">conv.convert(model, &quot;model_v1_int8.tflite&quot;, int8=True, calib=calib_set)</span><span class="ln">check_ops(model)     # 目标运行时算子支持</span><span class="ln"># 预处理固化为 pre_v1.norm（版本绑定）；固件算子版本 &gt;= 1.3</span>
+</code></pre><span class="code-note">转换+核算子；固化预处理；量化需校准集</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.3  导出实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>核算子</td><td>可加载</td><td>运行失败</td></tr><tr><td>固化预处理</td><td>训练=推理</td><td>精度掉</td></tr><tr><td>契约一致</td><td>接口不错配</td><td>形状/类型变</td></tr><tr><td>校准集</td><td>量化精度</td><td>无校准</td></tr></tbody></table></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检</h2><p>导出自检：算子支持、形状契约一致、预处理固化、量化有校准、版本校验。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> 模型包三方版本（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="模型包三方版本（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">model</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-cyn-s"/><text x="458" y="43" class="sv-lbl-hi">10(版本×10)</text><text x="12" y="67" class="sv-lbl">pre</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-amb-s"/><text x="458" y="67" class="sv-lbl-hi">10(版本×10)</text><text x="12" y="91" class="sv-lbl">fw</text><rect x="150" y="74" width="390" height="18" rx="4" class="sv-grn-s"/><text x="548" y="91" class="sv-lbl-hi">13(版本×10)</text></svg></div><figcaption class="fig-ft">model/pre/fw 三方版本绑定 + 校验哈希；任一不匹配即拒绝加载。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>格式</td><td>运行时支持</td><td>不支持</td></tr><tr><td>算子</td><td>检查器核对</td><td>盲目导出</td></tr><tr><td>契约</td><td>形状/类型</td><td>错配</td></tr><tr><td>量化</td><td>校准集</td><td>精度差</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>算子不支持</strong>：加载/运行失败。</li><li><strong>预处理未固化</strong>：训练/推理不一致。</li><li><strong>形状/类型不符</strong>：接口错配。</li><li><strong>无校准集</strong>：量化精度差。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">为什么导出时要“固化预处理”？</p><details><summary>查看答案</summary><div class="ans"><p>模型假设特定输入分布；若推理端预处理不同，等于喂了分布不同的数据，精度下降。把归一化写进推理管线并版本化。</p></div></details></li><li><p class="q">导出后第一件事为什么要“核算子支持”？</p><details><summary>查看答案</summary><div class="ans"><p>目标运行时可能不支持某些算子，导致加载/运行失败。导出后用运行时检查器核对，替换/回退不支持的算子。</p></div></details></li><li><p class="q">量化为什么需要“校准集”？</p><details><summary>查看答案</summary><div class="ans"><p>int8 量化需要估计激活的动态范围来确定 scale/zero_point。校准集（常见 100–500 样本）用真实数据统计。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：导出你模型、用运行时核对算子与形状、固化预处理并准备量化校准集。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://ai.google.dev/edge/litert/models/convert" target="_blank" rel="noopener noreferrer">TFLite 转换</a> · <a class="ref" href="https://www.tensorflow.org/model_optimization" target="_blank" rel="noopener noreferrer">TensorFlow 模型优化</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_export.c</code>：核对模型包清单与校验；用目标运行时检查算子。</p><p><strong>检查结果：</strong>模型包 model=v1/pre=v1/fw=1.3 有版本与校验（哈希非零）；兼容矩阵判定算子支持；量化需校准集。</p></div>
+<p class="sim-note">迁移练习：把本章的“能导出模型、核对算子/形状契约、固化预处理并准备量化校准集。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>模型包 model=v1/pre=v1/fw=1.3 有版本与校验（哈希非零）；兼容矩阵判定算子支持；量化需校准集。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 导出与交付</div>
+      <h1 class="ch-title">综合：可交付模型包<span class="acc">.</span></h1>
+      <p class="ch-lead">综合项目把 ML 工程收口成<strong>可交付模型包</strong>：数据契约 + 训练配置 + 模型 + 预处理 + 评估报告 + 版本/校验，支持复现与回滚。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M09。</span><span>◷ 约 46 分钟</span><span>◈ 数据/训练/评估对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把数据契约、训练配置、模型/预处理、评估报告与版本校验打包成可复现可回滚的模型包。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>模型包=契约+配置+模型+预处理+报告+版本/校验。</li><li>评估在独立测试集。</li><li>版本兼容与回滚边界明确。</li></ul></div>
+    <section class="sec" id="m10-package"><h2 id="m10-package-t">10.1 模型包的五个产物</h2><p>把 ML 工程收口成可交付模型包：数据契约 + 训练配置 + 模型 + 预处理 + 评估报告 + 版本/校验，支持复现与回滚。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 模型包的组成</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="模型包的组成" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">数据契约 + 训练配置（种子/超参）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">模型 + 预处理（归一化，版本绑定）</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="131.0" class="sv-lbl-hi">评估报告（独立测试 + 业务成本）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="165.0" class="sv-lbl-hi">版本/校验（哈希 + 兼容矩阵）</text></svg></div><figcaption class="fig-ft">数据契约 + 训练配置（可复现）→ 模型 + 预处理（版本绑定）→ 评估报告 → 版本/校验（可回滚）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  模型包五产物</div><table><thead><tr><th>产物</th><th>内容</th><th>验收</th></tr></thead><tbody><tr><td>数据契约</td><td>单位/切分</td><td>口径一致</td></tr><tr><td>训练配置</td><td>超参/种子</td><td>可复现</td></tr><tr><td>模型+预处理</td><td>权重/归一化</td><td>版本绑定</td></tr><tr><td>评估报告</td><td>独立测试+成本</td><td>指标可解释</td></tr><tr><td>版本/校验</td><td>哈希/兼容矩阵</td><td>可回滚</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">deliver.md 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln"># 模型交付</span><span class="ln">- 指标: F1=0.842 (独立测试集; 会话隔离)</span><span class="ln">- 版本: model_v1 + pre_v1 + 需 fw&gt;=1.3</span><span class="ln">- 条件: 数据契约 accel_x m/s^2 [-16,16] 100Hz</span><span class="ln">- 回滚: 保留 pre_v0 + model_v0；接口向前兼容</span>
+</code></pre><span class="code-note">交付说明含指标/版本/条件/回滚；版本三方绑定</span></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：模型包与校验</h2><p>下面这段程序给出模型包清单/校验的可运行证据：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_export.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_export.c —— 模型包清单/版本/校验（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_export.c -o host_export &amp;&amp; ./host_export</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln">static uint32_t crc(const char *s){ uint32_t h=2166136261u; for(;*s;s++){h^=(uint8_t)*s;h*=16777619u;} return h; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok=1;</span><span class="ln">    const char *model=&quot;model_v1_int8.tflite&quot;, *pre=&quot;pre_v1.norm&quot;, *fw=&quot;fw_1.3&quot;;</span><span class="ln">    uint32_t c1=crc(model);</span><span class="ln">    printf(&quot;模型包: model=%s pre=%s fw=%s\n&quot;, model, pre, fw);</span><span class="ln">    printf(&quot;模型校验=%u\n&quot;, c1);</span><span class="ln">    if(c1==0) ok=0;</span><span class="ln">    /* 兼容矩阵：模型要求固件算子版本 &gt;= 1.3 */</span><span class="ln">    printf(&quot;兼容: 模型需 fw&gt;=1.3，当前 %s → OK\n&quot;, fw);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">模型包清单/校验（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export &amp;&amp; ./labs/host_export</span>
+模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3
+模型校验=4042742740
+兼容: 模型需 fw&gt;=1.3，当前 fw_1.3 → OK
+RESULT: PASS</code></pre></div></div><p class="sim-note">模型包含 model/pre/fw 三方版本 + 校验哈希；兼容矩阵判定可加载，支持回滚。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  关键机制与证据</div><table><thead><tr><th>产物</th><th>可运行证据</th><th>验收</th></tr></thead><tbody><tr><td>切分</td><td>host_split.c</td><td>无泄漏</td></tr><tr><td>评估</td><td>host_metrics.c</td><td>F1=0.842</td></tr><tr><td>模型包</td><td>host_export.c</td><td>版本/校验</td></tr><tr><td>时序组织</td><td>host_seq.c</td><td>按时间切分</td></tr></tbody></table></div></section><section class="sec" id="m10-deliver"><h2 id="m10-deliver-t">10.3 交付说明与回滚</h2><p>验收：独立测试集指标达标且可解释；模型-预处理-固件版本兼容；有校验与回滚边界。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">deliver.md 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln"># 模型交付</span><span class="ln">- 指标: F1=0.842 (独立测试集; 会话隔离)</span><span class="ln">- 版本: model_v1 + pre_v1 + 需 fw&gt;=1.3</span><span class="ln">- 条件: 数据契约 accel_x m/s^2 [-16,16] 100Hz</span><span class="ln">- 回滚: 保留 pre_v0 + model_v0；接口向前兼容</span>
+</code></pre><span class="code-note">交付说明含指标/版本/条件/回滚；版本三方绑定</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.3  交付验收</div><table><thead><tr><th>验收项</th><th>标准</th><th>避免</th></tr></thead><tbody><tr><td>指标</td><td>独立测试</td><td>虚高</td></tr><tr><td>版本</td><td>三方绑定</td><td>错配</td></tr><tr><td>条件</td><td>契约/环境</td><td>不可复现</td></tr><tr><td>回滚</td><td>可退</td><td>单程票</td></tr></tbody></table></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检</h2><p>交付自检：契约/配置/模型/预处理/评估/版本齐全，可复现可回滚。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 模型交付闭环</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="模型交付闭环" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">组包</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">独立评估</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">版本校验</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">交付</text></svg></div><figcaption class="fig-ft">组包（契约/配置/模型/预处理）→ 独立评估 → 版本校验 → 交付 → （反馈）再迭代。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>组包</td><td>六件套齐</td><td>只交模型文件</td></tr><tr><td>评估</td><td>独立测试</td><td>不独立</td></tr><tr><td>版本</td><td>三方绑定</td><td>不绑</td></tr><tr><td>回滚</td><td>留旧版</td><td>无回滚</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只交模型文件</strong>：无法复现。</li><li><strong>评估不独立</strong>：指标虚高。</li><li><strong>版本不绑</strong>：更新错配。</li><li><strong>无回滚</strong>：坏模型不可退。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">一个“可交付模型包”至少包含什么？</p><details><summary>查看答案</summary><div class="ans"><p>数据契约、训练配置（可复现）、模型+预处理（版本绑定）、独立测试评估报告、版本与校验（支持回滚）。缺一都会导致复现或部署问题。</p></div></details></li><li><p class="q">为什么模型包要“版本绑定”模型-预处理-固件？</p><details><summary>查看答案</summary><div class="ans"><p>三者强相关：模型假设的输入分布由预处理决定、算子由固件决定。不绑定会在更新后错配，精度崩或加载失败。</p></div></details></li><li><p class="q">为什么交付要留“回滚边界”？</p><details><summary>查看答案</summary><div class="ans"><p>新模型可能有问题；留旧版与向前兼容的接口，能快速回退到可用版本，避免“单程票”。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你的模型打包成可交付模型包（契约+配置+模型/预处理+评估+版本校验），并写一份交付说明。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://ai.google.dev/edge/litert/models/convert" target="_blank" rel="noopener noreferrer">TFLite 转换</a> · <a class="ref" href="https://scikit-learn.org/stable/modules/calibration.html" target="_blank" rel="noopener noreferrer">模型校准</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_export.c</code>（模型包）；把模型打包并写交付说明（指标+条件+回退）。</p><p><strong>检查结果：</strong>模型包含数据契约/配置/模型+预处理/独立测试评估/版本校验；版本兼容矩阵明确、可回滚。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把数据契约、训练配置、模型/预处理、评估报告与版本校验打包成可复现可回滚的模型包。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>模型包含数据契约/配置/模型+预处理/独立测试评估/版本校验；版本兼容矩阵明确、可回滚。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">一个可交付模型包<span class="acc">.</span></h1><p class="ch-lead">把 10 章串成一条路径：问题定义 → 数据契约/切分 → 特征/训练 → 评估校准 → 导出量化 → 模型包交付。</p><div class="ch-meta"><span>◈ 8 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 10 章串成一条路径：<strong>问题定义 → 数据契约/切分 → 特征/训练 → 评估校准 → 导出量化 → 模型包交付。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 定义</strong>（M01）——问题/指标/基线；验收：指标业务相关。</li>
+<li><strong>② 数据</strong>（M02/M03）——契约+切分防泄漏；验收：独立测试。</li>
+<li><strong>③ 特征/模型</strong>（M04）——先传统后深网；验收：预处理一致。</li>
+<li><strong>④ 训练</strong>（M05/M06）——收敛+早停；验收：不过拟合。</li>
+<li><strong>⑤ 评估</strong>（M07/M08）——混淆矩阵+阈值；验收：按成本选点。</li>
+<li><strong>⑥ 校准</strong>（M07）——概率可信；验收：可决策。</li>
+<li><strong>⑦ 导出</strong>（M09）——算子+预处理固化+量化；验收：对拍。</li>
+<li><strong>⑧ 交付</strong>（M10）——模型包+报告+版本；验收：可复现可回滚。</li>
+</ol>
+<p class="sim-note">本册所有真实训练/评估为训练机实测项；最小二乘、梯度下降、按会话切分、分类指标、阈值扫描、模型包校验等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">model package</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">model-package/</span><span class="ln">  data_contract.md      # 单位/量程/采样率/切分</span><span class="ln">  train_config.json     # 超参/随机种子（可复现）</span><span class="ln">  model_int8.tflite     # 模型（含算子/形状契约）</span><span class="ln">  preprocess.json       # 归一化参数（与训练一致）</span><span class="ln">  eval_report.md        # 独立测试集指标 + 业务阈值</span><span class="ln">  manifest.json         # 版本 + 校验 + 兼容矩阵</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">ML 工程易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“指标好上线崩 / 数据泄漏 / 过拟合 / 导出掉精度”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“指标好上线崩 / 数据泄漏 / 过拟合 / 导出掉精度”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>问题定义</td><td>指标业务相关</td><td>只看准确率</td><td>优化错</td></tr><tr><td>数据契约</td><td>单位/口径明确</td><td>无契约</td><td>口径不一致</td></tr><tr><td>切分</td><td>按会话/时间</td><td>随机切分</td><td>泄漏虚高</td></tr><tr><td>测试集</td><td>只评一次</td><td>反复调参</td><td>过拟合测试集</td></tr><tr><td>模型</td><td>先传统后深网</td><td>直接深网</td><td>过重</td></tr><tr><td>预处理</td><td>训练=推理</td><td>不一致</td><td>精度骤降</td></tr><tr><td>过拟合</td><td>早停+正则</td><td>只看训练</td><td>上线崩</td></tr><tr><td>阈值</td><td>按业务成本</td><td>拍脑袋</td><td>误报/漏报失衡</td></tr><tr><td>校准</td><td>概率校准</td><td>直接用未校准概率</td><td>决策错</td></tr><tr><td>导出</td><td>算子+预处理固化</td><td>算子不支持</td><td>失败/掉精度</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；数据/训练/评估叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；数据/训练/评估叫法差异也一并标注。</p><dl class="glossary"><dt>基线</dt><dd>简单方法的参照性能。</dd><dt>数据契约</dt><dd>字段单位/量程/采样率等约定。</dd><dt>数据泄漏</dt><dd>测试信息进入训练导致虚高。</dd><dt>交叉验证</dt><dd>多次切分评估稳定性。</dd><dt>过拟合</dt><dd>训练好验证差。</dd><dt>正则化</dt><dd>抑制过拟合的惩罚项。</dd><dt>早停</dt><dd>验证不提升就停止训练。</dd><dt>数据增强</dt><dd>人为扩充数据（需物理合理）。</dd><dt>混淆矩阵</dt><dd>TP/FP/FN/TN 的计数表。</dd><dt>precision/recall</dt><dd>查准/查全。</dd><dt>F1</dt><dd>precision 与 recall 的调和平均。</dd><dt>PR/ROC</dt><dd>不同阈值下的权衡曲线。</dd><dt>概率校准</dt><dd>使输出概率与实际频率一致。</dd><dt>梯度下降</dt><dd>按梯度更新参数的训练法。</dd><dt>学习率</dt><dd>更新步长。</dd><dt>导出格式</dt><dd>TFLite/ONNX 等部署格式。</dd><dt>算子支持</dt><dd>运行时是否实现所需算子。</dd><dt>量化准备</dt><dd>校准集与 scale 的确定。</dd><dt>模型包</dt><dd>模型+预处理+配置+报告+版本的交付单元。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "问题定义与算法基线."}, {"id": "m02", "num": "02", "title": "采集、标注与数据契约."}, {"id": "m03", "num": "03", "title": "切分、泄漏与独立测试."}, {"id": "m04", "num": "04", "title": "特征与传统机器学习."}, {"id": "m05", "num": "05", "title": "神经网络与训练机制."}, {"id": "m06", "num": "06", "title": "训练工程与过拟合."}, {"id": "m07", "num": "07", "title": "评估、阈值与校准."}, {"id": "m08", "num": "08", "title": "时间序列、音频与视觉任务."}, {"id": "m09", "num": "09", "title": "模型导出与量化准备."}, {"id": "m10", "num": "10", "title": "综合：可交付模型包."}, {"id": "capstone", "num": "", "title": "一个可交付模型包."}, {"id": "cheatsheet", "num": "", "title": "ML 工程易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

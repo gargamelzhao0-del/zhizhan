@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">知栈</string>
+    <string name="title_activity_main">知栈</string>
+    <string name="package_name">app.zhizhan.local</string>
+    <string name="custom_url_scheme">app.zhizhan.local</string>
+</resources>

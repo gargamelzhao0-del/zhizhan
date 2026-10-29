@@ -1,0 +1,10 @@
+{
+  "target": "STM32F103C8 Cortex-M3 64KiB Flash/20KiB RAM",
+  "compiler": "Arm GNU 13.3.rel1",
+  "linked": true,
+  "initial_msp": "0x20005000",
+  "reset_handler": "0x08000045 (Thumb)",
+  "size_output": "   text\t   data\t    bss\t    dec\t    hex\tfilename\n    584\t      0\t      8\t    592\t    250\tC:\\Users\\Administrator\\Documents\\Codex\\2026-10-09\\http-127-0-0-1-8789\\work\\quality-example-build\\node.elf\n",
+  "hardware_run": false,
+  "verification": "complete ELF link and first two binary vector words"
+}

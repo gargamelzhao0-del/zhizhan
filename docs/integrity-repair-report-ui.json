@@ -1,0 +1,19 @@
+{
+  "results": [
+    {
+      "width": 1440,
+      "documentWidth": 1440,
+      "books": 27,
+      "passed": 27,
+      "title": "原书逐册对齐，修复内容缺失"
+    },
+    {
+      "width": 393,
+      "documentWidth": 393,
+      "books": 27,
+      "passed": 27,
+      "title": "原书逐册对齐，修复内容缺失"
+    }
+  ],
+  "errors": []
+}

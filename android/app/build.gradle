@@ -1,0 +1,81 @@
+apply plugin: 'com.android.application'
+def appMetadata = new groovy.json.JsonSlurper().parse(rootProject.file('../package.json'))
+
+def signingFile = rootProject.file('../.private/signing.properties')
+def signing = new Properties()
+if (signingFile.exists()) { signingFile.withInputStream { signing.load(it) } }
+def serviceFile = rootProject.file('../.private/update-service.json')
+def service = serviceFile.exists() ? new groovy.json.JsonSlurper().parse(serviceFile) : [:]
+def serviceUrl = service.url ?: ''
+def serviceToken = service.token ?: ''
+if (serviceUrl && (!serviceUrl.startsWith('https://') || !(serviceToken ==~ /[A-Za-z0-9_-]{43,128}/))) {
+    throw new GradleException('Invalid private update service profile')
+}
+
+android {
+    buildFeatures { buildConfig true }
+    namespace = "app.zhizhan.local"
+    compileSdk = rootProject.ext.compileSdkVersion
+    defaultConfig {
+        applicationId "app.zhizhan.local"
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+        versionCode appMetadata.androidVersionCode as int
+        versionName appMetadata.version
+        buildConfigField 'String', 'UPDATE_URL', groovy.json.JsonOutput.toJson(serviceUrl)
+        buildConfigField 'String', 'UPDATE_TOKEN', groovy.json.JsonOutput.toJson(serviceToken)
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        aaptOptions {
+             // Files and dirs to omit from the packaged assets dir, modified to accommodate modern web apps.
+             // Default: https://android.googlesource.com/platform/frameworks/base/+/282e181b58cf72b6ca770dc7ca5f91f135444502/tools/aapt/AaptAssets.cpp#61
+            // The bundled original Rust project needs its .cargo/config.toml.
+            ignoreAssetsPattern = '!.svn:!.git:!.ds_store:!*.scc:!CVS:!thumbs.db:!picasa.ini:!*~'
+        }
+    }
+    signingConfigs {
+        localRelease {
+            if (signingFile.exists()) {
+                storeFile rootProject.file('../.private/zhizhan-release.jks')
+                storePassword signing['storePassword']
+                keyAlias signing['keyAlias']
+                keyPassword signing['keyPassword']
+            }
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.localRelease
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+repositories {
+    flatDir{
+        dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'
+    }
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "androidx.appcompat:appcompat:$androidxAppCompatVersion"
+    implementation "androidx.coordinatorlayout:coordinatorlayout:$androidxCoordinatorLayoutVersion"
+    implementation "androidx.core:core-splashscreen:$coreSplashScreenVersion"
+    implementation project(':capacitor-android')
+    testImplementation "junit:junit:$junitVersion"
+    androidTestImplementation "androidx.test.ext:junit:$androidxJunitVersion"
+    androidTestImplementation "androidx.test.espresso:espresso-core:$androidxEspressoCoreVersion"
+    implementation project(':capacitor-cordova-android-plugins')
+}
+
+apply from: 'capacitor.build.gradle'
+
+try {
+    def servicesJSON = file('google-services.json')
+    if (servicesJSON.text) {
+        apply plugin: 'com.google.gms.google-services'
+    }
+} catch(Exception e) {
+    logger.info("google-services.json not found, google-services plugin not applied. Push Notifications won't work")
+}

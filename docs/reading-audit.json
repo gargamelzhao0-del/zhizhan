@@ -1,0 +1,540 @@
+{
+  "contentVersion": "2026.10.08.3",
+  "pages": [
+    {
+      "id": "handbook-00",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-01",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-02",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-03",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-04",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-05",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-06",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-07",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-08",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-09",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-10",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-11",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-12",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-13",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-14",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-15",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-16",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-17",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-18",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-19",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-20",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-21",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-22",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-23",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-24",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-25",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-26",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-27",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-28",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "handbook-29",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-00",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-01",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-02",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-03",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-04",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-05",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-06",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-07",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-08",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-09",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-10",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-11",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-12",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-13",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-14",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-15",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-16",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-17",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-18",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "linux-19",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-00",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-01",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-02",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-03",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-04",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-05",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-06",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-07",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-08",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-09",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-10",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-11",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-12",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-13",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-14",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-15",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-16",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-17",
+      "expectedDiagrams": 1,
+      "diagrams": 1,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-18",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "cpp-19",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "lessons-00",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "lessons-01",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "lessons-02",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "lessons-03",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "lessons-04",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    },
+    {
+      "id": "lessons-05",
+      "expectedDiagrams": 0,
+      "diagrams": 0,
+      "fallback": 0,
+      "overflow": false
+    }
+  ],
+  "issues": [],
+  "pageErrors": [],
+  "passed": true
+}

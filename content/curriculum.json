@@ -1,0 +1,76 @@
+{
+  "handbook": {
+    "title": "重新做出灵珠，从地基到完整产品",
+    "intro": "先读重建路线与功能接线表，再按依赖完成实现、联调与验收。用源码、图解和实验找回每一处设计理由；带虚线的术语可点击解释。",
+    "modules": [
+      {
+        "title": "重建路线与系统地基",
+        "outcome": "找齐材料，构建镜像，验证供电、总线和启动路径",
+        "lessons": [
+          "handbook-30",
+          "handbook-31",
+          "handbook-00",
+          "handbook-01",
+          "handbook-02",
+          "handbook-03",
+          "handbook-04",
+          "handbook-05",
+          "handbook-26"
+        ]
+      },
+      {
+        "title": "实时运行与声音数据",
+        "outcome": "算清音频帧和队列预算，解释资源交接",
+        "lessons": [
+          "handbook-06",
+          "handbook-07",
+          "handbook-08",
+          "handbook-09"
+        ]
+      },
+      {
+        "title": "交互、播放与画面",
+        "outcome": "追踪一次唤醒到首声，再到播放结束的完整链路",
+        "lessons": [
+          "handbook-10",
+          "handbook-11",
+          "handbook-12",
+          "handbook-18"
+        ]
+      },
+      {
+        "title": "离线录音与可靠补传",
+        "outcome": "检验会话连续性、归档完整性和真实吞吐",
+        "lessons": [
+          "handbook-13",
+          "handbook-14",
+          "handbook-15",
+          "handbook-16"
+        ]
+      },
+      {
+        "title": "配置、安全与交付",
+        "outcome": "说明绑定、持久化和升级的提交点与恢复路径",
+        "lessons": [
+          "handbook-17",
+          "handbook-27",
+          "handbook-28",
+          "handbook-19"
+        ]
+      },
+      {
+        "title": "诊断与工程验证",
+        "outcome": "用可复核证据解释故障，并为改动选择有效测试",
+        "lessons": [
+          "handbook-20",
+          "handbook-21",
+          "handbook-22",
+          "handbook-23",
+          "handbook-24",
+          "handbook-25",
+          "handbook-29"
+        ]
+      }
+    ]
+  }
+}

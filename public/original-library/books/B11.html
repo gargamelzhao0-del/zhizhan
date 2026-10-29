@@ -1,0 +1,1128 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B11" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>嵌入式 Linux 应用开发 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">嵌入式 Linux 应用开发</div>
+    <div class="m-subtitle">嵌入式 Linux · 11 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">11 模块 · 56 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol cur" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">Linux 应用分支 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">系统编程<span class="m-nav-sub">系统与通信</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-model-t" data-target="m01-model-t">1.1 系统调用与 errno：检查返回值是硬规则</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：循环读满</a><a class="m-sec" href="#m01-loop-t" data-target="m01-loop-t">1.3 短读/短写与超时</a><a class="m-sec" href="#m01-route-t" data-target="m01-route-t">1.4 三路线对照与自检</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">进程间通信<span class="m-nav-sub">系统与通信</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-model-t" data-target="m02-model-t">2.1 选对 IPC：边界与同步</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：有界队列的满/空</a><a class="m-sec" href="#m02-detail-t" data-target="m02-detail-t">2.3 UDS 与共享内存的落地</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检与三路线对照</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">网络编程<span class="m-nav-sub">系统与通信</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-model-t" data-target="m03-model-t">3.1 TCP 是字节流：必须自己分帧</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：半包处理</a><a class="m-sec" href="#m03-detail-t" data-target="m03-detail-t">3.3 序列化与超时</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检与三路线对照</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">应用构建<span class="m-nav-sub">构建与并发</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-model-t" data-target="m04-model-t">4.1 构建系统的取舍与依赖顺序</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：拓扑排序</a><a class="m-sec" href="#m04-detail-t" data-target="m04-detail-t">4.3 交叉编译与可复现</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检与三路线对照</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">实时性与多线程<span class="m-nav-sub">构建与并发</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-model-t" data-target="m05-model-t">5.1 竞态与同步</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：无锁 vs 加锁</a><a class="m-sec" href="#m05-rt-t" data-target="m05-rt-t">5.3 实时与抖动</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检与三路线对照</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">服务化与部署<span class="m-nav-sub">服务化与部署</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-model-t" data-target="m06-model-t">6.1 systemd unit：依赖、重启、限速</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：重启限速</a><a class="m-sec" href="#m06-unit-t" data-target="m06-unit-t">6.3 写一个 unit</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检与三路线对照</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">性能与资源<span class="m-nav-sub">服务化与部署</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-budget-t" data-target="m07-budget-t">7.1 先建预算，再优化</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：预算判定</a><a class="m-sec" href="#m07-leak-t" data-target="m07-leak-t">7.3 泄漏与降级</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检与三路线对照</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">容器与应用 OTA<span class="m-nav-sub">服务化与部署</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-routes-t" data-target="m08-routes-t">8.1 容器 vs 整机 OTA</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：失败可见与回滚</a><a class="m-sec" href="#m08-rollback-t" data-target="m08-rollback-t">8.3 回滚与灰度</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检与三路线对照</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">持久化、配置与服务恢复<span class="m-nav-sub">持久化与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-model-t" data-target="m09-model-t">9.1 默认值 + 校验 + 原子写</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：默认回退与掉电不损坏</a><a class="m-sec" href="#m09-atomic-t" data-target="m09-atomic-t">9.3 原子写与数据分离</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检与三路线对照</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">人机界面与音视频应用分支<span class="m-nav-sub">持久化与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-branch-t" data-target="m10-branch-t">10.1 UI 与音视频两条高带宽分支</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：流式分帧（音视频同源问题）</a><a class="m-sec" href="#m10-flow-t" data-target="m10-flow-t">10.3 数据流与缓冲</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检与三路线对照</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m11"><summary><span class="m-nav-num">11</span><span class="m-nav-t">综合：可运维 Linux 边缘服务<span class="m-nav-sub">持久化与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m11-arch-t" data-target="m11-arch-t">11.1 可运维服务的架构</a><a class="m-sec" href="#m11-evidence-t" data-target="m11-evidence-t">11.2 真实证据：三份可运行模型</a><a class="m-sec" href="#m11-ship-t" data-target="m11-ship-t">11.3 交付前的三件事</a><a class="m-sec" href="#m11-check-t" data-target="m11-check-t">11.4 验收清单</a><a class="m-sec" href="#m11-pitfalls-t" data-target="m11-pitfalls-t">11.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">一个可运维的 Linux 边缘服务.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">应用易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B11-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · Linux 技术栈</div>
+    <h1>嵌入式 Linux<br><span class="g">应用</span>开发<span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>程序在主机上好好的、进了板子就崩；服务偶发挂掉没人拉起；升级一半设备变砖</strong>——问题分别落在系统编程返回值、并发与 IPC、服务化与部署、持久化与恢复上。内容从 <strong>系统编程、IPC、网络、构建、多线程</strong>，一路到 <strong>服务化部署、性能与资源、容器与 OTA、配置恢复、UI/音视频分支</strong>，并给出 <strong>Buildroot / Yocto / Debian</strong> 三条构建部署路线对照。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>11</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>路线</span></div><div class="hero-stat"><b>8+11</b><span>运行 / 对照</span></div><div class="hero-stat"><b>11</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>会写 C、跑过 MCU/RTOS，但没写过可交付 Linux 应用/服务</strong>的开发者。默认你懂指针与进程概念，但对“系统调用错误处理、并发、服务化、配置恢复”只有模糊印象。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的应用模型 → <strong>真实运行证据</strong> → 三条路线对照 → 失败路径 → 动手练习 → 自测。板上项一律标注“需上板”。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">系统调用错误处理、IPC 有界队列、TCP 半包分帧、多线程竞态、服务重启限速、配置原子写、构建拓扑、CPU/内存预算等数字来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B11-labs.zip" download>下载 B11 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B11 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">Linux 应用分支 · 读到能完成什么？</h2><p><strong>交付可部署、可重启的采集网关服务，配置、数据库、日志、资源限额分开管理。</strong></p><p>入门条件：B16 命令行、进程与构建；B09 基本目标系统。</p><p>首次阅读：<a href="#m01">系统编程</a> → <a href="#m03">网络编程</a> → <a href="#m04">应用构建</a> → <a href="#m06">服务化与部署</a> → <a href="#m07">性能与资源</a> → <a href="#m09">持久化、配置与服务恢复</a> → <a href="#m11">综合：可运维 Linux 边缘服务</a></p><p>按需延后：容器、音视频与复杂 GUI 按产品需要；先保证服务生命周期。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>部分读写、长期 EAGAIN、断网、SIGTERM、事务中断后重启。</p><p><strong>通过判据：</strong>无忙轮询，连接能关闭，幂等键有效；磁盘原子替换与掉电持久性分别验证。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P04">P04</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">11 章分四段：系统与通信（M01–M03）→ 构建与并发（M04–M05）→ 服务化与部署（M06–M08）→ 持久化、UI 与综合（M09–M11）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M06 打好“系统编程—IPC—网络—服务化”基础，再按需要读构建/并发/性能/OTA；想交付可运维服务，把 M06–M09/M11 走完。动手优先跑 <code class="ic">labs/host_*.c</code>（看到 PASS）。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 系统与通信</div>
+      <h1 class="ch-title">系统编程<span class="acc">.</span></h1>
+      <p class="ch-lead">Linux 应用的底座是<strong>系统调用</strong>。几乎每个调用都可能失败：必须检查返回值、读取 <code class="ic">errno</code>，并处理<strong>短读/短写</strong>与 <strong>EINTR/EAGAIN</strong>——“主机上好好的、进板子就崩”常源于此。</p>
+      <div class="ch-meta"><span>前置：C 语言与 Linux 系统调用基础（open/read/write）。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能写出对每个系统调用检查返回值、处理 errno/EINTR/EAGAIN 并循环读满的 I/O 代码。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>每个系统调用都检查返回值与 errno；EINTR/EAGAIN 要重试。</li><li>短读/短写要循环到期望长度。</li><li>无超时的阻塞会让程序永久卡住。</li></ul></div>
+    <section class="sec" id="m01-model"><h2 id="m01-model-t">1.1 系统调用与 errno：检查返回值是硬规则</h2><p>系统调用由内核执行，任何一步都可能失败。硬规则：<strong>每个调用都检查返回值</strong>，失败时读 <code class="ic">errno</code> 判断原因。把“不检查返回值”当 bug 处理，是应用稳定的第一步。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 系统调用的处理路径</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="系统调用的处理路径" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">调用</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">返回值检查</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">读 errno</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">重试/报错</text></svg></div><figcaption class="fig-ft">调用 → 返回值 ≥0？成功：继续；失败：读 errno → 分类处理（重试/报错/降级）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  系统编程的五个坑</div><table><thead><tr><th>问题</th><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>忽略返回值</td><td>错误被当成功</td><td>检查并处理 errno</td></tr><tr><td>短读/短写</td><td>数据不完整</td><td>循环直到达到期望长度</td></tr><tr><td>EINTR</td><td>read 被信号打断</td><td>重试循环</td></tr><tr><td>EAGAIN</td><td>非阻塞暂无数据</td><td>poll/等待后重试</td></tr><tr><td>超时</td><td>永久阻塞</td><td>设置超时或非阻塞+轮询</td></tr></tbody></table></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：循环读满</h2><p>下面这段主机程序演示有限次 EAGAIN/EINTR 与短读；不代表真实描述符的就绪等待：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_syscall.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* Bounded I/O control-flow model, not an OS poll/epoll implementation.</span><span class="ln"> * Distinguishes partial progress, would-block, interrupted call and EOF.</span><span class="ln"> * The outer event-loop wait below is counted, not implemented as busy polling. */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">#include &lt;errno.h&gt;</span><span class="ln">typedef struct {const char *data;int size,offset,calls;} ModelFd;</span><span class="ln">static int model_read(ModelFd *f,char *out,int capacity) {</span><span class="ln">    ++f-&gt;calls;</span><span class="ln">    if(f-&gt;calls==1){errno=EAGAIN;return -1;}</span><span class="ln">    if(f-&gt;calls==2){errno=EINTR;return -1;}</span><span class="ln">    int n=f-&gt;size-f-&gt;offset;</span><span class="ln">    if(n&gt;capacity)n=capacity;</span><span class="ln">    if(n&gt;2)n=2;</span><span class="ln">    memcpy(out,f-&gt;data+f-&gt;offset,(size_t)n);f-&gt;offset+=n;return n;</span><span class="ln">}</span><span class="ln">static int receive(ModelFd *f,char *out,int wanted,int *waits) {</span><span class="ln">    int total=0;</span><span class="ln">    for(int attempts=0;attempts&lt;20 &amp;&amp; total&lt;wanted;++attempts) {</span><span class="ln">        int n=model_read(f,out+total,wanted-total);</span><span class="ln">        if(n&lt;0) {</span><span class="ln">            if(errno==EINTR)continue;</span><span class="ln">            if(errno==EAGAIN){++*waits;continue;} /* model: yield and wait for readiness */</span><span class="ln">            return -1;</span><span class="ln">        }</span><span class="ln">        if(n==0)break; /* EOF must not spin */</span><span class="ln">        total+=n;</span><span class="ln">    }</span><span class="ln">    return total;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    ModelFd f={&quot;abcdef&quot;,6,0,0};char out[8]={0};int waits=0;</span><span class="ln">    int n=receive(&amp;f,out,6,&amp;waits);</span><span class="ln">    int ok=n==6 &amp;&amp; !memcmp(out,&quot;abcdef&quot;,6) &amp;&amp; waits==1;</span><span class="ln">    ModelFd short_file={&quot;abc&quot;,3,0,0};waits=0;</span><span class="ln">    ok &amp;= receive(&amp;short_file,out,6,&amp;waits)==3;</span><span class="ln">    printf(&quot;short reads / EINTR / EAGAIN wait / early EOF: %s\n&quot;,ok?&quot;PASS&quot;:&quot;FAIL&quot;);</span><span class="ln">    return !ok;</span><span class="ln">}</span>
+</code></pre><span class="code-note">系统调用返回值/重试模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_syscall.c -o labs/host_syscall &amp;&amp; ./labs/host_syscall</span>
+short reads / EINTR / EAGAIN wait / early EOF: PASS</code></pre></div></div><p class="sim-note">一次 read 只给一部分（短读），遇 EAGAIN 需重试，循环到读满 6 字节才结束。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  常见 errno 与动作</div><table><thead><tr><th>errno</th><th>含义</th><th>动作</th></tr></thead><tbody><tr><td>EINTR</td><td>被信号打断</td><td>重试</td></tr><tr><td>EAGAIN/EWOULDBLOCK</td><td>非阻塞暂无数据</td><td>等待/重试</td></tr><tr><td>EIO</td><td>I/O 错误</td><td>报错/降级</td></tr><tr><td>EBADF</td><td>无效 fd</td><td>程序错误</td></tr><tr><td>EPIPE</td><td>对端关闭</td><td>结束并向上层报告</td></tr></tbody></table></div></section><section class="sec" id="m01-loop"><h2 id="m01-loop-t">1.3 短读/短写与超时</h2><p><code class="ic">read/write</code> 可能只完成一部分。<code class="ic">write</code> 对非阻塞 fd 也可能短写。正确做法是<strong>循环</strong>直到达到期望长度，并给阻塞操作设超时。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">read_full.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">ssize_t r = 0;</span><span class="ln">while (r &lt; want) {</span><span class="ln">    ssize_t n = read(fd, buf + r, want - r);</span><span class="ln">    if (n &lt; 0) {</span><span class="ln">        if (errno == EINTR) continue;</span><span class="ln">        if (errno == EAGAIN || errno == EWOULDBLOCK) return r; // 返回已读长度，由事件循环等待后继续</span><span class="ln">        return -1;                                        // 真错误</span><span class="ln">    }</span><span class="ln">    if (n == 0) break;      // EOF：对端关闭</span><span class="ln">    r += n;</span><span class="ln">}</span>
+</code></pre><span class="code-note">片段：EINTR 重试；EAGAIN 返回已收长度由 poll/epoll 驱动继续。生产接口需区分 WOULD_BLOCK、EOF 与完整结果，并设置截止时间</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  短读/短写的正确处理</div><table><thead><tr><th>场景</th><th>错误做法</th><th>正确做法</th></tr></thead><tbody><tr><td>短读</td><td>读一次当完整</td><td>循环到 want</td></tr><tr><td>短写</td><td>send 一次当发完</td><td>循环发完</td></tr><tr><td>阻塞</td><td>无超时永久等</td><td>SO_RCVTIMEO/poll</td></tr><tr><td>EOF</td><td>当错误处理</td><td>r==0 结束循环</td></tr></tbody></table></div></section><section class="sec" id="m01-route"><h2 id="m01-route-t">1.4 三路线对照与自检</h2><p>应用层系统编程与构建路线无关，但三条路线的库/工具链不同，影响可用 API 与调试手段。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 三路线对应用层的差异（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="三路线对应用层的差异（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">Buildroot</text><rect x="150" y="26" width="491" height="18" rx="4" class="sv-cyn-s"/><text x="649" y="43" class="sv-lbl-hi">90(相对)</text><text x="12" y="67" class="sv-lbl">Yocto</text><rect x="150" y="50" width="436" height="18" rx="4" class="sv-grn-s"/><text x="594" y="67" class="sv-lbl-hi">80(相对)</text><text x="12" y="91" class="sv-lbl">Debian</text><rect x="150" y="74" width="545" height="18" rx="4" class="sv-amb-s"/><text x="703" y="91" class="sv-lbl-hi">100(相对)</text></svg></div><figcaption class="fig-ft">Buildroot(glibc) 与 Debian(glibc) 应用 API 基本一致；Yocto SDK 提供配套 sysroot。差异在部署与工具，不在 syscall。</figcaption></figure><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">errno_classify.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">switch (errno) {</span><span class="ln">  case EINTR: case EAGAIN:  return RETRY;      // 暂时性，重试</span><span class="ln">  case EPIPE: case ECONNRESET: return CLOSED;  // 对端关闭</span><span class="ln">  default:                  return FATAL;      // 真错误，上报</span><span class="ln">}</span>
+</code></pre><span class="code-note">把 errno 分类为“重试/关闭/致命”，决定上层动作</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.4  三路线对照</div><table><thead><tr><th>路线</th><th>libc</th><th>工具链</th><th>对应用的影响</th></tr></thead><tbody><tr><td>Buildroot</td><td>glibc/musl</td><td>内置工具链</td><td>syscall 一致</td></tr><tr><td>Yocto</td><td>glibc</td><td>SDK</td><td>API 一致，需 SDK</td></tr><tr><td>Debian</td><td>glibc</td><td>apt 工具链</td><td>包最全</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>不检查返回值</strong>：错误被当成成功。</li><li><strong>不处理短读</strong>：数据截断，协议解析失败。</li><li><strong>被 EINTR 打断就失败</strong>：信号一来就读不到数据。</li><li><strong>无超时的阻塞</strong>：链路异常时永久卡住。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">read() 返回 0 表示什么？</p><details><summary>查看答案</summary><div class="ans"><p>通常表示对端已关闭连接（EOF），不是错误。要据此结束读取循环，而不是继续读。</p></div></details></li><li><p class="q">为什么 write 也要循环（短写）？</p><details><summary>查看答案</summary><div class="ans"><p>非阻塞 fd 或缓冲区满时 write 可能只发一部分。必须循环直到发完，否则数据被截断。</p></div></details></li><li><p class="q">EINTR/EAGAIN 分别该怎么处理？</p><details><summary>查看答案</summary><div class="ans"><p>两者都表示“暂时没完成”：EINTR 是信号打断、EAGAIN 是非阻塞无数据，都应重试（或等待后重试），而不是当致命错误。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：审计你项目里所有 read/write：补上返回值检查、短读短写循环与超时。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_syscall.c</code>：验证 EAGAIN 重试与循环读满。</p><p><strong>检查结果：</strong>读满 6 字节且内容 "abcdef"；EAGAIN/EINTR 被重试；循环到达到期望长度才结束。</p></div>
+<p class="sim-note">迁移练习：把本章的“能写出对每个系统调用检查返回值、处理 errno/EINTR/EAGAIN 并循环读满的 I/O 代码。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>读满 6 字节且内容 &quot;abcdef&quot;；EAGAIN/EINTR 被重试；循环到达到期望长度才结束。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 系统与通信</div>
+      <h1 class="ch-title">进程间通信<span class="acc">.</span></h1>
+      <p class="ch-lead">多进程协作要选对 IPC：管道简单但单向、共享内存最快但要自己同步、消息队列/UDS 保留边界、信号只适合通知。有界队列是常见形态：满则拒、空则等。</p>
+      <div class="ch-meta"><span>前置：Module 01 系统编程的返回值与错误处理。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现有界队列/管道式 IPC，做到满则拒、空则等待且按序取出。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>IPC 选型看边界与同步：管道是字节流，共享内存要自己同步。</li><li>有界队列要明确满/空语义。</li><li>信号处理函数里只能做异步安全操作。</li></ul></div>
+    <section class="sec" id="m02-model"><h2 id="m02-model-t">2.1 选对 IPC：边界与同步</h2><p>不同 IPC 的差别在“<strong>是否保留消息边界</strong>”和“<strong>要不要自己同步</strong>”：管道是字节流（无边界）、共享内存最快但要配信号量、消息队列/UDS 保留边界、信号只适合异步通知。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> IPC 选型决策</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="IPC 选型决策" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">要边界?</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">求速度?</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">选 IPC</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">定同步</text></svg></div><figcaption class="fig-ft">要边界吗？→ 要则 UDS/消息队列；不要但求快→共享内存+信号量；只是通知→信号。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  常见 IPC 对比</div><table><thead><tr><th>IPC</th><th>特点</th><th>注意</th></tr></thead><tbody><tr><td>pipe/FIFO</td><td>字节流</td><td>无消息边界</td></tr><tr><td>共享内存</td><td>零拷贝最快</td><td>需配信号量同步</td></tr><tr><td>消息队列</td><td>保留边界</td><td>容量有限</td></tr><tr><td>UDS socket</td><td>双向、可传 fd</td><td>推荐用于本地服务</td></tr><tr><td>信号</td><td>异步通知</td><td>处理函数里只能异步安全操作</td></tr></tbody></table></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：有界队列的满/空</h2><p>有界队列是 IPC 的常见形态。下面这段主机程序验证满/空边界与按序取出：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_ipc.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_ipc.c —— 进程间通信：管道/环形缓冲的生产者-消费者模型（主机可运行）。</span><span class="ln"> * 管道是字节流；共享内存在多进程下要自己同步。本程序模拟有界 FIFO 的 push/pop 与阻塞语义。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_ipc.c -o host_ipc &amp;&amp; ./host_ipc</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#define CAP 4</span><span class="ln">typedef struct { int buf[CAP]; int head, tail, count; } fifo_t;</span><span class="ln">static int push(fifo_t *q, int v) { if (q-&gt;count == CAP) return -1; q-&gt;buf[q-&gt;tail] = v; q-&gt;tail = (q-&gt;tail + 1) % CAP; q-&gt;count++; return 0; }</span><span class="ln">static int pop(fifo_t *q, int *v) { if (q-&gt;count == 0) return -1; *v = q-&gt;buf[q-&gt;head]; q-&gt;head = (q-&gt;head + 1) % CAP; q-&gt;count--; return 0; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; fifo_t q = {{0}, 0, 0, 0};</span><span class="ln">    for (int i = 1; i &lt;= 4; i++) if (push(&amp;q, i) != 0) ok = 0;</span><span class="ln">    printf(&quot;填满后 count=%d，再 push: %d（期望 -1 满）\n&quot;, q.count, push(&amp;q, 9));</span><span class="ln">    if (push(&amp;q, 9) != -1) ok = 0;</span><span class="ln">    int v = 0, good = 1;</span><span class="ln">    for (int i = 1; i &lt;= 4; i++) { if (pop(&amp;q, &amp;v) != 0 || v != i) good = 0; }</span><span class="ln">    printf(&quot;按序取出=%s  count=%d（期望 1..4、0）\n&quot;, good ? &quot;是&quot; : &quot;否&quot;, q.count);</span><span class="ln">    if (!good || q.count != 0) ok = 0;</span><span class="ln">    printf(&quot;空时 pop: %d（期望 -1 空）\n&quot;, pop(&amp;q, &amp;v));</span><span class="ln">    if (pop(&amp;q, &amp;v) != -1) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">有界 FIFO 边界模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ipc.c -o labs/host_ipc &amp;&amp; ./labs/host_ipc</span>
+填满后 count=4，再 push: -1（期望 -1 满）
+按序取出=是  count=0（期望 1..4、0）
+空时 pop: -1（期望 -1 空）
+RESULT: PASS</code></pre></div></div><p class="sim-note">满则拒绝、空则拒绝、按序取出——这是所有 IPC 缓冲的共同契约。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  有界队列的状态机</div><table><thead><tr><th>状态</th><th>push</th><th>pop</th></tr></thead><tbody><tr><td>空</td><td>成功</td><td>失败(-1)</td></tr><tr><td>非空非满</td><td>成功</td><td>成功</td></tr><tr><td>满</td><td>失败(-1)</td><td>成功</td></tr><tr><td>计数</td><td>count++</td><td>count--</td></tr></tbody></table></div></section><section class="sec" id="m02-detail"><h2 id="m02-detail-t">2.3 UDS 与共享内存的落地</h2><p>本地服务优先用 <strong>Unix domain socket</strong>：双向、保留边界、还能传 fd。共享内存最快但要自己配信号量同步，否则读写交错。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">uds_seqpkt.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int s = socket(AF_UNIX, SOCK_SEQPACKET, 0);   // 保留消息边界</span><span class="ln">struct sockaddr_un a = { .sun_family = AF_UNIX };</span><span class="ln">strncpy(a.sun_path, &quot;/tmp/svc.sock&quot;, sizeof a.sun_path - 1);</span><span class="ln">bind(s, (struct sockaddr *)&amp;a, sizeof a);</span><span class="ln">/* SOCK_SEQPACKET：每次 recv 拿到一条完整消息，天然分帧 */</span>
+</code></pre><span class="code-note">UDS SOCK_SEQPACKET 保留边界，本地服务首选</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  IPC 落地选择</div><table><thead><tr><th>选择</th><th>何时用</th><th>代价</th></tr></thead><tbody><tr><td>pipe/FIFO</td><td>简单单向流</td><td>无边界</td></tr><tr><td>UDS SOCK_SEQPACKET</td><td>本地结构化消息</td><td>需管理 socket 文件</td></tr><tr><td>共享内存+信号量</td><td>高频大数据</td><td>同步复杂</td></tr><tr><td>消息队列</td><td>有边界、可阻塞</td><td>容量受限</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检与三路线对照</h2><p>IPC 自检聚焦“边界正确、不丢不重、异常可清理”：</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 有界队列的 head/tail/count</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="有界队列的 head/tail/count" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">head（入队位置）</text><rect x="60" y="64" width="680" height="40" rx="6" class="sv-grn-s"/><text x="75" y="88.0" class="sv-lbl-hi">缓冲区（容量=4）</text><rect x="60" y="108" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="127.0" class="sv-lbl-hi">tail（出队位置）</text><rect x="60" y="142" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="161.0" class="sv-lbl-hi">count（判满/空）</text></svg></div><figcaption class="fig-ft">head 入、tail 出，count 判满/空；回绕用掩码。边界判断错会出现“偶尔丢消息”。</figcaption></figure><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ipc_pick.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* 要边界：优先 UDS 或消息队列 */</span><span class="ln">int s = socket(AF_UNIX, SOCK_SEQPACKET, 0);</span><span class="ln">/* 求速度：共享内存 + 信号量 */</span><span class="ln">sem_wait(&amp;mutex); memcpy(shm, data, n); sem_post(&amp;mutex);</span>
+</code></pre><span class="code-note">按“要不要边界、要不要同步”选 IPC</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.4  三路线 IPC 支持</div><table><thead><tr><th>路线</th><th>本地 IPC 支持</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>完整 UDS/共享内存</td><td>与标准 Linux 一致</td></tr><tr><td>Yocto</td><td>完整</td><td>一致</td></tr><tr><td>Debian</td><td>完整 + 工具</td><td>调试工具最全</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>共享内存不加同步</strong>：读写交错，数据错乱。</li><li><strong>管道当消息用</strong>：无边界，粘包。</li><li><strong>消息队列容量拍脑袋</strong>：突发时丢消息。</li><li><strong>信号处理函数里做重活</strong>：只允许异步安全操作。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">本地两个进程要传结构体且保留边界，优先选什么？</p><details><summary>查看答案</summary><div class="ans"><p>Unix domain socket（SOCK_SEQPACKET，或带长度前缀的 SOCK_STREAM）或消息队列。管道是字节流不保留边界，共享内存要自己同步。</p></div></details></li><li><p class="q">共享内存最快的代价是什么？</p><details><summary>查看答案</summary><div class="ans"><p>需要自己配合同步（信号量/互斥），否则读写交错导致数据错乱；且没有消息边界。</p></div></details></li><li><p class="q">为什么信号处理函数里不能做重活？</p><details><summary>查看答案</summary><div class="ans"><p>信号是异步打断，处理函数里只能调用“异步信号安全”的函数（如 write），否则可能死锁/崩溃。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你项目的本地多进程通信选一种带边界的 IPC，并补上满/空与异常清理的处理。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_ipc.c</code>：验证有界 FIFO 的满/空边界与按序取出。</p><p><strong>检查结果：</strong>填满 count=4 且再 push=-1；按序取出 1..4、count=0；空时 pop=-1。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现有界队列/管道式 IPC，做到满则拒、空则等待且按序取出。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>填满 count=4 且再 push=-1；按序取出 1..4、count=0；空时 pop=-1。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 系统与通信</div>
+      <h1 class="ch-title">网络编程<span class="acc">.</span></h1>
+      <p class="ch-lead">核心认知：<strong>TCP 是字节流，不保留消息边界</strong>。应用必须自己分帧（长度前缀/分隔符），并处理“一次 recv 只收到半条”的半包与 send 短写。</p>
+      <div class="ch-meta"><span>前置：Module 01 的 I/O 与 Module 02 的帧/边界概念。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现长度前缀分帧并正确处理 TCP 半包/粘包。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>TCP 是字节流：必须按长度/分隔符自己分帧。</li><li>处理半包与短写，收发都要有超时。</li><li>不要直接发结构体：显式序列化与字节序。</li></ul></div>
+    <section class="sec" id="m03-model"><h2 id="m03-model-t">3.1 TCP 是字节流：必须自己分帧</h2><p>TCP 不保留消息边界：两次 send 可能被一次 recv 收到（粘包），一次 send 也可能分两次收到（半包）。应用必须定义<strong>应用层帧</strong>（长度前缀 + 载荷 + 校验）并按帧收发。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 长度前缀分帧</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="长度前缀分帧" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">累积字节</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">读长度前缀</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">凑齐整帧</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">产出一条消息</text></svg></div><figcaption class="fig-ft">收字节到累积缓冲 → 够一个长度前缀吗？→ 够则读长度 → 够整帧吗？→ 够则产出一条消息。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  网络编程五个坑</div><table><thead><tr><th>问题</th><th>原因</th><th>处理</th></tr></thead><tbody><tr><td>粘包</td><td>多条连在一起</td><td>按长度/分隔符切分</td></tr><tr><td>半包</td><td>一次没收全</td><td>累积直到凑齐一条</td></tr><tr><td>短写</td><td>send 没发完</td><td>循环发送</td></tr><tr><td>字节序</td><td>网络大端</td><td>htons/htonl</td></tr><tr><td>无超时</td><td>对端卡死</td><td>SO_RCVTIMEO/事件循环</td></tr></tbody></table></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：半包处理</h2><p>下面这段主机程序模型化长度前缀分帧与半包：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_socket.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_socket.c —— 网络编程：TCP 字节流分帧（长度前缀 + 半包处理）（主机可运行）。</span><span class="ln"> * TCP 不保留消息边界：一次 recv 可能只收到半条。必须按长度前缀累积，凑齐才算一条消息。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_socket.c -o host_socket &amp;&amp; ./host_socket</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { unsigned char buf[128]; int len; } stream_t;</span><span class="ln">static int feed(stream_t *s, const unsigned char *d, int n) { memcpy(s-&gt;buf + s-&gt;len, d, n); s-&gt;len += n; return n; }</span><span class="ln">/* 尝试取出一条 [len][payload]，返回 1=取到 */</span><span class="ln">static int take(stream_t *s, char *out) {</span><span class="ln">    if (s-&gt;len &lt; 1) return 0;</span><span class="ln">    int mlen = s-&gt;buf[0];</span><span class="ln">    if (s-&gt;len &lt; 1 + mlen) return 0;                 /* 半包：等更多数据 */</span><span class="ln">    memcpy(out, s-&gt;buf + 1, mlen); out[mlen] = 0;</span><span class="ln">    memmove(s-&gt;buf, s-&gt;buf + 1 + mlen, s-&gt;len - 1 - mlen);</span><span class="ln">    s-&gt;len -= 1 + mlen;</span><span class="ln">    return 1;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; stream_t s; memset(&amp;s, 0, sizeof(s)); char msg[64];</span><span class="ln">    unsigned char m1[] = {3, &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;};</span><span class="ln">    unsigned char m2[] = {2, &#x27;x&#x27;, &#x27;y&#x27;};</span><span class="ln">    feed(&amp;s, m1, 4); feed(&amp;s, m2, 3);</span><span class="ln">    if (!take(&amp;s, msg) || strcmp(msg, &quot;abc&quot;) != 0) ok = 0;</span><span class="ln">    printf(&quot;消息1=\&quot;%s\&quot;\n&quot;, msg);</span><span class="ln">    /* 半包：只喂第一条消息的前 2 字节 */</span><span class="ln">    stream_t h; memset(&amp;h, 0, sizeof(h));</span><span class="ln">    feed(&amp;h, m2, 1);</span><span class="ln">    printf(&quot;半包（只有长度）take=%d（期望 0）\n&quot;, take(&amp;h, msg));</span><span class="ln">    if (take(&amp;h, msg) != 0) ok = 0;</span><span class="ln">    feed(&amp;h, m2 + 1, 2);</span><span class="ln">    if (!take(&amp;h, msg) || strcmp(msg, &quot;xy&quot;) != 0) ok = 0;</span><span class="ln">    printf(&quot;补齐后消息=\&quot;%s\&quot;\n&quot;, msg);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">长度前缀分帧 + 半包模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket &amp;&amp; ./labs/host_socket</span>
+消息1=&quot;abc&quot;
+半包（只有长度）take=0（期望 0）
+补齐后消息=&quot;xy&quot;
+RESULT: PASS</code></pre></div></div><p class="sim-note">只有长度前缀时无法产出一条消息（take=0）；补齐后才产出 "xy"。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  应用层帧格式</div><table><thead><tr><th>帧格式</th><th>内容</th><th>说明</th></tr></thead><tbody><tr><td>长度前缀</td><td>固定字节数</td><td>如 2 字节大端</td></tr><tr><td>载荷</td><td>len 字节</td><td>应用数据</td></tr><tr><td>校验</td><td>可选</td><td>CRC/校验和</td></tr><tr><td>边界</td><td>由长度决定</td><td>不依赖 recv 次数</td></tr></tbody></table></div></section><section class="sec" id="m03-detail"><h2 id="m03-detail-t">3.3 序列化与超时</h2><p>不要直接把结构体 <code class="ic">sizeof</code> 发过去按结构体解析——有对齐填充、字节序、位域差异。应<strong>显式序列化</strong>（逐字段、约定字节序），并给收发设超时。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">frame.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* 发送：长度前缀 + 载荷，循环发完 */</span><span class="ln">uint16_t n = htons(len);</span><span class="ln">send_all(fd, &amp;n, sizeof n); send_all(fd, payload, len);</span><span class="ln">/* 接收：累积直到凑齐“长度前缀 + 载荷” */</span><span class="ln">if (acc &lt; 2) return 0;                       // 半包，等更多</span><span class="ln">uint16_t want = ntohs(*(uint16_t *)acc);</span><span class="ln">if (acc &lt; 2 + want) return 0;                // 还没凑齐整帧</span>
+</code></pre><span class="code-note">显式序列化 + 长度前缀 + 循环收，跨平台才可靠</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  分帧方式对比</div><table><thead><tr><th>做法</th><th>好/坏</th><th>原因</th></tr></thead><tbody><tr><td>长度前缀分帧</td><td>好</td><td>边界明确、可累积</td></tr><tr><td>分隔符分帧</td><td>中</td><td>载荷含分隔符需转义</td></tr><tr><td>直接发结构体</td><td>坏</td><td>对齐/字节序差异</td></tr><tr><td>固定长度帧</td><td>中</td><td>浪费，超长需截断</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检与三路线对照</h2><p>网络自检覆盖“分帧正确、超时、重连”：</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 半包到达与凑齐的时刻</div><div class="fig-bd"><svg viewBox="0 0 800 120" width="100%" height="120" role="img" aria-label="半包到达与凑齐的时刻" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V94"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V94"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">20</text><path class="sv-dash" d="M460,26 V94"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">40</text><path class="sv-dash" d="M615,26 V94"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">60</text><path class="sv-dash" d="M770,26 V94"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">80</text><text x="12" y="48" class="sv-lbl">recv 1</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="232" height="22" rx="4" class="sv-amb-s"/><text x="266.2" y="47" text-anchor="middle" class="sv-lbl-hi">只有长度</text><text x="12" y="82" class="sv-lbl">recv 2</text><path class="sv-dash" d="M150,78 H770"/><rect x="460" y="66" width="310" height="22" rx="4" class="sv-grn-s"/><text x="615.0" y="81" text-anchor="middle" class="sv-lbl-hi">长度+载荷→产出</text></svg></div><figcaption class="fig-ft">第一次只收到长度前缀（不能产出）；第二次补齐载荷才产出一条消息。实现要能跨多次 recv 累积。</figcaption></figure><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">tcp_client.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int fd = socket(AF_INET, SOCK_STREAM, 0);</span><span class="ln">struct sockaddr_in a = { .sin_family = AF_INET,</span><span class="ln">    .sin_port = htons(port) };</span><span class="ln">connect(fd, (struct sockaddr *)&amp;a, sizeof a);</span><span class="ln">setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &amp;tv, sizeof tv);  // 超时</span>
+</code></pre><span class="code-note">建立 TCP 连接并设置接收超时，避免永久阻塞</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.4  三路线网络支持</div><table><thead><tr><th>路线</th><th>网络库</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>glibc socket/lwIP(可选)</td><td>应用层一致</td></tr><tr><td>Yocto</td><td>glibc socket</td><td>一致</td></tr><tr><td>Debian</td><td>glibc socket + 工具</td><td>tcpdump 等最全</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>把 TCP 当消息边界</strong>：粘包/半包导致解析失败。</li><li><strong>忽略 send 短写</strong>：大数据只发出去一部分。</li><li><strong>字节序/结构体对齐错</strong>：跨平台解析错位。</li><li><strong>无超时</strong>：对端卡死时线程永久阻塞。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">为什么不能直接把结构体 sizeof 发过去？</p><details><summary>查看答案</summary><div class="ans"><p>结构体有对齐填充、字节序与位域差异；应显式序列化（逐字段、约定字节序）后发送。</p></div></details></li><li><p class="q">“半包”在代码里怎么表现、怎么处理？</p><details><summary>查看答案</summary><div class="ans"><p>一次 recv 只收到部分字节。处理：累积到缓冲，直到凑齐“长度前缀 + 载荷”才产出一条消息。</p></div></details></li><li><p class="q">send 返回的字节数小于请求长度说明什么？</p><details><summary>查看答案</summary><div class="ans"><p>发生了“短写”（缓冲区满/非阻塞）。必须循环发送剩余部分，否则数据被截断。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你项目的一条网络协议改为“长度前缀 + 校验”的显式分帧，并补上半包累积与超时。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a> · <a class="ref" href="https://buildroot.org/downloads/manual/manual.html" target="_blank" rel="noopener noreferrer">Buildroot 手册</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_socket.c</code>：验证长度前缀分帧与半包处理。</p><p><strong>检查结果：</strong>分帧解析出消息1="abc"；半包（只有长度）take=0；补齐后消息="xy"。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现长度前缀分帧并正确处理 TCP 半包/粘包。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>分帧解析出消息1=&quot;abc&quot;；半包（只有长度）take=0；补齐后消息=&quot;xy&quot;。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 构建与并发</div>
+      <h1 class="ch-title">应用构建<span class="acc">.</span></h1>
+      <p class="ch-lead">构建要回答三件事：用什么构建系统、如何交叉编译、依赖与版本怎么管。目标是<strong>可复现</strong>：换台机器用同一套命令得到同一产物。</p>
+      <div class="ch-meta"><span>前置：Module 01–03 的可编译应用与头文件组织。</span><span>◷ 约 42 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能写出依赖拓扑排序得到编译顺序、并检测依赖环的构建脚本/工具。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>构建要可复现：锁工具链与依赖、声明式构建。</li><li>依赖有拓扑顺序，成环无法构建。</li><li>产物带版本号便于追溯与回滚。</li></ul></div>
+    <section class="sec" id="m04-model"><h2 id="m04-model-t">4.1 构建系统的取舍与依赖顺序</h2><p>构建系统按项目规模选：Makefile（小、直接）、CMake（中大型、跨平台）、Meson（快、清晰）、包管理器配方（整系统集成）。依赖有先后：库先于使用它的模块编译，成环则不可构建。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> 依赖拓扑排序的编译顺序</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="依赖拓扑排序的编译顺序" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">util</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">net</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">app</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">main</text></svg></div><figcaption class="fig-ft">无依赖者最先：util → net → app → main。成环则无法构建，需拆分模块。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  构建系统取舍</div><table><thead><tr><th>构建系统</th><th>特点</th><th>适用</th></tr></thead><tbody><tr><td>Makefile</td><td>直接、可控</td><td>小项目</td></tr><tr><td>CMake</td><td>跨平台、生态好</td><td>中大型项目</td></tr><tr><td>Meson</td><td>快、语法清晰</td><td>新项目</td></tr><tr><td>包管理器配方</td><td>Buildroot/Yocto</td><td>整系统集成</td></tr></tbody></table></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：拓扑排序</h2><p>下面这段主机程序按依赖图做拓扑排序，得到满足依赖的编译顺序：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_build.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_build.c —— 应用构建：按依赖拓扑排序的编译顺序（主机可运行）。</span><span class="ln"> * 多文件/多库构建要按依赖顺序编译；依赖成环则无法构建。本程序对构建目标做拓扑排序并检测环。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_build.c -o host_build &amp;&amp; ./host_build</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { const char *name; const char *deps[2]; } mod_t;</span><span class="ln">static mod_t M[] = {</span><span class="ln">    {&quot;main&quot;, {&quot;app&quot;, 0}}, {&quot;app&quot;, {&quot;net&quot;, &quot;util&quot;}}, {&quot;net&quot;, {&quot;util&quot;, 0}}, {&quot;util&quot;, {0, 0}},</span><span class="ln">};</span><span class="ln">#define N 4</span><span class="ln">static int topo(int order[]) {</span><span class="ln">    int indeg[N] = {0}, done[N] = {0}, oc = 0;</span><span class="ln">    for (int i = 0; i &lt; N; i++) for (int d = 0; d &lt; 2 &amp;&amp; M[i].deps[d]; d++) indeg[i]++;</span><span class="ln">    for (int s = 0; s &lt; N; s++) {</span><span class="ln">        int pick = -1; for (int i = 0; i &lt; N; i++) if (!done[i] &amp;&amp; indeg[i] == 0) { pick = i; break; }</span><span class="ln">        if (pick &lt; 0) return 0;</span><span class="ln">        done[pick] = 1; order[oc++] = pick;</span><span class="ln">        for (int i = 0; i &lt; N; i++) for (int d = 0; d &lt; 2 &amp;&amp; M[i].deps[d]; d++) if (strcmp(M[i].deps[d], M[pick].name) == 0) indeg[i]--;</span><span class="ln">    }</span><span class="ln">    return 1;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1, order[N];</span><span class="ln">    if (!topo(order)) ok = 0;</span><span class="ln">    printf(&quot;编译顺序:&quot;);</span><span class="ln">    for (int i = 0; i &lt; N; i++) printf(&quot; %s&quot;, M[order[i]].name);</span><span class="ln">    printf(&quot;\n&quot;);</span><span class="ln">    int pos[N]; for (int i = 0; i &lt; N; i++) pos[order[i]] = i;</span><span class="ln">    for (int i = 0; i &lt; N; i++) for (int d = 0; d &lt; 2 &amp;&amp; M[i].deps[d]; d++)</span><span class="ln">        for (int j = 0; j &lt; N; j++) if (strcmp(M[j].name, M[i].deps[d]) == 0 &amp;&amp; !(pos[j] &lt; pos[i])) ok = 0;</span><span class="ln">    if (strcmp(M[order[0]].name, &quot;util&quot;) != 0) ok = 0;   /* 无依赖者最先 */</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">依赖拓扑排序模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build &amp;&amp; ./labs/host_build</span>
+编译顺序: util net app main
+RESULT: PASS</code></pre></div></div><p class="sim-note">拓扑排序让每个模块都在其依赖之后编译；若有环则返回“不可构建”。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  依赖情形</div><table><thead><tr><th>情形</th><th>结果</th><th>处理</th></tr></thead><tbody><tr><td>无依赖</td><td>可选</td><td>直接编</td></tr><tr><td>线性依赖</td><td>拓扑序</td><td>按序编</td></tr><tr><td>依赖环</td><td>不可构建</td><td>拆模块/去环</td></tr><tr><td>版本不锁</td><td>不可复现</td><td>锁工具链/依赖</td></tr></tbody></table></div></section><section class="sec" id="m04-detail"><h2 id="m04-detail-t">4.3 交叉编译与可复现</h2><p>交叉编译用目标工具链 + sysroot（B09 讲过“成对”）。可复现要<strong>锁工具链与依赖版本</strong>、用声明式构建、产物带版本号与校验。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">Makefile 节选</span><span class="code-lang">Makefile</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">CC := arm-linux-gnueabihf-gcc</span><span class="ln">CFLAGS := -O2 -Wall -Wextra -Iinclude</span><span class="ln">app: main.o net.o util.o</span><span class="ln">	$(CC) $^ -o $@ -Wl,--gc-sections</span><span class="ln"># 产物带版本与校验，便于回滚/追溯</span><span class="ln">package: app</span><span class="ln">	cp app dist/app-$(VERSION) &amp;&amp; sha256sum dist/app-$(VERSION) &gt; dist/app-$(VERSION).sha256</span>
+</code></pre><span class="code-note">交叉编译 + 版本化打包，构建可复现、可追溯</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  可复现构建的要素</div><table><thead><tr><th>要素</th><th>做法</th><th>目的</th></tr></thead><tbody><tr><td>工具链</td><td>固定版本 + sysroot</td><td>ABI 一致</td></tr><tr><td>依赖锁</td><td>锁定版本/校验和</td><td>可复现</td></tr><tr><td>产物版本</td><td>版本号 + 校验</td><td>回滚/追溯</td></tr><tr><td>构建描述</td><td>声明式（CMake/meson）</td><td>少手写、可审计</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检与三路线对照</h2><p>构建自检聚焦“顺序正确、无环、可复现”：</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 构建耗时的三段（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="构建耗时的三段（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">配置</text><rect x="150" y="26" width="120" height="18" rx="4" class="sv-amb-s"/><text x="278" y="43" class="sv-lbl-hi">20%</text><text x="12" y="67" class="sv-lbl">编译</text><rect x="150" y="50" width="360" height="18" rx="4" class="sv-cyn-s"/><text x="518" y="67" class="sv-lbl-hi">60%</text><text x="12" y="91" class="sv-lbl">链接/打包</text><rect x="150" y="74" width="120" height="18" rx="4" class="sv-grn-s"/><text x="278" y="91" class="sv-lbl-hi">20%</text></svg></div><figcaption class="fig-ft">配置/依赖解析、编译、链接与打包。优化通常先看依赖解析与编译并行度，而不是盲目换编译器。</figcaption></figure><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">CMakeLists.txt 节选</span><span class="code-lang">CMake</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">cmake_minimum_required(VERSION 3.16)</span><span class="ln">project(edge C)</span><span class="ln">add_executable(app main.c net.c util.c)</span><span class="ln">target_include_directories(app PRIVATE include)</span><span class="ln">set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -O2 -Wall -Wextra&quot;)</span>
+</code></pre><span class="code-note">声明式构建（CMake）：依赖与选项可审计、可复现</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.4  三路线构建</div><table><thead><tr><th>路线</th><th>构建系统</th><th>SDK</th></tr></thead><tbody><tr><td>Buildroot</td><td>Makefile + 包</td><td>内置工具链</td></tr><tr><td>Yocto</td><td>BitBake 配方</td><td>meta-toolchain SDK</td></tr><tr><td>Debian</td><td>debuild/apt</td><td>交叉工具链</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>依赖顺序错</strong>：链接报未定义符号。</li><li><strong>依赖成环</strong>：无法构建或需拆分模块。</li><li><strong>依赖版本不锁</strong>：换环境行为不同。</li><li><strong>产物无版本</strong>：无法追溯与回滚。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">为什么构建要“可复现”？</p><details><summary>查看答案</summary><div class="ans"><p>只有可复现才能定位回归、审计与回滚。锁定工具链/依赖版本、用声明式构建、产物留版本号是基础。</p></div></details></li><li><p class="q">依赖图成环会怎样？</p><details><summary>查看答案</summary><div class="ans"><p>无法确定编译顺序，构建失败；需要拆分模块或消除循环依赖。</p></div></details></li><li><p class="q">交叉编译时“工具链 + sysroot 成对”指什么？</p><details><summary>查看答案</summary><div class="ans"><p>编译器与目标头/库必须来自同一套，否则 ABI/库版本错配，表现为能链接但一跑就崩（见 B09）。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：给你项目的构建加一个依赖拓扑检查与版本化打包步骤，确保换台机器可复现。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://pubs.opengroup.org/onlinepubs/9699919799/" target="_blank" rel="noopener noreferrer">POSIX / pthreads</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_build.c</code>：按依赖拓扑排序得到编译顺序，并检测环。</p><p><strong>检查结果：</strong>编译顺序 util net app main 满足全部依赖；存在依赖环时判定为不可构建。</p></div>
+<p class="sim-note">迁移练习：把本章的“能写出依赖拓扑排序得到编译顺序、并检测依赖环的构建脚本/工具。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>编译顺序 util net app main 满足全部依赖；存在依赖环时判定为不可构建。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 构建与并发</div>
+      <h1 class="ch-title">实时性与多线程<span class="acc">.</span></h1>
+      <p class="ch-lead">多线程的第一原则：<strong>无锁共享数据 = 竞态</strong>。所有跨线程共享的可变数据都要用互斥量/原子/条件变量保护；实时还要控制抖动（调度策略/亲和）。</p>
+      <div class="ch-meta"><span>前置：Module 01 的返回值处理与 Module 02 的共享状态边界。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用 pthread_create/pthread_mutex_t 保护共享计数，使并发累加结果精确可复现。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>无锁共享数据 = 竞态；用互斥/原子/条件变量。</li><li>忙等浪费 CPU，条件变量更省。</li><li>实时线程要分析最坏执行时间与调度策略。</li></ul></div>
+    <section class="sec" id="m05-model"><h2 id="m05-model-t">5.1 竞态与同步</h2><p>读-改-写不是原子操作：两个线程都先读旧值再写回，后写的覆盖先写的，就丢失更新。所有跨线程共享的可变数据都要用互斥量/原子/条件变量保护。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 读-改-写交错导致丢失更新</div><div class="fig-bd"><svg viewBox="0 0 800 120" width="100%" height="120" role="img" aria-label="读-改-写交错导致丢失更新" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V94"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V94"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">20</text><path class="sv-dash" d="M460,26 V94"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">40</text><path class="sv-dash" d="M615,26 V94"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">60</text><path class="sv-dash" d="M770,26 V94"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">80</text><text x="12" y="48" class="sv-lbl">线程1</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="155" height="22" rx="4" class="sv-cyn-s"/><text x="227.5" y="47" text-anchor="middle" class="sv-lbl-hi">读0</text><rect x="460" y="32" width="155" height="22" rx="4" class="sv-amb-s"/><text x="537.5" y="47" text-anchor="middle" class="sv-lbl-hi">写1</text><text x="12" y="82" class="sv-lbl">线程2</text><path class="sv-dash" d="M150,78 H770"/><rect x="305" y="66" width="155" height="22" rx="4" class="sv-cyn-s"/><text x="382.5" y="81" text-anchor="middle" class="sv-lbl-hi">读0</text><rect x="615" y="66" width="155" height="22" rx="4" class="sv-amb-s"/><text x="692.5" y="81" text-anchor="middle" class="sv-lbl-hi">写1</text></svg></div><figcaption class="fig-ft">两线程都先读 x=0，各自 +1 得 1，写回还是 1——两次自增只加了一次。加锁让“读-改-写”串行化。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  多线程的五个坑</div><table><thead><tr><th>问题</th><th>现象</th><th>处理</th></tr></thead><tbody><tr><td>数据竞态</td><td>偶发错值</td><td>互斥/原子</td></tr><tr><td>忙等</td><td>CPU 空转</td><td>条件变量</td></tr><tr><td>优先级反转</td><td>高优先级被拖</td><td>优先级继承</td></tr><tr><td>抖动</td><td>响应不稳</td><td>CPU 亲和/调度策略</td></tr><tr><td>锁竞争</td><td>吞吐下降</td><td>缩小临界区/分片</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">mutex.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">pthread_mutex_lock(&amp;m);</span><span class="ln">  shared++;                    // 临界区尽量小</span><span class="ln">pthread_mutex_unlock(&amp;m);</span><span class="ln">/* 无事件时：pthread_cond_wait(&amp;cv, &amp;m) 而非忙等 */</span>
+</code></pre><span class="code-note">互斥保护临界区；条件变量替代忙等</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：无锁 vs 加锁</h2><p>下面这段主机程序用真实 <code class="ic">pthread</code> 跑两种情形：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_threads.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_threads.c —— 实时性与多线程：真实 pthread 竞态与加锁模型（主机可运行）。</span><span class="ln"> *</span><span class="ln"> * 无锁共享计数的“读-改-写”不是原子操作，两线程并发会丢失更新；用 pthread_mutex_t</span><span class="ln"> * 保护临界区后结果精确。本程序用真实 pthread_create 起两个线程，并用 pthread_barrier</span><span class="ln"> * 强制两线程“先都读、再都写”，从而稳定复现一次丢失更新。</span><span class="ln"> *</span><span class="ln"> * 编译运行（POSIX 线程，显式链接可加 -pthread）：</span><span class="ln"> *   gcc -std=c11 -Wall -Wextra -O2 host_threads.c -o host_threads -pthread &amp;&amp; ./host_threads</span><span class="ln"> * 在 glibc ≥ 2.34 / 现代 winpthreads 上 pthread 已随 libc 默认链接，故 gcc -std=c11 -O2 亦可编过。</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;pthread.h&gt;</span><span class="ln"></span><span class="ln">static int raw = 0;                        /* 无锁共享计数 */</span><span class="ln">static pthread_barrier_t bar;              /* 强制两线程都读完后才写 */</span><span class="ln">static int locked_count = 0;               /* 互斥保护的计数 */</span><span class="ln">static pthread_mutex_t m = PTHREAD_MUTEX_INITIALIZER;</span><span class="ln"></span><span class="ln">/* 无锁 +1：读 → 同步 → 写回，后写覆盖先写 → 丢失更新 */</span><span class="ln">static void *raw_inc(void *arg) {</span><span class="ln">    (void)arg;</span><span class="ln">    int tmp = raw;                         /* 读 */</span><span class="ln">    pthread_barrier_wait(&amp;bar);            /* 两线程都读完再继续 */</span><span class="ln">    raw = tmp + 1;                         /* 写回（非原子） */</span><span class="ln">    return 0;</span><span class="ln">}</span><span class="ln"></span><span class="ln">/* 加锁 +500：临界区内自增，串行且不丢失 */</span><span class="ln">static void *locked_inc(void *arg) {</span><span class="ln">    (void)arg;</span><span class="ln">    for (int i = 0; i &lt; 500; i++) {</span><span class="ln">        pthread_mutex_lock(&amp;m);</span><span class="ln">        locked_count++;</span><span class="ln">        pthread_mutex_unlock(&amp;m);</span><span class="ln">    }</span><span class="ln">    return 0;</span><span class="ln">}</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    pthread_t t1, t2;</span><span class="ln"></span><span class="ln">    /* 无锁：两线程各 +1，barrier 强制都先读到 0，最终只保留一次 +1 */</span><span class="ln">    pthread_barrier_init(&amp;bar, 0, 2);</span><span class="ln">    pthread_create(&amp;t1, 0, raw_inc, 0);</span><span class="ln">    pthread_create(&amp;t2, 0, raw_inc, 0);</span><span class="ln">    pthread_join(t1, 0);</span><span class="ln">    pthread_join(t2, 0);</span><span class="ln">    printf(&quot;无锁两线程各 +1（barrier 强制都先读）：期望 2，实际 %d（丢失更新）\n&quot;, raw);</span><span class="ln">    if (raw != 1) ok = 0;</span><span class="ln"></span><span class="ln">    /* 加锁：两线程各 +500，互斥保护下必须恰好 1000 */</span><span class="ln">    pthread_create(&amp;t1, 0, locked_inc, 0);</span><span class="ln">    pthread_create(&amp;t2, 0, locked_inc, 0);</span><span class="ln">    pthread_join(t1, 0);</span><span class="ln">    pthread_join(t2, 0);</span><span class="ln">    printf(&quot;加锁自增 2×500：实际 %d（期望 1000）\n&quot;, locked_count);</span><span class="ln">    if (locked_count != 1000) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">线程竞态与互斥模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 -pthread labs/host_threads.c -o labs/host_threads &amp;&amp; ./labs/host_threads</span>
+无锁两线程各 +1（barrier 强制都先读）：期望 2，实际 1（丢失更新）
+加锁自增 2×500：实际 1000（期望 1000）
+RESULT: PASS</code></pre></div></div><p class="sim-note">barrier 强制两线程都先读，暴露无锁的丢失更新；加锁后 2×500 精确为 1000。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  同步原语</div><table><thead><tr><th>原语</th><th>用途</th><th>注意</th></tr></thead><tbody><tr><td>pthread_mutex</td><td>保护临界区</td><td>临界区尽量小</td></tr><tr><td>条件变量</td><td>等待/通知</td><td>替代忙等</td></tr><tr><td>原子操作</td><td>单变量</td><td>无锁但需内存序</td></tr><tr><td>读写锁</td><td>读多写少</td><td>写者饥饿风险</td></tr></tbody></table></div></section><section class="sec" id="m05-rt"><h2 id="m05-rt-t">5.3 实时与抖动</h2><p>实时线程要分析<strong>最坏执行时间</strong>与<strong>调度策略</strong>（SCHED_FIFO/RR）；把关键线程绑核、减少锁竞争与内存分配，才能控制抖动。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">rt_thread.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">struct sched_param sp = { .sched_priority = 80 };</span><span class="ln">pthread_setschedparam(tid, SCHED_FIFO, &amp;sp);   // 实时调度</span><span class="ln">cpu_set_t set; CPU_ZERO(&amp;set); CPU_SET(2, &amp;set);</span><span class="ln">pthread_setaffinity_np(tid, sizeof set, &amp;set); // 绑核</span><span class="ln">/* 减少锁竞争与动态分配，控制最坏执行时间 */</span>
+</code></pre><span class="code-note">实时调度 + 绑核 + 少锁少分配 = 抖动可控</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  控制抖动的四种手段</div><table><thead><tr><th>手段</th><th>作用</th><th>代价</th></tr></thead><tbody><tr><td>SCHED_FIFO/RR</td><td>确定性调度</td><td>需权限、可能饿死低优</td></tr><tr><td>CPU 亲和</td><td>减少迁移抖动</td><td>负载不均</td></tr><tr><td>优先级继承</td><td>缓解优先级反转</td><td>mutex 属性</td></tr><tr><td>缩小临界区</td><td>降锁竞争</td><td>需重构</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检与三路线对照</h2><p>并发自检聚焦“结果可复现、无死锁、抖动可控”：</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 并发正确性的验证路径</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="并发正确性的验证路径" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">识别共享</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">同步保护</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">压力跑</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">结果可复现</text></svg></div><figcaption class="fig-ft">先静态识别共享数据 → 加锁/原子 → 压力跑多次 → 结果精确可复现 → 查死锁/抖动。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  三路线实时能力</div><table><thead><tr><th>路线</th><th>实时能力</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>PREEMPT_RT 可选</td><td>需内核配置</td></tr><tr><td>Yocto</td><td>PREEMPT_RT 配方</td><td>可定制</td></tr><tr><td>Debian</td><td>rt 内核包</td><td>最易获取</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无锁共享</strong>：丢失更新/读数撕裂。</li><li><strong>用忙等代替条件变量</strong>：CPU 空转、功耗高。</li><li><strong>临界区过大</strong>：锁竞争严重，吞吐骤降。</li><li><strong>不看最坏执行时间</strong>：偶发超期，实时性失守。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">两个线程各把变量 +1 一次，为什么结果可能只有 1？</p><details><summary>查看答案</summary><div class="ans"><p>读-改-写不是原子操作：两线程都先读旧值再写回，后写的覆盖先写的，丢了一次更新。要用原子操作或互斥锁。</p></div></details></li><li><p class="q">为什么建议用条件变量而不是忙等？</p><details><summary>查看答案</summary><div class="ans"><p>忙等空转 CPU、费电、还可能与低优先级抢资源；条件变量在无事件时休眠，被通知才唤醒。</p></div></details></li><li><p class="q">实时线程控制抖动常做哪几件事？</p><details><summary>查看答案</summary><div class="ans"><p>用 SCHED_FIFO/RR、CPU 亲和绑核、减少锁竞争与动态分配、分析最坏执行时间。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把项目里所有跨线程共享的可变数据列出来，逐项加锁/原子保护并压测验证结果可复现。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_threads.c</code>（真实 pthread_create + pthread_mutex_t）：验证无锁丢失更新、加锁精确 1000。</p><p><strong>检查结果：</strong>barrier 强制两线程都先读后无锁 +1 实际=1（丢失一次更新）；加锁 2×500 实际=1000。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用 pthread_create/pthread_mutex_t 保护共享计数，使并发累加结果精确可复现。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>barrier 强制两线程都先读后无锁 +1 实际=1（丢失一次更新）；加锁 2×500 实际=1000。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 服务化与部署</div>
+      <h1 class="ch-title">服务化与部署<span class="acc">.</span></h1>
+      <p class="ch-lead">把应用做成<strong>服务</strong>：由 init 系统托管，崩溃能自动重启、开机自启、依赖就绪后再启动、日志可查。价值在于“失败可见、可自愈、可运维”。</p>
+      <div class="ch-meta"><span>前置：Module 01 系统编程与 Module 05 的多线程/并发。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能写 systemd unit（After/Restart/StartLimit）让服务自启、崩溃重启且失败可见。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>应用应由 init 托管：开机自启、崩溃拉起、日志可查。</li><li>重启要限速，避免重启风暴。</li><li>依赖顺序写对，网络就绪后再启动。</li></ul></div>
+    <section class="sec" id="m06-model"><h2 id="m06-model-t">6.1 systemd unit：依赖、重启、限速</h2><p>托管解决“崩溃无人拉起、开机不自启、依赖未就绪就启动”。关键配置：<code class="ic">After/Wants</code>（顺序依赖）、<code class="ic">Restart</code>（崩溃重启）、<code class="ic">StartLimit</code>（重启限速，避免风暴）。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> 服务的生命周期与重启限速</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="服务的生命周期与重启限速" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">启动</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">运行</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">崩溃重启</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">限速→failed</text></svg></div><figcaption class="fig-ft">启动 → 运行 → 崩溃 → 重启（受 RestartSec 间隔）→ 连续失败达限速阈值 → 进入 failed（暴露问题）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  systemd unit 关键配置</div><table><thead><tr><th>配置</th><th>作用</th><th>要点</th></tr></thead><tbody><tr><td>After/Wants</td><td>启动顺序与依赖</td><td>别写成硬依赖循环</td></tr><tr><td>Restart</td><td>崩溃重启</td><td>on-failure 常用</td></tr><tr><td>RestartSec</td><td>重启间隔</td><td>避免瞬间风暴</td></tr><tr><td>StartLimit</td><td>重启限速</td><td>超过进入 failed</td></tr><tr><td>journald</td><td>日志集中</td><td>结构化、可检索</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">journalctl.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">systemctl status myapp          # 状态/最近日志</span><span class="ln">journalctl -u myapp -b -p err    # 本次启动的错误</span><span class="ln">systemctl is-failed myapp        # 是否进入 failed</span>
+</code></pre><span class="code-note">从 journald/systemd 查服务状态与失败原因</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：重启限速</h2><p>下面这段主机程序模型化“连续失败 → 达到限速 → 进入 failed”：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_service.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_service.c —— 服务化：崩溃重启与限速（systemd Restart 语义）模型（主机可运行）。</span><span class="ln"> * 服务反复失败时不能无限重启：StartLimit 在时间窗内限制重启次数，超过进入 failed。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_service.c -o host_service &amp;&amp; ./host_service</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef enum { RUNNING, FAILED } st_t;</span><span class="ln">typedef struct { int burst; int limit; st_t st; } svc_t;</span><span class="ln">static void on_failure(svc_t *s) {</span><span class="ln">    if (++s-&gt;burst &gt; s-&gt;limit) s-&gt;st = FAILED;          /* 超过限速进入 failed */</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; svc_t s = {0, 5, RUNNING};</span><span class="ln">    for (int i = 0; i &lt; 5; i++) on_failure(&amp;s);</span><span class="ln">    printf(&quot;失败 5 次：burst=%d state=%s（仍 RUNNING）\n&quot;, s.burst, s.st == RUNNING ? &quot;RUNNING&quot; : &quot;FAILED&quot;);</span><span class="ln">    if (!(s.burst == 5 &amp;&amp; s.st == RUNNING)) ok = 0;</span><span class="ln">    on_failure(&amp;s);</span><span class="ln">    printf(&quot;第 6 次：burst=%d state=%s（期望 FAILED，限速生效）\n&quot;, s.burst, s.st == RUNNING ? &quot;RUNNING&quot; : &quot;FAILED&quot;);</span><span class="ln">    if (!(s.burst == 6 &amp;&amp; s.st == FAILED)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">服务重启限速模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service &amp;&amp; ./labs/host_service</span>
+失败 5 次：burst=5 state=RUNNING（仍 RUNNING）
+第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）
+RESULT: PASS</code></pre></div></div><p class="sim-note">连续失败 ≤5 次仍 RUNNING；第 6 次达限速进入 FAILED——重启风暴被约束，问题被暴露。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  服务状态</div><table><thead><tr><th>状态</th><th>含义</th><th>运维动作</th></tr></thead><tbody><tr><td>RUNNING</td><td>运行/自动重启中</td><td>观察</td></tr><tr><td>FAILED</td><td>多次失败被限速</td><td>查日志/介入</td></tr><tr><td>inactive</td><td>未运行</td><td>按需启动</td></tr><tr><td>activating</td><td>启动中</td><td>等待/超时</td></tr></tbody></table></div></section><section class="sec" id="m06-unit"><h2 id="m06-unit-t">6.3 写一个 unit</h2><p>unit 文件要明确：依赖、重启策略与限速、日志去向、运行用户与工作目录（最小权限，见 B09 M08）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">myapp.service 节选</span><span class="code-lang">systemd</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">[Unit]</span><span class="ln">Description=edge service</span><span class="ln">After=network-online.target</span><span class="ln">Wants=network-online.target</span><span class="ln"></span><span class="ln">[Service]</span><span class="ln">ExecStart=/opt/myapp/bin/app --config /etc/myapp.conf</span><span class="ln">Restart=on-failure</span><span class="ln">RestartSec=2</span><span class="ln">StartLimitIntervalSec=30</span><span class="ln">StartLimitBurst=5</span><span class="ln">User=myapp</span><span class="ln"></span><span class="ln">[Install]</span><span class="ln">WantedBy=multi-user.target</span>
+</code></pre><span class="code-note">托管 + 重启限速 + 最小权限用户</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  unit 的正确姿势</div><table><thead><tr><th>要点</th><th>正确做法</th><th>常见错误</th></tr></thead><tbody><tr><td>依赖</td><td>After=network-online</td><td>写硬依赖成环</td></tr><tr><td>重启</td><td>on-failure + 限速</td><td>无限重启风暴</td></tr><tr><td>权限</td><td>User= 非 root</td><td>root 跑应用</td></tr><tr><td>日志</td><td>journald</td><td>日志不落地</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检与三路线对照</h2><p>服务化自检：能否自启、崩溃能否拉起、失败是否可见、日志能否检索。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 服务启动阶段耗时（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="服务启动阶段耗时（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">依赖等待</text><rect x="150" y="26" width="180" height="18" rx="4" class="sv-amb-s"/><text x="338" y="43" class="sv-lbl-hi">30%</text><text x="12" y="67" class="sv-lbl">进程拉起</text><rect x="150" y="50" width="240" height="18" rx="4" class="sv-cyn-s"/><text x="398" y="67" class="sv-lbl-hi">40%</text><text x="12" y="91" class="sv-lbl">健康就绪</text><rect x="150" y="74" width="180" height="18" rx="4" class="sv-grn-s"/><text x="338" y="91" class="sv-lbl-hi">30%</text></svg></div><figcaption class="fig-ft">依赖就绪、进程拉起、健康检查。优化启动要看清哪一段占大头，而不是盲目并发。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  三路线托管</div><table><thead><tr><th>路线</th><th>init 系统</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>busybox init/systemd</td><td>可裁剪</td></tr><tr><td>Yocto</td><td>systemd</td><td>常用</td></tr><tr><td>Debian</td><td>systemd</td><td>工具最全</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无托管裸跑</strong>：崩溃无人拉起。</li><li><strong>无限重启</strong>：重启风暴耗尽资源。</li><li><strong>依赖写错</strong>：网络未就绪就启动后失败。</li><li><strong>日志不落地</strong>：现场问题无据可查。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">为什么 Restart 要配 StartLimit？</p><details><summary>查看答案</summary><div class="ans"><p>否则永久性故障会无限重启，既耗资源又掩盖根因。限速在多次失败后把服务置为 failed，暴露问题。</p></div></details></li><li><p class="q">服务应该用什么用户运行？</p><details><summary>查看答案</summary><div class="ans"><p>非 root 的最小权限用户（User=）。需要设备访问用 udev 赋权或能力位，而不是整机 root。</p></div></details></li><li><p class="q">After=network-online 与 Wants 的区别是什么？</p><details><summary>查看答案</summary><div class="ans"><p>After 只定顺序（在网络就绪之后启动），Wants 表示弱依赖（希望网络服务被拉起但不硬失败）。两者常一起用，避免硬依赖成环。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你项目的应用写成 systemd unit（依赖/重启限速/非 root/日志），并做一次崩溃自愈验证。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener noreferrer">Beej 网络编程指南</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_service.c</code>：验证重启限速——连续失败超过阈值进入 failed。</p><p><strong>检查结果：</strong>连续失败 5 次 burst=5 仍 RUNNING；第 6 次 burst=6 转 FAILED（限速生效）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能写 systemd unit（After/Restart/StartLimit）让服务自启、崩溃重启且失败可见。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>连续失败 5 次 burst=5 仍 RUNNING；第 6 次 burst=6 转 FAILED（限速生效）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 服务化与部署</div>
+      <h1 class="ch-title">性能与资源<span class="acc">.</span></h1>
+      <p class="ch-lead">性能工作先<strong>量化预算</strong>再优化：CPU 占用 = 执行时间/周期；内存要留峰值余量；并设<strong>上限阈值 + 降级</strong>，而不是等 OOM/超期。</p>
+      <div class="ch-meta"><span>前置：Module 05 的线程与 Module 06 的服务运行。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为 CPU 占用与内存峰值设预算阈值，并在超限时触发降级而非崩溃。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>先建资源预算再优化，并设上界与降级。</li><li>测峰值不只测平均。</li><li>查泄漏与碎片，长跑验证。</li></ul></div>
+    <section class="sec" id="m07-budget"><h2 id="m07-budget-t">7.1 先建预算，再优化</h2><p>性能不是“感觉慢就展开循环”。先量化预算：<strong>CPU 占用 = 执行时间/周期</strong>，内存要留峰值余量，IO 看等待时间。并设明确上限（如 CPU≤30%、内存峰值≤80%）。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 性能工作的顺序</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="性能工作的顺序" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">设预算</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">测量</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">优化</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">回归</text></svg></div><figcaption class="fig-ft">设预算 → 测量找瓶颈 → 优化 → 回归对比基线。跳过“设预算/测量”就是瞎优化。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  性能维度与工具</div><table><thead><tr><th>维度</th><th>工具</th><th>指标</th></tr></thead><tbody><tr><td>CPU</td><td>top/perf</td><td>占用率、热点函数</td></tr><tr><td>内存</td><td>valgrind/ASAN</td><td>泄漏、峰值</td></tr><tr><td>IO</td><td>iostat/strace</td><td>等待时间</td></tr><tr><td>启动</td><td>systemd-analyze</td><td>各阶段耗时</td></tr><tr><td>回归</td><td>基准脚本</td><td>与基线对比</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">measure.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">perf top -p $(pidof app)         # 采样热点</span><span class="ln">valgrind --leak-check=full ./app # 内存泄漏</span><span class="ln">pidstat -p $(pidof app) 1        # CPU/内存随时间</span>
+</code></pre><span class="code-note">先测量定位瓶颈，再谈优化</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：预算判定</h2><p>下面这段主机程序按 CPU 预算与内存阈值判定“是否可接受”：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_perf.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_perf.c —— 性能与资源：CPU 预算与内存峰值估算模型（主机可运行）。</span><span class="ln"> * 实时线程占 CPU 比例 = 执行时间/周期；内存峰值要留余量。本程序按预算判断是否可接受。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_perf.c -o host_perf &amp;&amp; ./host_perf</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">static int cpu_ok(int exec_us, int period_us, int budget_permille) { return exec_us * 1000 &lt;= period_us * budget_permille; }</span><span class="ln">static int mem_ok(int peak_kb, int limit_kb) { return peak_kb * 100 &lt;= limit_kb * 80; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    printf(&quot;实时线程 200us/1ms → CPU 占用 %d‰（预算 300‰）：%s\n&quot;, 200*1000/1000, cpu_ok(200,1000,300)?&quot;OK&quot;:&quot;超预算&quot;);</span><span class="ln">    if (!cpu_ok(200, 1000, 300)) ok = 0;</span><span class="ln">    printf(&quot;实时线程 800us/1ms → %s（应超预算）\n&quot;, cpu_ok(800,1000,300)?&quot;OK&quot;:&quot;超预算&quot;);</span><span class="ln">    if (cpu_ok(800, 1000, 300)) ok = 0;</span><span class="ln">    printf(&quot;内存峰值 6000KB/8192KB → %s\n&quot;, mem_ok(6000,8192)?&quot;OK&quot;:&quot;超预算&quot;);</span><span class="ln">    if (!mem_ok(6000,8192)) ok = 0;</span><span class="ln">    printf(&quot;内存峰值 7500KB/8192KB → %s（应超预算）\n&quot;, mem_ok(7500,8192)?&quot;OK&quot;:&quot;超预算&quot;);</span><span class="ln">    if (mem_ok(7500,8192)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">CPU/内存预算模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf &amp;&amp; ./labs/host_perf</span>
+实时线程 200us/1ms → CPU 占用 200‰（预算 300‰）：OK
+实时线程 800us/1ms → 超预算（应超预算）
+内存峰值 6000KB/8192KB → OK
+内存峰值 7500KB/8192KB → 超预算（应超预算）
+
+RESULT: PASS</code></pre></div></div><p class="sim-note">200us/1ms=200‰ 在预算内、800us/1ms 超预算；内存峰值超 8192KB 同理。预算是可判定的阈值。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  预算与降级动作</div><table><thead><tr><th>指标</th><th>预算</th><th>超限动作</th></tr></thead><tbody><tr><td>CPU 占用</td><td>≤300‰</td><td>降采样/降频</td></tr><tr><td>内存峰值</td><td>≤80%</td><td>拒绝新任务/回收</td></tr><tr><td>IO 等待</td><td>设上限</td><td>限流/异步</td></tr><tr><td>启动时间</td><td>设目标</td><td>裁剪/并发</td></tr></tbody></table></div></section><section class="sec" id="m07-leak"><h2 id="m07-leak-t">7.3 泄漏与降级</h2><p>长跑应用必须查泄漏与碎片；输入/负载不可控，所以要有<strong>资源上界 + 降级策略</strong>（降采样/拒绝新任务/丢弃非关键），而不是等到 OOM。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">guard.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (cpu_permille() &gt; CPU_BUDGET || mem_peak() &gt; MEM_LIMIT) {</span><span class="ln">    degrade();      // 降采样/拒绝新任务，保持可用</span><span class="ln">}</span><span class="ln">/* 长跑用 valgrind/ASAN 查泄漏；设回归基线对比 */</span>
+</code></pre><span class="code-note">超限即降级而非崩溃：保持系统可用是第一优先</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  资源风险与缓解</div><table><thead><tr><th>风险</th><th>检测</th><th>缓解</th></tr></thead><tbody><tr><td>内存泄漏</td><td>valgrind/ASAN</td><td>修复 + 上限</td></tr><tr><td>碎片</td><td>长跑观察</td><td>固定块池</td></tr><tr><td>峰值超限</td><td>峰值监控</td><td>降级/回收</td></tr><tr><td>回归</td><td>基准脚本</td><td>CI 对比基线</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检与三路线对照</h2><p>性能自检：有预算、有测量、有回归、有降级。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 优化前后的占用对比（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="优化前后的占用对比（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">优化前</text><rect x="150" y="26" width="480" height="18" rx="4" class="sv-red-s"/><text x="638" y="43" class="sv-lbl-hi">80‰(×10)</text><text x="12" y="67" class="sv-lbl">优化后</text><rect x="150" y="50" width="210" height="18" rx="4" class="sv-grn-s"/><text x="368" y="67" class="sv-lbl-hi">35‰(×10)</text><text x="12" y="91" class="sv-lbl">预算线</text><rect x="150" y="74" width="180" height="18" rx="4" class="sv-amb-s"/><text x="338" y="91" class="sv-lbl-hi">30‰(×10)</text></svg></div><figcaption class="fig-ft">优化应使占用明显下降并稳定在预算内；若无变化，说明没找到真瓶颈或瓶颈在别处。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  三路线性能工具</div><table><thead><tr><th>路线</th><th>性能工具</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>perf 可选</td><td>需内核支持</td></tr><tr><td>Yocto</td><td>perf/valgrind 配方</td><td>可定制</td></tr><tr><td>Debian</td><td>perf/valgrind/ASAN</td><td>工具最全</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无预算就优化</strong>：不知道目标，改来改去。</li><li><strong>只测平均不测峰值</strong>：峰值触发 OOM。</li><li><strong>不查泄漏</strong>：长跑后内存耗尽。</li><li><strong>无降级策略</strong>：超载时直接崩。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">为什么要设“资源上界 + 降级”而不是只优化？</p><details><summary>查看答案</summary><div class="ans"><p>输入/负载不可控。设上界并在超限时降级（拒绝/降采样）能让系统在极端情况下保持可用，而不是崩溃；优化只是把上界抬高。</p></div></details></li><li><p class="q">为什么内存要看峰值而不是平均值？</p><details><summary>查看答案</summary><div class="ans"><p>OOM 由峰值触发。平均值正常但峰值超限照样被杀，所以要看峰值并留余量。</p></div></details></li><li><p class="q">性能优化前必做的一步是什么？</p><details><summary>查看答案</summary><div class="ans"><p>测量定位瓶颈（profiling）并设预算基线。没有测量，优化方向很可能错。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：给你服务设一个 CPU/内存预算阈值与降级策略，并加一个性能回归基线脚本。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_perf.c</code>：按 CPU 预算与内存阈值判断是否可接受。</p><p><strong>检查结果：</strong>CPU 200‰≤300‰ 通过、800‰ 超预算；内存示例采用 80% 预警线：6000KB 通过，7500KB 超过预警线但未触及 8192KB 硬上限。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为 CPU 占用与内存峰值设预算阈值，并在超限时触发降级而非崩溃。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>CPU 200‰≤300‰ 通过、800‰ 超预算；内存示例采用 80% 预警线：6000KB 通过，7500KB 超过预警线但未触及 8192KB 硬上限。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 服务化与部署</div>
+      <h1 class="ch-title">容器与应用 OTA<span class="acc">.</span></h1>
+      <p class="ch-lead">应用交付两种：<strong>容器化</strong>（隔离依赖、便于部署）与<strong>整机 OTA</strong>（换 rootfs/固件）。两者都要“可失败、可回滚”。</p>
+      <div class="ch-meta"><span>前置：Module 06 服务化与 Module 07 资源约束。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能设计“写备用区→校验→切换→确认→失败回滚”的 OTA/容器升级路径。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>容器/OTA 都要可失败可回滚。</li><li>镜像只读、数据放卷/独立目录。</li><li>灰度先小批量，指标正常再放量。</li></ul></div>
+    <!-- PLATFORM_OPTION_START --><details class="learning-platform"><summary>其他平台对照 · 首次只选当前硬件</summary><section class="sec" id="m08-routes"><h2 id="m08-routes-t">8.1 容器 vs 整机 OTA</h2><p>容器隔离依赖、便于部署；整机 OTA 换 rootfs/固件、彻底可回滚。两者都要可失败可回滚；容器把可写数据放卷，镜像保持只读。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 容器：只读镜像 + 可写卷</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="容器：只读镜像 + 可写卷" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">只读镜像（可替换/回滚）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">可写卷（数据，升级不动）</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="131.0" class="sv-lbl-hi">运行时（容器）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="165.0" class="sv-lbl-hi">宿主/内核</text></svg></div><figcaption class="fig-ft">镜像只读、可替换；可写数据放卷（或外部存储），升级只换镜像，数据不丢且可回滚。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  交付方式对比</div><table><thead><tr><th>方式</th><th>优点</th><th>代价</th></tr></thead><tbody><tr><td>容器</td><td>依赖隔离、可移植</td><td>运行时开销、存储</td></tr><tr><td>只读容器 + 卷</td><td>可恢复、升级简单</td><td>需处理持久化</td></tr><tr><td>应用 OTA</td><td>只更应用</td><td>需版本兼容</td></tr><tr><td>整机 A/B OTA</td><td>彻底、可回滚</td><td>镜像大、需双分区</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">rollback.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">rauc install app.raucb          # A/B 安装到备用槽</span><span class="ln"># 成功后 mark-good；启动自检失败 → 自动回滚旧槽</span><span class="ln">rauc status                     # 查询当前槽与状态</span>
+</code></pre><span class="code-note">A/B 安装 + mark-good + 失败自动回滚</span></div></section></details><!-- PLATFORM_OPTION_END --><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：失败可见与回滚</h2><p>升级的“失败可见”与服务的“重启限速”同源：失败要被限速并暴露，才能触发回滚。下面这段服务模型给出可运行证据：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_service.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_service.c —— 服务化：崩溃重启与限速（systemd Restart 语义）模型（主机可运行）。</span><span class="ln"> * 服务反复失败时不能无限重启：StartLimit 在时间窗内限制重启次数，超过进入 failed。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_service.c -o host_service &amp;&amp; ./host_service</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef enum { RUNNING, FAILED } st_t;</span><span class="ln">typedef struct { int burst; int limit; st_t st; } svc_t;</span><span class="ln">static void on_failure(svc_t *s) {</span><span class="ln">    if (++s-&gt;burst &gt; s-&gt;limit) s-&gt;st = FAILED;          /* 超过限速进入 failed */</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; svc_t s = {0, 5, RUNNING};</span><span class="ln">    for (int i = 0; i &lt; 5; i++) on_failure(&amp;s);</span><span class="ln">    printf(&quot;失败 5 次：burst=%d state=%s（仍 RUNNING）\n&quot;, s.burst, s.st == RUNNING ? &quot;RUNNING&quot; : &quot;FAILED&quot;);</span><span class="ln">    if (!(s.burst == 5 &amp;&amp; s.st == RUNNING)) ok = 0;</span><span class="ln">    on_failure(&amp;s);</span><span class="ln">    printf(&quot;第 6 次：burst=%d state=%s（期望 FAILED，限速生效）\n&quot;, s.burst, s.st == RUNNING ? &quot;RUNNING&quot; : &quot;FAILED&quot;);</span><span class="ln">    if (!(s.burst == 6 &amp;&amp; s.st == FAILED)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">失败可见/限速模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service &amp;&amp; ./labs/host_service</span>
+失败 5 次：burst=5 state=RUNNING（仍 RUNNING）
+第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）
+RESULT: PASS</code></pre></div></div><p class="sim-note">新版本连续失败被限速并进入 FAILED，是触发“自动回滚”的信号；否则会陷入重启风暴。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  OTA 的四个不变式</div><table><thead><tr><th>OTA 步骤</th><th>断电后</th><th>保证</th></tr></thead><tbody><tr><td>写备用区</td><td>旧版完好</td><td>仍可启动</td></tr><tr><td>校验（签名）</td><td>未切换</td><td>不启半包</td></tr><tr><td>切换+确认</td><td>落持久区</td><td>幂等</td></tr><tr><td>失败回滚</td><td>回旧版</td><td>不变砖</td></tr></tbody></table></div></section><section class="sec" id="m08-rollback"><h2 id="m08-rollback-t">8.3 回滚与灰度</h2><p>OTA 要点：<strong>写备用区 → 校验（签名）→ 切换 → 确认 → 失败回滚</strong>。灰度先小批量、指标正常再放量；容器场景把可写数据放卷，镜像只读。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ota_boot.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (verify_signature(new_img, sig) != OK) { rollback(); return; }</span><span class="ln">set_boot_slot(SLOT_B);         // 切换启动分区</span><span class="ln">/* 新固件自检失败 → set_boot_slot(SLOT_A) 回滚</span><span class="ln"> * 灰度：先 &lt;5% 设备，指标正常再放量 */</span>
+</code></pre><span class="code-note">校验签名 + 切换 + 自检失败回滚 + 灰度放量</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  升级的四个策略</div><table><thead><tr><th>策略</th><th>做法</th><th>风险控制</th></tr></thead><tbody><tr><td>A/B 切换</td><td>写另一侧再切</td><td>始终有可启动固件</td></tr><tr><td>签名校验</td><td>验签通过才切</td><td>防篡改/半包</td></tr><tr><td>灰度</td><td>小批量先推</td><td>坏版本影响面小</td></tr><tr><td>回滚</td><td>启动自检失败回退</td><td>不变砖</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检与三路线对照</h2><p>交付自检：升级可回滚、数据与镜像分离、失败可见、可灰度。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 容器/OTA 交付的检查路径</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="容器/OTA 交付的检查路径" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">打包</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">校验</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">部署</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">健康/回滚</text></svg></div><figcaption class="fig-ft">打包（只读镜像/双分区）→ 校验 → 部署 → 健康检查 → 失败回滚 → 灰度放量。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  三路线交付支持</div><table><thead><tr><th>路线</th><th>容器/OTA 支持</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>docker/rauc/swupdate</td><td>需集成</td></tr><tr><td>Yocto</td><td>rauc/OTA 配方</td><td>标准化</td></tr><tr><td>Debian</td><td>docker/apt/rauc</td><td>工具最全</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无回滚</strong>：升级失败即事故。</li><li><strong>只读镜像但数据也放镜像</strong>：升级丢数据。</li><li><strong>不做灰度</strong>：坏版本全量推。</li><li><strong>不校验签名</strong>：可被推恶意镜像。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">容器化应用为什么要把可写数据放到“卷”？</p><details><summary>查看答案</summary><div class="ans"><p>镜像应保持只读、可替换；可写数据放卷（或外部存储），升级只换镜像，数据不丢且可回滚。</p></div></details></li><li><p class="q">整机 A/B OTA 为什么需要双分区？</p><details><summary>查看答案</summary><div class="ans"><p>升级写“另一侧”，当前分区保持可启动；失败时能回滚，保证任意时刻都有可启动的完整固件。</p></div></details></li><li><p class="q">为什么要灰度放量？</p><details><summary>查看答案</summary><div class="ans"><p>坏版本若全量推送会造成大面积故障。灰度先小批量验证指标，正常再放量，把风险限制在小范围。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你应用设计容器或 OTA 的可回滚交付路径，并做一次“升级中断电 + 回滚”演练。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.freedesktop.org/software/systemd/man/" target="_blank" rel="noopener noreferrer">systemd 官方文档</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_service.c</code>（重启/失败可见模型）；为你的应用设计容器或 OTA 的回滚路径。</p><p><strong>检查结果：</strong>升级有校验与回滚、失败可见（第 6 次失败转 FAILED）、可写数据与镜像分离。</p></div>
+<p class="sim-note">迁移练习：把本章的“能设计“写备用区→校验→切换→确认→失败回滚”的 OTA/容器升级路径。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>升级有校验与回滚、失败可见（第 6 次失败转 FAILED）、可写数据与镜像分离。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 持久化与综合</div>
+      <h1 class="ch-title">持久化、配置与服务恢复<span class="acc">.</span></h1>
+      <p class="ch-lead">配置与数据要能在掉电/损坏后恢复：<strong>默认值 + 校验 + 原子写</strong>。绝不能让“写一半的配置”成为下次启动的输入。</p>
+      <div class="ch-meta"><span>前置：Module 01 文件 I/O 与 Module 06 服务启动。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用“临时文件→fsync→rename”原子写实现掉电不损坏、缺配置回退默认的配置持久化。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m09-knowledge-boundary">事务结束和连接关闭是两件事</h3><p>sqlite3.Connection 的上下文管理提交或回滚事务，并不关闭连接。用 contextlib.closing 管理连接生命，再在其中使用事务。服务停止前结束后台任务、提交或回滚事务并关闭连接。P04 的测试会关闭服务后重新检查数据库，并清理临时文件。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>with closing(sqlite3.connect(path)) as db, db:
+    db.execute(&quot;INSERT INTO ...&quot;, parameters)</pre></div></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>配置：默认 + 校验 + 原子写（tmp→rename）。</li><li>数据与程序分离，升级不动数据。</li><li>结构升级要迁移并保留回退。</li></ul></div>
+    <section class="sec" id="m09-model"><h2 id="m09-model-t">9.1 默认值 + 校验 + 原子写</h2><p>三条纪律：<strong>默认值</strong>（缺配置也能启动）、<strong>校验</strong>（识别损坏）、<strong>原子写</strong>（写临时文件再 rename，不掉电半写）。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> 原子写配置的顺序</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="原子写配置的顺序" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">写 tmp</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">fsync</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">rename</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">生效</text></svg></div><figcaption class="fig-ft">写临时文件 → fsync 落盘 → rename 覆盖 → 生效。rename 提供名称替换的原子性；掉电持久性还需同步父目录并依赖文件系统与存储设备的保证。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  持久化的五个机制</div><table><thead><tr><th>机制</th><th>作用</th><th>实现</th></tr></thead><tbody><tr><td>默认值</td><td>缺失也能启动</td><td>编译期默认</td></tr><tr><td>校验</td><td>识别损坏</td><td>CRC/JSON 解析校验</td></tr><tr><td>原子写</td><td>不掉电半写</td><td>写临时文件再 rename</td></tr><tr><td>版本迁移</td><td>结构升级</td><td>迁移函数补默认</td></tr><tr><td>自检</td><td>启动可用</td><td>关键状态检查</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">cfg_load.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (load_cfg(path, &amp;cfg) != OK) {</span><span class="ln">    cfg = default_cfg();      // 缺失/损坏 → 回退默认</span><span class="ln">    log_warn(&quot;use default cfg&quot;);</span><span class="ln">}</span><span class="ln">migrate_cfg(&amp;cfg);            // 旧版本 → 补默认字段</span>
+</code></pre><span class="code-note">缺失/损坏回退默认；旧版本走迁移函数</span></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：默认回退与掉电不损坏</h2><p>下面这段主机程序验证“无配置用默认、保存后加载、掉电保存不损坏”：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_cfg.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_cfg.c —— 配置持久化：默认值 + 原子写（tmp→rename）模型（主机可运行）。</span><span class="ln"> * 直接覆写配置文件在掉电时会损坏；正确做法是写临时文件再 rename（原子替换），失败留旧配置。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_cfg.c -o host_cfg &amp;&amp; ./host_cfg</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { int port; int interval_ms; int valid; } cfg_t;</span><span class="ln">static const cfg_t DEFAULTS = { 1883, 1000, 1 };</span><span class="ln">static int load_cfg(const cfg_t *stored, cfg_t *out) {</span><span class="ln">    if (stored &amp;&amp; stored-&gt;valid) { *out = *stored; return 0; }   /* 有有效配置 */</span><span class="ln">    *out = DEFAULTS; return 1;                                  /* 否则默认 */</span><span class="ln">}</span><span class="ln">static int atomic_save(cfg_t *slot, const cfg_t *v, int crash) {</span><span class="ln">    cfg_t tmp = *v; tmp.valid = 1;</span><span class="ln">    if (crash) return -1;                 /* 掉电：临时文件未提交 */</span><span class="ln">    *slot = tmp; return 0;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; cfg_t cur = {0}, out;</span><span class="ln">    int r = load_cfg(0, &amp;out);</span><span class="ln">    printf(&quot;无配置 → 默认 port=%d interval=%d（r=%d）\n&quot;, out.port, out.interval_ms, r);</span><span class="ln">    if (!(r == 1 &amp;&amp; out.port == DEFAULTS.port)) ok = 0;</span><span class="ln">    cfg_t want = { 8883, 500, 1 };</span><span class="ln">    if (atomic_save(&amp;cur, &amp;want, 0) != 0) ok = 0;</span><span class="ln">    load_cfg(&amp;cur, &amp;out);</span><span class="ln">    printf(&quot;保存后加载 port=%d interval=%d\n&quot;, out.port, out.interval_ms);</span><span class="ln">    if (!(out.port == 8883 &amp;&amp; out.interval_ms == 500)) ok = 0;</span><span class="ln">    cfg_t keep = cur;</span><span class="ln">    atomic_save(&amp;cur, &amp;want, 1);         /* 掉电 */</span><span class="ln">    printf(&quot;掉电保存后配置未损坏: %d\n&quot;, cur.port == keep.port);</span><span class="ln">    if (cur.port != keep.port) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">配置持久化模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cfg.c -o labs/host_cfg &amp;&amp; ./labs/host_cfg</span>
+无配置 → 默认 port=1883 interval=1000（r=1）
+保存后加载 port=8883 interval=500
+掉电保存后配置未损坏: 1
+RESULT: PASS</code></pre></div></div><p class="sim-note">缺配置回退默认；正常保存后能加载；掉电（未提交）时旧配置不变（未损坏=1）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  配置读取的四种情形</div><table><thead><tr><th>情形</th><th>结果</th><th>原因</th></tr></thead><tbody><tr><td>无配置</td><td>用默认</td><td>默认值兜底</td></tr><tr><td>正常保存</td><td>读到新值</td><td>rename 原子</td></tr><tr><td>掉电半写</td><td>旧配置完好</td><td>临时文件隔离</td></tr><tr><td>损坏文件</td><td>回退默认</td><td>校验失败</td></tr></tbody></table></div></section><section class="sec" id="m09-atomic"><h2 id="m09-atomic-t">9.3 原子写与数据分离</h2><p>配置写“临时文件 → fsync → rename”，同目录替换后 fsync 父目录，并检查每一步返回值；只测模型不证明掉电一致性。数据目录与程序分离，升级程序不动数据；启动时做一次自检，失败回退默认或进入维护模式。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">cfg_save.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int fd = open(&quot;/etc/app.conf.tmp&quot;, O_WRONLY | O_CREAT | O_TRUNC, 0644);</span><span class="ln">write(fd, buf, len);</span><span class="ln">fsync(fd); close(fd);</span><span class="ln">rename(&quot;/etc/app.conf.tmp&quot;, &quot;/etc/app.conf&quot;);  // 原子替换</span><span class="ln">int dfd = open(&quot;/etc&quot;, O_RDONLY | O_DIRECTORY); // Linux</span><span class="ln">fsync(dfd); close(dfd); // 生产实现必须检查所有返回值、处理短写，并串行化写入者</span><span class="ln">/* 数据目录 /var/lib/app 与程序 /opt/app 分离，升级不动数据 */</span>
+</code></pre><span class="code-note">示意顺序，不是完整生产函数：同目录临时文件→完整写入→fsync 文件→rename→fsync 父目录；文件系统和设备仍有适用边界</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.3  持久化做法对错</div><table><thead><tr><th>做法</th><th>好/坏</th><th>原因</th></tr></thead><tbody><tr><td>tmp→rename</td><td>好</td><td>原子、不掉电半写</td></tr><tr><td>直接覆写</td><td>坏</td><td>掉电半写损坏</td></tr><tr><td>数据放程序目录</td><td>坏</td><td>升级覆盖数据</td></tr><tr><td>无版本迁移</td><td>坏</td><td>新程序读旧配置出错</td></tr></tbody></table></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检与三路线对照</h2><p>配置自检：缺配置可用、损坏可恢复、升级不丢数据。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> 配置状态与恢复动作</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="配置状态与恢复动作" preserveAspectRatio="xMidYMid meet"><text x="185" y="24" text-anchor="middle" class="sv-lbl-dim">状态</text><text x="295" y="24" text-anchor="middle" class="sv-lbl-dim">动作</text><text x="12" y="50" class="sv-lbl">正常</text><rect x="158" y="38" width="94" height="22" rx="4" class="sv-grn-s"/><text x="205" y="53" text-anchor="middle" class="sv-lbl-hi">加载</text><text x="12" y="78" class="sv-lbl">缺失</text><rect x="158" y="66" width="94" height="22" rx="4" class="sv-cyn-s"/><text x="205" y="81" text-anchor="middle" class="sv-lbl-hi">默认</text><text x="12" y="106" class="sv-lbl">损坏</text><rect x="158" y="94" width="94" height="22" rx="4" class="sv-amb-s"/><text x="205" y="109" text-anchor="middle" class="sv-lbl-hi">回退默认</text><text x="12" y="134" class="sv-lbl">旧版本</text><rect x="158" y="122" width="94" height="22" rx="4" class="sv-amb-s"/><text x="205" y="137" text-anchor="middle" class="sv-lbl-hi">迁移</text></svg></div><figcaption class="fig-ft">正常→加载；缺失→默认；损坏→校验失败回退默认；版本旧→迁移补默认。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.4  三路线持久化</div><table><thead><tr><th>路线</th><th>文件系统</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>ext4/ubifs + 只读根</td><td>可写层持久化</td></tr><tr><td>Yocto</td><td>ext4 + overlay</td><td>只读根 + 卷</td></tr><tr><td>Debian</td><td>ext4 + overlay</td><td>apt 管理</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>直接覆写配置</strong>：掉电得到半写文件。</li><li><strong>无默认值</strong>：缺配置无法启动。</li><li><strong>数据与程序混放</strong>：升级覆盖数据。</li><li><strong>无版本迁移</strong>：新程序读旧配置出错。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">为什么“写临时文件再 rename”能保证配置不损坏？</p><details><summary>查看答案</summary><div class="ans"><p>rename 在同一文件系统内是原子操作：要么指向旧文件，要么指向新文件，不会出现“写了一半”的中间态。</p></div></details></li><li><p class="q">配置缺省时程序应该怎么做？</p><details><summary>查看答案</summary><div class="ans"><p>用编译期默认值启动（并可选写出默认配置），不能因为缺配置就崩溃。</p></div></details></li><li><p class="q">为什么数据目录要和程序目录分开？</p><details><summary>查看答案</summary><div class="ans"><p>升级程序（换镜像/可执行文件）时不希望动到用户数据；数据放独立可写目录/卷，升级只换程序。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你服务的配置写入改为 tmp→fsync→rename 原子写，并加默认值回退与损坏检测。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_cfg.c</code>：验证无配置用默认、保存后加载、掉电保存不损坏旧配置。</p><p><strong>检查结果：</strong>无配置回退默认 port=1883/interval=1000（r=1）；保存后 port=8883/interval=500；掉电保存未损坏=1。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用“临时文件→fsync→rename”原子写实现掉电不损坏、缺配置回退默认的配置持久化。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>无配置回退默认 port=1883/interval=1000（r=1）；保存后 port=8883/interval=500；掉电保存未损坏=1。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 持久化与综合</div>
+      <h1 class="ch-title">人机界面与音视频应用分支<span class="acc">.</span></h1>
+      <p class="ch-lead">UI 与音视频是“高带宽 + 实时”的分支：显示走 DRM/fbdev，输入走 evdev，音视频是“采集→编码→传输”的流水线，关键是<strong>延迟与资源</strong>的权衡。</p>
+      <div class="ch-meta"><span>前置：Module 03 网络分帧与 Module 05 线程/缓冲。</span><span>◷ 约 44 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为音视频管线画出按帧处理的“采集→编码→传输”数据流，并设可降级的资源/延迟指标。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>显示/音视频按帧处理，半包/丢帧/时间戳都要管。</li><li>脏刷新与按需更新降低开销。</li><li>资源不足要能降级（分辨率/帧率）。</li></ul></div>
+    <section class="sec" id="m10-branch"><h2 id="m10-branch-t">10.1 UI 与音视频两条高带宽分支</h2><p>显示走 DRM/fbdev、输入走 evdev；音视频是“采集 → 编码 → 传输”的流水线，按帧处理并处理半包/丢帧/时间戳。显示用脏刷新降低总线与 CPU 开销。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 音视频流水线</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="音视频流水线" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">采集</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">编码</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">封包/传输</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">解码显示</text></svg></div><figcaption class="fig-ft">采集(V4L2/ALSA) → 编码(H.264/AAC) → 封包(RTP) → 传输(socket) → 解码 → 显示/播放。每级都有缓冲与延迟。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  UI/音视频接口</div><table><thead><tr><th>分支</th><th>接口</th><th>要点</th></tr></thead><tbody><tr><td>显示</td><td>DRM/fbdev</td><td>帧缓冲、按需刷新</td></tr><tr><td>输入</td><td>evdev</td><td>事件语义、去抖</td></tr><tr><td>视频</td><td>V4L2 + 编码</td><td>分辨率/码率/延迟</td></tr><tr><td>音频</td><td>ALSA</td><td>缓冲大小与延迟</td></tr><tr><td>网络</td><td>RTP/RTSP</td><td>抖动缓冲、丢包</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">dirty_refresh.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* 只刷新脏区域，降低总线/CPU 开销 */</span><span class="ln">if (fb_region_dirty(&amp;r))</span><span class="ln">    drmModeDirtyFB(fd, fb_id, &amp;r, 0);</span><span class="ln">/* 音视频按帧处理；网络层用长度前缀分帧 + 半包累积 */</span>
+</code></pre><span class="code-note">脏刷新 + 按帧处理，降低 UI/音视频的资源占用</span></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：流式分帧（音视频同源问题）</h2><p>音视频在网络层同样面临“按帧分界 + 半包”。下面这段主机程序给出可运行的流式分帧模型：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_socket.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_socket.c —— 网络编程：TCP 字节流分帧（长度前缀 + 半包处理）（主机可运行）。</span><span class="ln"> * TCP 不保留消息边界：一次 recv 可能只收到半条。必须按长度前缀累积，凑齐才算一条消息。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_socket.c -o host_socket &amp;&amp; ./host_socket</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { unsigned char buf[128]; int len; } stream_t;</span><span class="ln">static int feed(stream_t *s, const unsigned char *d, int n) { memcpy(s-&gt;buf + s-&gt;len, d, n); s-&gt;len += n; return n; }</span><span class="ln">/* 尝试取出一条 [len][payload]，返回 1=取到 */</span><span class="ln">static int take(stream_t *s, char *out) {</span><span class="ln">    if (s-&gt;len &lt; 1) return 0;</span><span class="ln">    int mlen = s-&gt;buf[0];</span><span class="ln">    if (s-&gt;len &lt; 1 + mlen) return 0;                 /* 半包：等更多数据 */</span><span class="ln">    memcpy(out, s-&gt;buf + 1, mlen); out[mlen] = 0;</span><span class="ln">    memmove(s-&gt;buf, s-&gt;buf + 1 + mlen, s-&gt;len - 1 - mlen);</span><span class="ln">    s-&gt;len -= 1 + mlen;</span><span class="ln">    return 1;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; stream_t s; memset(&amp;s, 0, sizeof(s)); char msg[64];</span><span class="ln">    unsigned char m1[] = {3, &#x27;a&#x27;, &#x27;b&#x27;, &#x27;c&#x27;};</span><span class="ln">    unsigned char m2[] = {2, &#x27;x&#x27;, &#x27;y&#x27;};</span><span class="ln">    feed(&amp;s, m1, 4); feed(&amp;s, m2, 3);</span><span class="ln">    if (!take(&amp;s, msg) || strcmp(msg, &quot;abc&quot;) != 0) ok = 0;</span><span class="ln">    printf(&quot;消息1=\&quot;%s\&quot;\n&quot;, msg);</span><span class="ln">    /* 半包：只喂第一条消息的前 2 字节 */</span><span class="ln">    stream_t h; memset(&amp;h, 0, sizeof(h));</span><span class="ln">    feed(&amp;h, m2, 1);</span><span class="ln">    printf(&quot;半包（只有长度）take=%d（期望 0）\n&quot;, take(&amp;h, msg));</span><span class="ln">    if (take(&amp;h, msg) != 0) ok = 0;</span><span class="ln">    feed(&amp;h, m2 + 1, 2);</span><span class="ln">    if (!take(&amp;h, msg) || strcmp(msg, &quot;xy&quot;) != 0) ok = 0;</span><span class="ln">    printf(&quot;补齐后消息=\&quot;%s\&quot;\n&quot;, msg);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">流式分帧 + 半包模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket &amp;&amp; ./labs/host_socket</span>
+消息1=&quot;abc&quot;
+半包（只有长度）take=0（期望 0）
+补齐后消息=&quot;xy&quot;
+RESULT: PASS</code></pre></div></div><p class="sim-note">音视频帧在网络层同样要“长度前缀分帧 + 半包累积”；帧边界不能靠字节流假设。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  UI/音视频常见问题</div><table><thead><tr><th>问题</th><th>原因</th><th>处理</th></tr></thead><tbody><tr><td>帧边界丢失</td><td>按字节乱切</td><td>按帧长度分界</td></tr><tr><td>延迟高</td><td>缓冲过大</td><td>缩小缓冲/丢帧策略</td></tr><tr><td>刷新浪费</td><td>全屏无条件刷新</td><td>脏刷新</td></tr><tr><td>资源不足</td><td>无降级</td><td>降分辨率/降帧率</td></tr></tbody></table></div></section><section class="sec" id="m10-flow"><h2 id="m10-flow-t">10.3 数据流与缓冲</h2><p>按帧处理要明确“每级缓冲多大、延迟多少、丢帧策略”。缓冲过大延迟高、交互差；缓冲过小则丢帧。资源不足时的降级（降分辨率/降帧率）应可配置。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">media_pipe.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* 采集→编码→发送：按帧处理，每级有界缓冲 */</span><span class="ln">frame_t f = capture_frame();       // V4L2/ALSA 取一帧</span><span class="ln">encode(&amp;f, &amp;pkt);                  // H.264/AAC</span><span class="ln">send_frame(sock, &amp;pkt);            // RTP: 长度前缀分帧</span><span class="ln">/* 发送端按帧；接收端累积半包，凑齐一帧再解码 */</span>
+</code></pre><span class="code-note">按帧处理 + 有界缓冲；网络层仍要半包累积</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.3  音视频的取舍</div><table><thead><tr><th>指标</th><th>太小</th><th>太大</th></tr></thead><tbody><tr><td>缓冲</td><td>丢帧</td><td>延迟高</td></tr><tr><td>码率</td><td>画质差</td><td>带宽/抖动</td></tr><tr><td>分辨率</td><td>细节差</td><td>算力/带宽</td></tr><tr><td>帧率</td><td>不流畅</td><td>算力/带宽</td></tr></tbody></table></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检与三路线对照</h2><p>UI/音视频自检：帧边界正确、延迟在上界内、资源不足可降级。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 采集帧与显示时刻的抖动</div><div class="fig-bd"><svg viewBox="0 0 800 120" width="100%" height="120" role="img" aria-label="采集帧与显示时刻的抖动" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V94"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M302,26 V94"/><text x="302" y="18" text-anchor="middle" class="sv-lbl-dim">22</text><path class="sv-dash" d="M460,26 V94"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">45</text><path class="sv-dash" d="M618,26 V94"/><text x="618" y="18" text-anchor="middle" class="sv-lbl-dim">68</text><path class="sv-dash" d="M770,26 V94"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">90</text><text x="12" y="48" class="sv-lbl">采集</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="103" height="22" rx="4" class="sv-cyn-s"/><text x="201.7" y="47" text-anchor="middle" class="sv-lbl-hi">F0</text><rect x="322" y="32" width="103" height="22" rx="4" class="sv-cyn-s"/><text x="373.9" y="47" text-anchor="middle" class="sv-lbl-hi">F1</text><rect x="563" y="32" width="103" height="22" rx="4" class="sv-cyn-s"/><text x="615.0" y="47" text-anchor="middle" class="sv-lbl-hi">F2</text><text x="12" y="82" class="sv-lbl">显示</text><path class="sv-dash" d="M150,78 H770"/><rect x="219" y="66" width="103" height="22" rx="4" class="sv-grn-s"/><text x="270.6" y="81" text-anchor="middle" class="sv-lbl-hi">F0</text><rect x="391" y="66" width="103" height="22" rx="4" class="sv-grn-s"/><text x="442.8" y="81" text-anchor="middle" class="sv-lbl-hi">F1</text><rect x="632" y="66" width="103" height="22" rx="4" class="sv-grn-s"/><text x="683.9" y="81" text-anchor="middle" class="sv-lbl-hi">F2</text></svg></div><figcaption class="fig-ft">采集帧到达有抖动；用有界缓冲吸收抖动，但缓冲越大延迟越大。要在可接受延迟内不丢帧。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.4  三路线媒体支持</div><table><thead><tr><th>路线</th><th>UI/媒体栈</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>DRM/V4L2 可选</td><td>按需集成</td></tr><tr><td>Yocto</td><td>GStreamer 配方</td><td>常见</td></tr><tr><td>Debian</td><td>GStreamer/ffmpeg</td><td>最全</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>把视频当字节流乱切</strong>：帧边界丢失。</li><li><strong>缓冲过大</strong>：延迟高，交互差。</li><li><strong>全屏无条件刷新</strong>：CPU/总线被刷屏占满。</li><li><strong>无降级</strong>：资源不足直接卡死。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">音视频为什么强调“按帧”而不是“按字节”？</p><details><summary>查看答案</summary><div class="ans"><p>帧是解码/显示的基本单位；按字节处理会破坏帧边界、无法同步时间戳。网络层仍要处理半包，但应用层按帧组包。</p></div></details></li><li><p class="q">缓冲越大越好吗？</p><details><summary>查看答案</summary><div class="ans"><p>不是。缓冲大能吸收抖动但增大端到端延迟，交互变差。要在可接受延迟内选择合适缓冲。</p></div></details></li><li><p class="q">资源不足时应如何保证体验？</p><details><summary>查看答案</summary><div class="ans"><p>可配置降级：降分辨率/降帧率/降码率，优先保流畅与响应，而不是卡死。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的音视频或 UI 管线画一张“采集→处理→传输/显示”的数据流图，标出每级缓冲与延迟上界。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_socket.c</code>（流式分帧模型）；为你的音视频管线画数据流与缓冲。</p><p><strong>检查结果：</strong>按帧分界、半包 take=0 不产出、补齐后产出 "xy"；资源/延迟指标明确且可降级。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为音视频管线画出按帧处理的“采集→编码→传输”数据流，并设可降级的资源/延迟指标。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>按帧分界、半包 take=0 不产出、补齐后产出 &quot;xy&quot;；资源/延迟指标明确且可降级。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m11">
+    <div class="ch-head">
+      <div class="ch-badge">Module 11 · 持久化与综合</div>
+      <h1 class="ch-title">综合：可运维 Linux 边缘服务<span class="acc">.</span></h1>
+      <p class="ch-lead">把系统编程/IPC/网络/并发/服务化/配置/OTA 整合为一个真正可交付的服务：<strong>多线程/多进程 + 网络 + 配置持久化 + 服务托管 + 可观测 + 可升级回滚</strong>。</p>
+      <div class="ch-meta"><span>前置：Module 01–10 的系统编程/IPC/网络/并发/服务/配置/OTA。</span><span>◷ 约 46 分钟</span><span>◈ 三条构建/部署路线对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把多线程、网络、配置持久化与服务托管整合为可观测、可恢复、可升级的服务。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>可运维 = 可观测 + 可恢复 + 可升级 + 有上界。</li><li>交付前做冒烟、故障注入与长跑。</li><li>写清“失败时怎么恢复”。</li></ul></div>
+    <section class="sec" id="m11-arch"><h2 id="m11-arch-t">11.1 可运维服务的架构</h2><p>综合项目把前面能力拼成可交付的服务：多线程/多进程 + 网络 + 配置持久化 + 服务托管 + 可观测 + 可升级回滚。可运维不是附加项，而是产品的一部分。</p><figure class="fig" id="fig-图-11-1"><div class="fig-hd"><strong>图 11.1</strong> 可运维服务的分层</div><div class="fig-bd"><svg viewBox="0 0 800 200" width="100%" height="200" role="img" aria-label="可运维服务的分层" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="49.0" class="sv-lbl-hi">应用逻辑（并发/业务）</text><rect x="60" y="64" width="680" height="50" rx="6" class="sv-cyn-s"/><text x="75" y="93.0" class="sv-lbl-hi">通信（IPC/socket 分帧）</text><rect x="60" y="118" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="137.0" class="sv-lbl-hi">服务托管（systemd + 限速）</text><rect x="60" y="152" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="171.0" class="sv-lbl-hi">配置/持久化（原子写）</text><rect x="60" y="186" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="205.0" class="sv-lbl-hi">升级/回滚（OTA）</text></svg></div><figcaption class="fig-ft">应用逻辑层 → 通信层（IPC/网络）→ 服务托管层（systemd）→ 配置/持久化层 → 升级层。每层都有失败与恢复的边界。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 11.1  可运维服务的六个维度</div><table><thead><tr><th>维度</th><th>做法</th><th>验收</th></tr></thead><tbody><tr><td>并发</td><td>线程 + 锁/条件变量</td><td>无竞态、无死锁</td></tr><tr><td>通信</td><td>socket/自定义帧</td><td>半包/粘包正确</td></tr><tr><td>服务</td><td>systemd 托管</td><td>崩溃可拉起、限速</td></tr><tr><td>配置</td><td>默认+原子写</td><td>掉电不损坏</td></tr><tr><td>可观测</td><td>日志/指标/健康检查</td><td>失败可见</td></tr><tr><td>升级</td><td>OTA/容器 + 回滚</td><td>不变砖</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">arch.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">app(多线程/业务)</span><span class="ln">  ├─ net: socket + 长度前缀分帧（半包累积）</span><span class="ln">  ├─ cfg: 默认值 + 校验 + 原子写（tmp→rename）</span><span class="ln">  ├─ obs: journald 日志 + 指标 + /health</span><span class="ln">  └─ upd: A/B OTA + 签名校验 + 回滚</span><span class="ln">systemd 托管（Restart=on-failure + StartLimit）</span>
+</code></pre><span class="code-note">一张图看清“可运维服务”的六个维度如何落地</span></div></section><section class="sec" id="m11-evidence"><h2 id="m11-evidence-t">11.2 真实证据：三份可运行模型</h2><p>综合项目用到的核心机制都有主机可运行证据（服务限速、配置原子写、流式分帧）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_service.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_service.c —— 服务化：崩溃重启与限速（systemd Restart 语义）模型（主机可运行）。</span><span class="ln"> * 服务反复失败时不能无限重启：StartLimit 在时间窗内限制重启次数，超过进入 failed。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_service.c -o host_service &amp;&amp; ./host_service</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef enum { RUNNING, FAILED } st_t;</span><span class="ln">typedef struct { int burst; int limit; st_t st; } svc_t;</span><span class="ln">static void on_failure(svc_t *s) {</span><span class="ln">    if (++s-&gt;burst &gt; s-&gt;limit) s-&gt;st = FAILED;          /* 超过限速进入 failed */</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; svc_t s = {0, 5, RUNNING};</span><span class="ln">    for (int i = 0; i &lt; 5; i++) on_failure(&amp;s);</span><span class="ln">    printf(&quot;失败 5 次：burst=%d state=%s（仍 RUNNING）\n&quot;, s.burst, s.st == RUNNING ? &quot;RUNNING&quot; : &quot;FAILED&quot;);</span><span class="ln">    if (!(s.burst == 5 &amp;&amp; s.st == RUNNING)) ok = 0;</span><span class="ln">    on_failure(&amp;s);</span><span class="ln">    printf(&quot;第 6 次：burst=%d state=%s（期望 FAILED，限速生效）\n&quot;, s.burst, s.st == RUNNING ? &quot;RUNNING&quot; : &quot;FAILED&quot;);</span><span class="ln">    if (!(s.burst == 6 &amp;&amp; s.st == FAILED)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">服务限速/失败可见（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service &amp;&amp; ./labs/host_service</span>
+失败 5 次：burst=5 state=RUNNING（仍 RUNNING）
+第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）
+RESULT: PASS</code></pre></div></div><p class="sim-note">服务失败可见且被限速，是“可观测 + 可恢复”的最小前提。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 11.2  三份可运行证据</div><table><thead><tr><th>机制</th><th>证据文件</th><th>验收</th></tr></thead><tbody><tr><td>服务限速</td><td>host_service.c</td><td>第 6 次→FAILED</td></tr><tr><td>配置原子写</td><td>host_cfg.c</td><td>掉电未损坏=1</td></tr><tr><td>流式分帧</td><td>host_socket.c</td><td>半包 take=0</td></tr></tbody></table></div></section><section class="sec" id="m11-ship"><h2 id="m11-ship-t">11.3 交付前的三件事</h2><p>交付前三件事：<strong>① 端到端冒烟与故障注入；② 资源预算与长跑；③ 写清“失败时怎么恢复”</strong>。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">smoke.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln"># ① 冒烟 + 故障注入</span><span class="ln">systemctl start myapp &amp;&amp; curl -f http://localhost:8080/health</span><span class="ln">kill -9 $(pidof app)   # 注入崩溃，验证自动拉起</span><span class="ln"># ② 长跑与资源</span><span class="ln">valgrind --leak-check=full ./app --soak 3600</span><span class="ln"># ③ 恢复策略已写入 runbook（重启/回滚/维护模式）</span>
+</code></pre><span class="code-note">冒烟 + 故障注入 + 长跑 + 恢复手册</span></div><div class="tbl-wrap"><div class="tbl-cap">表 11.3  交付三件事</div><table><thead><tr><th>交付项</th><th>内容</th><th>验收</th></tr></thead><tbody><tr><td>冒烟/故障注入</td><td>健康检查 + 杀进程</td><td>自动拉起</td></tr><tr><td>长跑</td><td>内存/CPU 稳定</td><td>无泄漏/无超预算</td></tr><tr><td>恢复手册</td><td>重启/回滚/维护</td><td>现场可执行</td></tr></tbody></table></div></section><section class="sec" id="m11-check"><h2 id="m11-check-t">11.4 验收清单</h2><p>按维度逐条判定，缺一项都难以在现场稳定运行：</p><figure class="fig" id="fig-图-11-2"><div class="fig-hd"><strong>图 11.2</strong> 从开发到可运维的闭环</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="从开发到可运维的闭环" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="88.0" y="66" text-anchor="middle" class="sv-lbl-hi">编码</text><path d="M158,69 H174" class="sv-arrow"/><rect x="176" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="244.0" y="66" text-anchor="middle" class="sv-lbl-hi">服务化</text><path d="M314,69 H330" class="sv-arrow"/><rect x="332" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="400.0" y="66" text-anchor="middle" class="sv-lbl-hi">持久化</text><path d="M470,69 H486" class="sv-arrow"/><rect x="488" y="44" width="136" height="50" rx="7" class="sv-cyn-s"/><text x="556.0" y="66" text-anchor="middle" class="sv-lbl-hi">观测</text><path d="M626,69 H642" class="sv-arrow"/><rect x="644" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="712.0" y="66" text-anchor="middle" class="sv-lbl-hi">升级/恢复</text></svg></div><figcaption class="fig-ft">编码（并发/通信）→ 服务化 → 配置持久化 → 观测 → 升级回滚 → 现场恢复。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 11.4  三路线交付形态</div><table><thead><tr><th>路线</th><th>交付形态</th><th>说明</th></tr></thead><tbody><tr><td>Buildroot</td><td>定制 rootfs + 服务</td><td>轻量边缘</td></tr><tr><td>Yocto</td><td>镜像 + SDK</td><td>产品线</td></tr><tr><td>Debian</td><td>容器/包 + systemd</td><td>工具最全</td></tr></tbody></table></div></section><section class="sec" id="m11-pitfalls"><h2 id="m11-pitfalls-t">11.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>能跑但不可观测</strong>：现场故障无法定位。</li><li><strong>无恢复策略</strong>：一次异常永久停服。</li><li><strong>升级无回滚</strong>：坏版本上线即事故。</li><li><strong>无资源上界</strong>：突发负载拖垮整机。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 11（先答再看）</div><ol><li><p class="q">“可运维”最少要包含哪几项？</p><details><summary>查看答案</summary><div class="ans"><p>至少要有日志/指标（可观测）、健康检查与自动恢复、清晰的重启/升级/回滚策略、以及资源上界。缺一项都难以在现场稳定运行。</p></div></details></li><li><p class="q">为什么交付前要做故障注入？</p><details><summary>查看答案</summary><div class="ans"><p>验证“崩溃能被自动拉起、升级失败能回滚”。只测正常路径会把故障处理留到现场暴露。</p></div></details></li><li><p class="q">长跑测试的目的是什么？</p><details><summary>查看答案</summary><div class="ans"><p>暴露内存泄漏、句柄泄漏、长时间漂移与资源缓慢增长等“短测看不出来”的问题。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：按表 11.1 的六个维度为你的服务逐条验收，并补全缺失项（尤其可观测与回滚）。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://man7.org/linux/man-pages/" target="_blank" rel="noopener noreferrer">Linux man-pages</a> · <a class="ref" href="https://beej.us/guide/bgnet/" target="_blank" rel="noopener noreferrer">Beej 网络编程指南</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_service.c</code>（重启/限速模型）；把你的服务按“并发-通信-服务-配置-升级”列验收清单。</p><p><strong>检查结果：</strong>服务可托管且第 6 次失败转 FAILED；配置掉电未损坏=1；分帧半包 take=0；升级有回滚。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把多线程、网络、配置持久化与服务托管整合为可观测、可恢复、可升级的服务。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 11 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m11">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m11"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>服务可托管且第 6 次失败转 FAILED；配置掉电未损坏=1；分帧半包 take=0；升级有回滚。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">一个可运维的 Linux 边缘服务<span class="acc">.</span></h1><p class="ch-lead">把 11 章串成一条路径：写系统程序 → 用 IPC/网络通信 → 多线程并正确处理竞态 → 构建打包 → 服务化托管 → 性能与资源达标 → 容器/OTA 与配置恢复。</p><div class="ch-meta"><span>◈ 9 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 11 章串成一个可交付的服务：<strong>系统编程打底 → IPC/网络通信 → 多线程并正确处理竞态 → 构建打包 → 服务化托管 → 性能与资源达标 → 容器/OTA 与配置恢复。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 系统编程</strong>（M01）——检查返回值与 errno；验收：短读/短写与超时处理。</li>
+<li><strong>② IPC</strong>（M02）——有界队列/UDS；验收：满/空语义正确。</li>
+<li><strong>③ 网络</strong>（M03）——长度前缀分帧；验收：半包/粘包正确。</li>
+<li><strong>④ 构建</strong>（M04）——拓扑编译 + 版本；验收：可复现。</li>
+<li><strong>⑤ 并发</strong>（M05）——锁/条件变量；验收：无竞态。</li>
+<li><strong>⑥ 服务化</strong>（M06）——systemd + 限速重启；验收：崩溃可拉起。</li>
+<li><strong>⑦ 性能</strong>（M07）——预算与降级；验收：不超上界。</li>
+<li><strong>⑧ 交付</strong>（M08）——容器/OTA + 回滚；验收：不变砖。</li>
+<li><strong>⑨ 恢复</strong>（M09–M11）——配置原子写、按帧 UI/AV、可观测；验收：掉电不损坏、失败可见。</li>
+</ol>
+<p class="sim-note">本册所有板上项（真实调度抖动、网络时延、音视频性能、部署与长跑）均标注为“需上板”；系统调用错误处理、IPC、分帧、竞态、服务限速、配置原子写、构建拓扑、资源预算等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">edge service</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* 可运维边缘服务骨架（示意） */</span><span class="ln">#include &lt;pthread.h&gt;</span><span class="ln">#include &lt;sys/socket.h&gt;</span><span class="ln"></span><span class="ln">static pthread_mutex_t g_lock = PTHREAD_MUTEX_INITIALIZER;</span><span class="ln"></span><span class="ln">static void *worker(void *arg) {</span><span class="ln">    /* 处理连接：recv 循环 + 长度前缀分帧 + 校验 */</span><span class="ln">    return NULL;</span><span class="ln">}</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int lfd = /* socket/bind/listen */ 0;</span><span class="ln">    (void)lfd; (void)g_lock;</span><span class="ln">    for (;;) { /* accept → 交给线程池 */ }</span><span class="ln">    return 0;</span><span class="ln">}</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">应用易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“主机能用、板子崩 / 偶发挂掉 / 配置丢”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“主机能用、板子崩 / 偶发挂掉 / 配置丢”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>系统调用</td><td>检查返回值 + errno</td><td>忽略返回值</td><td>错误被当成功</td></tr><tr><td>读写</td><td>循环处理短读/短写</td><td>一次调用当完成</td><td>数据截断</td></tr><tr><td>IPC</td><td>有界队列 + 同步</td><td>无界 / 无同步</td><td>丢消息 / 错乱</td></tr><tr><td>网络</td><td>长度前缀分帧 + 半包</td><td>把 TCP 当消息</td><td>粘包解析失败</td></tr><tr><td>并发</td><td>互斥/原子/条件变量</td><td>无锁共享</td><td>偶发错值</td></tr><tr><td>服务</td><td>init 托管 + 限速重启</td><td>裸跑 / 无限重启</td><td>无人拉起 / 风暴</td></tr><tr><td>配置</td><td>原子写(tmp→rename)</td><td>直接覆写</td><td>掉电损坏</td></tr><tr><td>性能</td><td>预算 + 上界 + 降级</td><td>无预算 / 无降级</td><td>OOM / 超期</td></tr><tr><td>升级</td><td>校验 + 回滚</td><td>无回滚</td><td>升级变砖</td></tr><tr><td>观测</td><td>日志/指标/健康检查</td><td>静默失败</td><td>现场无法定位</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；不同路线的叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；不同路线的叫法差异也一并标注。</p><dl class="glossary"><dt>系统调用</dt><dd>内核提供的受控入口；失败通过返回值与 errno 表达。</dd><dt>EINTR / EAGAIN</dt><dd>被信号打断 / 非阻塞暂无数据；通常需要重试。</dd><dt>短读 / 短写</dt><dd>一次调用未完成全部数据，需要循环处理。</dd><dt>IPC</dt><dd>进程间通信：管道、共享内存、消息队列、UDS socket、信号。</dd><dt>Unix domain socket</dt><dd>本机进程间高可靠通信，可传文件描述符。</dd><dt>粘包 / 半包</dt><dd>TCP 字节流造成的消息边界问题，需应用分帧。</dd><dt>pthread</dt><dd>POSIX 线程库；配互斥量/条件变量使用。</dd><dt>条件变量</dt><dd>线程等待条件满足，避免忙等。</dd><dt>数据竞态</dt><dd>多线程无同步访问共享可变数据，结果不确定。</dd><dt>SIGCHLD</dt><dd>子进程状态变化通知；异步安全处理。</dd><dt>systemd unit</dt><dd>服务描述单元；含依赖、重启策略与日志。</dd><dt>StartLimit</dt><dd>重启限速：时间窗内限制重启次数。</dd><dt>原子写</dt><dd>写临时文件后 rename，保证配置要么旧要么新。</dd><dt>容器</dt><dd>进程隔离与镜像打包；镜像只读、数据放卷。</dd><dt>A/B OTA</dt><dd>双系统分区交替升级并支持回滚。</dd><dt>资源预算</dt><dd>CPU/内存/IO 的量化上限与降级策略。</dd><dt>健康检查</dt><dd>外部可判断服务是否可用的探测。</dd><dt>journald</dt><dd>systemd 的结构化日志服务。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "系统编程."}, {"id": "m02", "num": "02", "title": "进程间通信."}, {"id": "m03", "num": "03", "title": "网络编程."}, {"id": "m04", "num": "04", "title": "应用构建."}, {"id": "m05", "num": "05", "title": "实时性与多线程."}, {"id": "m06", "num": "06", "title": "服务化与部署."}, {"id": "m07", "num": "07", "title": "性能与资源."}, {"id": "m08", "num": "08", "title": "容器与应用 OTA."}, {"id": "m09", "num": "09", "title": "持久化、配置与服务恢复."}, {"id": "m10", "num": "10", "title": "人机界面与音视频应用分支."}, {"id": "m11", "num": "11", "title": "综合：可运维 Linux 边缘服务."}, {"id": "capstone", "num": "", "title": "一个可运维的 Linux 边缘服务."}, {"id": "cheatsheet", "num": "", "title": "应用易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

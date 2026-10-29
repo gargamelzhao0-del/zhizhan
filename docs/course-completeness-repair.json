@@ -1,0 +1,85 @@
+{
+  "updatedAt": "2026-10-13T07:41:06.775Z",
+  "version": "1.15.1",
+  "versionCode": 22,
+  "contentVersion": "2026.10.13.3",
+  "status": "complete_published_and_public_https_verified",
+  "source": "C:/Users/Administrator/Nuwax/computer-project-workspace/1785505821/1695388/embed-c-course",
+  "fixes": [
+    "Import complete book introductions and reading guidance; retain sibling references with their chapter",
+    "Restore B23 introductory route diagram and source descriptions",
+    "Include 7 Linux device tree, boot script and Yocto recipe files in the downloadable experiment archive",
+    "Preserve code blank lines, table cell line breaks, spans, emphasis and ordered list semantics",
+    "Show full code/table height; add expand-all; open enclosing details during contents navigation; link every module task to its full article"
+  ],
+  "verification": {
+    "sourceFidelity": {
+      "report": "course-completeness-report.json",
+      "totals": {
+        "articles": 437,
+        "textFragments": 73106,
+        "codeBlocks": 1702,
+        "figures": 618,
+        "tables": 1366,
+        "experimentFiles": 706
+      },
+      "supplementalBundles": [
+        {
+          "file": "projects.zip",
+          "files": 23,
+          "issues": []
+        }
+      ],
+      "issues": 0
+    },
+    "nativeReader": {
+      "desktopArticles": 437,
+      "mobileArticles": 437,
+      "includes": "Text fragments, exact code, SVG text, table rows/cells/spans and repeated block multiplicity"
+    },
+    "unitTests": {
+      "passed": 89,
+      "files": 12
+    },
+    "preservation": "course-completeness-evidence/preservation.json",
+    "apkContent": {
+      "checkedAt": "2026-10-13T07:31:31.238Z",
+      "version": "1.15.1",
+      "files": 330,
+      "issues": [],
+      "apkBytes": 8635417,
+      "apkSha256": "3d4a5f78e06e3e716450f53b95bbc076e030434a8e5dabef8b12daf92aed0f4f",
+      "contentVersion": "2026.10.13.3"
+    },
+    "notes": "Earlier parallel browser runs collided while writing to a shared trace directory. Final verification uses isolated output. All 437 native course articles were checked in both viewports, with an isolated recheck of the one startup timeout.",
+    "browserRegression": {
+      "passedDistinctCases": 28,
+      "projects": [
+        "desktop",
+        "mobile"
+      ],
+      "initialFinalRun": "27 passed; one mobile fresh-install startup exceeded the 15-second assertion timeout",
+      "isolatedRecheck": "The same offline attachment case passed without changing app code or assertion timeout",
+      "log": "course-completeness-evidence/browser-tests.log",
+      "recheckLog": "course-completeness-evidence/offline-recheck.log"
+    },
+    "existingUserBrowser": {
+      "version": "1.15.1",
+      "chapter": "course-b00-m01",
+      "restoredReference": "C11 委员会草案 N1570",
+      "expandAllPresent": true
+    }
+  },
+  "backup": "C:/Users/Administrator/Documents/work/书库修订备份/2026-10-13-quality/before-course-completeness-fix.zip",
+  "limits": [
+    "Content fidelity is checked against the reviewed source; this is not certification of every technical claim or hardware experiment.",
+    "Android APK built and signature verified; no physical-phone installation performed."
+  ],
+  "artifacts": {
+    "apk": "release/zhizhan-1.15.1-android.apk",
+    "windows": "release/zhizhan-windows",
+    "feed": "release/zhizhan-1.15.1-update-feed",
+    "publicHttpsVerified": true,
+    "publicationReport": "release-1.15.1-publication.json"
+  }
+}

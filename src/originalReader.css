@@ -1,0 +1,16 @@
+.original-reader { position: fixed; inset: 0; z-index: 200; display: flex; flex-direction: column; height: 100dvh; background: var(--bg, #f8f8f6); padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.original-reader-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 16px; flex: 0 0 auto; border-bottom: 1px solid var(--line, #ddd); background: var(--surface, #fff); }
+.original-reader-bar > div { flex: 1; min-width: 0; text-align: center; }
+.original-reader-bar strong { display: block; font-size: 15px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.original-reader-bar small { display: block; font-size: 11px; color: var(--muted, #666); margin-top: 3px; }
+.original-reader-bar .button { flex: 0 0 auto; font-size: 13px; gap: 5px; white-space: nowrap; }
+.original-reader iframe { width: 100%; flex: 1 1 auto; min-height: 0; border: 0; background: #070b09; }
+.original-reader-loading { position: absolute; top: 95px; left: 20px; padding: 12px; background: #fff; color: #222; }
+.original-reader-notice { position: absolute; z-index: 2; bottom: 24px; left: 16px; right: 16px; padding: 14px; border-radius: 12px; background: #fff; color: #222; box-shadow: 0 4px 30px #0003; }
+.original-reader-notice button { margin-left: 16px; }
+.original-resource { position: absolute; z-index: 1; inset: 0; display: flex; flex-direction: column; background: var(--surface, #fff); color: var(--text, #222); padding: max(12px, env(safe-area-inset-top)) 12px max(12px, env(safe-area-inset-bottom)); }
+.original-resource header { display: flex; align-items: center; gap: 12px; padding: 8px 0 16px; }
+.original-resource strong { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.original-resource pre { flex: 1; margin: 0; overflow: auto; white-space: pre; font-size: 14px; line-height: 1.7; padding: 12px; }
+.textbook-reading-modes { max-width: 50em; font-size: 13px; color: var(--muted); line-height: 1.7; }
+@media (max-width: 480px) { .original-reader-bar { padding: 6px 8px; gap: 4px; } .original-reader-bar .button { padding: 8px 5px; font-size: 12px; } .original-reader-bar .button svg { display: none; } .original-reader-bar strong { font-size: 13px; } }

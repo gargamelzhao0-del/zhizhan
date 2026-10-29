@@ -1,0 +1,2058 @@
+{
+  "version": "1.15.4",
+  "checkedAt": "2026-10-13T12:14:34.243Z",
+  "source": "C:/Users/Administrator/Documents/work/手机端书库",
+  "sourceUnchanged": true,
+  "originalFilesChecked": 816,
+  "sourceManifestSha256": "5287da04a4a49c0ea9d44b0670c5200b33c884f681b7b15b954936d741fe402d",
+  "books": [
+    {
+      "id": "B00",
+      "shelfId": "course-b00",
+      "name": "编程与 C 语言基础",
+      "path": "books/B00.html",
+      "bytes": 216945,
+      "sha256": "fdf29c4e5f9d8ae9dce3d3c01e527a166c01210b95c11f50011c6e7025c73217",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "整条学习路线."
+        },
+        {
+          "id": "m01",
+          "title": "程序是怎么跑起来的"
+        },
+        {
+          "id": "m02",
+          "title": "变量、类型与表达式"
+        },
+        {
+          "id": "m03",
+          "title": "控制流：分支与循环"
+        },
+        {
+          "id": "m04",
+          "title": "函数与作用域"
+        },
+        {
+          "id": "m05",
+          "title": "数组与字符串"
+        },
+        {
+          "id": "m06",
+          "title": "指针入门"
+        },
+        {
+          "id": "m07",
+          "title": "结构体、枚举与 typedef"
+        },
+        {
+          "id": "m08",
+          "title": "多文件、头文件与 Makefile"
+        },
+        {
+          "id": "m09",
+          "title": "综合小项目 + 过渡到第①册"
+        },
+        {
+          "id": "m10",
+          "title": "标准库、输入解析与错误处理"
+        },
+        {
+          "id": "m11",
+          "title": "动态内存与对象生命周期"
+        },
+        {
+          "id": "m12",
+          "title": "回调、模块接口与综合工程"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B01",
+      "shelfId": "course-b01",
+      "name": "嵌入式 C 精读",
+      "path": "books/B01.html",
+      "bytes": 2142173,
+      "sha256": "8332373257cb712566c564d25e6f8b158312a169634ce75a52d8672749c4d916",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "整条学习路线."
+        },
+        {
+          "id": "ch0",
+          "title": "嵌入式 C 的世界观"
+        },
+        {
+          "id": "ch1",
+          "title": "数据在内存中长什么样"
+        },
+        {
+          "id": "ch2",
+          "title": "存储类与链接属性"
+        },
+        {
+          "id": "ch3",
+          "title": "指针：从地址到硬件"
+        },
+        {
+          "id": "ch4",
+          "title": "内存分区与运行时布局"
+        },
+        {
+          "id": "ch5",
+          "title": "编译与链接全流程"
+        },
+        {
+          "id": "ch6",
+          "title": "位操作与寄存器级编程"
+        },
+        {
+          "id": "ch7",
+          "title": "惯用法与架构设计"
+        },
+        {
+          "id": "ch8",
+          "title": "调试、诊断与工具链"
+        },
+        {
+          "id": "appendix",
+          "title": "附录：速查表与陷阱清单"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B02a",
+      "shelfId": "course-b02a",
+      "name": "C++ 语言基础",
+      "path": "books/B02a.html",
+      "bytes": 193320,
+      "sha256": "13fd0279cb00d7b865788a7f8c191bf2c509320a9bce8d6e5019ffdb0072df65",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "C++ 学习路径."
+        },
+        {
+          "id": "m01",
+          "title": "从 C 到 C++：第一印象"
+        },
+        {
+          "id": "m02",
+          "title": "引用与 const"
+        },
+        {
+          "id": "m03",
+          "title": "函数进阶"
+        },
+        {
+          "id": "m04",
+          "title": "类与对象"
+        },
+        {
+          "id": "m05",
+          "title": "运算符重载与友元"
+        },
+        {
+          "id": "m06",
+          "title": "继承与多态"
+        },
+        {
+          "id": "m07",
+          "title": "模板与 STL"
+        },
+        {
+          "id": "m08",
+          "title": "智能指针、异常与 RAII"
+        },
+        {
+          "id": "m09",
+          "title": "对象生命周期与值语义深化"
+        },
+        {
+          "id": "m10",
+          "title": "容器、算法与迭代器深化"
+        },
+        {
+          "id": "m11",
+          "title": "泛型、接口与现代 C++"
+        },
+        {
+          "id": "m12",
+          "title": "构建、测试与库边界"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B03a",
+      "shelfId": "course-b03a",
+      "name": "Rust 语言基础",
+      "path": "books/B03a.html",
+      "bytes": 195318,
+      "sha256": "b8fddf5d10a600dc57170cd52625b5274f76b2e288470b7eff0c780d327e1398",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "Rust 学习路径."
+        },
+        {
+          "id": "m01",
+          "title": "从 C 到 Rust：第一印象"
+        },
+        {
+          "id": "m02",
+          "title": "所有权与移动"
+        },
+        {
+          "id": "m03",
+          "title": "借用与引用"
+        },
+        {
+          "id": "m04",
+          "title": "枚举与模式匹配"
+        },
+        {
+          "id": "m05",
+          "title": "结构体、方法与 trait"
+        },
+        {
+          "id": "m06",
+          "title": "集合与错误处理"
+        },
+        {
+          "id": "m07",
+          "title": "生命周期与迭代器"
+        },
+        {
+          "id": "m08",
+          "title": "模块、Cargo 与测试 + 过渡到 B03"
+        },
+        {
+          "id": "m09",
+          "title": "泛型、trait 与 API 设计深化"
+        },
+        {
+          "id": "m10",
+          "title": "集合、借用与错误链深化"
+        },
+        {
+          "id": "m11",
+          "title": "并发与异步语言基础"
+        },
+        {
+          "id": "m12",
+          "title": "Cargo 工程、测试与质量"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B04a",
+      "shelfId": "course-b04a",
+      "name": "Python 语言基础",
+      "path": "books/B04a.html",
+      "bytes": 191486,
+      "sha256": "43bd4946cc9c826c130f75767b59ba8924184d4cebca767b19a413001c802aae",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "Python 学习路径."
+        },
+        {
+          "id": "m01",
+          "title": "从 C 到 Python：第一印象"
+        },
+        {
+          "id": "m02",
+          "title": "类型与运算符"
+        },
+        {
+          "id": "m03",
+          "title": "控制流：分支与循环"
+        },
+        {
+          "id": "m04",
+          "title": "函数"
+        },
+        {
+          "id": "m05",
+          "title": "数据结构：list / dict / set"
+        },
+        {
+          "id": "m06",
+          "title": "字符串与文件"
+        },
+        {
+          "id": "m07",
+          "title": "类与模块"
+        },
+        {
+          "id": "m08",
+          "title": "异常、迭代器与测试 + 过渡到 B04"
+        },
+        {
+          "id": "m09",
+          "title": "环境、包与项目组织"
+        },
+        {
+          "id": "m10",
+          "title": "标准库与可靠 IO"
+        },
+        {
+          "id": "m11",
+          "title": "并发、异步与后台任务"
+        },
+        {
+          "id": "m12",
+          "title": "测试、CLI 与综合项目"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B02",
+      "shelfId": "course-b02",
+      "name": "C++（嵌入式向）",
+      "path": "books/B02.html",
+      "bytes": 399747,
+      "sha256": "8db161673187aa11befb09b5723eea1f3562f5ec4e53727abd8fc2920e897763",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "整条学习路线."
+        },
+        {
+          "id": "minidrv",
+          "title": "跟着做：一个迷你驱动库 minidrv"
+        },
+        {
+          "id": "m01",
+          "title": "C++ 在 MCU 上的真实代价"
+        },
+        {
+          "id": "m02",
+          "title": "类、封装与 RAII"
+        },
+        {
+          "id": "m03",
+          "title": "constexpr 与编译期计算"
+        },
+        {
+          "id": "m04",
+          "title": "模板与零开销抽象"
+        },
+        {
+          "id": "m05",
+          "title": "资源管理：所有权与静态分配"
+        },
+        {
+          "id": "m06",
+          "title": "并发与内存模型"
+        },
+        {
+          "id": "m07",
+          "title": "类型系统护栏：让错误编译不过"
+        },
+        {
+          "id": "m08",
+          "title": "ISR 里的 C++"
+        },
+        {
+          "id": "m09",
+          "title": "与 C 互操作"
+        },
+        {
+          "id": "m10",
+          "title": "实战：用 C++ 重构驱动框架"
+        },
+        {
+          "id": "m11",
+          "title": "驱动库交付与边界验证"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B03",
+      "shelfId": "course-b03",
+      "name": "Rust（嵌入式向）",
+      "path": "books/B03.html",
+      "bytes": 255641,
+      "sha256": "ae2ba6a16a542608c0b883f53a3e9584bfc698e0d4955e73de9120f9a4aeaa54",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "整条学习路线."
+        },
+        {
+          "id": "minirs",
+          "title": "跟着做：一个最小固件 minirs"
+        },
+        {
+          "id": "m01",
+          "title": "所有权与借用：对着 C 讲"
+        },
+        {
+          "id": "m02",
+          "title": "用类型系统编码硬件约束"
+        },
+        {
+          "id": "m03",
+          "title": "no_std 与 panic"
+        },
+        {
+          "id": "m04",
+          "title": "embedded-hal 抽象"
+        },
+        {
+          "id": "m05",
+          "title": "中断与并发"
+        },
+        {
+          "id": "m06",
+          "title": "DMA 与所有权"
+        },
+        {
+          "id": "m07",
+          "title": "unsafe 的边界与 FFI"
+        },
+        {
+          "id": "m08",
+          "title": "体积与性能"
+        },
+        {
+          "id": "m09",
+          "title": "实战：三语言同题"
+        },
+        {
+          "id": "m10",
+          "title": "异步固件、取消与外设所有权"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B04",
+      "shelfId": "course-b04",
+      "name": "Python（嵌入式向）",
+      "path": "books/B04.html",
+      "bytes": 181308,
+      "sha256": "dde117decd8abd1e655e7905d0ee15a85f4e80ee37d7d97154a5fada10f9a311",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "整条学习路线."
+        },
+        {
+          "id": "m01",
+          "title": "定位与边界"
+        },
+        {
+          "id": "m02",
+          "title": "MicroPython 深入"
+        },
+        {
+          "id": "m03",
+          "title": "串口与协议工具链"
+        },
+        {
+          "id": "m04",
+          "title": "数据分析服务于调试"
+        },
+        {
+          "id": "m05",
+          "title": "构建与 CI 脚本化"
+        },
+        {
+          "id": "m06",
+          "title": "上位机 GUI 与调试台"
+        },
+        {
+          "id": "m07",
+          "title": "数据准备（为端侧 AI 铺路）"
+        },
+        {
+          "id": "m08",
+          "title": "数据契约、回放与实验复现"
+        },
+        {
+          "id": "glossary",
+          "title": "术语与符号对照表"
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B05",
+      "shelfId": "course-b05",
+      "name": "单片机裸机与外设驱动",
+      "path": "books/B05.html",
+      "bytes": 515243,
+      "sha256": "fa73b88cb7b41b477b557a7bb4d2dd1526827b437a96e0891e9069875c731cca",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "时钟树与启动."
+        },
+        {
+          "id": "m02",
+          "title": "GPIO 深入."
+        },
+        {
+          "id": "m03",
+          "title": "中断与 NVIC."
+        },
+        {
+          "id": "m04",
+          "title": "定时器."
+        },
+        {
+          "id": "m05",
+          "title": "ADC / DAC."
+        },
+        {
+          "id": "m06",
+          "title": "DMA."
+        },
+        {
+          "id": "m07",
+          "title": "UART."
+        },
+        {
+          "id": "m08",
+          "title": "I²C."
+        },
+        {
+          "id": "m09",
+          "title": "SPI."
+        },
+        {
+          "id": "m10",
+          "title": "看门狗与低功耗."
+        },
+        {
+          "id": "m11",
+          "title": "传感器驱动实战."
+        },
+        {
+          "id": "m12",
+          "title": "分层取舍总论."
+        },
+        {
+          "id": "m13",
+          "title": "存储器与文件系统接口."
+        },
+        {
+          "id": "m14",
+          "title": "USB 与复杂外设入门."
+        },
+        {
+          "id": "m15",
+          "title": "指令集、调用约定与 MCU 结构."
+        },
+        {
+          "id": "m16",
+          "title": "输入输出电气类型."
+        },
+        {
+          "id": "m17",
+          "title": "现场总线：CAN / RS-485 / Modbus / 1-Wire."
+        },
+        {
+          "id": "m18",
+          "title": "以太网与 TCP/IP（lwIP）."
+        },
+        {
+          "id": "m19",
+          "title": "WiFi 联网."
+        },
+        {
+          "id": "m20",
+          "title": "蓝牙与 BLE."
+        },
+        {
+          "id": "m21",
+          "title": "OTA 与网络升级、回滚."
+        },
+        {
+          "id": "capstone",
+          "title": "一台能采集、能通信、能升级的节点."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "外设驱动易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B06",
+      "shelfId": "course-b06",
+      "name": "RTOS 与实时系统",
+      "path": "books/B06.html",
+      "bytes": 325857,
+      "sha256": "e674e30143216d48fc798710346e16a9eaafda1b3ea347d4d5d4c240a2f9aa2e",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "为什么需要 RTOS."
+        },
+        {
+          "id": "m02",
+          "title": "任务与调度."
+        },
+        {
+          "id": "m03",
+          "title": "同步原语."
+        },
+        {
+          "id": "m04",
+          "title": "队列、事件组与流缓冲."
+        },
+        {
+          "id": "m05",
+          "title": "中断与 RTOS 的边界."
+        },
+        {
+          "id": "m06",
+          "title": "内存管理."
+        },
+        {
+          "id": "m07",
+          "title": "时间管理."
+        },
+        {
+          "id": "m08",
+          "title": "反模式与调试."
+        },
+        {
+          "id": "m09",
+          "title": "RT-Thread 与 Zephyr 对照."
+        },
+        {
+          "id": "m10",
+          "title": "实战：裸机项目 RTOS 化."
+        },
+        {
+          "id": "m11",
+          "title": "实时预算与可调度性."
+        },
+        {
+          "id": "m12",
+          "title": "多核 RTOS 与任务生命周期."
+        },
+        {
+          "id": "capstone",
+          "title": "把一个裸机项目 RTOS 化并满足实时性."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "RTOS 易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B07",
+      "shelfId": "course-b07",
+      "name": "通信协议与系统集成",
+      "path": "books/B07.html",
+      "bytes": 327336,
+      "sha256": "19a93b6e2ad37137bf76ed260835bf03b7de7daca147044f49db0ee56eece259",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "协议设计基础."
+        },
+        {
+          "id": "m02",
+          "title": "校验与完整性."
+        },
+        {
+          "id": "m03",
+          "title": "Modbus."
+        },
+        {
+          "id": "m04",
+          "title": "CAN 与 CAN-FD."
+        },
+        {
+          "id": "m05",
+          "title": "无线通信."
+        },
+        {
+          "id": "m06",
+          "title": "应用层协议."
+        },
+        {
+          "id": "m07",
+          "title": "Bootloader."
+        },
+        {
+          "id": "m08",
+          "title": "OTA 全链路."
+        },
+        {
+          "id": "m09",
+          "title": "协议调试."
+        },
+        {
+          "id": "m10",
+          "title": "实战：可远程升级的传感器节点."
+        },
+        {
+          "id": "m11",
+          "title": "网络基础与 MCU 协议栈."
+        },
+        {
+          "id": "m12",
+          "title": "断网、背压与端到端可靠性."
+        },
+        {
+          "id": "m13",
+          "title": "升级确认与版本兼容深化."
+        },
+        {
+          "id": "capstone",
+          "title": "一个可远程升级、断网可恢复的传感器节点."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "通信协议易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B08",
+      "shelfId": "course-b08",
+      "name": "单片机应用开发实战",
+      "path": "books/B08.html",
+      "bytes": 340696,
+      "sha256": "7d22fc354a425163938572cd0a490f39d9620907539cb94c06ae5ce04b7a2a79",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "从需求到架构."
+        },
+        {
+          "id": "m02",
+          "title": "工程骨架."
+        },
+        {
+          "id": "m03",
+          "title": "人机交互."
+        },
+        {
+          "id": "m04",
+          "title": "数据采集与本地存储."
+        },
+        {
+          "id": "m05",
+          "title": "控制算法落地."
+        },
+        {
+          "id": "m06",
+          "title": "通信与联网集成."
+        },
+        {
+          "id": "m07",
+          "title": "电源与续航."
+        },
+        {
+          "id": "m08",
+          "title": "可靠性与自恢复."
+        },
+        {
+          "id": "m09",
+          "title": "从开发板到自制板."
+        },
+        {
+          "id": "m10",
+          "title": "综合项目 A · 智能环境监测终端."
+        },
+        {
+          "id": "m11",
+          "title": "综合项目 B · 电机运动控制."
+        },
+        {
+          "id": "m12",
+          "title": "综合项目 C · 低功耗电池设备."
+        },
+        {
+          "id": "m13",
+          "title": "参数与数据的持久化设计."
+        },
+        {
+          "id": "m14",
+          "title": "图形界面与应用状态分离."
+        },
+        {
+          "id": "m15",
+          "title": "产品级应用验收."
+        },
+        {
+          "id": "capstone",
+          "title": "从需求到产品级验收的完整路径."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "应用开发易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B09",
+      "shelfId": "course-b09",
+      "name": "嵌入式 Linux 系统",
+      "path": "books/B09.html",
+      "bytes": 272786,
+      "sha256": "b9cd7ce832dcddf7dd20429f41745240248b2d5e19a65514423f6c5fd7a02ba8",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "SoC 架构与启动链."
+        },
+        {
+          "id": "m02",
+          "title": "交叉编译与构建系统."
+        },
+        {
+          "id": "m03",
+          "title": "设备树."
+        },
+        {
+          "id": "m04",
+          "title": "内核配置与启动."
+        },
+        {
+          "id": "m05",
+          "title": "根文件系统."
+        },
+        {
+          "id": "m06",
+          "title": "存储与分区."
+        },
+        {
+          "id": "m07",
+          "title": "系统层调试."
+        },
+        {
+          "id": "m08",
+          "title": "Linux 使用与系统机制桥接."
+        },
+        {
+          "id": "m09",
+          "title": "板级移植与系统镜像交付."
+        },
+        {
+          "id": "m10",
+          "title": "启动、存储与系统恢复实战."
+        },
+        {
+          "id": "capstone",
+          "title": "从源码到可启动、可恢复的镜像."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "三条参考路线速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B10",
+      "shelfId": "course-b10",
+      "name": "嵌入式 Linux 驱动开发",
+      "path": "books/B10.html",
+      "bytes": 300160,
+      "sha256": "d1a6f4fd609033c31b2a0284b35de30a69d55a5528a1fae73f3a2ad5e37bb8d8",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "内核模块基础."
+        },
+        {
+          "id": "m02",
+          "title": "字符设备."
+        },
+        {
+          "id": "m03",
+          "title": "并发与锁."
+        },
+        {
+          "id": "m04",
+          "title": "中断处理."
+        },
+        {
+          "id": "m05",
+          "title": "设备树与 platform driver."
+        },
+        {
+          "id": "m06",
+          "title": "子系统：GPIO / pinctrl / clock / regulator."
+        },
+        {
+          "id": "m07",
+          "title": "子系统：I²C / SPI."
+        },
+        {
+          "id": "m08",
+          "title": "DMA 与用户态交互."
+        },
+        {
+          "id": "m09",
+          "title": "常见子系统速览."
+        },
+        {
+          "id": "m10",
+          "title": "驱动调试."
+        },
+        {
+          "id": "m11",
+          "title": "面向真实器件的子系统驱动."
+        },
+        {
+          "id": "m12",
+          "title": "电源管理与驱动生命周期."
+        },
+        {
+          "id": "m13",
+          "title": "驱动验证与跨版本维护."
+        },
+        {
+          "id": "capstone",
+          "title": "一套可加载、可调试、可维护的字符驱动."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "驱动易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B11",
+      "shelfId": "course-b11",
+      "name": "嵌入式 Linux 应用开发",
+      "path": "books/B11.html",
+      "bytes": 234959,
+      "sha256": "d29002bf1b3cb9fa3e390c6bb7c2a18045d0e12f88c8e3aa0e984c8db9bd52dd",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "系统编程."
+        },
+        {
+          "id": "m02",
+          "title": "进程间通信."
+        },
+        {
+          "id": "m03",
+          "title": "网络编程."
+        },
+        {
+          "id": "m04",
+          "title": "应用构建."
+        },
+        {
+          "id": "m05",
+          "title": "实时性与多线程."
+        },
+        {
+          "id": "m06",
+          "title": "服务化与部署."
+        },
+        {
+          "id": "m07",
+          "title": "性能与资源."
+        },
+        {
+          "id": "m08",
+          "title": "容器与应用 OTA."
+        },
+        {
+          "id": "m09",
+          "title": "持久化、配置与服务恢复."
+        },
+        {
+          "id": "m10",
+          "title": "人机界面与音视频应用分支."
+        },
+        {
+          "id": "m11",
+          "title": "综合：可运维 Linux 边缘服务."
+        },
+        {
+          "id": "capstone",
+          "title": "一个可运维的 Linux 边缘服务."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "应用易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B12",
+      "shelfId": "course-b12",
+      "name": "工程化、测试与量产",
+      "path": "books/B12.html",
+      "bytes": 239840,
+      "sha256": "2d1f607fbdaaa029eb99bf254ba4831a6debb954a7a15e0ca08343d7a35a583d",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "项目结构、风格与规范."
+        },
+        {
+          "id": "m02",
+          "title": "静态分析与自动化门禁."
+        },
+        {
+          "id": "m03",
+          "title": "单元测试与仿真."
+        },
+        {
+          "id": "m04",
+          "title": "硬件在环（HIL）."
+        },
+        {
+          "id": "m05",
+          "title": "版本与固件管理."
+        },
+        {
+          "id": "m06",
+          "title": "产测与标定."
+        },
+        {
+          "id": "m07",
+          "title": "可追溯与合规."
+        },
+        {
+          "id": "m08",
+          "title": "现场问题定位."
+        },
+        {
+          "id": "m09",
+          "title": "选型与成本."
+        },
+        {
+          "id": "m10",
+          "title": "需求、接口与风险驱动测试."
+        },
+        {
+          "id": "m11",
+          "title": "故障注入、长跑与性能回归."
+        },
+        {
+          "id": "m12",
+          "title": "发布、生产与现场闭环."
+        },
+        {
+          "id": "capstone",
+          "title": "从代码到量产的工程闭环."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "工程化易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B13",
+      "shelfId": "course-b13",
+      "name": "端侧 AI 与数据闭环",
+      "path": "books/B13.html",
+      "bytes": 253194,
+      "sha256": "abb400716e9abb170e5c13b07c0ef2d5b0f05766eff0db44287d3bc42e347d69",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "端侧 AI 全景与算力预算."
+        },
+        {
+          "id": "m02",
+          "title": "数据采集与工程."
+        },
+        {
+          "id": "m03",
+          "title": "特征工程与信号处理."
+        },
+        {
+          "id": "m04",
+          "title": "模型训练基础（面向嵌入式约束）."
+        },
+        {
+          "id": "m05",
+          "title": "量化."
+        },
+        {
+          "id": "m06",
+          "title": "部署."
+        },
+        {
+          "id": "m07",
+          "title": "推理性能优化."
+        },
+        {
+          "id": "m08",
+          "title": "典型应用."
+        },
+        {
+          "id": "m09",
+          "title": "数据闭环与模型 OTA."
+        },
+        {
+          "id": "m10",
+          "title": "实践设计：IMU 异常检测."
+        },
+        {
+          "id": "m11",
+          "title": "Linux 推理与硬件加速."
+        },
+        {
+          "id": "m12",
+          "title": "设备端评估与业务验收."
+        },
+        {
+          "id": "m13",
+          "title": "模型、预处理与固件兼容."
+        },
+        {
+          "id": "capstone",
+          "title": "一个可交付的端侧异常检测."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "端侧 AI 易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B14",
+      "shelfId": "course-b14",
+      "name": "数据平台与云边协同",
+      "path": "books/B14.html",
+      "bytes": 219786,
+      "sha256": "b4f91e2fd21ce5751ff554949732f2b4be674d306d50bf7ad528ef9a8e564109",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "设备接入与物模型."
+        },
+        {
+          "id": "m02",
+          "title": "边缘网关."
+        },
+        {
+          "id": "m03",
+          "title": "时序数据存储."
+        },
+        {
+          "id": "m04",
+          "title": "可视化与告警."
+        },
+        {
+          "id": "m05",
+          "title": "数据分析与预测性维护."
+        },
+        {
+          "id": "m06",
+          "title": "云边协同架构."
+        },
+        {
+          "id": "m07",
+          "title": "数据安全与隐私."
+        },
+        {
+          "id": "m08",
+          "title": "实战：从设备到决策的完整链路."
+        },
+        {
+          "id": "m09",
+          "title": "数据语义、时间与质量."
+        },
+        {
+          "id": "m10",
+          "title": "设备群管理与服务接口."
+        },
+        {
+          "id": "m11",
+          "title": "数据与模型运行闭环."
+        },
+        {
+          "id": "capstone",
+          "title": "从设备到决策的完整链路."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "云边协同易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B15",
+      "shelfId": "course-b15",
+      "name": "前沿与专项技术",
+      "path": "books/B15.html",
+      "bytes": 262717,
+      "sha256": "8bb5a0491b784406dbeeb5308adfb52ff60847fb930750074e447140307a72d0",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "RISC-V 嵌入式生态."
+        },
+        {
+          "id": "m02",
+          "title": "安全启动与硬件信任根."
+        },
+        {
+          "id": "m03",
+          "title": "功能安全与合规认证."
+        },
+        {
+          "id": "m04",
+          "title": "实时以太网与工业总线."
+        },
+        {
+          "id": "m05",
+          "title": "物联网新协议."
+        },
+        {
+          "id": "m06",
+          "title": "异构多核与加速器协同."
+        },
+        {
+          "id": "m07",
+          "title": "边缘计算与容器化."
+        },
+        {
+          "id": "m08",
+          "title": "AI 辅助嵌入式开发."
+        },
+        {
+          "id": "m09",
+          "title": "形式化方法与高可靠设计."
+        },
+        {
+          "id": "m10",
+          "title": "技术雷达与选型方法论."
+        },
+        {
+          "id": "m11",
+          "title": "机器人与 ROS 2 分支."
+        },
+        {
+          "id": "m12",
+          "title": "FPGA 与可编程逻辑分支."
+        },
+        {
+          "id": "m13",
+          "title": "端侧大模型与多模态分支."
+        },
+        {
+          "id": "m14",
+          "title": "可信技术评估与迁移项目."
+        },
+        {
+          "id": "capstone",
+          "title": "一次可信的技术评估与迁移."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "专项技术易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B16",
+      "shelfId": "course-b16",
+      "name": "开发环境与工程工具",
+      "path": "books/B16.html",
+      "bytes": 177835,
+      "sha256": "715e0628e54eea94260a0cd9c3fc51f3512f86796c95d2d200541f7872dbb5a0",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "开发工作站与环境边界."
+        },
+        {
+          "id": "m02",
+          "title": "Linux 命令行与文件系统."
+        },
+        {
+          "id": "m03",
+          "title": "Shell 与自动化脚本."
+        },
+        {
+          "id": "m04",
+          "title": "Git 与变更管理."
+        },
+        {
+          "id": "m05",
+          "title": "构建与依赖管理."
+        },
+        {
+          "id": "m06",
+          "title": "Python 环境与工程打包."
+        },
+        {
+          "id": "m07",
+          "title": "读手册、源码与技术证据."
+        },
+        {
+          "id": "m08",
+          "title": "综合：可复现工程模板."
+        },
+        {
+          "id": "capstone",
+          "title": "一套可复现的工程模板."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "工效与工具易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B17",
+      "shelfId": "course-b17",
+      "name": "电子电路与硬件调试基础",
+      "path": "books/B17.html",
+      "bytes": 197623,
+      "sha256": "3c9e9f1a4604f6401347b37561816ffb4bf15d24f059db30d9d5375fe9127776",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "电路基本量与测量."
+        },
+        {
+          "id": "m02",
+          "title": "数字电平与引脚电气."
+        },
+        {
+          "id": "m03",
+          "title": "电源、去耦与复位."
+        },
+        {
+          "id": "m04",
+          "title": "时钟与最小系统."
+        },
+        {
+          "id": "m05",
+          "title": "模拟信号与采集前端."
+        },
+        {
+          "id": "m06",
+          "title": "接口电路与总线物理层."
+        },
+        {
+          "id": "m07",
+          "title": "传感器与执行器接口."
+        },
+        {
+          "id": "m08",
+          "title": "示波器与逻辑分析仪."
+        },
+        {
+          "id": "m09",
+          "title": "PCB、EMC 与首板检查."
+        },
+        {
+          "id": "m10",
+          "title": "综合：新板上电与故障树."
+        },
+        {
+          "id": "capstone",
+          "title": "新板上电与故障树."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "硬件调试易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B18",
+      "shelfId": "course-b18",
+      "name": "处理器与计算机体系结构",
+      "path": "books/B18.html",
+      "bytes": 284857,
+      "sha256": "50d80db75963572998403647ac8d03cbfed2c6243fc22a8df57ab181e61f6b4c",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "MCU、MPU 与 SoC."
+        },
+        {
+          "id": "m02",
+          "title": "汇编与调用约定."
+        },
+        {
+          "id": "m03",
+          "title": "异常、中断与特权级."
+        },
+        {
+          "id": "m04",
+          "title": "内存层次与性能."
+        },
+        {
+          "id": "m05",
+          "title": "MPU、MMU 与地址空间."
+        },
+        {
+          "id": "m06",
+          "title": "DMA 与 Cache 一致性."
+        },
+        {
+          "id": "m07",
+          "title": "内存序与多核共享."
+        },
+        {
+          "id": "m08",
+          "title": "RISC-V 与 Arm 对照."
+        },
+        {
+          "id": "m09",
+          "title": "性能预算与测量."
+        },
+        {
+          "id": "m10",
+          "title": "综合：同一数据通路的跨平台分析."
+        },
+        {
+          "id": "capstone",
+          "title": "同一数据通路的跨平台分析."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "体系结构易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B19",
+      "shelfId": "course-b19",
+      "name": "数据结构、算法与应用数学",
+      "path": "books/B19.html",
+      "bytes": 201566,
+      "sha256": "702189724b14dd05f897f9b33a2784a1e13376169c4876e8363746ce68196279",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "复杂度与资源预算."
+        },
+        {
+          "id": "m02",
+          "title": "数组、链表与容器."
+        },
+        {
+          "id": "m03",
+          "title": "栈、队列与环形缓冲."
+        },
+        {
+          "id": "m04",
+          "title": "查找、排序与索引."
+        },
+        {
+          "id": "m05",
+          "title": "状态机、图与调度."
+        },
+        {
+          "id": "m06",
+          "title": "数值表示与误差."
+        },
+        {
+          "id": "m07",
+          "title": "线性代数与坐标变换."
+        },
+        {
+          "id": "m08",
+          "title": "概率、统计与实验设计."
+        },
+        {
+          "id": "m09",
+          "title": "插值、拟合与校准."
+        },
+        {
+          "id": "m10",
+          "title": "综合：有界的数据处理库."
+        },
+        {
+          "id": "capstone",
+          "title": "一个有界的数据处理库."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "算法与数值易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B20",
+      "shelfId": "course-b20",
+      "name": "传感器、信号处理与控制",
+      "path": "books/B20.html",
+      "bytes": 199413,
+      "sha256": "d5e8f4d211585454fcad648373b478a18a5269b32a1419a04dd54b488770c89f",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "采样、时基与混叠."
+        },
+        {
+          "id": "m02",
+          "title": "传感器标定与误差预算."
+        },
+        {
+          "id": "m03",
+          "title": "时域滤波."
+        },
+        {
+          "id": "m04",
+          "title": "FIR 与 IIR."
+        },
+        {
+          "id": "m05",
+          "title": "FFT 与频谱分析."
+        },
+        {
+          "id": "m06",
+          "title": "特征提取与流式计算."
+        },
+        {
+          "id": "m07",
+          "title": "状态估计与传感器融合."
+        },
+        {
+          "id": "m08",
+          "title": "控制系统基础."
+        },
+        {
+          "id": "m09",
+          "title": "PID 与执行器约束."
+        },
+        {
+          "id": "m10",
+          "title": "综合：从采样到闭环与 AI 特征."
+        },
+        {
+          "id": "capstone",
+          "title": "从采样到闭环与 AI 特征."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "信号与控制易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B21",
+      "shelfId": "course-b21",
+      "name": "机器学习与数据工程基础",
+      "path": "books/B21.html",
+      "bytes": 200867,
+      "sha256": "fe7d8af4986546c3d79147976c3d38085f06283653226a531ac612399cd65e05",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "问题定义与算法基线."
+        },
+        {
+          "id": "m02",
+          "title": "采集、标注与数据契约."
+        },
+        {
+          "id": "m03",
+          "title": "切分、泄漏与独立测试."
+        },
+        {
+          "id": "m04",
+          "title": "特征与传统机器学习."
+        },
+        {
+          "id": "m05",
+          "title": "神经网络与训练机制."
+        },
+        {
+          "id": "m06",
+          "title": "训练工程与过拟合."
+        },
+        {
+          "id": "m07",
+          "title": "评估、阈值与校准."
+        },
+        {
+          "id": "m08",
+          "title": "时间序列、音频与视觉任务."
+        },
+        {
+          "id": "m09",
+          "title": "模型导出与量化准备."
+        },
+        {
+          "id": "m10",
+          "title": "综合：可交付模型包."
+        },
+        {
+          "id": "capstone",
+          "title": "一个可交付模型包."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "ML 工程易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B22",
+      "shelfId": "course-b22",
+      "name": "嵌入式安全与设备生命周期",
+      "path": "books/B22.html",
+      "bytes": 213815,
+      "sha256": "93d8d53f6dde7a19d1fef43da27ebb40b63dbcc0d002d02b7ae6ab12a75ba1e3",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "roadmap",
+          "title": "本册怎么读."
+        },
+        {
+          "id": "m01",
+          "title": "资产、威胁与信任边界."
+        },
+        {
+          "id": "m02",
+          "title": "密码学的工程使用."
+        },
+        {
+          "id": "m03",
+          "title": "设备身份与密钥生命周期."
+        },
+        {
+          "id": "m04",
+          "title": "安全启动与固件真实性."
+        },
+        {
+          "id": "m05",
+          "title": "通信安全与证书验证."
+        },
+        {
+          "id": "m06",
+          "title": "升级安全与回退策略."
+        },
+        {
+          "id": "m07",
+          "title": "隔离与最小权限."
+        },
+        {
+          "id": "m08",
+          "title": "接口健壮性与安全测试."
+        },
+        {
+          "id": "m09",
+          "title": "生产、维护与退役."
+        },
+        {
+          "id": "m10",
+          "title": "综合：可维护的安全设备."
+        },
+        {
+          "id": "capstone",
+          "title": "一台可维护的安全设备."
+        },
+        {
+          "id": "cheatsheet",
+          "title": "嵌入式安全易错点速查."
+        },
+        {
+          "id": "glossary",
+          "title": "术语表."
+        }
+      ],
+      "liveVerified": true
+    },
+    {
+      "id": "B23",
+      "shelfId": "course-b23",
+      "name": "算法、数据与控制实战",
+      "path": "books/B23.html",
+      "bytes": 122538,
+      "sha256": "73271424e46b091a797fe6193d5b2da0e2f543270b5e27e942de832e4531c2f0",
+      "chapters": [
+        {
+          "id": "book-mastery",
+          "title": "学习路径与整册验收"
+        },
+        {
+          "id": "B23-M01",
+          "title": "B23-M01从需求到算法、数据与控制链入门正文"
+        },
+        {
+          "id": "B23-M02",
+          "title": "B23-M02算法选型：复杂度、内存与最坏耗时入门正文"
+        },
+        {
+          "id": "B23-M03",
+          "title": "B23-M03环形缓冲、滑动窗口与流式算法入门正文"
+        },
+        {
+          "id": "B23-M04",
+          "title": "B23-M04排序、查找与标定表插值入门正文"
+        },
+        {
+          "id": "B23-M05",
+          "title": "B23-M05状态机：正常、降级与故障锁存入门正文"
+        },
+        {
+          "id": "B23-M06",
+          "title": "B23-M06数值计算、浮点误差与 Q15 定点入门正文"
+        },
+        {
+          "id": "B23-M07",
+          "title": "B23-M07数据采集：时间戳、序号与质量契约入门正文"
+        },
+        {
+          "id": "B23-M08",
+          "title": "B23-M08标定、统计与异常数据处理入门正文"
+        },
+        {
+          "id": "B23-M09",
+          "title": "B23-M09重采样与滤波：平滑背后的延迟入门正文"
+        },
+        {
+          "id": "B23-M10",
+          "title": "B23-M10特征提取、频谱与带迟滞的事件检测入门正文"
+        },
+        {
+          "id": "B23-M11",
+          "title": "B23-M11对象建模与阶跃辨识入门正文"
+        },
+        {
+          "id": "B23-M12",
+          "title": "B23-M12离散控制、采样周期与实时预算入门正文"
+        },
+        {
+          "id": "B23-M13",
+          "title": "B23-M13PI/PID：限幅、抗饱和与交互实验入门正文"
+        },
+        {
+          "id": "B23-M14",
+          "title": "B23-M14状态估计与传感器融合入门入门正文"
+        },
+        {
+          "id": "B23-M15",
+          "title": "B23-M15前馈、串级与运动轨迹的工程入口入门正文"
+        },
+        {
+          "id": "B23-M16",
+          "title": "B23-M16数据回放、自动指标与故障注入入门正文"
+        },
+        {
+          "id": "B23-M17",
+          "title": "B23-M17综合实战：可回放的温控闭环入门正文"
+        },
+        {
+          "id": "B23-M18",
+          "title": "B23-M18迁移实战：电机调速与振动数据诊断入门正文"
+        }
+      ],
+      "liveVerified": true
+    }
+  ],
+  "layers": [
+    "原手机书库",
+    "知栈工作目录",
+    "生产构建",
+    "Windows 发布目录",
+    "Android 安装包"
+  ],
+  "liveBooksChecked": 27,
+  "desktopRestartPending": false,
+  "apk": {
+    "path": "release/zhizhan-1.15.4-android.apk",
+    "bytes": 12266563,
+    "sha256": "baeff92043406f15125dae1f803ddaa71227181d1de88f5604bb32bc163be616"
+  },
+  "limitation": "核对了原册文件原样收录和桌面/手机尺寸浏览器显示；没有连接用户手机检查实际安装状态。"
+}

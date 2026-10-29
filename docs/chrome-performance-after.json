@@ -1,0 +1,15 @@
+{
+  "label": "after",
+  "viewport": "393x852",
+  "cpuThrottle": 4,
+  "transitions": 12,
+  "metrics": {
+    "LayoutCount": 72,
+    "RecalcStyleCount": 315,
+    "LayoutDuration": 0.066776,
+    "RecalcStyleDuration": 0.770339,
+    "ScriptDuration": 0.17223099999999997,
+    "TaskDuration": 1.9562420000000005
+  },
+  "deviceTested": false
+}

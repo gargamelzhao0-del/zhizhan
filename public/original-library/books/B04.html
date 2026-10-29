@@ -1,0 +1,2730 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B04" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>Python（嵌入式向） · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --py:#4FD6E8;
+  --py-d:#0C2A31;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --py:#0E7F94;
+  --py-d:#DAF1F5;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">Python（嵌入式向）</div>
+    <div class="m-subtitle">嵌入式语言 · 8 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">8 模块 · 41 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol cur" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">工具实战 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">整条学习路线.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">定位与边界<span class="m-nav-sub">CPython / MicroPython / 上位机</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-1" data-target="m01-1">1.1 三种 Python，别混为一谈</a><a class="m-sec" href="#m01-2" data-target="m01-2">1.2 分工边界：什么放设备端、什么放上位机</a><a class="m-sec" href="#m01-3" data-target="m01-3">1.3 同一件功能：MicroPython 与 CPython 写法对照</a><a class="m-sec" href="#m01-4" data-target="m01-4">1.4 什么时候别用 MicroPython</a><a class="m-sec" href="#m01-5" data-target="m01-5">1.5 选择清单：设备端还是上位机</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">MicroPython 深入<span class="m-nav-sub">GC · machine · 定时中断 · viper</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-1" data-target="m02-1">2.1 运行时与内存：解释器 + 堆 + 固件</a><a class="m-sec" href="#m02-2" data-target="m02-2">2.2 machine 模块：GPIO / UART / Timer</a><a class="m-sec" href="#m02-3" data-target="m02-3">2.3 定时中断：在中断里只做&quot;最小的事&quot;</a><a class="m-sec" href="#m02-4" data-target="m02-4">2.4 提速：viper 与 native</a><a class="m-sec" href="#m02-5" data-target="m02-5">2.5 与 C 扩展：什么时候必须下沉</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">串口与协议工具链<span class="m-nav-sub">pyserial · 帧解析 · 重传</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-1" data-target="m03-1">3.1 最小串口收发</a><a class="m-sec" href="#m03-2" data-target="m03-2">3.2 帧结构与解析：半包与粘包</a><a class="m-sec" href="#m03-3" data-target="m03-3">3.3 超时与重传：把&quot;设备没回&quot;变成可测的事</a><a class="m-sec" href="#m03-4" data-target="m03-4">3.4 流式解帧：一次喂一个字节</a><a class="m-sec" href="#m03-5" data-target="m03-5">3.5 把&quot;设备没回&quot;变成可测状态</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">数据分析服务于调试<span class="m-nav-sub">numpy · pandas · matplotlib</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-1" data-target="m04-1">4.1 数据流水线：从设备字节到结论</a><a class="m-sec" href="#m04-2" data-target="m04-2">4.2 一个真实的分析脚本</a><a class="m-sec" href="#m04-3" data-target="m04-3">4.3 三个高频分析动作</a><a class="m-sec" href="#m04-4" data-target="m04-4">4.4 让分析可复现：固定随机与版本</a><a class="m-sec" href="#m04-5" data-target="m04-5">4.5 从&quot;看一眼&quot;到&quot;可回归&quot;</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">构建与 CI 脚本化<span class="m-nav-sub">subprocess · esptool · Actions</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-1" data-target="m05-1">5.1 为什么上层用 Python 编排工具链</a><a class="m-sec" href="#m05-2" data-target="m05-2">5.2 subprocess 的正确姿势</a><a class="m-sec" href="#m05-3" data-target="m05-3">5.3 一条命令的流水线</a><a class="m-sec" href="#m05-4" data-target="m05-4">5.4 接到 CI：每次提交自动跑</a><a class="m-sec" href="#m05-5" data-target="m05-5">5.5 编排的纪律</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">上位机 GUI 与调试台<span class="m-nav-sub">实时曲线 · 串口调试 · 升级界面</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-1" data-target="m06-1">6.1 调试台的三块：看、发、升</a><a class="m-sec" href="#m06-2" data-target="m06-2">6.2 最小实时曲线（tkinter + pyserial）</a><a class="m-sec" href="#m06-3" data-target="m06-3">6.3 升级界面：为 OTA 铺路</a><a class="m-sec" href="#m06-4" data-target="m06-4">6.4 后台线程读串口，UI 只画图</a><a class="m-sec" href="#m06-5" data-target="m06-5">6.5 界面与采集解耦的好处</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">数据准备<span class="m-nav-sub">采集 · 标注 · 数据集切分</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-1" data-target="m07-1">7.1 数据流水线：采集 → 组织 → 切分 → 训练/端侧</a><a class="m-sec" href="#m07-2" data-target="m07-2">7.2 采集：带时间戳与标签</a><a class="m-sec" href="#m07-3" data-target="m07-3">7.3 组织与切分：为什么&quot;按会话&quot;而不是&quot;按样本&quot;</a><a class="m-sec" href="#m07-4" data-target="m07-4">7.4 切分要防&quot;同源泄漏&quot;</a><a class="m-sec" href="#m07-5" data-target="m07-5">7.5 数据集的可复现清单</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">数据契约、回放与实验复现<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-mechanism" data-target="m08-mechanism">机制与契约</a><a class="m-sec" href="#m08-boundary" data-target="m08-boundary">边界与误用</a><a class="m-sec" href="#m08-run" data-target="m08-run">运行完整示例</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num">§</span><span class="m-nav-t">术语与符号对照表<span class="m-nav-sub">单一事实源 · 构建期比对</span></span></summary><div class="m-secs"><a class="m-sec" href="#glossary-terms" data-target="glossary-terms">术语</a><a class="m-sec" href="#glossary-symbols" data-target="glossary-symbols">符号 / 构件</a></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B04-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE 01–08 · 阶段 ② 现代语言</div>
+    <h1>嵌入式 <span class="g">Python</span><br>工具链与 MicroPython<span class="cursor"></span></h1>
+    <p class="lead">
+      这一册不把 Python 当"另一种单片机语言"，而是讲清它在嵌入式里的<strong>两个真实位置</strong>：
+      ① 上位机侧——串口工具、数据分析、构建与 CI、调试台、数据集；② 设备侧——MicroPython 在 ESP32/STM32 上的取舍。
+      每个脚本都在本机真实运行，数字与输出均可复跑。
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><b>8</b><span>核心模块</span></div>
+      <div class="hero-stat"><b>31</b><span>代码与命令</span></div>
+      <div class="hero-stat"><b>15</b><span>原理图示</span></div>
+      <div class="hero-stat"><b>30</b><span>对照表格</span></div>
+    </div>
+
+    <div class="box plain" style="margin-top:26px">
+      <div class="box-t">本册的定位</div>
+      <p style="font-size:14.5px;margin-bottom:10px">
+        面向<strong>已经读完第①册、会在 C 里直接操作寄存器</strong>的开发者。Python 在这里主要是<strong>生产力工具</strong>：
+        把"手动点串口助手、肉眼找 bug、手工整理数据"变成"一条命令跑完"。
+      </p>
+      <p style="font-size:14.5px;margin-bottom:0">
+        设备侧则用 <strong>MicroPython</strong>（ESP32 / STM32）做快速原型：什么时候它够用、什么时候必须回到 C——本册给出明确边界。
+        与 C/C++/Rust 分册互为参照：<strong>同一件事，谁更适合放在哪一层</strong>。
+      </p>
+    </div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B04-labs.zip" download>下载 B04 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B04 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">工具实战 · 读到能完成什么？</h2><p><strong>串口工具保存原始帧、解析错误计数和可重放数据集。</strong></p><p>入门条件：B04a 的文件、异常、CLI；B07 的帧格式。</p><p>首次阅读：<a href="#m03">串口与协议工具链</a> → <a href="#m04">数据分析服务于调试</a> → <a href="#m05">构建与 CI 脚本化</a> → <a href="#m08">数据契约、回放与实验复现</a></p><p>按需延后：MicroPython 仅在资源与实时性适合时选用；GUI 放在协议稳定之后。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>断线、半帧、坏编码、取消采集时仍能退出并关闭端口。</p><p><strong>通过判据：</strong>同输入回放结果一致，数据含时基/单位/版本；失败不会被当成零值样本。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P05">P05</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">整条学习路线<span class="acc">.</span></h1>
+      <p class="ch-lead">第①册打地基，第②册把语言扩到 C++、Rust、Python。本册是第②册的收官。之后是外设、RTOS、通信、应用、Linux、工程化、端侧 AI。</p>
+    </div>
+
+    <div class="roadmap">
+      <div class="rm-item">
+        <div class="rm-n">①</div>
+        <div>
+          <div class="rm-t">语言地基 · 嵌入式 C 精读</div>
+          <div class="rm-d">内存模型、指针本质、编译链接、寄存器编程</div>
+        </div>
+        <div class="rm-s">已发布</div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-n">②</div>
+        <div>
+          <div class="rm-t">现代语言 · C++ / Rust</div>
+          <div class="rm-d">C++ 迁移地图（已发布）· Rust 所有权与 no_std（已发布）</div>
+        </div>
+        <div class="rm-s">已发布</div>
+      </div>
+      <div class="rm-item now">
+        <div class="rm-n">②</div>
+        <div>
+          <div class="rm-t">现代语言 · Python（本册）</div>
+          <div class="rm-d">上位机工具链与 MicroPython：定位、设备侧深入、串口协议、数据分析、构建 CI、调试台、数据集</div>
+        </div>
+        <div class="rm-s">进行中</div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-n">③–⑩</div>
+        <div>
+          <div class="rm-t">外设 · RTOS · 通信 · 应用 · Linux · 工程化 · 端侧 AI · 前沿</div>
+          <div class="rm-d">从"能跑"到"能出货"，再到数据闭环与前沿专项</div>
+        </div>
+        <div class="rm-s">已发布</div>
+      </div>
+    </div>
+
+    <div class="box key">
+      <div class="box-t">为什么嵌入式工程师该会 Python，但边界要清楚</div>
+      <p style="margin-bottom:0">
+        设备侧的 C/C++/Rust 决定"能不能跑、跑多快、多大";而<strong>上位机 Python 决定"验证与迭代有多快"</strong>——
+        自动收发、波形分析、批量烧录、回归测试、数据闭环，都是它。
+        但要清楚边界：<strong>MicroPython 适合原型与胶水，不适合硬实时与极致体积</strong>；本册的立场是"用对层，而不是二选一"。
+      </p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 定位与边界</div>
+      <h1 class="ch-title">定位与<span class="acc">边界</span></h1>
+      <p class="ch-lead">
+        Python 在嵌入式里有两个位置：<strong>上位机</strong>（PC 上的工具/分析/CI）与<strong>设备端</strong>（MicroPython 固件）。
+        混淆这两者，是新手最常见的方向性错误。这一节先把"什么该放哪"划清楚。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ CPython / MicroPython / CircuitPython</span><span>⚑ 先分清位置</span>
+      </div>
+    </div>
+
+    <h2 id="m01-1">1.1 三种 Python，别混为一谈</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:16%">实现</th><th style="width:26%">跑在哪</th><th>特点 / 适用</th></tr></thead>
+        <tbody>
+          <tr><td><strong>CPython</strong></td><td>PC / 服务器 / Linux 边缘设备</td><td>标准库齐全、第三方库海量；本册的<strong>上位机主角</strong>（pyserial/numpy/pandas/matplotlib）</td></tr>
+          <tr><td><strong>MicroPython</strong></td><td>MCU（ESP32/STM32/RP2040）</td><td>固件里带解释器，约 256KB Flash 起；<code class="ic">machine</code> 直接操作外设；支持 <code class="ic">viper</code> 加速</td></tr>
+          <tr><td><strong>CircuitPython</strong></td><td>MCU（Adafruit 生态）</td><td>MicroPython 分支：USB 拖拽式部署、库友好；性能与底层控制略弱于原版</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>
+      一句话：<strong>CPython 是"工具"，MicroPython 是"设备上的一层薄抽象"</strong>。前者决定你的开发效率，后者决定你能不能把 Python 直接跑在板子上。
+    </p>
+
+    <h2 id="m01-2">1.2 分工边界：什么放设备端、什么放上位机</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.1</b> 分工边界：硬实时与体积敏感留给设备，计算与流程留给上位机</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 236" role="img" aria-label="设备端与上位机的职责分工">
+          <rect x="24" y="30" width="280" height="182" rx="8" class="sv-amb-s"/>
+          <text x="164" y="54" class="sv-lbl-hi" text-anchor="middle" style="fill:var(--amb)">设备端 · MCU</text>
+          <text x="40" y="80" class="sv-lbl-dim">▸ 硬实时：中断、DMA、控制环</text>
+          <text x="40" y="102" class="sv-lbl-dim">▸ 极致体积/功耗</text>
+          <text x="40" y="124" class="sv-lbl-dim">▸ 寄存器级时序</text>
+          <text x="40" y="146" class="sv-lbl-dim">▸ 长期无人值守运行</text>
+          <text x="40" y="176" class="sv-lbl-dim" style="fill:var(--amb)">语言：C / C++ / Rust（MicroPython 仅原型）</text>
+          <rect x="356" y="30" width="280" height="182" rx="8" class="sv-cyn-s"/>
+          <text x="496" y="54" class="sv-lbl-hi" text-anchor="middle" style="fill:var(--cyn)">上位机 · PC / 边缘</text>
+          <text x="372" y="80" class="sv-lbl-dim">▸ 串口收发与协议测试</text>
+          <text x="372" y="102" class="sv-lbl-dim">▸ 数据分析 / 画图 / 报告</text>
+          <text x="372" y="124" class="sv-lbl-dim">▸ 批量构建、烧录、回归</text>
+          <text x="372" y="146" class="sv-lbl-dim">▸ 数据集与模型准备</text>
+          <text x="372" y="176" class="sv-lbl-dim" style="fill:var(--cyn)">语言：Python（CPython）</text>
+        </svg>
+      </div>
+      <div class="fig-ft">判断口诀：<strong>与"时间/体积/功耗"强相关 → 设备端；与"效率/数据/流程"强相关 → 上位机</strong>。MicroPython 只在"设备端但要求不高"的缝隙里用。</div>
+    </div>
+
+    <h2 id="m01-3">1.3 同一件功能：MicroPython 与 CPython 写法对照</h2>
+    <p>
+      功能相同——"点亮 LED、按秒闪烁、打印状态"。左边是设备端 MicroPython（<code class="ic">machine</code> 直接操作硬件），
+      右边是上位机 CPython（通过串口与设备交互）。注意 <code class="ic">time.sleep_ms</code> 与 <code class="ic">time.sleep</code> 这类"看着像、其实不同"的 API。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">blink_mp.py — 设备端 MicroPython：直接操作硬件</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># blink_mp.py —— 跑在 MCU 上的 MicroPython（ESP32/STM32）
+from machine import Pin
+import time
+
+led = Pin(2, Pin.OUT)          # 设备端：直接拿到一个引脚对象
+
+n = 0
+while True:
+    led.value(n % 2)           # 0/1 翻转
+    time.sleep_ms(500)         # MicroPython 特有的毫秒延时
+    print("tick", n)           # 经串口 REPL / UART 输出
+    n += 1</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">monitor_pc.py — 上位机 CPython：通过串口观察设备</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># monitor_pc.py —— 跑在 PC 上的 CPython（需要 pyserial）
+import serial
+import time
+
+# 打开设备串口（端口名按你的系统改）
+with serial.Serial("COM5", 115200, timeout=1) as ser:
+    while True:
+        line = ser.readline()          # 读到换行；空表示超时
+        if line:
+            print("设备:", line.decode(errors="replace").strip())
+        time.sleep(0.1)</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三个"看着一样、其实不同"的点</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">time.sleep_ms</code>（设备端，整数毫秒）vs <code class="ic">time.sleep</code>（上位机，浮点秒）——写错就是"睡 0 秒"或"睡 500 秒"。</li>
+        <li>设备端 <code class="ic">print</code> 走 REPL/UART 调试口，<strong>不是</strong> PC 的终端；上位机要看，得用 pyserial 读。</li>
+        <li>设备端内存以 KB 计：<code class="ic">while True</code> 里别不断创建对象（GC 停顿，见 M02）。</li>
+      </ul>
+    </div>
+
+    <h2 id="m01-4">1.4 什么时候<strong>别</strong>用 MicroPython</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:44%">需求</th><th>结论</th></tr></thead>
+        <tbody>
+          <tr><td>硬实时（μs 级中断响应、严格抖动）</td><td class="n">不用——解释器与 GC 会带来不可控抖动</td></tr>
+          <tr><td>极致 BOM（几 KB Flash / 极低功耗）</td><td class="n">不用——解释器本身就要几百 KB</td></tr>
+          <tr><td>寄存器级时序、DMA 精调</td><td class="n">不用——用 C/Rust；MicroPython 只暴露高层 API</td></tr>
+          <tr><td>快速原型、教学、胶水逻辑、现场脚本</td><td class="y">合适——改一行即生效，REPL 即时验证</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 本册的立场</div>
+      <p style="margin-bottom:0">
+        <strong>设备端主力仍是 C/C++/Rust（见第①②③册）</strong>；MicroPython 是"在某些场合更快的选择"，不是替代。
+        而上位机 Python 几乎<strong>总是</strong>值得——它把验证与迭代的成本降到很低。
+      </p>
+    </div>
+
+    <h2 id="m01-5">1.5 选择清单：设备端还是上位机</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.2</b> 把功能分到设备端与上位机</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="硬实时、离线、低延迟放设备端；重计算、可视化、联网放上位机">
+          <rect x="30" y="40" width="230" height="60" rx="6" class="sv-cyn-s"/>
+          <text x="145" y="62" class="sv-lbl-hi" text-anchor="middle">设备端（MicroPython）</text>
+          <text x="145" y="82" class="sv-lbl-dim" text-anchor="middle">实时·离线·省资源</text>
+          <rect x="300" y="40" width="230" height="60" rx="6" class="sv-grn-s"/>
+          <text x="415" y="62" class="sv-lbl-hi" text-anchor="middle">上位机（CPython）</text>
+          <text x="415" y="82" class="sv-lbl-dim" text-anchor="middle">重计算·可视化·联网</text>
+          <text x="600" y="72" class="sv-lbl-dim" text-anchor="middle">按需分工</text>
+        </svg>
+      </div>
+      <div class="fig-ft">判断标准：是否需要"硬实时/离线/毫秒级"，是则下沉设备端，否则放上位机更省事。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">choose.py — 用一条判断做分工决策</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def where_to_run(need_hard_realtime, offline, ms_latency):
+    if need_hard_realtime or offline or ms_latency:
+        return "device (MicroPython)"
+    return "host (CPython)"
+
+print(where_to_run(True, False, False))   # device
+print(where_to_run(False, False, False))  # host</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m01_src/choose.py</code>（本机真实运行）</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">需求</th><th style="width:30%">放设备端</th><th style="width:30%">放上位机</th></tr></thead>
+        <tbody>
+          <tr><td>硬实时控制</td><td>✓</td><td></td></tr>
+          <tr><td>离线运行</td><td>✓</td><td></td></tr>
+          <tr><td>数据可视化</td><td></td><td>✓</td></tr>
+          <tr><td>复杂分析/训练</td><td></td><td>✓</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">写法差异</th><th style="width:36%">MicroPython</th><th style="width:34%">CPython</th></tr></thead>
+        <tbody>
+          <tr><td>硬件访问</td><td><code>machine</code> 模块</td><td>无（用串口/网络）</td></tr>
+          <tr><td>内存</td><td>很小，需省</td><td>大</td></tr>
+          <tr><td>标准库</td><td>精简</td><td>完整</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>列出你项目里的功能，逐条判断"设备端还是上位机"，并说明理由（实时性/离线/资源）。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>CPython（上位机）与 MicroPython/CircuitPython（设备端）是两种定位，别混用。</li>
+        <li>分工口诀：时间/体积/功耗敏感 → 设备端；效率/数据/流程 → 上位机。</li>
+        <li>同一功能写法不同：<code class="ic">machine.Pin</code> + <code class="ic">time.sleep_ms</code>（设备）vs <code class="ic">pyserial</code> + <code class="ic">time.sleep</code>（上位机）。</li>
+        <li>硬实时、极致体积、寄存器时序——不要用 MicroPython。</li>
+        <li>上位机 Python 几乎总值得投入：它决定你的验证速度。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：MicroPython 就是在单片机上跑 CPython。</p>
+          <details><summary></summary><p>不是。MicroPython 是为 MCU 裁剪的<strong>独立实现</strong>，只实现 Python 3 的一个子集，另有 <code class="ic">machine</code> 等硬件模块；CPython 无法在几 KB 的 MCU 上运行。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：一个"每 100μs 响应一次外部中断并翻转引脚"的需求，该用 MicroPython 吗？</p>
+          <details><summary></summary><p>不该。硬实时与严格抖动超出 MicroPython 能力（解释器开销 + GC 停顿）；这类需求应放设备端 C/C++/Rust。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：有人写 <code class="ic">time.sleep(500)</code> 想做"延时 500 毫秒"，为什么在设备端不对？</p>
+          <details><summary></summary><p>MicroPython 的 <code class="ic">time.sleep</code> 单位是秒，500 会睡 500 秒；毫秒延时应用 <code class="ic">time.sleep_ms(500)</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写一个上位机脚本，用 pyserial 打开串口、打印每一行；再写设备端 MicroPython 用 <code class="ic">print</code> 每秒输出一行。想一想两边各自运行在哪。</p>
+          <details><summary></summary><p>设备端 <code class="ic">print</code> 输出到 REPL/UART；上位机用 <code class="ic">ser.readline()</code> 读并显示——这正是 §1.3 两段代码的合用方式。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：既然有了 MicroPython，嵌入式就不需要 C/C++/Rust 了。</p>
+          <details><summary></summary><p>不是。MicroPython 只覆盖"要求不高"的缝隙；硬实时、极致体积、寄存器时序仍是 C/C++/Rust 的领域。它是补充，不是替代。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 01 完成？</b> 把你手上一个嵌入式需求，按 §1.2 的口诀拆成"设备端做什么、上位机做什么"两栏。</div>
+      <button class="done-btn" data-done="m01">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>把工具分析与硬实时控制分开，测量瓶颈后说明选择 Python 的理由。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 设备端深入</div>
+      <h1 class="ch-title">MicroPython <span class="acc">深入</span></h1>
+      <p class="ch-lead">
+        把 Python 跑在 MCU 上，代价与边界都来自"解释器 + 堆"。这一节讲清 MicroPython 的<strong>内存与 GC</strong>、
+        <code class="ic">machine</code> 模块、定时中断，以及两个提速/扩展手段：<code class="ic">viper</code> 与 C 模块。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ GC · machine · 定时中断 · viper</span><span>⚑ 边界就在内存</span>
+      </div>
+    </div>
+
+    <h2 id="m02-1">2.1 运行时与内存：解释器 + 堆 + 固件</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.1</b> MicroPython 运行时：固件（Flash）与 GC 堆（RAM）各占一块</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 210" role="img" aria-label="MicroPython 在 Flash 与 RAM 上的组成">
+          <rect x="30" y="28" width="600" height="40" rx="6" class="sv-box"/>
+          <text x="46" y="53" class="sv-lbl-hi">Flash：固件（解释器 + 内建模块 + frozen bytecode）</text>
+          <text x="614" y="53" class="sv-lbl-dim" text-anchor="end">写一次，掉电不丢</text>
+          <rect x="30" y="84" width="380" height="44" rx="6" class="sv-grn-s"/>
+          <text x="46" y="106" class="sv-lbl-hi">RAM：GC 堆（对象、字符串、list/dict…）</text>
+          <text x="46" y="122" class="sv-lbl-dim">运行时分配 → 由 GC 回收；空间有限</text>
+          <rect x="420" y="84" width="210" height="44" rx="6" class="sv-amb-s"/>
+          <text x="436" y="106" class="sv-lbl-hi">RAM：C 栈 + 静态区</text>
+          <text x="436" y="122" class="sv-lbl-dim">固件与中断用</text>
+          <text x="30" y="162" class="sv-lbl-dim">GC 触发时机不确定 → 实时路径避免运行期分配；<tspan style="fill:var(--grn)">用 gc.mem_free() 观察水位</tspan>。</text>
+          <text x="30" y="186" class="sv-lbl-dim" style="fill:var(--amb)">Flash 里还有一块可选文件系统（放 .py），或把核心模块 frozen 进固件。</text>
+        </svg>
+      </div>
+      <div class="fig-ft">理解这张图就理解了一半边界：<strong>Flash 放"不会变的东西"（固件+可选 frozen 模块），RAM 靠 GC 管"运行时对象"</strong>。内存不足、GC 停顿都出在 RAM 那一块。</div>
+    </div>
+
+    <p>
+      内存紧张时可主动回收：<code class="ic">gc.collect()</code>，并配合 <code class="ic">gc.mem_free()</code> 观察堆水位——这也是排查"跑着跑着 OOM"的第一步。
+    </p>
+
+    <h2 id="m02-2">2.2 <code>machine</code> 模块：GPIO / UART / Timer</h2>
+    <p>
+      <code class="ic">machine</code> 是设备端 Python 与硬件之间的接口层：<code class="ic">machine.Pin</code>、<code class="ic">machine.UART</code>、<code class="ic">machine.Timer</code>，配合 <code class="ic">time.sleep_ms</code> 等。它比 C 的寄存器操作高一层，因此也用不到指针/位掩码——这正是它"上手快"的原因，也是"控制力有限"的原因。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">machine_demo.py — GPIO / UART / Timer 的最小用法</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># machine_demo.py —— 跑在 MCU 上（ESP32）
+from machine import Pin, UART
+import time
+
+led = Pin(2, Pin.OUT)
+uart = UART(1, baudrate=115200, tx=17, rx=16)
+
+def heartbeat():
+    led.value(not led.value())      # 翻转
+    uart.write(b"HB\n")             # 发一行给上位机
+
+while True:
+    heartbeat()
+    time.sleep_ms(1000)</code></pre>
+    </div>
+
+    <h2 id="m02-3">2.3 定时中断：在中断里只做"最小的事"</h2>
+    <p>
+      用 <code class="ic">machine.Timer</code> 周期回调替代"主循环里 sleep 计数"——定时更准，也让主循环空出来干别的。
+      但要注意：<strong>MicroPython 的回调运行在中断上下文</strong>，和 C 的 ISR 纪律一样——不做重活、不长时间分配/打印。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">timer_isr.py — 定时中断 + 主循环分工</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># timer_isr.py —— 中断里只翻转标志，重活留给主循环
+from machine import Pin, Timer
+import time
+
+led = Pin(2, Pin.OUT)
+flag = False                     # 简单共享标志
+
+def tick(t):
+    global flag
+    flag = True                  # 中断里：只做最短的操作
+
+tim = Timer(0)
+tim.init(period=500, mode=Timer.PERIODIC, callback=tick)   # 每 500ms
+
+while True:
+    if flag:
+        flag = False
+        led.value(not led.value())   # 重活放主循环
+    time.sleep_ms(10)</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 中断回调里的三条纪律（与 C 的 ISR 完全一致）</div>
+      <ul style="margin-bottom:0">
+        <li><strong>不做重活</strong>：不要在里面做长循环、复杂计算；只置标志/入队。</li>
+        <li><strong>谨慎分配/打印</strong>：回调里创建对象或 <code class="ic">print</code> 可能触发 GC 或阻塞，拉长中断时间。</li>
+        <li><strong>共享变量要小心</strong>：MicroPython 下同样有"主循环与中断同时读写"的问题；能用"中断只写、主循环只读的单字标志"就用它。</li>
+      </ul>
+    </div>
+
+    <h2 id="m02-4">2.4 提速：<code>viper</code> 与 <code>native</code></h2>
+    <p>
+      纯 Python 的逐字节处理在 MCU 上很慢。<code class="ic">@micropython.viper</code> 让函数走<strong>定长整数</strong>的专门编译路径，接近机器码；
+      <code class="ic">@micropython.native</code> 是中间的收益。代价是<b>类型受限、不能用任意 Python 特性</b>。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">viper_crc.py — 用 viper 加速逐位 CRC8</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># viper_crc.py —— 用 viper 把热点函数编成近机器码
+import micropython
+
+@micropython.viper
+def crc8(data: ptr8, n: int) -> int:
+    c = 0
+    for i in range(n):
+        c ^= data[i]
+        for _ in range(8):
+            c = ((c << 1) ^ 0x07) & 0xFF if (c & 0x80) else (c << 1) & 0xFF
+    return c
+
+buf = bytearray(b"hello")
+print(crc8(buf, len(buf)))</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ viper / native 的取舍</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">viper</code>：最快，但类型是 <code class="ic">int/ptr/ptr8/ptr16/ptr32</code> 等定长，整数运算可能回绕；<strong>只在热点函数上用</strong>。</li>
+        <li><code class="ic">native</code>：比普通 Python 快、比 viper 宽松；作为中间档。</li>
+        <li>把它们<strong>局部</strong>用在数据密集循环（CRC/协议解析/滤波），而不是整段程序——否则可读性与兼容性双输。</li>
+      </ul>
+    </div>
+
+    <h2 id="m02-5">2.5 与 C 扩展：什么时候必须下沉</h2>
+    <p>
+      MicroPython 允许用 C 写"用户模块"（user C module），编进固件后像内建模块一样 <code class="ic">import</code>。
+      当某个操作"Python 写不了或太慢"（例如精确时序、专有外设、DMA 精调），就把它做成 C 模块，Python 侧只留调用。
+      这其实是 M01"分工边界"在<strong>板子内部</strong>的又一次重演：<strong>热/严的部分下沉到 C，胶水与逻辑留在 Python</strong>。
+    </p>
+
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.2</b> MicroPython 的运行时与内存</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="解释器 + 堆 + 固件；堆小、GC 会停顿，实时任务要避开分配">
+          <rect x="30" y="40" width="180" height="56" rx="6" class="sv-amb-s"/>
+          <text x="120" y="63" class="sv-lbl-hi" text-anchor="middle">解释器</text>
+          <text x="120" y="83" class="sv-lbl-dim" text-anchor="middle">逐字节执行</text>
+          <rect x="240" y="40" width="180" height="56" rx="6" class="sv-cyn-s"/>
+          <text x="330" y="63" class="sv-lbl-hi" text-anchor="middle">堆（小）</text>
+          <text x="330" y="83" class="sv-lbl-dim" text-anchor="middle">对象分配源</text>
+          <rect x="450" y="40" width="180" height="56" rx="6" class="sv-red-s"/>
+          <text x="540" y="63" class="sv-lbl-hi" text-anchor="middle">GC 停顿</text>
+          <text x="540" y="83" class="sv-lbl-dim" text-anchor="middle">实时任务避开</text>
+        </svg>
+      </div>
+      <div class="fig-ft">ISR 里尽量不分配对象：分配可能触发 GC，带来不可预测的停顿。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:36%">能力</th><th style="width:26%">能否在 ISR 里做</th><th style="width:38%">原因</th></tr></thead>
+        <tbody>
+          <tr><td>置标志 / 写寄存器</td><td>能</td><td>不分配、快</td></tr>
+          <tr><td>分配对象 / 建列表</td><td>不建议</td><td>可能触发 GC</td></tr>
+          <tr><td>打印 / 字符串格式化</td><td>不建议</td><td>慢且分配</td></tr>
+          <tr><td>复杂计算</td><td>下沉主循环</td><td>占用中断时间</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">提速手段</th><th style="width:32%">效果</th><th style="width:28%">代价</th></tr></thead>
+        <tbody>
+          <tr><td><code>@micropython.viper</code></td><td>整数运算大幅提速</td><td>类型受限</td></tr>
+          <tr><td><code>@micropython.native</code></td><td>整体提速</td><td>体积变大</td></tr>
+          <tr><td>C 扩展模块</td><td>接近原生</td><td>需编译固件</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">machine 模块</th><th style="width:22%">用途</th><th style="width:52%">要点</th></tr></thead>
+        <tbody>
+          <tr><td><code>Pin</code></td><td>GPIO</td><td>输入/输出/上下拉</td></tr>
+          <tr><td><code>UART</code></td><td>串口</td><td>波特率一致</td></tr>
+          <tr><td><code>Timer</code></td><td>定时/中断</td><td>回调要短</td></tr>
+          <tr><td><code>ADC</code></td><td>模拟采集</td><td>参考电压/量程</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m02_src/viper_crc.py</code>（本机真实运行）</div>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把一个"在定时中断里做 CRC 计算"的 MicroPython 写法改成"中断只置标志、主循环算"，说明实时性的变化。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">内存关注点</th><th style="width:34%">做法</th><th style="width:36%">避免</th></tr></thead>
+        <tbody>
+          <tr><td>堆分配</td><td>预先建好对象</td><td>循环里反复建列表</td></tr>
+          <tr><td>GC</td><td>关键路径避开</td><td>中断里分配</td></tr>
+          <tr><td>大缓冲</td><td>用 <code>bytearray</code></td><td>频繁切片</td></tr>
+          <tr><td>字符串</td><td>少拼接</td><td>循环里 <code>+=</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>MicroPython = 固件（Flash） + GC 堆（RAM）；边界与问题都在 GC 堆。</li>
+        <li><code class="ic">machine.Pin/UART/Timer</code> 是设备端接口；比寄存器高一层、上手快、控制力有限。</li>
+        <li>定时中断里只做最小操作（置标志），重活留给主循环——与 C 的 ISR 纪律一致。</li>
+        <li><code class="ic">viper</code>/<code class="ic">native</code> 局部加速热点；类型受限，别滥用。</li>
+        <li>写不了/太慢的部分用 <strong>C 用户模块</strong>下沉，是"板内分工"。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：MicroPython 的"内存不足"与"偶发卡顿"通常出在哪一块？为什么？</p>
+          <details><summary></summary><p>出在 RAM 的 <strong>GC 堆</strong>。运行时创建的对象由垃圾回收管理，堆小、触发时机不确定，回收时可能停顿；实时路径应避免运行期分配。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">machine.Timer</code> 的回调里可以随便 <code class="ic">print</code> 和建 list。</p>
+          <details><summary></summary><p>不可以。回调运行在中断上下文，创建对象/打印可能触发分配或阻塞，拉长中断时间。应只置标志/入队，重活交给主循环。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：一段逐字节 CRC 在 MicroPython 上太慢，首选什么办法？</p>
+          <details><summary></summary><p>先把该热点函数改成 <code class="ic">@micropython.viper</code>（定长整数、近机器码）；若仍不满足，再考虑用 C 用户模块下沉。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：用 <code class="ic">gc.mem_free()</code> 在主循环前后各打印一次，观察在循环里不断 <code class="ic">append</code> 一个 list 时堆水位如何变化。</p>
+          <details><summary></summary><p>会看到可用堆持续下降；触发 GC 后回升。这直观说明"运行期分配 → GC 回收"的代价，也是为什么中断/热路径要避免分配。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：MicroPython 的 C 用户模块与"上位机 Python 调 C 库"是同一回事。</p>
+          <details><summary></summary><p>不是。C 用户模块是把它<strong>编进 MCU 固件</strong>、在设备端被 Python import；上位机 Python 调 C 库是 PC 侧的事。两者是"板内分工"与"跨机分工"的区别。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 02 完成？</b> 在 ESP32 上跑一次 <code class="ic">timer_isr.py</code>，用 REPL 观察 <code class="ic">gc.mem_free()</code> 在长时间运行后是否稳定。</div>
+      <button class="done-btn" data-done="m02">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>在目标解释器记录 GC、分配、ISR 限制；测量最坏延迟而不照搬桌面 Python。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 工具链</div>
+      <h1 class="ch-title">串口与<span class="acc">协议工具链</span></h1>
+      <p class="ch-lead">
+        串口是嵌入式开发里最常用的"观察窗口"。这一节用 <code class="ic">pyserial</code> 把"手动点串口助手"升级成<strong>可复用的自动化测试脚本</strong>：
+        组帧/解帧、半包粘包、超时重传——每一样都在本机真实运行。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ pyserial · 帧解析 · 超时重传</span><span>⚑ 真实运行</span>
+      </div>
+    </div>
+
+    <h2 id="m03-1">3.1 最小串口收发</h2>
+    <p>
+      <code class="ic">pyserial</code> 的入口极小：<code class="ic">Serial(port, baudrate, timeout)</code>。关键是理解两个方法：
+      <code class="ic">readline()</code>（读到换行，适合行式调试输出）与 <code class="ic">read(n)</code>（读固定字节，适合二进制帧）。
+      <strong>务必设 timeout</strong>，否则读不到数据会永久阻塞。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">serial_io.py — 上位机收发（行式命令）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># serial_io.py —— 打开串口、发命令、读回显
+import serial, time
+
+def open_port(port="COM5", baud=115200):
+    return serial.Serial(port, baud, timeout=1)     # 关键：timeout 避免永久阻塞
+
+def cmd(ser, text):
+    ser.write((text + "\n").encode())
+    ser.flush()
+    time.sleep(0.1)
+    return ser.readline().decode(errors="replace").strip()
+
+if __name__ == "__main__":
+    with open_port() as ser:
+        print("版本:", cmd(ser, "version"))
+        print("状态:", cmd(ser, "status"))</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 上位机脚本最容易踩的三个坑</div>
+      <ul style="margin-bottom:0">
+        <li><strong>不设 timeout</strong>：设备没回就卡死；至少设 1s，并据此判断"超时"。</li>
+        <li><strong>把"写"当"收到"</strong>：<code class="ic">write</code> 只表示进入发送缓冲，回包要另读。</li>
+        <li><strong>换行差异</strong>：设备可能发 <code class="ic">\r\n</code>，读回后统一 <code class="ic">strip()</code>。</li>
+      </ul>
+    </div>
+
+    <h2 id="m03-2">3.2 帧结构与解析：半包与粘包</h2>
+    <p>
+      二进制协议必须自己定帧。<strong>绝不假设"一次 read = 一帧"</strong>——串口数据可能被拆成半包，也可能几帧粘在一起。
+      正确做法：维护一个缓冲，<code class="ic">feed</code> 新数据、循环尝试"拼出一整帧"；解析时可用 <code class="ic">memoryview</code> 在缓冲上零拷贝按偏移读取。
+    </p>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.1</b> 帧格式与"半包/粘包"处理：数据到齐才消费一帧</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 220" role="img" aria-label="帧结构与流式解析">
+          <text x="16" y="30" class="sv-lbl-hi">帧格式：SYNC(2) · LEN(1) · PAYLOAD(N) · CHK(1)</text>
+          <rect x="30" y="44" width="60" height="26" rx="4" class="sv-cyn-s"/><text x="60" y="61" class="sv-lbl-dim" text-anchor="middle">AA55</text>
+          <rect x="90" y="44" width="50" height="26" rx="4" class="sv-box"/><text x="115" y="61" class="sv-lbl-dim" text-anchor="middle">LEN</text>
+          <rect x="140" y="44" width="300" height="26" rx="4" class="sv-grn-s"/><text x="290" y="61" class="sv-lbl-dim" text-anchor="middle">PAYLOAD …</text>
+          <rect x="440" y="44" width="50" height="26" rx="4" class="sv-amb-s"/><text x="465" y="61" class="sv-lbl-dim" text-anchor="middle">CHK</text>
+          <line x1="16" y1="92" x2="644" y2="92" class="sv-dash"/>
+          <text x="16" y="116" class="sv-lbl-dim">第 1 次 feed：只到 LEN（半包）→ 留在缓冲</text>
+          <rect x="30" y="124" width="160" height="26" rx="4" class="sv-red-s"/><text x="110" y="141" class="sv-lbl-dim" text-anchor="middle">AA55 LEN（不完整）</text>
+          <text x="16" y="176" class="sv-lbl-dim">第 2 次 feed：补齐 + 后面又粘了 2 帧</text>
+          <rect x="30" y="184" width="300" height="26" rx="4" class="sv-grn-s"/><text x="180" y="201" class="sv-lbl-dim" text-anchor="middle">一帧完整 + 又一整帧 → 循环各消费一帧</text>
+        </svg>
+      </div>
+      <div class="fig-ft">解析器的核心循环：找 <code>SYNC</code> → 读 <code>LEN</code> → 足长才取帧 → 校验 → 消费并继续。<strong>不足就等下一次 feed</strong>。下面的脚本本机实测跑过。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">frame_codec.py — 组帧 + 流式解帧（可跑）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># frame_codec.py —— 组帧 + 流式解帧（处理半包/粘包）
+import struct
+
+SYNC = b'\xAA\x55'
+
+def encode(payload: bytes) -> bytes:
+    n = len(payload)
+    body = bytes([n]) + payload
+    chk = 0
+    for b in body:
+        chk ^= b
+    return SYNC + body + bytes([chk])
+
+class FrameParser:
+    """把字节流按帧切出来；不完整就留在缓冲里等下一次 feed。"""
+    def __init__(self):
+        self.buf = bytearray()
+
+    def feed(self, data: bytes):
+        self.buf += data
+        out = []
+        while True:
+            i = self.buf.find(SYNC)
+            if i &lt; 0 or len(self.buf) &lt; i + 3:
+                break
+            if i &gt; 0:
+                del self.buf[:i]
+            n = self.buf[2]
+            total = 2 + 1 + n + 1
+            if len(self.buf) &lt; total:
+                break                       # 半包：等更多数据
+            frame = bytes(self.buf[:total])
+            chk = 0
+            for b in frame[2:-1]:
+                chk ^= b
+            out.append((frame[3:-1], chk == frame[-1]))
+            del self.buf[:total]
+        return out
+
+if __name__ == "__main__":
+    f1 = encode(b"HELLO")
+    f2 = encode(b"OK")
+    print("frame1 hex =", f1.hex())
+    p = FrameParser()
+    print("feed half(3B) ->", p.feed(f1[:3]))
+    print("feed rest     ->", p.feed(f1[3:]))
+    print("feed two(glue)->", p.feed(f2 + f2))</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m03_src/frame_codec.py</code>（CPython 3.13）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python frame_codec.py
+<span class="o">frame1 hex = aa550548454c4c4f47
+feed half(3B) -> []
+feed rest     -> [(b'HELLO', True)]
+feed two(glue)-> [(b'OK', True), (b'OK', True)]</span>
+<span class="w"># 半包时返回空（不乱解）；补齐后解出 HELLO；两帧粘连时一次解出两帧。</span></pre></div>
+    </div>
+
+    <h2 id="m03-3">3.3 超时与重传：把"设备没回"变成可测的事</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">reqresp.py — 请求-应答 + 超时重传</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># reqresp.py —— 发一帧、等应答；超时则重传（最多 N 次）
+import struct, time
+
+def build(seq: int, payload: bytes) -> bytes:
+    body = struct.pack("&lt;BH", seq, len(payload)) + payload
+    chk = 0
+    for b in body:
+        chk ^= b
+    return b'\xAA\x55' + body + bytes([chk])
+
+def transact(send, recv, seq, payload, tries=3, timeout=0.5):
+    for k in range(tries):
+        send(build(seq, payload))
+        deadline = time.monotonic() + timeout
+        while time.monotonic() &lt; deadline:
+            frame = recv()                 # 返回 bytes 或 None
+            if frame:
+                return frame
+        # 超时：下一轮重传（seq 不变，便于设备去重）
+    raise TimeoutError(f"no reply for seq={seq} after {tries} tries")</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 为什么用 seq 而不是"直接重发"</div>
+      <p style="margin-bottom:0">
+        重传可能造成设备<strong>收到两份</strong>同一请求。带上 <code class="ic">seq</code>，设备端可对重复序号<strong>去重</strong>（只处理一次、但都回复），
+        这样"请求-应答"在网络/串口不可靠时才是幂等的。这与第②册协议编排里"序号与去重"是同一件事。
+      </p>
+    </div>
+
+    <h2 id="m03-4">3.4 流式解帧：一次喂一个字节</h2>
+    <h2 id="m03-5">3.5 把"设备没回"变成可测状态</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.2</b> 流的切分：半包与粘包</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="TCP/串口是字节流，需按帧头+长度+CRC 自己切帧；一次读到半条或两条都正常">
+          <rect x="30" y="40" width="150" height="46" rx="6" class="sv-box"/>
+          <text x="105" y="68" class="sv-lbl-hi" text-anchor="middle">字节流 …</text>
+          <path d="M180 63 L230 63" class="sv-arrow"/>
+          <rect x="232" y="40" width="180" height="46" rx="6" class="sv-amb-s"/>
+          <text x="322" y="68" class="sv-lbl-hi" text-anchor="middle">按长度切帧</text>
+          <path d="M412 63 L462 63" class="sv-arrow"/>
+          <rect x="464" y="40" width="170" height="46" rx="6" class="sv-grn-s"/>
+          <text x="549" y="68" class="sv-lbl-hi" text-anchor="middle">完整帧（校验通过）</text>
+        </svg>
+      </div>
+      <div class="fig-ft">状态机逐字节喂入：找帧头 → 读长度 → 收载荷 → 校验 → 投递。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:24%">现象</th><th style="width:30%">原因</th><th style="width:46%">处理</th></tr></thead>
+        <tbody>
+          <tr><td>半包</td><td>一次读到半条</td><td>缓冲起来等后续</td></tr>
+          <tr><td>粘包</td><td>一次读到多条</td><td>循环切出多条</td></tr>
+          <tr><td>CRC 错</td><td>误码/错位</td><td>丢弃并重同步</td></tr>
+          <tr><td>无响应</td><td>设备没回</td><td>超时重传/报错</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">重传策略</th><th style="width:34%">做法</th><th style="width:36%">风险</th></tr></thead>
+        <tbody>
+          <tr><td>固定重试次数</td><td>超时后重发 N 次</td><td>N 太大拖慢</td></tr>
+          <tr><td>指数退避</td><td>间隔逐次增大</td><td>低速链路慢</td></tr>
+          <tr><td>去重</td><td>按序号丢弃重复</td><td>需序号字段</td></tr>
+          <tr><td>上限 + 报错</td><td>超界上报失败</td><td>必须处理</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">函数</th><th style="width:24%">职责</th><th style="width:36%">返回</th></tr></thead>
+        <tbody>
+          <tr><td><code>feed(bytes)</code></td><td>喂入字节</td><td>解出的帧列表</td></tr>
+          <tr><td><code>encode(payload)</code></td><td>组帧</td><td><code>bytes</code></td></tr>
+          <tr><td><code>request(cmd, timeout)</code></td><td>请求-应答</td><td>应答或超时</td></tr>
+          <tr><td><code>checksum(frame)</code></td><td>校验</td><td>是否通过</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">超时状态</th><th style="width:30%">含义</th><th style="width:40%">上层动作</th></tr></thead>
+        <tbody>
+          <tr><td><code>OK</code></td><td>收到合法应答</td><td>继续</td></tr>
+          <tr><td><code>TIMEOUT</code></td><td>超时无应答</td><td>重试/告警</td></tr>
+          <tr><td><code>BAD_CRC</code></td><td>帧损坏</td><td>重试</td></tr>
+          <tr><td><code>GAVE_UP</code></td><td>超过重试上限</td><td>上报失败</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>给流式解帧器加一个"最大重试 N 次后返回 GAVE_UP"的请求函数，用超时和坏帧各触发一次。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">pyserial</code> 入口小，但<strong>必须设 timeout</strong>，且分清 <code class="ic">readline()</code> 与 <code class="ic">read(n)</code>。</li>
+        <li>二进制协议要<strong>自己定帧</strong>（SYNC/LEN/PAYLOAD/CHK），并处理<strong>半包/粘包</strong>。</li>
+        <li>流式解析器：维护缓冲、循环取帧、不足就等下一次 feed（本机实测）。</li>
+        <li>请求-应答要带<strong>超时重传</strong>与 <code class="ic">seq</code> 去重，才是幂等的。</li>
+        <li>把"手动点串口助手"变成脚本，是后续自动测试/CI 的基础（M05）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：<code class="ic">ser.read(10)</code> 一定一次返回 10 个字节。</p>
+          <details><summary></summary><p>不一定。串口是字节流，<code class="ic">read(n)</code> 可能超时返回少于 n 个字节。这正是需要"缓冲 + 流式解帧"的原因。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：为什么不能"一次 <code class="ic">read</code> 就当一帧"？</p>
+          <details><summary></summary><p>因为会出现半包（一帧被拆开）和粘包（多帧连在一起）。必须按帧结构在缓冲里循环切帧。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：脚本偶尔卡死，最有可能是少了什么？</p>
+          <details><summary></summary><p>没设 <code class="ic">timeout</code>。<code class="ic">Serial(..., timeout=None)</code> 时读不到数据会永久阻塞。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">frame_codec.py</code> 加一个"校验错误的帧"，看 <code class="ic">feed</code> 返回的 <code class="ic">ok</code> 是否为 <code class="ic">False</code>；再给解析器加"连续丢弃前导垃圾字节"。</p>
+          <details><summary></summary><p>改一个 payload 字节即可让异或校验失败，返回 <code class="ic">(payload, False)</code>。垃圾字节由 <code class="ic">find(SYNC)</code> + <code class="ic">del self.buf[:i]</code> 处理——正是解析器里已有的逻辑。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：重传时改变 <code class="ic">seq</code> 更安全。</p>
+          <details><summary></summary><p>相反：重传<strong>保持 seq 不变</strong>，设备才能识别"这是同一请求的重复"，做去重；改 seq 会被当成新请求处理。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 03 完成？</b> 给你自己的设备协议写一个上位机收/发脚本：能组帧、能流式解帧、能超时重传。</div>
+      <button class="done-btn" data-done="m03">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>解析分片与坏帧，拔插串口和取消后端口释放，原始流可留存回放。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 数据分析</div>
+      <h1 class="ch-title">数据分析<span class="acc">服务于调试</span></h1>
+      <p class="ch-lead">
+        设备导出一份 CSV，靠肉眼盯着数字找问题既慢又漏。这一节用 <code class="ic">numpy</code>/<code class="ic">pandas</code>/<code class="ic">matplotlib</code>
+        把"采回的原始数据"变成"一眼能看出的结论"——所有分析与输出都在本机真实运行。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ numpy · pandas · matplotlib</span><span>⚑ 真跑真出图</span>
+      </div>
+    </div>
+
+    <h2 id="m04-1">4.1 数据流水线：从设备字节到结论</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.1</b> 数据分析流水线：设备导出的原始数据 → 清洗 → 分析 → 结论/图</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="数据分析流水线">
+          <rect x="20" y="52" width="120" height="46" rx="6" class="sv-amb-s"/>
+          <text x="80" y="72" class="sv-lbl-hi" text-anchor="middle">设备 CSV</text>
+          <text x="80" y="89" class="sv-lbl-dim" text-anchor="middle">采样/日志</text>
+          <path d="M140 75 L180 75" class="sv-arrow-a"/>
+          <rect x="182" y="52" width="120" height="46" rx="6" class="sv-box"/>
+          <text x="242" y="72" class="sv-lbl-hi" text-anchor="middle">pandas</text>
+          <text x="242" y="89" class="sv-lbl-dim" text-anchor="middle">清洗/重采样</text>
+          <path d="M302 75 L342 75" class="sv-arrow"/>
+          <rect x="344" y="52" width="120" height="46" rx="6" class="sv-grn-s"/>
+          <text x="404" y="72" class="sv-lbl-hi" text-anchor="middle">numpy</text>
+          <text x="404" y="89" class="sv-lbl-dim" text-anchor="middle">统计/异常检测</text>
+          <path d="M464 75 L504 75" class="sv-arrow"/>
+          <rect x="506" y="52" width="134" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="573" y="72" class="sv-lbl-hi" text-anchor="middle">图 + 结论</text>
+          <text x="573" y="89" class="sv-lbl-dim" text-anchor="middle">matplotlib/报告</text>
+        </svg>
+      </div>
+      <div class="fig-ft">关键不是"会不会用库"，而是<strong>把问题转成"可计算"的形式</strong>：周期性？异常点？漂移？——每一种都有对应的 pandas/numpy 操作。</div>
+    </div>
+
+    <h2 id="m04-2">4.2 一个真实的分析脚本</h2>
+    <p>
+      下面这段脚本：生成（或读入）一份 1kHz 的 ADC 采样 CSV，做统计、用<strong>滚动中值残差</strong>检测异常尖峰、再按 100ms 重采样看趋势。
+      它是<strong>可运行的</strong>——本机实测输出见下。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">analyze.py — CSV → 统计 / 异常 / 趋势</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># analyze.py —— 把设备采回的 CSV 变成"结论"（numpy + pandas）
+import numpy as np, pandas as pd
+
+rng = np.random.default_rng(42)
+fs = 1000
+t = np.arange(0, 1.0, 1 / fs)              # 1 秒 @1kHz
+adc = 2048 + 600 * np.sin(2 * np.pi * 5 * t) + rng.normal(0, 8, t.size)
+adc[600:605] += 700                        # 注入异常尖峰（模拟干扰）
+
+df = pd.DataFrame({"t": t, "adc": adc})
+df.to_csv("adc_log.csv", index=False)      # 设备导出的就是这种 CSV
+
+mean, std = df.adc.mean(), df.adc.std()
+# 稳健异常检测：偏离"滚动中值"太多 → 疑似干扰/尖峰（比全局 z 分数更适合含周期信号）
+resid = df.adc - df.adc.rolling(51, center=True, min_periods=51).median()
+bad = df[resid.abs() &gt; 200]
+print(f"samples={len(df)}  mean={mean:.1f}  std={std:.1f}  "
+      f"min={df.adc.min():.0f}  max={df.adc.max():.0f}")
+print(f"spikes(|resid|&gt;200) = {len(bad)}  at t = "
+      f"{[round(x, 3) for x in bad.t.tolist()[:6]]}")
+s = df.set_index(pd.to_timedelta(df.t, unit="s")).adc
+print("100ms mean:", [int(v) for v in s.resample("100ms").mean().tolist()])</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m04_src/analyze.py</code>（pandas 3.0 / numpy 2.4）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python analyze.py
+<span class="o">samples=1000  mean=2051.3  std=427.5  min=1419  max=2818
+spikes(|resid|&gt;200) = 5  at t = [0.6, 0.601, 0.602, 0.603, 0.604]
+100ms mean: [2429, 1665, 2429, 1666, 2429, 1665, 2464, 1666, 2428, 1666]</span>
+<span class="w"># 一句话结论：这是 5Hz 正弦，叠加了 5 个采样点的尖峰干扰（t≈0.6s）。
+# 若只看"min/max vs 均值"，会误以为是噪声；滚动残差才把它单独抓出来。</span></pre></div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.2</b> 上述脚本所采数据的波形（真实数据下采样绘制；红点即检测到的尖峰）</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 200" role="img" aria-label="ADC 采样波形与检测到的尖峰">
+          <line x1="40" y1="175" x2="620" y2="175" stroke="var(--line-2)"/>
+          <line x1="40" y1="35" x2="40" y2="175" stroke="var(--line-2)"/>
+          <polyline fill="none" stroke="var(--grn)" stroke-width="1.4"
+            points="40,105 47,97 54,91 61,86 69,84 77,86 84,90 91,97 99,105 106,114 113,120 121,123 128,126 135,123 143,119 150,111 157,104 164,96 172,89 179,86 186,84 194,86 201,92 208,99 216,107 223,115 230,121 238,125 245,125 252,123 260,118 267,110 274,102 282,94 289,89 296,85 304,85 311,87 318,93 326,100 333,108 340,116 348,122 355,125 362,125 370,122 377,117 385,109 391,101 399,93 407,88 414,85 421,85 429,88 436,94 443,102 451,110 458,117 465,123 473,125 480,125 487,121 495,115 502,107 509,99 516,92 524,87 531,84 538,85 546,89 553,96 560,103 568,112 575,119 582,123 590,125 597,124 604,120 612,114 619,105"/>
+          <circle cx="389" cy="79" r="4.5" fill="var(--red)"/>
+          <text x="389" y="70" class="sv-lbl-dim" text-anchor="middle" style="fill:var(--red)">尖峰干扰（t≈0.6s）</text>
+          <text x="330" y="192" class="sv-lbl-dim" text-anchor="middle">时间（0→1s）</text>
+          <text x="16" y="105" class="sv-lbl-dim" text-anchor="middle" transform="rotate(-90 16 105)">ADC</text>
+        </svg>
+      </div>
+      <div class="fig-ft">这正是脚本输出的可视化：主体是 5Hz 正弦，<strong>红色的 5 个点</strong>就是被"滚动中值残差"抓出的干扰尖峰——肉眼翻 CSV 很容易漏掉。</div>
+    </div>
+
+    <h2 id="m04-3">4.3 三个高频分析动作</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">想问的问题</th><th style="width:34%">做法</th><th>对应代码</th></tr></thead>
+        <tbody>
+          <tr><td>整体是否正常？</td><td>统计量：均值/标准差/极值</td><td><code class="ic">df.adc.mean()/std()/min()/max()</code></td></tr>
+          <tr><td>有没有干扰点？</td><td>稳健异常：滚动中值残差 / z 分数</td><td><code class="ic">(x - x.rolling(...).median()).abs() &gt; k</code></td></tr>
+          <tr><td>趋势/周期性？</td><td>重采样 + FFT</td><td><code class="ic">resample("100ms").mean()</code> / <code class="ic">np.fft.rfft</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 为什么用"滚动中值残差"而不是全局 z 分数</div>
+      <p style="margin-bottom:0">
+        含强周期（如正弦）的信号里，全局标准差被周期幅度支配，单个尖峰的 z 分数可能很小（本例全局 z 检不到）。
+        用<strong>局部中值</strong>做参考，残差只反映"相对邻域的跳变"，尖峰立刻显形。<em>工具选对，比调阈值更重要。</em>
+      </p>
+    </div>
+
+    <h2 id="m04-4">4.4 让分析可复现：固定随机与版本</h2>
+    <h2 id="m04-5">4.5 从"看一眼"到"可回归"</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">summary.py — 一份可复现的统计</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>import statistics as st
+
+def summarize(xs):
+    return {"n": len(xs), "mean": round(st.mean(xs), 3),
+            "min": min(xs), "max": max(xs)}
+
+if __name__ == "__main__":
+    print(summarize([1, 2, 3, 4, 5]))</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">outliers.py — 简单的异常检测</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def outliers(xs, k=2):
+    mu = sum(xs) / len(xs)
+    sd = (sum((x - mu) ** 2 for x in xs) / len(xs)) ** 0.5
+    return [x for x in xs if sd and abs(x - mu) > k * sd]
+
+print(outliers([10, 10, 11, 10, 99]))</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">步骤</th><th style="width:34%">工具</th><th style="width:44%">要点</th></tr></thead>
+        <tbody>
+          <tr><td>读取</td><td><code>csv</code>/<code>pandas</code></td><td>列名/类型/缺失</td></tr>
+          <tr><td>清洗</td><td>过滤/去重</td><td>记录丢了多少</td></tr>
+          <tr><td>统计</td><td>均值/方差/分位</td><td>单位一致</td></tr>
+          <tr><td>报告</td><td>表格/图</td><td>可复现</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">高频动作</th><th style="width:66%">一句话</th></tr></thead>
+        <tbody>
+          <tr><td>分组统计</td><td>按会话/设备/时间段</td></tr>
+          <tr><td>异常检测</td><td>阈值或 z-score</td></tr>
+          <tr><td>趋势</td><td>滑窗均值/斜率</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">可复现要求</th><th style="width:60%">做法</th></tr></thead>
+        <tbody>
+          <tr><td>固定随机种子</td><td><code>random.seed(0)</code></td></tr>
+          <tr><td>记录数据版本</td><td>文件名/哈希/时间</td></tr>
+          <tr><td>脚本即流水线</td><td>一条命令行可重跑</td></tr>
+          <tr><td>输出落盘</td><td>结果存文件便于对比</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把你"手工看一眼 CSV"的步骤写成一个 <code>analyze.py</code>，固定随机种子并输出结果文件，保证换台机器能复现同样结论。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>数据分析的目标是<strong>把问题转成可计算的形式</strong>：周期性 / 异常 / 漂移 / 相关性。</li>
+        <li>典型流水线：设备 CSV → pandas 清洗/重采样 → numpy 统计/检测 → matplotlib 出图与报告。</li>
+        <li>统计量看整体，<strong>滚动残差/z 分数</strong>找异常，重采样/FFT 看趋势与频率。</li>
+        <li>含周期信号时，异常检测用<strong>局部</strong>参考（滚动中值）比全局 z 分数更可靠。</li>
+        <li>分析脚本本机实跑，输出可直接进调试报告（与 M06 的调试台呼应）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：为什么"看 min/max 与均值"不足以发现偶发干扰尖峰？</p>
+          <details><summary></summary><p>尖峰只占极少数采样，会被均值/标准差"淹没"（本例全局 z 检不到）。需要看<strong>局部</strong>偏离，如滚动中值残差或局部窗口 z 分数。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：pandas 的 <code class="ic">resample</code> 可以直接对一个浮点秒列用。</p>
+          <details><summary></summary><p>不能，需要 DatetimeIndex/TimedeltaIndex。本例用 <code class="ic">pd.to_timedelta(df.t, unit="s")</code> 转成时间索引后才能 <code class="ic">resample("100ms")</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：一段含 5Hz 正弦与噪声的数据，想"看周期性"，用什么方法？</p>
+          <details><summary></summary><p>用 FFT（<code class="ic">np.fft.rfft</code>）看主频，或重采样后看趋势。不要用 min/max 猜。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">analyze.py</code> 的 <code class="ic">resid</code> 阈值从 200 改成 100，观察误检数量变化。</p>
+          <details><summary></summary><p>阈值降低会引入更多误检（正常波动也被标记）；阈值过高会漏检。异常检测永远是"灵敏度 vs 误报"的权衡——要结合物理意义定。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：matplotlib 出图只是为了报告好看。</p>
+          <details><summary></summary><p>不是。图是<strong>发现手段</strong>：波形能一眼看出尖峰、漂移、阶跃；很多问题"看数表看不出来，画出来立刻现形"。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 04 完成？</b> 拿一份你设备的真实日志/CSV，写一个脚本输出统计量、标出异常点、并画一张图。</div>
+      <button class="done-btn" data-done="m04">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>画图前核对单位、采样间隔、缺失值；统计与手算小样本一致。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 构建与 CI</div>
+      <h1 class="ch-title">构建与 <span class="acc">CI 脚本化</span></h1>
+      <p class="ch-lead">
+        "编译→烧录→跑测试→出报告"如果每次靠手点，就不可能持续。这一节用 Python 的 <code class="ic">subprocess</code> 把工具链串成<strong>一条命令</strong>，
+        并接到 CI，让每次提交都自动跑一遍。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ subprocess · esptool · Actions</span><span>⚑ 可复现</span>
+      </div>
+    </div>
+
+    <h2 id="m05-1">5.1 为什么上层用 Python 编排工具链</h2>
+    <p>
+      工具链本身是 C 程序（gcc/arm-none-eabi/esptool/openocd…）。用 Python 把它们<strong>串成流水线</strong>的理由很直接：
+      跨平台、易读、易加逻辑（解析输出、判成败、生成报告），且不必写一套 shell 兼容层。
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">工具</th><th style="width:34%">负责什么</th><th>本册用法</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">subprocess</code></td><td>调用任意命令行程序并拿回退出码/输出</td><td>编排流水线（本节）</td></tr>
+          <tr><td><code class="ic">esptool</code></td><td>ESP32/8266 烧录、读芯片信息</td><td>flash 步骤</td></tr>
+          <tr><td><code class="ic">west</code></td><td>Zephyr 的 build/flash/debug 元工具</td><td>Zephyr 工程</td></tr>
+          <tr><td><code class="ic">platformio</code></td><td>跨框架构建/烧录/测试</td><td>Arduino/ESP-IDF 等</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m05-2">5.2 <code>subprocess</code> 的正确姿势</h2>
+    <div class="box key">
+      <div class="box-t">◆ 四条纪律</div>
+      <ul style="margin-bottom:0">
+        <li><strong>传列表、不要拼字符串</strong>：<code class="ic">run(["esptool","--port",p,"write_flash",...])</code>；拼 shell 字符串会遇到空格/注入问题。</li>
+        <li><strong><code class="ic">check=True</code></strong>：非零退出码直接抛异常，别让"编译失败还继续烧录"。</li>
+        <li><strong>设 <code class="ic">timeout</code></strong>：外部工具可能卡住（尤其串口/网络）。</li>
+        <li><strong>用 <code class="ic">sys.executable</code></strong> 调 Python 脚本，保证和当前解释器一致。</li>
+      </ul>
+    </div>
+
+    <h2 id="m05-3">5.3 一条命令的流水线</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">build_all.py — 编译 → 烧录 → 测试 → 报告</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># build_all.py —— 一条命令走完：编译 → 烧录 → 测试 → 报告
+import subprocess, sys, argparse
+
+def run(cmd, dry=False):
+    print("$", " ".join(cmd))
+    if dry:
+        return 0
+    return subprocess.run(cmd, check=True).returncode      # check=True：失败即抛异常
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--dry-run", action="store_true")
+    ap.add_argument("--port", default="COM5")
+    a = ap.parse_args()
+
+    run([sys.executable, "-m", "py_compile", "protocol.py"], dry=a.dry_run)          # 1) 语法门禁
+    run(["esptool", "--port", a.port, "write_flash", "0x1000", "firmware.bin"], dry=a.dry_run)  # 2) 烧录
+    run([sys.executable, "test_protocol.py", "--port", a.port], dry=a.dry_run)        # 3) 自动化测试
+    run([sys.executable, "make_report.py"], dry=a.dry_run)                            # 4) 出报告
+    print("pipeline done.")
+
+if __name__ == "__main__":
+    main()</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m05_src/build_all.py --dry-run</code>（CPython 3.13）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python build_all.py --dry-run
+<span class="o">$ python -m py_compile protocol.py
+$ esptool --port COM5 write_flash 0x1000 firmware.bin
+$ python test_protocol.py --port COM5
+$ python make_report.py
+pipeline done.</span>
+<span class="w"># --dry-run 只回显命令、不真执行；去掉即可真跑（需装 esptool 且接上板子）。</span></pre></div>
+    </div>
+
+    <h2 id="m05-4">5.4 接到 CI：每次提交自动跑</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ci.yml — GitHub Actions：语法门禁 + 上位机脚本测试</span>
+        <span class="code-lang">YAML</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># .github/workflows/ci.yml —— 无硬件也能跑的部分
+name: ci
+on: [push, pull_request]
+jobs:
+  host-tools:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - run: pip install -r requirements.txt
+      - run: python -m py_compile tools/*.py           # 语法门禁
+      - run: python -m pytest tests/ -q                # 上位机脚本单测
+      - run: python tools/probes/m05_src/build_all.py --dry-run       # 流水线干跑（无需硬件）</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ CI 里的两条边界</div>
+      <p style="margin-bottom:0">
+        ① <strong>需要真实硬件的步骤（烧录/串口测试）不能放进无板 CI</strong>——用 <code class="ic">--dry-run</code> 干跑，或自建带板 runner；
+        ② 交叉编译（arm-none-eabi/Zephyr/ESP-IDF）要装对应工具链，或用预构建镜像。<strong>能自动化的先自动化，硬件步骤单独分层。</strong>
+      </p>
+    </div>
+
+    <h2 id="m05-5">5.5 编排的纪律</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.1</b> 一条命令的流水线：编译 → 烧录 → 测试 → 报告</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="Python 编排各工具，任一步失败即停并报告">
+          <rect x="20" y="44" width="120" height="44" rx="6" class="sv-cyn-s"/>
+          <text x="80" y="71" class="sv-lbl-hi" text-anchor="middle">编译</text>
+          <path d="M140 66 L180 66" class="sv-arrow"/>
+          <rect x="182" y="44" width="120" height="44" rx="6" class="sv-amb-s"/>
+          <text x="242" y="71" class="sv-lbl-hi" text-anchor="middle">烧录</text>
+          <path d="M302 66 L342 66" class="sv-arrow"/>
+          <rect x="344" y="44" width="120" height="44" rx="6" class="sv-grn-s"/>
+          <text x="404" y="71" class="sv-lbl-hi" text-anchor="middle">测试</text>
+          <path d="M464 66 L504 66" class="sv-arrow"/>
+          <rect x="506" y="44" width="120" height="44" rx="6" class="sv-red-s"/>
+          <text x="566" y="71" class="sv-lbl-hi" text-anchor="middle">报告</text>
+        </svg>
+      </div>
+      <div class="fig-ft">每一步检查返回码；失败即停，避免"烧了个错的固件还继续测"。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.2</b> subprocess 的正确姿势</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="用列表传参、check=True 抛异常、捕获输出，避免 shell 注入与静默失败">
+          <rect x="30" y="40" width="240" height="56" rx="6" class="sv-red-s"/>
+          <text x="150" y="63" class="sv-lbl-hi" text-anchor="middle">os.system("tool " + arg)</text>
+          <text x="150" y="83" class="sv-lbl-dim" text-anchor="middle">注入风险·无法捕获</text>
+          <rect x="330" y="40" width="280" height="56" rx="6" class="sv-grn-s"/>
+          <text x="470" y="63" class="sv-lbl-hi" text-anchor="middle">subprocess.run([...], check=True)</text>
+          <text x="470" y="83" class="sv-lbl-dim" text-anchor="middle">列表传参·失败抛异常</text>
+        </svg>
+      </div>
+      <div class="fig-ft">列表传参避免 shell 解析；<code>check=True</code> 让失败立刻暴露。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">run_step.py — 统一的外部命令执行</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>import subprocess
+
+def run(cmd, cwd=None):
+    r = subprocess.run(cmd, cwd=cwd, capture_output=True, text=True)
+    if r.returncode != 0:
+        raise RuntimeError(f"{cmd} failed: {r.stderr.strip()}")
+    return r.stdout
+
+print(run(["python", "-c", "print(42)"]).strip())</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m05_src/build_all.py --dry-run</code>（本机真实运行）</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:46%">做法</th><th style="width:30%">安全性</th><th style="width:24%">可捕获输出</th></tr></thead>
+        <tbody>
+          <tr><td><code>os.system</code></td><td>差（shell 解析）</td><td>否</td></tr>
+          <tr><td><code>subprocess.run(字符串)</code></td><td>较差</td><td>可</td></tr>
+          <tr><td><code>subprocess.run(列表)</code></td><td>好</td><td>可</td></tr>
+          <tr><td><code>check=True</code></td><td>—</td><td>失败抛异常</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把你"手动依次敲几条命令"的流程写成一个 Python 脚本，任一步失败即停并打印原因；在 CI 里调用它。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">流水线返回码</th><th style="width:30%">含义</th><th style="width:44%">动作</th></tr></thead>
+        <tbody>
+          <tr><td>0</td><td>成功</td><td>继续下一步</td></tr>
+          <tr><td>非 0</td><td>该步失败</td><td>停止并报告</td></tr>
+          <tr><td>超时</td><td>工具挂起</td><td>杀掉并报错</td></tr>
+          <tr><td>部分成功</td><td>有的目标失败</td><td>据清单决定</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">CI 门禁项</th><th style="width:60%">检查</th></tr></thead>
+        <tbody>
+          <tr><td>语法</td><td><code>py_compile</code> / lint</td></tr>
+          <tr><td>单测</td><td>pytest</td></tr>
+          <tr><td>上位机脚本</td><td>实跑 m03–m07</td></tr>
+          <tr><td>构建</td><td>编译固件（可选）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>工具链是命令行程；Python 用 <code class="ic">subprocess</code> 把它们串成一条命令。</li>
+        <li>四条纪律：传列表、<code class="ic">check=True</code>、设 <code class="ic">timeout</code>、用 <code class="ic">sys.executable</code>。</li>
+        <li>流水线 = 编译 → 烧录 → 测试 → 报告；<code class="ic">--dry-run</code> 让它无硬件也能干跑。</li>
+        <li>CI（GitHub Actions 等）在每次提交跑"语法门禁 + 上位机单测 + 干跑"；硬件步骤单独分层。</li>
+        <li>esptool / west / platformio 各管一段，Python 是它们之上的"胶水与编排"。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：<code class="ic">subprocess.run("esptool --port COM5 write_flash ...", shell=True)</code> 是可取的写法。</p>
+          <details><summary></summary><p>不推荐。应传列表 <code class="ic">["esptool","--port","COM5","write_flash",...]</code> 并让 <code class="ic">shell=False</code>（默认）；拼字符串/开 shell 会遇到空格与注入问题。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：为什么流水线脚本要支持 <code class="ic">--dry-run</code>？</p>
+          <details><summary></summary><p>让"无硬件环境"（CI、他人机器）也能验证流程与命令正确性，不因缺板子中断；也避免误烧录。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：流水线"编译失败却仍去烧录了"，最可能是漏了什么参数？</p>
+          <details><summary></summary><p>漏了 <code class="ic">check=True</code>。没有它时非零退出码不会抛异常，脚本会继续往下走。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">build_all.py</code> 的 <code class="ic">run</code> 加 <code class="ic">timeout=30</code> 与失败日志，再跑一次 <code class="ic">--dry-run</code>。</p>
+          <details><summary></summary><p>加深后命令行为不变（dry-run 不回显 timeout），但真跑时外部工具卡住会在 30s 抛 <code class="ic">TimeoutExpired</code>——这是脚本健壮性的关键。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：把"烧录到真板"也放进无板 CI 是标准做法。</p>
+          <details><summary></summary><p>不是。无板 CI 只能做语法/单测/干跑；需要硬件的步骤要放到自建带板 runner 或单独的人工/自动发布流程。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 05 完成？</b> 给你自己的工程写一个 <code class="ic">build_all.py</code>：编译→烧录→测试→报告，并加 <code class="ic">--dry-run</code>。</div>
+      <button class="done-btn" data-done="m05">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>子命令失败能传播退出码，依赖和构建路径可重现。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 上位机 GUI</div>
+      <h1 class="ch-title">上位机 <span class="acc">GUI 与调试台</span></h1>
+      <p class="ch-lead">
+        命令行脚本适合自动化，但"边调边看"时一个带<strong>实时曲线</strong>和<strong>命令面板</strong>的小工具效率更高。
+        这一节用标准库 <code class="ic">tkinter</code> + <code class="ic">pyserial</code> 搭一个最小调试台，并为 M07/OTA 留出升级界面。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ tkinter · 实时曲线 · 升级界面</span><span>⚑ 线程与 UI 分离</span>
+      </div>
+    </div>
+
+    <h2 id="m06-1">6.1 调试台的三块：看、发、升</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.1</b> 一个够用的串口调试台布局</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 220" role="img" aria-label="串口调试台布局：实时曲线、命令面板、日志">
+          <rect x="20" y="24" width="620" height="120" rx="8" class="sv-box"/>
+          <text x="36" y="46" class="sv-lbl-hi">① 实时曲线（ADC/IMU/功耗）</text>
+          <polyline fill="none" stroke="var(--grn)" stroke-width="1.6"
+            points="40,120 70,96 100,84 130,90 160,110 190,122 220,116 250,98 280,86 310,92 340,112 370,124 400,118 430,100 460,88 490,94 520,114 550,126 580,120 610,104"/>
+          <rect x="20" y="154" width="360" height="48" rx="8" class="sv-cyn-s"/>
+          <text x="36" y="174" class="sv-lbl-hi" style="fill:var(--cyn)">② 命令面板</text>
+          <text x="36" y="192" class="sv-lbl-dim">发送 start/stop/get/set … 带历史与快捷按钮</text>
+          <rect x="396" y="154" width="244" height="48" rx="8" class="sv-amb-s"/>
+          <text x="412" y="174" class="sv-lbl-hi" style="fill:var(--amb)">③ 固件升级</text>
+          <text x="412" y="192" class="sv-lbl-dim">选文件 → 分块下发 → 进度/回滚（M07/OTA 铺垫）</text>
+        </svg>
+      </div>
+      <div class="fig-ft">三块各司其职；关键工程约束是<strong>串口 I/O 不能阻塞 UI 线程</strong>——必须在后台线程读串口，用队列把数据交给 UI 刷新（见 §6.3）。</div>
+    </div>
+
+    <h2 id="m06-2">6.2 最小实时曲线（tkinter + pyserial）</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">plotter.py — 后台线程读串口，UI 画曲线</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># plotter.py —— 最小实时曲线：串口线程 + tkinter 主线程
+import threading, queue, serial, tkinter as tk
+
+q = queue.Queue(maxsize=1000)          # 线程间用队列传数据（有界，防积压）
+
+def reader(ser, stop):
+    while not stop.is_set():
+        line = ser.readline()          # 阻塞读（受 timeout 控制）
+        if line:
+            try:
+                q.put_nowait(float(line))
+            except (ValueError, queue.Full):
+                pass                   # 丢非数字/满了就丢，绝不在采集线程里阻塞
+
+class App:
+    def __init__(self, root, ser):
+        self.root, self.ser = root, ser
+        self.data = []
+        self.cv = tk.Canvas(root, width=600, height=200, bg="#0B1110")
+        self.cv.pack()
+        self.stop = threading.Event()
+        threading.Thread(target=reader, args=(ser, self.stop), daemon=True).start()
+        self._tick()
+    def _tick(self):
+        while not q.empty():           # 只取走队列里的最新数据
+            self.data.append(q.get())
+            del self.data[:-300]       # 只留最近 300 点
+        self._draw()
+        self.root.after(50, self._tick)  # 50ms 刷新
+    def _draw(self):
+        self.cv.delete("all")
+        n = len(self.data)
+        if n &gt; 1:
+            pts = [(20 + i*560/(n-1), 180 - (v % 4096)/4096*160) for i, v in enumerate(self.data)]
+            self.cv.create_line(*[c for p in pts for c in p], fill="#4EF08A", width=1.4)
+
+if __name__ == "__main__":
+    ser = serial.Serial("COM5", 115200, timeout=1)
+    root = tk.Tk(); root.title("serial plotter")
+    App(root, ser); root.mainloop()</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 为什么"串口线程 + 队列 + after 刷新"是标准结构</div>
+      <ul style="margin-bottom:0">
+        <li><strong>UI 线程绝不阻塞</strong>：<code class="ic">readline()</code> 在后台线程做，慢的是它、不是界面。</li>
+        <li><strong>队列有界</strong>：采集快、UI 慢时丢旧数据，而不是无限积压把内存吃光。</li>
+        <li><strong>刷屏只画最近 N 点</strong>：曲线是"窗口"，不是"历史全量"。</li>
+      </ul>
+    </div>
+
+    <h2 id="m06-3">6.3 升级界面：为 OTA 铺路</h2>
+    <p>
+      ③ 固件升级块把 M05 的烧录步骤搬进界面：选文件 → 分块下发 → 显示进度 → 校验 → 切换。
+      它与第②册协议编排里的 <strong>OTA 状态机</strong>（传输/校验/回滚）是同一套逻辑，只是这里由上位机驱动。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ota_ui.py — 分块下发 + 进度回调（示意）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># ota_ui.py —— 把固件分块下发，并按进度刷新界面
+def send_firmware(ser, blob: bytes, chunk=1024, on_progress=lambda p: None):
+    total = len(blob)
+    for off in range(0, total, chunk):
+        part = blob[off:off + chunk]
+        ser.write(b"%06X" % off + part)     # 偏移 + 数据（示意协议）
+        ack = ser.read(1)
+        if ack != b"K":
+            raise IOError(f"chunk at {off} not acked")
+        on_progress((off + len(part)) / total)   # 回调 → UI 进度条
+    ser.write(b"DONE")</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 升级界面必须能"失败可退"</div>
+      <p style="margin-bottom:0">
+        升级最怕"传到一半断了，设备变砖"。界面至少要有：<strong>进度、超时、失败提示、以及"回滚/重试"按钮</strong>；
+        设备侧对应的双区/回滚机制在第②册 OTA 一节。上位机只是驱动器，安全边界在设备端。
+      </p>
+    </div>
+
+    <h2 id="m06-4">6.4 后台线程读串口，UI 只画图</h2>
+    <h2 id="m06-5">6.5 界面与采集解耦的好处</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.2</b> 采集线程与 UI 线程解耦</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="后台线程阻塞读串口，入队列；UI 从队列取点画图，谁都不卡谁">
+          <rect x="30" y="40" width="180" height="56" rx="6" class="sv-amb-s"/>
+          <text x="120" y="63" class="sv-lbl-hi" text-anchor="middle">采集线程</text>
+          <text x="120" y="83" class="sv-lbl-dim" text-anchor="middle">阻塞读，不卡 UI</text>
+          <path d="M210 68 L270 68" class="sv-arrow"/>
+          <rect x="272" y="40" width="120" height="56" rx="6" class="sv-cyn-s"/>
+          <text x="332" y="63" class="sv-lbl-hi" text-anchor="middle">队列</text>
+          <text x="332" y="83" class="sv-lbl-dim" text-anchor="middle">有界</text>
+          <path d="M392 68 L452 68" class="sv-arrow"/>
+          <rect x="454" y="40" width="180" height="56" rx="6" class="sv-grn-s"/>
+          <text x="544" y="63" class="sv-lbl-hi" text-anchor="middle">UI 线程</text>
+          <text x="544" y="83" class="sv-lbl-dim" text-anchor="middle">按帧取点画图</text>
+        </svg>
+      </div>
+      <div class="fig-ft">队列要有界：UI 卡顿时丢最旧的点，而不是让内存无限涨。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ring.py — 有界的环形缓冲</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>class Ring:
+    def __init__(self, n):
+        self.n = n; self.buf = []
+    def push(self, x):
+        self.buf.append(x)
+        if len(self.buf) > self.n: self.buf.pop(0)
+
+r = Ring(3)
+for x in range(5): r.push(x)
+print(r.buf)   # [2, 3, 4]</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m06_src/ring.py</code>（本机真实运行）</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:24%">关注点</th><th style="width:38%">采集线程</th><th style="width:38%">UI 线程</th></tr></thead>
+        <tbody>
+          <tr><td>阻塞</td><td>读串口可阻塞</td><td>不阻塞</td></tr>
+          <tr><td>刷新</td><td>不关心</td><td>定时重画</td></tr>
+          <tr><td>缓冲</td><td>写队列</td><td>读队列</td></tr>
+          <tr><td>解耦</td><td>互不等待</td><td>互不等待</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">界面陷阱</th><th style="width:26%">后果</th><th style="width:40%">修复</th></tr></thead>
+        <tbody>
+          <tr><td>在 UI 线程里阻塞读串口</td><td>界面卡死</td><td>移到后台线程</td></tr>
+          <tr><td>无界缓冲</td><td>内存涨</td><td>用有界队列</td></tr>
+          <tr><td>频繁全量重画</td><td>CPU 高</td><td>只画新点</td></tr>
+          <tr><td>线程直接改控件</td><td>偶发崩溃</td><td>通过队列传递</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>用"后台线程 + 有界队列"重写你的实时曲线程序，验证串口断开时 UI 不卡、内存不涨。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">线程与队列</th><th style="width:30%">建议值</th><th style="width:40%">说明</th></tr></thead>
+        <tbody>
+          <tr><td>队列容量</td><td>几百~几千点</td><td>够画一屏</td></tr>
+          <tr><td>重画周期</td><td>20~50ms</td><td>人眼舒适</td></tr>
+          <tr><td>读超时</td><td>50~200ms</td><td>兼顾响应</td></tr>
+          <tr><td>丢弃策略</td><td>丢最旧</td><td>保最新</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">调试台三块</th><th style="width:66%">功能</th></tr></thead>
+        <tbody>
+          <tr><td>看</td><td>实时曲线/日志</td></tr>
+          <tr><td>发</td><td>命令/参数下发</td></tr>
+          <tr><td>升</td><td>分块 OTA + 进度</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>调试台三块：实时曲线、命令面板、固件升级。</li>
+        <li>标准结构：<strong>串口后台线程 + 有界队列 + UI 定时刷新</strong>，UI 线程绝不阻塞。</li>
+        <li>曲线是"最近 N 点"的窗口，不是历史全量；满了丢旧数据。</li>
+        <li>升级界面 = 分块下发 + 进度回调 + 失败可退（回滚/重试）。</li>
+        <li>它与设备端 OTA 状态机是同一套逻辑的上位机侧（第②册）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：为什么不能在 tkinter 主线程里直接 <code class="ic">ser.readline()</code>？</p>
+          <details><summary></summary><p>会阻塞 UI 线程，界面卡死（"无响应"）。应在后台线程读串口，经有界队列把数据交给 UI 定时刷新。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：数据队列应该越大越好，保证不丢数据。</p>
+          <details><summary></summary><p>相反，应有界。采集快、UI 慢时若无限积压会吃光内存且实时性丧失；有界队列 + "满了丢旧"更稳。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：曲线越画越卡，最可能的原因？</p>
+          <details><summary></summary><p>把"历史全量"都重画了。应只画最近 N 点（滑窗），并限制刷新频率（如 50ms 一次）。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">plotter.py</code> 加一个"暂停"按钮，暂停时仍读串口但不画（把数据继续入队或直接丢弃，两者各有什么影响？）。</p>
+          <details><summary></summary><p>继续入队 → 恢复后能看到暂停期间数据（但受队列上限）；直接丢弃 → 恢复后从当前值继续。按调试需要选。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：升级界面做出来，设备就不会升级变砖了。</p>
+          <details><summary></summary><p>不会。安全边界在<strong>设备端</strong>（双区、校验、回滚）；上位机只负责可靠地驱动。界面要提供失败提示与重试，但不能替代设备端保护。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 06 完成？</b> 用 tkinter + pyserial 搭一个最小调试台：实时曲线 + 命令按钮 + 日志框。</div>
+      <button class="done-btn" data-done="m06">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>采集不阻塞 UI，退出时后台任务停止，满队列政策可观察。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 数据准备</div>
+      <h1 class="ch-title">数据准备<span class="acc">（为端侧 AI 铺路）</span></h1>
+      <p class="ch-lead">
+        端侧 AI 的第一难题不是模型，而是<strong>数据从哪来、怎么组织、怎么切分</strong>。这一节用采集脚本 + 目录规范 + 按会话切分，
+        把"设备采回的一堆文件"变成"可训练、可复现、不泄漏的数据集"。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 50 分钟</span><span>◈ 采集 · 组织 · 切分</span><span>⚑ 防数据泄漏</span>
+      </div>
+    </div>
+
+    <h2 id="m07-1">7.1 数据流水线：采集 → 组织 → 切分 → 训练/端侧</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.1</b> 数据准备流水线（本册负责前三步，训练/部署属 B13）</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="数据准备流水线">
+          <rect x="16" y="46" width="140" height="48" rx="6" class="sv-amb-s"/>
+          <text x="86" y="66" class="sv-lbl-hi" text-anchor="middle">① 采集</text>
+          <text x="86" y="83" class="sv-lbl-dim" text-anchor="middle">带时间戳+标签</text>
+          <path d="M156 70 L192 70" class="sv-arrow-a"/>
+          <rect x="194" y="46" width="140" height="48" rx="6" class="sv-box"/>
+          <text x="264" y="66" class="sv-lbl-hi" text-anchor="middle">② 组织</text>
+          <text x="264" y="83" class="sv-lbl-dim" text-anchor="middle">目录+metadata</text>
+          <path d="M334 70 L370 70" class="sv-arrow"/>
+          <rect x="372" y="46" width="140" height="48" rx="6" class="sv-grn-s"/>
+          <text x="442" y="66" class="sv-lbl-hi" text-anchor="middle">③ 切分</text>
+          <text x="442" y="83" class="sv-lbl-dim" text-anchor="middle">train/val 分组</text>
+          <path d="M512 70 L548 70" class="sv-arrow"/>
+          <rect x="550" y="46" width="94" height="48" rx="6" class="sv-cyn-s"/>
+          <text x="597" y="66" class="sv-lbl-hi" text-anchor="middle">④ 训练/端侧</text>
+          <text x="597" y="83" class="sv-lbl-dim" text-anchor="middle">B13</text>
+        </svg>
+      </div>
+      <div class="fig-ft">前三步都在"上位机 Python"完成；<strong>标签与切分策略的质量，直接决定后面模型能不能用</strong>。数据准备做对，AI 才算开始。</div>
+    </div>
+
+    <h2 id="m07-2">7.2 采集：带时间戳与标签</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">collect_imu.py — 从设备采集并落盘（含标签）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># collect_imu.py —— 采集一段带标签的 IMU 数据
+import serial, csv, time
+
+def collect(session_id: int, label: str, seconds: float = 5.0, port="COM5"):
+    path = f"raw/sess{session_id:02d}_{label}.csv"
+    t0 = time.monotonic()
+    with serial.Serial(port, 115200, timeout=1) as ser, open(path, "w", newline="") as f:
+        w = csv.writer(f); w.writerow(["t", "ax", "ay", "az"])
+        while time.monotonic() - t0 &lt; seconds:
+            line = ser.readline().decode(errors="replace").strip()   # 设备发 "ax,ay,az"
+            if not line:
+                continue
+            try:
+                ax, ay, az = (float(v) for v in line.split(","))
+            except ValueError:
+                continue                                             # 跳过非数据行
+            w.writerow([f"{time.monotonic()-t0:.3f}", ax, ay, az])
+    print("saved", path)
+
+if __name__ == "__main__":
+    collect(session_id=0, label="idle")</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 采集阶段的三个"必须"</div>
+      <ul style="margin-bottom:0">
+        <li><strong>必须带时间戳</strong>：后面做重采样、对齐、去抖都靠它。</li>
+        <li><strong>必须带标签与会话号</strong>：标签是监督信号；会话号用于后面"按会话切分"。</li>
+        <li><strong>必须记录元数据</strong>：采样率、量程、设备/固件版本、采集人——复现的命根子。</li>
+      </ul>
+    </div>
+
+    <h2 id="m07-3">7.3 组织与切分：为什么"按会话"而不是"按样本"</h2>
+    <p>
+      数据集目录建议固定为 <code class="ic">raw/</code>（原始，不改）、<code class="ic">train/</code>、<code class="ic">val/</code>、<code class="ic">metadata.json</code>。
+      切分<strong>最关键的纪律</strong>：同一段会话的样本<strong>不能同时进训练和验证</strong>——否则模型"见过"验证集，指标虚高（数据泄漏）。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">split_dataset.py — 按会话切分（可跑）</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code># split_dataset.py —— 生成会话数据，按"会话"切分训练/验证（避免数据泄漏）
+import os, random
+from collections import Counter
+
+random.seed(7)
+SESSIONS, PER_SESSION = 6, 20
+labels = ["idle", "shake", "tilt"]
+
+def make_dataset(root="dataset"):
+    os.makedirs(os.path.join(root, "raw"), exist_ok=True)
+    meta = []
+    for s in range(SESSIONS):
+        label = labels[s % len(labels)]
+        for i in range(PER_SESSION):
+            name = f"sess{s:02d}_{label}_{i:03d}.csv"
+            open(os.path.join(root, "raw", name), "w").write("ax,ay,az\n0,0,1\n")
+            meta.append({"file": name, "session": s, "label": label})
+    return meta
+
+def split(meta, val_ratio=0.34):
+    sess = sorted({m["session"] for m in meta})
+    n_val = max(1, round(len(sess) * val_ratio))
+    val_sess = set(sess[-n_val:])                 # 按会话划分，而非按样本
+    train = [m for m in meta if m["session"] not in val_sess]
+    val   = [m for m in meta if m["session"] in val_sess]
+    return train, val, sorted(val_sess)
+
+if __name__ == "__main__":
+    meta = make_dataset()
+    train, val, vs = split(meta)
+    print(f"sessions={len({m['session'] for m in meta})}  samples={len(meta)}")
+    print(f"train={len(train)}  val={len(val)}  val_sessions={vs}")
+    print("train labels:", dict(Counter(m["label"] for m in train)))
+    print("val   labels:", dict(Counter(m["label"] for m in val)))</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m07_src/split_dataset.py</code>（CPython 3.13）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> python split_dataset.py
+<span class="o">sessions=6  samples=120
+train=80  val=40  val_sessions=[4, 5]
+train labels: {'idle': 40, 'shake': 20, 'tilt': 20}
+val   labels: {'shake': 20, 'tilt': 20}</span>
+<span class="w"># 切分按会话：验证集来自会话 4、5，训练集不含它们 → 不会泄漏。
+# 但注意：验证集里没有 idle（类别覆盖不全）——这是切分要检查的第二个问题。</span></pre></div>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 切分要同时检查两件事</div>
+      <ul style="margin-bottom:0">
+        <li><strong>无泄漏</strong>：同一会话/同一设备/同一时段的样本不跨集合（否则指标虚高）。</li>
+        <li><strong>类别覆盖</strong>：每个类别在训练与验证里都应出现（本例验证集缺 <code class="ic">idle</code>，是典型毛病）。</li>
+      </ul>
+    </div>
+
+    <h2 id="m07-4">7.4 切分要防"同源泄漏"</h2>
+    <h2 id="m07-5">7.5 数据集的可复现清单</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.2</b> 按会话切分，避免同一会话跨训练/测试</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="同一会话的样本要么全在训练、要么全在测试，防止数据泄漏高估效果">
+          <rect x="30" y="40" width="150" height="56" rx="6" class="sv-grn-s"/>
+          <text x="105" y="63" class="sv-lbl-hi" text-anchor="middle">会话A</text>
+          <text x="105" y="83" class="sv-lbl-dim" text-anchor="middle">→ 训练</text>
+          <rect x="200" y="40" width="150" height="56" rx="6" class="sv-grn-s"/>
+          <text x="275" y="63" class="sv-lbl-hi" text-anchor="middle">会话B</text>
+          <text x="275" y="83" class="sv-lbl-dim" text-anchor="middle">→ 训练</text>
+          <rect x="370" y="40" width="150" height="56" rx="6" class="sv-amb-s"/>
+          <text x="445" y="63" class="sv-lbl-hi" text-anchor="middle">会话C</text>
+          <text x="445" y="83" class="sv-lbl-dim" text-anchor="middle">→ 测试</text>
+          <text x="580" y="72" class="sv-lbl-hi" text-anchor="middle">整会话不拆开</text>
+        </svg>
+      </div>
+      <div class="fig-ft">按样本随机切分会让同一动作"半截在训练、半截在测试"，评估虚高。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">split_sessions.py — 按会话切分</span>
+        <span class="code-lang">Python</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>def split_by_session(sessions, ratio=0.8):
+    cut = int(len(sessions) * ratio)
+    return sessions[:cut], sessions[cut:]
+
+tr, te = split_by_session(["A", "B", "C", "D", "E"])
+print("train:", tr)
+print("test :", te)</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>python tools/probes/m07_src/split_dataset.py</code>（本机真实运行）</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">切分方式</th><th style="width:18%">是否泄漏</th><th style="width:56%">说明</th></tr></thead>
+        <tbody>
+          <tr><td>按会话</td><td>否</td><td>推荐</td></tr>
+          <tr><td>按时间</td><td>可能</td><td>训练在前、测试在后</td></tr>
+          <tr><td>按样本随机</td><td>是</td><td>同源样本会跨集</td></tr>
+          <tr><td>留出验证集</td><td>—</td><td>用于调参</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">可复现清单</th><th style="width:60%">做法</th></tr></thead>
+        <tbody>
+          <tr><td>固定种子</td><td><code>random.seed(0)</code></td></tr>
+          <tr><td>记录切分</td><td>保存 train/test 索引</td></tr>
+          <tr><td>数据版本</td><td>文件名含哈希/时间</td></tr>
+          <tr><td>标签来源</td><td>谁标的、规则是什么</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把你的数据集从"按样本随机切分"改成"按会话切分"，对比两种切分下的评估分数差异，解释泄漏来源。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">字段</th><th style="width:22%">类型</th><th style="width:48%">说明</th></tr></thead>
+        <tbody>
+          <tr><td>timestamp</td><td>float/int</td><td>采集时刻</td></tr>
+          <tr><td>session_id</td><td>str</td><td>同一采集会话</td></tr>
+          <tr><td>label</td><td>str/int</td><td>类别标签</td></tr>
+          <tr><td>payload</td><td>list/array</td><td>原始测量</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">标签规范</th><th style="width:70%">做法</th></tr></thead>
+        <tbody>
+          <tr><td>谁标的</td><td>记录标注者/规则</td></tr>
+          <tr><td>一致性</td><td>先定标签集再标</td></tr>
+          <tr><td>不均衡</td><td>关注少数类</td></tr>
+          <tr><td>留空</td><td>明确未知标签</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>数据准备流水线：采集 → 组织 → 切分 →（训练/端侧，B13）。</li>
+        <li>采集必带<strong>时间戳 + 标签 + 会话号 + 元数据</strong>，否则不可复现。</li>
+        <li>切分要<strong>按会话</strong>（防泄漏），并检查<strong>类别覆盖</strong>。</li>
+        <li>数据集目录固定 <code class="ic">raw/ train/ val/ metadata.json</code>，原始数据只读不改。</li>
+        <li>这些数据将喂给 B13 的端侧 AI 与数据闭环。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：为什么训练/验证要"按会话"而不是"按样本"随机切？</p>
+          <details><summary></summary><p>同一会话的样本高度相关（同一次佩戴/同一环境），若随机切会把"近邻"分到两边，验证集等于"见过"，指标虚高——即数据泄漏。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：只要切分不泄漏，就没问题了。</p>
+          <details><summary></summary><p>还要看<strong>类别覆盖</strong>。本例验证集缺 <code class="ic">idle</code>，即使无泄漏，也无法评估该类——覆盖不全是切分的第二个检查点。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：采集脚本把非数据行（如设备日志）也写进了 CSV，会造成什么？</p>
+          <details><summary></summary><p>后面解析会报错或污染统计；应在采集时就过滤（<code class="ic">try/except ValueError: continue</code>），或严格用帧解析（M03）区分数据与日志。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">val_ratio</code> 改成 0.5 再看输出，检查验证集的类别覆盖是否变化。</p>
+          <details><summary></summary><p>会多切一个会话进验证集，覆盖情况随之变化——说明"覆盖"会受切分比例影响，需要在设计会话的标签分布时就考虑。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：原始数据（raw）应该随手就改，方便整理。</p>
+          <details><summary></summary><p>不应。原始数据应<strong>只读</strong>、先备份；清洗/切分产物写到别的目录。否则无法复现，也无法回溯标注错误。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 07 完成？</b> 用 §7.2 的采集脚本采一小批带标签数据，用 §7.3 的方式按会话切分，并检查类别覆盖。</div>
+      <button class="done-btn" data-done="m07">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>训练、验证与测试按会话隔离；预处理只在训练集拟合。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08"><div class="ch-head"><div class="ch-badge">Module 08 · 实现与验收</div><h1 class="ch-title">数据契约、回放与实验复现</h1><p class="ch-lead">让 MCU 与 Python 用同一数据契约回放并按容差对拍。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div><!-- COURSE_DIAGRAM_START --><figure class="fig"><div class="fig-hd">同一输入、同一舍入政策，才能比较实现</div><div class="fig-bd"><svg viewBox="0 0 800 190" role="img" aria-label="同一输入、同一舍入政策，才能比较实现"><title>同一输入、同一舍入政策，才能比较实现</title><defs><marker id="mastery-arrow-data-replay" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="currentColor"/></marker></defs><rect x="10" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="132.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">固定原始输入</text><text x="132.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">Q15: -1 × 16384</text><text x="132.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">保存单位/版本/质量</text><text x="132.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">不分别重新采样</text><path d="M257 92H272" stroke="currentColor" marker-end="url(#mastery-arrow-data-replay)"/><rect x="275" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="397.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">两端独立计算</text><text x="397.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">C整数除法向零：0</text><text x="397.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">Python显式匹配：0</text><text x="397.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">直接用 // 会得 -1</text><path d="M522 92H537" stroke="currentColor" marker-end="url(#mastery-arrow-data-replay)"/><rect x="540" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="662.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">对拍与诊断</text><text x="662.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">整数结果精确一致</text><text x="662.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">浮点用声明容差</text><text x="662.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">区分算法与输入差异</text></svg></div><figcaption>replay.py 对拍端点、向零截断与饱和。原始输入一致才能把差异归因到实现或参数。</figcaption></figure><!-- COURSE_DIAGRAM_END -->
+<h2 id="m08-mechanism">机制与契约</h2><p>数据契约至少包含版本、会话、时刻、序号、单位、原始值、质量与参数版本。保留原始输入，再保存处理结果；修订参数后可以用同一输入解释差异。定点对拍必须约定缩放、饱和和舍入：Python // 对负数向下取整，而 C11 整数除法向零截断，本例先取绝对值再恢复符号来匹配 C。比较整数算法应精确一致，浮点算法用声明的绝对/相对容差。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>product=a*b
+value=abs(product)//32768
+if product&lt;0: value=-value
+value=max(-32768,min(32767,value))</code></pre></div>
+<h2 id="m08-boundary">边界与误用</h2><p>直接用 Python 的负数 // 或任意 round 会制造两端差异。把丢样补成正常零值会使回放掩盖故障。时间排序、重复和单位校验可复用 B04a datatool；长期日志还需加入标定与固件版本。</p>
+<h2 id="m08-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>python labs/replay.py</pre></div><p>完整源码：<a href="../resources/B04/labs/replay.py">labs/replay.py</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行 replay.py；用 B23 的 C Q15 实现处理同样四组端点，并核对每个结果。增加错误范围和传感器无效记录。</p><p><strong>验收：</strong>端点与向零截断一致；非法 Q15 输入被拒；会话、单位、时基与参数版本可追溯；异常记录不会伪装成正常采样。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么对拍需要同一份原始数据，而不是两次分别采集？</p><details><summary>查看推理</summary><p>两次采集的噪声、时刻和物理条件不同，会把输入差异误判成实现差异。同一输入才能隔离算法与参数的影响。</p></details></div><p class="lesson-ref">核对来源：<a href="https://docs.python.org/3.13/library/">Python 3.13 官方标准库文档</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m08">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>同一原始文件和版本参数可复现结果；数据缺失、重排与时钟回绕被显式处理。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head">
+      <div class="ch-badge">Reference · 对照表</div>
+      <h1 class="ch-title">术语与符号<span class="acc">对照表</span></h1>
+      <p class="ch-lead">
+        本页是 B04 的<strong>单一事实源</strong>：<code class="ic">verify/glossary.json</code> 与下表逐条比对，
+        两边漂移（少了/多了/写错）会在构建时<strong>直接失败</strong>。改术语/符号时，两处必须同步。
+      </p>
+    </div>
+
+    <h2 id="glossary-terms">术语</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:20%">术语</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td data-term="CPython"><strong>CPython</strong></td><td>标准 Python 解释器；跑在 PC/服务器，是本册上位机工具链的主力（pyserial/numpy/pandas/matplotlib）。</td></tr>
+          <tr><td data-term="MicroPython"><strong>MicroPython</strong></td><td>为 MCU 裁剪的 Python 3：约 256KB Flash / 16KB RAM 起，含 <code class="ic">machine</code> 模块直接操作外设，固件里自带解释器。</td></tr>
+          <tr><td data-term="CircuitPython"><strong>CircuitPython</strong></td><td>Adafruit 维护的 MicroPython 分支：更友好的 API、内置 USB 存储与库；适合教育与快速原型，性能/控制力略弱于原版 MicroPython。</td></tr>
+          <tr><td data-term="REPL"><strong>REPL</strong></td><td>Read-Eval-Print Loop：MicroPython 的交互式命令行，通过串口进入，用于即时验证语句与寄存器读写。</td></tr>
+          <tr><td data-term="垃圾回收"><strong>垃圾回收</strong></td><td>MicroPython 用标记-清除式 GC 管理堆；内存不足时触发，可能造成毫秒级停顿——实时路径要避免运行期分配。</td></tr>
+          <tr><td data-term="frozen bytecode"><strong>frozen bytecode</strong></td><td>把 <code class="ic">.py</code> 预编译进固件（而非放在文件系统里），省 RAM、启动快、防篡改；量产常把核心模块 frozen。</td></tr>
+          <tr><td data-term="viper"><strong>viper</strong></td><td>MicroPython 的 <code class="ic">@micropython.viper</code> 装饰器：把函数编译成接近机器码的定长整数代码，比普通 Python 快数倍到数十倍。</td></tr>
+          <tr><td data-term="pyserial"><strong>pyserial</strong></td><td>CPython 的串口库（<code class="ic">import serial</code>）；本册用它做上位机收发、协议测试、固件下载触发。</td></tr>
+          <tr><td data-term="帧解析"><strong>帧解析</strong></td><td>把串口字节流按帧结构（帧头/长度/载荷/校验）切出来；必须处理半包/粘包/超时。</td></tr>
+          <tr><td data-term="numpy"><strong>numpy</strong></td><td>数组与向量化数值计算库；把 ADC/IMU 采样批量转成数组做滤波、FFT、统计。</td></tr>
+          <tr><td data-term="pandas"><strong>pandas</strong></td><td>表格数据处理库（DataFrame）；把设备日志/CSV 当表做分组、聚合、重采样。</td></tr>
+          <tr><td data-term="matplotlib"><strong>matplotlib</strong></td><td>绘图库；把采样/功耗曲线画成图，直接服务于"数据看出的问题"。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="glossary-symbols">符号 / 构件</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:24%">符号 / 构件</th><th style="width:22%">类别</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td data-sym="machine.Pin"><code class="ic">machine.Pin</code></td><td>MicroPython 模块</td><td>GPIO：<code class="ic">Pin(n, Pin.OUT/IN)</code>，<code class="ic">value()/on()/off()</code>。</td></tr>
+          <tr><td data-sym="machine.UART"><code class="ic">machine.UART</code></td><td>MicroPython 模块</td><td>串口：<code class="ic">UART(n, baudrate=…)</code>，<code class="ic">read()/write()/any()</code>。</td></tr>
+          <tr><td data-sym="machine.Timer"><code class="ic">machine.Timer</code></td><td>MicroPython 模块</td><td>硬件/软件定时器：<code class="ic">periodic</code> 回调，用于定时中断。</td></tr>
+          <tr><td data-sym="time.sleep_ms"><code class="ic">time.sleep_ms</code></td><td>MicroPython 函数</td><td>毫秒级延时（MicroPython 特有，CPython 用 <code class="ic">time.sleep</code>）。</td></tr>
+          <tr><td data-sym="gc.collect()"><code class="ic">gc.collect()</code></td><td>MicroPython 函数</td><td>主动触发垃圾回收；配合 <code class="ic">gc.mem_free()</code> 观察堆水位。</td></tr>
+          <tr><td data-sym="memoryview"><code class="ic">memoryview</code></td><td>Python 内建</td><td>对 buffer 的零拷贝视图；串口收包后按偏移解析不额外复制。</td></tr>
+          <tr><td data-sym="struct.pack"><code class="ic">struct.pack</code></td><td>Python 内建</td><td>按格式把数值打包成字节（<code class="ic">'&lt;H'</code> 小端 u16 等），用于组帧。</td></tr>
+          <tr><td data-sym="ser.readline()"><code class="ic">ser.readline()</code></td><td>pyserial 方法</td><td>读到换行；上位机读行/写行式命令的常用入口。</td></tr>
+          <tr><td data-sym="esptool"><code class="ic">esptool</code></td><td>工具</td><td><code class="ic">esptool.py</code>：ESP32/ESP8266 固件烧录与芯片信息读取。</td></tr>
+          <tr><td data-sym="west"><code class="ic">west</code></td><td>工具</td><td>Zephyr 的构建/烧录/调试元工具（<code class="ic">west build/flash/debug</code>）。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="done-note">维护提示：正文里新增的术语/符号若要进对照表，先登记到 <code class="ic">verify/glossary.json</code>，再补本表——两处同步后构建才会通过。</p>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "整条学习路线."}, {"id": "m01", "num": "01", "title": "定位与边界"}, {"id": "m02", "num": "02", "title": "MicroPython 深入"}, {"id": "m03", "num": "03", "title": "串口与协议工具链"}, {"id": "m04", "num": "04", "title": "数据分析服务于调试"}, {"id": "m05", "num": "05", "title": "构建与 CI 脚本化"}, {"id": "m06", "num": "06", "title": "上位机 GUI 与调试台"}, {"id": "m07", "num": "07", "title": "数据准备（为端侧 AI 铺路）"}, {"id": "m08", "num": "08", "title": "数据契约、回放与实验复现"}, {"id": "glossary", "num": "", "title": "术语与符号对照表"}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

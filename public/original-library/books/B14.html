@@ -1,0 +1,1123 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B14" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>数据平台与云边协同 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">数据平台与云边协同</div>
+    <div class="m-subtitle">AI / 数据 · 11 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">11 模块 · 56 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol cur" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">数据闭环分支 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">设备接入与物模型<span class="m-nav-sub">接入与网关</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-model-t" data-target="m01-model-t">1.1 物模型与身份</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：在线与配置版本</a><a class="m-sec" href="#m01-cfg-t" data-target="m01-cfg-t">1.3 配置下发与确认</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检与三级对照</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">边缘网关<span class="m-nav-sub">接入与网关</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-gateway-t" data-target="m02-gateway-t">2.1 汇聚、转换、缓存、续传</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：按已确认位置补传</a><a class="m-sec" href="#m02-sync-t" data-target="m02-sync-t">2.3 确认水位、幂等与丢失边界</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检与三级对照</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">时序数据存储<span class="m-nav-sub">存储与分析</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-model-t" data-target="m03-model-t">3.1 度量、标签、降采样、保留</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：区间查询与降采样</a><a class="m-sec" href="#m03-index-t" data-target="m03-index-t">3.3 标签基数与查询效率</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检与三级对照</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">可视化与告警<span class="m-nav-sub">存储与分析</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-model-t" data-target="m04-model-t">4.1 阈值 + 持续时长 + 迟滞</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：触发与迟滞复位</a><a class="m-sec" href="#m04-closed-t" data-target="m04-closed-t">4.3 告警闭环</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检与三级对照</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">数据分析与预测性维护<span class="m-nav-sub">存储与分析</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-model-t" data-target="m05-model-t">5.1 基线 → 异常 → 趋势/RUL</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：聚合趋势基础</a><a class="m-sec" href="#m05-value-t" data-target="m05-value-t">5.3 价值评估：误报 vs 停机成本</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检与三级对照</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">云边协同架构<span class="m-nav-sub">架构与安全</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-split-t" data-target="m06-split-t">6.1 职责划分：边缘自治，云端全局</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：恢复对账（水位）</a><a class="m-sec" href="#m06-idem-t" data-target="m06-idem-t">6.3 命令幂等与一致性</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检与三级对照</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">数据安全与隐私<span class="m-nav-sub">架构与安全</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-layers-t" data-target="m07-layers-t">7.1 三层安全与最小化</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：TLS 握手四校验</a><a class="m-sec" href="#m07-key-t" data-target="m07-key-t">7.3 密钥与隐私</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检与三级对照</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">实战：从设备到决策的完整链路<span class="m-nav-sub">实战与治理</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-chain-t" data-target="m08-chain-t">8.1 端到端七环节</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：断链恢复</a><a class="m-sec" href="#m08-replay-t" data-target="m08-replay-t">8.3 数据回放与时间口径</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 端到端验收清单</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">数据语义、时间与质量<span class="m-nav-sub">实战与治理</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-sem-t" data-target="m09-sem-t">9.1 事件时间 vs 到达时间、质量标志</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：重复/乱序/跳变</a><a class="m-sec" href="#m09-quality-t" data-target="m09-quality-t">9.3 去重、重排、质量标志</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检与三级对照</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">设备群管理与服务接口<span class="m-nav-sub">实战与治理</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-model-t" data-target="m10-model-t">10.1 分组、配置、批量、离线</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：在线与配置版本</a><a class="m-sec" href="#m10-batch-t" data-target="m10-batch-t">10.3 分批、回滚、离线策略</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检与三级对照</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m11"><summary><span class="m-nav-num">11</span><span class="m-nav-t">数据与模型运行闭环<span class="m-nav-sub">实战与治理</span></span></summary><div class="m-secs"><a class="m-sec" href="#m11-loop-t" data-target="m11-loop-t">11.1 运行闭环六环节</a><a class="m-sec" href="#m11-evidence-t" data-target="m11-evidence-t">11.2 真实证据：监测/告警规则</a><a class="m-sec" href="#m11-safety-t" data-target="m11-safety-t">11.3 独立验证与回退边界</a><a class="m-sec" href="#m11-check-t" data-target="m11-check-t">11.4 自检与三级对照</a><a class="m-sec" href="#m11-pitfalls-t" data-target="m11-pitfalls-t">11.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">从设备到决策的完整链路.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">云边协同易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B14-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · AI 与数据</div>
+    <h1>数据平台<br>与<span class="g">云边协同</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>设备在线但数据对不上、时间口径混乱、断网丢数据、告警抖动、模型更新与固件错配</strong>——问题分别落在接入与物模型、时间与质量语义、缓存与补传、规则与协同上。内容从 <strong>接入与物模型、边缘网关、时序存储、可视化告警</strong>，一路到 <strong>协同架构、数据安全、完整链路、设备群管理、数据与模型闭环</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>11</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>层级</span></div><div class="hero-stat"><b>5+11</b><span>运行 / 对照</span></div><div class="hero-stat"><b>11</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>会写 C/脚本、做过设备或云、但没打通端到端数据链路</strong>的开发者。默认你懂网络与存储概念，但对“时间口径、质量语义、协同与告警”只有模糊印象。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的时序/协同模型 → <strong>真实运行证据</strong> → 端/边/云对照 → 失败路径 → 动手练习 → 自测。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">时序追加/查询/降采样、重复/乱序/缺口检测、设备注册与配置版本、告警迟滞、云边水位补传等数字来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B14-labs.zip" download>下载 B14 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B14 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">数据闭环分支 · 读到能完成什么？</h2><p><strong>把设备事件送入可重放、可去重、可追溯的存储并实现一条业务告警。</strong></p><p>入门条件：B07 可靠性与 B11 服务；需要重训时读 B21。</p><p>首次阅读：<a href="#m01">设备接入与物模型</a> → <a href="#m02">边缘网关</a> → <a href="#m03">时序数据存储</a> → <a href="#m04">可视化与告警</a> → <a href="#m08">实战：从设备到决策的完整链路</a> → <a href="#m09">数据语义、时间与质量</a> → <a href="#m10">设备群管理与服务接口</a> → <a href="#m11">数据与模型运行闭环</a></p><p>按需延后：预测维护和平台规模化按真实数据需要深入；别先堆平台组件。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>确认丢失、相同键不同载荷、乱序时钟、缓冲满和设备退役。</p><p><strong>通过判据：</strong>重复重试不重复产生业务效果，冲突被记录，事件时间和到达时间分离；漂移先调查再发布候选模型。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P06">P06</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">11 章分四段：接入与网关（M01–M02）→ 存储与分析（M03–M05）→ 架构与安全（M06–M07）→ 实战与治理（M08–M11）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M09 把“接入—网关—存储—语义”打牢，再读协同/安全/告警；想打通完整链路，把 M08/M10/M11 走完。动手优先跑 <code class="ic">labs/host_*.c</code>。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 接入与网关</div>
+      <h1 class="ch-title">设备接入与物模型<span class="acc">.</span></h1>
+      <p class="ch-lead">接入层要把设备“说清楚”：用<strong>物模型</strong>定义属性、遥测与命令，并管理设备身份、配置版本与在线状态。</p>
+      <div class="ch-meta"><span>前置：会写 C、了解 MQTT/HTTP 基础概念。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：为设备定义含字段单位/范围/类型的物模型，并实现配置版本下发与确认。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>物模型定义属性/遥测/命令，字段单位与范围要写清。</li><li>设备一机一密，配置带版本与确认。</li><li>在线状态靠心跳/遗嘱，不靠猜。</li></ul></div>
+    <section class="sec" id="m01-model"><h2 id="m01-model-t">1.1 物模型与身份</h2><p>物模型是端云契约：字段名、单位、类型、范围都要定死，否则“数值对但语义错”。同时管理设备身份（一机一密）、配置版本（下发+确认）与在线状态（心跳/遗嘱）。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 物模型的三个面</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="物模型的三个面" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">属性 property（可读写）</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">遥测 telemetry（上行）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">命令 command（下行）</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">字段：单位/类型/范围</text></svg></div><figcaption class="fig-ft">属性（可读写状态）、遥测（只上行测量）、命令（下行控制）。每个字段带单位与量程。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  接入五要素</div><table><thead><tr><th>要素</th><th>内容</th><th>风险</th></tr></thead><tbody><tr><td>物模型</td><td>属性/遥测/命令</td><td>语义不清</td></tr><tr><td>身份</td><td>设备 ID/密钥</td><td>伪造接入</td></tr><tr><td>注册</td><td>一机一密</td><td>共用密钥</td></tr><tr><td>配置版本</td><td>下发与确认</td><td>版本漂移</td></tr><tr><td>在线</td><td>心跳/遗嘱</td><td>状态不准</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">thing_model.json 节选</span><span class="code-lang">JSON</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">{ &quot;temp&quot;: { &quot;unit&quot;: &quot;℃&quot;, &quot;type&quot;: &quot;float&quot;, &quot;range&quot;: [-40, 85] },</span><span class="ln">  &quot;online&quot;: { &quot;type&quot;: &quot;bool&quot; }, &quot;cfg_ver&quot;: { &quot;type&quot;: &quot;int&quot; } }</span>
+</code></pre><span class="code-note">物模型字段带单位/类型/范围，端云契约一致</span></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：在线与配置版本</h2><p>下面这段程序统计在线设备并检测配置版本不一致的设备：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_registry.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_registry.c —— 设备注册与物模型（属性/遥测）模型（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_registry.c -o host_registry &amp;&amp; ./host_registry</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { const char *id; const char *type; int online; int cfg_ver; } dev_t;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    dev_t d[] = { {&quot;dev-001&quot;,&quot;env&quot;,1,3}, {&quot;dev-002&quot;,&quot;env&quot;,0,3}, {&quot;dev-003&quot;,&quot;motor&quot;,1,2} };</span><span class="ln">    int n = (int)(sizeof(d)/sizeof(d[0])), online = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) if (d[i].online) online++;</span><span class="ln">    printf(&quot;设备数=%d 在线=%d\n&quot;, n, online);</span><span class="ln">    if (!(n == 3 &amp;&amp; online == 2)) ok = 0;</span><span class="ln">    /* 配置版本不一致检测 */</span><span class="ln">    int mismatch = 0; for (int i = 0; i &lt; n; i++) if (d[i].cfg_ver != 3) mismatch++;</span><span class="ln">    printf(&quot;配置版本≠3 的设备=%d（需下发）\n&quot;, mismatch);</span><span class="ln">    if (mismatch != 1) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">设备注册/在线/配置版本模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry &amp;&amp; ./labs/host_registry</span>
+设备数=3 在线=2
+配置版本≠3 的设备=1（需下发）
+RESULT: PASS</code></pre></div></div><p class="sim-note">3 台设备、2 台在线；1 台配置版本落后需要下发——这是设备群管理的最小视图。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  设备注册字段</div><table><thead><tr><th>字段</th><th>含义</th><th>判定</th></tr></thead><tbody><tr><td>device_id</td><td>设备唯一标识</td><td>一机一密</td></tr><tr><td>online</td><td>心跳未超时</td><td>>30s 判离线</td></tr><tr><td>cfg_ver</td><td>配置版本</td><td>≠目标即待下发</td></tr><tr><td>stage</td><td>出厂/现场</td><td>管理策略不同</td></tr></tbody></table></div></section><section class="sec" id="m01-cfg"><h2 id="m01-cfg-t">1.3 配置下发与确认</h2><p>配置要带<strong>版本 + 确认</strong>：下发后设备回执，才能知道是否生效；否则“发下去没生效”无法察觉。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">registry.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (int i=0;i&lt;n;i++)</span><span class="ln">  if (dev[i].online &amp;&amp; dev[i].cfg_ver != TARGET_VER)</span><span class="ln">    push_config(dev[i].id, TARGET_VER);   // 下发并等回执</span><span class="ln">/* 收到回执后更新 cfg_ver；超时未确认则重试 */</span>
+</code></pre><span class="code-note">按目标版本下发 + 回执确认，杜绝“发了没生效”</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  接入实践</div><table><thead><tr><th>做法</th><th>目的</th><th>注意</th></tr></thead><tbody><tr><td>版本+确认</td><td>确保生效</td><td>幂等</td></tr><tr><td>一机一密</td><td>限影响面</td><td>可吊销</td></tr><tr><td>心跳/遗嘱</td><td>状态准确</td><td>超时阈值</td></tr><tr><td>单位/量程</td><td>语义明确</td><td>写入契约</td></tr></tbody></table></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检与三级对照</h2><p>接入自检：物模型完整、身份唯一、配置可确认、在线准确。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 在线/离线与配置一致性（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="在线/离线与配置一致性（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">在线</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="43" class="sv-lbl-hi">2台</text><text x="12" y="67" class="sv-lbl">离线</text><rect x="150" y="50" width="150" height="18" rx="4" class="sv-amb-s"/><text x="308" y="67" class="sv-lbl-hi">1台</text><text x="12" y="91" class="sv-lbl">配置待下发</text><rect x="150" y="74" width="150" height="18" rx="4" class="sv-red-s"/><text x="308" y="91" class="sv-lbl-hi">1台</text></svg></div><figcaption class="fig-ft">3 台设备中 2 台在线、1 台配置落后。设备群管理要一眼看出“谁在线、谁需要下发”。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.4  三级接入</div><table><thead><tr><th>层级</th><th>接入角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>上报/接收命令</td><td>物模型契约</td></tr><tr><td>边缘网关</td><td>代理/缓存</td><td>协议转换</td></tr><tr><td>云平台</td><td>注册/管理</td><td>身份与版本</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>物模型无单位/范围</strong>：数据无法解释。</li><li><strong>共用密钥</strong>：一台被破全网风险。</li><li><strong>配置无确认</strong>：不知道是否生效。</li><li><strong>在线状态靠猜</strong>：心跳/遗嘱缺失。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">为什么物模型必须写清单位与范围？</p><details><summary>查看答案</summary><div class="ans"><p>没有单位/范围，数据无法解释与聚合（温度是 ℃ 还是 ℉？电流是 mA 还是 A？），上下游各按自己理解处理，导致“数值对但语义错”。</p></div></details></li><li><p class="q">为什么设备密钥要“一机一密”？</p><details><summary>查看答案</summary><div class="ans"><p>共用一套密钥意味着一次泄露即全网可伪造；一机一密把影响限制在单台，且可单独吊销/轮换。</p></div></details></li><li><p class="q">配置下发为什么必须带“确认”？</p><details><summary>查看答案</summary><div class="ans"><p>发送成功不等于设备已应用。带版本+回执才能确认生效，否则“发下去没生效”无法察觉。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的设备定义物模型（字段+单位+范围+类型），并实现带版本与确认的配置下发。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.aws.amazon.com/iot/" target="_blank" rel="noopener noreferrer">AWS IoT / 物模型概念</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_registry.c</code>：统计在线设备并检测配置版本不一致的设备。</p><p><strong>检查结果：</strong>设备数 3、在线 2；配置版本≠3 的设备=1 被识别并需下发。</p></div>
+<p class="sim-note">迁移练习：把本章的“为设备定义含字段单位/范围/类型的物模型，并实现配置版本下发与确认。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>设备数 3、在线 2；配置版本≠3 的设备=1 被识别并需下发。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 接入与网关</div>
+      <h1 class="ch-title">边缘网关<span class="acc">.</span></h1>
+      <p class="ch-lead">边缘网关是“设备与云之间的缓冲与翻译层”：汇聚多协议、做协议转换与过滤、<strong>断网本地缓存、恢复补传</strong>。</p>
+      <div class="ch-meta"><span>前置：完成 M01（物模型与设备身份）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：实现按“已确认位置”续传的断网补传，在确认丢失与重试下保持幂等入库，并记录缓存溢出时的丢弃政策。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>边缘网关做协议转换与过滤，并缓存补传。</li><li>续传需要持久确认与幂等键；重试可重复到达，缓存满时必须定义丢弃/背压政策。</li><li>时间要同步，时间戳口径统一。</li></ul></div>
+    <section class="sec" id="m02-gateway"><h2 id="m02-gateway-t">2.1 汇聚、转换、缓存、续传</h2><p>边缘网关汇聚多协议（Modbus/CAN/MQTT）、做协议转换与过滤（单位/降采样），并<strong>断网本地缓存、恢复补传</strong>。断网续传靠“水位 / 已确认位置”。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 断网续传的水位</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="断网续传的水位" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">本地缓存</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">云端确认(水位)</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">断网</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">恢复从水位补传</text></svg></div><figcaption class="fig-ft">本地按序号存数据；云端确认到第 k 条（水位=k）；恢复后从 k+1 补传，避免全量重发或丢数据。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  网关五功能</div><table><thead><tr><th>功能</th><th>内容</th><th>要点</th></tr></thead><tbody><tr><td>协议汇聚</td><td>Modbus/CAN/MQTT</td><td>统一物模型</td></tr><tr><td>转换过滤</td><td>单位/降采样</td><td>不丢关键信息</td></tr><tr><td>本地缓存</td><td>有界队列</td><td>满则丢策略</td></tr><tr><td>续传</td><td>水位/已确认</td><td>不重不漏</td></tr><tr><td>时间</td><td>NTP/本地时钟</td><td>时间戳口径</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">gateway.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">uint64_t ack = cloud_last_ack_seq();</span><span class="ln">for (uint64_t s = ack+1; s &lt;= local_seq; s++) send_with_id(rec[s]);</span><span class="ln">// 只补未确认，带唯一 ID 幂等；缓存有界（满则丢旧/降采样）</span>
+</code></pre><span class="code-note">按连续持久化确认水位续传；重复由服务端去重，溢出必须显式计数</span></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：按已确认位置补传</h2><p>下面这段程序验证按“已确认位置”续传后待同步归零：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_sync.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_sync.c —— 云边同步：水位/已确认位置与断点续传（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_sync.c -o host_sync &amp;&amp; ./host_sync</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int local_seq = 10, acked = 4;         /* 本地已产生 10 条，云端只确认到 4 */</span><span class="ln">    int pending = local_seq - acked;</span><span class="ln">    printf(&quot;本地=%d 已确认=%d 待同步=%d\n&quot;, local_seq, acked, pending);</span><span class="ln">    if (pending != 6) ok = 0;</span><span class="ln">    /* 断点续传：从 acked+1 开始补传 */</span><span class="ln">    acked += pending;                       /* 假设全部补传成功 */</span><span class="ln">    printf(&quot;补传后已确认=%d，待同步=%d（期望 0）\n&quot;, acked, local_seq - acked);</span><span class="ln">    if (local_seq - acked != 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">断网续传/水位模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync &amp;&amp; ./labs/host_sync</span>
+本地=10 已确认=4 待同步=6
+补传后已确认=10，待同步=0（期望 0）
+RESULT: PASS</code></pre></div></div><p class="sim-note">本地 10 条、云端已确认 4 条 → 待同步 6；从已确认位置补传到 10，待同步归零。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  水位计算</div><table><thead><tr><th>量</th><th>含义</th><th>公式</th></tr></thead><tbody><tr><td>本地</td><td>网关已缓存</td><td>10</td></tr><tr><td>已确认</td><td>云端入库</td><td>4</td></tr><tr><td>待同步</td><td>差量</td><td>本地-已确认=6</td></tr><tr><td>补传后</td><td>水位推进</td><td>=本地</td></tr></tbody></table></div></section><section class="sec" id="m02-sync"><h2 id="m02-sync-t">2.3 确认水位、幂等与丢失边界</h2><p>以服务端已持久化且连续无缺口的确认水位为准，不能用最大的乱序确认号跳过中间记录。发送成功不是提交成功；重试允许重复传输，稳定的唯一 ID 和服务端幂等提交抑制重复副作用。缓存要有上界；丢旧/降采样本身就是有意丢失，必须计数并标记缺口。要求完整保留时须采用足够的持久化容量、限流/背压与故障策略，不能宣称无限断网也不丢数据。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">gateway.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">uint64_t ack = cloud_last_ack_seq();      // 云端确认位置</span><span class="ln">for (uint64_t s = ack+1; s &lt;= local_seq; s++)   // 只补未确认</span><span class="ln">    send_with_id(rec[s]);                   // 带唯一 ID，云端幂等</span><span class="ln">/* 缓存有界：满了按策略丢旧或降采样 */</span>
+</code></pre><span class="code-note">从已确认位置补传 + 唯一 ID 幂等 + 有界缓存</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  续传与缓存策略</div><table><thead><tr><th>策略</th><th>做法</th><th>效果</th></tr></thead><tbody><tr><td>水位续传</td><td>按连续持久化确认位置</td><td>不跳过尚未确认的记录</td></tr><tr><td>幂等去重</td><td>唯一 ID</td><td>重复不放大</td></tr><tr><td>有界缓存</td><td>满则丢旧/降采样</td><td>不吃光存储</td></tr><tr><td>NTP 对齐</td><td>统一 UTC</td><td>时间可比较</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检与三级对照</h2><p>网关自检：协议统一、缓存有界、确认不跳洞、重放无重复副作用、丢失可计量、时间误差有记录。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 待同步随补传归零（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="待同步随补传归零（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">断网中</text><rect x="150" y="26" width="450" height="18" rx="4" class="sv-red-s"/><text x="608" y="43" class="sv-lbl-hi">6条</text><text x="12" y="67" class="sv-lbl">补传后</text><rect x="150" y="50" width="2" height="18" rx="4" class="sv-grn-s"/><text x="160" y="67" class="sv-lbl-hi">0条</text></svg></div><figcaption class="fig-ft">断网期间待同步累积；恢复后按水位补传，待同步从 6 降到 0。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.4  三级网关</div><table><thead><tr><th>层级</th><th>网关角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>上报</td><td>协议/单位</td></tr><tr><td>边缘网关</td><td>汇聚/缓存/续传</td><td>水位/幂等</td></tr><tr><td>云平台</td><td>入库/确认</td><td>返回水位</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无本地缓存</strong>：断网即丢数据。</li><li><strong>缓存无上界</strong>：吃光存储。</li><li><strong>全量重发</strong>：重复且浪费带宽。</li><li><strong>时间不同步</strong>：时间戳错乱。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">为什么断网续传要用“已确认位置”而不是“最后发送位置”？</p><details><summary>查看答案</summary><div class="ans"><p>发送成功不等于入库提交。服务端持久化后再确认，设备按连续确认水位重放；持久化队列与幂等提交共同保护这条链路。缓存溢出、重启丢状态或确认跳洞都可能造成丢失，必须单独验证。</p></div></details></li><li><p class="q">本地缓存为什么必须有上界？</p><details><summary>查看答案</summary><div class="ans"><p>无上界会吃光存储，导致网关崩溃。有界缓存配合“满则丢旧/降采样”策略，在存储受限下保持可用。</p></div></details></li><li><p class="q">为什么网关要统一时间戳口径？</p><details><summary>查看答案</summary><div class="ans"><p>不同设备/协议时间戳格式与时钟不同；网关统一为 NTP 对齐的 UTC，后续存储与告警才能跨源比较。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你网关实现“已确认位置”续传与有界缓存，并做一次断网恢复演练验证待同步归零。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://mqtt.org/mqtt-specification/" target="_blank" rel="noopener noreferrer">MQTT 规范</a> · <a class="ref" href="https://opcfoundation.org/about/opc-technologies/opc-ua/" target="_blank" rel="noopener noreferrer">OPC UA 概览</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_sync.c</code>：验证按已确认位置补传，补足后待同步为 0。</p><p><strong>检查结果：</strong>待同步=6 计算正确；从已确认位置 4 续传后待同步=0。</p></div>
+<p class="sim-note">迁移练习：把本章的“实现按“已确认位置”续传的断网补传，在确认丢失与重试下保持幂等入库，并记录缓存溢出时的丢弃政策。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>待同步=6 计算正确；从已确认位置 4 续传后待同步=0。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 存储与分析</div>
+      <h1 class="ch-title">时序数据存储<span class="acc">.</span></h1>
+      <p class="ch-lead">时序数据的特点是“<strong>写多读少、按时间排列、需要降采样</strong>”。存储要支持标签、区间查询与保留策略。</p>
+      <div class="ch-meta"><span>前置：完成 M02（边缘汇聚与缓存）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：实现时序区间查询与降采样聚合，使 [200,500] 命中 4 点、[0,1000) 均值=4.50。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>时序数据写多读少，需要标签、区间查询与保留策略。</li><li>降采样省空间又保留趋势。</li><li>高基数字段别当标签。</li></ul></div>
+    <section class="sec" id="m03-model"><h2 id="m03-model-t">3.1 度量、标签、降采样、保留</h2><p>时序库用“度量 + 标签”组织数据；写入高吞吐要批量/缓冲；压缩靠时间戳差值；降采样把高频数据聚合成低频历史；保留策略自动清理过期数据。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 时序数据的写入与降采样</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="时序数据的写入与降采样" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">写入</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">索引存储</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">降采样</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">保留/查询</text></svg></div><figcaption class="fig-ft">高频写入 → 按时间索引存储 → 定期降采样（均值/最大/最小）→ 保留策略清理 → 区间查询/聚合。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  时序存储五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>注意</th></tr></thead><tbody><tr><td>度量/标签</td><td>分类与索引</td><td>标签基数</td></tr><tr><td>写入</td><td>高吞吐</td><td>批量/缓冲</td></tr><tr><td>压缩</td><td>省空间</td><td>按时间戳差值</td></tr><tr><td>降采样</td><td>聚合历史</td><td>精度/空间权衡</td></tr><tr><td>保留</td><td>自动清理</td><td>按时间/体积</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">schema.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">measurement: sensor_data</span><span class="ln">  tags:   device_type, region    # 低基数做标签</span><span class="ln">  fields: value, quality          # 高基数做字段</span><span class="ln">  retention: raw 30d, downsample 1y</span>
+</code></pre><span class="code-note">低基数做标签、高基数做字段；降采样+保留策略</span></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：区间查询与降采样</h2><p>下面这段程序验证按时间区间查询与降采样均值：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_tsdb.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_tsdb.c —— 时序存储：追加、区间查询、降采样（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_tsdb.c -o host_tsdb &amp;&amp; ./host_tsdb</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef struct { long t; float v; } pt_t;</span><span class="ln">static pt_t S[16]; static int n = 0;</span><span class="ln">static void put(long t, float v) { if (n &lt; 16) { S[n].t = t; S[n].v = v; n++; } }</span><span class="ln">static int range(long a, long b, float *out) { int c = 0; for (int i = 0; i &lt; n; i++) if (S[i].t &gt;= a &amp;&amp; S[i].t &lt;= b) out[c++] = S[i].v; return c; }</span><span class="ln">static float avg_downsample(long bucket, long t0, long t1) { (void)bucket; float s = 0; int c = 0; for (int i = 0; i &lt; n; i++) if (S[i].t &gt;= t0 &amp;&amp; S[i].t &lt; t1) { s += S[i].v; c++; } return c ? s/c : 0; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    for (int i = 0; i &lt; 10; i++) put(i * 100, (float)i);</span><span class="ln">    float out[16]; int c = range(200, 500, out);</span><span class="ln">    printf(&quot;区间 [200,500] 点数=%d（期望 4：2,3,4,5）\n&quot;, c);</span><span class="ln">    if (c != 4) ok = 0;</span><span class="ln">    float m = avg_downsample(1000, 0, 1000);</span><span class="ln">    printf(&quot;降采样 [0,1000) 均值=%.2f（期望 4.50）\n&quot;, m);</span><span class="ln">    if (m &lt; 4.49f || m &gt; 4.51f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">时序查询/降采样模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb &amp;&amp; ./labs/host_tsdb</span>
+区间 [200,500] 点数=4（期望 4：2,3,4,5）
+降采样 [0,1000) 均值=4.50（期望 4.50）
+RESULT: PASS</code></pre></div></div><p class="sim-note">闭区间 [200,500] 命中 4 点；降采样桶 [0,1000)（左闭右开）均值为 4.50。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  查询与降采样口径</div><table><thead><tr><th>操作</th><th>口径</th><th>结果</th></tr></thead><tbody><tr><td>区间查询</td><td>[200,500] 闭区间</td><td>4 点</td></tr><tr><td>降采样</td><td>[0,1000) 左闭右开</td><td>均值 4.50</td></tr><tr><td>聚合</td><td>桶内均值</td><td>保留趋势</td></tr><tr><td>保留</td><td>原始 30d + 降采样 1y</td><td>自动清理</td></tr></tbody></table></div></section><section class="sec" id="m03-index"><h2 id="m03-index-t">3.3 标签基数与查询效率</h2><p>把高基数字段（设备唯一 ID、时间戳）当标签会产生海量索引项（基数爆炸），内存与查询开销剧增。高基数字段应作为字段而非标签；查询要按时间索引，避免全表扫描。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">schema.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">measurement: sensor_data</span><span class="ln">  tags:   device_type, region        # 低基数，做索引</span><span class="ln">  fields: value, quality             # 高基数/数值，不做标签</span><span class="ln">  time:   ts (ms)                    # 时间索引</span><span class="ln">retention: raw 30d, downsample 1y</span>
+</code></pre><span class="code-note">低基数字段做标签，高基数字段做字段</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  时序存储问题与对策</div><table><thead><tr><th>问题</th><th>原因</th><th>对策</th></tr></thead><tbody><tr><td>标签基数爆炸</td><td>高基数当标签</td><td>改字段</td></tr><tr><td>查询慢</td><td>全表扫描</td><td>时间索引/降采样</td></tr><tr><td>存储爆</td><td>不做降采样</td><td>聚合历史</td></tr><tr><td>磁盘写满</td><td>无保留策略</td><td>按时间清理</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检与三级对照</h2><p>存储自检：标签合理、有降采样、有保留、查询走索引。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 原始 vs 降采样（空间示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="原始 vs 降采样（空间示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">原始 30 天</text><rect x="150" y="26" width="545" height="18" rx="4" class="sv-amb-s"/><text x="703" y="43" class="sv-lbl-hi">100(相对空间)</text><text x="12" y="67" class="sv-lbl">降采样 1 年</text><rect x="150" y="50" width="109" height="18" rx="4" class="sv-grn-s"/><text x="267" y="67" class="sv-lbl-hi">20(相对空间)</text></svg></div><figcaption class="fig-ft">降采样把高频原始数据压缩为低频历史，明显省空间且保留趋势。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.4  三级存储</div><table><thead><tr><th>层级</th><th>存储角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>本地环形缓冲</td><td>容量小</td></tr><tr><td>边缘网关</td><td>短时缓存/降采样</td><td>续传</td></tr><tr><td>云平台</td><td>时序库长存</td><td>保留/查询</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>标签基数爆炸</strong>：索引膨胀，查询慢。</li><li><strong>不做降采样</strong>：存储爆、查询慢。</li><li><strong>无保留策略</strong>：磁盘写满。</li><li><strong>全表扫描</strong>：查询拖垮库。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">什么是“标签基数爆炸”，为什么危险？</p><details><summary>查看答案</summary><div class="ans"><p>把高基数字段（如每设备唯一 ID、时间戳）当标签，会产生海量索引项，内存与查询开销剧增。高基数字段应作为字段而非标签。</p></div></details></li><li><p class="q">降采样解决什么问题、代价是什么？</p><details><summary>查看答案</summary><div class="ans"><p>把高频原始数据聚合成低频历史，省空间且保留趋势；代价是损失细粒度细节（精度）。</p></div></details></li><li><p class="q">为什么区间查询要按时间索引？</p><details><summary>查看答案</summary><div class="ans"><p>时序数据按时间排列；用时间索引能快速定位区间，避免全表扫描拖垮数据库。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的时序数据设计“标签/字段/降采样/保留”策略，并验证区间查询与降采样口径。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.influxdata.com/" target="_blank" rel="noopener noreferrer">InfluxDB 文档</a> · <a class="ref" href="https://docs.timescale.com/" target="_blank" rel="noopener noreferrer">TimescaleDB 文档</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_tsdb.c</code>：验证按时间区间查询与降采样均值。</p><p><strong>检查结果：</strong>区间 [200,500] 点数=4；降采样 [0,1000) 均值 4.50；聚合口径与定义一致。</p></div>
+<p class="sim-note">迁移练习：把本章的“实现时序区间查询与降采样聚合，使 [200,500] 命中 4 点、[0,1000) 均值=4.50。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>区间 [200,500] 点数=4；降采样 [0,1000) 均值 4.50；聚合口径与定义一致。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 存储与分析</div>
+      <h1 class="ch-title">可视化与告警<span class="acc">.</span></h1>
+      <p class="ch-lead">可视化把数据变成可读的图；告警要把“<strong>异常</strong>”变成“<strong>可处理的事件</strong>”。规则要含阈值 + <strong>持续时长</strong> + <strong>迟滞</strong>，否则会在边界反复抖动。</p>
+      <div class="ch-meta"><span>前置：完成 M03（时序存储与查询）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：用阈值 80 + 持续 3 次 + 迟滞下限 75 实现告警，使触发=1、复位=1。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>告警 = 阈值 + 持续时长 + 迟滞。</li><li>分级/抑制避免告警风暴。</li><li>告警要有闭环（确认/处理/恢复）。</li></ul></div>
+    <section class="sec" id="m04-model"><h2 id="m04-model-t">4.1 阈值 + 持续时长 + 迟滞</h2><p>单点阈值会被噪声反复触发。规则加上<strong>持续时长</strong>（去瞬时毛刺）与<strong>迟滞</strong>（防边界抖动），把“异常”变成“稳定的事件”。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> 告警的触发与迟滞复位</div><div class="fig-bd"><svg viewBox="0 0 800 120" width="100%" height="120" role="img" aria-label="告警的触发与迟滞复位" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V94"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V94"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">15</text><path class="sv-dash" d="M460,26 V94"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">30</text><path class="sv-dash" d="M615,26 V94"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">45</text><path class="sv-dash" d="M770,26 V94"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">60</text><text x="12" y="48" class="sv-lbl">信号</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="155" height="22" rx="4" class="sv-box"/><text x="227.5" y="47" text-anchor="middle" class="sv-lbl-hi">70</text><rect x="305" y="32" width="103" height="22" rx="4" class="sv-amb-s"/><text x="356.7" y="47" text-anchor="middle" class="sv-lbl-hi">82</text><rect x="408" y="32" width="103" height="22" rx="4" class="sv-red-s"/><text x="460.0" y="47" text-anchor="middle" class="sv-lbl-hi">90</text><rect x="563" y="32" width="103" height="22" rx="4" class="sv-grn-s"/><text x="615.0" y="47" text-anchor="middle" class="sv-lbl-hi">74</text><text x="12" y="82" class="sv-lbl">告警</text><path class="sv-dash" d="M150,78 H770"/><rect x="150" y="66" width="413" height="22" rx="4" class="sv-box"/><text x="356.7" y="81" text-anchor="middle" class="sv-lbl-hi">off</text><rect x="563" y="66" width="207" height="22" rx="4" class="sv-grn-s"/><text x="666.7" y="81" text-anchor="middle" class="sv-lbl-hi">on→off</text></svg></div><figcaption class="fig-ft">值连续 3 次 >80 才触发；降到 <75 才复位。死区（75–80）内维持现状，避免抖动。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  告警五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>注意</th></tr></thead><tbody><tr><td>看板</td><td>趋势与对比</td><td>时间对齐</td></tr><tr><td>阈值</td><td>基础判定</td><td>单点抖动</td></tr><tr><td>持续时长</td><td>去瞬时毛刺</td><td>延迟触发</td></tr><tr><td>迟滞</td><td>防边界抖动</td><td>复位条件</td></tr><tr><td>分级/抑制</td><td>降噪</td><td>关联告警</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">alert.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (v &gt; HI) over++; else if (v &lt; LO) over = 0;  // 迟滞双阈值</span><span class="ln">if (!alarm &amp;&amp; over &gt;= 3) { alarm = 1; notify(); } // 持续3次才触发</span><span class="ln">if (alarm &amp;&amp; v &lt; LO) { alarm = 0; mark_recovered(); }</span>
+</code></pre><span class="code-note">阈值+持续时长+迟滞：防抖动的告警规则</span></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：触发与迟滞复位</h2><p>下面这段程序验证阈值+持续时长+迟滞：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_alert.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_alert.c —— 告警规则：阈值 + 持续时长 + 迟滞（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_alert.c -o host_alert &amp;&amp; ./host_alert</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float hi = 80, lo = 75; int need = 3;      /* 超过 80 持续 3 次触发；低于 75 复位（迟滞） */</span><span class="ln">    float v[] = {70, 82, 85, 90, 78, 74};</span><span class="ln">    int n = (int)(sizeof(v)/sizeof(v[0])), over = 0, alarm = 0, resets = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) {</span><span class="ln">        if (v[i] &gt; hi) { over++; if (over &gt;= need) alarm = 1; }</span><span class="ln">        else if (v[i] &lt; lo) { over = 0; if (alarm) { resets++; alarm = 0; } }</span><span class="ln">        printf(&quot;t=%d v=%.0f over=%d alarm=%d\n&quot;, i, v[i], over, alarm);</span><span class="ln">    }</span><span class="ln">    printf(&quot;触发=1 复位=%d（迟滞避免抖动）\n&quot;, resets);</span><span class="ln">    if (resets != 1) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">告警规则模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert &amp;&amp; ./labs/host_alert</span>
+t=0 v=70 over=0 alarm=0
+t=3 v=90 over=3 alarm=1
+t=5 v=74 over=0 alarm=0
+触发=1 复位=1（迟滞避免抖动）
+RESULT: PASS</code></pre></div></div><p class="sim-note">连续 3 次 >80 触发（t=3）；降到 <75 复位（t=5）。迟滞死区让中间波动不反复触发。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  告警参数</div><table><thead><tr><th>参数</th><th>值</th><th>作用</th></tr></thead><tbody><tr><td>高阈值</td><td>80</td><td>触发线</td></tr><tr><td>持续次数</td><td>3</td><td>去毛刺</td></tr><tr><td>低阈值</td><td>75</td><td>复位线</td></tr><tr><td>死区</td><td>5</td><td>防抖动</td></tr></tbody></table></div></section><section class="sec" id="m04-closed"><h2 id="m04-closed-t">4.3 告警闭环</h2><p>告警要有闭环：触发 → 通知 → 确认 → 处理 → 恢复。没有闭环保留的告警会变成“狼来了”，最终没人看。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">alert.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (v &gt; HI) over++; else if (v &lt; LO) over = 0;</span><span class="ln">if (!alarm &amp;&amp; over &gt;= 3) { alarm = 1; notify(); }   // 触发+通知</span><span class="ln">if (alarm &amp;&amp; v &lt; LO) { alarm = 0; mark_recovered(); }// 迟滞复位</span><span class="ln">/* 分级/抑制：相关告警合并，避免风暴 */</span>
+</code></pre><span class="code-note">阈值+持续+迟滞触发；分级抑制避免告警风暴</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  告警闭环五环节</div><table><thead><tr><th>环节</th><th>内容</th><th>要点</th></tr></thead><tbody><tr><td>触发</td><td>规则判定</td><td>阈值+时长+迟滞</td></tr><tr><td>通知</td><td>通道/分级</td><td>避免风暴</td></tr><tr><td>确认</td><td>人工/自动</td><td>进入处理</td></tr><tr><td>恢复</td><td>复位条件</td><td>闭环</td></tr><tr><td>抑制</td><td>关联降噪</td><td>风暴控制</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检与三级对照</h2><p>告警自检：规则含时长与迟滞、有分级抑制、有闭环。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 单点阈值 vs 带迟滞（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="单点阈值 vs 带迟滞（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">单点阈值</text><rect x="150" y="26" width="514" height="18" rx="4" class="sv-red-s"/><text x="672" y="43" class="sv-lbl-hi">12次(h)</text><text x="12" y="67" class="sv-lbl">+时长+迟滞</text><rect x="150" y="50" width="43" height="18" rx="4" class="sv-grn-s"/><text x="201" y="67" class="sv-lbl-hi">1次(h)</text></svg></div><figcaption class="fig-ft">单点阈值在边界反复触发；持续时长+迟滞把触发次数显著降低。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.4  三级告警</div><table><thead><tr><th>层级</th><th>告警角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>本地阈值保护</td><td>即时</td></tr><tr><td>边缘网关</td><td>规则/抑制</td><td>本地闭环</td></tr><tr><td>云平台</td><td>全局/分级</td><td>通知与闭环</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>单点阈值</strong>：噪声导致频繁误报。</li><li><strong>无迟滞</strong>：边界反复触发/复位。</li><li><strong>无抑制/分级</strong>：告警风暴。</li><li><strong>无闭环</strong>：告警被忽视。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">迟滞（hysteresis）解决什么问题？</p><details><summary>查看答案</summary><div class="ans"><p>当数值在阈值附近波动时，避免告警在“触发/复位”之间反复抖动：用两个阈值（高触发、低复位）形成死区。</p></div></details></li><li><p class="q">“持续时长”相比“单点阈值”的好处？</p><details><summary>查看答案</summary><div class="ans"><p>它要求异常持续 N 次才触发，过滤瞬时毛刺，显著降低误报（代价是触发略有延迟）。</p></div></details></li><li><p class="q">为什么告警必须有“闭环”？</p><details><summary>查看答案</summary><div class="ans"><p>没有闭环（通知/确认/处理/恢复）的告警会变成“狼来了”，最终被忽视，失去意义。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你系统写一条告警规则（阈值+持续时长+迟滞），并定义它的通知、确认与恢复闭环。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://grafana.com/docs/" target="_blank" rel="noopener noreferrer">Grafana 文档</a> · <a class="ref" href="https://prometheus.io/docs/alerting/latest/overview/" target="_blank" rel="noopener noreferrer">Prometheus Alerting</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_alert.c</code>：验证阈值+持续时长+迟滞的触发与复位。</p><p><strong>检查结果：</strong>触发=1 复位=1（迟滞）：阈值 80 连续 3 次才触发、低于 75 才复位。</p></div>
+<p class="sim-note">迁移练习：把本章的“用阈值 80 + 持续 3 次 + 迟滞下限 75 实现告警，使触发=1、复位=1。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>触发=1 复位=1（迟滞）：阈值 80 连续 3 次才触发、低于 75 才复位。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 存储与分析</div>
+      <h1 class="ch-title">数据分析与预测性维护<span class="acc">.</span></h1>
+      <p class="ch-lead">数据分析把存储的数据变成决策：<strong>趋势、异常、剩余寿命</strong>。先建基线，再谈预测；一切以“业务价值”验收。</p>
+      <div class="ch-meta"><span>前置：完成 M03/M04（存储与告警规则）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：基于健康基线实现异常判定与 RUL 估计，并给出误报/漏报与停机成本的可量化评估。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>先建基线再谈异常与预测。</li><li>预测性维护要落到业务价值。</li><li>数据质量决定分析可信度。</li></ul></div>
+    <section class="sec" id="m05-model"><h2 id="m05-model-t">5.1 基线 → 异常 → 趋势/RUL</h2><p>先建健康基线（均值±3σ 或健康分布），再判异常，再谈趋势与剩余寿命（RUL）。预测性维护的坑是“指标好但没价值”，要落到减少停机/降低维护成本。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 健康基线与异常阈值（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="健康基线与异常阈值（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">正常均值</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="43" class="sv-lbl-hi">50(相对)</text><text x="12" y="67" class="sv-lbl">+3σ</text><rect x="150" y="50" width="480" height="18" rx="4" class="sv-amb-s"/><text x="638" y="67" class="sv-lbl-hi">80(相对)</text><text x="12" y="91" class="sv-lbl">异常阈值</text><rect x="150" y="74" width="540" height="18" rx="4" class="sv-red-s"/><text x="698" y="91" class="sv-lbl-hi">90(相对)</text></svg></div><figcaption class="fig-ft">健康区间均值±3σ；超出即异常。示例振动 RMS>4.5 mm/s 触发维护。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  分析方法</div><table><thead><tr><th>分析</th><th>方法</th><th>输出</th></tr></thead><tbody><tr><td>趋势</td><td>移动平均/回归</td><td>走向</td></tr><tr><td>异常</td><td>统计/模型</td><td>异常点</td></tr><tr><td>RUL</td><td>退化模型/回归</td><td>剩余寿命</td></tr><tr><td>基线</td><td>健康分布</td><td>偏离</td></tr><tr><td>评估</td><td>误报漏报/成本</td><td>价值</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">baseline.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">mu, sd = mean(reference), std(reference)</span><span class="ln">anomaly = abs(x - mu) &gt; 3*sd            # 健康基线 ±3σ</span><span class="ln">value = downtime_saved - false_alarm_cost  # 量化业务价值</span>
+</code></pre><span class="code-note">先建健康基线；预测要落到业务价值</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：聚合趋势基础</h2><p>聚合与降采样是趋势分析的基础（真实证据）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_tsdb.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_tsdb.c —— 时序存储：追加、区间查询、降采样（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_tsdb.c -o host_tsdb &amp;&amp; ./host_tsdb</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef struct { long t; float v; } pt_t;</span><span class="ln">static pt_t S[16]; static int n = 0;</span><span class="ln">static void put(long t, float v) { if (n &lt; 16) { S[n].t = t; S[n].v = v; n++; } }</span><span class="ln">static int range(long a, long b, float *out) { int c = 0; for (int i = 0; i &lt; n; i++) if (S[i].t &gt;= a &amp;&amp; S[i].t &lt;= b) out[c++] = S[i].v; return c; }</span><span class="ln">static float avg_downsample(long bucket, long t0, long t1) { (void)bucket; float s = 0; int c = 0; for (int i = 0; i &lt; n; i++) if (S[i].t &gt;= t0 &amp;&amp; S[i].t &lt; t1) { s += S[i].v; c++; } return c ? s/c : 0; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    for (int i = 0; i &lt; 10; i++) put(i * 100, (float)i);</span><span class="ln">    float out[16]; int c = range(200, 500, out);</span><span class="ln">    printf(&quot;区间 [200,500] 点数=%d（期望 4：2,3,4,5）\n&quot;, c);</span><span class="ln">    if (c != 4) ok = 0;</span><span class="ln">    float m = avg_downsample(1000, 0, 1000);</span><span class="ln">    printf(&quot;降采样 [0,1000) 均值=%.2f（期望 4.50）\n&quot;, m);</span><span class="ln">    if (m &lt; 4.49f || m &gt; 4.51f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">聚合/降采样模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb &amp;&amp; ./labs/host_tsdb</span>
+区间 [200,500] 点数=4（期望 4：2,3,4,5）
+降采样 [0,1000) 均值=4.50（期望 4.50）
+RESULT: PASS</code></pre></div></div><p class="sim-note">趋势 = 按桶聚合的时间序列（降采样均值）；它是异常检测与 RUL 的输入。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  分析步骤</div><table><thead><tr><th>步骤</th><th>方法</th><th>输出</th></tr></thead><tbody><tr><td>基线</td><td>健康均值±3σ</td><td>偏离判据</td></tr><tr><td>异常</td><td>越界/统计</td><td>异常点</td></tr><tr><td>趋势</td><td>降采样均值/回归</td><td>走向</td></tr><tr><td>RUL</td><td>退化外推</td><td>剩余寿命</td></tr></tbody></table></div></section><section class="sec" id="m05-value"><h2 id="m05-value-t">5.3 价值评估：误报 vs 停机成本</h2><p>维护动作有成本（停机/备件/人工）。只有当“减少的损失”大于“误报成本”时，预测才有意义。用误报率/漏报率 + 单次停机成本量化价值。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">value.py 节选</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">cost_avoided = downtime_hours * cost_per_hour * recall</span><span class="ln">cost_false   = n_alarms * (1 - precision) * per_alarm_cost</span><span class="ln"># 只有 cost_avoided &gt; cost_false，预测才有价值</span>
+</code></pre><span class="code-note">把预测落到“避免的停机损失 − 误报成本”上</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  价值评估指标</div><table><thead><tr><th>指标</th><th>含义</th><th>验收</th></tr></thead><tbody><tr><td>误报率</td><td>打扰成本</td><td>≤阈值</td></tr><tr><td>漏报率</td><td>漏检风险</td><td>安全优先</td></tr><tr><td>停机成本</td><td>元/小时</td><td>量化</td></tr><tr><td>收益</td><td>避免损失</td><td>> 误报成本</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检与三级对照</h2><p>分析自检：有基线、异常可解释、价值可量化。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 从数据到决策</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="从数据到决策" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">基线</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">异常</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">趋势/RUL</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">价值/行动</text></svg></div><figcaption class="fig-ft">基线 → 异常检测 → 趋势/RUL → 价值评估 → 行动（维护/降载）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  三级分析</div><table><thead><tr><th>层级</th><th>分析角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>本地阈值/异常</td><td>资源受限</td></tr><tr><td>边缘网关</td><td>趋势/聚合</td><td>实时性</td></tr><tr><td>云平台</td><td>模型/RUL</td><td>数据量</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无基线</strong>：无法判断异常。</li><li><strong>只追准确率</strong>：忽略业务成本。</li><li><strong>数据质量差</strong>：结论不可信。</li><li><strong>不评估价值</strong>：做了没人用。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">预测性维护为什么必须量化“业务价值”？</p><details><summary>查看答案</summary><div class="ans"><p>维护动作有成本（停机/备件/人工）。只有当“减少的损失”大于“误报带来的成本”时，预测才有意义；否则再准也没人用。</p></div></details></li><li><p class="q">为什么先建“健康基线”再谈预测？</p><details><summary>查看答案</summary><div class="ans"><p>没有健康基线就无法定义“偏离”。基线（均值±3σ/健康分布）是异常判定的参照。</p></div></details></li><li><p class="q">RUL（剩余寿命）估计的常见方法是什么？</p><details><summary>查看答案</summary><div class="ans"><p>基于退化特征的时间外推/回归（如随时间的趋势外推到阈值），或退化模型。数据质量决定其可信度。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你设备建一个健康基线并给出误报率与单次停机成本，量化预测性维护的价值。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.timescale.com/" target="_blank" rel="noopener noreferrer">TimescaleDB 文档</a> · <a class="ref" href="https://prometheus.io/docs/alerting/latest/overview/" target="_blank" rel="noopener noreferrer">Prometheus Alerting</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_tsdb.c</code>（聚合与趋势基础）；为你的数据设计基线与异常检测指标。</p><p><strong>检查结果：</strong>基线取健康均值±3σ、异常阈值示例振动 RMS>4.5 mm/s；评估含误报率与单次停机成本。</p></div>
+<p class="sim-note">迁移练习：把本章的“基于健康基线实现异常判定与 RUL 估计，并给出误报/漏报与停机成本的可量化评估。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>基线取健康均值±3σ、异常阈值示例振动 RMS&gt;4.5 mm/s；评估含误报率与单次停机成本。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 架构与安全</div>
+      <h1 class="ch-title">云边协同架构<span class="acc">.</span></h1>
+      <p class="ch-lead">云边协同的核心是<strong>职责划分</strong>：边缘负责实时与自治，云端负责全局与训练；两者通过消息/命令通道协作，并处理离线与一致性。</p>
+      <div class="ch-meta"><span>前置：完成 M02（网关续传）与 M05（分析与规则）。</span><span>◷ 约 44 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：画出端/边/云职责边界并落地断网自治与恢复对账，使待同步 6→0、命令幂等。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>云边职责：边缘实时自治，云端全局训练。</li><li>断网时边缘自治，恢复后对账同步。</li><li>命令要幂等。</li></ul></div>
+    <section class="sec" id="m06-split"><h2 id="m06-split-t">6.1 职责划分：边缘自治，云端全局</h2><p>边缘负责实时控制与自治（断网可运行），云端负责存储、分析与训练；通过消息/命令通道协作。设计要回答“断网怎么办、恢复如何对账、命令是否幂等”。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> 端 / 边 / 云的职责</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="端 / 边 / 云的职责" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">设备端：采集/执行</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">边缘网关：实时自治/缓存/续传</text><rect x="60" y="112" width="680" height="44" rx="6" class="sv-amb-s"/><text x="75" y="138.0" class="sv-lbl-hi">云平台：存储/分析/训练/策略</text></svg></div><figcaption class="fig-ft">设备端采集/执行；边缘网关实时闭环、缓存、续传；云端存储、分析、训练、下发策略。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  云边职责</div><table><thead><tr><th>职责</th><th>边缘</th><th>云端</th></tr></thead><tbody><tr><td>实时控制</td><td>就地闭环</td><td>策略下发</td></tr><tr><td>数据</td><td>汇聚/缓存</td><td>存储/分析</td></tr><tr><td>模型</td><td>推理</td><td>训练/发布</td></tr><tr><td>配置</td><td>执行+确认</td><td>管理</td></tr><tr><td>自治</td><td>断网可运行</td><td>恢复后同步</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">edge_cloud.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">边缘: 实时闭环 + 本地缓存 + 断网自治 + 水位续传</span><span class="ln">云端: 存储/分析/训练 + 策略下发 + 恢复对账</span><span class="ln">命令: 唯一 ID 幂等；一致性: 最终一致而非实时一致</span>
+</code></pre><span class="code-note">职责划分：边缘自治、云端全局</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：恢复对账（水位）</h2><p>断网后恢复靠“已确认位置”对账：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_sync.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_sync.c —— 云边同步：水位/已确认位置与断点续传（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_sync.c -o host_sync &amp;&amp; ./host_sync</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int local_seq = 10, acked = 4;         /* 本地已产生 10 条，云端只确认到 4 */</span><span class="ln">    int pending = local_seq - acked;</span><span class="ln">    printf(&quot;本地=%d 已确认=%d 待同步=%d\n&quot;, local_seq, acked, pending);</span><span class="ln">    if (pending != 6) ok = 0;</span><span class="ln">    /* 断点续传：从 acked+1 开始补传 */</span><span class="ln">    acked += pending;                       /* 假设全部补传成功 */</span><span class="ln">    printf(&quot;补传后已确认=%d，待同步=%d（期望 0）\n&quot;, acked, local_seq - acked);</span><span class="ln">    if (local_seq - acked != 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">水位/续传模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync &amp;&amp; ./labs/host_sync</span>
+本地=10 已确认=4 待同步=6
+补传后已确认=10，待同步=0（期望 0）
+RESULT: PASS</code></pre></div></div><p class="sim-note">断网心跳丢失进入自治；恢复后从已确认位置 4 补传到 10，待同步归零。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  离线策略</div><table><thead><tr><th>场景</th><th>边缘行为</th><th>恢复动作</th></tr></thead><tbody><tr><td>心跳丢失</td><td>进入自治</td><td>继续本地闭环</td></tr><tr><td>持续断网</td><td>本地缓存（有界）</td><td>按策略丢旧/降采样</td></tr><tr><td>恢复</td><td>按水位补传</td><td>待同步→0</td></tr><tr><td>命令重发</td><td>幂等（唯一 ID）</td><td>不重复执行</td></tr></tbody></table></div></section><section class="sec" id="m06-idem"><h2 id="m06-idem-t">6.3 命令幂等与一致性</h2><p>云边不可能“实时一致”。命令要带唯一 ID 保证幂等；数据按事件时间排序、按水位同步；不要把“最终一致”当成“实时一致”。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">cmd.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (seen_cmd(cmd_id)) return ACK_DUP;   // 幂等：重复命令不重复执行</span><span class="ln">execute(cmd); mark_seen(cmd_id);</span><span class="ln">/* 恢复后：按已确认位置续传；命令按 ID 去重 */</span>
+</code></pre><span class="code-note">命令唯一 ID 幂等 + 恢复按水位对账</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  一致性做法</div><table><thead><tr><th>维度</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>命令</td><td>唯一 ID 幂等</td><td>重复执行</td></tr><tr><td>数据</td><td>水位续传</td><td>丢/重</td></tr><tr><td>时间</td><td>事件时间排序</td><td>口径错</td></tr><tr><td>一致性</td><td>最终一致</td><td>假设实时一致</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检与三级对照</h2><p>协同自检：职责清晰、边缘自治、恢复对账、命令幂等。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 断网自治与恢复</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="断网自治与恢复" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">心跳丢失</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">自治</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">网络恢复</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">对账/去重</text></svg></div><figcaption class="fig-ft">心跳丢失 → 边缘自治（本地闭环+缓存）→ 网络恢复 → 按水位对账补传 → 命令去重。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  三级协同</div><table><thead><tr><th>层级</th><th>协同角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>执行/上报</td><td>断链保护</td></tr><tr><td>边缘网关</td><td>自治/缓存</td><td>水位/幂等</td></tr><tr><td>云平台</td><td>全局/策略</td><td>恢复对账</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>边缘强依赖云</strong>：断网业务停。</li><li><strong>命令不幂等</strong>：重发重复执行。</li><li><strong>无对账</strong>：恢复后数据错乱。</li><li><strong>一致性假设过高</strong>：以为云边实时一致。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">为什么“边缘自治”是云边协同的前提？</p><details><summary>查看答案</summary><div class="ans"><p>网络不可靠、云端会维护/升级。边缘必须能在断网时继续提供实时控制与本地闭环，恢复后再同步，否则业务连续性无法保证。</p></div></details></li><li><p class="q">为什么命令必须“幂等”？</p><details><summary>查看答案</summary><div class="ans"><p>网络重传/恢复补发会重复投递同一命令。带唯一 ID 去重，保证重复命令不会重复执行。</p></div></details></li><li><p class="q">云边为什么不能假设“实时一致”？</p><details><summary>查看答案</summary><div class="ans"><p>网络有延迟/中断。应按“最终一致”设计：数据按水位同步、命令幂等、恢复后对账，而不是假设两边实时同步。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：画出你系统的端/边/云职责边界，落地断网自治与恢复对账，并给命令加唯一 ID 幂等。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://mqtt.org/mqtt-specification/" target="_blank" rel="noopener noreferrer">MQTT 规范</a> · <a class="ref" href="https://docs.aws.amazon.com/iot/" target="_blank" rel="noopener noreferrer">AWS IoT / 物模型概念</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_sync.c</code>（水位/续传）；画出你的云边职责与离线策略。</p><p><strong>检查结果：</strong>职责边界清晰；断网心跳丢失 30s×3 进入自治；恢复后按已确认位置 4→10 同步、命令幂等。</p></div>
+<p class="sim-note">迁移练习：把本章的“画出端/边/云职责边界并落地断网自治与恢复对账，使待同步 6→0、命令幂等。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>职责边界清晰；断网心跳丢失 30s×3 进入自治；恢复后按已确认位置 4→10 同步、命令幂等。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 架构与安全</div>
+      <h1 class="ch-title">数据安全与隐私<span class="acc">.</span></h1>
+      <p class="ch-lead">数据安全分三层：<strong>传输加密、设备认证、访问控制与最小化</strong>。设备密钥不能共用、不能硬编码在公开代码里。</p>
+      <div class="ch-meta"><span>前置：完成 M01（设备身份与注册）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：实现 TLS 握手要素校验（版本/证书链/主机名/有效期），对合法连接接受、非法连接拒绝。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>传输加密 + 设备认证 + 最小权限。</li><li>数据最小化采集，密钥可轮换吊销。</li><li>操作审计可追责。</li></ul></div>
+    <section class="sec" id="m07-layers"><h2 id="m07-layers-t">7.1 三层安全与最小化</h2><p>传输加密（TLS/DTLS）、设备认证（一机一密/证书）、访问控制与最小化。隐私原则是只采必要字段、只留必要时间、只在必要的人可见；密钥用安全存储并支持轮换/吊销。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 数据安全的四道防线</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="数据安全的四道防线" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">传输：TLS/DTLS</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">认证：一机一密/证书</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">访问：最小权限/RBAC</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">隐私：最小化 + 审计</text></svg></div><figcaption class="fig-ft">传输加密 → 设备认证 → 访问控制（RBAC）→ 隐私最小化 + 审计。任一薄弱，整体失守。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  安全五层面</div><table><thead><tr><th>层面</th><th>手段</th><th>风险</th></tr></thead><tbody><tr><td>传输</td><td>TLS/DTLS</td><td>明文被抓</td></tr><tr><td>认证</td><td>一机一密/证书</td><td>伪造设备</td></tr><tr><td>访问</td><td>最小权限/RBAC</td><td>越权读数据</td></tr><tr><td>隐私</td><td>脱敏/最小化</td><td>合规风险</td></tr><tr><td>审计</td><td>操作日志</td><td>无法追责</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">tls_check.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (ver &lt; TLS12) return REJECT_VER;</span><span class="ln">if (!chain_trusted(cert)) return REJECT_CHAIN;</span><span class="ln">if (!hostname_match(cert,h)) return REJECT_HOST;</span><span class="ln">if (!valid_now(cert)) return REJECT_EXPIRE;</span>
+</code></pre><span class="code-note">TLS 四校验：版本/证书链/主机名/有效期</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：TLS 握手四校验</h2><p>下面这段程序校验 TLS 版本、证书链、主机名与有效期：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_tls.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_tls.c —— TLS 握手要素与证书校验流程的最小模型（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_tls.c -o host_tls &amp;&amp; ./host_tls</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct {</span><span class="ln">    const char *ver;            /* 协商版本，如 TLS1.2 / TLS1.3 */</span><span class="ln">    const char *host;           /* 客户端期望主机名 */</span><span class="ln">    const char *san;            /* 证书 SAN（此处简化为单个主机名） */</span><span class="ln">    int chain_ok;               /* 证书链是否可信（1=是） */</span><span class="ln">    long now;                   /* 当前时刻（秒） */</span><span class="ln">    long not_before, not_after; /* 证书有效期（秒） */</span><span class="ln">} tls_t;</span><span class="ln">/* 返回 0=接受；非 0=拒绝，并给出首个失败项的原因码 */</span><span class="ln">static int verify(const tls_t *c) {</span><span class="ln">    if (!(strcmp(c-&gt;ver, &quot;TLS1.2&quot;) == 0 || strcmp(c-&gt;ver, &quot;TLS1.3&quot;) == 0)) return 1; /* 版本 ≥1.2 */</span><span class="ln">    if (!c-&gt;chain_ok) return 2;                                                        /* 证书链 */</span><span class="ln">    if (strcmp(c-&gt;host, c-&gt;san) != 0) return 3;                                        /* 主机名 */</span><span class="ln">    if (c-&gt;now &lt; c-&gt;not_before || c-&gt;now &gt; c-&gt;not_after) return 4;                     /* 有效期 */</span><span class="ln">    return 0;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    tls_t good = { &quot;TLS1.3&quot;, &quot;api.example.com&quot;, &quot;api.example.com&quot;, 1, 1000, 900, 2000 };</span><span class="ln">    tls_t bad_old = { &quot;TLS1.0&quot;, &quot;api.example.com&quot;, &quot;api.example.com&quot;, 1, 1000, 900, 2000 };</span><span class="ln">    int r1 = verify(&amp;good), r2 = verify(&amp;bad_old);</span><span class="ln">    printf(&quot;合法连接: %s（原因码 %d）\n&quot;, r1 == 0 ? &quot;接受&quot; : &quot;拒绝&quot;, r1);</span><span class="ln">    printf(&quot;非法连接(TLS1.0): %s（原因码 %d）\n&quot;, r2 == 0 ? &quot;接受&quot; : &quot;拒绝&quot;, r2);</span><span class="ln">    if (!(r1 == 0 &amp;&amp; r2 == 1)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">TLS 握手校验模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tls.c -o labs/host_tls &amp;&amp; ./labs/host_tls</span>
+合法连接: 接受（原因码 0）
+非法连接(TLS1.0): 拒绝（原因码 1）
+RESULT: PASS</code></pre></div></div><p class="sim-note">版本≥1.2、证书链可信、主机名匹配、有效期覆盖当前——四项全过才接受；TLS1.0 被拒。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  TLS 握手四校验</div><table><thead><tr><th>校验项</th><th>标准</th><th>失败动作</th></tr></thead><tbody><tr><td>版本</td><td>≥ TLS 1.2</td><td>拒绝</td></tr><tr><td>证书链</td><td>可信 CA</td><td>拒绝</td></tr><tr><td>主机名</td><td>与 SAN 匹配</td><td>拒绝</td></tr><tr><td>有效期</td><td>覆盖当前时刻</td><td>拒绝</td></tr></tbody></table></div></section><section class="sec" id="m07-key"><h2 id="m07-key-t">7.3 密钥与隐私</h2><p>设备密钥一机一密、存安全存储（SE/TPM/钥匙串），支持轮换与吊销；数据最小化采集与脱敏。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">tls_check.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (ver &lt; TLS12)              return REJECT_VER;</span><span class="ln">if (!chain_trusted(cert))     return REJECT_CHAIN;</span><span class="ln">if (!hostname_match(cert, h)) return REJECT_HOST;</span><span class="ln">if (!valid_now(cert))         return REJECT_EXPIRE;</span><span class="ln">return ACCEPT;   // 四项全过</span>
+</code></pre><span class="code-note">四项全过才接受；任一失败即拒绝（并记原因码）</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  密钥与隐私要求</div><table><thead><tr><th>要求</th><th>做法</th><th>原因</th></tr></thead><tbody><tr><td>一机一密</td><td>每设备独立凭据</td><td>限影响面</td></tr><tr><td>安全存储</td><td>SE/TPM/钥匙串</td><td>防提取</td></tr><tr><td>轮换/吊销</td><td>生命周期管理</td><td>泄露可止损</td></tr><tr><td>最小化</td><td>只采必要字段</td><td>合规/隐私</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检与三级对照</h2><p>安全自检：加密、认证、访问控制、最小化、审计五项齐备。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 一次安全接入的校验链</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="一次安全接入的校验链" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">TLS</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">四校验</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">设备认证</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">授权/审计</text></svg></div><figcaption class="fig-ft">建立 TLS → 校验版本/证书/主机名/有效期 → 认证设备身份 → 按 RBAC 授权 → 记账审计。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  三级安全</div><table><thead><tr><th>层级</th><th>安全角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>持有凭据/加密</td><td>安全存储</td></tr><tr><td>边缘网关</td><td>代理/校验</td><td>证书/版本</td></tr><tr><td>云平台</td><td>认证/授权/审计</td><td>RBAC/最小化</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>明文传输</strong>：数据被截获。</li><li><strong>共用密钥</strong>：一台失守全网风险。</li><li><strong>过度采集</strong>：隐私与合规风险。</li><li><strong>密钥不能吊销</strong>：泄露后无法止损。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">为什么设备密钥不应“所有设备共用一套”？</p><details><summary>查看答案</summary><div class="ans"><p>一套泄露即全网可伪造；一机一密能把影响限制在单台，且可单独吊销/轮换。</p></div></details></li><li><p class="q">TLS 握手要校验哪四项？</p><details><summary>查看答案</summary><div class="ans"><p>版本（≥1.2）、证书链（可信 CA）、主机名（与 SAN 匹配）、有效期（覆盖当前时刻）。任一失败即拒绝。</p></div></details></li><li><p class="q">“数据最小化”指什么？</p><details><summary>查看答案</summary><div class="ans"><p>只采集业务必需的字段、只保留必要的时间、只在必要的人可见并可脱敏，以降低隐私与合规风险。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你平台定义认证方式（一机一密/证书）、权限模型（RBAC）与密钥轮换/吊销生命周期。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://datatracker.ietf.org/doc/html/rfc8446" target="_blank" rel="noopener noreferrer">TLS 1.3 (RFC 8446)</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_tls.c</code>：校验 TLS 版本、证书链、主机名与有效期。</p><p><strong>检查结果：</strong>TLS 握手四项校验（版本≥1.2/证书链/主机名/有效期）全过则接受，任一失败则拒绝。</p></div>
+<p class="sim-note">迁移练习：把本章的“实现 TLS 握手要素校验（版本/证书链/主机名/有效期），对合法连接接受、非法连接拒绝。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>TLS 握手四项校验（版本≥1.2/证书链/主机名/有效期）全过则接受，任一失败则拒绝。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 实战与治理</div>
+      <h1 class="ch-title">实战：从设备到决策的完整链路<span class="acc">.</span></h1>
+      <p class="ch-lead">综合实战把前面所有环节连起来：<strong>采集 → 网关 → 存储 → 语义 → 告警 → 看板 → 决策</strong>，并保证断链可恢复、数据可回放。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M07 主干章节。</span><span>◷ 约 46 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：写出采集→网关→存储→语义→告警→看板→决策的端到端验收清单，并演示断链恢复与数据回放。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>端到端链路每环都要有验收。</li><li>断链可恢复、数据可回放。</li><li>告警要能变成行动。</li></ul></div>
+    <section class="sec" id="m08-chain"><h2 id="m08-chain-t">8.1 端到端七环节</h2><p>把前面所有环节连成一条链路：采集 → 网关 → 存储 → 语义 → 告警 → 看板 → 决策；任一环含糊，整条链路都不可信。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 设备到决策的完整链路</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="设备到决策的完整链路" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="88.0" y="66" text-anchor="middle" class="sv-lbl-hi">采集</text><path d="M158,69 H174" class="sv-arrow"/><rect x="176" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="244.0" y="66" text-anchor="middle" class="sv-lbl-hi">网关</text><path d="M314,69 H330" class="sv-arrow"/><rect x="332" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="400.0" y="66" text-anchor="middle" class="sv-lbl-hi">存储</text><path d="M470,69 H486" class="sv-arrow"/><rect x="488" y="44" width="136" height="50" rx="7" class="sv-box"/><text x="556.0" y="66" text-anchor="middle" class="sv-lbl-hi">语义</text><path d="M626,69 H642" class="sv-arrow"/><rect x="644" y="44" width="136" height="50" rx="7" class="sv-cyn-s"/><text x="712.0" y="66" text-anchor="middle" class="sv-lbl-hi">告警/决策</text></svg></div><figcaption class="fig-ft">采集（契约）→ 网关（按确认续传、幂等提交并记录丢失）→ 存储（可查询/降采样）→ 语义（时间/质量）→ 告警（闭环）→ 看板 → 决策（行动）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  端到端验收</div><table><thead><tr><th>环节</th><th>验收</th><th>手段</th></tr></thead><tbody><tr><td>采集</td><td>契约一致</td><td>单位/量程/时间戳</td></tr><tr><td>网关</td><td>按确认续传、幂等提交并记录丢失</td><td>缓存+续传</td></tr><tr><td>存储</td><td>可查询可降采样</td><td>标签/保留</td></tr><tr><td>语义</td><td>时间/质量清楚</td><td>去重/补缺</td></tr><tr><td>决策</td><td>可行动</td><td>告警闭环</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pipeline.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">采集(契约) -&gt; 网关(缓存/续传) -&gt; 存储(标签/降采样)</span><span class="ln">-&gt; 语义(去重/乱序/质量) -&gt; 告警(阈值+迟滞,闭环) -&gt; 看板 -&gt; 决策</span><span class="ln">回放: 固定窗口 24h, 按事件时间重放, 结果逐位一致</span>
+</code></pre><span class="code-note">端到端七环节一条链路 + 可回放</span></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：断链恢复</h2><p>端到端的关键机制是“断链可恢复”，用断网续传模型验证：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_sync.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_sync.c —— 云边同步：水位/已确认位置与断点续传（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_sync.c -o host_sync &amp;&amp; ./host_sync</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int local_seq = 10, acked = 4;         /* 本地已产生 10 条，云端只确认到 4 */</span><span class="ln">    int pending = local_seq - acked;</span><span class="ln">    printf(&quot;本地=%d 已确认=%d 待同步=%d\n&quot;, local_seq, acked, pending);</span><span class="ln">    if (pending != 6) ok = 0;</span><span class="ln">    /* 断点续传：从 acked+1 开始补传 */</span><span class="ln">    acked += pending;                       /* 假设全部补传成功 */</span><span class="ln">    printf(&quot;补传后已确认=%d，待同步=%d（期望 0）\n&quot;, acked, local_seq - acked);</span><span class="ln">    if (local_seq - acked != 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">断链恢复/水位模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync &amp;&amp; ./labs/host_sync</span>
+本地=10 已确认=4 待同步=6
+补传后已确认=10，待同步=0（期望 0）
+RESULT: PASS</code></pre></div></div><p class="sim-note">断链期间本地缓存 6 条待同步；恢复后按已确认位置补传至 10，待同步归零。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  关键机制与证据</div><table><thead><tr><th>环节</th><th>可运行证据</th><th>验收</th></tr></thead><tbody><tr><td>续传</td><td>host_sync.c</td><td>待同步→0</td></tr><tr><td>存储</td><td>host_tsdb.c</td><td>区间/降采样</td></tr><tr><td>语义</td><td>host_semantics.c</td><td>去重/乱序</td></tr><tr><td>告警</td><td>host_alert.c</td><td>触发/复位</td></tr></tbody></table></div></section><section class="sec" id="m08-replay"><h2 id="m08-replay-t">8.3 数据回放与时间口径</h2><p>链路要能回答：数据从哪来、时间口径是什么、断网怎么办、异常怎么变成行动。数据要可确定性回放。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pipeline.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">采集(单位/量程/事件时间) → 网关(缓存/水位续传) → 存储(标签/降采样/保留)</span><span class="ln">→ 语义(去重/乱序/质量标志) → 告警(阈值+时长+迟滞, 闭环) → 看板 → 决策</span><span class="ln">回放: 固定窗口 24h, 按事件时间重放, 结果逐位一致</span>
+</code></pre><span class="code-note">一条链路写清“来源/时间/断网/决策”，并可回放</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  链路四问</div><table><thead><tr><th>问题</th><th>答案</th><th>验收</th></tr></thead><tbody><tr><td>数据从哪来</td><td>采集+契约</td><td>单位/量程</td></tr><tr><td>时间口径</td><td>事件时间</td><td>NTP 对齐</td></tr><tr><td>断网怎么办</td><td>缓存+续传</td><td>待同步→0</td></tr><tr><td>异常变行动</td><td>告警闭环</td><td>可处理</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 端到端验收清单</h2><p>逐环判定，缺一项整条链路不可信。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 各环节验收通过率（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="各环节验收通过率（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="40" class="sv-lbl">采集</text><rect x="150" y="26" width="545" height="14" rx="4" class="sv-grn-s"/><text x="703" y="40" class="sv-lbl-hi">100%</text><text x="12" y="60" class="sv-lbl">网关</text><rect x="150" y="46" width="545" height="14" rx="4" class="sv-grn-s"/><text x="703" y="60" class="sv-lbl-hi">100%</text><text x="12" y="80" class="sv-lbl">存储</text><rect x="150" y="66" width="545" height="14" rx="4" class="sv-grn-s"/><text x="703" y="80" class="sv-lbl-hi">100%</text><text x="12" y="100" class="sv-lbl">语义</text><rect x="150" y="86" width="327" height="14" rx="4" class="sv-amb-s"/><text x="485" y="100" class="sv-lbl-hi">60%</text><text x="12" y="120" class="sv-lbl">告警</text><rect x="150" y="106" width="545" height="14" rx="4" class="sv-grn-s"/><text x="703" y="120" class="sv-lbl-hi">100%</text></svg></div><figcaption class="fig-ft">示例：采集/网关/存储/告警通过，语义环节因时间口径未对齐未过——它决定后续是否可信。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  三级链路</div><table><thead><tr><th>层级</th><th>链路角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>采集/执行</td><td>契约</td></tr><tr><td>边缘网关</td><td>汇聚/缓存</td><td>续传</td></tr><tr><td>云平台</td><td>存储/分析/决策</td><td>语义/闭环</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>链路某环无验收</strong>：问题在那一环爆发。</li><li><strong>断链不可恢复</strong>：数据永久丢失。</li><li><strong>不可回放</strong>：无法复现。</li><li><strong>告警不成行动</strong>：看板好看没人用。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">端到端链路最容易被忽略的验收点是什么？</p><details><summary>查看答案</summary><div class="ans"><p>“时间与质量语义”——数据是否带时间戳、时区/时钟是否一致、是否有质量标志。它不显眼，但决定后续查询与告警是否可信。</p></div></details></li><li><p class="q">为什么端到端“断链可恢复”是硬要求？</p><details><summary>查看答案</summary><div class="ans"><p>网络/网关故障不可避免。断链不可恢复意味着数据永久丢失，整条链路的数据可信度崩坏。</p></div></details></li><li><p class="q">“告警可闭环为行动”指什么？</p><details><summary>查看答案</summary><div class="ans"><p>告警不能只是一条通知；要能触发确认、处理与恢复，形成可追踪的行动，否则看板好看但无人用。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的端到端链路写一张验收清单（7 环节）并逐条判定，重点补上时间/质量语义。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://mqtt.org/mqtt-specification/" target="_blank" rel="noopener noreferrer">MQTT 规范</a> · <a class="ref" href="https://prometheus.io/docs/alerting/latest/overview/" target="_blank" rel="noopener noreferrer">Prometheus Alerting</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_sync.c</code>（断链恢复）；为你的链路写一张端到端验收清单并逐条判定。</p><p><strong>检查结果：</strong>7 个环节验收明确；断链本地 10/已确认 4 可恢复至待同步 0；数据可回放；告警可闭环为行动。</p></div>
+<p class="sim-note">迁移练习：把本章的“写出采集→网关→存储→语义→告警→看板→决策的端到端验收清单，并演示断链恢复与数据回放。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>7 个环节验收明确；断链本地 10/已确认 4 可恢复至待同步 0；数据可回放；告警可闭环为行动。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 实战与治理</div>
+      <h1 class="ch-title">数据语义、时间与质量<span class="acc">.</span></h1>
+      <p class="ch-lead">数据“能存”不等于“能用”。语义层要明确<strong>单位/标定版本、事件时间与到达时间、质量标志</strong>，并处理重复/乱序/缺失。</p>
+      <div class="ch-meta"><span>前置：完成 M03（时序存储）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：检测重复/乱序/序号跳变并标注质量标志，使重复=1、乱序=1、跳变=3。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m09-knowledge-boundary">事件时间和到达时间分开保存</h3><p>设备单调时钟适合本机间隔，不能直接用来比较不同设备的绝对时间。事件时间来自采样，到达时间来自服务器；时钟同步误差、重启和序号回绕都要进入数据契约。P04 保留乱序记录并识别相同键的冲突载荷，分析时再按事件时间排序。</p></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>分析用事件时间，运维看到达时间。</li><li>时钟同步 + 去重 + 乱序重排 + 缺口处理。</li><li>数据带质量标志。</li></ul></div>
+    <section class="sec" id="m09-sem"><h2 id="m09-sem-t">9.1 事件时间 vs 到达时间、质量标志</h2><p>用<strong>事件时间</strong>做分析与告警（数据实际发生的时间），用到达时间做运维；所有数据带<strong>质量标志</strong>。时间口径是数据平台的“地基”。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> 事件时间与到达时间</div><div class="fig-bd"><svg viewBox="0 0 800 154" width="100%" height="154" role="img" aria-label="事件时间与到达时间" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V128"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V128"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">15</text><path class="sv-dash" d="M460,26 V128"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">30</text><path class="sv-dash" d="M615,26 V128"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">45</text><path class="sv-dash" d="M770,26 V128"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">60</text><text x="12" y="48" class="sv-lbl">事件时间</text><path class="sv-dash" d="M150,44 H770"/><rect x="253" y="32" width="52" height="22" rx="4" class="sv-grn-s"/><text x="279.2" y="47" text-anchor="middle" class="sv-lbl-hi">t_e</text><text x="12" y="82" class="sv-lbl">到达时间</text><path class="sv-dash" d="M150,78 H770"/><rect x="615" y="66" width="52" height="22" rx="4" class="sv-amb-s"/><text x="640.8" y="81" text-anchor="middle" class="sv-lbl-hi">t_a</text><text x="12" y="116" class="sv-lbl">延迟</text><path class="sv-dash" d="M150,112 H770"/><rect x="253" y="100" width="413" height="22" rx="4" class="sv-box"/><text x="460.0" y="115" text-anchor="middle" class="sv-lbl-hi">网络/网关延迟</text></svg></div><figcaption class="fig-ft">数据在 t_e 发生，因网络/网关延迟在 t_a 到达。分析用 t_e（稳定），运维看 t_a（延迟）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  语义五问题</div><table><thead><tr><th>问题</th><th>含义</th><th>处理</th></tr></thead><tbody><tr><td>事件 vs 到达</td><td>采集时间 ≠ 入库时间</td><td>按事件时间排序</td></tr><tr><td>时钟漂移</td><td>设备时间不准</td><td>NTP/校时</td></tr><tr><td>重复</td><td>重传导致</td><td>序列号去重</td></tr><tr><td>乱序</td><td>网络/网关导致</td><td>窗口重排</td></tr><tr><td>缺失</td><td>丢样</td><td>标记/插值</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">semantics.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (seq == last) dup++;                 // 重复</span><span class="ln">if (seq &lt; last)  reorder++;             // 乱序</span><span class="ln">if (seq != last + 1) jumps++;           // 序号跳变(含重/乱)</span><span class="ln">out.quality = (dup||reorder) ? Q_SUSPECT : Q_OK;</span>
+</code></pre><span class="code-note">按序号检测重复/乱序/跳变并打质量标志</span></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：重复/乱序/跳变</h2><p>下面这段程序检测重复、乱序与序号跳变（缺口）：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_semantics.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_semantics.c —— 数据语义：重复/缺失/乱序检测（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_semantics.c -o host_semantics &amp;&amp; ./host_semantics</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef struct { long t; int seq; } rec_t;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    rec_t r[] = { {100,1},{200,2},{200,2},{400,4},{300,3} };  /* 重复/缺失3/乱序 */</span><span class="ln">    int n = (int)(sizeof(r)/sizeof(r[0]));</span><span class="ln">    int dup = 0, gap = 0, ooo = 0;</span><span class="ln">    for (int i = 1; i &lt; n; i++) {</span><span class="ln">        if (r[i].t == r[i-1].t) dup++;</span><span class="ln">        if (r[i].t &lt; r[i-1].t) ooo++;</span><span class="ln">        if (r[i].seq != r[i-1].seq + 1) gap++;</span><span class="ln">    }</span><span class="ln">    printf(&quot;重复=%d 乱序=%d 序号跳变=%d\n&quot;, dup, ooo, gap);</span><span class="ln">    if (!(dup == 1 &amp;&amp; ooo == 1 &amp;&amp; gap &gt;= 2)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">数据语义检测模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_semantics.c -o labs/host_semantics &amp;&amp; ./labs/host_semantics</span>
+重复=1 乱序=1 序号跳变=3
+RESULT: PASS</code></pre></div></div><p class="sim-note">“序号跳变=3”是跳变次数（含重复与乱序导致的序号不连续），与“缺失样本数”不是一回事。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  语义指标口径</div><table><thead><tr><th>量</th><th>含义</th><th>注意</th></tr></thead><tbody><tr><td>重复</td><td>同序号多次</td><td>去重</td></tr><tr><td>乱序</td><td>序号非单调</td><td>重排</td></tr><tr><td>序号跳变</td><td>相邻号不连续次数</td><td>非缺失样本数</td></tr><tr><td>质量标志</td><td>可信度</td><td>下游据此使用</td></tr></tbody></table></div></section><section class="sec" id="m09-quality"><h2 id="m09-quality-t">9.3 去重、重排、质量标志</h2><p>处理顺序：按序列号去重 → 按事件时间窗口重排 → 缺失标记（不擅自插值）→ 打质量标志。下游按质量标志决定是否使用。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">semantics.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (seq == last_seq) dup++;                 // 重复</span><span class="ln">if (seq &lt; last_seq)  reorder++;             // 乱序</span><span class="ln">if (seq != last_seq + 1) jumps++;           // 序号跳变(含重/乱)</span><span class="ln">out.quality = (dup||reorder) ? Q_SUSPECT : Q_OK;</span>
+</code></pre><span class="code-note">按序号检测重复/乱序/跳变并打质量标志</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.3  质量处理步骤</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>去重</td><td>序列号</td><td>指标被放大</td></tr><tr><td>重排</td><td>事件时间窗口</td><td>顺序错</td></tr><tr><td>缺失</td><td>标记</td><td>擅自插值</td></tr><tr><td>质量</td><td>打标志</td><td>坏数据被当正常</td></tr></tbody></table></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检与三级对照</h2><p>语义自检：时间口径清楚、去重重排、质量标志齐全。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> 脏数据检出（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="脏数据检出（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">重复</text><rect x="150" y="26" width="150" height="18" rx="4" class="sv-amb-s"/><text x="308" y="43" class="sv-lbl-hi">1次</text><text x="12" y="67" class="sv-lbl">乱序</text><rect x="150" y="50" width="150" height="18" rx="4" class="sv-amb-s"/><text x="308" y="67" class="sv-lbl-hi">1次</text><text x="12" y="91" class="sv-lbl">跳变</text><rect x="150" y="74" width="450" height="18" rx="4" class="sv-red-s"/><text x="608" y="91" class="sv-lbl-hi">3次</text></svg></div><figcaption class="fig-ft">重复=1、乱序=1、跳变=3。检出并打标后，下游才能按质量决定是否使用。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.4  三级语义</div><table><thead><tr><th>层级</th><th>语义角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>带时间戳/序号</td><td>时钟</td></tr><tr><td>边缘网关</td><td>去重/重排</td><td>窗口</td></tr><tr><td>云平台</td><td>质量/追溯</td><td>标定版本</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>混用事件/到达时间</strong>：分析口径错。</li><li><strong>时钟不同步</strong>：时间线错乱。</li><li><strong>不去重</strong>：指标被重复放大。</li><li><strong>不标质量</strong>：坏数据被当正常用。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">为什么分析要用“事件时间”而不是“到达时间”？</p><details><summary>查看答案</summary><div class="ans"><p>到达时间受网络/网关延迟影响，会随时间波动；事件时间是数据实际发生的时间，用它才能得到稳定的分析结果（到达时间用于运维观测）。</p></div></details></li><li><p class="q">“序号跳变=3”等于“丢了 3 个样本”吗？</p><details><summary>查看答案</summary><div class="ans"><p>不等于。序号跳变是“相邻序号不连续的累计次数”，其中含重复与乱序导致的跳变，不是缺失样本的数量。口径要分清。</p></div></details></li><li><p class="q">为什么质量标志很重要？</p><details><summary>查看答案</summary><div class="ans"><p>它告诉下游这条数据是否可信（重复/乱序/缺失）。不标质量，坏数据会被当正常数据用于分析与告警。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你数据加去重（序列号）、重排（事件时间窗口）与质量标志，并核对时间口径。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.timescale.com/" target="_blank" rel="noopener noreferrer">TimescaleDB 文档</a> · <a class="ref" href="https://prometheus.io/docs/alerting/latest/overview/" target="_blank" rel="noopener noreferrer">Prometheus Alerting</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_semantics.c</code>：检测重复、乱序与序号跳变（缺口）。</p><p><strong>检查结果：</strong>重复=1 乱序=1 跳变=3（跳变含重复与乱序导致的序号不连续，非缺失样本数）。</p></div>
+<p class="sim-note">迁移练习：把本章的“检测重复/乱序/序号跳变并标注质量标志，使重复=1、乱序=1、跳变=3。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>重复=1 乱序=1 跳变=3（跳变含重复与乱序导致的序号不连续，非缺失样本数）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 实战与治理</div>
+      <h1 class="ch-title">设备群管理与服务接口<span class="acc">.</span></h1>
+      <p class="ch-lead">设备群管理要能<strong>批量、可控、可审计</strong>地管理大量设备：注册分组、配置下发确认、批量操作与灰度、离线设备的处理策略。</p>
+      <div class="ch-meta"><span>前置：完成 M01（设备注册）与 M06（协同架构）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：设计分批+可回滚的批量配置与离线设备排队补发流程，识别并下发版本不一致配置。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>设备群要能分组、批量、可审计。</li><li>批量配置分批+可回滚+带确认。</li><li>离线设备排队补发。</li></ul></div>
+    <section class="sec" id="m10-model"><h2 id="m10-model-t">10.1 分组、配置、批量、离线</h2><p>设备群管理要能批量、可控、可审计：注册分组（按类型/区域）、配置下发确认（幂等）、批量操作（分批+回滚）、离线设备排队补发。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 设备群管理的四个能力</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="设备群管理的四个能力" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">分组：按类型/区域</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">配置：版本+确认（幂等）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">批量：分批+回滚</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">离线：排队补发</text></svg></div><figcaption class="fig-ft">分组（标签）→ 配置（版本+确认）→ 批量（分批+回滚）→ 离线（排队补发）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  设备群五能力</div><table><thead><tr><th>能力</th><th>内容</th><th>要点</th></tr></thead><tbody><tr><td>分组</td><td>按类型/区域</td><td>动态标签</td></tr><tr><td>配置</td><td>版本+确认</td><td>幂等</td></tr><tr><td>批量</td><td>固件/参数</td><td>分批+回滚</td></tr><tr><td>API</td><td>REST/gRPC</td><td>鉴权+限流</td></tr><tr><td>离线</td><td>排队/标记</td><td>恢复补发</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">batch.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (chunk in chunks(all, 100)) {        // 每批≤100</span><span class="ln">    push_batch(chunk, 3);                // 配置版本 3</span><span class="ln">    if (failed(chunk)) rollback(chunk);  // 可回滚</span><span class="ln">}</span><span class="ln">if (!dev.online) mark_pending(dev, 3);   // 离线→待生效</span>
+</code></pre><span class="code-note">分批+回滚；离线设备标“待生效”排队补发</span></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：在线与配置版本</h2><p>设备群管理的最小视图：谁在线、谁配置落后需下发：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_registry.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_registry.c —— 设备注册与物模型（属性/遥测）模型（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_registry.c -o host_registry &amp;&amp; ./host_registry</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { const char *id; const char *type; int online; int cfg_ver; } dev_t;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    dev_t d[] = { {&quot;dev-001&quot;,&quot;env&quot;,1,3}, {&quot;dev-002&quot;,&quot;env&quot;,0,3}, {&quot;dev-003&quot;,&quot;motor&quot;,1,2} };</span><span class="ln">    int n = (int)(sizeof(d)/sizeof(d[0])), online = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) if (d[i].online) online++;</span><span class="ln">    printf(&quot;设备数=%d 在线=%d\n&quot;, n, online);</span><span class="ln">    if (!(n == 3 &amp;&amp; online == 2)) ok = 0;</span><span class="ln">    /* 配置版本不一致检测 */</span><span class="ln">    int mismatch = 0; for (int i = 0; i &lt; n; i++) if (d[i].cfg_ver != 3) mismatch++;</span><span class="ln">    printf(&quot;配置版本≠3 的设备=%d（需下发）\n&quot;, mismatch);</span><span class="ln">    if (mismatch != 1) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">设备注册/配置版本模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry &amp;&amp; ./labs/host_registry</span>
+设备数=3 在线=2
+配置版本≠3 的设备=1（需下发）
+RESULT: PASS</code></pre></div></div><p class="sim-note">3 台设备、2 台在线；1 台配置版本落后需要下发——批量配置据此圈定目标。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  群管理操作约束</div><table><thead><tr><th>操作</th><th>范围</th><th>约束</th></tr></thead><tbody><tr><td>配置下发</td><td>版本≠目标的设备</td><td>幂等+确认</td></tr><tr><td>批量</td><td>每批 ≤100 台</td><td>可回滚</td></tr><tr><td>API</td><td>鉴权+限流</td><td>防滥用</td></tr><tr><td>离线</td><td>标记“待生效”</td><td>恢复补发</td></tr></tbody></table></div></section><section class="sec" id="m10-batch"><h2 id="m10-batch-t">10.3 分批、回滚、离线策略</h2><p>批量操作必须分批 + 可回滚 + 可观测；离线设备应排队待补，而不是直接丢弃，并标记“配置待生效”。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">batch.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">for (batch = devices_in_chunks(all, 100)) {   // 每批≤100</span><span class="ln">    push_batch(batch, cfg_ver=3);</span><span class="ln">    if (batch_failed() &gt; 0) rollback_batch(batch);  // 可回滚</span><span class="ln">}</span><span class="ln">if (!dev.online) mark_pending(dev, 3);            // 离线→待生效</span>
+</code></pre><span class="code-note">分批+回滚；离线设备标“待生效”并排队补发</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.3  批量与离线策略</div><table><thead><tr><th>场景</th><th>处理</th><th>避免</th></tr></thead><tbody><tr><td>批量配置</td><td>分批+回滚</td><td>全量事故</td></tr><tr><td>离线设备</td><td>排队补发</td><td>配置过期</td></tr><tr><td>API 调用</td><td>鉴权+限流</td><td>被刷</td></tr><tr><td>失败回滚</td><td>按批回退</td><td>坏配置扩散</td></tr></tbody></table></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检与三级对照</h2><p>群管理自检：可分组、配置可确认、批量可回滚、离线有策略。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 配置版本分布（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="配置版本分布（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">v3 一致</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="43" class="sv-lbl-hi">2台</text><text x="12" y="67" class="sv-lbl">落后</text><rect x="150" y="50" width="150" height="18" rx="4" class="sv-red-s"/><text x="308" y="67" class="sv-lbl-hi">1台</text></svg></div><figcaption class="fig-ft">多数设备配置一致，少数落后需下发；批量只针对落后设备，避免全量刷。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.4  三级群管理</div><table><thead><tr><th>层级</th><th>群管理角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>接收/确认配置</td><td>幂等</td></tr><tr><td>边缘网关</td><td>代理下发</td><td>批内聚合</td></tr><tr><td>云平台</td><td>分组/批量/审计</td><td>回滚</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>批量不分批</strong>：一次性推全量，失败难回滚。</li><li><strong>配置无确认</strong>：不知是否生效。</li><li><strong>API 无限流鉴权</strong>：被刷。</li><li><strong>离线直接丢</strong>：设备回来配置过期。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">为什么批量配置要“分批 + 可回滚”？</p><details><summary>查看答案</summary><div class="ans"><p>全量一次推的坏配置会同时影响所有设备；分批能限制影响面，可回滚能快速止损。这与固件灰度的思路一致。</p></div></details></li><li><p class="q">离线设备回来时应该怎么处理？</p><details><summary>查看答案</summary><div class="ans"><p>不能直接丢弃；应标记“配置待生效”并排队，设备恢复后补发，避免配置过期或用错配置。</p></div></details></li><li><p class="q">服务 API 为什么必须“鉴权 + 限流”？</p><details><summary>查看答案</summary><div class="ans"><p>设备群 API 一旦暴露，无鉴权会被越权调用、无限流会被刷爆，导致平台不可用或被恶意操作。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你设备群设计分组、批量配置（分批+回滚）与离线补发策略，并加 API 鉴权与限流。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.aws.amazon.com/iot/" target="_blank" rel="noopener noreferrer">AWS IoT / 物模型概念</a> · <a class="ref" href="https://opcfoundation.org/about/opc-technologies/opc-ua/" target="_blank" rel="noopener noreferrer">OPC UA 概览</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_registry.c</code>（设备/配置版本）：设计你的批量配置流程与离线策略。</p><p><strong>检查结果：</strong>设备可分组；配置带版本 3 与确认，版本≠3 的 1 台需下发；批量每批≤100 台可回滚；离线有排队补发。</p></div>
+<p class="sim-note">迁移练习：把本章的“设计分批+可回滚的批量配置与离线设备排队补发流程，识别并下发版本不一致配置。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>设备可分组；配置带版本 3 与确认，版本≠3 的 1 台需下发；批量每批≤100 台可回滚；离线有排队补发。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m11">
+    <div class="ch-head">
+      <div class="ch-badge">Module 11 · 实战与治理</div>
+      <h1 class="ch-title">数据与模型运行闭环<span class="acc">.</span></h1>
+      <p class="ch-lead">闭环让系统“越用越准”：<strong>数据版本 → 指标监测 → 漂移检测 → 重训 → 发布 → 回退</strong>。发布必须有独立验证与回退，不能自动重训后直接全量。</p>
+      <div class="ch-meta"><span>前置：完成 M04（告警规则）与 M06（协同）。</span><span>◷ 约 42 分钟</span><span>◈ 端/边/云三级对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：定义数据版本→指标监测→漂移重训→灰度发布→回退的闭环，并给出漂移判据与回退边界。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>数据版本可追溯，指标可监测，漂移触发重训。</li><li>重训后独立验证+灰度+回退。</li><li>禁止自动重训直接全量。</li></ul></div>
+    <section class="sec" id="m11-loop"><h2 id="m11-loop-t">11.1 运行闭环六环节</h2><p>数据版本 → 指标监测 → 漂移检测 → 重训 → 发布（灰度+验证）→ 回退（有边界）。模型运行闭环与 B13 的模型 OTA 相连。</p><figure class="fig" id="fig-图-11-1"><div class="fig-hd"><strong>图 11.1</strong> 数据与模型运行闭环</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="数据与模型运行闭环" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">数据版本</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">监测</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">漂移/重训</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">发布/回退</text></svg></div><figcaption class="fig-ft">数据版本（快照）→ 线上指标监测 → 漂移检测 → 重训 → 独立验证 → 灰度发布 → 失败回退。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 11.1  闭环六环节</div><table><thead><tr><th>环节</th><th>内容</th><th>要点</th></tr></thead><tbody><tr><td>数据版本</td><td>训练数据快照</td><td>可追溯</td></tr><tr><td>监测</td><td>线上指标</td><td>阈值告警</td></tr><tr><td>漂移</td><td>分布变化</td><td>触发重训</td></tr><tr><td>发布</td><td>灰度+验证</td><td>独立测试</td></tr><tr><td>回退</td><td>失败切换</td><td>有边界</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">loop.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (drift_psi() &gt; 0.2f) retrain();          // 漂移触发重训</span><span class="ln">if (!independent_eval(new_model)) return;   // 独立验证</span><span class="ln">deploy_gray(new_model, 0.05);              // 灰度≤5%</span><span class="ln">if (online_metric_drop() &gt; 0.05f) rollback();// 降&gt;5%回退</span>
+</code></pre><span class="code-note">漂移重训→独立验证→灰度→量化回退</span></div></section><section class="sec" id="m11-evidence"><h2 id="m11-evidence-t">11.2 真实证据：监测/告警规则</h2><p>监测用告警规则（阈值+时长+迟滞）判定线上指标是否异常：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_alert.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_alert.c —— 告警规则：阈值 + 持续时长 + 迟滞（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_alert.c -o host_alert &amp;&amp; ./host_alert</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float hi = 80, lo = 75; int need = 3;      /* 超过 80 持续 3 次触发；低于 75 复位（迟滞） */</span><span class="ln">    float v[] = {70, 82, 85, 90, 78, 74};</span><span class="ln">    int n = (int)(sizeof(v)/sizeof(v[0])), over = 0, alarm = 0, resets = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) {</span><span class="ln">        if (v[i] &gt; hi) { over++; if (over &gt;= need) alarm = 1; }</span><span class="ln">        else if (v[i] &lt; lo) { over = 0; if (alarm) { resets++; alarm = 0; } }</span><span class="ln">        printf(&quot;t=%d v=%.0f over=%d alarm=%d\n&quot;, i, v[i], over, alarm);</span><span class="ln">    }</span><span class="ln">    printf(&quot;触发=1 复位=%d（迟滞避免抖动）\n&quot;, resets);</span><span class="ln">    if (resets != 1) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">监测/告警规则模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert &amp;&amp; ./labs/host_alert</span>
+触发=1 复位=1（迟滞避免抖动）
+RESULT: PASS</code></pre></div></div><p class="sim-note">线上指标监测复用告警规则（阈值+持续+迟滞），避免指标抖动导致误触发重训/回退。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 11.2  监测判据与动作</div><table><thead><tr><th>监测项</th><th>判据</th><th>动作</th></tr></thead><tbody><tr><td>线上指标</td><td>阈值+时长+迟滞</td><td>告警</td></tr><tr><td>漂移</td><td>PSI>0.2/偏移>2σ</td><td>触发重训</td></tr><tr><td>发布灰度</td><td>首批≤5%</td><td>观察</td></tr><tr><td>回退</td><td>指标降>5%</td><td>切回旧版</td></tr></tbody></table></div></section><section class="sec" id="m11-safety"><h2 id="m11-safety-t">11.3 独立验证与回退边界</h2><p>重训产物要经<strong>独立验证</strong>、灰度、可回退；避免“自动重训后直接全量发布”造成批量事故。回退要有边界（数据/预处理不可回退时，模型也不能随意退）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">loop.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (drift_psi() &gt; 0.2f) retrain();           // 漂移触发重训</span><span class="ln">if (!independent_eval(new_model)) return;    // 独立验证</span><span class="ln">deploy_gray(new_model, 0.05);               // 灰度 ≤5%</span><span class="ln">if (online_metric_drop() &gt; 0.05f) rollback();// 降&gt;5% 回退</span>
+</code></pre><span class="code-note">漂移重训 → 独立验证 → 灰度 → 量化回退</span></div><div class="tbl-wrap"><div class="tbl-cap">表 11.3  闭环安全要求</div><table><thead><tr><th>要求</th><th>做法</th><th>理由</th></tr></thead><tbody><tr><td>数据版本</td><td>快照+可追溯</td><td>可复现</td></tr><tr><td>独立验证</td><td>独立测试集</td><td>防过拟合</td></tr><tr><td>灰度</td><td>首批≤5%</td><td>限影响面</td></tr><tr><td>回退边界</td><td>明确可退范围</td><td>防错配</td></tr></tbody></table></div></section><section class="sec" id="m11-check"><h2 id="m11-check-t">11.4 自检与三级对照</h2><p>闭环自检：数据可追溯、指标可监测、漂移触发重训、发布可回退。</p><figure class="fig" id="fig-图-11-2"><div class="fig-hd"><strong>图 11.2</strong> 漂移与重训触发（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="漂移与重训触发（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">PSI</text><rect x="150" y="26" width="500" height="18" rx="4" class="sv-amb-s"/><text x="658" y="43" class="sv-lbl-hi">25(×10⁻²)</text><text x="12" y="67" class="sv-lbl">阈值</text><rect x="150" y="50" width="400" height="18" rx="4" class="sv-red-s"/><text x="558" y="67" class="sv-lbl-hi">20(×10⁻²)</text><text x="12" y="91" class="sv-lbl">正常</text><rect x="150" y="74" width="160" height="18" rx="4" class="sv-grn-s"/><text x="318" y="91" class="sv-lbl-hi">8(×10⁻²)</text></svg></div><figcaption class="fig-ft">PSI 超阈值只触发调查：先排除采集/分箱变化，结合标签核查性能。0.2 是示例，不是通用重训门槛。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 11.4  三级闭环</div><table><thead><tr><th>层级</th><th>闭环角色</th><th>注意</th></tr></thead><tbody><tr><td>设备端</td><td>推理/回传难例</td><td>带宽</td></tr><tr><td>边缘网关</td><td>监测/聚合</td><td>实时性</td></tr><tr><td>云平台</td><td>训练/发布/回退</td><td>版本/验证</td></tr></tbody></table></div></section><section class="sec" id="m11-pitfalls"><h2 id="m11-pitfalls-t">11.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>自动重训直接全量</strong>：坏模型批量事故。</li><li><strong>无数据版本</strong>：模型不可复现。</li><li><strong>无漂移监测</strong>：悄悄退化。</li><li><strong>无回退</strong>：发布即单程票。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 11（先答再看）</div><ol><li><p class="q">为什么“自动重训后不能直接全量发布”？</p><details><summary>查看答案</summary><div class="ans"><p>重训可能因数据/参数问题产生坏模型。必须先独立验证、灰度观察、保留回退，否则一次自动更新就能造成批量事故。</p></div></details></li><li><p class="q">漂移检测的作用是什么？</p><details><summary>查看答案</summary><div class="ans"><p>监测分布变化并调查原因；PSI 与分箱、样本量有关，漂移不等于性能下降。确认数据/标签有效后训练候选模型，独立评估通过才进入灰度。</p></div></details></li><li><p class="q">为什么回退要有“边界”？</p><details><summary>查看答案</summary><div class="ans"><p>某些升级不可逆（数据/预处理结构变化）。无边界回退可能出现“旧模型 + 新预处理”的错配，导致状态错乱。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你系统定义数据版本→监测→漂移重训→灰度发布→回退的闭环，并给出漂移判据与回退边界。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://prometheus.io/docs/alerting/latest/overview/" target="_blank" rel="noopener noreferrer">Prometheus Alerting</a> · <a class="ref" href="https://docs.aws.amazon.com/iot/" target="_blank" rel="noopener noreferrer">AWS IoT / 物模型概念</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_alert.c</code>（监测/告警规则）；为你的闭环定义漂移判据与回退边界。</p><p><strong>检查结果：</strong>数据可追溯；指标可监测；PSI 与灰度百分比只作为示例策略，需结合标签、样本量和业务风险定阈值；候选重训模型先离线验证，再灰度并支持回退。</p></div>
+<p class="sim-note">迁移练习：把本章的“定义数据版本→指标监测→漂移重训→灰度发布→回退的闭环，并给出漂移判据与回退边界。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 11 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m11">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m11"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>数据可追溯；指标可监测；PSI 与灰度百分比只作为示例策略，需结合标签、样本量和业务风险定阈值；候选重训模型先离线验证，再灰度并支持回退。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">从设备到决策的完整链路<span class="acc">.</span></h1><p class="ch-lead">把 11 章串成一条路径：接入与物模型 → 网关缓存补传 → 时序存储 → 语义与质量 → 告警规则 → 协同安全 → 设备群管理与模型闭环。</p><div class="ch-meta"><span>◈ 9 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 11 章串成一条路径：<strong>接入与物模型 → 网关缓存补传 → 时序存储 → 语义与质量 → 告警规则 → 协同安全 → 设备群管理与模型闭环。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 接入</strong>（M01）——物模型 + 一机一密；验收：单位/范围/配置版本明确。</li>
+<li><strong>② 网关</strong>（M02）——汇聚 + 缓存 + 续传；验收：断网补齐、按确认续传、幂等提交并记录丢失。</li>
+<li><strong>③ 存储</strong>（M03）——时序 + 降采样 + 保留；验收：区间查询与聚合正确。</li>
+<li><strong>④ 语义</strong>（M09）——事件时间 + 质量；验收：重复/乱序/缺口可处理。</li>
+<li><strong>⑤ 告警</strong>（M04）——阈值+时长+迟滞；验收：不抖动、可闭环。</li>
+<li><strong>⑥ 分析</strong>（M05）——基线 + 异常；验收：误报/漏报可解释、有价值。</li>
+<li><strong>⑦ 协同</strong>（M06）——边缘自治 + 对账；验收：断网不停、恢复同步。</li>
+<li><strong>⑧ 安全</strong>（M07）——加密 + 认证 + 最小化；验收：密钥可轮换。</li>
+<li><strong>⑨ 管理</strong>（M10/M11）——设备群 + 模型闭环；验收：分批回滚、灰度回退。</li>
+</ol>
+<p class="sim-note">本册所有平台/现场项（真实时序库、网关、平台部署）均标注为“需实测”；时序增删查/降采样、重复乱序缺口检测、设备注册与配置版本、告警迟滞、云边续传等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">edge-to-cloud</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">设备(采集) -&gt; 边缘网关(转换/缓存/续传) -&gt; 时序库(存储/降采样) -&gt; 语义层(时间/质量)</span><span class="ln">        -&gt; 告警(阈值+时长+迟滞) -&gt; 看板/决策 -&gt; 模型闭环(训练/灰度/回退)</span><span class="ln">约束: 事件时间统一 · 质量标志 · 幂等 · 已确认位置续传</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">云边协同易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“设备在线但数据对不上 / 时间混乱 / 断网丢数据”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“设备在线但数据对不上 / 时间混乱 / 断网丢数据”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>物模型</td><td>单位/范围/类型</td><td>语义模糊</td><td>数据无法解释</td></tr><tr><td>身份</td><td>一机一密</td><td>共用密钥</td><td>全网风险</td></tr><tr><td>续传</td><td>按已确认位置</td><td>按最后发送</td><td>重复/丢失</td></tr><tr><td>时间</td><td>事件时间+同步</td><td>混用口径</td><td>分析错</td></tr><tr><td>存储</td><td>标签+降采样+保留</td><td>基数爆炸</td><td>查询慢/满盘</td></tr><tr><td>告警</td><td>阈值+时长+迟滞</td><td>单点阈值</td><td>抖动/风暴</td></tr><tr><td>协同</td><td>边缘自治+对账</td><td>强依赖云</td><td>断网停摆</td></tr><tr><td>安全</td><td>加密+认证+最小化</td><td>明文/过度采集</td><td>泄露/合规</td></tr><tr><td>批量</td><td>分批+回滚</td><td>一次全量</td><td>批量事故</td></tr><tr><td>闭环</td><td>验证+灰度+回退</td><td>自动全量</td><td>退化/事故</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；端/边/云叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；端/边/云叫法差异也一并标注。</p><dl class="glossary"><dt>物模型</dt><dd>设备能力的结构化描述：属性、遥测、命令。</dd><dt>边缘网关</dt><dd>设备与云之间的汇聚、转换、缓存与计算节点。</dd><dt>时序数据库</dt><dd>面向时间序列优化的存储（InfluxDB/TimescaleDB 等）。</dd><dt>标签/度量</dt><dd>时序数据的索引维度与数值。</dd><dt>标签基数</dt><dd>标签取值的数量；过高会拖垮索引。</dd><dt>降采样</dt><dd>把高频数据聚合为低频历史。</dd><dt>保留策略</dt><dd>按时间/体积自动清理数据。</dd><dt>事件时间/到达时间</dt><dd>数据发生的时间 / 到达系统的时间。</dd><dt>质量标志</dt><dd>标记数据是否可信（丢样/异常/插值）。</dd><dt>迟滞</dt><dd>用高低两个阈值形成死区，防抖动。</dd><dt>水位/已确认位置</dt><dd>云边同步的进度指针。</dd><dt>幂等</dt><dd>重复执行结果不变。</dd><dt>一机一密</dt><dd>每台设备独立密钥/证书。</dd><dt>数据最小化</dt><dd>只采集与保留必要的数据。</dd><dt>漂移</dt><dd>数据分布随时间变化。</dd><dt>RUL</dt><dd>剩余使用寿命估计。</dd><dt>灰度/回退</dt><dd>小批量发布并保留回退能力。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "设备接入与物模型."}, {"id": "m02", "num": "02", "title": "边缘网关."}, {"id": "m03", "num": "03", "title": "时序数据存储."}, {"id": "m04", "num": "04", "title": "可视化与告警."}, {"id": "m05", "num": "05", "title": "数据分析与预测性维护."}, {"id": "m06", "num": "06", "title": "云边协同架构."}, {"id": "m07", "num": "07", "title": "数据安全与隐私."}, {"id": "m08", "num": "08", "title": "实战：从设备到决策的完整链路."}, {"id": "m09", "num": "09", "title": "数据语义、时间与质量."}, {"id": "m10", "num": "10", "title": "设备群管理与服务接口."}, {"id": "m11", "num": "11", "title": "数据与模型运行闭环."}, {"id": "capstone", "num": "", "title": "从设备到决策的完整链路."}, {"id": "cheatsheet", "num": "", "title": "云边协同易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

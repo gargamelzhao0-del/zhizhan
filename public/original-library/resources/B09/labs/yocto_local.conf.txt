@@ -1,0 +1,6 @@
+# i.MX6ULL · Yocto local.conf 片段
+MACHINE = "imx6ull14x14evk"
+DISTRO = "fsl-imx-xwayland"
+IMAGE_FSTYPES = "wic.bz2 ext4"
+PACKAGE_CLASSES = "package_rpm"
+# 产物：tmp/deploy/images/<machine>/ 下有 .wic、.dtb、内核与 SDK 安装包

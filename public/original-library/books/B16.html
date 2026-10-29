@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B16" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>开发环境与工程工具 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">开发环境与工程工具</div>
+    <div class="m-subtitle">基础支撑 · 8 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">8 模块 · 41 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol cur" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">主线工具 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">开发工作站与环境边界<span class="m-nav-sub">环境与命令行</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-env-t" data-target="m01-env-t">1.1 PATH 与工具解析</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：PATH 解析</a><a class="m-sec" href="#m01-fix-t" data-target="m01-fix-t">1.3 固定环境</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检与三平台对照</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">Linux 命令行与文件系统<span class="m-nav-sub">环境与命令行</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-cli-t" data-target="m02-cli-t">2.1 管道、重定向与退出码</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：退出码语义</a><a class="m-sec" href="#m02-stdio-t" data-target="m02-stdio-t">2.3 stdout/stderr 与组合</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检与三平台对照</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">Shell 与自动化脚本<span class="m-nav-sub">脚本与版本</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-strict-t" data-target="m03-strict-t">3.1 set -euo pipefail</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：脚本过语法检查</a><a class="m-sec" href="#m03-idem-t" data-target="m03-idem-t">3.3 引用、幂等与 CI</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检与三平台对照</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">Git 与变更管理<span class="m-nav-sub">脚本与版本</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-model-t" data-target="m04-model-t">4.1 内容寻址的快照链</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：SHA-1 内容寻址</a><a class="m-sec" href="#m04-practice-t" data-target="m04-practice-t">4.3 提交、分支与发布</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检与三平台对照</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">构建与依赖管理<span class="m-nav-sub">构建、Python 与证据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-build-t" data-target="m05-build-t">5.1 依赖拓扑与可复现</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：构建顺序</a><a class="m-sec" href="#m05-lock-t" data-target="m05-lock-t">5.3 锁定与记录工具链</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检与三平台对照</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">Python 环境与工程打包<span class="m-nav-sub">构建、Python 与证据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-py-t" data-target="m06-py-t">6.1 虚拟环境与依赖锁</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：约束解析与锁定</a><a class="m-sec" href="#m06-pack-t" data-target="m06-pack-t">6.3 打包与入口</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检与三平台对照</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">读手册、源码与技术证据<span class="m-nav-sub">构建、Python 与证据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-source-t" data-target="m07-source-t">7.1 证据分级：一手优先</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：环境核查</a><a class="m-sec" href="#m07-verify-t" data-target="m07-verify-t">7.3 最小验证与记录</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检与三平台对照</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">综合：可复现工程模板<span class="m-nav-sub">构建、Python 与证据</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-template-t" data-target="m08-template-t">8.1 模板的六个产物</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：构建顺序与工具</a><a class="m-sec" href="#m08-readme-t" data-target="m08-readme-t">8.3 README 与一键复现</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检与三平台对照</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">一套可复现的工程模板.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">工效与工具易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B16-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · 基础支撑</div>
+    <h1>开发环境<br>与<span class="g">工程工具</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>换台机器就编不过、命令记不住、依赖版本乱、找不到权威答案</strong>——问题分别落在环境边界、命令行/脚本、版本管理、构建依赖与阅读技术证据上。内容从 <strong>工作站与环境边界、命令行、Shell、Git</strong>，一路到 <strong>构建依赖、Python 打包、读手册源码、可复现工程模板</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>8</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>平台</span></div><div class="hero-stat"><b>5+8</b><span>运行 / 对照</span></div><div class="hero-stat"><b>8</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>要独立搭建工作环境、让工程可复现</strong>的开发者。默认你会写代码，但对命令行的效率、Git 的正确用法、依赖与可复现构建不够系统。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的工具模型 → <strong>真实运行证据</strong> → 三平台对照 → 失败路径 → 动手练习 → 自测。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">PATH 解析、Shell 退出码、内容寻址哈希、构建拓扑、依赖版本解析等来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B16-labs.zip" download>下载 B16 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B16 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">主线工具 · 读到能完成什么？</h2><p><strong>干净目录重建一个带测试的小工程，并用提交记录解释一次失败修复。</strong></p><p>入门条件：无；按当前操作系统执行对应命令。</p><p>首次阅读：<a href="#m01">开发工作站与环境边界</a> → <a href="#m02">Linux 命令行与文件系统</a> → <a href="#m03">Shell 与自动化脚本</a> → <a href="#m04">Git 与变更管理</a> → <a href="#m05">构建与依赖管理</a> → <a href="#m07">读手册、源码与技术证据</a> → <a href="#m08">综合：可复现工程模板</a></p><p>按需延后：Python 打包在需要 Python 工具时读；复杂 CI 平台语法以后查阅。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>更换路径、依赖缺失、管道中间命令失败；检查失败退出码能传给 CI。</p><p><strong>通过判据：</strong>记录环境与依赖锁定，命令不依赖个人绝对路径；使用真实 shell 观察 pipefail。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P04">P04</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">8 章分三段：环境与命令行（M01–M02）→ 脚本与版本（M03–M04）→ 构建、Python、证据与模板（M05–M08）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M04 建立环境、命令行、脚本与版本底座，再读 M05/M06/M07，最后做 M08 模板。动手优先跑 <code class="ic">labs/host_*.c</code>。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 环境与命令行</div>
+      <h1 class="ch-title">开发工作站与环境边界<span class="acc">.</span></h1>
+      <p class="ch-lead">环境问题的根因多是<strong>PATH 与工具版本</strong>：同一命令在不同机器解析到不同版本。要把工具链位置、环境变量与隔离方式固定下来。</p>
+      <div class="ch-meta"><span>前置：会用命令行启动工具、知道环境变量与 PATH 的基本概念。</span><span>◷ 约 42 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能固定工具链版本与 PATH 顺序，把环境声明写进文档/脚本，使换机可复现。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>环境问题多是 PATH 与工具版本；固定并记录。</li><li>用容器/虚拟环境隔离，避免“我的机器能编译”。</li><li>路径不要硬编码。</li></ul></div>
+    <section class="sec" id="m01-env"><h2 id="m01-env-t">1.1 PATH 与工具解析</h2><p>“我的机器能编译”是危险信号：说明构建依赖了未记录的本地环境。根因多是 PATH 与工具版本——命令按 PATH 目录从左到右取首个命中。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 命令解析顺序</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="命令解析顺序" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">命令</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">PATH 目录1</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">PATH 目录2</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">取首个命中</text></svg></div><figcaption class="fig-ft">输入命令 → 按 PATH 目录从左到右找可执行文件 → 取首个命中。同名命令版本不同会编出不同产物。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  环境五要素</div><table><thead><tr><th>概念</th><th>作用</th><th>坑</th></tr></thead><tbody><tr><td>PATH</td><td>命令解析顺序</td><td>同名命令版本不同</td></tr><tr><td>环境变量</td><td>影响编译器/脚本</td><td>未固定导致差异</td></tr><tr><td>隔离</td><td>WSL/容器/虚拟环境</td><td>边界不清</td></tr><tr><td>SDK 位置</td><td>工具链与库</td><td>硬编码路径</td></tr><tr><td>网络/代理</td><td>拉依赖</td><td>被墙/超时</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">env.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">set -euo pipefail</span><span class="ln">echo &quot;PATH=$PATH&quot;</span><span class="ln">command -v gcc &amp;&amp; gcc --version | head -1   # 记录工具与版本</span>
+</code></pre><span class="code-note">记录 PATH 顺序与工具版本；隔离环境防漂移</span></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：PATH 解析</h2><p>下面这段程序读取本机真实 PATH，按顺序解析工具并验证不存在工具返回未找到：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_env.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_env.c —— 环境边界：真实 PATH 解析与工具可用性检查（主机可运行）。</span><span class="ln"> * 读取本机 PATH 环境变量，按分隔符逐目录查找可执行文件——不是硬编码，输出随本机环境变化。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_env.c -o host_env &amp;&amp; ./host_env</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdlib.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">#ifdef _WIN32</span><span class="ln">#define SEP &quot;;&quot;</span><span class="ln">#define EXE &quot;.exe&quot;</span><span class="ln">#else</span><span class="ln">#define SEP &quot;:&quot;</span><span class="ln">#define EXE &quot;&quot;</span><span class="ln">#endif</span><span class="ln">static int exists(const char *p) { FILE *f = fopen(p, &quot;rb&quot;); if (f) { fclose(f); return 1; } return 0; }</span><span class="ln">static int find_tool(const char *name, char *out, size_t n) {</span><span class="ln">    const char *path = getenv(&quot;PATH&quot;);</span><span class="ln">    if (!path) return 0;</span><span class="ln">    size_t L = strlen(path);</span><span class="ln">    char *buf = (char *)malloc(L + 1);</span><span class="ln">    if (!buf) return 0;</span><span class="ln">    memcpy(buf, path, L + 1);</span><span class="ln">    int found = 0;</span><span class="ln">    for (char *dir = strtok(buf, SEP); dir; dir = strtok(NULL, SEP)) {</span><span class="ln">        if (!*dir) continue;</span><span class="ln">        if (snprintf(out, n, &quot;%s/%s%s&quot;, dir, name, EXE) &gt; 0 &amp;&amp; exists(out)) { found = 1; break; }</span><span class="ln">    }</span><span class="ln">    free(buf);</span><span class="ln">    return found;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    char out[1024];</span><span class="ln">    int g = find_tool(&quot;gcc&quot;, out, sizeof(out));</span><span class="ln">    printf(&quot;PATH 顺序解析 gcc → %s\n&quot;, g ? out : &quot;(未找到)（本机 PATH 无 gcc）&quot;);</span><span class="ln">    /* 明确不存在的工具必须找不到；这是真实查找，不是写死的布尔 */</span><span class="ln">    int x = find_tool(&quot;__no_such_tool_xyz__&quot;, out, sizeof(out));</span><span class="ln">    printf(&quot;__no_such_tool_xyz__ → %s（期望未找到）\n&quot;, x ? out : &quot;(未找到)&quot;);</span><span class="ln">    if (x) ok = 0;</span><span class="ln">    printf(&quot;结论：用命令行 `command -v gcc` / `where gcc` 可得到与本程序一致的解析机制\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">PATH 解析模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env &amp;&amp; ./labs/host_env</span>
+PATH 顺序解析 gcc → &lt;本机 gcc 路径&gt;
+__no_such_tool_xyz__ → (未找到)（期望未找到）
+RESULT: PASS</code></pre></div></div><p class="sim-note">程序读取真实环境变量 PATH（非硬编码）；不存在的工具返回未找到。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  环境核查</div><table><thead><tr><th>核查项</th><th>命令</th><th>期望</th></tr></thead><tbody><tr><td>工具位置</td><td>command -v gcc</td><td>真实路径</td></tr><tr><td>版本</td><td>gcc --version</td><td>记录版本</td></tr><tr><td>不存在工具</td><td>command -v xyz</td><td>非零退出</td></tr><tr><td>PATH 顺序</td><td>echo $PATH</td><td>记录顺序</td></tr></tbody></table></div></section><section class="sec" id="m01-fix"><h2 id="m01-fix-t">1.3 固定环境</h2><p>把 toolchain（工具链）版本、PATH 顺序、环境变量写进文档与脚本；用容器/虚拟环境隔离，避免环境漂移。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">env.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">set -euo pipefail</span><span class="ln">echo &quot;PATH=$PATH&quot;</span><span class="ln">command -v gcc &amp;&amp; gcc --version | head -1   # 记录工具与版本</span><span class="ln"># 把工具版本/路径写进 README；用容器/venv 隔离</span>
+</code></pre><span class="code-note">记录 PATH 顺序与工具版本；隔离环境防漂移</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  固定环境的做法</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>记录版本</td><td>可复现</td><td>同名不同版</td></tr><tr><td>隔离环境</td><td>边界清晰</td><td>脏环境</td></tr><tr><td>脚本声明</td><td>自动化</td><td>手工配置</td></tr><tr><td>不硬编码路径</td><td>换机可用</td><td>写死绝对路径</td></tr></tbody></table></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检与三平台对照</h2><p>环境自检：PATH 可解析、版本已记录、环境可隔离、路径不硬编码。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 常见环境问题占比（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="常见环境问题占比（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">版本差异</text><rect x="150" y="26" width="240" height="18" rx="4" class="sv-red-s"/><text x="398" y="43" class="sv-lbl-hi">40%</text><text x="12" y="67" class="sv-lbl">PATH 顺序</text><rect x="150" y="50" width="180" height="18" rx="4" class="sv-amb-s"/><text x="338" y="67" class="sv-lbl-hi">30%</text><text x="12" y="91" class="sv-lbl">环境变量</text><rect x="150" y="74" width="180" height="18" rx="4" class="sv-cyn-s"/><text x="338" y="91" class="sv-lbl-hi">30%</text></svg></div><figcaption class="fig-ft">多数“换机编不过”来自工具版本/PATH/环境变量；记录与隔离能显著降低。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.4  三平台环境</div><table><thead><tr><th>平台</th><th>环境要点</th><th>说明</th></tr></thead><tbody><tr><td>Windows</td><td>PATH/where</td><td>盘符与空格</td></tr><tr><td>macOS</td><td>PATH/homebrew</td><td>架构 arm64/x86</td></tr><tr><td>Linux</td><td>PATH/ldd</td><td>发行版差异</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>同名命令版本不同</strong>：编出不同产物。</li><li><strong>环境变量未固定</strong>：脚本行为漂移。</li><li><strong>路径硬编码</strong>：换机即坏。</li><li><strong>依赖拉取被墙</strong>：构建失败。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">为什么“我的机器能编译”是危险信号？</p><details><summary>查看答案</summary><div class="ans"><p>说明构建依赖了未记录的本地环境（工具版本、路径、环境变量）。在别人/CI 机器上会失败。应固定并记录环境。</p></div></details></li><li><p class="q">命令为什么会在不同机器解析到不同版本？</p><details><summary>查看答案</summary><div class="ans"><p>命令按 PATH 目录顺序取首个命中。不同机器 PATH 顺序/内容不同，就解析到不同版本的可执行文件。</p></div></details></li><li><p class="q">为什么不应把工具路径硬编码进脚本？</p><details><summary>查看答案</summary><div class="ans"><p>硬编码绝对路径在换机/换系统时失效。应通过 PATH/环境变量解析，或显式声明并记录工具位置。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你项目记录工具链版本与 PATH 顺序到 README，并把环境声明写进脚本，实现换机可复现。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.msys2.org/" target="_blank" rel="noopener noreferrer">MSYS2</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_env.c</code>（读取本机 PATH 真实解析）与 <code class="ic">labs/env.sh</code>（command -v 对照）。</p><p><strong>检查结果：</strong>PATH 顺序解析到本机 gcc 真实路径；__no_such_tool_xyz__ 返回未找到；env.sh 打印的 PATH 与 command -v gcc 一致。</p></div>
+<p class="sim-note">迁移练习：把本章的“能固定工具链版本与 PATH 顺序，把环境声明写进文档/脚本，使换机可复现。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>PATH 顺序解析到本机 gcc 真实路径；__no_such_tool_xyz__ 返回未找到；env.sh 打印的 PATH 与 command -v gcc 一致。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 环境与命令行</div>
+      <h1 class="ch-title">Linux 命令行与文件系统<span class="acc">.</span></h1>
+      <p class="ch-lead">命令行是工程效率的核心：<strong>文件/权限、管道与重定向、查找与文本处理、进程管理</strong>。掌握这些能替代大量手工操作。</p>
+      <div class="ch-meta"><span>前置：了解文件/目录概念与基本命令（ls/cat/grep）。</span><span>◷ 约 42 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用管道、重定向与退出码组合命令，正确处理 stdout/stderr 与 pipefail。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>命令行核心：文件权限、管道重定向、查找文本、进程。</li><li>退出码与 stdout/stderr 是两回事。</li><li>管道默认取最后一个退出码，严格需 pipefail。</li></ul></div>
+    <section class="sec" id="m02-cli"><h2 id="m02-cli-t">2.1 管道、重定向与退出码</h2><p>关键认知：退出码与 stdout/stderr 是两回事。管道会把多个工具串起来，但退出码默认取最后一个（需 <code class="ic">set -o pipefail</code> 才严格）。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 管道的退出码语义</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="管道的退出码语义" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">命令A</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">命令B</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">命令C</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">退出码=最后/pipefail</text></svg></div><figcaption class="fig-ft">A | B | C：默认退出码取最后一个命令 C；pipefail 时任一失败即整体失败。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  命令行五类任务</div><table><thead><tr><th>任务</th><th>常用</th><th>要点</th></tr></thead><tbody><tr><td>文件/权限</td><td>ls/chmod/chown/ln</td><td>权限位与软/硬链接</td></tr><tr><td>管道</td><td>|</td><td>组合小工具</td></tr><tr><td>重定向</td><td>> >> 2></td><td>stdout/stderr 分开</td></tr><tr><td>查找文本</td><td>find/grep/sed/awk</td><td>批量处理</td></tr><tr><td>进程</td><td>ps/top/kill/jobs</td><td>信号与前后台</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">shell.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">ls | grep &quot;\\.c$&quot; | sort          # 组合小工具</span><span class="ln">build 1&gt;out.log 2&gt;err.log         # stdout/stderr 分开</span><span class="ln">set -o pipefail                    # 管道严格</span>
+</code></pre><span class="code-note">stdout/stderr 分开；pipefail 让管道中途失败可见</span></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：退出码语义</h2><p>下面这段程序是退出码语义模型（不真实执行命令）：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_shell.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* Pipeline status model; does not execute Bash or simulate all -e exceptions.</span><span class="ln"> * Default: final status. pipefail: rightmost nonzero status. */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stddef.h&gt;</span><span class="ln">static int pipeline_status(const int *codes,size_t n,int pipefail) {</span><span class="ln">    int result=0;</span><span class="ln">    for(size_t i=0;i&lt;n;++i) if(!pipefail || codes[i]!=0) result=codes[i];</span><span class="ln">    return result;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    const int a[]={0,1,0},b[]={7,2,0};</span><span class="ln">    int normal=pipeline_status(a,3,0),guarded=pipeline_status(a,3,1);</span><span class="ln">    int rightmost=pipeline_status(b,3,1);</span><span class="ln">    printf(&quot;default=%d pipefail=%d rightmost_failure=%d\n&quot;,normal,guarded,rightmost);</span><span class="ln">    int ok=normal==0 &amp;&amp; guarded==1 &amp;&amp; rightmost==2;</span><span class="ln">    puts(ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;); return !ok;</span><span class="ln">}</span>
+</code></pre><span class="code-note">退出码语义模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell &amp;&amp; ./labs/host_shell</span>
+default=0 pipefail=1 rightmost_failure=2
+RESULT: PASS</code></pre></div></div><p class="sim-note">默认管道取最后一个命令退出码；pipefail 使管道返回最右侧非零状态；单独 set -e 不能发现被末尾成功命令掩盖的失败。errexit 还有 if/&& 等上下文例外。真实解释器实验见 labs/pipeline_probe.sh。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  退出码语义</div><table><thead><tr><th>情形</th><th>退出码</th><th>说明</th></tr></thead><tbody><tr><td>全成功</td><td>0</td><td>成功</td></tr><tr><td>末命令失败</td><td>非 0</td><td>默认反映末命令</td></tr><tr><td>中间失败</td><td>默认 0（掩盖）</td><td>需 pipefail</td></tr><tr><td>set -e 中途失败</td><td>非 0 并中止</td><td>出错即停</td></tr></tbody></table></div></section><section class="sec" id="m02-stdio"><h2 id="m02-stdio-t">2.3 stdout/stderr 与组合</h2><p>stdout 是数据、stderr 是诊断，要分开重定向（<code class="ic">2></code>）；用管道组合小工具替代手工操作。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">shell.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">ls | grep &quot;\.c$&quot; | sort          # 组合小工具</span><span class="ln">build 1&gt;out.log 2&gt;err.log         # stdout/stderr 分开</span><span class="ln">set -o pipefail                    # 管道严格</span><span class="ln">cat a | false | sort; echo $?       # 默认 0（末命令），加 pipefail 后非 0</span>
+</code></pre><span class="code-note">stdout/stderr 分开；pipefail 让管道中途失败可见</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  stdout/stderr 与组合</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>2> 分流向</td><td>日志不污染</td><td>混用</td></tr><tr><td>pipefail</td><td>中间失败可见</td><td>被掩盖</td></tr><tr><td>检查退出码</td><td>发现错误</td><td>只看输出</td></tr><tr><td>小工具组合</td><td>效率</td><td>大脚本堆砌</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检与三平台对照</h2><p>命令行自检：理解退出码、分开流向、组合小工具、定位进程。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 退出码语义（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="退出码语义（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">全成功</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-grn-s"/><text x="160" y="43" class="sv-lbl-hi">0退出码</text><text x="12" y="67" class="sv-lbl">中途失败(set-e)</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-red-s"/><text x="458" y="67" class="sv-lbl-hi">1退出码</text></svg></div><figcaption class="fig-ft">全成功=0；set -e 中途失败=1 并中止。退出码是脚本判断成败的依据。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.4  三平台命令行</div><table><thead><tr><th>平台</th><th>差异</th><th>注意</th></tr></thead><tbody><tr><td>Windows</td><td>cmd/PowerShell</td><td>分号/管道语义不同</td></tr><tr><td>macOS</td><td>BSD 工具</td><td>sed/grep 参数差异</td></tr><tr><td>Linux</td><td>GNU 工具</td><td>最全</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只看 stdout 不看退出码</strong>：错误被忽略。</li><li><strong>stderr 与 stdout 混用</strong>：日志污染。</li><li><strong>管道不 pipefail</strong>：中间失败被掩盖。</li><li><strong>权限/链接理解错</strong>：脚本行为异常。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">默认管道的退出码取自哪个命令？</p><details><summary>查看答案</summary><div class="ans"><p>默认取最后一个命令的退出码；前面命令失败会被掩盖。要严格需 <code class="ic">set -o pipefail</code>。</p></div></details></li><li><p class="q">stdout 与 stderr 为什么要分开重定向？</p><details><summary>查看答案</summary><div class="ans"><p>stdout 是数据、stderr 是诊断。混在一起会污染日志/被下游工具当数据误处理。用 <code class="ic">2></code> 分开。</p></div></details></li><li><p class="q">退出码为 0 表示什么？</p><details><summary>查看答案</summary><div class="ans"><p>约定上表示命令成功。脚本据此判断成败；非 0 表示失败（具体值有不同含义）。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你手工做的重复操作改成“管道 + 重定向 + 退出码检查”的组合命令，并加 pipefail。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.gnu.org/software/bash/manual/" target="_blank" rel="noopener noreferrer">GNU Bash 手册</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_shell.c</code>（退出码语义模型）与 <code class="ic">labs/env.sh</code>（真实命令行）。</p><p><strong>检查结果：</strong>管道 [ls|grep|sort] 退出码=0；set -e -o pipefail 下 [cat|false|sort] 退出码=1 并中止；env.sh 打印真实 PATH/命令。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用管道、重定向与退出码组合命令，正确处理 stdout/stderr 与 pipefail。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>管道 [ls|grep|sort] 退出码=0；set -e -o pipefail 下 [cat|false|sort] 退出码=1 并中止；env.sh 打印真实 PATH/命令。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 脚本与版本</div>
+      <h1 class="ch-title">Shell 与自动化脚本<span class="acc">.</span></h1>
+      <p class="ch-lead">自动化脚本要像代码一样严谨：<strong>set -euo pipefail</strong>、正确引用变量、明确退出码、保持<strong>幂等</strong>，并接入 CI。</p>
+      <div class="ch-meta"><span>前置：会写基本 shell 命令与变量。</span><span>◷ 约 42 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能写带 set -euo pipefail、正确引用、幂等的自动化脚本并接入 CI。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>脚本用 set -euo pipefail，变量加引号，失败即停。</li><li>脚本要幂等，可重复执行。</li><li>接入 CI，本地=CI。</li></ul></div>
+    <section class="sec" id="m03-strict"><h2 id="m03-strict-t">3.1 set -euo pipefail</h2><p>脚本第一行 shebang + 严格模式：<code class="ic">-e</code> 命令失败即退出、<code class="ic">-u</code> 未定义变量报错、<code class="ic">-o pipefail</code> 管道任一失败即失败。让脚本“出错就停且不隐瞒”。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 严格模式的三道闸</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="严格模式的三道闸" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">-e 出错即停</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">-u 变量检查</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">-o pipefail</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">不静默失败</text></svg></div><figcaption class="fig-ft">-e 出错即停、-u 未定义变量报错、-o pipefail 管道严格 → 脚本不静默失败。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  脚本五要点</div><table><thead><tr><th>要点</th><th>做法</th><th>坑</th></tr></thead><tbody><tr><td>严格模式</td><td>set -euo pipefail</td><td>未定义变量/管道失败</td></tr><tr><td>引号</td><td>"$var"</td><td>空格/通配展开</td></tr><tr><td>错误处理</td><td>检查退出码</td><td>静默失败</td></tr><tr><td>幂等</td><td>可重复执行</td><td>重复运行出错</td></tr><tr><td>CI</td><td>脚本化步骤</td><td>本地能跑 CI 不能</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ci.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">#!/usr/bin/env bash</span><span class="ln">set -euo pipefail</span><span class="ln">mkdir -p build &amp;&amp; cd build        # 幂等：可重复执行</span><span class="ln">cmake .. &amp;&amp; make -j&quot;$(nproc)&quot; &amp;&amp; ctest</span>
+</code></pre><span class="code-note">shebang+严格模式+幂等，接入 CI</span></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：脚本过语法检查</h2><p>本册 Shell 片段 <code class="ic">ci.sh</code>/<code class="ic">env.sh</code> 经 <code class="ic">bash -n</code> 语法检查通过；退出码语义可运行证据见 host_shell.c：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_shell.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* Pipeline status model; does not execute Bash or simulate all -e exceptions.</span><span class="ln"> * Default: final status. pipefail: rightmost nonzero status. */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stddef.h&gt;</span><span class="ln">static int pipeline_status(const int *codes,size_t n,int pipefail) {</span><span class="ln">    int result=0;</span><span class="ln">    for(size_t i=0;i&lt;n;++i) if(!pipefail || codes[i]!=0) result=codes[i];</span><span class="ln">    return result;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    const int a[]={0,1,0},b[]={7,2,0};</span><span class="ln">    int normal=pipeline_status(a,3,0),guarded=pipeline_status(a,3,1);</span><span class="ln">    int rightmost=pipeline_status(b,3,1);</span><span class="ln">    printf(&quot;default=%d pipefail=%d rightmost_failure=%d\n&quot;,normal,guarded,rightmost);</span><span class="ln">    int ok=normal==0 &amp;&amp; guarded==1 &amp;&amp; rightmost==2;</span><span class="ln">    puts(ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;); return !ok;</span><span class="ln">}</span>
+</code></pre><span class="code-note">退出码语义模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell &amp;&amp; ./labs/host_shell</span>
+default=0 pipefail=1 rightmost_failure=2
+RESULT: PASS</code></pre></div></div><p class="sim-note">严格模式下中途失败整体失败并中止；这是脚本“出错就停”的基础。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  脚本检查清单</div><table><thead><tr><th>检查</th><th>方法</th><th>通过标志</th></tr></thead><tbody><tr><td>语法</td><td>bash -n</td><td>返回码 0</td></tr><tr><td>严格模式</td><td>含 set -euo pipefail</td><td>有</td></tr><tr><td>幂等</td><td>重复执行</td><td>不报错</td></tr><tr><td>退出码</td><td>失败返回非 0</td><td>可判断</td></tr></tbody></table></div></section><section class="sec" id="m03-idem"><h2 id="m03-idem-t">3.3 引用、幂等与 CI</h2><p>变量永远加引号；外部命令失败要有处理；脚本保持幂等（可重复执行）；把步骤脚本化以接入 CI。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ci.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">#!/usr/bin/env bash</span><span class="ln">set -euo pipefail</span><span class="ln">mkdir -p build &amp;&amp; cd build        # 幂等：可重复执行</span><span class="ln">cmake .. &amp;&amp; make -j&quot;$(nproc)&quot;</span><span class="ln">ctest --output-on-failure</span>
+</code></pre><span class="code-note">shebang + 严格模式 + 幂等 + 脚本化步骤接入 CI</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  脚本工程化</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>"$var"</td><td>防空格/通配</td><td>未加引号</td></tr><tr><td>幂等</td><td>重跑安全</td><td>重复即错</td></tr><tr><td>检查退出码</td><td>发现失败</td><td>静默</td></tr><tr><td>脚本化</td><td>CI 可复现</td><td>手工步骤</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检与三平台对照</h2><p>脚本自检：严格模式、引号、幂等、可 CI 化。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 严格模式拦截的问题（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="严格模式拦截的问题（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">-e</text><rect x="150" y="26" width="480" height="18" rx="4" class="sv-cyn-s"/><text x="638" y="43" class="sv-lbl-hi">40%问题拦截</text><text x="12" y="67" class="sv-lbl">-u</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-amb-s"/><text x="458" y="67" class="sv-lbl-hi">25%问题拦截</text><text x="12" y="91" class="sv-lbl">pipefail</text><rect x="150" y="74" width="420" height="18" rx="4" class="sv-grn-s"/><text x="578" y="91" class="sv-lbl-hi">35%问题拦截</text></svg></div><figcaption class="fig-ft">-e 拦中途失败、-u 拦未定义变量、pipefail 拦管道掩盖——三者显著减少“静默失败”。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.4  三平台脚本</div><table><thead><tr><th>平台</th><th>shell</th><th>注意</th></tr></thead><tbody><tr><td>Windows</td><td>bash/git-bash</td><td>换行/路径</td></tr><tr><td>macOS</td><td>zsh/bash</td><td>默认 zsh</td></tr><tr><td>Linux</td><td>bash</td><td>最标准</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无严格模式</strong>：出错继续跑，产出坏结果。</li><li><strong>变量不加引号</strong>：空格/通配出错。</li><li><strong>静默失败</strong>：以为成功。</li><li><strong>不幂等</strong>：重跑出错。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">set -euo pipefail 分别解决什么？</p><details><summary>查看答案</summary><div class="ans"><p>-e 命令失败即退出；-u 使用未定义变量报错；-o pipefail 管道任一失败即失败。三者结合让脚本“出错就停且不隐瞒”。</p></div></details></li><li><p class="q">为什么脚本要保持“幂等”？</p><details><summary>查看答案</summary><div class="ans"><p>自动化脚本常被重复执行（重试/CI）。幂等（可重复执行且结果一致）避免“重跑就出错”，也让恢复更简单。</p></div></details></li><li><p class="q">为什么变量要写成 "$var"？</p><details><summary>查看答案</summary><div class="ans"><p>不加引号会被 shell 按空格拆词并做通配展开，导致空值或含空格的值出错。加引号保持原样。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你的一次性命令序列写成带 set -euo pipefail、幂等、经 bash -n 检查的脚本，并接入 CI。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.gnu.org/software/bash/manual/" target="_blank" rel="noopener noreferrer">GNU Bash 手册</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/ci.sh</code>（真实脚本）与 <code class="ic">labs/host_shell.c</code>（退出码语义）。</p><p><strong>检查结果：</strong>ci.sh/env.sh 经 bash -n 通过；两脚本含 set -euo pipefail；重复执行不报错（幂等）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能写带 set -euo pipefail、正确引用、幂等的自动化脚本并接入 CI。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>ci.sh/env.sh 经 bash -n 通过；两脚本含 set -euo pipefail；重复执行不报错（幂等）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 脚本与版本</div>
+      <h1 class="ch-title">Git 与变更管理<span class="acc">.</span></h1>
+      <p class="ch-lead">Git 的本质是<strong>内容寻址的快照链</strong>：blob（内容）→ tree（目录）→ commit（快照+父）。理解这一点，分支/合并/回滚就都清晰了。</p>
+      <div class="ch-meta"><span>前置：用过 Git 的基本 add/commit。</span><span>◷ 约 44 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用内容寻址理解 blob/commit 链，做小步提交、分支合并与标签发布，实现源码与产物可追溯。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>Git 是内容寻址的快照链。</li><li>小步提交、清晰信息、标签对应发布。</li><li>rebase 勿改公共历史。</li></ul></div>
+    <section class="sec" id="m04-model"><h2 id="m04-model-t">4.1 内容寻址的快照链</h2><p>Git 用内容寻址：blob（内容）→ tree（目录）→ commit（快照+父）。相同内容自动去重、任何变化产生新哈希，天然防篡改与可追溯。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> blob → tree → commit</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="blob → tree → commit" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">blob(内容)</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">tree(目录)</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">commit(快照)</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">历史链</text></svg></div><figcaption class="fig-ft">文件内容 → blob（哈希）→ tree（目录结构）→ commit（快照 + 父 commit）→ 形成历史链。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  Git 五操作</div><table><thead><tr><th>操作</th><th>作用</th><th>注意</th></tr></thead><tbody><tr><td>add/commit</td><td>暂存并记录</td><td>小步提交</td></tr><tr><td>branch/merge</td><td>并行开发与合并</td><td>冲突解决</td></tr><tr><td>rebase</td><td>整理历史</td><td>勿改公共历史</td></tr><tr><td>tag</td><td>标记发布</td><td>对应构建</td></tr><tr><td>log/diff</td><td>追溯变更</td><td>定位回归</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">git.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">git add -p                    # 小步暂存</span><span class="ln">git commit -m &quot;fix uart ore clear (why: 接收假死)&quot;</span><span class="ln">git tag -a v1.3.0 -m &quot;release 1.3.0&quot;</span>
+</code></pre><span class="code-note">小步提交+有意义信息+标签发布</span></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：SHA-1 内容寻址</h2><p>下面这段程序用真实 SHA-1 计算 Git blob 名，与 <code class="ic">git hash-object</code> 一致：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_git.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_git.c —— 内容寻址版本库：真实 Git blob 哈希（SHA-1）与提交链（主机可运行）。</span><span class="ln"> * Git 的对象名 = SHA1(&quot;&lt;type&gt; &lt;len&gt;\0&quot; + 内容)；本程序实现 SHA-1 并据此计算 blob 名。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_git.c -o host_git &amp;&amp; ./host_git</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln"></span><span class="ln">/* ---- SHA-1（RFC 3174）---- */</span><span class="ln">typedef struct { uint32_t h[5]; uint64_t len; uint8_t buf[64]; size_t n; } sha1_t;</span><span class="ln">static uint32_t rol(uint32_t x, int n) { return (x &lt;&lt; n) | (x &gt;&gt; (32 - n)); }</span><span class="ln">static void sha1_block(sha1_t *s, const uint8_t *p) {</span><span class="ln">    uint32_t w[80];</span><span class="ln">    for (int i = 0; i &lt; 16; i++) w[i] = (uint32_t)p[i*4]&lt;&lt;24 | p[i*4+1]&lt;&lt;16 | p[i*4+2]&lt;&lt;8 | p[i*4+3];</span><span class="ln">    for (int i = 16; i &lt; 80; i++) w[i] = rol(w[i-3]^w[i-8]^w[i-14]^w[i-16], 1);</span><span class="ln">    uint32_t a=s-&gt;h[0], b=s-&gt;h[1], c=s-&gt;h[2], d=s-&gt;h[3], e=s-&gt;h[4];</span><span class="ln">    for (int i = 0; i &lt; 80; i++) {</span><span class="ln">        uint32_t f, k;</span><span class="ln">        if (i &lt; 20) { f = (b &amp; c) | ((~b) &amp; d); k = 0x5A827999; }</span><span class="ln">        else if (i &lt; 40) { f = b ^ c ^ d; k = 0x6ED9EBA1; }</span><span class="ln">        else if (i &lt; 60) { f = (b &amp; c) | (b &amp; d) | (c &amp; d); k = 0x8F1BBCDC; }</span><span class="ln">        else { f = b ^ c ^ d; k = 0xCA62C1D6; }</span><span class="ln">        uint32_t t = rol(a,5) + f + e + k + w[i];</span><span class="ln">        e = d; d = c; c = rol(b,30); b = a; a = t;</span><span class="ln">    }</span><span class="ln">    s-&gt;h[0]+=a; s-&gt;h[1]+=b; s-&gt;h[2]+=c; s-&gt;h[3]+=d; s-&gt;h[4]+=e;</span><span class="ln">}</span><span class="ln">static void sha1_init(sha1_t *s) {</span><span class="ln">    s-&gt;h[0]=0x67452301; s-&gt;h[1]=0xEFCDAB89; s-&gt;h[2]=0x98BADCFE; s-&gt;h[3]=0x10325476; s-&gt;h[4]=0xC3D2E1F0;</span><span class="ln">    s-&gt;len=0; s-&gt;n=0;</span><span class="ln">}</span><span class="ln">static void sha1_update(sha1_t *s, const uint8_t *p, size_t n) {</span><span class="ln">    s-&gt;len += (uint64_t)n * 8;</span><span class="ln">    while (n) {</span><span class="ln">        size_t take = 64 - s-&gt;n; if (take &gt; n) take = n;</span><span class="ln">        memcpy(s-&gt;buf + s-&gt;n, p, take); s-&gt;n += take; p += take; n -= take;</span><span class="ln">        if (s-&gt;n == 64) { sha1_block(s, s-&gt;buf); s-&gt;n = 0; }</span><span class="ln">    }</span><span class="ln">}</span><span class="ln">static void sha1_final(sha1_t *s, uint8_t out[20]) {</span><span class="ln">    uint64_t bits = s-&gt;len; uint8_t pad = 0x80;</span><span class="ln">    sha1_update(s, &amp;pad, 1);</span><span class="ln">    uint8_t zero = 0; while (s-&gt;n != 56) sha1_update(s, &amp;zero, 1);</span><span class="ln">    uint8_t lb[8];</span><span class="ln">    for (int i = 0; i &lt; 8; i++) lb[i] = (uint8_t)(bits &gt;&gt; (56 - 8*i));</span><span class="ln">    sha1_update(s, lb, 8);</span><span class="ln">    for (int i = 0; i &lt; 5; i++) { out[i*4]=s-&gt;h[i]&gt;&gt;24; out[i*4+1]=s-&gt;h[i]&gt;&gt;16; out[i*4+2]=s-&gt;h[i]&gt;&gt;8; out[i*4+3]=s-&gt;h[i]; }</span><span class="ln">}</span><span class="ln">/* Git blob 名：SHA1(&quot;blob &lt;len&gt;\0&quot; + content) */</span><span class="ln">static void git_blob(const char *content, char hex[41]) {</span><span class="ln">    char hdr[32]; int hl = snprintf(hdr, sizeof(hdr), &quot;blob %zu&quot;, strlen(content));</span><span class="ln">    sha1_t s; sha1_init(&amp;s);</span><span class="ln">    sha1_update(&amp;s, (const uint8_t*)hdr, (size_t)hl + 1);   /* 含结尾的 &#x27;\0&#x27; */</span><span class="ln">    sha1_update(&amp;s, (const uint8_t*)content, strlen(content));</span><span class="ln">    uint8_t d[20]; sha1_final(&amp;s, d);</span><span class="ln">    static const char *hx = &quot;0123456789abcdef&quot;;</span><span class="ln">    for (int i = 0; i &lt; 20; i++) { hex[i*2]=hx[d[i]&gt;&gt;4]; hex[i*2+1]=hx[d[i]&amp;15]; }</span><span class="ln">    hex[40] = 0;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    char h1[41], h2[41], h3[41];</span><span class="ln">    git_blob(&quot;hello&quot;, h1); git_blob(&quot;hello&quot;, h2); git_blob(&quot;hello!&quot;, h3);</span><span class="ln">    printf(&quot;SHA1(\&quot;blob 5\\0hello\&quot;) = %s\n&quot;, h1);</span><span class="ln">    printf(&quot;相同内容哈希相同=%d 不同内容哈希不同=%d\n&quot;, strcmp(h1,h2)==0, strcmp(h1,h3)!=0);</span><span class="ln">    /* 已知值：git hash-object 对 &quot;hello&quot; 的结果 */</span><span class="ln">    if (strcmp(h1, &quot;b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0&quot;) != 0) ok = 0;</span><span class="ln">    if (!(strcmp(h1,h2)==0 &amp;&amp; strcmp(h1,h3)!=0)) ok = 0;</span><span class="ln">    /* 提交链：提交对象记录父提交，形成可追溯历史 */</span><span class="ln">    struct { const char *id; const char *parent; } c1 = {&quot;c1&quot;, &quot;(root)&quot;}, c2 = {&quot;c2&quot;, &quot;c1&quot;};</span><span class="ln">    printf(&quot;提交链 %s(parent=%s) → %s(parent=%s)\n&quot;, c1.id, c1.parent, c2.id, c2.parent);</span><span class="ln">    if (strcmp(c2.parent, c1.id) != 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">Git blob 内容寻址模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_git.c -o labs/host_git &amp;&amp; ./labs/host_git</span>
+SHA1(&quot;blob 5\0hello&quot;) = b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0
+相同内容哈希相同=1 不同内容哈希不同=1
+提交链 c1(parent=(root)) → c2(parent=c1)
+RESULT: PASS</code></pre></div></div><p class="sim-note">blob 名 = SHA1("blob <字节长度>\0" + 内容)；该值可由 printf hello | git hash-object --stdin 复现。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  Git 对象模型</div><table><thead><tr><th>对象</th><th>内容</th><th>哈希基础</th></tr></thead><tbody><tr><td>blob</td><td>文件内容</td><td>SHA1("blob len\0"+内容)</td></tr><tr><td>tree</td><td>目录结构</td><td>子对象哈希</td></tr><tr><td>commit</td><td>快照+父</td><td>tree+parent+msg</td></tr><tr><td>tag</td><td>指向 commit</td><td>发布标记</td></tr></tbody></table></div></section><section class="sec" id="m04-practice"><h2 id="m04-practice-t">4.3 提交、分支与发布</h2><p>小步提交、提交信息说明“为什么改”；rebase 整理本地历史（勿改公共历史）；发布用标签对应构建产物，实现“源码↔固件”可追溯。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">git.sh 节选</span><span class="code-lang">Shell</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">git add -p                    # 小步暂存</span><span class="ln">git commit -m &quot;fix uart ore clear (why: 接收假死)&quot;</span><span class="ln">git tag -a v1.3.0 -m &quot;release 1.3.0&quot;</span><span class="ln">git log --oneline v1.2.3..v1.3.0   # 变更清单</span>
+</code></pre><span class="code-note">小步提交+有意义信息+标签发布+变更清单</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  Git 工程实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>小步提交</td><td>可定位/回滚</td><td>大杂烩</td></tr><tr><td>有意义信息</td><td>历史可读</td><td>“update”</td></tr><tr><td>rebase 本地</td><td>历史整洁</td><td>改公共历史</td></tr><tr><td>标签发布</td><td>源码↔产物</td><td>无标签</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检与三平台对照</h2><p>Git 自检：理解内容寻址、小步提交、分支管理、标签可追溯。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 提交粒度与可回滚性（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="提交粒度与可回滚性（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">小步提交</text><rect x="150" y="26" width="540" height="18" rx="4" class="sv-grn-s"/><text x="698" y="43" class="sv-lbl-hi">90(相对可定位性)</text><text x="12" y="67" class="sv-lbl">大杂烩</text><rect x="150" y="50" width="180" height="18" rx="4" class="sv-red-s"/><text x="338" y="67" class="sv-lbl-hi">30(相对可定位性)</text></svg></div><figcaption class="fig-ft">小步提交让每次变更可定位、可回滚；大杂烩提交难以定位回归来源。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.4  三平台 Git</div><table><thead><tr><th>平台</th><th>Git 工具</th><th>注意</th></tr></thead><tbody><tr><td>Windows</td><td>Git for Windows</td><td>换行 autocrlf</td></tr><tr><td>macOS</td><td>git + Xcode CLT</td><td>大小写不敏感</td></tr><tr><td>Linux</td><td>git</td><td>标准</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>大杂烩提交</strong>：无法定位与回滚。</li><li><strong>rebase 公共历史</strong>：破坏他人仓库。</li><li><strong>提交信息无意义</strong>：历史不可读。</li><li><strong>发布无标签</strong>：源码与固件对不上。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">为什么 Git 用“内容寻址”而不是给文件编号？</p><details><summary>查看答案</summary><div class="ans"><p>内容寻址让相同内容自动去重、可校验完整性，并支持高效的快照与合并；任何内容变化都会产生新哈希，天然防篡改与可追溯。</p></div></details></li><li><p class="q">为什么不应 rebase 已推送的公共历史？</p><details><summary>查看答案</summary><div class="ans"><p>rebase 会重写提交哈希，破坏他人已基于旧历史的工作，造成冲突与混乱。只整理本地未推送历史。</p></div></details></li><li><p class="q">发布为什么必须打标签？</p><details><summary>查看答案</summary><div class="ans"><p>标签把源码快照与构建产物绑定，实现“这块板子上是哪个固件”的精确追溯，便于回滚与审计。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你项目做一次小步提交 + 标签发布，并核对标签对应的构建产物可追溯。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://git-scm.com/docs" target="_blank" rel="noopener noreferrer">Git 官方参考</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_git.c</code>：用真实 SHA-1 计算 Git blob 名，验证内容寻址与提交链。</p><p><strong>检查结果：</strong>blob 名 = SHA1("blob &lt;len&gt;\0"+内容) 与 git hash-object 一致；相同内容同哈希、不同内容不同哈希；提交链 c2.parent=c1。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用内容寻址理解 blob/commit 链，做小步提交、分支合并与标签发布，实现源码与产物可追溯。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>blob 名 = SHA1(&quot;blob &lt;len&gt;\0&quot;+内容) 与 git hash-object 一致；相同内容同哈希、不同内容不同哈希；提交链 c2.parent=c1。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 构建、Python 与证据</div>
+      <h1 class="ch-title">构建与依赖管理<span class="acc">.</span></h1>
+      <p class="ch-lead">构建的目标是<strong>可复现</strong>：声明依赖、锁定版本、增量与缓存加速、失败可定位。依赖有拓扑顺序，成环则无法构建。</p>
+      <div class="ch-meta"><span>前置：会用 make 或编译命令构建简单项目。</span><span>◷ 约 42 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能声明依赖、锁定版本，按依赖拓扑增量构建并记录工具链，实现可复现构建。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>构建要可复现：声明依赖 + 锁版本 + 记录工具链。</li><li>依赖有拓扑顺序，成环不可构建。</li><li>增量与缓存加速。</li></ul></div>
+    <section class="sec" id="m05-build"><h2 id="m05-build-t">5.1 依赖拓扑与可复现</h2><p>构建按依赖拓扑顺序：无依赖者最先。依赖成环则无法构建。目标可复现：声明依赖、锁定版本、记录工具链与选项。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 依赖拓扑排序</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="依赖拓扑排序" preserveAspectRatio="xMidYMid meet"><rect x="95" y="44" width="190" height="50" rx="7" class="sv-cyn-s"/><text x="190.0" y="66" text-anchor="middle" class="sv-lbl-hi">util</text><path d="M287,69 H303" class="sv-arrow"/><rect x="305" y="44" width="190" height="50" rx="7" class="sv-box"/><text x="400.0" y="66" text-anchor="middle" class="sv-lbl-hi">lib</text><path d="M497,69 H513" class="sv-arrow"/><rect x="515" y="44" width="190" height="50" rx="7" class="sv-box"/><text x="610.0" y="66" text-anchor="middle" class="sv-lbl-hi">app</text></svg></div><figcaption class="fig-ft">util（无依赖）→ lib → app；每个目标在其依赖之后构建。成环即失败。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  构建五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>要点</th></tr></thead><tbody><tr><td>依赖声明</td><td>记录构建输入</td><td>不隐藏依赖</td></tr><tr><td>锁定</td><td>固定版本</td><td>锁文件</td></tr><tr><td>增量</td><td>只重编变化</td><td>.o/.d 依赖</td></tr><tr><td>缓存</td><td>加速</td><td>命中率</td></tr><tr><td>可复现</td><td>同输入同产物</td><td>记录工具链</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">CMakeLists.txt 节选</span><span class="code-lang">CMake</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">cmake_minimum_required(VERSION 3.16)</span><span class="ln">project(app C)</span><span class="ln">add_executable(app main.c net.c util.c)</span><span class="ln">set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -O2 -Wall&quot;)</span>
+</code></pre><span class="code-note">声明式构建，依赖顺序自动处理，选项显式</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：构建顺序</h2><p>下面这段程序按依赖拓扑得到构建顺序：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_build.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_build.c —— 构建依赖拓扑与可复现（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_build.c -o host_build &amp;&amp; ./host_build</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { const char *name; const char *dep; } tgt_t;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    tgt_t T[] = { {&quot;app&quot;, &quot;lib&quot;}, {&quot;lib&quot;, &quot;util&quot;}, {&quot;util&quot;, 0} };</span><span class="ln">    int n = 3, order[3], done[3] = {0,0,0}, oc = 0;</span><span class="ln">    for (int step = 0; step &lt; n; step++) {</span><span class="ln">        for (int i = 0; i &lt; n; i++) {</span><span class="ln">            if (done[i]) continue;</span><span class="ln">            if (!T[i].dep) { done[i] = 1; order[oc++] = i; break; }</span><span class="ln">            for (int j = 0; j &lt; n; j++) if (strcmp(T[j].name, T[i].dep) == 0 &amp;&amp; done[j]) { done[i] = 1; order[oc++] = i; break; }</span><span class="ln">        }</span><span class="ln">    }</span><span class="ln">    printf(&quot;构建顺序:&quot;);</span><span class="ln">    for (int i = 0; i &lt; oc; i++) printf(&quot; %s&quot;, T[order[i]].name);</span><span class="ln">    printf(&quot;\n&quot;);</span><span class="ln">    if (!(oc == 3 &amp;&amp; strcmp(T[order[0]].name, &quot;util&quot;) == 0)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">依赖拓扑排序模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build &amp;&amp; ./labs/host_build</span>
+构建顺序: util lib app
+RESULT: PASS</code></pre></div></div><p class="sim-note">无依赖者 util 最先，顺序 util→lib→app；依赖遗漏或成环即失败。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  依赖情形</div><table><thead><tr><th>情形</th><th>结果</th><th>处理</th></tr></thead><tbody><tr><td>无依赖</td><td>可选</td><td>直接编</td></tr><tr><td>线性依赖</td><td>拓扑序</td><td>按序编</td></tr><tr><td>依赖环</td><td>失败</td><td>拆模块</td></tr><tr><td>版本不锁</td><td>不可复现</td><td>锁文件</td></tr></tbody></table></div></section><section class="sec" id="m05-lock"><h2 id="m05-lock-t">5.3 锁定与记录工具链</h2><p>把依赖写进声明式文件并生成锁文件；交叉编译工具链与选项显式记录；产物带版本与校验以便追溯。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">CMakeLists.txt 节选</span><span class="code-lang">CMake</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">cmake_minimum_required(VERSION 3.16)</span><span class="ln">project(app C)</span><span class="ln">add_executable(app main.c net.c util.c)   # 依赖顺序由 CMake 处理</span><span class="ln">set(CMAKE_C_FLAGS &quot;${CMAKE_C_FLAGS} -O2 -Wall&quot;)  # 选项显式记录</span>
+</code></pre><span class="code-note">声明式构建 + 显式选项；依赖顺序自动处理</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  可复现构建</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>声明依赖</td><td>输入明确</td><td>隐藏依赖</td></tr><tr><td>锁文件</td><td>版本固定</td><td>漂移</td></tr><tr><td>记录工具链</td><td>可复现</td><td>同输入不同产物</td></tr><tr><td>增量/缓存</td><td>提速</td><td>全量重编</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检与三平台对照</h2><p>构建自检：依赖声明、版本锁定、工具链记录、可复现。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 全量 vs 增量构建（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="全量 vs 增量构建（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">全量</text><rect x="150" y="26" width="545" height="18" rx="4" class="sv-red-s"/><text x="703" y="43" class="sv-lbl-hi">100(相对时间)</text><text x="12" y="67" class="sv-lbl">增量</text><rect x="150" y="50" width="109" height="18" rx="4" class="sv-grn-s"/><text x="267" y="67" class="sv-lbl-hi">20(相对时间)</text></svg></div><figcaption class="fig-ft">增量构建只重编变化部分，显著节省时间；前提是依赖关系正确（.d 文件）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  三平台构建</div><table><thead><tr><th>平台</th><th>构建系统</th><th>说明</th></tr></thead><tbody><tr><td>Windows</td><td>MSVC/CMake</td><td>路径/工具链</td></tr><tr><td>macOS</td><td>clang/CMake</td><td>Xcode CLT</td></tr><tr><td>Linux</td><td>gcc/make/CMake</td><td>最常用</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>依赖未声明</strong>：换机编不过。</li><li><strong>不锁版本</strong>：行为漂移。</li><li><strong>全量重编</strong>：效率低。</li><li><strong>工具链未记录</strong>：产物不可复现。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">为什么要生成“锁文件”？</p><details><summary>查看答案</summary><div class="ans"><p>声明式依赖只给范围，锁文件固定到具体版本/哈希，保证任何机器装出同样的依赖，从而可复现构建。</p></div></details></li><li><p class="q">依赖成环会怎样？</p><details><summary>查看答案</summary><div class="ans"><p>无法确定构建顺序，构建失败。需要拆分模块或消除循环依赖。</p></div></details></li><li><p class="q">增量构建的前提是什么？</p><details><summary>查看答案</summary><div class="ans"><p>正确的依赖关系记录（如 .d 文件/构建系统图）。依赖错会导致“改了没重编”或“没改却重编”。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你项目声明依赖并生成锁文件、记录工具链版本，验证换机可复现同一产物。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.gnu.org/software/make/manual/" target="_blank" rel="noopener noreferrer">GNU Make 手册</a> · <a class="ref" href="https://cmake.org/documentation/" target="_blank" rel="noopener noreferrer">CMake 文档</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_build.c</code>：按依赖拓扑得到构建顺序。</p><p><strong>检查结果：</strong>构建顺序=util lib app（无依赖者 util 最先）；无遗漏、无环。</p></div>
+<p class="sim-note">迁移练习：把本章的“能声明依赖、锁定版本，按依赖拓扑增量构建并记录工具链，实现可复现构建。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>构建顺序=util lib app（无依赖者 util 最先）；无遗漏、无环。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 构建、Python 与证据</div>
+      <h1 class="ch-title">Python 环境与工程打包<span class="acc">.</span></h1>
+      <p class="ch-lead">Python 工程要隔离环境、固定依赖、规范打包：<strong>虚拟环境 + 依赖锁 + 包结构 + 入口</strong>，让脚本/工具在任何机器可复现。</p>
+      <div class="ch-meta"><span>前置：会运行 Python 脚本、了解 pip 与依赖版本。</span><span>◷ 约 42 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用虚拟环境隔离、按约束解析并锁定依赖、规范打包与入口，使工具随处可跑。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>每项目独立虚拟环境，锁定依赖。</li><li>包结构/入口/版本规范。</li><li>凭据不入库。</li></ul></div>
+    <section class="sec" id="m06-py"><h2 id="m06-py-t">6.1 虚拟环境与依赖锁</h2><p>Python 工程要隔离环境、固定依赖、规范打包。不同项目依赖可能冲突，独立虚拟环境隔离解释器与包，配合锁文件复现。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> Python 工程的四个要素</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="Python 工程的四个要素" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">虚拟环境：每项目一个</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">依赖锁：解析并固定</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">包结构：模块 + 入口</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">打包分发：wheel/sdist</text></svg></div><figcaption class="fig-ft">虚拟环境（隔离）→ 依赖锁（固定版本）→ 包结构（可安装）→ 入口（可用）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  Python 工程五要素</div><table><thead><tr><th>要素</th><th>内容</th><th>要点</th></tr></thead><tbody><tr><td>虚拟环境</td><td>隔离解释器与包</td><td>每项目一个</td></tr><tr><td>依赖锁</td><td>解析并固定版本</td><td>可复现</td></tr><tr><td>包结构</td><td>模块与入口</td><td>可安装</td></tr><tr><td>打包</td><td>wheel/sdist</td><td>版本号</td></tr><tr><td>分发</td><td>私有/公共源</td><td>凭据管理</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pyproject.toml 节选</span><span class="code-lang">TOML</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">[project]</span><span class="ln">name = &quot;edge-tools&quot;</span><span class="ln">version = &quot;1.3.0&quot;</span><span class="ln">dependencies = [&quot;pyserial&gt;=3.5,&lt;4&quot;]</span><span class="ln">[project.scripts]</span><span class="ln">edge-cli = &quot;edge_tools.cli:main&quot;</span>
+</code></pre><span class="code-note">声明依赖+版本+入口；venv 隔离并锁定</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：约束解析与锁定</h2><p>下面这段程序验证按版本约束解析并锁定：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_py.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_py.c —— Python 环境：依赖版本解析（选择满足约束的最高版本）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_py.c -o host_py &amp;&amp; ./host_py</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int versions[] = {1, 2, 3};</span><span class="ln">    int lo = 1, hi = 2;                 /* 约束: &gt;=1, &lt;=2 */</span><span class="ln">    int pick = -1;</span><span class="ln">    for (unsigned i = 0; i &lt; sizeof(versions)/sizeof(versions[0]); i++)</span><span class="ln">        if (versions[i] &gt;= lo &amp;&amp; versions[i] &lt;= hi) pick = versions[i];</span><span class="ln">    printf(&quot;约束 &gt;=%d, &lt;=%d → 选 %d（期望 2）\n&quot;, lo, hi, pick);</span><span class="ln">    if (pick != 2) ok = 0;</span><span class="ln">    printf(&quot;锁定后写入 requirements/锁文件以复现\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">依赖约束解析模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_py.c -o labs/host_py &amp;&amp; ./labs/host_py</span>
+约束 &gt;=1, &lt;=2 → 选 2（期望 2）
+锁定后写入 requirements/锁文件以复现
+RESULT: PASS</code></pre></div></div><p class="sim-note">约束 >=1 且 <=2 时选满足约束的最高版本 2；无满足版本时报错；锁定写入锁文件。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  依赖解析</div><table><thead><tr><th>情形</th><th>结果</th><th>说明</th></tr></thead><tbody><tr><td>约束满足</td><td>选最高满足版</td><td>=2</td></tr><tr><td>无满足版本</td><td>报错</td><td>冲突</td></tr><tr><td>锁定</td><td>写锁文件</td><td>可复现</td></tr><tr><td>全局装包</td><td>冲突</td><td>禁用</td></tr></tbody></table></div></section><section class="sec" id="m06-pack"><h2 id="m06-pack-t">6.3 打包与入口</h2><p>工具脚本要有明确入口与版本；打包为 wheel/sdist；凭据不入库，用环境变量/密钥管理。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pyproject.toml 节选</span><span class="code-lang">TOML</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">[project]</span><span class="ln">name = &quot;edge-tools&quot;</span><span class="ln">version = &quot;1.3.0&quot;</span><span class="ln">dependencies = [&quot;pyserial&gt;=3.5,&lt;4&quot;]   # 声明约束</span><span class="ln"></span><span class="ln">[project.scripts]</span><span class="ln">edge-cli = &quot;edge_tools.cli:main&quot;        # 明确入口</span>
+</code></pre><span class="code-note">声明依赖+版本+入口；用 venv 隔离并锁定</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  Python 工程实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>venv</td><td>隔离</td><td>全局冲突</td></tr><tr><td>锁文件</td><td>可复现</td><td>漂移</td></tr><tr><td>入口</td><td>可用</td><td>不可调用</td></tr><tr><td>凭据环境变量</td><td>安全</td><td>入库泄露</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检与三平台对照</h2><p>Python 工程自检：隔离环境、锁定依赖、有入口与版本、凭据安全。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 约束解析结果（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="约束解析结果（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">候选</text><rect x="150" y="26" width="450" height="18" rx="4" class="sv-box"/><text x="608" y="43" class="sv-lbl-hi">3版本</text><text x="12" y="67" class="sv-lbl">满足约束</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="67" class="sv-lbl-hi">2版本</text><text x="12" y="91" class="sv-lbl">选中</text><rect x="150" y="74" width="300" height="18" rx="4" class="sv-cyn-s"/><text x="458" y="91" class="sv-lbl-hi">2版本</text></svg></div><figcaption class="fig-ft">约束 >=1,<=2 选出最高满足版本 2；锁定后任何机器复现同一版本。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  三平台 Python</div><table><thead><tr><th>平台</th><th>Python 工具</th><th>注意</th></tr></thead><tbody><tr><td>Windows</td><td>py -m venv</td><td>路径</td></tr><tr><td>macOS</td><td>python3/venv</td><td>系统 python 慎用</td></tr><tr><td>Linux</td><td>python3/venv</td><td>发行版隔离</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>全局装包</strong>：版本冲突。</li><li><strong>不锁依赖</strong>：换机行为不同。</li><li><strong>无入口/版本</strong>：工具不可用。</li><li><strong>凭据入库</strong>：泄露风险。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">为什么每个项目要用独立虚拟环境？</p><details><summary>查看答案</summary><div class="ans"><p>不同项目依赖版本可能冲突；独立虚拟环境隔离解释器与包，避免互相污染，并配合锁文件复现。</p></div></details></li><li><p class="q">约束 >=1,<=2 时会选哪个版本？</p><details><summary>查看答案</summary><div class="ans"><p>选满足约束的最高版本，即 2。锁定后写入锁文件，任何机器都装同一版本。</p></div></details></li><li><p class="q">工具脚本为什么要“明确入口”？</p><details><summary>查看答案</summary><div class="ans"><p>明确入口（如 [project.scripts]）让工具可被命令行调用、可安装分发；没有入口则难以使用与自动化。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你 Python 工具用 venv 隔离、按约束锁定依赖并加明确入口，验证换机可复现。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.python.org/3/library/venv.html" target="_blank" rel="noopener noreferrer">Python venv 文档</a> · <a class="ref" href="https://pip.pypa.io/" target="_blank" rel="noopener noreferrer">pip 依赖解析</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_py.c</code>：验证按约束选择版本并锁定。</p><p><strong>检查结果：</strong>约束 >=1,<=2 → 选 2；锁定写 requirements/锁文件以复现；无满足版本时报错。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用虚拟环境隔离、按约束解析并锁定依赖、规范打包与入口，使工具随处可跑。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>约束 &gt;=1,&lt;=2 → 选 2；锁定写 requirements/锁文件以复现；无满足版本时报错。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 构建、Python 与证据</div>
+      <h1 class="ch-title">读手册、源码与技术证据<span class="acc">.</span></h1>
+      <p class="ch-lead">权威答案在<strong>官方手册与源码</strong>，不在博客。读资料要核对版本与勘误，并用<strong>最小验证</strong>确认理解。</p>
+      <div class="ch-meta"><span>前置：会查阅官方文档与上游源码仓库。</span><span>◷ 约 42 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能对技术结论找到官方/源码一手依据并注明版本，用最小验证确认理解。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>权威答案在官方手册与源码，核对版本与勘误。</li><li>证据分级：手册>源码>示例>社区。</li><li>用最小实验验证理解。</li></ul></div>
+    <section class="sec" id="m07-source"><h2 id="m07-source-t">7.1 证据分级：一手优先</h2><p>权威答案在官方手册与源码，不在博客。证据分级：官方手册 > 上游源码 > 官方示例 > 社区。遇到不一致以实测/源码为准，并记录版本与条件。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 证据分级</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="证据分级" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">官方手册</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">上游源码</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">官方示例</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">社区博客</text></svg></div><figcaption class="fig-ft">官方手册（最高）> 上游源码 > 官方示例 > 社区博客（线索）。冲突时以手册/源码 + 实测为准。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  资料类型与注意</div><table><thead><tr><th>资料</th><th>用途</th><th>注意</th></tr></thead><tbody><tr><td>数据手册</td><td>电气/时序</td><td>版本/勘误</td></tr><tr><td>参考手册</td><td>寄存器/功能</td><td>与芯片对应</td></tr><tr><td>源码</td><td>真实行为</td><td>对应版本</td></tr><tr><td>标准/规范</td><td>协议/合规</td><td>条款编号</td></tr><tr><td>二手</td><td>入门/线索</td><td>需回一手核对</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">evidence.md 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">问题: XXX</span><span class="ln">一手来源: &lt;手册章节/源码文件 @版本号&gt;</span><span class="ln">最小验证: &lt;命令/最小代码&gt; -&gt; &lt;实测结果&gt;</span><span class="ln">结论: &lt;含适用条件与限制&gt;</span>
+</code></pre><span class="code-note">每条结论写清来源+版本+最小验证+条件</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：环境核查</h2><p>“核对版本/来源”的前提是能查清本机环境。用环境核查程序演示“取得一手事实”：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_env.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_env.c —— 环境边界：真实 PATH 解析与工具可用性检查（主机可运行）。</span><span class="ln"> * 读取本机 PATH 环境变量，按分隔符逐目录查找可执行文件——不是硬编码，输出随本机环境变化。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_env.c -o host_env &amp;&amp; ./host_env</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdlib.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">#ifdef _WIN32</span><span class="ln">#define SEP &quot;;&quot;</span><span class="ln">#define EXE &quot;.exe&quot;</span><span class="ln">#else</span><span class="ln">#define SEP &quot;:&quot;</span><span class="ln">#define EXE &quot;&quot;</span><span class="ln">#endif</span><span class="ln">static int exists(const char *p) { FILE *f = fopen(p, &quot;rb&quot;); if (f) { fclose(f); return 1; } return 0; }</span><span class="ln">static int find_tool(const char *name, char *out, size_t n) {</span><span class="ln">    const char *path = getenv(&quot;PATH&quot;);</span><span class="ln">    if (!path) return 0;</span><span class="ln">    size_t L = strlen(path);</span><span class="ln">    char *buf = (char *)malloc(L + 1);</span><span class="ln">    if (!buf) return 0;</span><span class="ln">    memcpy(buf, path, L + 1);</span><span class="ln">    int found = 0;</span><span class="ln">    for (char *dir = strtok(buf, SEP); dir; dir = strtok(NULL, SEP)) {</span><span class="ln">        if (!*dir) continue;</span><span class="ln">        if (snprintf(out, n, &quot;%s/%s%s&quot;, dir, name, EXE) &gt; 0 &amp;&amp; exists(out)) { found = 1; break; }</span><span class="ln">    }</span><span class="ln">    free(buf);</span><span class="ln">    return found;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    char out[1024];</span><span class="ln">    int g = find_tool(&quot;gcc&quot;, out, sizeof(out));</span><span class="ln">    printf(&quot;PATH 顺序解析 gcc → %s\n&quot;, g ? out : &quot;(未找到)（本机 PATH 无 gcc）&quot;);</span><span class="ln">    /* 明确不存在的工具必须找不到；这是真实查找，不是写死的布尔 */</span><span class="ln">    int x = find_tool(&quot;__no_such_tool_xyz__&quot;, out, sizeof(out));</span><span class="ln">    printf(&quot;__no_such_tool_xyz__ → %s（期望未找到）\n&quot;, x ? out : &quot;(未找到)&quot;);</span><span class="ln">    if (x) ok = 0;</span><span class="ln">    printf(&quot;结论：用命令行 `command -v gcc` / `where gcc` 可得到与本程序一致的解析机制\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">环境核查模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env &amp;&amp; ./labs/host_env</span>
+PATH 顺序解析 gcc → &lt;本机 gcc 路径&gt;
+__no_such_tool_xyz__ → (未找到)（期望未找到）
+RESULT: PASS</code></pre></div></div><p class="sim-note">对“我机器上到底跑的哪个工具/版本”做一手核查，而不是凭印象。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  问题的答案在哪</div><table><thead><tr><th>问题</th><th>一手来源</th><th>做法</th></tr></thead><tbody><tr><td>寄存器位定义</td><td>参考手册</td><td>查章节+版本</td></tr><tr><td>时序参数</td><td>数据手册</td><td>查表+勘误</td></tr><tr><td>库行为</td><td>上游源码</td><td>看对应版本</td></tr><tr><td>工具版本</td><td>命令行</td><td>记录版本</td></tr></tbody></table></div></section><section class="sec" id="m07-verify"><h2 id="m07-verify-t">7.3 最小验证与记录</h2><p>用最小实验确认理解（一条命令、一个寄存器读回、一段最小代码）；记录版本与条件，形成可复核结论。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">evidence.md 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">问题: XXX</span><span class="ln">一手来源: &lt;手册章节/源码文件 @版本号&gt;</span><span class="ln">最小验证: &lt;命令/最小代码&gt; → &lt;实测结果&gt;</span><span class="ln">结论: &lt;含适用条件与限制&gt;</span>
+</code></pre><span class="code-note">每条结论写清来源+版本+最小验证+条件</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  技术判断的步骤</div><table><thead><tr><th>环节</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>找一手</td><td>手册/源码</td><td>只看博客</td></tr><tr><td>核版本</td><td>注明版本/勘误</td><td>张冠李戴</td></tr><tr><td>最小验证</td><td>一条命令/最小代码</td><td>照抄不验证</td></tr><tr><td>记录</td><td>来源+条件</td><td>无法复核</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检与三平台对照</h2><p>证据自检：一手来源、版本明确、最小验证、记录可复核。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 证据可信度（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="证据可信度（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">官方手册</text><rect x="150" y="26" width="545" height="18" rx="4" class="sv-grn-s"/><text x="703" y="43" class="sv-lbl-hi">100(相对可信度)</text><text x="12" y="67" class="sv-lbl">上游源码</text><rect x="150" y="50" width="491" height="18" rx="4" class="sv-grn-s"/><text x="649" y="67" class="sv-lbl-hi">90(相对可信度)</text><text x="12" y="91" class="sv-lbl">官方示例</text><rect x="150" y="74" width="382" height="18" rx="4" class="sv-amb-s"/><text x="540" y="91" class="sv-lbl-hi">70(相对可信度)</text><text x="12" y="115" class="sv-lbl">社区</text><rect x="150" y="98" width="218" height="18" rx="4" class="sv-red-s"/><text x="376" y="115" class="sv-lbl-hi">40(相对可信度)</text></svg></div><figcaption class="fig-ft">官方手册/源码可信度最高，社区博客最低（仅作线索）。据此决定是否采信。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  三平台资料</div><table><thead><tr><th>平台</th><th>资料获取</th><th>注意</th></tr></thead><tbody><tr><td>Windows</td><td>MS 文档/MSDN</td><td>版本对应</td></tr><tr><td>macOS</td><td>Apple 文档</td><td>架构差异</td></tr><tr><td>Linux</td><td>man/info/源码</td><td>版本/发行版</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只看二手博客</strong>：信息过时/错误。</li><li><strong>不看版本</strong>：手册与芯片不符。</li><li><strong>不验证</strong>：理解错误照抄。</li><li><strong>不记录来源</strong>：无法复核。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">遇到手册与博客冲突时以哪个为准？</p><details><summary>查看答案</summary><div class="ans"><p>以官方手册/上游源码为准，并用最小实验验证。博客只作线索，且要核对版本。</p></div></details></li><li><p class="q">为什么“最小验证”很重要？</p><details><summary>查看答案</summary><div class="ans"><p>理解可能出错、资料可能过时。用一条命令/最小代码验证，能把“以为对”变成“确认对”，成本极低。</p></div></details></li><li><p class="q">为什么结论要记录“版本与条件”？</p><details><summary>查看答案</summary><div class="ans"><p>同一事实在不同版本/条件下可能不同。记录版本与条件，结论才可复核、可迁移，避免张冠李戴。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你最近的一个技术疑问找到官方条款或源码依据，做最小验证并写下来源+版本+结论。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://git-scm.com/docs" target="_blank" rel="noopener noreferrer">Git 官方参考</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_env.c</code>（工具/环境核查思路）；为你的一个疑问找到官方条款或源码证据并做最小验证。</p><p><strong>检查结果：</strong>环境核查证据见 host_env.c（PATH 解析真实路径、不存在工具=未找到）；结论注明版本与一手来源。</p></div>
+<p class="sim-note">迁移练习：把本章的“能对技术结论找到官方/源码一手依据并注明版本，用最小验证确认理解。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>环境核查证据见 host_env.c（PATH 解析真实路径、不存在工具=未找到）；结论注明版本与一手来源。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 构建、Python 与证据</div>
+      <h1 class="ch-title">综合：可复现工程模板<span class="acc">.</span></h1>
+      <p class="ch-lead">综合项目把环境与工具串成一个模板：<strong>环境声明 + 脚本 + Git 历史 + 构建依赖 + Python 工具 + 证据</strong>，目标是“换台机器按 README 一键复现”。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M07，具备环境/脚本/版本/构建/打包基础。</span><span>◷ 约 46 分钟</span><span>◈ Windows/macOS/Linux 对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把环境声明、脚本、Git 标签、依赖锁与证据整合为换机按 README 一键复现的模板。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>可复现模板：环境声明+脚本+Git+依赖锁+证据。</li><li>验收 = 干净机器一键复现。</li><li>失败要明确报错。</li></ul></div>
+    <section class="sec" id="m08-template"><h2 id="m08-template-t">8.1 模板的六个产物</h2><p>把环境与工具串成模板：环境声明 + 脚本 + Git 历史/标签 + 构建依赖锁 + Python 工具 + 证据。验收标准是“干净机器按 README 一键复现”。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 可复现工程模板的组成</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="可复现工程模板的组成" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">环境声明（工具/版本）</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">脚本（严格模式/幂等）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">版本（Git 标签）</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">构建（依赖锁）</text></svg></div><figcaption class="fig-ft">环境声明 → 脚本（set -euo pipefail）→ 版本（Git 标签）→ 构建（依赖锁）→ 工具（venv）→ 证据（手册/源码）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  模板五产物</div><table><thead><tr><th>产物</th><th>内容</th><th>验收</th></tr></thead><tbody><tr><td>环境声明</td><td>工具版本/路径</td><td>文档+脚本</td></tr><tr><td>脚本</td><td>set -euo pipefail</td><td>可重复</td></tr><tr><td>版本</td><td>Git 标签</td><td>可追溯</td></tr><tr><td>构建</td><td>依赖锁</td><td>可复现</td></tr><tr><td>证据</td><td>手册/源码引用</td><td>可复核</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">README.md 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln"># 快速开始</span><span class="ln">1. 环境: gcc&gt;=13, cmake&gt;=3.16 (见 labs/env.sh)</span><span class="ln">2. 依赖: python -m venv .venv &amp;&amp; pip install -r requirements.txt</span><span class="ln">3. 构建: ./ci.sh</span><span class="ln">4. 验证: ctest   # 与 tag v1.3.0 一致</span>
+</code></pre><span class="code-note">README 一步不跳；脚本严格+幂等；产物与标签一致</span></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：构建顺序与工具</h2><p>模板的可复现性由“依赖拓扑 + 记录工具链”保证；用构建顺序与工具核查验证：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_build.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_build.c —— 构建依赖拓扑与可复现（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_build.c -o host_build &amp;&amp; ./host_build</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { const char *name; const char *dep; } tgt_t;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    tgt_t T[] = { {&quot;app&quot;, &quot;lib&quot;}, {&quot;lib&quot;, &quot;util&quot;}, {&quot;util&quot;, 0} };</span><span class="ln">    int n = 3, order[3], done[3] = {0,0,0}, oc = 0;</span><span class="ln">    for (int step = 0; step &lt; n; step++) {</span><span class="ln">        for (int i = 0; i &lt; n; i++) {</span><span class="ln">            if (done[i]) continue;</span><span class="ln">            if (!T[i].dep) { done[i] = 1; order[oc++] = i; break; }</span><span class="ln">            for (int j = 0; j &lt; n; j++) if (strcmp(T[j].name, T[i].dep) == 0 &amp;&amp; done[j]) { done[i] = 1; order[oc++] = i; break; }</span><span class="ln">        }</span><span class="ln">    }</span><span class="ln">    printf(&quot;构建顺序:&quot;);</span><span class="ln">    for (int i = 0; i &lt; oc; i++) printf(&quot; %s&quot;, T[order[i]].name);</span><span class="ln">    printf(&quot;\n&quot;);</span><span class="ln">    if (!(oc == 3 &amp;&amp; strcmp(T[order[0]].name, &quot;util&quot;) == 0)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">依赖拓扑排序模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build &amp;&amp; ./labs/host_build</span>
+构建顺序: util lib app
+RESULT: PASS</code></pre></div></div><p class="sim-note">依赖顺序 util→lib→app（3 个目标）；记录工具链版本后，干净机器可复现同一产物。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  模板的关键机制</div><table><thead><tr><th>环节</th><th>可运行证据</th><th>验收</th></tr></thead><tbody><tr><td>构建顺序</td><td>host_build.c</td><td>util→lib→app</td></tr><tr><td>环境核查</td><td>host_env.c</td><td>PATH/版本</td></tr><tr><td>依赖锁</td><td>锁文件</td><td>可复现</td></tr><tr><td>脚本</td><td>bash -n</td><td>严格模式</td></tr></tbody></table></div></section><section class="sec" id="m08-readme"><h2 id="m08-readme-t">8.3 README 与一键复现</h2><p>README 要一步不跳：环境要求、依赖安装、构建命令、验证步骤。脚本幂等、失败返回非零。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">README.md 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln"># 快速开始</span><span class="ln">1. 环境: gcc &gt;=13, cmake &gt;=3.16, python &gt;=3.10 (见 labs/env.sh)</span><span class="ln">2. 依赖: python -m venv .venv &amp;&amp; pip install -r requirements.txt</span><span class="ln">3. 构建: ./ci.sh        # set -euo pipefail，幂等</span><span class="ln">4. 验证: ctest --output-on-failure   # 与 tag v1.3.0 一致</span>
+</code></pre><span class="code-note">README 一步不跳；脚本严格+幂等；产物与标签一致</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  模板要素与避免</div><table><thead><tr><th>要素</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>README</td><td>一步不跳</td><td>新人跑不起来</td></tr><tr><td>脚本幂等</td><td>可重复执行</td><td>重跑出错</td></tr><tr><td>依赖锁</td><td>固定版本</td><td>产物不一致</td></tr><tr><td>证据</td><td>引用来源</td><td>决策不可复核</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检与三平台对照</h2><p>模板自检：干净机器按 README 复现、脚本幂等、产物与标签一致、证据可复核。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 一键复现流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="一键复现流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">README</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">装环境</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">装依赖</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">构建/验证</text></svg></div><figcaption class="fig-ft">读 README → 装环境（env.sh）→ 装依赖（锁文件）→ 构建（ci.sh）→ 验证（与 tag 一致）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  三平台复现</div><table><thead><tr><th>平台</th><th>复现要点</th><th>注意</th></tr></thead><tbody><tr><td>Windows</td><td>git-bash/MSVC</td><td>换行/路径</td></tr><tr><td>macOS</td><td>clang/venv</td><td>架构</td></tr><tr><td>Linux</td><td>gcc/CMake</td><td>标准</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>README 不全</strong>：新人跑不起来。</li><li><strong>脚本不幂等</strong>：重复执行出错。</li><li><strong>依赖未锁</strong>：产物不一致。</li><li><strong>无证据</strong>：决策不可复核。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">“可复现工程模板”最重要的验收是什么？</p><details><summary>查看答案</summary><div class="ans"><p>在干净机器上按 README 一步不跳地构建出与标签一致的产物。这检验了环境声明、脚本、依赖与版本管理是否真正到位。</p></div></details></li><li><p class="q">为什么模板里的脚本要“幂等”？</p><details><summary>查看答案</summary><div class="ans"><p>一键复现常被重复执行（重试/CI）。幂等让脚本可安全重跑，避免“跑第二遍就错”。</p></div></details></li><li><p class="q">模板为什么要包含“证据”？</p><details><summary>查看答案</summary><div class="ans"><p>把关键决策的手册/源码依据与最小验证记录下来，团队可复核、可传承，避免“作者走了就没人懂”。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的项目搭一套可复现模板（README+env.sh+ci.sh+依赖锁+Git 标签），在干净目录从零复现一次。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.gnu.org/software/make/manual/" target="_blank" rel="noopener noreferrer">GNU Make 手册</a> · <a class="ref" href="https://cmake.org/documentation/" target="_blank" rel="noopener noreferrer">CMake 文档</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_build.c</code>（构建顺序）；按模板在干净目录走一遍“从零复现”。</p><p><strong>检查结果：</strong>构建顺序 util→lib→app；干净机器按 README 复现出与 tag 一致的产物；脚本幂等、失败返回非零。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把环境声明、脚本、Git 标签、依赖锁与证据整合为换机按 README 一键复现的模板。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>构建顺序 util→lib→app；干净机器按 README 复现出与 tag 一致的产物；脚本幂等、失败返回非零。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">一套可复现的工程模板<span class="acc">.</span></h1><p class="ch-lead">把 8 章串成一条路径：环境边界 → 命令行/脚本 → Git 版本 → 构建依赖 → Python 打包 → 证据阅读 → 可复现模板。</p><div class="ch-meta"><span>◈ 7 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 8 章串成一条路径：<strong>环境声明 → 命令行/脚本 → Git 版本 → 构建依赖 → Python 打包 → 证据阅读 → 干净机器一键复现。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 环境</strong>（M01）——固定 PATH/版本；验收：文档+脚本可查。</li>
+<li><strong>② 命令行</strong>（M02）——管道/退出码/查找；验收：批量操作可脚本化。</li>
+<li><strong>③ 脚本</strong>（M03）——严格模式+幂等；验收：失败即停。</li>
+<li><strong>④ 版本</strong>（M04）——小步提交+标签；验收：源码↔产物可追溯。</li>
+<li><strong>⑤ 构建</strong>（M05）——依赖锁+工具链记录；验收：可复现。</li>
+<li><strong>⑥ Python</strong>（M06）——venv+锁+入口；验收：工具随处可跑。</li>
+<li><strong>⑦ 证据</strong>（M07）——手册/源码+版本；验收：结论可复核。</li>
+<li><strong>⑧ 复现</strong>（M08）——干净机器一键；验收：产物与标签一致。</li>
+</ol>
+<p class="sim-note">本册所有“干净机器复现/真实 CI”为工程机实测项；PATH 解析、Shell 退出码、内容寻址、构建拓扑、依赖版本解析等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">reproducible template</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">repo/</span><span class="ln">  README.md          # 环境声明 + 一键步骤</span><span class="ln">  scripts/build.sh   # set -euo pipefail, 幂等</span><span class="ln">  scripts/ci.sh      # 本地=CI</span><span class="ln">  deps/lock.txt      # 锁定依赖与工具链版本</span><span class="ln">  .gitignore         # 忽略产物</span><span class="ln">验收: 干净机器按 README 复现出与 tag 一致的产物</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">工效与工具易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“换机编不过 / 版本乱 / 命令记不住”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“换机编不过 / 版本乱 / 命令记不住”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>环境</td><td>固定 PATH/版本</td><td>依赖本地环境</td><td>换机失败</td></tr><tr><td>隔离</td><td>容器/虚拟环境</td><td>全局装包</td><td>版本冲突</td></tr><tr><td>脚本</td><td>set -euo pipefail</td><td>静默失败</td><td>坏产出</td></tr><tr><td>引用</td><td>变量加引号</td><td>通配/空格</td><td>脚本出错</td></tr><tr><td>Git</td><td>小步提交+标签</td><td>大杂烩+无标签</td><td>无法追溯</td></tr><tr><td>构建</td><td>依赖锁+工具链记录</td><td>不锁版本</td><td>产物漂移</td></tr><tr><td>Python</td><td>独立 venv+锁</td><td>全局/不锁</td><td>不可复现</td></tr><tr><td>证据</td><td>官方/源码+版本</td><td>只看博客</td><td>信息错误</td></tr><tr><td>复现</td><td>干净机器一键</td><td>“我机器能跑”</td><td>交付失败</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；三平台叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；三平台叫法差异也一并标注。</p><dl class="glossary"><dt>PATH</dt><dd>命令查找路径，决定同名命令用哪个。</dd><dt>环境变量</dt><dd>影响编译与脚本行为的外部配置。</dd><dt>隔离</dt><dd>容器/虚拟环境，避免依赖互相污染。</dd><dt>管道</dt><dd>用小工具组合完成复杂任务。</dd><dt>重定向</dt><dd>把 stdout/stderr 导向文件或设备。</dd><dt>退出码</dt><dd>命令成功(0)/失败(非0)的返回。</dd><dt>set -euo pipefail</dt><dd>脚本严格模式：出错即停、未定义变量报错、管道任一失败即失败。</dd><dt>幂等</dt><dd>重复执行结果一致。</dd><dt>内容寻址</dt><dd>按内容哈希存储，天然去重与校验。</dd><dt>blob/tree/commit</dt><dd>Git 的对象：内容/目录/快照。</dd><dt>锁文件</dt><dd>固定依赖到具体版本的记录。</dd><dt>可复现构建</dt><dd>同输入同工具链得到同产物。</dd><dt>虚拟环境</dt><dd>隔离的 Python 解释器与包。</dd><dt>数据手册</dt><dd>器件的电气/时序规格。</dd><dt>参考手册</dt><dd>芯片寄存器与功能说明。</dd><dt>证据分级</dt><dd>按权威性排序资料来源。</dd><dt>最小验证</dt><dd>用最小实验确认理解。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "开发工作站与环境边界."}, {"id": "m02", "num": "02", "title": "Linux 命令行与文件系统."}, {"id": "m03", "num": "03", "title": "Shell 与自动化脚本."}, {"id": "m04", "num": "04", "title": "Git 与变更管理."}, {"id": "m05", "num": "05", "title": "构建与依赖管理."}, {"id": "m06", "num": "06", "title": "Python 环境与工程打包."}, {"id": "m07", "num": "07", "title": "读手册、源码与技术证据."}, {"id": "m08", "num": "08", "title": "综合：可复现工程模板."}, {"id": "capstone", "num": "", "title": "一套可复现的工程模板."}, {"id": "cheatsheet", "num": "", "title": "工效与工具易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

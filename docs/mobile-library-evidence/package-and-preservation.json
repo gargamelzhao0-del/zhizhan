@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-10-13T08:29:03.005Z",
+  "version": "1.15.2",
+  "contentVersion": "2026.10.13.4",
+  "preservedPersonalArticles": 38,
+  "personalDifferences": [],
+  "lostArticleIds": [],
+  "changedArticleIds": [
+    "course-b01-guide"
+  ],
+  "apk": {
+    "bytes": 8661753,
+    "sha256": "1dd070ae774370460b1d6d74823f36c4c10f2a7dc7d321a42983049539b106d8",
+    "comparedDistFiles": 330,
+    "mismatched": []
+  },
+  "sourceLibraryUnmodified": true,
+  "desktop": {
+    "version": "1.15.2",
+    "comparedDistFiles": 330,
+    "mismatched": []
+  }
+}

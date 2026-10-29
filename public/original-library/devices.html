@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>S24 设备模板预览 · 手机端书库</title>
+<style>
+:root{--bg:#0a0d10;--card:#111820;--line:#22303a;--txt:#c7d6cf;--hi:#eef6f1;--dim:#7f938a;--grn:#4EF08A;--cyn:#4FD6E8;--amb:#FFC44D;--mono:'Cascadia Mono',Consolas,monospace;--sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,sans-serif;}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(900px 420px at 70% -10%,rgba(78,240,138,.06),transparent 60%),var(--bg);color:var(--txt);font-family:var(--sans);font-size:15px;line-height:1.6}
+.wrap{max-width:1180px;margin:0 auto;padding:26px 18px 60px}
+h1{font-size:22px;color:var(--hi);margin:0 0 6px} .sub{color:var(--dim);font-size:13px;margin:0 0 18px}
+.cols{display:grid;grid-template-columns:300px 1fr;gap:22px;align-items:start}
+@media(max-width:860px){.cols{grid-template-columns:1fr}}
+.panel{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px}
+table{width:100%;border-collapse:collapse;font-size:13px}td{padding:6px 0;border-bottom:1px solid var(--line);color:var(--txt)}td:first-child{color:var(--dim);width:44%}
+.presets{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0 6px}
+.pbtn{font:inherit;font-size:12.5px;color:var(--txt);background:transparent;border:1px solid var(--line);border-radius:999px;padding:7px 12px;cursor:pointer}
+.pbtn.on{background:var(--grn);color:#06110c;border-color:var(--grn);font-weight:600}
+select{width:100%;padding:10px;border-radius:10px;background:var(--bg);color:var(--hi);border:1px solid var(--line);font:inherit;margin-top:8px}
+.note{color:var(--dim);font-size:12px;margin-top:10px}
+.stage{display:flex;justify-content:center;padding:10px 0}
+.device{position:relative;border-radius:38px;background:#05080a;border:2px solid #2b3a44;box-shadow:0 30px 80px rgba(0,0,0,.6),inset 0 0 0 6px #0b0f12;overflow:hidden}
+.punch{position:absolute;top:12px;left:50%;transform:translateX(-50%);width:10px;height:10px;border-radius:50%;background:#02040a;border:1px solid #223;z-index:3}
+iframe{display:block;border:0;background:#070b09;width:100%;height:100%}
+.scaled{transform-origin:top center}
+.bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:8px}
+.rd{font-family:var(--mono);font-size:12px;color:var(--grn)}
+a{color:var(--cyn)}
+</style>
+</head>
+<body><div class="wrap">
+<h1>S24 设备模板预览</h1>
+<p class="sub">以 Galaxy S24 为参考，按测试视口检查阅读布局。实际显示随系统缩放、字号和浏览器界面变化。</p>
+<div class="cols">
+  <div class="panel">
+    <table>
+      <tr><td>屏幕</td><td>6.2" Dynamic AMOLED 2X · 120 Hz</td></tr>
+      <tr><td>物理分辨率</td><td>1080 × 2340 px · 19.5:9</td></tr>
+      <tr><td>像素密度</td><td>~416 ppi</td></tr>
+      <tr><td>测试视口</td><td>360×780 / 412×891 CSS px；不代表所有 S24 的固定视口</td></tr>
+      <tr><td>安全区</td><td>APK 按系统实测避让；浏览器使用安全区环境值</td></tr>
+      <tr><td>机身</td><td>147.0 × 70.6 × 7.6 mm · 167 g</td></tr>
+      <tr><td>阅读控件</td><td>竖屏 ≥ 48 CSS px；短横屏 ≥ 44 CSS px</td></tr>
+      <tr><td>其他预览</td><td>800×1280 / 1280×800 等通用平板测试视口</td></tr>
+    </table>
+    <div class="presets" id="presets">
+      <button class="pbtn on" data-w="360" data-h="780" data-label="S24 竖屏 · 360×780 (DPR3)">S24 · 360×780</button>
+      <button class="pbtn" data-w="412" data-h="891" data-label="S24 竖屏 · 412×891 (DPR2.625)">S24 · 412×891</button>
+      <button class="pbtn" data-w="891" data-h="412" data-label="S24 横屏 · 891×412">S24 横屏</button>
+      <button class="pbtn" data-w="800" data-h="1280" data-label="平板竖屏 · 800×1280">平板 · 800×1280</button>
+      <button class="pbtn" data-w="1600" data-h="2560" data-label="1600×2560 竖屏（可折叠侧栏）">1600×2560 竖屏</button>
+      <button class="pbtn" data-w="1280" data-h="800" data-label="平板横屏 · 1280×800">平板 · 横屏 1280×800</button>
+      <button class="pbtn" data-w="2560" data-h="1600" data-label="2560×1600 横屏（可折叠侧栏）">2560×1600 横屏</button>
+      <button class="pbtn" data-w="390" data-h="844" data-label="对比 · 390×844">对比 390</button>
+      <button class="pbtn" data-w="360" data-h="640" data-label="对比 · 360×640">对比 360×640</button>
+    </div>
+    <p id="liveViewport" class="note"></p><p class="note">规格依据：<a href="https://www.samsung.com/in/smartphones/galaxy-s/galaxy-s24-onyx-black-128gb-sm-s921ezkiins/">三星官方 S24 规格</a> · <a href="https://news.samsung.com/uk/enter-the-new-era-of-mobile-ai-with-samsung-galaxy-s24-series">1–120Hz 与屏幕说明</a></p><select id="book"><option value="books/B01.html">B01 · 嵌入式 C 精读</option>
+<option value="books/B00.html">B00 · 编程与 C 语言基础</option>
+<option value="books/B02a.html">B02a · C++ 语言基础</option>
+<option value="books/B03a.html">B03a · Rust 语言基础</option>
+<option value="books/B04a.html">B04a · Python 语言基础</option>
+<option value="books/B02.html">B02 · C++（嵌入式向）</option>
+<option value="books/B03.html">B03 · Rust（嵌入式向）</option>
+<option value="books/B04.html">B04 · Python（嵌入式向）</option>
+<option value="books/B05.html">B05 · 单片机裸机与外设驱动</option>
+<option value="books/B06.html">B06 · RTOS 与实时系统</option>
+<option value="books/B07.html">B07 · 通信协议与系统集成</option>
+<option value="books/B08.html">B08 · 单片机应用开发实战</option>
+<option value="books/B09.html">B09 · 嵌入式 Linux 系统</option>
+<option value="books/B10.html">B10 · 嵌入式 Linux 驱动开发</option>
+<option value="books/B11.html">B11 · 嵌入式 Linux 应用开发</option>
+<option value="books/B12.html">B12 · 工程化、测试与量产</option>
+<option value="books/B13.html">B13 · 端侧 AI 与数据闭环</option>
+<option value="books/B14.html">B14 · 数据平台与云边协同</option>
+<option value="books/B15.html">B15 · 前沿与专项技术</option>
+<option value="books/B16.html">B16 · 开发环境与工程工具</option>
+<option value="books/B17.html">B17 · 电子电路与硬件调试基础</option>
+<option value="books/B18.html">B18 · 处理器与计算机体系结构</option>
+<option value="books/B19.html">B19 · 数据结构、算法与应用数学</option>
+<option value="books/B20.html">B20 · 传感器、信号处理与控制</option>
+<option value="books/B21.html">B21 · 机器学习与数据工程基础</option>
+<option value="books/B22.html">B22 · 嵌入式安全与设备生命周期</option>
+<option value="books/B23.html">B23 · 算法、数据与控制实战</option></select>
+    <div class="bar"><span class="rd" id="rd">—</span></div>
+    <p class="note">提示：iframe 无法改变真机 DPR，仅按 CSS 视口尺寸框定；真机请用 <code>serve.py</code> 打开 <a href="index.html">书架</a> 校对。</p>
+  </div>
+  <div class="stage">
+    <div class="device" id="device" data-w="360" data-h="780" style="width:360px;height:780px">
+      <span class="punch"></span>
+      <iframe id="dev" src="books/B01.html" title="预览"></iframe>
+    </div>
+  </div>
+</div>
+</div>
+<script>
+const dev=document.getElementById('dev'), device=document.getElementById('device'), rd=document.getElementById('rd');
+function fit(){
+  const stage=document.querySelector('.stage');
+  const availW=stage.clientWidth-8, availH=Math.max(420, window.innerHeight-120);
+  let w=+device.dataset.w, h=+device.dataset.h;
+  const s=Math.min(1, availW/w, availH/h);
+  device.style.transform='scale('+s+')';
+  device.style.marginBottom=((s<1)?(-(h*(1-s))):0)+'px';
+  rd.textContent='CSS 视口 '+w+'×'+h+' · 显示缩放 '+(s*100).toFixed(0)+'%';
+  document.getElementById('liveViewport').textContent='当前浏览器：'+window.innerWidth+'×'+window.innerHeight+' CSS px · DPR '+window.devicePixelRatio+'。模板不模拟系统栏或真机性能。';
+}
+function setPreset(w,h,label){
+  device.dataset.w=w; device.dataset.h=h;
+  device.style.width=w+'px'; device.style.height=h+'px';
+  device.style.borderRadius=(Math.min(w,h)>500?44:38)+'px';
+  fit();
+}
+document.querySelectorAll('.pbtn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.pbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on'); setPreset(+b.dataset.w,+b.dataset.h,b.dataset.label);
+}));
+document.getElementById('book').addEventListener('change',e=>{ dev.src=e.target.value; });
+window.addEventListener('resize',fit); setPreset(360,780);
+</script>
+</body></html>

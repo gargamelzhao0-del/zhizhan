@@ -1,0 +1,4 @@
+# Allwinner V3s · SPI-NOR / SD 分区
+# SPI-NOR（mtd）: u-boot | dtb | kernel | rootfs(ubifs)
+# SD 卡        : 1=vfat(boot) 2=ext4(rootfs)
+# 注意：NAND/NOR 需坏块处理，rootfs 常用 UBIFS；eMMC/SD 用 EXT4/F2FS

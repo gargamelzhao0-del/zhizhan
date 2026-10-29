@@ -1,0 +1,11 @@
+{
+  "apk": "release\\zhizhan-1.11.0-android.apk",
+  "version": "1.11.0",
+  "versionCode": 16,
+  "contentVersion": "2026.10.09.3",
+  "bytes": 6253657,
+  "sha256": "353be180faa2ebc22eb75be94df8f7219c9875f1e8786d0e55a2acb674caf275",
+  "bundledCatalogMatchesSource": true,
+  "verifiedAttachments": 161,
+  "deviceInstalled": false
+}

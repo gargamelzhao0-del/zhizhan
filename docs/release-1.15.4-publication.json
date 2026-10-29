@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "date": "2026-10-13T12:12:09.532Z",
+  "version": "1.15.4",
+  "url": "https://win-bcgslpa5ria.taile4a98d.ts.net:8443/latest.json",
+  "bytes": 12266563,
+  "sha256": "baeff92043406f15125dae1f803ddaa71227181d1de88f5604bb32bc163be616",
+  "authenticated": true,
+  "anonymousStatus": 401,
+  "publicHttpsVerified": true,
+  "remotePhoneTested": false,
+  "contentVersion": "2026.10.13.5",
+  "courseCatalogSha256": "4b1d0a6fa7a6f42992d9b868f95d999f8be59eb1422a461a1a48179fe51c7221",
+  "originalFilesChecked": 816,
+  "sourceManifestSha256": "5287da04a4a49c0ea9d44b0670c5200b33c884f681b7b15b954936d741fe402d",
+  "liveBooksChecked": 27,
+  "desktopRestartPending": false,
+  "books": 27,
+  "report": "docs/original-reader-delivery.html",
+  "signingCertificateSha256": "726ad22d5bf14cf9f282cdee34f9a545fa18cf3759117853ab283f682979256d",
+  "desktopVerifiedAt": "2026-10-13T12:16:34.391Z",
+  "desktopVersion": "1.15.4",
+  "desktopUiChecks": [
+    "Rust 课程顶部可打开原版整册",
+    "原册目录可到达最后一章 M10",
+    "dma_contract.rs 配套源码可打开",
+    "当前章分章与笔记入口对应 M10"
+  ]
+}

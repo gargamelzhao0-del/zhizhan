@@ -1,0 +1,16 @@
+# i.MX6ULL · systemd unit：应用服务（依赖网络就绪）
+[Unit]
+Description=Edge application
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/edge-app
+Restart=on-failure
+RestartSec=2
+# 崩溃限速：避免“重启风暴”
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3155 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B00" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>编程与 C 语言基础 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">编程与 C 语言基础</div>
+    <div class="m-subtitle">零基础入口 · 12 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">12 模块 · 60 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol cur" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">主线入口 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">整条学习路线.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">程序是怎么跑起来的<span class="m-nav-sub">源文件 → 编译 → 运行 · 工具链</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-1" data-target="m01-1">1.1 一张地图：从文本到运行</a><a class="m-sec" href="#m01-2" data-target="m01-2">1.2 第一个程序</a><a class="m-sec" href="#m01-3" data-target="m01-3">1.3 每一步在做什么</a><a class="m-sec" href="#m01-4" data-target="m01-4">1.4 程序运行时的样子</a><a class="m-sec" href="#m01-5" data-target="m01-5">1.5 编译期报错 vs 链接期报错</a><a class="m-sec" href="#m01-6" data-target="m01-6">1.6 把三步拆开做一次</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">变量、类型与表达式<span class="m-nav-sub">int/float/char · printf/scanf · 运算符</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-1" data-target="m02-1">2.1 四个最常用的类型</a><a class="m-sec" href="#m02-2" data-target="m02-2">2.2 声明变量、算一算、打印出来</a><a class="m-sec" href="#m02-3" data-target="m02-3">2.3 最容易踩的坑：整数除法</a><a class="m-sec" href="#m02-4" data-target="m02-4">2.4 从键盘读入：scanf</a><a class="m-sec" href="#m02-5" data-target="m02-5">2.5 类型占多少字节：sizeof</a><a class="m-sec" href="#m02-6" data-target="m02-6">2.6 整数除法会&quot;截断&quot;</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">控制流<span class="m-nav-sub">if/else · while/for · break/continue</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-1" data-target="m03-1">3.1 分支：if / else if / else</a><a class="m-sec" href="#m03-2" data-target="m03-2">3.2 循环：for 与 while</a><a class="m-sec" href="#m03-3" data-target="m03-3">3.3 break 与 continue</a><a class="m-sec" href="#m03-4" data-target="m03-4">3.4 三个循环变量别写错</a><a class="m-sec" href="#m03-5" data-target="m03-5">break 与 continue 的区别</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">函数与作用域<span class="m-nav-sub">参数/返回 · 递归 · 局部/全局</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-1" data-target="m04-1">4.1 定义与调用</a><a class="m-sec" href="#m04-2" data-target="m04-2">4.2 递归：函数自己调用自己</a><a class="m-sec" href="#m04-3" data-target="m04-3">4.3 作用域：变量在哪儿有效</a><a class="m-sec" href="#m04-4" data-target="m04-4">4.4 函数调用时栈上发生了什么</a><a class="m-sec" href="#m04-5" data-target="m04-5">4.5 递归：优雅但要知道边界</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">数组与字符串<span class="m-nav-sub">数组 · C 字符串 · 越界</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-1" data-target="m05-1">5.1 数组：一排同类型元素</a><a class="m-sec" href="#m05-2" data-target="m05-2">5.2 字符串的真相：以 \0 结尾</a><a class="m-sec" href="#m05-3" data-target="m05-3">5.3 数组最危险的错误：越界</a><a class="m-sec" href="#m05-4" data-target="m05-4">5.4 数组在内存里是连续的</a><a class="m-sec" href="#m05-5" data-target="m05-5">5.5 字符串与缓冲区安全</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">指针入门<span class="m-nav-sub">地址 · &amp;/·* · 指针与数组 · NULL</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-1" data-target="m06-1">6.1 指针是什么：一张图</a><a class="m-sec" href="#m06-2" data-target="m06-2">6.2 三个最实用的用法</a><a class="m-sec" href="#m06-3" data-target="m06-3">6.3 为什么函数要&quot;传指针&quot;才能改到实参</a><a class="m-sec" href="#m06-4" data-target="m06-4">6.4 空指针与悬垂指针</a><a class="m-sec" href="#m06-5" data-target="m06-5">6.5 指针与数组的关系</a><a class="m-sec" href="#m06-6" data-target="m06-6">6.6 指针最常见的三类错误</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">结构体、枚举与 typedef<span class="m-nav-sub">把数据打包成&quot;类型&quot;</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-1" data-target="m07-1">7.1 结构体：把相关数据打包</a><a class="m-sec" href="#m07-2" data-target="m07-2">7.2 三个要点</a><a class="m-sec" href="#m07-3" data-target="m07-3">7.3 传结构体的两种方式</a><a class="m-sec" href="#m07-4" data-target="m07-4">7.4 结构体在内存里是&quot;打包&quot;的</a><a class="m-sec" href="#m07-5" data-target="m07-5">7.5 传结构体：传值还是传指针？</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">多文件、头文件与 Makefile<span class="m-nav-sub">声明/定义 · include guard · make</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-1" data-target="m08-1">8.1 为什么拆文件：声明与定义分离</a><a class="m-sec" href="#m08-2" data-target="m08-2">8.2 编译与链接：多个 .o 拼成一个程序</a><a class="m-sec" href="#m08-3" data-target="m08-3">8.3 Makefile：增量构建</a><a class="m-sec" href="#m08-4" data-target="m08-4">8.4 头文件里放什么、不放什么</a><a class="m-sec" href="#m08-5" data-target="m08-5">8.5 Makefile：只重编改过的文件</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">综合小项目 + 过渡到第①册<span class="m-nav-sub">多文件命令行工具</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-1" data-target="m09-1">9.1 题目：统计一组测量值</a><a class="m-sec" href="#m09-2" data-target="m09-2">9.2 你现在具备了什么</a><a class="m-sec" href="#m09-3" data-target="m09-3">9.3 过渡：第①册会发现什么</a><a class="m-sec" href="#m09-4" data-target="m09-4">9.4 把项目拆成数据流</a><a class="m-sec" href="#m09-5" data-target="m09-5">9.5 学完自评与下一步</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">标准库、输入解析与错误处理<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-mechanism" data-target="m10-mechanism">机制与契约</a><a class="m-sec" href="#m10-boundary" data-target="m10-boundary">边界与误用</a><a class="m-sec" href="#m10-run" data-target="m10-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m11"><summary><span class="m-nav-num">11</span><span class="m-nav-t">动态内存与对象生命周期<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m11-mechanism" data-target="m11-mechanism">机制与契约</a><a class="m-sec" href="#m11-boundary" data-target="m11-boundary">边界与误用</a><a class="m-sec" href="#m11-run" data-target="m11-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m12"><summary><span class="m-nav-num">12</span><span class="m-nav-t">回调、模块接口与综合工程<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m12-mechanism" data-target="m12-mechanism">机制与契约</a><a class="m-sec" href="#m12-boundary" data-target="m12-boundary">边界与误用</a><a class="m-sec" href="#m12-run" data-target="m12-run">运行完整示例</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num">§</span><span class="m-nav-t">术语与符号对照表<span class="m-nav-sub">单一事实源 · 构建期比对</span></span></summary><div class="m-secs"><a class="m-sec" href="#glossary-terms" data-target="glossary-terms">术语</a><a class="m-sec" href="#glossary-symbols" data-target="glossary-symbols">符号 / 构件</a></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B00-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE 01–12 · ⓪ 基础 · 零基础入口</div>
+    <h1>编程与 <span class="g">C 语言基础</span><br>从零到能读第①册<span class="cursor"></span></h1>
+    <p class="lead">
+      如果你<strong>还没有编程基础</strong>，或只会一点点——从这一册开始。它只做一件事：把你从"不知道程序怎么跑"带到
+      <strong>能独立写、编译、调试一个小型 C 程序</strong>，然后你能顺畅进入《嵌入式 C 精读》(B01)，再往后是 C++/Rust/Python 与硬件。
+      每个示例都在本机用 <code class="ic">gcc</code> <strong>真实编译并运行</strong>，输出就是下面看到的。
+    </p>
+
+    <div class="hero-stats">
+      <div class="hero-stat"><b>12</b><span>核心模块</span></div>
+      <div class="hero-stat"><b>44</b><span>代码与命令</span></div>
+      <div class="hero-stat"><b>19</b><span>原理图示</span></div>
+      <div class="hero-stat"><b>39</b><span>对照表格</span></div>
+    </div>
+
+    <div class="box key" style="margin-top:26px">
+      <div class="box-t">◆ 谁该读这一册 / 怎么用</div>
+      <ul style="margin-bottom:0">
+        <li><strong>零基础或初学者</strong>：按顺序读，每节都动手敲一遍、编译、运行——这一步不能省。</li>
+        <li><strong>已会 C 的人</strong>：可直接跳到 B01《嵌入式 C 精读》，本册当作"语法速查"。</li>
+        <li>本册是<strong>整条路线的 ⓪ 号入口</strong>：读完它，你才具备读第①册所需的最小 C 语言与工具链能力。</li>
+      </ul>
+    </div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B00-labs.zip" download>下载 B00 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B00 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">主线入口 · 读到能完成什么？</h2><p><strong>从空目录写多文件采样记录 CLI，解析输入并输出带单位、序号的 CSV。</strong></p><p>入门条件：无编程前置；先完成 B16 的编译器与命令行准备。</p><p>首次阅读：<a href="#m01">程序是怎么跑起来的</a> → <a href="#m02">变量、类型与表达式</a> → <a href="#m03">控制流</a> → <a href="#m04">函数与作用域</a> → <a href="#m05">数组与字符串</a> → <a href="#m06">指针入门</a> → <a href="#m07">结构体、枚举与 typedef</a> → <a href="#m08">多文件、头文件与 Makefile</a> → <a href="#m09">综合小项目与过渡到精读</a> → <a href="#m10">标准库、输入解析与错误处理</a></p><p>按需延后：M11 动态分配、M12 回调在需要可变数据或驱动接口时再读；初学先用固定容量。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>输入空行、超长行、负数、越界数和截断文件；故意制造一次链接错误并定位。</p><p><strong>通过判据：</strong>正常结果与手算样例一致，坏输入返回失败且不产生半条有效记录；能解释指针指向与数组容量。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P01">P01</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">整条学习路线<span class="acc">.</span></h1>
+      <p class="ch-lead">本册是第 ⓪ 号入口（零基础）。之后是 C 精读、现代语言（C++/Rust/Python）、外设、RTOS、通信、应用、Linux、工程化、端侧 AI。</p>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item now">
+        <div class="rm-n">⓪</div>
+        <div><div class="rm-t">编程与 C 语言基础（本册）</div><div class="rm-d">从零到能写、能编、能调一个小程序</div></div>
+        <div class="rm-s">进行中</div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-n">①</div>
+        <div><div class="rm-t">语言地基 · 嵌入式 C 精读</div><div class="rm-d">内存模型、指针本质、编译链接、寄存器编程</div></div>
+        <div class="rm-s">已发布</div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-n">②</div>
+        <div><div class="rm-t">现代语言 · C++ / Rust / Python</div><div class="rm-d">已发布三册</div></div>
+        <div class="rm-s">已发布</div>
+      </div>
+      <div class="rm-item">
+        <div class="rm-n">③–⑩</div>
+        <div><div class="rm-t">外设 · RTOS · 通信 · 应用 · Linux · 工程化 · 端侧 AI · 前沿</div><div class="rm-d">从"能跑"到"能出货"</div></div>
+        <div class="rm-s">已发布</div>
+      </div>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 学 C 基础的正确方式</div>
+      <p style="margin-bottom:0">
+        <strong>读代码不如敲代码，敲代码不如调试代码</strong>。本册每段示例都给出可运行的完整程序与真实输出；
+        请务必自己编译、自己改、制造错误再看编译器怎么说。这比"看懂"重要十倍。
+      </p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 起步</div>
+      <h1 class="ch-title">程序是怎么<span class="acc">跑起来的</span></h1>
+      <p class="ch-lead">
+        在写第一行代码前，先建立一张地图：<strong>你写的文本，怎么变成会运行的程序</strong>。
+        理解这条链路（写→编译→链接→运行），你就知道"报错时该看哪一环"。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 45 分钟</span><span>◈ 源文件 · 编译 · 链接 · 运行</span><span>⚑ 第一个程序</span>
+      </div>
+    </div>
+
+    <h2 id="m01-1">1.1 一张地图：从文本到运行</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.1</b> 从源文件到可执行程序：编译与链接是两件事</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="源文件经过编译器与链接器变成可执行文件">
+          <rect x="16" y="52" width="120" height="46" rx="6" class="sv-box"/>
+          <text x="76" y="72" class="sv-lbl-hi" text-anchor="middle">hello.c</text>
+          <text x="76" y="89" class="sv-lbl-dim" text-anchor="middle">你写的文本</text>
+          <path d="M136 75 L176 75" class="sv-arrow-a"/>
+          <rect x="178" y="52" width="130" height="46" rx="6" class="sv-amb-s"/>
+          <text x="243" y="72" class="sv-lbl-hi" text-anchor="middle">编译器 gcc</text>
+          <text x="243" y="89" class="sv-lbl-dim" text-anchor="middle">查语法/生成机器码</text>
+          <path d="M308 75 L348 75" class="sv-arrow"/>
+          <rect x="350" y="52" width="120" height="46" rx="6" class="sv-box"/>
+          <text x="410" y="72" class="sv-lbl-hi" text-anchor="middle">.o 目标文件</text>
+          <text x="410" y="89" class="sv-lbl-dim" text-anchor="middle">半成品</text>
+          <path d="M470 75 L510 75" class="sv-arrow"/>
+          <rect x="512" y="52" width="132" height="46" rx="6" class="sv-grn-s"/>
+          <text x="578" y="72" class="sv-lbl-hi" text-anchor="middle">可执行文件</text>
+          <text x="578" y="89" class="sv-lbl-dim" text-anchor="middle">双击/命令行可运行</text>
+          <text x="410" y="126" class="sv-lbl-dim" text-anchor="middle" style="fill:var(--amb)">↑ 链接器在这里把多个 .o 和库拼起来</text>
+        </svg>
+      </div>
+      <div class="fig-ft">记忆点：<strong>编译</strong>管"单个文件对不对"，<strong>链接</strong>管"各个文件能不能接上"。报"语法错误"多是编译期，报"undefined reference"是链接期。</div>
+    </div>
+
+    <h2 id="m01-2">1.2 第一个程序</h2>
+    <p>约定：所有示例都在命令行用 <code class="ic">gcc</code> 编译。先看这个最小程序，逐行读注释：</p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">hello.c — 最小可运行程序</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;          /* 引入 printf 的声明 */
+
+int main(void)              /* 程序从 main 开始执行；void 表示"不接收参数" */
+{
+    printf("Hello, embedded!\n");   /* \n 表示换行 */
+    return 0;               /* 返回 0 表示"正常结束" */
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m01.sh</code>（本机 gcc 15.2）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra hello.c -o hello
+<span class="p">$</span> ./hello
+<span class="o">Hello, embedded!</span>
+<span class="w"># -Wall -Wextra：打开常用警告。编译期就把问题提示出来，比运行期翻车好得多。</span></pre></div>
+    </div>
+
+    <h2 id="m01-3">1.3 每一步在做什么</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">命令</th><th style="width:30%">产物</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">gcc hello.c -o hello</code></td><td><code class="ic">hello</code>（可执行）</td><td>编译 + 链接一步到位</td></tr>
+          <tr><td><code class="ic">gcc -c hello.c -o hello.o</code></td><td><code class="ic">hello.o</code>（目标文件）</td><td>只编译，不链接</td></tr>
+          <tr><td><code class="ic">gcc hello.o -o hello</code></td><td><code class="ic">hello</code></td><td>只链接</td></tr>
+          <tr><td><code class="ic">./hello</code></td><td>运行结果</td><td>执行程序</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 新手最常见的三个报错</div>
+      <ul style="margin-bottom:0">
+        <li><strong><code class="ic">error: expected ';'</code></strong>：漏了分号——去报错指出的<strong>上一行</strong>找。</li>
+        <li><strong><code class="ic">warning: implicit declaration of function 'printf'</code></strong>：忘了 <code class="ic">#include &lt;stdio.h&gt;</code>。</li>
+        <li><strong><code class="ic">undefined reference to 'main'</code></strong>：没有 <code class="ic">main</code>，或没把它加进编译命令。</li>
+      </ul>
+    </div>
+
+    <h2 id="m01-4">1.4 程序运行时的样子</h2>
+    <p>
+      程序运行起来后，代码在被"一条条执行"，用到的变量住在内存里。
+      这一册后面会不断回到"内存里到底发生了什么"——这也是第①册《嵌入式 C 精读》的主线。
+      现在你只要记住：<strong>变量 = 内存里的一块，有名字、有类型</strong>。
+    </p>
+
+    <h2 id="m01-5">1.5 编译期报错 vs 链接期报错</h2>
+<p>报错先判断"在哪一环"，再对症下药。前者看源文件语法，后者看"谁没被提供"。</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">报错关键字</th><th style="width:14%">发生阶段</th><th style="width:52%">典型原因</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">expected ';'</code></td><td>编译期</td><td>漏分号——看上一行</td></tr>
+          <tr><td><code class="ic">undeclared</code></td><td>编译期</td><td>变量没声明 / 拼错名字</td></tr>
+          <tr><td><code class="ic">implicit declaration</code></td><td>编译期</td><td>忘了 <code class="ic">#include</code></td></tr>
+          <tr><td><code class="ic">undefined reference</code></td><td>链接期</td><td>函数没实现 / 没加进编译</td></tr>
+          <tr><td><code class="ic">multiple definition</code></td><td>链接期</td><td>同名全局符号定义了两次</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m01-6">1.6 把三步拆开做一次</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.2</b> <code>-c</code> 只编译，再手动链接</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="源文件经 gcc -c 得到目标文件，再链接为可执行文件">
+          <rect x="16" y="40" width="120" height="46" rx="6" class="sv-box"/>
+          <text x="76" y="60" class="sv-lbl-hi" text-anchor="middle">hello.c</text>
+          <text x="76" y="77" class="sv-lbl-dim" text-anchor="middle">源文件</text>
+          <path d="M136 63 L176 63" class="sv-arrow"/>
+          <rect x="178" y="40" width="130" height="46" rx="6" class="sv-amb-s"/>
+          <text x="243" y="60" class="sv-lbl-hi" text-anchor="middle">gcc -c</text>
+          <text x="243" y="77" class="sv-lbl-dim" text-anchor="middle">只编译</text>
+          <path d="M308 63 L348 63" class="sv-arrow"/>
+          <rect x="350" y="40" width="120" height="46" rx="6" class="sv-box"/>
+          <text x="410" y="60" class="sv-lbl-hi" text-anchor="middle">hello.o</text>
+          <text x="410" y="77" class="sv-lbl-dim" text-anchor="middle">目标文件</text>
+          <path d="M470 63 L510 63" class="sv-arrow"/>
+          <rect x="512" y="40" width="132" height="46" rx="6" class="sv-grn-s"/>
+          <text x="578" y="60" class="sv-lbl-hi" text-anchor="middle">hello</text>
+          <text x="578" y="77" class="sv-lbl-dim" text-anchor="middle">可执行</text>
+        </svg>
+      </div>
+      <div class="fig-ft">停在 <code class="ic">.o</code> 能单独验证"编译"；再链接验证"谁调用了谁"。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">三步拆开（bash）</span>
+        <span class="code-lang">bash</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code><span class="p">$</span> gcc -std=c11 -Wall -Wextra -c hello.c -o hello.o   <span class="w"># 只编译</span>
+<span class="p">$</span> gcc hello.o -o hello                          <span class="w"># 只链接</span>
+<span class="p">$</span> ./hello</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:18%">阶段</th><th style="width:50%">命令</th><th style="width:32%">产物</th></tr></thead>
+        <tbody>
+          <tr><td>编译</td><td><code class="ic">gcc -c hello.c -o hello.o</code></td><td><code class="ic">hello.o</code></td></tr>
+          <tr><td>链接</td><td><code class="ic">gcc hello.o -o hello</code></td><td><code class="ic">hello</code></td></tr>
+          <tr><td>一步到位</td><td><code class="ic">gcc hello.c -o hello</code></td><td><code class="ic">hello</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把 <code class="ic">hello.c</code> 拆成"先 <code class="ic">-c</code> 出 <code class="ic">.o</code>、再链接"两步各跑一次；故意删掉一个分号，观察报错出现在编译期还是链接期。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">新手问题</th><th style="width:60%">一句话答案</th></tr></thead>
+        <tbody>
+          <tr><td>为什么要有 <code class="ic">main</code>？</td><td>它是程序入口，运行时从这里开始</td></tr>
+          <tr><td><code class="ic">.o</code> 能直接运行吗？</td><td>不能，必须链接成可执行文件</td></tr>
+          <tr><td><code class="ic">-Wall</code> 是必须的吗？</td><td>不是必须，但强烈建议开</td></tr>
+          <tr><td>报错很多，先看哪条？</td><td>第一条，后面的常是它的连锁反应</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">hello.c — 亲手编译运行</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    printf("Hello, embedded!\n");
+    return 0;
+}</code></pre>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>链路：源文件 →（编译）→ 目标文件 →（链接）→ 可执行文件 →（运行）。</li>
+        <li>编译管"单文件对不对"，链接管"各文件能不能接上"。</li>
+        <li>程序从 <code class="ic">main</code> 开始；<code class="ic">return 0</code> 表示正常结束。</li>
+        <li>编译时加 <code class="ic">-Wall -Wextra</code>，让编译器尽早提醒。</li>
+        <li>看到报错先判断"是编译期还是链接期"，再去对应环节找。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：把 <code class="ic">hello.c</code> 变成可执行文件的两个阶段是 ______ 和 ______。</p>
+          <details><summary></summary><p><strong>编译</strong>与<strong>链接</strong>。编译把源文件变成目标文件（.o），链接把目标文件与库拼成可执行文件。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">gcc hello.c -o hello</code> 这条命令里，<code class="ic">hello.c</code> 是输出的程序名。</p>
+          <details><summary></summary><p>错。<code class="ic">hello.c</code> 是输入（源文件），<code class="ic">-o hello</code> 才指定输出名为 <code class="ic">hello</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：报错 <code class="ic">undefined reference to 'main'</code>，最可能的原因？</p>
+          <details><summary></summary><p>本章的宿主环境程序缺少 <code class="ic">main</code> 函数，或它没有被编译进去。裸机等独立环境的启动入口由实现、启动文件和链接配置约定，不能把这里的规则直接套用到所有 C 程序。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">hello.c</code> 的最后一行 <code class="ic">return 0;</code> 删掉再编译运行，看会发生什么；再删掉一个分号试试。</p>
+          <details><summary></summary><p>删 <code class="ic">return 0;</code> 在 C99 及之后的宿主环境中仍是合法程序：走到 main 末尾等价于返回 0，不要求编译器告警；删分号会得到 <code class="ic">expected ';'</code>——亲手制造一次错误，比看文字记得牢。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：编译器报的错，位置一定就在那一行的语法上。</p>
+          <details><summary></summary><p>不一定。C 的报错常指向"发现问题的位置"，而问题往往在<strong>上一行或更早</strong>（比如漏分号）。第一处报错最值得看。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 01 完成？</b> 在本机装好 gcc，把 <code class="ic">hello.c</code> 亲手编译并运行一次。</div>
+      <button class="done-btn" data-done="m01">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>分别执行编译与链接；漏分号是编译错误，漏目标文件是链接错误；解释 C99 宿主 main 走到末尾的返回值。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 数据</div>
+      <h1 class="ch-title">变量、类型与<span class="acc">表达式</span></h1>
+      <p class="ch-lead">
+        程序做的事就是"把数据存起来、算出来"。这一节讲清 C 的<strong>基本类型</strong>、变量怎么声明、<code class="ic">printf</code> 怎么输出，
+        以及一个新手最容易踩的坑：<strong>整数除法</strong>。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ int/double/char · printf · 运算符</span><span>⚑ 类型决定一切</span>
+      </div>
+    </div>
+
+    <h2 id="m02-1">2.1 四个最常用的类型</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:16%">类型</th><th style="width:20%">存什么</th><th style="width:16%">本机大小</th><th>输出格式</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">int</code></td><td>整数（如 7, -3）</td><td>4 字节</td><td><code class="ic">%d</code></td></tr>
+          <tr><td><code class="ic">double</code></td><td>小数（如 3.5）</td><td>8 字节</td><td><code class="ic">%.2f</code>（保留 2 位）</td></tr>
+          <tr><td><code class="ic">char</code></td><td>单个字符（如 'A'）</td><td>1 字节</td><td><code class="ic">%c</code></td></tr>
+          <tr><td><code class="ic">unsigned</code></td><td>非负整数（如计数）</td><td>4 字节</td><td><code class="ic">%u</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ "类型"到底决定了什么</div>
+      <p style="margin-bottom:0">① 能存什么（整数还是小数）；② 占多少字节（<code class="ic">sizeof</code>）；③ 能做哪些运算、结果是什么类型。三者都由类型决定。</p>
+    </div>
+
+    <h2 id="m02-2">2.2 声明变量、算一算、打印出来</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">types.c — 变量/类型/运算符（可运行）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int    n = 7;              /* 整数 */
+    double x = 3.5;            /* 小数（双精度） */
+    char   c = 'A';            /* 单个字符 */
+    int    y = n / 2;          /* 整数相除：结果取整 */
+    double z = n / 2.0;        /* 有一个是小数 → 结果是小数 */
+
+    printf("int    = %d,  sizeof = %zu 字节\n", n, sizeof(int));
+    printf("double = %.2f, sizeof = %zu 字节\n", x, sizeof(double));
+    printf("char   = %c,  sizeof = %zu 字节\n", c, sizeof(char));
+    printf("7/2 = %d,  7/2.0 = %.1f\n", y, z);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m02.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra types.c -o types &amp;&amp; ./types
+<span class="o">int    = 7,  sizeof = 4 字节
+double = 3.50, sizeof = 8 字节
+char   = A,  sizeof = 1 字节
+7/2 = 3,  7/2.0 = 3.5</span></pre></div>
+    </div>
+
+    <h2 id="m02-3">2.3 最容易踩的坑：整数除法</h2>
+    <p>
+      上面输出里 <code class="ic">7/2 = 3</code> 而不是 3.5——因为 <strong>两个 int 相除，结果还是 int，小数部分被丢掉</strong>。
+      想得到小数，必须让其中一个操作数变成小数（写成 <code class="ic">7 / 2.0</code> 或把整数转成 double）。
+    </p>
+    <div class="box warn">
+      <div class="box-t">⚠ 运算符优先级与"意外结果"</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">a + b * c</code> 先算乘除、后算加减；不确定就<strong>加括号</strong>。</li>
+        <li><code class="ic">=</code> 是赋值，<code class="ic">==</code> 是判断相等——写 <code class="ic">if (x = 0)</code> 是常见错误（永远为"假"且改了 x）。</li>
+        <li><code class="ic">%</code> 是取余（只对整数）；<code class="ic">7 % 2 == 1</code>。</li>
+      </ul>
+    </div>
+
+    <h2 id="m02-4">2.4 从键盘读入：<code>scanf</code></h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">read_input.c — 用 scanf 读两个整数求和</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int a, b;
+    printf("输入两个整数（空格分隔）：");
+    if (scanf("%d %d", &amp;a, &amp;b) != 2) {      /* 注意：scanf 需要"地址"(&) */
+        printf("输入格式不对\n");
+        return 1;
+    }
+    printf("%d + %d = %d\n", a, b, a + b);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ scanf 必须传"地址"</div>
+      <p style="margin-bottom:0">写 <code class="ic">scanf("%d", a)</code> 是错的——要写 <code class="ic">&amp;a</code>（<code class="ic">&amp;</code> 取地址）。原因在 M06 讲指针时你会彻底明白：<code class="ic">scanf</code> 要往你的变量里写值，就得知道它在内存的<strong>地址</strong>。</p>
+    </div>
+
+    <h2 id="m02-5">2.5 类型占多少字节：<code>sizeof</code></h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.1</b> 同样"一个数"，占的内存不一样</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="int 4 字节、short 2 字节、char 1 字节、double 8 字节">
+          <rect x="20" y="46" width="70" height="40" rx="4" class="sv-grn-s"/>
+          <text x="55" y="64" class="sv-lbl-hi" text-anchor="middle">char</text>
+          <text x="55" y="80" class="sv-lbl-dim" text-anchor="middle">1 B</text>
+          <rect x="110" y="46" width="120" height="40" rx="4" class="sv-cyn-s"/>
+          <text x="170" y="64" class="sv-lbl-hi" text-anchor="middle">short</text>
+          <text x="170" y="80" class="sv-lbl-dim" text-anchor="middle">2 B</text>
+          <rect x="250" y="46" width="160" height="40" rx="4" class="sv-amb-s"/>
+          <text x="330" y="64" class="sv-lbl-hi" text-anchor="middle">int</text>
+          <text x="330" y="80" class="sv-lbl-dim" text-anchor="middle">4 B</text>
+          <rect x="430" y="46" width="210" height="40" rx="4" class="sv-red-s"/>
+          <text x="535" y="64" class="sv-lbl-hi" text-anchor="middle">double</text>
+          <text x="535" y="80" class="sv-lbl-dim" text-anchor="middle">8 B</text>
+        </svg>
+      </div>
+      <div class="fig-ft">类型决定"存什么、占多少、能做什么运算"。嵌入式里省 RAM 就从类型开始（能用 <code class="ic">uint8_t</code> 别用 <code class="ic">int</code>）。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">sizeof.c — 打印各类型的大小</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    printf("char=%zu short=%zu int=%zu long=%zu double=%zu\n",
+           sizeof(char), sizeof(short), sizeof(int),
+           sizeof(long), sizeof(double));
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">类型</th><th style="width:20%">常见字节</th><th style="width:54%">范围（近似）</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">char</code></td><td>1</td><td>-128 ~ 127</td></tr>
+          <tr><td><code class="ic">short</code></td><td>2</td><td>-32768 ~ 32767</td></tr>
+          <tr><td><code class="ic">int</code></td><td>4</td><td>约 ±21 亿</td></tr>
+          <tr><td><code class="ic">double</code></td><td>8</td><td>约 15 位有效数字</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m02-6">2.6 整数除法会"截断"</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.2</b> <code>7 / 2</code> 得 3，不是 3.5</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="两个整数相除，结果是整数，小数部分被直接丢弃">
+          <rect x="40" y="44" width="150" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="64" class="sv-lbl-hi" text-anchor="middle">7 / 2</text>
+          <text x="115" y="81" class="sv-lbl-dim" text-anchor="middle">两个 int</text>
+          <path d="M190 67 L250 67" class="sv-arrow"/>
+          <rect x="252" y="44" width="150" height="46" rx="6" class="sv-red-s"/>
+          <text x="327" y="64" class="sv-lbl-hi" text-anchor="middle">3</text>
+          <text x="327" y="81" class="sv-lbl-dim" text-anchor="middle">小数被丢弃</text>
+          <text x="480" y="60" class="sv-lbl-dim" text-anchor="middle">要小数：把其中一个写成 7.0 或 (double)7</text>
+          <text x="480" y="80" class="sv-lbl-hi" text-anchor="middle">7.0 / 2 = 3.5</text>
+        </svg>
+      </div>
+      <div class="fig-ft">这是新手最常踩的坑：求平均分、算百分比时忘了转成浮点，结果全是整数。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">写法</th><th style="width:16%">结果</th><th style="width:44%">说明</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">7 / 2</code></td><td>3</td><td>整数除法，截断</td></tr>
+          <tr><td><code class="ic">7 % 2</code></td><td>1</td><td>取余</td></tr>
+          <tr><td><code class="ic">7.0 / 2</code></td><td>3.5</td><td>有浮点参与</td></tr>
+          <tr><td><code class="ic">(double)7 / 2</code></td><td>3.5</td><td>强制转换</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:24%">格式符</th><th style="width:26%">对应类型</th><th style="width:50%">例子</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">%d</code></td><td>int</td><td><code class="ic">printf("%d", 42)</code></td></tr>
+          <tr><td><code class="ic">%f</code></td><td>double</td><td><code class="ic">printf("%f", 3.14)</code></td></tr>
+          <tr><td><code class="ic">%c</code></td><td>char</td><td><code class="ic">printf("%c", 'A')</code></td></tr>
+          <tr><td><code class="ic">%s</code></td><td>字符串</td><td><code class="ic">printf("%s", "hi")</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个程序读入两个整数，分别打印它们的商（保留小数）与余数；再故意用整数除法看差在哪里，亲手对一次答案。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>常用类型：<code class="ic">int</code>/<code class="ic">double</code>/<code class="ic">char</code>/<code class="ic">unsigned</code>；类型决定取值范围、字节数、运算结果。</li>
+        <li><code class="ic">printf</code> 用格式符：<code class="ic">%d</code> 整数、<code class="ic">%.2f</code> 小数、<code class="ic">%c</code> 字符、<code class="ic">%zu</code> 大小。</li>
+        <li><strong>整数除法会截断</strong>：要小数就让操作数含小数。</li>
+        <li><code class="ic">=</code> 赋值、<code class="ic">==</code> 比较，别混。</li>
+        <li><code class="ic">scanf</code> 要传变量<strong>地址</strong>（<code class="ic">&amp;a</code>）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：<code class="ic">int avg = 9 / 2;</code> 之后 <code class="ic">avg</code> 是多少？</p>
+          <details><summary></summary><p><strong>4</strong>。两个 int 相除结果为 int，小数被截断。要 4.5 需写 <code class="ic">9 / 2.0</code> 并存进 double。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">double x = 1;</code> 里 1 是小数。</p>
+          <details><summary></summary><p>1 本身是 int，但赋给 double 变量时会自动转成 1.0。真正影响结果的是"运算时两个操作数的类型"。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">scanf("%d", a);</code> 为什么不对？</p>
+          <details><summary></summary><p>少了取地址符 <code class="ic">&amp;</code>。应写 <code class="ic">scanf("%d", &amp;a);</code>，否则 scanf 拿不到变量地址，无法写入。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">types.c</code> 里的 <code class="ic">n / 2</code> 改成 <code class="ic">n / 2.0</code> 与 <code class="ic">(double)n / 2</code>，各打印一次，比较结果。</p>
+          <details><summary></summary><p>两者都得到 3.5；区别在写法。<code class="ic">(double)n</code> 是"显式类型转换"，比隐式依赖一个小数点更清楚。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">if (x = 0)</code> 是想判断 x 是否为 0。</p>
+          <details><summary></summary><p>错。这是<strong>赋值</strong>：先把 0 赋给 x，表达式值为 0（假），且 x 被改坏。判断相等要写 <code class="ic">if (x == 0)</code>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 02 完成？</b> 写一个小程序：读入两个整数，输出它们的和、差、积、商（商保留两位小数）。</div>
+      <button class="done-btn" data-done="m02">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>对有符号/无符号混合表达式先预测再运行；找出一次整数提升和越界风险，避免用未定义行为作为预期。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 控制流</div>
+      <h1 class="ch-title">控制流：<span class="acc">分支与循环</span></h1>
+      <p class="ch-lead">
+        程序不是从头到尾只跑一遍。这一节讲三样：<code class="ic">if/else</code>（怎么选）、<code class="ic">for/while</code>（怎么重复）、
+        <code class="ic">break/continue</code>（怎么提前跳出）。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 50 分钟</span><span>◈ if/else · for/while · break/continue</span><span>⚑ 制造循环</span>
+      </div>
+    </div>
+
+    <h2 id="m03-1">3.1 分支：<code>if / else if / else</code></h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">branch.c — 按分数分级</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int score = 82;
+    if (score &gt;= 90)       printf("A\n");
+    else if (score &gt;= 80)  printf("B\n");     /* 只走第一个为真的分支 */
+    else if (score &gt;= 60)  printf("C\n");
+    else                   printf("D\n");
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ else if 是"从上往下，第一个命中"</div>
+      <p style="margin-bottom:0">写条件时<strong>顺序很重要</strong>。若把 <code class="ic">score &gt;= 60</code> 放在最前，80 分会先命中它、判成 C。范围判断要从"最严"写到"最松"。</p>
+    </div>
+
+    <h2 id="m03-2">3.2 循环：<code>for</code> 与 <code>while</code></h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">loops.c — for / while 两种写法</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    /* for：已知次数 */
+    int sum = 0;
+    for (int i = 1; i &lt;= 100; i++) sum += i;
+    printf("1..100 的和 = %d\n", sum);
+
+    /* while：次数不确定、看条件 */
+    int n = 27, steps = 0;
+    while (n != 1) {
+        n = (n % 2 == 0) ? n / 2 : 3 * n + 1;   /* 三目运算符：条件 ? 甲 : 乙 */
+        steps++;
+    }
+    printf("27 到 1 用了 %d 步\n", steps);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m03.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra loops.c -o loops &amp;&amp; ./loops
+<span class="o">1..100 的和 = 5050
+27 到 1 用了 111 步</span></pre></div>
+    </div>
+
+    <h2 id="m03-3">3.3 break 与 continue</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">fizzbuzz.c — 综合练习（可运行）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    for (int i = 1; i &lt;= 15; i++) {
+        if (i % 15 == 0)      printf("FizzBuzz\n");   /* 先判最特殊的 */
+        else if (i % 3 == 0)  printf("Fizz\n");
+        else if (i % 5 == 0)  printf("Buzz\n");
+        else                  printf("%d\n", i);
+    }
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m03.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> ./fizzbuzz
+<span class="o">1
+2
+Fizz
+4
+Buzz
+Fizz
+7
+8
+Fizz
+Buzz
+11
+Fizz
+13
+14
+FizzBuzz</span></pre></div>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ <code>break</code> 与 <code>continue</code> 的区别</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">break</code>：<strong>跳出整个循环</strong>，后面的迭代不再执行。</li>
+        <li><code class="ic">continue</code>：<strong>跳过本次迭代剩下的部分</strong>，进入下一次。</li>
+        <li>新手最常见的死循环：<code class="ic">while (i &lt; n)</code> 里忘了让 <code class="ic">i</code> 自增。</li>
+      </ul>
+    </div>
+
+    <h2 id="m03-4">3.4 三个循环变量别写错</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.1</b> <code>for</code> 的三段：初始化 → 判断 → 自增</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="for 循环先初始化，判断成立则执行循环体并自增，再回到判断">
+          <rect x="40" y="42" width="120" height="44" rx="6" class="sv-cyn-s"/>
+          <text x="100" y="69" class="sv-lbl-hi" text-anchor="middle">i = 0</text>
+          <path d="M160 64 L210 64" class="sv-arrow"/>
+          <rect x="212" y="42" width="140" height="44" rx="6" class="sv-amb-s"/>
+          <text x="282" y="69" class="sv-lbl-hi" text-anchor="middle">i &lt; n ?</text>
+          <path d="M352 64 L402 64" class="sv-arrow"/>
+          <rect x="404" y="42" width="130" height="44" rx="6" class="sv-grn-s"/>
+          <text x="469" y="69" class="sv-lbl-hi" text-anchor="middle">循环体</text>
+          <path d="M469 86 L469 116 L100 116 L100 90" class="sv-arrow-a"/>
+          <text x="285" y="128" class="sv-lbl-dim" text-anchor="middle">i++ 后回判断；条件不成立则结束</text>
+        </svg>
+      </div>
+      <div class="fig-ft">漏写 <code class="ic">i++</code> 会死循环；用 <code class="ic">i &lt;= n</code> 还是 <code class="ic">i &lt; n</code> 决定"多跑一次还是少跑一次"。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:46%">写法</th><th style="width:16%">循环次数</th><th style="width:38%">用途</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">for(i=0;i&lt;n;i++)</code></td><td>n</td><td>遍历 0..n-1</td></tr>
+          <tr><td><code class="ic">for(i=1;i&lt;=n;i++)</code></td><td>n</td><td>计数 1..n</td></tr>
+          <tr><td><code class="ic">while(1){...}</code></td><td>无限</td><td>前后台主循环</td></tr>
+          <tr><td><code class="ic">do{...}while(cond)</code></td><td>≥1</td><td>至少执行一次</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m03-5"><code>break</code> 与 <code>continue</code> 的区别</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.2</b> <code>continue</code> 跳过本轮，<code>break</code> 结束整个循环</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="continue 回到循环判断继续下一轮，break 直接跳出循环">
+          <rect x="30" y="30" width="150" height="40" rx="6" class="sv-box"/>
+          <text x="105" y="55" class="sv-lbl-hi" text-anchor="middle">循环体开始</text>
+          <rect x="220" y="30" width="150" height="40" rx="6" class="sv-amb-s"/>
+          <text x="295" y="55" class="sv-lbl-hi" text-anchor="middle">continue → 下一轮</text>
+          <rect x="410" y="30" width="150" height="40" rx="6" class="sv-red-s"/>
+          <text x="485" y="55" class="sv-lbl-hi" text-anchor="middle">break → 结束循环</text>
+          <text x="330" y="105" class="sv-lbl-dim" text-anchor="middle">两者都只影响"最近的一层"循环</text>
+        </svg>
+      </div>
+      <div class="fig-ft">嵌套循环里 <code class="ic">break</code> 只跳出内层——想跳出全部，需要标志位或 <code class="ic">goto</code>。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">continue_break.c — 只打印偶数，遇到负数就停</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int a[] = {1, -2, 3, 4, 5, -1};
+    for (int i = 0; i &lt; 6; i++) {
+        if (a[i] &lt; 0) break;          /* 遇到负数，整个循环结束 */
+        if (a[i] % 2 != 0) continue;  /* 奇数，跳过本轮 */
+        printf("%d ", a[i]);
+    }
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">控制语句</th><th style="width:34%">作用范围</th><th style="width:40%">常见误用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">break</code></td><td>最近一层循环/switch</td><td>以为能跳出外层</td></tr>
+          <tr><td><code class="ic">continue</code></td><td>最近一层循环</td><td>for 里忘了自增</td></tr>
+          <tr><td><code class="ic">return</code></td><td>整个函数</td><td>在 main 里当 break 用</td></tr>
+          <tr><td>标志位</td><td>配合 break 跳出外层</td><td>忘记在每个循环里判断</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">场景</th><th style="width:60%">推荐写法</th></tr></thead>
+        <tbody>
+          <tr><td>已知次数</td><td><code class="ic">for</code></td></tr>
+          <tr><td>未知次数、条件驱动</td><td><code class="ic">while</code></td></tr>
+          <tr><td>至少执行一次</td><td><code class="ic">do...while</code></td></tr>
+          <tr><td>遍历数组</td><td><code class="ic">for(i=0;i&lt;n;i++)</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一段程序：从 1 数到 20，跳过所有 3 的倍数，并在遇到 15 时提前结束；用输出验证 <code class="ic">continue</code> 与 <code class="ic">break</code> 的行为。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">循环常见 bug</th><th style="width:26%">症状</th><th style="width:40%">修复</th></tr></thead>
+        <tbody>
+          <tr><td>漏写 <code class="ic">i++</code></td><td>死循环</td><td>补上自增</td></tr>
+          <tr><td><code class="ic">i&lt;=n</code> 越界</td><td>多访问一个元素</td><td>改 <code class="ic">i&lt;n</code></td></tr>
+          <tr><td>循环里改循环变量</td><td>次数不可预测</td><td>用独立变量</td></tr>
+          <tr><td>浮点做循环变量</td><td>精度误差</td><td>改用整数计数</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">if/else if/else</code> 从上往下，命中第一个为真的分支——范围判断从严到松。</li>
+        <li><code class="ic">for</code> 适合已知次数，<code class="ic">while</code> 适合看条件。</li>
+        <li><code class="ic">break</code> 跳出循环，<code class="ic">continue</code> 跳过本次。</li>
+        <li>三目运算符 <code class="ic">条件 ? 甲 : 乙</code> 是 if-else 的简洁写法。</li>
+        <li>循环里别忘了让条件<strong>逐步逼近结束</strong>，否则死循环。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：想让循环"提前结束"，用 ______；想"跳过本次继续下一次"，用 ______。</p>
+          <details><summary></summary><p><code class="ic">break</code> / <code class="ic">continue</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">for (int i = 0; i &lt; 5; i++)</code> 会执行 6 次循环体。</p>
+          <details><summary></summary><p>错，执行 5 次（i = 0,1,2,3,4）。条件是"小于 5"。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">while (i &lt; 10) { printf("%d", i); }</code> 为什么会停不下来？</p>
+          <details><summary></summary><p>循环体里没有改变 <code class="ic">i</code>，条件永远为真。应在体内 <code class="ic">i++</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">branch.c</code> 的条件顺序打乱（把 <code class="ic">&gt;=60</code> 放最前），看 82 分变成什么等级，体会"顺序敏感"。</p>
+          <details><summary></summary><p>会先命中 <code class="ic">&gt;=60</code> → 输出 C。这说明分支顺序会改变结果。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">for</code> 和 <code class="ic">while</code> 能互相改写。</p>
+          <details><summary></summary><p>能。任何 <code class="ic">for</code> 都能写成 <code class="ic">while</code>；<code class="ic">for</code> 只是把"初始化 / 条件 / 步进"三件事写在一行，更紧凑。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 03 完成？</b> 写一个程序：用循环找出 1~100 里所有能被 7 整除的数，并统计个数。</div>
+      <button class="done-btn" data-done="m03">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>给分支和循环列零次、一次、边界输入；写出循环不变量并解释终止条件。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 组织代码</div>
+      <h1 class="ch-title">函数与<span class="acc">作用域</span></h1>
+      <p class="ch-lead">
+        当程序变长，"从头写到尾"就乱了。函数把一段逻辑<strong>命名、封装、复用</strong>。这一节讲函数怎么定义与调用、
+        参数与返回值、递归，以及"变量在哪儿有效"——作用域。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ 定义/调用 · 递归 · 局部/全局</span><span>⚑ 分而治之</span>
+      </div>
+    </div>
+
+    <h2 id="m04-1">4.1 定义与调用</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">functions.c — 定义、调用、递归（可运行）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int add(int a, int b) { return a + b; }          /* 参数 a,b；返回 int */
+int max3(int a, int b, int c) {
+    int m = a;
+    if (b &gt; m) m = b;
+    if (c &gt; m) m = c;
+    return m;
+}
+int factorial(int n) {                            /* 递归：n! = n * (n-1)! */
+    if (n &lt;= 1) return 1;                         /* 递归出口，必须有 */
+    return n * factorial(n - 1);
+}
+
+int main(void)
+{
+    printf("add(3,4)      = %d\n", add(3, 4));
+    printf("max3(3,9,5)   = %d\n", max3(3, 9, 5));
+    printf("factorial(5)  = %d\n", factorial(5));
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m04.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra functions.c -o functions &amp;&amp; ./functions
+<span class="o">add(3,4)      = 7
+max3(3,9,5)   = 9
+factorial(5)  = 120</span></pre></div>
+    </div>
+
+    <h2 id="m04-2">4.2 递归：函数自己调用自己</h2>
+    <p>
+      <code class="ic">factorial(5)</code> 展开成 <code class="ic">5 * factorial(4) * ... * factorial(1)</code>。
+      递归必须有一个<strong>出口</strong>（这里 <code class="ic">n &lt;= 1</code>），否则会一直调用、最终把栈撑爆（<code class="ic">stack overflow</code>）。
+    </p>
+    <div class="box warn">
+      <div class="box-t">⚠ 递归与迭代的选择</div>
+      <p style="margin-bottom:0">能用循环解决的，循环更省内存（不占栈）。递归适合"问题本身就是分层的"（树、分治）。嵌入式里栈很小，递归要<strong>格外克制</strong>。</p>
+    </div>
+
+    <h2 id="m04-3">4.3 作用域：变量在哪儿有效</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">scope.c — 局部与全局</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int g = 100;                        /* 全局：整个文件可见 */
+
+void f(void) {
+    int g = 5;                      /* 局部：只在 f 里有效，遮蔽同名的全局 */
+    printf("f 里的 g = %d\n", g);
+}
+
+int main(void)
+{
+    printf("main 里的 g = %d\n", g);   /* 看到全局的 100 */
+    f();                              /* 看到局部的 5 */
+    printf("调用后 g 仍 = %d\n", g);   /* f 的局部变量已销毁 */
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三条作用域规则</div>
+      <ul style="margin-bottom:0">
+        <li><strong>局部变量</strong>：活到它所在的花括号结束，出了范围就销毁。</li>
+        <li><strong>同名遮蔽</strong>：内层的局部会"挡住"外层的同名变量（上面的 <code class="ic">g</code>）。</li>
+        <li><strong>未初始化</strong>：局部变量不会自动清零，用之前一定先赋值（全局变量会自动为 0）。</li>
+      </ul>
+    </div>
+
+    <h2 id="m04-4">4.4 函数调用时栈上发生了什么</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.1</b> 调用函数＝把返回地址与参数压栈，用完再弹回</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="主函数调用 add 时，把返回地址与参数压入调用栈，返回时恢复">
+          <rect x="30" y="30" width="180" height="90" rx="6" class="sv-box"/>
+          <text x="120" y="52" class="sv-lbl-hi" text-anchor="middle">main 的栈帧</text>
+          <text x="120" y="74" class="sv-lbl-dim" text-anchor="middle">局部变量 · 返回地址</text>
+          <text x="120" y="96" class="sv-lbl-dim" text-anchor="middle">调用 add(2,3)</text>
+          <path d="M210 75 L270 75" class="sv-arrow"/>
+          <rect x="272" y="30" width="180" height="90" rx="6" class="sv-grn-s"/>
+          <text x="362" y="52" class="sv-lbl-hi" text-anchor="middle">add 的栈帧</text>
+          <text x="362" y="74" class="sv-lbl-dim" text-anchor="middle">参数 x,y · 局部 result</text>
+          <text x="362" y="96" class="sv-lbl-dim" text-anchor="middle">返回后自动弹出</text>
+          <text x="530" y="70" class="sv-lbl-dim" text-anchor="middle">递归越深，</text>
+          <text x="530" y="90" class="sv-lbl-hi" text-anchor="middle">栈越"高"</text>
+        </svg>
+      </div>
+      <div class="fig-ft">这解释了"递归太深会栈溢出"：每一层调用都要占用一段栈。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">add.c — 观察参数与返回值</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int add(int x, int y);       /* 声明 */
+
+int main(void) {
+    printf("sum = %d\n", add(2, 3));
+    return 0;
+}
+
+int add(int x, int y) {      /* 定义 */
+    int result = x + y;
+    return result;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">概念</th><th style="width:40%">含义</th><th style="width:38%">注意</th></tr></thead>
+        <tbody>
+          <tr><td>形参</td><td>函数定义里的参数名</td><td>是局部变量</td></tr>
+          <tr><td>实参</td><td>调用时传进去的值</td><td>值传递：拷贝一份</td></tr>
+          <tr><td>返回值</td><td>函数交回的结果</td><td>类型要匹配</td></tr>
+          <tr><td>栈帧</td><td>每次调用占用的内存</td><td>递归深＝栈压力大</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m04-5">4.5 递归：优雅但要知道边界</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.2</b> 求 4! 时递归一层层深入再返回</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="阶乘递归调用 4→3→2→1，逐层返回相乘">
+          <rect x="30" y="30" width="90" height="36" rx="6" class="sv-cyn-s"/>
+          <text x="75" y="53" class="sv-lbl-hi" text-anchor="middle">4!</text>
+          <rect x="150" y="30" width="90" height="36" rx="6" class="sv-cyn-s"/>
+          <text x="195" y="53" class="sv-lbl-hi" text-anchor="middle">3!</text>
+          <rect x="270" y="30" width="90" height="36" rx="6" class="sv-cyn-s"/>
+          <text x="315" y="53" class="sv-lbl-hi" text-anchor="middle">2!</text>
+          <rect x="390" y="30" width="90" height="36" rx="6" class="sv-grn-s"/>
+          <text x="435" y="53" class="sv-lbl-hi" text-anchor="middle">1!=1</text>
+          <path d="M120 48 L150 48" class="sv-arrow"/>
+          <path d="M240 48 L270 48" class="sv-arrow"/>
+          <path d="M360 48 L390 48" class="sv-arrow"/>
+          <text x="480" y="48" class="sv-lbl-hi" text-anchor="middle">→ 逐层返回 ×n</text>
+        </svg>
+      </div>
+      <div class="fig-ft"><strong>基准情形</strong>（n≤1 返回 1）必须存在，否则无限递归直到栈溢出。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">factorial.c — 递归求阶乘</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+long fact(int n) {
+    if (n &lt;= 1) return 1;      /* 基准情形，必须有 */
+    return n * fact(n - 1);
+}
+
+int main(void) {
+    printf("4! = %ld\n", fact(4));
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">对比</th><th style="width:40%">递归</th><th style="width:38%">迭代（循环）</th></tr></thead>
+        <tbody>
+          <tr><td>代码形态</td><td>简洁、贴近数学定义</td><td>直白、略长</td></tr>
+          <tr><td>内存</td><td>每层占栈帧</td><td>固定</td></tr>
+          <tr><td>风险</td><td>太深→栈溢出</td><td>较少</td></tr>
+          <tr><td>适用</td><td>树/分治、可证明边界</td><td>计数、遍历</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:24%">作用域</th><th style="width:40%">可见范围</th><th style="width:36%">生命周期</th></tr></thead>
+        <tbody>
+          <tr><td>局部变量</td><td>函数内（含嵌套块）</td><td>函数执行期间</td></tr>
+          <tr><td>全局变量</td><td>所有文件（加 extern）</td><td>整个程序</td></tr>
+          <tr><td>形参</td><td>函数内</td><td>函数执行期间</td></tr>
+          <tr><td>static 局部</td><td>函数内</td><td>整个程序（值保留）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把一个用递归写的求阶乘改成迭代（循环）版本，比较两者的可读性与"n 很大时"的行为；再故意去掉基准情形，观察崩溃。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:44%">写函数的三条建议</th><th style="width:56%">原因</th></tr></thead>
+        <tbody>
+          <tr><td>一个函数只做一件事</td><td>易读、易测、易复用</td></tr>
+          <tr><td>参数别太多（≤4 个）</td><td>太多说明职责不清晰</td></tr>
+          <tr><td>返回值表达成功/失败</td><td>调用方能据此处理错误</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>函数 = 名字 + 参数 + 返回值 + 自己的作用域；便于复用与分工。</li>
+        <li>返回值交给调用方；<code class="ic">void</code> 表示不返回值。</li>
+        <li>递归必须有出口；嵌入式栈小，慎用深递归。</li>
+        <li>局部变量只在花括号内有效，离开即销毁；同名会遮蔽。</li>
+        <li>局部变量<strong>不自动清零</strong>，用前先赋值。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：递归函数必须有一个 ______，否则会无限调用导致栈溢出。</p>
+          <details><summary></summary><p>递归<strong>出口</strong>（终止条件）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：局部变量会和全局变量一样自动初始化为 0。</p>
+          <details><summary></summary><p>不会。全局（静态）变量自动为 0；<strong>局部变量不自动清零</strong>，内容是随机的，必须先赋值再用。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：一段程序里 <code class="ic">int x;</code> 未赋值就读它，会怎样？</p>
+          <details><summary></summary><p>读到的是不确定的垃圾值（未定义）。这是常见 bug，务必"声明即初始化"或使用前赋值。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">factorial</code> 传入 -1，看会发生什么（出口 <code class="ic">n&lt;=1</code> 会返回 1，想想为什么这仍不够健壮）。</p>
+          <details><summary></summary><p>返回 1（因为 -1&lt;=1）。但数学上阶乘对负数无意义——好的做法是<strong>校验参数</strong>，这也是后续工程化里"防御式编程"的雏形。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：函数参数是按值传递的，函数里改形参不影响调用方的实参。</p>
+          <details><summary></summary><p>对。C 默认按值传递；要让函数改到调用方的变量，得传<strong>指针</strong>（下一节 M06）。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 04 完成？</b> 写几个函数：判断素数、求最大公约数（用循环），再用一个递归函数求斐波那契第 n 项。</div>
+      <button class="done-btn" data-done="m04">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>拆出有参数和返回值的函数；解释局部对象生命与文件作用域，禁止返回局部数组地址。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 批量数据</div>
+      <h1 class="ch-title">数组与<span class="acc">字符串</span></h1>
+      <p class="ch-lead">
+        存一列数据用<strong>数组</strong>，处理文字用<strong>字符串</strong>。这一节讲清"下标从 0 开始""越界是灾难"，
+        以及 C 字符串为什么是"以 <code class="ic">\0</code> 结尾的字符数组"。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ 数组 · C 字符串 · 越界</span><span>⚑ 小心越界</span>
+      </div>
+    </div>
+
+    <h2 id="m05-1">5.1 数组：一排同类型元素</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">array_string.c — 数组与字符串（可运行）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void)
+{
+    int a[5] = {10, 20, 30, 40, 50};
+    int sum = 0;
+    for (int i = 0; i &lt; 5; i++) sum += a[i];       /* 合法下标：0..4 */
+    printf("sum = %d, average = %.1f\n", sum, sum / 5.0);
+
+    char name[16] = "embedded";                     /* 实际占 9 字节（含 '\0'） */
+    printf("strlen = %zu, name = %s\n", strlen(name), name);
+
+    char other[16];
+    strcpy(other, name);                            /* 复制（目标必须够大） */
+    printf("compare = %d\n", strcmp(name, other));  /* 相等返回 0 */
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m05.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra array_string.c -o array_string &amp;&amp; ./array_string
+<span class="o">sum = 150, average = 30.0
+strlen = 8, name = embedded
+compare = 0</span></pre></div>
+    </div>
+
+    <h2 id="m05-2">5.2 字符串的真相：以 <code>\0</code> 结尾</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.1</b> <code>"embedded"</code> 在内存里其实是 9 个字节</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 120" role="img" aria-label="C 字符串以 0 结尾">
+          <g>
+            <rect x="30" y="40" width="60" height="34" rx="4" class="sv-box"/><text x="60" y="62" class="sv-lbl-hi" text-anchor="middle">e</text><text x="60" y="86" class="sv-lbl-dim" text-anchor="middle">0</text>
+            <rect x="95" y="40" width="60" height="34" rx="4" class="sv-box"/><text x="125" y="62" class="sv-lbl-hi" text-anchor="middle">m</text><text x="125" y="86" class="sv-lbl-dim" text-anchor="middle">1</text>
+            <rect x="160" y="40" width="60" height="34" rx="4" class="sv-box"/><text x="190" y="62" class="sv-lbl-hi" text-anchor="middle">b</text><text x="190" y="86" class="sv-lbl-dim" text-anchor="middle">2</text>
+            <rect x="225" y="40" width="60" height="34" rx="4" class="sv-box"/><text x="255" y="62" class="sv-lbl-hi" text-anchor="middle">e</text><text x="255" y="86" class="sv-lbl-dim" text-anchor="middle">3</text>
+            <rect x="290" y="40" width="60" height="34" rx="4" class="sv-box"/><text x="320" y="62" class="sv-lbl-hi" text-anchor="middle">d</text><text x="320" y="86" class="sv-lbl-dim" text-anchor="middle">4</text>
+            <rect x="355" y="40" width="60" height="34" rx="4" class="sv-box"/><text x="385" y="62" class="sv-lbl-hi" text-anchor="middle">…</text><text x="385" y="86" class="sv-lbl-dim" text-anchor="middle">…</text>
+            <rect x="420" y="40" width="60" height="34" rx="4" class="sv-grn-s"/><text x="450" y="62" class="sv-lbl-hi" text-anchor="middle">\0</text><text x="450" y="86" class="sv-lbl-dim" text-anchor="middle">8</text>
+            <text x="500" y="62" class="sv-lbl-dim" style="fill:var(--grn)">← 结束标记</text>
+          </g>
+          <text x="30" y="26" class="sv-lbl-dim">下标：0 1 2 3 4 5 6 7 8（共 9 字节；<tspan style="fill:var(--grn)">strlen</tspan>=8，不含结束符）</text>
+        </svg>
+      </div>
+      <div class="fig-ft"><code>strlen</code> 数到 <code>\0</code> 之前为止（=8）；<code>sizeof(name)</code> 是数组总容量（=16）。<strong>忘了 <code>\0</code>，字符串函数就会一直往下读，直到越界。</strong></div>
+    </div>
+
+    <h2 id="m05-3">5.3 数组最危险的错误：越界</h2>
+    <div class="box warn">
+      <div class="box-t">⚠ 下标越界 = 未定义行为</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">int a[5]</code> 的合法下标是 <code class="ic">0..4</code>；<code class="ic">a[5]</code> 已经在数组外。</li>
+        <li>C <strong>不会</strong>检查越界，可能读到垃圾、也可能悄悄改坏别的变量——在嵌入式里甚至会踩到外设寄存器。</li>
+        <li>写循环时牢记：<code class="ic">i &lt; 5</code> 而不是 <code class="ic">i &lt;= 5</code>。</li>
+      </ul>
+    </div>
+
+    <h2 id="m05-4">5.4 数组在内存里是连续的</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.2</b> <code>int a[4]</code> 的四个元素紧挨着放</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="a[0]..a[3] 在内存中连续排列，a[i] 的地址是 基址 + i×4">
+          <rect x="40" y="46" width="120" height="44" rx="4" class="sv-grn-s"/>
+          <text x="100" y="65" class="sv-lbl-hi" text-anchor="middle">a[0]</text>
+          <text x="100" y="81" class="sv-lbl-dim" text-anchor="middle">1000</text>
+          <rect x="160" y="46" width="120" height="44" rx="4" class="sv-cyn-s"/>
+          <text x="220" y="65" class="sv-lbl-hi" text-anchor="middle">a[1]</text>
+          <text x="220" y="81" class="sv-lbl-dim" text-anchor="middle">1004</text>
+          <rect x="280" y="46" width="120" height="44" rx="4" class="sv-amb-s"/>
+          <text x="340" y="65" class="sv-lbl-hi" text-anchor="middle">a[2]</text>
+          <text x="340" y="81" class="sv-lbl-dim" text-anchor="middle">1008</text>
+          <rect x="400" y="46" width="120" height="44" rx="4" class="sv-red-s"/>
+          <text x="460" y="65" class="sv-lbl-hi" text-anchor="middle">a[3]</text>
+          <text x="460" y="81" class="sv-lbl-dim" text-anchor="middle">1012</text>
+        </svg>
+      </div>
+      <div class="fig-ft">连续排列是"下标能算地址"的前提，也是"越界没报错却读到别人数据"的原因。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">array_iter.c — 用循环遍历数组</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int a[5] = {10, 20, 30, 40, 50};
+    int sum = 0;
+    for (int i = 0; i &lt; 5; i++) sum += a[i];
+    printf("sum = %d, avg = %.1f\n", sum, sum / 5.0);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">要点</th><th style="width:40%">正确做法</th><th style="width:34%">错误做法</th></tr></thead>
+        <tbody>
+          <tr><td>下标范围</td><td><code class="ic">0 .. n-1</code></td><td>用到 <code class="ic">a[n]</code></td></tr>
+          <tr><td>数组长度</td><td><code class="ic">sizeof(a)/sizeof(a[0])</code></td><td>硬编码、数错</td></tr>
+          <tr><td>初始化</td><td><code class="ic">int a[5] = {0};</code></td><td>只初始化一部分</td></tr>
+          <tr><td>求平均</td><td><code class="ic">sum / 5.0</code></td><td><code class="ic">sum / 5</code>（整数）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m05-5">5.5 字符串与缓冲区安全</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">函数</th><th style="width:34%">作用</th><th style="width:32%">要小心的点</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">strlen(s)</code></td><td>长度（不含 <code class="ic">\0</code>）</td><td>必须已以 <code class="ic">\0</code> 结尾</td></tr>
+          <tr><td><code class="ic">strcpy(d,s)</code></td><td>复制</td><td>不检查目标大小→溢出</td></tr>
+          <tr><td><code class="ic">strncpy(d,s,n)</code></td><td>最多复制 n 字节</td><td>可能不加 <code class="ic">\0</code></td></tr>
+          <tr><td><code class="ic">strcmp(a,b)</code></td><td>比较</td><td>返回 0 才表示相等</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">safe_copy.c — 给字符串留够空间</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+
+int main(void) {
+    char src[] = "embedded";
+    char dst[16];                 /* 够大：至少 strlen(src)+1 */
+    strncpy(dst, src, sizeof(dst) - 1);
+    dst[sizeof(dst) - 1] = '\0';   /* 收尾，防止无终止符 */
+    printf("%s (%zu)\n", dst, strlen(dst));
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:24%">场景</th><th style="width:40%">危险写法</th><th style="width:36%">更安全</th></tr></thead>
+        <tbody>
+          <tr><td>读字符串</td><td><code class="ic">gets(buf)</code></td><td><code class="ic">fgets(buf,n,stdin)</code></td></tr>
+          <tr><td>读整数</td><td><code class="ic">scanf("%d",&amp;x)</code> 不检查</td><td>检查返回值</td></tr>
+          <tr><td>拼字符串</td><td><code class="ic">strcat</code> 不管大小</td><td>先算长度再决定</td></tr>
+          <tr><td>定长缓冲</td><td>不预留 <code class="ic">\0</code></td><td>长度 = 字符数 + 1</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个程序：把一个长字符串安全地拷进 8 字节的缓冲，打印复制后的长度；若源串太长，说明你如何"截断而不溢出"。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:38%">常见量</th><th style="width:16%">值</th><th style="width:46%">备注</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">"abc"</code> 的字符数</td><td>3</td><td>不含 <code class="ic">\0</code></td></tr>
+          <tr><td><code class="ic">"abc"</code> 占的字节</td><td>4</td><td>含结尾 <code class="ic">\0</code></td></tr>
+          <tr><td><code class="ic">char buf[8]</code> 可存字符</td><td>7</td><td>留 1 字节给 <code class="ic">\0</code></td></tr>
+          <tr><td><code class="ic">sizeof(buf)</code></td><td>8</td><td>整个缓冲大小</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>数组是一排同类型元素；下标从 <code class="ic">0</code> 到 <code class="ic">长度-1</code>。</li>
+        <li>C 字符串是"以 <code class="ic">\0</code> 结尾的字符数组"；<code class="ic">strlen</code> 不算结束符，<code class="ic">sizeof</code> 算容量。</li>
+        <li>字符串操作靠 <code class="ic">&lt;string.h&gt;</code>：<code class="ic">strlen</code>/<code class="ic">strcpy</code>/<code class="ic">strcmp</code>。</li>
+        <li>越界是未定义行为，C 不检查——自己保证下标合法。</li>
+        <li>数组名在多数场合等于"首元素地址"，这直接引出下一节的指针。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：<code class="ic">int a[5]</code> 的合法下标是 ______ 到 ______。</p>
+          <details><summary></summary><p><strong>0</strong> 到 <strong>4</strong>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">char s[16] = "embedded";</code> 中 <code class="ic">sizeof(s)</code> 等于 <code class="ic">strlen(s)</code>。</p>
+          <details><summary></summary><p>不等。<code class="ic">sizeof(s)=16</code>（数组容量），<code class="ic">strlen(s)=8</code>（到 <code class="ic">\0</code> 为止的字符数）。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：把 <code class="ic">strcpy(dst, src)</code> 里的 <code class="ic">dst</code> 开得太小，会怎样？</p>
+          <details><summary></summary><p>缓冲区溢出——写到 <code class="ic">dst</code> 之外，覆盖别的数据，可能崩溃或被利用。目标数组必须容得下 <code class="ic">src</code> 及其 <code class="ic">\0</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">array_string.c</code> 的循环条件改成 <code class="ic">i &lt;= 5</code> 再编译运行，观察结果是否异常（可能不报错，这正是可怕之处）。</p>
+          <details><summary></summary><p>多数情况仍"看似正常"，因为它读到了数组后面的内存——这就是未定义行为：不报错 ≠ 正确。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">strcmp(a,b)</code> 相等时返回 1。</p>
+          <details><summary></summary><p>错，相等返回 <strong>0</strong>；返回正/负表示 a 大于/小于 b。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 05 完成？</b> 写一个程序：读入一行字符串，统计其中有多少个数字字符、多少个字母。</div>
+      <button class="done-btn" data-done="m05">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>为字符串缓冲区预留终止符；空串、恰好装满和超长输入均不越界。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 地址</div>
+      <h1 class="ch-title">指针<span class="acc">入门</span></h1>
+      <p class="ch-lead">
+        指针是 C 的"分水岭"，也是嵌入式绕不开的东西（寄存器、DMA、缓冲区都要它）。
+        别怕：指针就是<strong>一个保存"地址"的变量</strong>。<code class="ic">&amp;</code> 取地址，<code class="ic">*</code> 按地址取内容。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ &amp;/* · 指针与数组 · 传址</span><span>⚑ 嵌入式的核心</span>
+      </div>
+    </div>
+
+    <h2 id="m06-1">6.1 指针是什么：一张图</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.1</b> 变量有名有地址；指针保存的就是"地址"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="变量、地址与指针">
+          <rect x="40" y="50" width="120" height="46" rx="6" class="sv-box"/>
+          <text x="100" y="72" class="sv-lbl-hi" text-anchor="middle">int x = 3</text>
+          <text x="100" y="89" class="sv-lbl-dim" text-anchor="middle">住在地址 0x1000</text>
+          <rect x="360" y="50" width="150" height="46" rx="6" class="sv-grn-s"/>
+          <text x="435" y="72" class="sv-lbl-hi" text-anchor="middle">int *p = &amp;x</text>
+          <text x="435" y="89" class="sv-lbl-dim" text-anchor="middle">p 里存着 0x1000</text>
+          <path d="M360 73 L160 73" class="sv-arrow" style="marker-end:url(#ah)"/>
+          <text x="260" y="65" class="sv-lbl-dim" text-anchor="middle">&amp;x（取地址）→ 存进 p</text>
+          <text x="100" y="126" class="sv-lbl-dim" text-anchor="middle" style="fill:var(--amb)">*p 表示"顺着 p 里的地址找过去"= x 的值 3</text>
+        </svg>
+      </div>
+      <div class="fig-ft"><code>&amp;x</code>：取 x 的地址；<code>*p</code>：按 p 里的地址访问那块内存。<strong>p 是指针（存地址），*p 是它指向的值。</strong></div>
+    </div>
+
+    <h2 id="m06-2">6.2 三个最实用的用法</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">pointer.c — 取地址/解引用/传址/数组遍历（可运行）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+void swap(int *a, int *b) {                  /* 交换：通过指针改调用方的变量 */
+    int t = *a; *a = *b; *b = t;
+}
+
+int main(void)
+{
+    int x = 3, y = 8;
+    int *p = &amp;x;                             /* p 保存 x 的地址 */
+    printf("x=%d   *p=%d   (p 指向 x，所以 *p 就是 x)\n", x, *p);
+
+    *p = 10;                                 /* 通过指针改 x */
+    printf("after *p=10: x=%d\n", x);
+
+    swap(&amp;x, &amp;y);                            /* 传"地址"进去，才能改出来 */
+    printf("after swap:  x=%d  y=%d\n", x, y);
+
+    int a[4] = {1, 2, 3, 4};
+    int *q = a;                              /* 数组名就是首元素地址 */
+    int s = 0;
+    for (int i = 0; i &lt; 4; i++) s += *(q + i);
+    printf("array sum via pointer = %d\n", s);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m06.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra pointer.c -o pointer &amp;&amp; ./pointer
+<span class="o">x=3   *p=3   (p 指向 x，所以 *p 就是 x)
+after *p=10: x=10
+after swap:  x=8  y=10
+array sum via pointer = 10</span></pre></div>
+    </div>
+
+    <h2 id="m06-3">6.3 为什么函数要"传指针"才能改到实参</h2>
+    <p>
+      回顾 M04：C 的函数<strong>按值传参</strong>——你把 <code class="ic">x</code> 传进去，函数拿到的是副本，改副本不影响 <code class="ic">x</code>。
+      要真正改到调用方的变量，就得告诉函数"变量在哪儿"，也就是传 <code class="ic">&amp;x</code>（地址），函数用 <code class="ic">int *</code> 接收。
+    </p>
+    <div class="box key">
+      <div class="box-t">◆ 读指针的两条口诀</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">&amp;变量</code> → 得到地址；<code class="ic">*指针</code> → 得到那块地址上的值。</li>
+        <li>声明里的 <code class="ic">*</code> 表示"这是指针类型"（<code class="ic">int *p</code>）；表达式里的 <code class="ic">*</code> 是"解引用"（<code class="ic">*p = 10</code>）。</li>
+      </ul>
+    </div>
+
+    <h2 id="m06-4">6.4 空指针与悬垂指针</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">null_ptr.c — 用 NULL 表示"没有指向"</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void)
+{
+    int *p = NULL;                       /* 明确表示"暂时不指向任何东西" */
+    if (p != NULL) {
+        printf("%d\n", *p);             /* 只有非空才解引用，避免崩溃 */
+    } else {
+        printf("p 是空指针，先别解引用\n");
+    }
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 两大类指针错误</div>
+      <ul style="margin-bottom:0">
+        <li><strong>解引用空指针</strong>（<code class="ic">*NULL</code>）：程序崩溃。解引用前先判 <code class="ic">!= NULL</code>。</li>
+        <li><strong>悬垂指针</strong>：指向的对象已经失效（如指向已返回函数的局部变量）。用之前要保证对象还活着。</li>
+      </ul>
+    </div>
+
+    <h2 id="m06-5">6.5 指针与数组的关系</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.2</b> 数组名在多数场合"就是"首元素地址</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="a 与 &a[0] 相同；a[i] 等价于 *(a+i)">
+          <rect x="40" y="46" width="140" height="44" rx="6" class="sv-box"/>
+          <text x="110" y="65" class="sv-lbl-hi" text-anchor="middle">a</text>
+          <text x="110" y="81" class="sv-lbl-dim" text-anchor="middle">= &amp;a[0]</text>
+          <path d="M180 68 L240 68" class="sv-arrow"/>
+          <rect x="242" y="46" width="150" height="44" rx="6" class="sv-grn-s"/>
+          <text x="317" y="65" class="sv-lbl-hi" text-anchor="middle">a[i]</text>
+          <text x="317" y="81" class="sv-lbl-dim" text-anchor="middle">= *(a + i)</text>
+          <text x="520" y="60" class="sv-lbl-dim" text-anchor="middle">指针 +1 = 前进</text>
+          <text x="520" y="80" class="sv-lbl-hi" text-anchor="middle">一个"元素"的大小</text>
+        </svg>
+      </div>
+      <div class="fig-ft"><code class="ic">int*</code> 加 1 前进 4 字节，<code class="ic">char*</code> 加 1 前进 1 字节——步长由所指类型决定。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ptr_array.c — 两种等价的遍历</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+int main(void) {
+    int a[4] = {1, 2, 3, 4};
+    for (int i = 0; i &lt; 4; i++) printf("%d ", a[i]);
+    printf("\n");
+    for (int *p = a; p &lt; a + 4; p++) printf("%d ", *p);
+    printf("\n");
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">写法</th><th style="width:40%">含义</th><th style="width:30%">何时用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">*p</code></td><td>取 p 指向的值</td><td>解引用访问数据</td></tr>
+          <tr><td><code class="ic">&amp;x</code></td><td>取 x 的地址</td><td>传地址给函数</td></tr>
+          <tr><td><code class="ic">p-&gt;m</code></td><td>取指针所指结构体的成员</td><td>结构体指针</td></tr>
+          <tr><td><code class="ic">p[i]</code></td><td>等价 <code class="ic">*(p+i)</code></td><td>指针当数组用</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m06-6">6.6 指针最常见的三类错误</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">错误</th><th style="width:34%">现象</th><th style="width:40%">防范</th></tr></thead>
+        <tbody>
+          <tr><td>空指针解引用</td><td>段错误/崩溃</td><td>使用前判 <code class="ic">if (p != NULL)</code></td></tr>
+          <tr><td>悬垂指针</td><td>读到随机值</td><td>free 后置 NULL，别再用</td></tr>
+          <tr><td>越界指针</td><td>读到别人的数据</td><td>只在 <code class="ic">[0,n)</code> 内</td></tr>
+          <tr><td>类型不匹配</td><td>警告/错值</td><td>别把 <code class="ic">int*</code> 当 <code class="ic">char*</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">概念</th><th style="width:40%">符号</th><th style="width:34%">读法</th></tr></thead>
+        <tbody>
+          <tr><td>定义指针</td><td><code class="ic">int *p;</code></td><td>p 是一个指向 int 的指针</td></tr>
+          <tr><td>取地址</td><td><code class="ic">p = &amp;x;</code></td><td>p 指向 x</td></tr>
+          <tr><td>解引用</td><td><code class="ic">*p = 5;</code></td><td>把 5 写到 p 指向处</td></tr>
+          <tr><td>空指针</td><td><code class="ic">p = NULL;</code></td><td>p 不指向任何对象</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个函数 <code class="ic">void swap(int *a, int *b)</code> 交换两个整数，在 main 里调用并验证；再把参数改成传值，观察为什么"换不了"。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">平台</th><th style="width:26%"><code class="ic">sizeof(int*)</code></th><th style="width:34%">说明</th></tr></thead>
+        <tbody>
+          <tr><td>常见 32 位 MCU</td><td>4 字节</td><td>地址 32 位</td></tr>
+          <tr><td>64 位 PC</td><td>8 字节</td><td>地址 64 位</td></tr>
+          <tr><td>结论</td><td>随平台变</td><td>别假设指针大小</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>指针 = 保存地址的变量；<code class="ic">&amp;</code> 取地址，<code class="ic">*</code> 解引用。</li>
+        <li>要改调用方的变量，就得传地址（<code class="ic">&amp;x</code>），函数用指针接收。</li>
+        <li>数组名在表达式中等于首元素地址，可用 <code class="ic">*(q+i)</code> 遍历。</li>
+        <li><code class="ic">NULL</code> 表示"不指向任何东西"，解引用前先判断。</li>
+        <li>空指针、悬垂指针是 C 最危险的两类 bug——这也是后续 C++/Rust 想替你解决的问题。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：<code class="ic">&amp;x</code> 表示 ______，<code class="ic">*p</code> 表示 ______。</p>
+          <details><summary></summary><p>取 x 的<strong>地址</strong>；按 p 里的地址<strong>取值</strong>（解引用）。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：为什么 <code class="ic">swap(int a, int b)</code> 改不了调用方的变量，而 <code class="ic">swap(int *a, int *b)</code> 可以？</p>
+          <details><summary></summary><p>前者按值传副本，改的是副本；后者传入地址，函数通过地址直接改到了原变量。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">int *p = NULL; printf("%d", *p);</code> 会怎样？</p>
+          <details><summary></summary><p>解引用空指针，通常直接崩溃（段错误）。解引用前应判 <code class="ic">p != NULL</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">swap(&amp;x, &amp;y)</code> 改成 <code class="ic">swap(x, y)</code> 试编译，看编译器报什么错——体会"类型不匹配"。</p>
+          <details><summary></summary><p>会报类似 <code class="ic">expected 'int *' but argument is of type 'int'</code> 的错误——参数还是要地址。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：指针本身也是变量，也占内存、也有地址。</p>
+          <details><summary></summary><p>对。指针变量同样住在内存里（32 位机上通常 4 字节），它存的内容是"另一个地址"。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 06 完成？</b> 写一个函数 <code class="ic">void minmax(int a[], int n, int *mn, int *mx)</code>，一次求出数组的最小值与最大值（用指针带回结果）。</div>
+      <button class="done-btn" data-done="m06">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>画出数组、指针、指向指针的对象关系；解释 sizeof 数组和函数参数的区别。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 自定义类型</div>
+      <h1 class="ch-title">结构体、枚举与 <span class="acc">typedef</span></h1>
+      <p class="ch-lead">
+        自带类型不够用时，就把数据<strong>打包成自己的类型</strong>。<code class="ic">struct</code> 表示"一条记录"，<code class="ic">enum</code> 表示"一组命名状态"，
+        <code class="ic">typedef</code> 让类型名更短好写。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ struct · enum · typedef</span><span>⚑ 描述现实对象</span>
+      </div>
+    </div>
+
+    <h2 id="m07-1">7.1 结构体：把相关数据打包</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">structs.c — 结构体/枚举/typedef（可运行）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+typedef struct { int x, y; } Point;          /* typedef：给类型起短名 */
+enum Color { RED, GREEN, BLUE };             /* 枚举：一组命名常量 */
+
+double dist2(const Point *p) {               /* 传指针，省拷贝 */
+    return (double)p-&gt;x * p-&gt;x + (double)p-&gt;y * p-&gt;y;
+}
+
+int main(void)
+{
+    Point pts[3] = { {0, 0}, {3, 4}, {1, 1} };
+    for (int i = 0; i &lt; 3; i++)
+        printf("P%d=(%d,%d)  dist2=%.0f\n", i, pts[i].x, pts[i].y, dist2(&amp;pts[i]));
+
+    enum Color c = GREEN;
+    printf("color index = %d\n", c);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m07.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> gcc -std=c11 -Wall -Wextra structs.c -o structs &amp;&amp; ./structs
+<span class="o">P0=(0,0)  dist2=0
+P1=(3,4)  dist2=25
+P2=(1,1)  dist2=2
+color index = 1</span></pre></div>
+    </div>
+
+    <h2 id="m07-2">7.2 三个要点</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:20%">写法</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">typedef struct {…} Point;</code></td><td>定义类型并起名 <code class="ic">Point</code>，之后直接 <code class="ic">Point p;</code></td></tr>
+          <tr><td><code class="ic">p.x</code> / <code class="ic">p-&gt;x</code></td><td>结构体变量用 <code class="ic">.</code>，结构体指针用 <code class="ic">-&gt;</code>（<code class="ic">p-&gt;x</code> 等价于 <code class="ic">(*p).x</code>）</td></tr>
+          <tr><td><code class="ic">enum Color { RED, GREEN, BLUE }</code></td><td>命名常量，默认从 0 递增（RED=0, GREEN=1, BLUE=2）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 为什么嵌入式到处是结构体</div>
+      <p style="margin-bottom:0">
+        寄存器块（GPIO 的一堆寄存器）、报文帧、传感器读数（三轴 + 时间戳），本质都是"多个字段打包在一起"——
+        结构体正是用来描述它们的。到第①册你会看到：<strong>用结构体映射寄存器</strong>是嵌入式 C 的核心技巧（并伴随对齐/填充的坑）。
+      </p>
+    </div>
+
+    <h2 id="m07-3">7.3 传结构体的两种方式</h2>
+    <div class="box warn">
+      <div class="box-t">⚠ 大结构体别按值传</div>
+      <ul style="margin-bottom:0">
+        <li><strong>按值传</strong> <code class="ic">f(Point p)</code>：会把整个结构体复制一份，字段多时开销大。</li>
+        <li><strong>传指针</strong> <code class="ic">f(const Point *p)</code>：只传一个地址，配合 <code class="ic">const</code> 表示"只读不改"——嵌入式推荐。</li>
+      </ul>
+    </div>
+
+    <h2 id="m07-4">7.4 结构体在内存里是"打包"的</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.1</b> 一个结构体把不同字段装在一起</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="Sensor 结构体含 id/温度/有效标志，字段按声明顺序排列">
+          <rect x="40" y="40" width="240" height="60" rx="6" class="sv-box"/>
+          <text x="160" y="60" class="sv-lbl-hi" text-anchor="middle">struct Sensor</text>
+          <text x="160" y="82" class="sv-lbl-dim" text-anchor="middle">id · temp · valid</text>
+          <path d="M280 70 L340 70" class="sv-arrow"/>
+          <rect x="342" y="34" width="90" height="30" rx="4" class="sv-grn-s"/>
+          <text x="387" y="54" class="sv-lbl-hi" text-anchor="middle">id</text>
+          <rect x="342" y="64" width="90" height="30" rx="4" class="sv-cyn-s"/>
+          <text x="387" y="84" class="sv-lbl-hi" text-anchor="middle">temp</text>
+          <rect x="342" y="94" width="90" height="30" rx="4" class="sv-amb-s"/>
+          <text x="387" y="114" class="sv-lbl-hi" text-anchor="middle">valid</text>
+        </svg>
+      </div>
+      <div class="fig-ft">把相关数据打包后，函数可以"一次传一整个传感器状态"，而不是散落的一堆变量。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">struct_init.c — 定义、初始化、访问</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+struct Sensor { int id; double temp; int valid; };
+
+int main(void) {
+    struct Sensor s = { .id = 1, .temp = 25.5, .valid = 1 };
+    printf("id=%d temp=%.1f valid=%d\n", s.id, s.temp, s.valid);
+    struct Sensor *p = &amp;s;
+    printf("via ptr: %.1f\n", p-&gt;temp);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">访问方式</th><th style="width:44%">写法</th><th style="width:30%">说明</th></tr></thead>
+        <tbody>
+          <tr><td>普通变量</td><td><code class="ic">s.temp</code></td><td>点号访问成员</td></tr>
+          <tr><td>指针</td><td><code class="ic">p-&gt;temp</code></td><td>箭头等价 <code class="ic">(*p).temp</code></td></tr>
+          <tr><td>初始化</td><td><code class="ic">.temp = 25.5</code></td><td>指定初始化，清晰</td></tr>
+          <tr><td>typedef</td><td><code class="ic">typedef struct{...} Sensor;</code></td><td>省写 <code class="ic">struct</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m07-5">7.5 传结构体：传值还是传指针？</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.2</b> 传值＝整包拷贝；传指针＝只给地址</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="传结构体值会拷贝整个结构，传指针只拷贝地址">
+          <rect x="30" y="40" width="150" height="50" rx="6" class="sv-red-s"/>
+          <text x="105" y="70" class="sv-lbl-hi" text-anchor="middle">传值：拷贝整包</text>
+          <rect x="220" y="40" width="170" height="50" rx="6" class="sv-grn-s"/>
+          <text x="305" y="70" class="sv-lbl-hi" text-anchor="middle">传指针：只拷地址</text>
+          <text x="450" y="60" class="sv-lbl-dim" text-anchor="middle">大结构用指针更快；</text>
+          <text x="450" y="80" class="sv-lbl-hi" text-anchor="middle">要修改则必须传指针</text>
+        </svg>
+      </div>
+      <div class="fig-ft">传值改不到原变量（改的是副本）；要"就地修改"必须传指针，并用 <code class="ic">const</code> 表达"只读不改"。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:44%">传参方式</th><th style="width:20%">开销</th><th style="width:36%">能否修改实参</th></tr></thead>
+        <tbody>
+          <tr><td>传值 <code class="ic">f(Sensor s)</code></td><td>大（拷贝）</td><td>不能</td></tr>
+          <tr><td>传指针 <code class="ic">f(Sensor *p)</code></td><td>小（地址）</td><td>能</td></tr>
+          <tr><td>传常量指针 <code class="ic">const Sensor *p</code></td><td>小</td><td>不能（有意约束）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">概念</th><th style="width:34%">用途</th><th style="width:40%">要点</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">struct</code></td><td>打包相关数据</td><td>字段按声明排</td></tr>
+          <tr><td><code class="ic">enum</code></td><td>给整数起名字</td><td>状态码更可读</td></tr>
+          <tr><td><code class="ic">typedef</code></td><td>起别名</td><td>省写 <code class="ic">struct</code></td></tr>
+          <tr><td>指针对结构体</td><td><code class="ic">p-&gt;field</code></td><td>避免整包拷贝</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>定义一个 <code class="ic">struct Point {int x; int y;}</code>，写两个函数：一个传值、一个传指针，把点平移到原点；在 main 里验证"只有传指针那个改到了"。</div>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">enum_typedef.c — 状态码更可读</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+
+typedef enum { STATE_IDLE, STATE_RUN, STATE_FAULT } State;
+
+int main(void) {
+    State s = STATE_RUN;
+    if (s == STATE_RUN) printf("running\n");
+    return 0;
+}</code></pre>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">struct</code> 把多个字段打包成一条记录；<code class="ic">typedef</code> 给类型起短名。</li>
+        <li>访问：变量用 <code class="ic">.</code>，指针用 <code class="ic">-&gt;</code>。</li>
+        <li><code class="ic">enum</code> 是一组命名常量（默认 0,1,2…）。</li>
+        <li>大结构体传指针（配 <code class="ic">const</code>），避免复制开销。</li>
+        <li>寄存器块、报文、传感器读数——嵌入式的数据都用结构体描述。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：结构体<strong>指针</strong>访问成员用 ______，结构体<strong>变量</strong>用 ______。</p>
+          <details><summary></summary><p>指针用 <code class="ic">-&gt;</code>，变量用 <code class="ic">.</code>；<code class="ic">p-&gt;x</code> 等价于 <code class="ic">(*p).x</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">enum Color { RED, GREEN, BLUE };</code> 中 GREEN 的值是 2。</p>
+          <details><summary></summary><p>错，默认从 0 开始：RED=0，GREEN=<strong>1</strong>，BLUE=2。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：函数 <code class="ic">void init(Config c)</code> 里改了 <code class="ic">c</code>，调用方的配置为什么没变？</p>
+          <details><summary></summary><p>按值传参传的是副本。要改到调用方，应传指针 <code class="ic">void init(Config *c)</code> 并用 <code class="ic">c-&gt;字段</code> 修改。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Point</code> 加一个 <code class="ic">z</code> 字段，改成三维点，并相应修改输出。</p>
+          <details><summary></summary><p>这就是"扩展一条记录"的日常：改结构体定义 + 使用处。字段一多，就越该用指针传参。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：结构体只是"语法糖"，底层和多个独立变量没区别。</p>
+          <details><summary></summary><p>不完全。结构体在内存中是<strong>连续</strong>的（可能因对齐插入填充字节）——连续布局正是它能映射寄存器、能做网络报文的根本原因；这在第①册会重点讲。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 07 完成？</b> 用结构体描述一个"学生"（姓名、学号、三门成绩），写函数计算平均分。</div>
+      <button class="done-btn" data-done="m07">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>用结构体表示样本并用枚举表示状态；不要直接发送含填充的结构体作为协议。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 工程组织</div>
+      <h1 class="ch-title">多文件、头文件与 <span class="acc">Makefile</span></h1>
+      <p class="ch-lead">
+        真实项目不会只有一个 <code class="ic">.c</code>。这一节把代码<strong>拆成多个文件</strong>、用<strong>头文件</strong>共享声明、
+        用 <strong>Makefile</strong> 一条 <code class="ic">make</code> 完成编译链接。这是从"练习"走向"工程"的第一步。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ 声明/定义 · include guard · make</span><span>⚑ 工程化起点</span>
+      </div>
+    </div>
+
+    <h2 id="m08-1">8.1 为什么拆文件：声明与定义分离</h2>
+    <p>
+      约定：<strong><code class="ic">.h</code> 放"声明"</strong>（别人能调用什么），<strong><code class="ic">.c</code> 放"定义"</strong>（具体怎么实现）。
+      头文件被多个 <code class="ic">.c</code> 用 <code class="ic">#include</code> 引入，于是大家"看到同一个接口"。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">math_utils.h — 声明 + include guard</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#ifndef MATH_UTILS_H
+#define MATH_UTILS_H
+int add(int a, int b);
+int max3(int a, int b, int c);
+#endif</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">math_utils.c — 定义（实现）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include "math_utils.h"
+int add(int a, int b) { return a + b; }
+int max3(int a, int b, int c) {
+    int m = a;
+    if (b &gt; m) m = b;
+    if (c &gt; m) m = c;
+    return m;
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">main.c — 使用这些函数</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+#include "math_utils.h"
+int main(void) {
+    printf("add(3,4)    = %d\n", add(3, 4));
+    printf("max3(3,9,5) = %d\n", max3(3, 9, 5));
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ include guard 是什么</div>
+      <p style="margin-bottom:0">
+        <code class="ic">#ifndef MATH_UTILS_H / #define / #endif</code>：防止同一个头文件被重复展开（比如 A 和 B 都包含了它），
+        否则会出现"重复定义"。<strong>每个头文件都该有它。</strong>
+      </p>
+    </div>
+
+    <h2 id="m08-2">8.2 编译与链接：多个 .o 拼成一个程序</h2>
+    <p>
+      每个 <code class="ic">.c</code> 先各自编译成 <code class="ic">.o</code>（目标文件），最后链接器把它们拼成 <code class="ic">app</code>。
+      <code class="ic">main.o</code> 里调用 <code class="ic">add</code> 时只是"占个位"，链接阶段才在 <code class="ic">math_utils.o</code> 里找到它。
+    </p>
+
+    <h2 id="m08-3">8.3 Makefile：增量构建</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">Makefile — 目标、依赖、命令</span>
+        <span class="code-lang">Makefile</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra
+app: main.o math_utils.o
+	$(CC) $(CFLAGS) main.o math_utils.o -o app
+main.o: main.c math_utils.h
+	$(CC) $(CFLAGS) -c main.c -o main.o
+math_utils.o: math_utils.c math_utils.h
+	$(CC) $(CFLAGS) -c math_utils.c -o math_utils.o
+clean:
+	rm -f *.o app</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ Makefile 的读法：<code>目标: 依赖</code> + 一行命令</div>
+      <p style="margin-bottom:0">
+        <code class="ic">app</code> 依赖 <code class="ic">main.o math_utils.o</code>；只要依赖比目标新，就重新执行下面那行命令。
+        改一个 <code class="ic">.c</code> 只会重编它，<strong>增量构建</strong>因此很快。命令行<strong>必须以 Tab 开头</strong>（不能用空格）。
+      </p>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m08.sh</code>（本机 gcc 15.2 + GNU Make 4.4）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> make
+<span class="o">gcc -std=c11 -Wall -Wextra -c main.c -o main.o
+gcc -std=c11 -Wall -Wextra -c math_utils.c -o math_utils.o
+gcc -std=c11 -Wall -Wextra main.o math_utils.o -o app</span>
+<span class="p">$</span> ./app
+<span class="o">add(3,4)    = 7
+max3(3,9,5) = 9</span>
+<span class="w"># 再跑一次 make：会提示 "make: 'app' is up to date."（没有文件变化就不重编）。</span></pre></div>
+    </div>
+
+    <h2 id="m08-4">8.4 头文件里放什么、不放什么</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.1</b> 声明放 .h，定义放 .c，链接器把它们接起来</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="头文件提供声明供他人 include，实现写在 .c 里，链接时合并">
+          <rect x="30" y="42" width="150" height="50" rx="6" class="sv-cyn-s"/>
+          <text x="105" y="63" class="sv-lbl-hi" text-anchor="middle">utils.h</text>
+          <text x="105" y="82" class="sv-lbl-dim" text-anchor="middle">声明（接口）</text>
+          <path d="M180 67 L230 67" class="sv-arrow"/>
+          <rect x="232" y="42" width="150" height="50" rx="6" class="sv-grn-s"/>
+          <text x="307" y="63" class="sv-lbl-hi" text-anchor="middle">utils.c</text>
+          <text x="307" y="82" class="sv-lbl-dim" text-anchor="middle">定义（实现）</text>
+          <path d="M382 67 L432 67" class="sv-arrow"/>
+          <rect x="434" y="42" width="150" height="50" rx="6" class="sv-amb-s"/>
+          <text x="509" y="63" class="sv-lbl-hi" text-anchor="middle">链接器</text>
+          <text x="509" y="82" class="sv-lbl-dim" text-anchor="middle">拼成程序</text>
+        </svg>
+      </div>
+      <div class="fig-ft">头文件被多个 <code class="ic">.c</code> 包含，所以只能放"声明"，不能放会重复的"定义"。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:50%">放到 .h</th><th style="width:50%">放到 .c</th></tr></thead>
+        <tbody>
+          <tr><td>函数声明（原型）</td><td>函数定义（实现）</td></tr>
+          <tr><td><code class="ic">#define</code> 常量/宏</td><td>全局变量的实质定义</td></tr>
+          <tr><td><code class="ic">struct</code>/<code class="ic">enum</code> 定义</td><td>该模块的私有细节</td></tr>
+          <tr><td><code class="ic">extern</code> 声明</td><td>静态辅助函数</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">机制</th><th style="width:40%">写法</th><th style="width:26%">作用</th></tr></thead>
+        <tbody>
+          <tr><td>include guard</td><td><code class="ic">#ifndef X_H</code></td><td>防止重复包含</td></tr>
+          <tr><td>或 <code class="ic">#pragma once</code></td><td><code class="ic">#pragma once</code></td><td>更简洁</td></tr>
+          <tr><td>声明</td><td><code class="ic">int add(int,int);</code></td><td>告诉编译器存在</td></tr>
+          <tr><td>定义</td><td><code class="ic">int add(...){...}</code></td><td>真正实现</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m08-5">8.5 Makefile：只重编改过的文件</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.2</b> 目标依赖关系决定"要不要重编"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="make 检查目标与依赖的时间戳；依赖更新才重跑命令">
+          <rect x="40" y="42" width="140" height="46" rx="6" class="sv-grn-s"/>
+          <text x="110" y="70" class="sv-lbl-hi" text-anchor="middle">app（目标）</text>
+          <rect x="260" y="30" width="150" height="34" rx="4" class="sv-box"/>
+          <text x="335" y="52" class="sv-lbl-hi" text-anchor="middle">main.o</text>
+          <rect x="260" y="70" width="150" height="34" rx="4" class="sv-box"/>
+          <text x="335" y="92" class="sv-lbl-hi" text-anchor="middle">utils.o</text>
+          <path d="M260 47 L180 60" class="sv-arrow"/>
+          <path d="M260 87 L180 74" class="sv-arrow"/>
+          <text x="500" y="60" class="sv-lbl-dim" text-anchor="middle">改过的 .c 时间戳更新</text>
+          <text x="500" y="80" class="sv-lbl-hi" text-anchor="middle">→ 只重编它</text>
+        </svg>
+      </div>
+      <div class="fig-ft">make 的价值是"增量"：只重编改动过的文件，大工程能省大量时间。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">报错</th><th style="width:34%">多半原因</th><th style="width:32%">去哪找</th></tr></thead>
+        <tbody>
+          <tr><td>缺少声明</td><td>没 include 头文件</td><td>看 .h 是否被包含</td></tr>
+          <tr><td>重复定义</td><td>把定义写进了 .h</td><td>把实现移到 .c</td></tr>
+          <tr><td>undefined reference</td><td>没把 .c/.o 加进链接</td><td>补进编译命令或 Makefile</td></tr>
+          <tr><td>编译器找不到头文件</td><td>头文件路径不对</td><td>加 <code class="ic">-I</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:50%">命令</th><th style="width:50%">作用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">make</code></td><td>按依赖增量构建</td></tr>
+          <tr><td><code class="ic">make clean</code></td><td>删除中间产物</td></tr>
+          <tr><td><code class="ic">gcc *.c -o app</code></td><td>简单工程一步到位</td></tr>
+          <tr><td><code class="ic">gcc -c x.c</code></td><td>单独编译一个文件</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把你的多文件工程写成一个最小 Makefile（目标、依赖、编译命令），跑一次 <code class="ic">make</code>；改一个 <code class="ic">.c</code> 再 make，观察它是否"只重编改过的部分"。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>约定：<code class="ic">.h</code> 放声明、<code class="ic">.c</code> 放定义；头文件用 <code class="ic">#include</code> 共享。</li>
+        <li>头文件加 <strong>include guard</strong>，防止重复展开。</li>
+        <li>多个 <code class="ic">.c</code> 先各自编译成 <code class="ic">.o</code>，再由链接器拼成可执行文件。</li>
+        <li><code class="ic">Makefile</code> 描述"目标—依赖—命令"，实现增量构建。</li>
+        <li>命令行必须以 <strong>Tab</strong> 开头，这是 Makefile 最常见的坑。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：为什么 <code class="ic">.h</code> 里放声明、<code class="ic">.c</code> 里放定义？</p>
+          <details><summary></summary><p>让多个 .c "共用同一个接口"：头文件被各自 #include，编译器据此检查调用是否匹配；实现只在一处（.c），避免重复定义。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：include guard 可以省略，只要不重复 include 就行。</p>
+          <details><summary></summary><p>不建议。多层包含很容易间接触发重复展开；加 guard 是最稳的防重复手段。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：Makefile 报 <code class="ic">missing separator</code>，最可能是？</p>
+          <details><summary></summary><p>命令行没有以 <strong>Tab</strong> 开头（用了空格）。Makefile 的规则命令必须用 Tab。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：改 <code class="ic">math_utils.c</code> 里 <code class="ic">max3</code> 的实现，再 <code class="ic">make</code>，观察是否只重编相关文件。</p>
+          <details><summary></summary><p>只会重新编译 <code class="ic">math_utils.c</code> 并重新链接（<code class="ic">main.c</code> 未变则不重编）——这就是增量构建。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：链接时的 <code class="ic">undefined reference to 'add'</code> 说明语法写错了。</p>
+          <details><summary></summary><p>不是语法错，是<strong>链接</strong>问题：某个目标文件/库没被加进链接命令，或函数只有声明没有定义。这是"编译过了、链接没过"的典型。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 08 完成？</b> 把你在 M04 写的几个函数拆成 <code class="ic">.h</code> + <code class="ic">.c</code>，写一个 Makefile，用 <code class="ic">make</code> 构建。</div>
+      <button class="done-btn" data-done="m08">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>把一个程序拆为两个 .c 与一个 .h，头文件重复包含安全；遗漏实现时能定位链接错误。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 收口</div>
+      <h1 class="ch-title">综合小项目 + <span class="acc">过渡到第①册</span></h1>
+      <p class="ch-lead">
+        把前面学的拼起来：用<strong>结构体 + 数组 + 函数 + 多文件 + Makefile</strong>写一个真实的小工具（统计一组数的 min/max/mean），
+        然后告诉你——第①册会把这些知识引向哪里。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ 多文件综合 · 工程结构</span><span>⚑ 从练习到工程</span>
+      </div>
+    </div>
+
+    <h2 id="m09-1">9.1 题目：统计一组测量值</h2>
+    <p>需求：给一组小数，算出<strong>最小值、最大值、平均值</strong>，并以一条记录（结构体）返回。这正是设备日志/传感器数据的常见处理。</p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">stats.h — 接口：一个结构体 + 一个函数</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#ifndef STATS_H
+#define STATS_H
+typedef struct { double min, max, mean; int n; } Stats;
+Stats stats_of(const double *xs, int n);
+#endif</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">stats.c — 实现（数组 + 循环 + 指针参数）</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include "stats.h"
+Stats stats_of(const double *xs, int n) {
+    Stats s = {0, 0, 0, n};
+    if (n &lt;= 0) return s;
+    s.min = s.max = xs[0];
+    double sum = 0;
+    for (int i = 0; i &lt; n; i++) {
+        if (xs[i] &lt; s.min) s.min = xs[i];
+        if (xs[i] &gt; s.max) s.max = xs[i];
+        sum += xs[i];
+    }
+    s.mean = sum / n;
+    return s;
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">main.c — 驱动</span>
+        <span class="code-lang">C</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;stdio.h&gt;
+#include "stats.h"
+int main(void) {
+    double xs[] = {3.2, 1.5, 9.8, 4.0, 2.6, 7.1};
+    int n = (int)(sizeof(xs) / sizeof(xs[0]));
+    Stats s = stats_of(xs, n);
+    printf("samples=%d  min=%.1f  max=%.1f  mean=%.2f\n", s.n, s.min, s.max, s.mean);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">Makefile — 用模式规则少写重复</span>
+        <span class="code-lang">Makefile</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>CC = gcc
+CFLAGS = -std=c11 -Wall -Wextra
+app: main.o stats.o
+	$(CC) $(CFLAGS) main.o stats.o -o app
+%.o: %.c
+	$(CC) $(CFLAGS) -c $&lt; -o $@
+clean:
+	rm -f *.o app</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m09.sh</code></div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> make
+<span class="o">gcc -std=c11 -Wall -Wextra -c main.c -o main.o
+gcc -std=c11 -Wall -Wextra -c stats.c -o stats.o
+gcc -std=c11 -Wall -Wextra main.o stats.o -o app</span>
+<span class="p">$</span> ./app
+<span class="o">samples=6  min=1.5  max=9.8  mean=4.70</span>
+<span class="w"># 一个完整的"工程结构"雏形：接口(.h) / 实现(.c) / 驱动(main.c) / 构建(Makefile)。</span></pre></div>
+    </div>
+
+    <h2 id="m09-2">9.2 你现在具备了什么</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">能力</th><th>来源</th></tr></thead>
+        <tbody>
+          <tr><td>写、编译、运行一个 C 程序</td><td>M01</td></tr>
+          <tr><td>用类型/变量/表达式表达数据与计算</td><td>M02</td></tr>
+          <tr><td>用分支与循环控制流程</td><td>M03</td></tr>
+          <tr><td>用函数拆分逻辑、理解作用域</td><td>M04</td></tr>
+          <tr><td>用数组与字符串处理批量数据</td><td>M05</td></tr>
+          <tr><td>用指针传址、访问"地址"</td><td>M06</td></tr>
+          <tr><td>用结构体/枚举/typedef 描述对象</td><td>M07</td></tr>
+          <tr><td>多文件组织 + Makefile 构建</td><td>M08</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m09-3">9.3 过渡：第①册会发现什么</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 9.1</b> 本册到第①册：从"会用 C"到"看懂 C 与硬件之间的每一层"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 168" role="img" aria-label="B00 到 B01 的过渡">
+          <rect x="20" y="52" width="200" height="62" rx="8" class="sv-box"/>
+          <text x="120" y="78" class="sv-lbl-hi" text-anchor="middle">B00（本册）</text>
+          <text x="120" y="97" class="sv-lbl-dim" text-anchor="middle">会写、会编、能调小工具</text>
+          <path d="M220 83 L300 83" class="sv-arrow"/>
+          <rect x="302" y="30" width="338" height="106" rx="8" class="sv-grn-s"/>
+          <text x="320" y="54" class="sv-lbl-hi" style="fill:var(--grn)">B01《嵌入式 C 精读》会继续深入</text>
+          <text x="320" y="76" class="sv-lbl-dim">数据在内存里怎么摆、存储期/链接属性</text>
+          <text x="320" y="96" class="sv-lbl-dim">指针的本质、内存分区、编译链接全流程</text>
+          <text x="320" y="116" class="sv-lbl-dim">位操作与寄存器编程、调试与工具链</text>
+        </svg>
+      </div>
+      <div class="fig-ft">本册是"能用"；第①册是"看透"。尤其<strong>指针与内存</strong>——你在这里学了"指针是地址"，第①册会讲清"地址背后是内存布局、段、对齐"，直到你能直接操作单片机寄存器。</div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 下一步怎么走</div>
+      <ul style="margin-bottom:0">
+        <li>打开第①册《嵌入式 C 精读》——它会重讲指针/内存，但从"硬件"的角度。</li>
+        <li>再往后：C++/Rust（把 C 的经验带到现代语言）、Python（上位机工具），然后进入外设、RTOS……</li>
+        <li>学习方式不变：<strong>每个示例都亲手编译、运行、改错。</strong></li>
+      </ul>
+    </div>
+
+    <h2 id="m09-4">9.4 把项目拆成数据流</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 9.2</b> 综合项目：输入 → 计算 → 输出</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="数据从数组读入，经统计函数处理，结果打印；接口用结构体打包">
+          <rect x="30" y="44" width="140" height="48" rx="6" class="sv-box"/>
+          <text x="100" y="66" class="sv-lbl-hi" text-anchor="middle">测量值数组</text>
+          <text x="100" y="84" class="sv-lbl-dim" text-anchor="middle">输入</text>
+          <path d="M170 68 L220 68" class="sv-arrow"/>
+          <rect x="222" y="44" width="180" height="48" rx="6" class="sv-grn-s"/>
+          <text x="312" y="66" class="sv-lbl-hi" text-anchor="middle">stats()</text>
+          <text x="312" y="84" class="sv-lbl-dim" text-anchor="middle">min/max/avg</text>
+          <path d="M402 68 L452 68" class="sv-arrow"/>
+          <rect x="454" y="44" width="150" height="48" rx="6" class="sv-amb-s"/>
+          <text x="529" y="66" class="sv-lbl-hi" text-anchor="middle">Stats 结构体</text>
+          <text x="529" y="84" class="sv-lbl-dim" text-anchor="middle">输出</text>
+        </svg>
+      </div>
+      <div class="fig-ft">接口用"一个结构体 + 一个函数"表达，实现细节（数组、循环、指针）藏在 <code class="ic">stats.c</code> 里。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:20%">阶段</th><th style="width:34%">文件</th><th style="width:46%">职责</th></tr></thead>
+        <tbody>
+          <tr><td>接口</td><td><code class="ic">stats.h</code></td><td>声明结构体与函数</td></tr>
+          <tr><td>实现</td><td><code class="ic">stats.c</code></td><td>数组+循环+指针</td></tr>
+          <tr><td>驱动</td><td><code class="ic">main.c</code></td><td>准备数据、调用、打印</td></tr>
+          <tr><td>构建</td><td><code class="ic">Makefile</code></td><td>模式规则增量编译</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:40%">常见报错</th><th style="width:26%">原因</th><th style="width:34%">修复</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">undefined reference to stats</code></td><td>没链接 stats.c</td><td>把 stats.c 加进编译</td></tr>
+          <tr><td><code class="ic">too few arguments</code></td><td>调用参数个数不对</td><td>对齐声明</td></tr>
+          <tr><td>avg 为整数</td><td>除法用了 int</td><td>用 <code class="ic">(double)</code> 或 <code class="ic">sum/n.0</code></td></tr>
+          <tr><td>读越界</td><td>循环 <code class="ic">i&lt;=n</code></td><td>改成 <code class="ic">i&lt;n</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m09-5">9.5 学完自评与下一步</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">能力</th><th style="width:40%">你现在应该能</th><th style="width:34%">对应模块</th></tr></thead>
+        <tbody>
+          <tr><td>读懂程序</td><td>说出从 .c 到运行的链路</td><td>M01</td></tr>
+          <tr><td>基本语法</td><td>变量/类型/分支/循环</td><td>M02–M03</td></tr>
+          <tr><td>组织代码</td><td>函数/数组/指针/结构体</td><td>M04–M07</td></tr>
+          <tr><td>多文件工程</td><td>拆文件、写 Makefile</td><td>M08</td></tr>
+          <tr><td>综合应用</td><td>独立完成一个小项目</td><td>M09</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">下一步</th><th style="width:40%">书名</th><th style="width:38%">为什么</th></tr></thead>
+        <tbody>
+          <tr><td>原理主线</td><td>《嵌入式 C 精读》</td><td>看懂内存/指针/硬件的每一层</td></tr>
+          <tr><td>平台实践</td><td>单片机裸机与外设驱动</td><td>把 C 用到真实硬件</td></tr>
+          <tr><td>系统入门</td><td>嵌入式 Linux 系统</td><td>从小到大、从单机到系统</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>给自己出一道"小项目"题（比如统计一段温度数据的最高/最低/平均），用本册学到的"接口 + 实现 + 驱动 + Makefile"结构独立完成并让它跑出正确结果。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>把结构体、数组、函数、多文件、Makefile 组合起来，就是一个"工程结构"雏形。</li>
+        <li>接口放 <code class="ic">.h</code>、实现放 <code class="ic">.c</code>、驱动放 <code class="ic">main.c</code>、构建用 <code class="ic">Makefile</code>。</li>
+        <li>模式规则 <code class="ic">%.o: %.c</code> 减少重复。</li>
+        <li>你已经具备"写、编译、调试一个小 C 程序"的能力。</li>
+        <li>继续读第①册：从"会用 C"走向"看懂 C 与硬件之间的每一层"。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：一个清晰的 C 工程通常有 接口(______)、实现(______)、驱动(______)、构建(______)。</p>
+          <details><summary></summary><p><code class="ic">.h</code> / <code class="ic">.c</code> / <code class="ic">main.c</code> / <code class="ic">Makefile</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：本册学完就已经能驱动单片机外设了。</p>
+          <details><summary></summary><p>还不行。本册是语言与工具基础；驱动外设需要第①册（寄存器/内存）到第③册（外设驱动）的知识。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">stats_of</code> 对空数组（n=0）返回了全 0，为什么要单独判断 <code class="ic">n&lt;=0</code>？</p>
+          <details><summary></summary><p>否则 <code class="ic">mean = sum/0</code> 会除以零（浮点得到 inf/nan）。防御式处理边界，是工程代码的基本习惯。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Stats</code> 加一个 <code class="ic">median</code>（中位数）字段，并在 <code class="ic">stats.c</code> 里算出来（提示：需要先排序或找中位）。</p>
+          <details><summary></summary><p>这是很好的综合练习：涉及数组操作、排序（M03 循环 + M05 数组）、以及接口改动（.h 同步改）——正是工程里"改一处、动多处、靠编译器帮你查"的体验。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：学完本册可以跳过第①册直接学单片机。</p>
+          <details><summary></summary><p>不建议。第①册讲的内存布局、指针本质、寄存器编程，正是驱动外设的前提；跳过去会"能抄不能懂"。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>B00 完成？</b> 恭喜——你已经能从零写、编译、调试一个小型 C 程序。下一步请打开《嵌入式 C 精读》(B01)。</div>
+      <button class="done-btn" data-done="m09">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>从空目录完成记录 CLI，正常输出可对拍，坏输入有错误退出码与定位信息。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10"><div class="ch-head"><div class="ch-badge">Module 10 · 实现与验收</div><h1 class="ch-title">标准库、输入解析与错误处理</h1><p class="ch-lead">把文本转换成经过校验的数值，失败时不污染调用者数据。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m10-mechanism">机制与契约</h2><p>输入解析的关键是知道函数到底消费了什么。strtol 同时返回数值并通过 end 返回停止位置；只看返回的 0 无法区分合法零与解析失败。先清 errno，再检查没有消费字符、残留字符、ERANGE 和 int 的上下界。只有全部通过才更新输出。示例接受前导空白和符号，拒绝尾部空白与小数；这是接口政策，而不是所有解析器的统一要求。文件 IO 则要分别检查打开、读取和关闭结果，保留错误发生的位置。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>errno = 0;
+long v = strtol(text, &amp;end, 10);
+if (end == text || *end || errno == ERANGE || v &lt; INT_MIN || v &gt; INT_MAX) return 0;
+*result = (int)v;</code></pre></div>
+<h2 id="m10-boundary">边界与误用</h2><p>atoi 没有可靠的失败通道；scanf 的成功次数不等于整个输入满足你的格式。不要在失败时把结果改成 0，以免把错误伪装成正常读数。日志应写输入位置和失败类别，避免直接输出不受控的超长输入。</p>
+<h2 id="m10-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test
+./sampler_test
+gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_cli
+./sampler_cli 10 20 30</pre></div><p>完整源码：<a href="../resources/B00/labs/sampler.h">labs/sampler.h</a> · <a href="../resources/B00/labs/sampler.c">labs/sampler.c</a> · <a href="../resources/B00/labs/sampler_test.c">labs/sampler_test.c</a> · <a href="../resources/B00/labs/sampler_cli.c">labs/sampler_cli.c</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行解析测试；再给 CLI 输入 0、-12、12x、空字符串和一个超出 long 的数字。先预测退出码，后看输出。</p><p><strong>验收：</strong>合法输入给正确值；非法输入返回失败且保留旧输出；CLI 正常退出 0、失败退出 2。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么需要同时检查 end==text、*end 和 errno？</p><details><summary>查看推理</summary><p>它们分别识别没有数字、只消费前缀和数值范围溢出。再检查 int 范围，才能安全缩窄类型。缺少任一项都会接受某类非法输入。</p></details></div><p class="lesson-ref">核对来源：<a href="https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf">C11 委员会草案 N1570 · 7.22/7.21</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m10">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>用 strtol/范围检查解析输入；区分空输入、尾随垃圾、溢出与合法零。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m11"><div class="ch-head"><div class="ch-badge">Module 11 · 实现与验收</div><h1 class="ch-title">动态内存与对象生命周期</h1><p class="ch-lead">管理动态数组的容量与所有权，分配失败后仍保留有效状态。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div><!-- COURSE_DIAGRAM_START --><figure class="fig"><div class="fig-hd">扩容：失败保持旧对象，成功才提交新状态</div><div class="fig-bd"><svg viewBox="0 0 800 190" role="img" aria-label="扩容：失败保持旧对象，成功才提交新状态"><title>扩容：失败保持旧对象，成功才提交新状态</title><defs><marker id="mastery-arrow-c-memory" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="currentColor"/></marker></defs><rect x="10" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="132.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">原对象</text><text x="132.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">size=4 / capacity=4</text><text x="132.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">data拥有原分配块</text><text x="132.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">请求第5个元素</text><path d="M257 92H272" stroke="currentColor" marker-end="url(#mastery-arrow-c-memory)"/><rect x="275" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="397.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">尝试扩容</text><text x="397.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">先检查容量乘法</text><text x="397.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">临时指针接返回值</text><text x="397.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">成功前不改对象</text><path d="M522 92H537" stroke="currentColor" marker-end="url(#mastery-arrow-c-memory)"/><rect x="540" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="662.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">分支验收</text><text x="662.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">NULL：旧对象仍有效</text><text x="662.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">成功：提交并写第5个</text><text x="662.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">重分配后旧别名失效</text></svg></div><figcaption>状态图是接口示意。分配失败和成功扩容由 sampler_test.c 注入与验收；size 与 capacity 不混用。</figcaption></figure><!-- COURSE_DIAGRAM_END -->
+<h2 id="m11-mechanism">机制与契约</h2><p>size 是已初始化元素数，capacity 是可用存储槽数，data 是唯一拥有的分配块。扩容先检查容量乘法是否溢出，再把 realloc 返回值放入临时指针。成功后同时提交指针与容量；失败保留旧块、旧 size 和旧 capacity。扩容可能移动存储，所以旧元素指针不能继续使用。清理函数归还所有权并重置对象，避免再次释放旧地址。实验注入一次分配失败，以验证程序能继续扩容。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>int *next = s-&gt;resize(s-&gt;data, bytes);
+if (!next) return 0; /* 旧对象不变 */
+s-&gt;data = next;
+s-&gt;capacity = new_capacity;</code></pre></div>
+<h2 id="m11-boundary">边界与误用</h2><p>直接 data=realloc(data,n) 会在失败时丢失旧指针；先窄类型相乘再转 size_t 无法修复溢出。示例分配器必须与 free 兼容。该主机实现不提供线程安全，也不承诺 MCU 的确定性分配耗时；硬实时路径优先考虑固定容量。</p>
+<h2 id="m11-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test
+./sampler_test
+gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_cli
+./sampler_cli 10 20 30</pre></div><p>完整源码：<a href="../resources/B00/labs/sampler.h">labs/sampler.h</a> · <a href="../resources/B00/labs/sampler.c">labs/sampler.c</a> · <a href="../resources/B00/labs/sampler_test.c">labs/sampler_test.c</a> · <a href="../resources/B00/labs/sampler_cli.c">labs/sampler_cli.c</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>读 sampler_test.c 的两次失败注入：第一次分配失败、已有四个元素后扩容失败。增加多次扩容、空对象释放和满容量测试。</p><p><strong>验收：</strong>失败后旧指针、内容、size/capacity 保持不变；后续正常 push 可成功；销毁后对象为空。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">扩容失败后，为什么不能把 size 提前加一？</p><details><summary>查看推理</summary><p>size 是可访问的已初始化元素数。提前增加会让遍历进入没有存储或没有初始化的槽位；写入与 size 更新应在扩容成功之后。</p></details></div><p class="lesson-ref">核对来源：<a href="https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf">C11 委员会草案 N1570 · 7.22/7.21</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m11">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m11"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>为分配失败写测试；realloc 失败后原指针仍可释放，没有泄漏或重复释放。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m12"><div class="ch-head"><div class="ch-badge">Module 12 · 实现与验收</div><h1 class="ch-title">回调、模块接口与综合工程</h1><p class="ch-lead">交付具有稳定接口、可独立测试的多文件数据工具。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m12-mechanism">机制与契约</h2><p>sampler.h 声明接口与数据契约，sampler.c 实现解析和数组，CLI 只负责参数与输出，测试独立验证库。回调用于把遍历与统计策略解耦：库传入 value 和 context，调用者决定如何累计。context 的生命周期必须覆盖整个同步调用，回调不得在遍历中修改数组；否则可能使迭代状态失效。头文件避免定义普通外部函数或私有全局对象，防止重复定义。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>typedef void (*sample_fn)(int value, void *context);
+long double sum = 0;
+samples_visit(&amp;s, add, &amp;sum);</code></pre></div>
+<h2 id="m12-boundary">边界与误用</h2><p>void* 是类型契约，不是类型安全。调用者和回调必须约定同一种实际类型。示例库仍暴露布局用于学习；生产接口可使用不透明对象，但需明确对象由谁分配、初始化和释放。</p>
+<h2 id="m12-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test
+./sampler_test
+gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_cli
+./sampler_cli 10 20 30</pre></div><p>完整源码：<a href="../resources/B00/labs/sampler.h">labs/sampler.h</a> · <a href="../resources/B00/labs/sampler.c">labs/sampler.c</a> · <a href="../resources/B00/labs/sampler_test.c">labs/sampler_test.c</a> · <a href="../resources/B00/labs/sampler_cli.c">labs/sampler_cli.c</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>清洁构建测试与 CLI；添加一个求最大值的回调，不修改 sampler.c。再只编译 CLI，观察缺失实现导致的链接错误。</p><p><strong>验收：</strong>10 20 30 输出 count=3 mean=20.000；坏输入退出 2；更换统计策略不改库实现；能区分编译错误和链接错误。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么同步回调可以使用局部 context，而异步保存回调时不一定可以？</p><details><summary>查看推理</summary><p>同步调用在函数返回前结束，局部对象仍存活。若库保存指针以后调用，局部对象可能已经离开作用域；需要更长生命周期、拥有副本或明确注销与等待结束的协议。</p></details></div><p class="lesson-ref">核对来源：<a href="https://www.open-std.org/jtc1/sc22/wg14/www/docs/n1570.pdf">C11 委员会草案 N1570 · 7.22/7.21</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m12">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m12"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>为回调声明参数生命、上下文与失败策略；替换后端不改变上层测试。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head">
+      <div class="ch-badge">Reference · 对照表</div>
+      <h1 class="ch-title">术语与符号<span class="acc">对照表</span></h1>
+      <p class="ch-lead">
+        本页是 B00 的<strong>单一事实源</strong>：<code class="ic">verify/glossary.json</code> 与下表逐条比对，
+        两边漂移（少了/多了/写错）会在构建时<strong>直接失败</strong>。零基础读者可把它当"概念小词典"。
+      </p>
+    </div>
+
+    <h2 id="glossary-terms">术语</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:16%">术语</th><th>含义</th></tr></thead>
+        <tbody>
+          <tr><td data-term="源文件"><strong>源文件</strong></td><td>你写的 .c/.h 文本文件；人可读，机器不能直接运行。</td></tr>
+          <tr><td data-term="编译"><strong>编译</strong></td><td>把源文件翻译成机器能执行的中间产物/目标文件；编译器负责检查语法与类型。</td></tr>
+          <tr><td data-term="链接"><strong>链接</strong></td><td>把多个目标文件与库拼成一个可执行文件；解决「谁调用了谁」。</td></tr>
+          <tr><td data-term="变量"><strong>变量</strong></td><td>一块有名字、有类型的内存；类型决定它能存什么、占多少字节。</td></tr>
+          <tr><td data-term="类型"><strong>类型</strong></td><td>int/float/char 等，决定取值范围、精度与可用运算。</td></tr>
+          <tr><td data-term="运算符"><strong>运算符</strong></td><td>进行计算的符号：算术 + - * / %、比较 == != &lt; &gt;、逻辑 &amp;&amp; || !、赋值 =。</td></tr>
+          <tr><td data-term="控制流"><strong>控制流</strong></td><td>决定「按什么顺序执行」的语句：if/else 分支、while/for 循环、break/continue。</td></tr>
+          <tr><td data-term="函数"><strong>函数</strong></td><td>把一段逻辑命名、可重复调用；有参数、返回值和自己的作用域。main 是程序入口。</td></tr>
+          <tr><td data-term="作用域"><strong>作用域</strong></td><td>名字可见的范围。局部变量只在它所在的花括号内有效，出了范围就销毁。</td></tr>
+          <tr><td data-term="数组"><strong>数组</strong></td><td>一排同类型元素，用下标访问；下标从 0 开始，越界是未定义行为。</td></tr>
+          <tr><td data-term="字符串"><strong>字符串</strong></td><td>C 里是以   结尾的字符数组；操作靠 &lt;string.h&gt; 的函数。</td></tr>
+          <tr><td data-term="指针"><strong>指针</strong></td><td>保存「地址」的变量；&amp; 取地址、* 解引用。它是 C 与硬件打交道的核心。</td></tr>
+          <tr><td data-term="结构体"><strong>结构体</strong></td><td>把多个不同类型的数据打包成一个新类型（struct），表示一条「记录」。</td></tr>
+          <tr><td data-term="头文件"><strong>头文件</strong></td><td>放声明（函数原型、类型、宏），被多个 .c 用 #include 引入；用 include guard 防重复。</td></tr>
+          <tr><td data-term="Makefile"><strong>Makefile</strong></td><td>描述「目标—依赖—命令」的构建脚本，让 make 只重编改动过的文件。</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="glossary-symbols">符号 / 构件</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:22%">符号 / 构件</th><th style="width:18%">类别</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td data-sym="#include"><code class="ic">#include</code></td><td>预处理指令</td><td>把别的文件内容引入本文件（如 &lt;stdio.h&gt;）</td></tr>
+          <tr><td data-sym="#define"><code class="ic">#define</code></td><td>预处理指令</td><td>定义宏/常量（如 #define N 10）</td></tr>
+          <tr><td data-sym="printf"><code class="ic">printf</code></td><td>标准库函数</td><td>格式化输出到屏幕（&lt;stdio.h&gt;）</td></tr>
+          <tr><td data-sym="scanf"><code class="ic">scanf</code></td><td>标准库函数</td><td>从输入读取并解析（注意用 &amp; 取地址）</td></tr>
+          <tr><td data-sym="int main(void)"><code class="ic">int main(void)</code></td><td>程序入口</td><td>程序从 main 开始执行；返回 0 表示成功</td></tr>
+          <tr><td data-sym="sizeof"><code class="ic">sizeof</code></td><td>运算符</td><td>求类型/变量占用的字节数（编译期）</td></tr>
+          <tr><td data-sym="NULL"><code class="ic">NULL</code></td><td>宏</td><td>空指针常量；指针未指向任何对象时的合法值</td></tr>
+          <tr><td data-sym="gcc"><code class="ic">gcc</code></td><td>工具</td><td>GNU C 编译器：gcc hello.c -o hello 生成可执行文件</td></tr>
+          <tr><td data-sym="make"><code class="ic">make</code></td><td>工具</td><td>按 Makefile 增量构建</td></tr>
+          <tr><td data-sym="%.2f"><code class="ic">%.2f</code></td><td>格式说明</td><td>printf 中输出保留 2 位小数的浮点数</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="done-note">维护提示：正文里新增的术语/符号若要进对照表，先登记到 <code class="ic">verify/glossary.json</code>，再补本表——两处同步后构建才会通过。</p>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "整条学习路线."}, {"id": "m01", "num": "01", "title": "程序是怎么跑起来的"}, {"id": "m02", "num": "02", "title": "变量、类型与表达式"}, {"id": "m03", "num": "03", "title": "控制流：分支与循环"}, {"id": "m04", "num": "04", "title": "函数与作用域"}, {"id": "m05", "num": "05", "title": "数组与字符串"}, {"id": "m06", "num": "06", "title": "指针入门"}, {"id": "m07", "num": "07", "title": "结构体、枚举与 typedef"}, {"id": "m08", "num": "08", "title": "多文件、头文件与 Makefile"}, {"id": "m09", "num": "09", "title": "综合小项目 + 过渡到第①册"}, {"id": "m10", "num": "10", "title": "标准库、输入解析与错误处理"}, {"id": "m11", "num": "11", "title": "动态内存与对象生命周期"}, {"id": "m12", "num": "12", "title": "回调、模块接口与综合工程"}, {"id": "glossary", "num": "", "title": "术语与符号对照表"}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

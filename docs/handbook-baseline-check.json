@@ -1,0 +1,10 @@
+{
+  "baseline": "2026-10-09 / default 7.0.113 / current working tree",
+  "checkedFiles": 125,
+  "bundledSourceAssets": 126,
+  "configAllowlistKeys": 66,
+  "contentVersion": "2026.10.09.2",
+  "issues": [],
+  "firmwareBuiltOrTested": false,
+  "note": "Current source, packaged source and allowlisted configuration compared. Host policy checks are recorded separately; no device certification."
+}

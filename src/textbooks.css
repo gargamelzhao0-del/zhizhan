@@ -1,0 +1,787 @@
+.textbook-library,
+.textbook-detail {
+  max-width: 1080px;
+  margin: auto;
+  min-width: 0;
+  padding-bottom: 28px;
+}
+.textbook-hero {
+  padding: 32px 0 30px;
+  border-bottom: 1px solid var(--line);
+}
+.textbook-hero .eyebrow {
+  color: var(--muted);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+}
+.textbook-hero h1 {
+  font-size: clamp(30px, 4vw, 48px);
+  line-height: 1.2;
+  letter-spacing: -0.055em;
+  margin: 18px 0 12px;
+}
+.textbook-hero > p {
+  font-size: 17px;
+  color: var(--muted);
+  margin: 0;
+}
+.textbook-facts {
+  display: flex;
+  gap: 28px;
+  margin-top: 27px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.textbook-facts b {
+  color: var(--text);
+  font-size: 23px;
+  font-weight: 500;
+  margin-right: 3px;
+  font-variant-numeric: tabular-nums;
+}
+.textbook-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin: 23px 0 17px;
+}
+.textbook-search {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 14px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+}
+.textbook-search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  background: none;
+  padding: 0;
+  font-size: 14px;
+  outline: none;
+}
+.textbook-search:focus-within {
+  outline: 2px solid var(--green);
+  outline-offset: 2px;
+}
+.textbook-readonly {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.textbook-readonly input,
+.thermal-demo input[type="checkbox"] {
+  accent-color: var(--green);
+  width: 16px;
+  height: 16px;
+}
+.textbook-groups {
+  display: flex;
+  gap: 6px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  padding: 3px 2px 12px;
+}
+.textbook-groups button {
+  flex: none;
+  white-space: nowrap;
+  padding: 9px 14px;
+  min-height: 40px;
+  border-radius: 22px;
+  font-size: 12px;
+  color: var(--muted);
+}
+.textbook-groups button[aria-pressed="true"] {
+  color: var(--paper);
+  background: var(--text);
+}
+.textbook-domain {
+  margin: 24px 0 32px;
+}
+.textbook-domain > h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-size: 19px;
+  letter-spacing: -0.025em;
+  margin: 0 0 17px;
+}
+.textbook-domain > h2 > span {
+  font-size: 11px;
+  color: var(--muted);
+  font-weight: 400;
+}
+.textbook-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+/* Home now uses the same horizontal BookCard as the course library. Size
+   columns to the card's content instead of the old two-column cover layout. */
+.home-courses {
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
+  gap: 14px;
+}
+.textbook-card {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 17px;
+  text-align: left;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
+  transition:
+    transform 180ms ease,
+    border-color 180ms ease;
+}
+.textbook-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--green);
+}
+.textbook-card:active {
+  transform: scale(0.985);
+}
+.textbook-card > svg {
+  flex-shrink: 0;
+  color: var(--muted);
+}
+.textbook-jacket {
+  width: 82px;
+  height: 116px;
+  flex-shrink: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 3px 9px 9px 3px;
+  padding: 11px 9px 10px 13px;
+  color: #eff5f2;
+  background: linear-gradient(
+    105deg,
+    #254c4b 0%,
+    #416b67 13%,
+    #355c58 17%,
+    #426b64 100%
+  );
+  box-shadow:
+    inset 2px 0 #ffffff22,
+    3px 5px 8px #152c281a;
+}
+.textbook-jacket.is-outline {
+  background: linear-gradient(
+    105deg,
+    #645e55,
+    #8b8377 13%,
+    #797268 17%,
+    #827c72
+  );
+}
+.textbook-jacket > span {
+  font-size: 12px;
+  letter-spacing: 0.07em;
+  font-weight: 600;
+}
+.textbook-jacket > small {
+  font-size: 9px;
+  line-height: 1.35;
+  opacity: 0.9;
+}
+.textbook-card-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+  flex: 1;
+}
+.textbook-status {
+  font-size: 10px;
+  color: var(--muted);
+}
+.textbook-card-copy strong {
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.textbook-objective {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.textbook-card-copy > small {
+  font-size: 10px;
+  color: var(--green);
+}
+.textbook-projects,
+.textbook-extras {
+  margin-top: 40px;
+  padding-top: 25px;
+  border-top: 1px solid var(--line);
+}
+.textbook-projects > p,
+.textbook-extras > p {
+  font-size: 13px;
+}
+.textbook-projects details,
+.textbook-outline details {
+  border-bottom: 1px solid var(--line);
+}
+.textbook-projects summary {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  cursor: pointer;
+  padding: 18px 0;
+  font-size: 15px;
+}
+.textbook-projects summary > span {
+  font-size: 11px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+.textbook-projects summary > strong {
+  flex: 1;
+}
+.textbook-projects details[open] summary > svg {
+  transform: rotate(90deg);
+}
+.textbook-projects details > p,
+.textbook-outline details > p {
+  font-size: 14px;
+  line-height: 1.85;
+}
+.textbook-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 20px;
+}
+.textbook-links button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-height: 36px;
+  font-size: 11px;
+  line-height: 1.5;
+  text-align: left;
+  border: 1px solid var(--line);
+  padding: 8px 11px;
+  border-radius: 10px;
+  background: var(--paper);
+}
+.textbook-links button:hover {
+  border-color: var(--green);
+}
+.textbook-extras > a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  font-size: 14px;
+}
+.textbook-extras > button {
+  margin-top: 15px;
+}
+.textbook-empty {
+  padding: 30px 10px;
+  text-align: center;
+  color: var(--muted);
+}
+.textbook-update {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 16px;
+  margin-top: 20px;
+  border-radius: 15px;
+  background: var(--green-soft);
+}
+.textbook-update > span {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+.textbook-update strong {
+  font-size: 14px;
+}
+.textbook-update small {
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.textbook-back {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--muted);
+  padding: 8px 0 20px;
+}
+.textbook-book-head {
+  position: relative;
+  padding: 30px 0;
+  border-bottom: 1px solid var(--line);
+}
+.textbook-book-head h1 {
+  font-size: clamp(28px, 4vw, 42px);
+  letter-spacing: -0.04em;
+  max-width: 700px;
+  margin: 15px 0;
+  line-height: 1.35;
+}
+.textbook-volume {
+  display: block;
+  color: var(--green);
+  font-size: 42px;
+  font-weight: 300;
+  letter-spacing: -0.05em;
+  margin-bottom: 20px;
+}
+.textbook-book-head > p {
+  max-width: 650px;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.9;
+}
+.textbook-book-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 25px;
+}
+.textbook-prerequisites {
+  padding: 22px 0 0;
+}
+.textbook-prerequisites > span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.textbook-chapters {
+  margin-top: 30px;
+}
+.textbook-chapters .section-heading > span {
+  font-size: 12px;
+  color: var(--muted);
+}
+.textbook-chapters > a {
+  display: flex;
+  gap: 17px;
+  align-items: center;
+  padding: 19px 4px;
+  border-bottom: 1px solid var(--line);
+}
+.textbook-chapter-no {
+  font-size: 15px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  min-width: 24px;
+}
+.textbook-chapters > a > span:nth-child(2) {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+.textbook-chapters strong {
+  font-size: 15px;
+  line-height: 1.55;
+  font-weight: 550;
+}
+.textbook-chapters small {
+  font-size: 11px;
+  color: var(--muted);
+}
+.textbook-chapters > a > svg {
+  flex-shrink: 0;
+  color: var(--green);
+}
+.textbook-chapters > a:hover {
+  background: var(--green-soft);
+}
+.textbook-content-count {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.textbook-chapter-sections {
+  margin: 0 0 8px 45px;
+  font-size: 13px;
+  line-height: 1.7;
+}
+.textbook-chapter-sections summary {
+  padding: 10px 0;
+  cursor: pointer;
+  color: var(--green);
+}
+.textbook-chapter-sections a {
+  display: block;
+  padding: 10px 8px;
+  overflow-wrap: anywhere;
+  border-left: 2px solid var(--line);
+}
+.textbook-chapter-sections a:hover {
+  background: var(--green-soft);
+}
+.textbook-outline {
+  margin-top: 36px;
+}
+.textbook-outline > h2 {
+  font-size: 20px;
+}
+.textbook-outline > .muted {
+  font-size: 12px;
+  line-height: 1.8;
+}
+.textbook-outline summary {
+  cursor: pointer;
+  padding: 17px 0;
+  font-size: 14px;
+  line-height: 1.7;
+}
+.textbook-outline summary > span {
+  display: inline-block;
+  margin-right: 12px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.textbook-anchor {
+  display: block;
+  scroll-margin-top: 100px;
+  height: 0;
+}
+.textbook-figure {
+  margin: 26px 0;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--paper);
+}
+.textbook-figure-scroll {
+  overflow-x: auto;
+  padding: 16px;
+  --card-2: var(--paper);
+  --line-2: var(--line);
+  --txt: var(--text);
+  --txt-hi: var(--text);
+  --txt-dim: var(--muted);
+  --grn: #3e8572;
+  --amb: #a56c2d;
+  --cyn: #337c9d;
+  --red: #b25755;
+  --vio: #8863a8;
+  --grn-bg: #e6f2ec;
+  --amb-bg: #faf0df;
+  --cyn-bg: #e6f2f8;
+  --red-bg: #f8e9e7;
+  --vio-bg: #f1eafa;
+  /* Original books use these names in SVG presentation attributes. Undefined
+     fill variables fall back to black and conceal the text on diagram boxes. */
+  --grn-d: var(--grn-bg);
+  --amb-d: var(--amb-bg);
+  --cyn-d: var(--cyn-bg);
+  --red-d: var(--red-bg);
+  --vio-d: var(--vio-bg);
+  --amber: var(--amb);
+  --txt-2: var(--muted);
+  --mono: ui-monospace, monospace;
+  --sans: system-ui, sans-serif;
+}
+.textbook-figure .textbook-figure-scroll svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 560px;
+  max-height: none;
+  color: var(--text);
+}
+.textbook-figure .textbook-figure-scroll svg text {
+  fill: var(--text);
+  font-family: system-ui, sans-serif;
+}
+.textbook-figure figcaption {
+  border-top: 1px solid var(--line);
+  padding: 8px 13px;
+  font-size: 10px;
+  color: var(--muted);
+  margin: 0;
+}
+.textbook-figure .sv-box {
+  fill: var(--card-2);
+  stroke: var(--line-2);
+  stroke-width: 1.2;
+}
+.textbook-figure .sv-lbl {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--txt);
+}
+.textbook-figure .sv-lbl-hi {
+  font-family: var(--mono);
+  font-size: 11px;
+  fill: var(--txt-hi);
+  font-weight: 700;
+}
+.textbook-figure .sv-lbl-dim {
+  font-family: var(--mono);
+  font-size: 10px;
+  fill: var(--txt-dim);
+}
+.textbook-figure .sv-t {
+  font-family: var(--sans);
+  font-size: 11.5px;
+  fill: var(--txt);
+}
+.textbook-figure .sv-arrow {
+  stroke: var(--grn);
+  stroke-width: 1.6;
+  fill: none;
+}
+.textbook-figure .sv-arrow-a {
+  stroke: var(--amb);
+  stroke-width: 1.6;
+  fill: none;
+}
+.textbook-figure .sv-dash {
+  stroke: var(--line-2);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+  fill: none;
+}
+.textbook-figure .sv-grn {
+  fill: var(--grn);
+}
+.textbook-figure .sv-amb {
+  fill: var(--amb);
+}
+.textbook-figure .sv-cyn {
+  fill: var(--cyn);
+}
+.textbook-figure .sv-red {
+  fill: var(--red);
+}
+.textbook-figure .sv-grn-s {
+  fill: var(--grn-bg);
+  stroke: var(--grn);
+}
+.textbook-figure .sv-amb-s {
+  fill: var(--amb-bg);
+  stroke: var(--amb);
+}
+.textbook-figure .sv-cyn-s {
+  fill: var(--cyn-bg);
+  stroke: var(--cyn);
+}
+.textbook-figure .sv-vio-s {
+  fill: var(--vio-bg);
+  stroke: var(--vio);
+}
+.textbook-figure .sv-red-s {
+  fill: var(--red-bg);
+  stroke: var(--red);
+}
+.textbook-figure .node {
+  fill: var(--paper);
+  stroke: var(--line);
+  stroke-width: 1.5;
+}
+.textbook-figure .node-primary {
+  fill: var(--grn-bg);
+  stroke: var(--grn);
+}
+.textbook-figure .arrow {
+  fill: none;
+  stroke: var(--grn);
+  stroke-width: 2;
+}
+.thermal-demo {
+  margin: 28px 0;
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: var(--paper);
+}
+.thermal-demo h3 {
+  margin: 10px 0;
+}
+.thermal-demo p,
+.thermal-demo > small {
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+.thermal-controls {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin: 22px 0;
+}
+.thermal-controls label {
+  font-size: 12px;
+}
+.thermal-controls output {
+  float: right;
+  font-variant-numeric: tabular-nums;
+}
+.thermal-controls input {
+  width: 100%;
+  padding: 0;
+  margin: 12px 0 0;
+  accent-color: var(--green);
+}
+.thermal-scenario {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  margin-bottom: 15px;
+}
+.thermal-scenario select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  max-width: 100%;
+}
+.thermal-demo > label {
+  font-size: 12px;
+}
+.thermal-demo > svg {
+  width: 100%;
+  height: auto;
+  margin-top: 20px;
+}
+.thermal-metrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin: 8px 0 15px;
+  font-size: 11px;
+}
+.thermal-metrics span {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.thermal-metrics b {
+  font-weight: 550;
+  font-size: 14px;
+}
+:root[data-theme="dark"] .textbook-figure-scroll {
+  --grn: #8ec6aa;
+  --amb: #d3ad76;
+  --cyn: #83b8d2;
+  --red: #e7a5a0;
+  --vio: #bb9fd7;
+  --grn-bg: #2c423b;
+  --amb-bg: #413a30;
+  --cyn-bg: #2c3e49;
+  --red-bg: #473334;
+  --vio-bg: #3e3449;
+}
+@media (max-width: 700px) {
+  .textbook-hero {
+    padding: 17px 0 24px;
+  }
+  .textbook-hero h1 {
+    font-size: 33px;
+  }
+  .textbook-hero > p {
+    font-size: 14px;
+  }
+  .textbook-facts {
+    gap: 20px;
+  }
+  .textbook-facts b {
+    font-size: 21px;
+  }
+  .textbook-facts span {
+    font-size: 11px;
+  }
+  .textbook-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .textbook-card {
+    padding: 15px;
+    gap: 15px;
+    border-radius: 17px;
+  }
+  .textbook-jacket {
+    width: 75px;
+    height: 105px;
+  }
+  .textbook-card-copy strong {
+    font-size: 15px;
+  }
+  .textbook-domain {
+    margin-top: 19px;
+  }
+  .textbook-domain > h2 {
+    font-size: 18px;
+  }
+  .textbook-tools {
+    gap: 10px;
+  }
+  .textbook-readonly {
+    font-size: 10px;
+  }
+  .textbook-book-head {
+    padding-top: 18px;
+  }
+  .textbook-book-head h1 {
+    font-size: 29px;
+  }
+  .textbook-volume {
+    font-size: 36px;
+  }
+  .thermal-demo {
+    padding: 15px;
+  }
+  .thermal-controls {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+  .thermal-controls input {
+    margin-top: 5px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .textbook-card {
+    transition: none;
+  }
+  .textbook-card:hover,
+  .textbook-card:active {
+    transform: none;
+  }
+}
+
+/* Reviewed courses share the native reader, links and offline records. */
+.course-entry-links { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:12px; margin:24px 0; }
+.course-entry-links a { display:grid; grid-template-columns:1fr auto; gap:6px 12px; border:1px solid var(--border,#d9ddd8); border-radius:16px; padding:18px; color:inherit; text-decoration:none; }
+.course-entry-links strong { font-size:16px; }
+.course-entry-links span { grid-row:2; font-size:13px; opacity:.75; }
+.course-entry-links svg { grid-column:2; grid-row:1/3; align-self:center; }
+.prose .course-details,.prose .course-assessment { margin:20px 0; padding:16px 18px; border:1px solid var(--border,#d9ddd8); border-radius:12px; }
+.prose .course-details>summary,.prose .course-assessment>summary { cursor:pointer; font-weight:650; line-height:1.6; }
+.prose .course-assessment summary span { font-size:.8em; font-weight:400; margin-left:10px; }
+.prose .course-assessment label { display:flex; align-items:flex-start; gap:10px; margin:14px 0; }
+.prose .course-assessment input { flex:0 0 auto; width:18px; height:18px; margin-top:5px; }
+.prose .prose { width:auto; max-width:none; margin:0; padding:0; }
+.prose td .prose p,.prose th .prose p { margin:0; }
+@media(max-width:600px) { .course-entry-links { grid-template-columns:1fr; } .prose .course-details,.prose .course-assessment { padding:12px; } }

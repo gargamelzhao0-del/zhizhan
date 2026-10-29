@@ -1,0 +1,73 @@
+/* shelf.css — 手机端书库 · 书架 */
+:root{
+  --bg:#070B09; --bg-2:#0B1110; --bg-3:#101816;
+  --card:#0D1512; --card-2:#121C18;
+  --line:#1B2A24; --line-2:#2A4038;
+  --txt:#B9CCC3; --txt-2:#8AA398; --txt-dim:#5E7A6E; --txt-hi:#E9F6EF;
+  --grn:#4EF08A; --amb:#FFC44D; --cyn:#4FD6E8; --red:#FF6B6B;
+  --mono:'Cascadia Mono','JetBrains Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --pad:18px;
+}
+html{-webkit-text-size-adjust:100%}
+body.shelf-body{
+  margin:0;background:
+    radial-gradient(1200px 500px at 50% -10%, rgba(78,240,138,.06), transparent 60%),
+    radial-gradient(900px 400px at 100% 0%, rgba(79,214,232,.05), transparent 55%),
+    var(--bg);
+  color:var(--txt);font-family:var(--sans);font-size:16px;line-height:1.7;
+  -webkit-font-smoothing:antialiased;
+}
+/* 结构网格纹理 */
+body.shelf-body::before{
+  content:"";position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:linear-gradient(rgba(78,240,138,.045) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(78,240,138,.045) 1px,transparent 1px);
+  background-size:34px 34px;mask-image:radial-gradient(120% 60% at 50% 0%,#000,transparent 75%);
+}
+.shelf-hero{position:relative;z-index:1;padding:44px var(--pad) 10px;max-width:720px;margin:0 auto;}
+.shelf-kicker{font-family:var(--mono);font-size:11px;letter-spacing:.34em;color:var(--grn);margin-bottom:14px;}
+.shelf-title{margin:0 0 12px;font-size:34px;line-height:1.18;color:var(--txt-hi);letter-spacing:.01em;font-weight:800;}
+.shelf-title span{display:block;color:var(--grn);}
+.shelf-lead{margin:0 0 20px;color:var(--txt-2);font-size:14.5px;}
+.shelf-search input{
+  width:100%;box-sizing:border-box;padding:14px 16px;border-radius:14px;
+  border:1px solid var(--line-2);background:var(--bg-2);color:var(--txt-hi);
+  font:inherit;font-size:15px;outline:none;transition:border-color .2s ease,box-shadow .2s ease;
+}
+.shelf-search input:focus{border-color:var(--grn);box-shadow:0 0 0 3px rgba(78,240,138,.16);}
+.shelf-main{position:relative;z-index:1;max-width:720px;margin:0 auto;padding:24px var(--pad) 40px;}
+.shelf-group{margin:0 0 30px;animation:rise .5s both;}
+.shelf-h{
+  font-size:12px;letter-spacing:.22em;color:var(--txt-dim);margin:0 0 12px;
+  text-transform:uppercase;font-weight:600;
+}
+.shelf-grid{display:grid;grid-template-columns:1fr;gap:12px;}
+@media(min-width:600px){.shelf-grid{grid-template-columns:1fr 1fr;}}
+.card{
+  position:relative;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;
+  gap:4px 12px;align-items:baseline;
+  padding:16px 16px 16px 14px;border:1px solid var(--line);border-radius:16px;
+  background:linear-gradient(180deg,var(--card-2),var(--card));
+  text-decoration:none;color:var(--txt);overflow:hidden;
+  transition:transform .16s ease,border-color .16s ease,box-shadow .2s ease;
+  animation:rise .5s both;
+}
+.card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--grn);opacity:.0;transition:opacity .2s ease;}
+.card:active{transform:scale(.985);}
+.card:hover{border-color:var(--line-2);box-shadow:0 10px 30px rgba(0,0,0,.4);}
+.card:hover::before{opacity:.9;}
+.card-code{
+  grid-row:1;font-family:var(--mono);font-size:12px;font-weight:700;color:var(--grn);
+  border:1px solid rgba(78,240,138,.35);border-radius:8px;padding:2px 8px;
+}
+.card-name{grid-row:1;font-size:16.5px;font-weight:600;color:var(--txt-hi);}
+.card-meta{grid-column:2;grid-row:2;font-size:12px;color:var(--txt-dim);font-family:var(--mono);}
+.shelf-empty{text-align:center;color:var(--txt-dim);padding:40px 0;}
+.shelf-foot{position:relative;z-index:1;text-align:center;color:var(--txt-dim);font-size:12px;padding:10px var(--pad) 40px;max-width:720px;margin:0 auto;}
+.shelf-foot code{font-family:var(--mono);color:var(--txt-2);}
+@keyframes rise{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* Continue a saved learning position. */
+.shelf-continue{border:1px solid var(--line-2);background:var(--bg-2);border-radius:14px;padding:16px;margin:0 0 20px}.shelf-continue p{font-size:15px}.shelf-continue a,.shelf-project-link a{display:inline-flex;align-items:center;min-height:48px;color:var(--grn);padding:8px 12px;border:1px solid var(--line-2);border-radius:9px;text-decoration:none}.card-meta,.shelf-h{color:var(--txt-2)}

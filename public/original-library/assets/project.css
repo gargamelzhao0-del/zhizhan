@@ -1,0 +1,11 @@
+:root{--bg:#070B09;--bg-2:#101a15;--line:#2a4038;--txt:#C2D5CB;--txt-hi:#F0F8F3;--grn:#74E9A0}
+html[data-theme=paper]{--bg:#F6F2E9;--bg-2:#FBF8F1;--line:#DACFB9;--txt:#2A2823;--txt-hi:#15140F;--grn:#166440}
+body.m-project-page{background:var(--bg);color:var(--txt);font-size:18px;line-height:1.8;margin:0;padding:env(safe-area-inset-top,0px) env(safe-area-inset-right,0px) env(safe-area-inset-bottom,0px) env(safe-area-inset-left,0px)}
+.m-project-page main{background:var(--bg-2);max-width:800px;padding:22px;margin:0 auto;border-radius:0}.m-project-page h1{font-size:29px;color:var(--txt-hi)}.m-project-page h2{font-size:24px;color:var(--txt-hi)}.m-project-page h3{font-size:21px}.m-project-page a{color:var(--grn);overflow-wrap:anywhere}.m-project-page section{padding:18px;border-color:var(--line)}.m-project-page .scope{color:var(--txt);font-size:15px}.m-project-page pre{overflow-x:auto;white-space:pre;font-size:14px;line-height:1.65;background:#0b0f0d;color:#DCE9E2}.m-project-page .codeblk{max-width:100%;overflow:hidden;border:1px solid var(--line);border-radius:8px}.m-project-page .code-bar{display:flex;justify-content:space-between;align-items:center;padding:7px 12px;font-size:13px;background:#0e1512;color:#C2D5CB}.m-project-page .copy-btn{min-height:48px;min-width:48px;font:inherit;color:inherit;background:transparent;border:1px solid #2a4038;border-radius:8px}.project-download a{display:inline-flex;align-items:center;min-height:48px;padding:8px 12px;border:1px solid var(--line);border-radius:8px;font-size:15px}
+
+.native-insets body.m-project-page{padding:0}
+body.m-project-page{font-size:var(--m-fs,18px);line-height:var(--m-lh,1.8)}
+.m-project-page pre,.m-project-page code{font-size:var(--m-code-fs,14px)}
+.m-project-page figure{margin:18px 0}.m-project-page figure img{cursor:zoom-in}
+.m-project-page .m-image-original{display:inline-flex;align-items:center;min-height:48px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;margin-top:12px;font-size:15px}
+@media(max-width:640px){.m-project-page main{padding:16px}.m-project-page section{padding:14px}}

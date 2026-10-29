@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B22" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>嵌入式安全与设备生命周期 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">嵌入式安全与设备生命周期</div>
+    <div class="m-subtitle">工程 / 安全 · 10 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">10 模块 · 61 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol cur" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">联网交付基础 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">资产、威胁与信任边界<span class="m-nav-sub">威胁与密码</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-threat-t" data-target="m01-threat-t">1.1 资产、攻击面、信任边界</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：风险排序</a><a class="m-sec" href="#m01-debug-t" data-target="m01-debug-t">1.3 调试口与优先级</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检与成熟度对照</a><a class="m-sec" href="#m01-quick-t" data-target="m01-quick-t">速查与常见错误</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">密码学的工程使用<span class="m-nav-sub">威胁与密码</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-crypto-t" data-target="m02-crypto-t">2.1 用途对应的算法</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：MAC 可复现与篡改检测</a><a class="m-sec" href="#m02-misuse-t" data-target="m02-misuse-t">2.3 常见误用</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检与成熟度对照</a><a class="m-sec" href="#m02-quick-t" data-target="m02-quick-t">速查与常见错误</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">设备身份与密钥生命周期<span class="m-nav-sub">身份与启动</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-key-t" data-target="m03-key-t">3.1 密钥生命周期</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：状态机与非法转移</a><a class="m-sec" href="#m03-supply-t" data-target="m03-supply-t">3.3 供应链与止损</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检与成熟度对照</a><a class="m-sec" href="#m03-quick-t" data-target="m03-quick-t">速查与常见错误</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">安全启动与固件真实性<span class="m-nav-sub">身份与启动</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-secureboot-t" data-target="m04-secureboot-t">4.1 信任链与抗回滚</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：逐级校验与抗回滚</a><a class="m-sec" href="#m04-root-t" data-target="m04-root-t">4.3 信任根与安全态</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检与成熟度对照</a><a class="m-sec" href="#m04-quick-t" data-target="m04-quick-t">速查与常见错误</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">通信安全与证书验证<span class="m-nav-sub">通信/升级/隔离</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-tls-t" data-target="m05-tls-t">5.1 证书校验四要素</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：证书校验判定</a><a class="m-sec" href="#m05-auth-t" data-target="m05-auth-t">5.3 凭证校验与身份/权限</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检与成熟度对照</a><a class="m-sec" href="#m05-quick-t" data-target="m05-quick-t">速查与常见错误</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">升级安全与回退策略<span class="m-nav-sub">通信/升级/隔离</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-ota-t" data-target="m06-ota-t">6.1 安全升级五环节</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：验签与防降级</a><a class="m-sec" href="#m06-rollback-t" data-target="m06-rollback-t">6.3 回滚与防降级</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检与成熟度对照</a><a class="m-sec" href="#m06-quick-t" data-target="m06-quick-t">速查与常见错误</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">隔离与最小权限<span class="m-nav-sub">通信/升级/隔离</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-iso-t" data-target="m07-iso-t">7.1 隔离与最小权限</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：能力位与越权拒绝</a><a class="m-sec" href="#m07-default-t" data-target="m07-default-t">7.3 默认拒绝与收敛攻击面</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检与成熟度对照</a><a class="m-sec" href="#m07-quick-t" data-target="m07-quick-t">速查与常见错误</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">接口健壮性与安全测试<span class="m-nav-sub">测试、生命周期与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-input-t" data-target="m08-input-t">8.1 不可信输入与边界校验</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：解析器拒绝非法输入</a><a class="m-sec" href="#m08-fuzz-t" data-target="m08-fuzz-t">8.3 模糊测试与内存安全</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检与成熟度对照</a><a class="m-sec" href="#m08-quick-t" data-target="m08-quick-t">速查与常见错误</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">生产、维护与退役<span class="m-nav-sub">测试、生命周期与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-lifecycle-t" data-target="m09-lifecycle-t">9.1 生产/维护/退役</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：生命周期状态</a><a class="m-sec" href="#m09-lock-t" data-target="m09-lock-t">9.3 量产锁定与退役</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检与成熟度对照</a><a class="m-sec" href="#m09-quick-t" data-target="m09-quick-t">速查与常见错误</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">综合：可维护的安全设备<span class="m-nav-sub">测试、生命周期与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-device-t" data-target="m10-device-t">10.1 可维护安全设备的六维</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：信任链与抗回滚</a><a class="m-sec" href="#m10-accept-t" data-target="m10-accept-t">10.3 六维可验证断言</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检与成熟度对照</a><a class="m-sec" href="#m10-quick-t" data-target="m10-quick-t">速查与常见错误</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">一台可维护的安全设备.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">嵌入式安全易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B22-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · 产品与工程</div>
+    <h1>嵌入式安全<br>与<span class="g">设备生命周期</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>设备能被伪造/克隆、固件能被替换、通信能被窃听、升级能变砖、密钥泄露无法止损</strong>——问题分别落在威胁建模、密码学使用、身份与密钥生命周期、安全启动与通信/升级安全上。内容从 <strong>资产/威胁/信任边界、密码学、身份与密钥</strong>，一路到 <strong>安全启动、通信安全、升级回退、隔离最小权限、健壮性与安全测试、生产维护退役、可维护的安全设备</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>10</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>防线</span></div><div class="hero-stat"><b>6+10</b><span>运行 / 对照</span></div><div class="hero-stat"><b>10</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>做联网/可升级产品、需要安全基线</strong>的开发者/团队。默认你懂固件与通信，但对“威胁建模、密钥生命周期、安全启动、最小权限”不够系统。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的安全/生命周期模型 → <strong>真实运行证据</strong> → 三条防线对照 → 失败路径 → 动手练习 → 自测。本册为工程实践，不构成认证结论。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">威胁风险评分、HMAC 与篡改检测、密钥生命周期状态机、信任链逐级验签、最小权限能力、输入校验/模糊等来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）；简化哈希仅用于演示流程，不代表密码学强度。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B22-labs.zip" download>下载 B22 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B22 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">联网交付基础 · 读到能完成什么？</h2><p><strong>用标准密码库验证签名升级，建立设备身份、确认、回退与退役清单。</strong></p><p>入门条件：B07 协议/升级；密码学不要求自行实现算法。</p><p>首次阅读：<a href="#m01">资产、威胁与信任边界</a> → <a href="#m02">密码学的工程使用</a> → <a href="#m03">设备身份与密钥生命周期</a> → <a href="#m04">安全启动与固件真实性</a> → <a href="#m05">通信安全与证书验证</a> → <a href="#m06">升级安全与回退策略</a> → <a href="#m08">接口健壮性与安全测试</a> → <a href="#m09">生产、维护与退役</a></p><p>按需延后：硬件信任根/隔离/认证随威胁模型深入；不能用 toy hash 证明安全。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>错公钥、改载荷、旧版本、错设备型号、断电与新固件健康失败。</p><p><strong>通过判据：</strong>验证失败不提交新镜像；防回滚状态与试运行确认协调；测试密钥与生产密钥隔离。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P03">P03</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">10 章分四段：威胁与密码（M01–M02）→ 身份与启动（M03–M04）→ 通信/升级/隔离（M05–M07）→ 测试、生命周期与综合（M08–M10）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M04 建立安全基线，再读 M05/M06/M07；交付把 M09/M10 走完。动手优先跑 <code class="ic">labs/host_*.c</code>。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 威胁与密码</div>
+      <h1 class="ch-title">资产、威胁与信任边界<span class="acc">.</span></h1>
+      <p class="ch-lead">安全从<strong>威胁建模</strong>开始：列出要保护的<strong>资产</strong>、可能的<strong>攻击面</strong>与<strong>信任边界</strong>，按“暴露 × 影响”排优先级。</p>
+      <div class="ch-meta"><span>前置：了解设备的基本组成（网络/调试/总线/物理接口）与常见攻击概念。</span><span>◷ 约 42 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能列出资产/攻击面/信任边界清单，并按“暴露×影响”排出缓解优先级。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>先威胁建模：资产/攻击面/信任边界，按暴露×影响排序。</li><li>调试口是常被忽略的高危入口。</li><li>先保护高暴露高影响项。</li></ul></div>
+    <section class="sec" id="m01-threat"><h2 id="m01-threat-t">1.1 资产、攻击面、信任边界</h2><p>安全从威胁建模开始：列资产、攻击面与信任边界，按“暴露×影响”排优先级。先保护高暴露+高影响的资产（常见是网络接口与密钥）；调试口是常被忽略的高危入口。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 威胁建模流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="威胁建模流程" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">列资产</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">攻击面</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">信任边界</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">风险排序</text></svg></div><figcaption class="fig-ft">列资产 → 列攻击面（网络/调试/总线/物理）→ 定信任边界 → 风险=暴露×影响 → 排缓解优先级。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  威胁建模五概念</div><table><thead><tr><th>概念</th><th>内容</th><th>输出</th></tr></thead><tbody><tr><td>资产</td><td>数据/密钥/功能</td><td>保护清单</td></tr><tr><td>攻击面</td><td>网络/调试/总线/物理</td><td>入口清单</td></tr><tr><td>信任边界</td><td>谁信任谁</td><td>验证点</td></tr><tr><td>风险</td><td>暴露×影响</td><td>优先级</td></tr><tr><td>缓解</td><td>加密/认证/隔离</td><td>措施</td></tr></tbody></table></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：风险排序</h2><p>下面这段程序按暴露×影响给攻击面排序：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_threat.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_threat.c —— 威胁建模：攻击面与风险评分（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_threat.c -o host_threat &amp;&amp; ./host_threat</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 资产: 暴露面(1-5) × 影响(1-5) = 风险 */</span><span class="ln">    int surface[4] = {5,3,2,1}, impact[4] = {5,4,3,5};</span><span class="ln">    const char *name[4] = {&quot;网络接口&quot;,&quot;调试口&quot;,&quot;本地总线&quot;,&quot;物理外壳&quot;};</span><span class="ln">    for (int i=0;i&lt;4;i++) printf(&quot;  %-8s 风险=%d\n&quot;, name[i], surface[i]*impact[i]);</span><span class="ln">    /* 最高风险优先缓解 */</span><span class="ln">    int maxr = 0, mi = 0;</span><span class="ln">    for (int i=0;i&lt;4;i++) if (surface[i]*impact[i] &gt; maxr) { maxr = surface[i]*impact[i]; mi = i; }</span><span class="ln">    printf(&quot;最高风险: %s (%d)，优先缓解\n&quot;, name[mi], maxr);</span><span class="ln">    if (!(mi == 0 &amp;&amp; maxr == 25)) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">威胁建模/风险排序模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_threat.c -o labs/host_threat &amp;&amp; ./labs/host_threat</span>
+  网络接口 风险=25
+  调试口 风险=12
+  本地总线 风险=6
+  物理外壳 风险=5
+最高风险: 网络接口 (25)，优先缓解
+RESULT: PASS</code></pre></div></div><p class="sim-note">风险=暴露(1–5)×影响(1–5)；网络接口=5×5=25 最高，优先缓解；调试口次之。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  风险排序</div><table><thead><tr><th>攻击面</th><th>暴露</th><th>影响</th><th>风险</th></tr></thead><tbody><tr><td>网络接口</td><td>5</td><td>5</td><td>25</td></tr><tr><td>调试口</td><td>3</td><td>4</td><td>12</td></tr><tr><td>本地总线</td><td>2</td><td>3</td><td>6</td></tr><tr><td>物理外壳</td><td>1</td><td>5</td><td>5</td></tr></tbody></table></div></section><section class="sec" id="m01-debug"><h2 id="m01-debug-t">1.3 调试口与优先级</h2><p>调试口能读写内存、改固件、绕过逻辑，是高危入口；资源优先给“高暴露+高影响”项。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">threat.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">risk = exposure * impact;                  // 暴露×影响</span><span class="ln">if (risk == max) mitigate_first(item);     // 最高风险优先</span><span class="ln">/* 调试口/网络接口常是最高危入口，量产要锁定/加固 */</span>
+</code></pre><span class="code-note">风险=暴露×影响；优先缓解最高项</span></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检与成熟度对照</h2><p>威胁建模自检：资产/攻击面/信任边界齐、有风险量化、有优先级。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 攻击面风险（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="攻击面风险（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">网络</text><rect x="150" y="26" width="500" height="18" rx="4" class="sv-red-s"/><text x="658" y="43" class="sv-lbl-hi">25风险</text><text x="12" y="67" class="sv-lbl">调试口</text><rect x="150" y="50" width="240" height="18" rx="4" class="sv-amb-s"/><text x="398" y="67" class="sv-lbl-hi">12风险</text><text x="12" y="91" class="sv-lbl">总线</text><rect x="150" y="74" width="120" height="18" rx="4" class="sv-cyn-s"/><text x="278" y="91" class="sv-lbl-hi">6风险</text><text x="12" y="115" class="sv-lbl">物理</text><rect x="150" y="98" width="100" height="18" rx="4" class="sv-box"/><text x="258" y="115" class="sv-lbl-hi">5风险</text></svg></div><figcaption class="fig-ft">网络接口 25、调试口 12、总线 6、物理 5。按风险排序优先缓解。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>资产</td><td>数据/密钥</td><td>漏</td></tr><tr><td>攻击面</td><td>全部入口</td><td>忽略调试</td></tr><tr><td>量化</td><td>暴露×影响</td><td>凭感觉</td></tr><tr><td>排序</td><td>高优先</td><td>平均用力</td></tr></tbody></table></div></section><section class="sec" id="m01-quick"><h2 id="m01-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">risk.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">risk = exposure * impact;              // 暴露×影响</span><span class="ln">sort_desc(items, risk);                 // 高风险优先缓解</span><span class="ln">/* 调试口/网络接口优先处理 */</span>
+</code></pre><span class="code-note">风险量化排序，高暴露×高影响优先</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.4  攻击面与缓解</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>网络接口</td><td>TLS/认证/最小服务</td></tr><tr><td>调试口</td><td>量产锁定</td></tr><tr><td>本地总线</td><td>物理防护/隔离</td></tr><tr><td>物理外壳</td><td>防拆/防读取</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>不做威胁建模</strong>：漏掉关键入口。</li><li><strong>忽略调试口</strong>：高危入口敞开。</li><li><strong>只防网络</strong>：物理/总线被忽略。</li><li><strong>不排优先级</strong>：资源浪费在低风险。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">为什么调试口常是高危入口？</p><details><summary>查看答案</summary><div class="ans"><p>调试口能读写内存、改固件、绕过程序逻辑；一旦量产设备仍开放未锁的调试口，攻击者可完全控制设备。应在量产时锁定。</p></div></details></li><li><p class="q">风险如何量化排序？</p><details><summary>查看答案</summary><div class="ans"><p>风险=暴露×影响（各 1–5）。分数越高越优先缓解，把资源投在高暴露+高影响项上。</p></div></details></li><li><p class="q">为什么要先定“信任边界”？</p><details><summary>查看答案</summary><div class="ans"><p>信任边界决定“谁需要被验证”。跨边界的输入都要按不可信处理、施加验证，避免盲目信任导致漏洞。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的设备列一份资产/攻击面/信任边界清单，并按暴露×影响排出缓解优先级。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://owasp.org/www-project-embedded-application-security/" target="_blank" rel="noopener noreferrer">OWASP 嵌入式应用安全</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_threat.c</code>：按暴露×影响给攻击面排序。</p><p><strong>检查结果：</strong>最高风险项（网络接口 25）被识别并优先缓解；风险排序合理。</p></div>
+<p class="sim-note">迁移练习：把本章的“能列出资产/攻击面/信任边界清单，并按“暴露×影响”排出缓解优先级。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>最高风险项（网络接口 25）被识别并优先缓解；风险排序合理。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 威胁与密码</div>
+      <h1 class="ch-title">密码学的工程使用<span class="acc">.</span></h1>
+      <p class="ch-lead">第一条规则：<strong>不要自己造算法</strong>。完整性用 <strong>HMAC/AEAD</strong>，加密用 AES-GCM，随机用 <strong>CSPRNG</strong>，比较用<strong>常量时间</strong>。</p>
+      <div class="ch-meta"><span>前置：会用 C 处理字节缓冲与十六进制，了解“完整性/认证/加密”的区别。</span><span>◷ 约 44 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用 HMAC/AEAD + CSPRNG 做完整性校验，并识别 CRC 当安全、固定 IV、非安全随机等误用。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m02-knowledge-boundary">运行标准算法，再讨论流程模型</h3><p>labs/hmac_sha256.py 使用 Python 标准库实现 HMAC-SHA-256，并对拍 RFC 4231 两组向量，再测试错密钥、篡改和截断标签。host_crypto.c 只保留为简化流程模型。P03 使用真实 Ed25519 验证签名，但闪存掉电与信任锚仍要由目标平台验证。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>python labs/hmac_sha256.py</pre></div></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>不要自己造密码；完整性用 HMAC/AEAD。</li><li>随机数用 CSPRNG；比较用常量时间。</li><li>CRC 不是安全机制。</li></ul></div>
+    <section class="sec" id="m02-crypto"><h2 id="m02-crypto-t">2.1 用途对应的算法</h2><p>第一条规则：不要自己造算法。完整性/认证用 HMAC/AEAD，加密用 AES-GCM（非 ECB/固定 IV），随机用 CSPRNG，密钥派生用 HKDF/PBKDF2，比较用常量时间。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 用途 → 算法</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="用途 → 算法" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="49.0" class="sv-lbl-hi">完整性/认证 → HMAC/AEAD</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="83.0" class="sv-lbl-hi">加密 → AES-GCM（禁 ECB/固定 IV）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">随机 → CSPRNG（禁 rand/固定种子）</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-red-s"/><text x="75" y="151.0" class="sv-lbl-hi">比较 → 常量时间（禁普通 memcmp）</text></svg></div><figcaption class="fig-ft">完整性/认证 → HMAC/AEAD；加密 → AES-GCM；随机 → CSPRNG；比较 → 常量时间。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  用途与算法</div><table><thead><tr><th>用途</th><th>算法</th><th>误用</th></tr></thead><tbody><tr><td>完整性/认证</td><td>HMAC/AEAD</td><td>用 CRC 当安全</td></tr><tr><td>加密</td><td>AES-GCM 等</td><td>ECB/固定 IV</td></tr><tr><td>随机</td><td>CSPRNG</td><td>rand()/固定种子</td></tr><tr><td>密钥派生</td><td>HKDF/PBKDF2</td><td>直接哈希口令</td></tr><tr><td>比较</td><td>常量时间</td><td>普通 memcmp 泄露时序</td></tr></tbody></table></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：MAC 可复现与篡改检测</h2><p>下面这段程序验证 MAC 可复现、篡改/错密钥被拒：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">hmac_sha256.py</span><span class="code-lang">Python</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">&quot;&quot;&quot;标准 HMAC-SHA-256；RFC 4231 向量及负例，Python 3.11+。&quot;&quot;&quot;</span><span class="ln">import hashlib</span><span class="ln">import hmac</span><span class="ln"></span><span class="ln">def authenticate(key: bytes, message: bytes, expected: bytes) -&gt; bool:</span><span class="ln">    actual = hmac.new(key, message, hashlib.sha256).digest()</span><span class="ln">    return hmac.compare_digest(actual, expected)</span><span class="ln"></span><span class="ln">def main():</span><span class="ln">    cases = [</span><span class="ln">        (bytes.fromhex(&quot;0b&quot; * 20), b&quot;Hi There&quot;, &quot;b0344c61d8db38535ca8afceaf0bf12b881dc200c9833da726e9376c2e32cff7&quot;),</span><span class="ln">        (b&quot;Jefe&quot;, b&quot;what do ya want for nothing?&quot;, &quot;5bdcc146bf60754e6a042426089575c75a003f089d2739839dec58b964ec3843&quot;),</span><span class="ln">    ]</span><span class="ln">    for key, message, tag in cases:</span><span class="ln">        expected = bytes.fromhex(tag)</span><span class="ln">        assert authenticate(key, message, expected)</span><span class="ln">        assert not authenticate(key, message + b&quot;!&quot;, expected)</span><span class="ln">        assert not authenticate(key + b&quot;x&quot;, message, expected)</span><span class="ln">        assert not authenticate(key, message, expected[:-1])</span><span class="ln">    print(&quot;RFC4231 cases=2; tamper/wrong-key/truncated-tag rejected; RESULT: PASS&quot;)</span><span class="ln"></span><span class="ln">if __name__ == &quot;__main__&quot;:</span><span class="ln">    main()</span>
+</code></pre><span class="code-note">标准库 HMAC-SHA-256 与 RFC 4231 独立向量</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ python labs/hmac_sha256.py</span>
+RFC4231 cases=2; tamper/wrong-key/truncated-tag rejected; RESULT: PASS</code></pre></div></div><p class="sim-note">这些用例验证标准库调用与接口；不声称覆盖全部攻击。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  完整性校验</div><table><thead><tr><th>情形</th><th>结果</th><th>说明</th></tr></thead><tbody><tr><td>相同输入</td><td>MAC 相同</td><td>可复现</td></tr><tr><td>篡改 1 字节</td><td>MAC 不等</td><td>检出</td></tr><tr><td>错误密钥</td><td>MAC 不等</td><td>拒绝</td></tr><tr><td>CRC</td><td>可重算</td><td>不能当安全</td></tr></tbody></table></div></section><section class="sec" id="m02-misuse"><h2 id="m02-misuse-t">2.3 常见误用</h2><p>常见误用：CRC 当安全、固定/重复 IV、非安全随机、直接哈希口令、普通字符串比较（时序侧信道）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">crypto.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">hmac(key, msg, mac);                       // 完整性/认证</span><span class="ln">if (ct_compare(mac, expect, n)) ok = 1;    // 常量时间比较</span><span class="ln">/* 随机用 CSPRNG；禁 CRC 当安全、固定 IV、普通 memcmp */</span>
+</code></pre><span class="code-note">HMAC + 常量时间比较；避免常见误用</span></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检与成熟度对照</h2><p>密码自检：用对算法、随机安全、比较常量时间、不造轮子。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 完整性手段对比（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="完整性手段对比（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">MAC 可复现</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="43" class="sv-lbl-hi">1(标志)</text><text x="12" y="67" class="sv-lbl">篡改检测</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="67" class="sv-lbl-hi">1(标志)</text><text x="12" y="91" class="sv-lbl">错密钥拒绝</text><rect x="150" y="74" width="300" height="18" rx="4" class="sv-red-s"/><text x="458" y="91" class="sv-lbl-hi">1(标志)</text></svg></div><figcaption class="fig-ft">简化流程对这两组输入产生不同结果；不能证明安全性。标准 HMAC-SHA-256 用 RFC 向量另验。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>完整性</td><td>HMAC/AEAD</td><td>CRC</td></tr><tr><td>加密</td><td>GCM+随机IV</td><td>ECB/固定IV</td></tr><tr><td>随机</td><td>CSPRNG</td><td>rand</td></tr><tr><td>比较</td><td>常量时间</td><td>memcmp</td></tr></tbody></table></div></section><section class="sec" id="m02-quick"><h2 id="m02-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">crypto.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">hmac(key, msg, mac);                   // 完整性/认证</span><span class="ln">if (!ct_compare(mac, expect, n)) deny();// 常量时间比较</span><span class="ln">/* 随机用 CSPRNG；禁 CRC 当安全、固定 IV */</span>
+</code></pre><span class="code-note">HMAC + 常量时间比较</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.4  误用与纠正</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>CRC 当安全</td><td>HMAC/AEAD</td></tr><tr><td>固定 IV</td><td>随机唯一 IV</td></tr><tr><td>rand 随机</td><td>CSPRNG</td></tr><tr><td>普通 memcmp</td><td>常量时间比较</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>自己造算法</strong>：几乎必错。</li><li><strong>CRC 当安全</strong>：可伪造。</li><li><strong>非安全随机</strong>：密钥可预测。</li><li><strong>普通比较</strong>：时序侧信道泄露。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">为什么校验完整性和认证要用 HMAC 而不是 CRC？</p><details><summary>查看答案</summary><div class="ans"><p>CRC 是公开算法、无密钥，攻击者改数据后可重算 CRC；HMAC 需要密钥，在算法假设、足够密钥强度及正确实现条件下，攻击者难以伪造，因此能提供认证。</p></div></details></li><li><p class="q">为什么加密不能用固定 IV？</p><details><summary>查看答案</summary><div class="ans"><p>固定/重复 IV 会让相同明文产生相同密文，泄露模式信息甚至可被分析还原。nonce/IV 的要求取决于算法。GCM 在同一密钥下必须唯一；跨重启要保持唯一性，随机生成也需按碰撞风险限制使用量。</p></div></details></li><li><p class="q">为什么密钥比较要用“常量时间”？</p><details><summary>查看答案</summary><div class="ans"><p>普通 memcmp 会在第一个不同字节处提前返回，执行时间随匹配前缀变化，形成时序侧信道，可能被用来逐字节猜测密钥。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：审查完整性/加密/随机/比较用法，替换所有 CRC 当安全、固定 IV、非安全随机与普通比较。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final" target="_blank" rel="noopener noreferrer">NIST SP 800-57 密钥管理</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">python labs/hmac_sha256.py</code>：对照 RFC 4231 向量，并拒绝篡改、错密钥和截短标签。</p><p><strong>检查结果：</strong>两个标准向量匹配；预设负例均拒绝。说明密钥、认证标签和消息的边界，不能用简化哈希替代标准 HMAC。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用 HMAC/AEAD + CSPRNG 做完整性校验，并识别 CRC 当安全、固定 IV、非安全随机等误用。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>两个标准向量匹配；预设负例均拒绝。说明密钥、认证标签和消息的边界，不能用简化哈希替代标准 HMAC。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 身份与启动</div>
+      <h1 class="ch-title">设备身份与密钥生命周期<span class="acc">.</span></h1>
+      <p class="ch-lead">设备身份是安全的基础：<strong>一机一密/证书</strong>，密钥<strong>生成、注入、存储、轮换、吊销</strong>要有完整生命周期；私钥绝不外泄。</p>
+      <div class="ch-meta"><span>前置：了解公私钥/证书概念与设备烧录、产线注入流程。</span><span>◷ 约 44 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能设计密钥生命周期状态机（生成→注入→存储→轮换→吊销）并拒绝非法状态转移。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>设备一机一密/证书，支持轮换与吊销。</li><li>私钥放 OTP/SE/TPM，不硬编码不落日志。</li><li>生命周期状态机禁止非法转移。</li></ul></div>
+    <section class="sec" id="m03-key"><h2 id="m03-key-t">3.1 密钥生命周期</h2><p>设备身份是安全基础：一机一密/证书。密钥要覆盖生成、注入、存储、轮换、吊销的完整生命周期；私钥绝不可读、不可硬编码、不可共用。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 密钥生命周期状态机</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="密钥生命周期状态机" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">0 未注入</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">1 已注入</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">2 激活</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">3 吊销</text></svg></div><figcaption class="fig-ft">未注入(0) → 注入(1) → 激活(2) → 轮换(1) → 吊销(3)。吊销后不可再激活。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  密钥生命周期五阶段</div><table><thead><tr><th>阶段</th><th>做法</th><th>要点</th></tr></thead><tbody><tr><td>生成</td><td>CSPRNG/HSM</td><td>真随机</td></tr><tr><td>注入</td><td>产线安全注入</td><td>不落日志</td></tr><tr><td>存储</td><td>OTP/SE/TPM</td><td>私钥不可读</td></tr><tr><td>轮换</td><td>到期/疑似泄露</td><td>可迁移</td></tr><tr><td>吊销</td><td>CRL/黑名单</td><td>可止损</td></tr></tbody></table></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：状态机与非法转移</h2><p>下面这段程序验证生命周期状态机与非法转移被拒：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_keylife.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_keylife.c —— 密钥生命周期状态机（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_keylife.c -o host_keylife &amp;&amp; ./host_keylife</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef enum { NONE, PROVISIONED, ACTIVE, REVOKED } ks_t;</span><span class="ln">static ks_t step(ks_t s, int ev) {   /* ev: 0=provision 1=activate 2=rotate 3=revoke */</span><span class="ln">    if (ev==0 &amp;&amp; s==NONE) return PROVISIONED;</span><span class="ln">    if (ev==1 &amp;&amp; s==PROVISIONED) return ACTIVE;</span><span class="ln">    if (ev==2 &amp;&amp; s==ACTIVE) return PROVISIONED;   /* 轮换：换新密钥后再激活 */</span><span class="ln">    if (ev==3 &amp;&amp; (s==ACTIVE||s==PROVISIONED)) return REVOKED;</span><span class="ln">    return s;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; ks_t s = NONE;</span><span class="ln">    s = step(s,0); printf(&quot;provision → %d（期望 1）\n&quot;, s); if(s!=PROVISIONED) ok=0;</span><span class="ln">    s = step(s,1); printf(&quot;activate  → %d（期望 2）\n&quot;, s); if(s!=ACTIVE) ok=0;</span><span class="ln">    s = step(s,2); printf(&quot;rotate    → %d（期望 1）\n&quot;, s); if(s!=PROVISIONED) ok=0;</span><span class="ln">    s = step(s,3); printf(&quot;revoke    → %d（期望 3）\n&quot;, s); if(s!=REVOKED) ok=0;</span><span class="ln">    ks_t s2 = step(s,1); printf(&quot;撤销后 activate → %d（仍 3，非法转移被拒）\n&quot;, s2); if(s2!=REVOKED) ok=0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">密钥生命周期状态机模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife &amp;&amp; ./labs/host_keylife</span>
+provision → 1（期望 1）
+activate  → 2（期望 2）
+rotate    → 1（期望 1）
+revoke    → 3（期望 3）
+撤销后 activate → 3（仍 3，非法转移被拒）
+RESULT: PASS</code></pre></div></div><p class="sim-note">状态 0→1→2→1(轮换)→3；吊销后任何激活返回 3（非法转移被拒）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  状态与转移</div><table><thead><tr><th>状态</th><th>编码</th><th>允许转移</th></tr></thead><tbody><tr><td>未注入</td><td>0</td><td>→1</td></tr><tr><td>已注入</td><td>1</td><td>→2（或 →3）</td></tr><tr><td>激活</td><td>2</td><td>→1（轮换）</td></tr><tr><td>吊销</td><td>3</td><td>不可再激活</td></tr></tbody></table></div></section><section class="sec" id="m03-supply"><h2 id="m03-supply-t">3.3 供应链与止损</h2><p>密钥不能硬编码在多台共用；支持吊销才能在泄露后止损。生命周期状态机要禁止非法转移。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">keylife.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (state == REVOKED) return REVOKED;      // 吊销后拒绝激活</span><span class="ln">if (state == PROVISIONED) state = ACTIVE;  // 1→2</span><span class="ln">if (rotate) state = PROVISIONED;           // 轮换回到 1</span>
+</code></pre><span class="code-note">状态机禁止吊销后再激活；支持轮换与吊销</span></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检与成熟度对照</h2><p>密钥自检：状态机合法、可轮换、可吊销、注入不落日志。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 生命周期状态（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="生命周期状态（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">注入</text><rect x="150" y="26" width="150" height="18" rx="4" class="sv-cyn-s"/><text x="308" y="43" class="sv-lbl-hi">1状态码</text><text x="12" y="67" class="sv-lbl">激活</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="67" class="sv-lbl-hi">2状态码</text><text x="12" y="91" class="sv-lbl">吊销</text><rect x="150" y="74" width="450" height="18" rx="4" class="sv-red-s"/><text x="608" y="91" class="sv-lbl-hi">3状态码</text></svg></div><figcaption class="fig-ft">注入(1)→激活(2)→轮换(1)→吊销(3)；吊销后激活仍 3（拒绝）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>生成</td><td>CSPRNG/HSM</td><td>弱随机</td></tr><tr><td>注入</td><td>安全通道</td><td>落日志</td></tr><tr><td>存储</td><td>OTP/SE</td><td>明文</td></tr><tr><td>吊销</td><td>黑名单</td><td>不可撤</td></tr></tbody></table></div></section><section class="sec" id="m03-quick"><h2 id="m03-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">keylife.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (state == REVOKED) return REVOKED;   // 吊销后拒绝</span><span class="ln">if (state == PROVISIONED) state = ACTIVE;</span><span class="ln">/* 注入不落日志；支持轮换/吊销 */</span>
+</code></pre><span class="code-note">状态机禁止非法转移</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.4  密钥风险与对策</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>硬编码/共用</td><td>一机一密</td></tr><tr><td>不可吊销</td><td>黑名单/CRL</td></tr><tr><td>注入落日志</td><td>安全通道</td></tr><tr><td>无轮换</td><td>定期轮换</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>密钥硬编码/共用</strong>：泄露即全网。</li><li><strong>不可吊销</strong>：泄露无法止损。</li><li><strong>注入落日志</strong>：密钥外泄。</li><li><strong>无轮换</strong>：长期暴露。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">为什么设备要“一机一密”？</p><details><summary>查看答案</summary><div class="ans"><p>一套共用密钥泄露则全部设备受影响；一机一密把影响限制在单台，且可单独轮换/吊销。</p></div></details></li><li><p class="q">密钥为什么要“可吊销”？</p><details><summary>查看答案</summary><div class="ans"><p>设备丢失/密钥泄露时，吊销让该身份立即失效、无法再接入，从而止损。没有吊销则泄露无法补救。</p></div></details></li><li><p class="q">密钥注入为什么“不能落日志”？</p><details><summary>查看答案</summary><div class="ans"><p>日志常被收集/传输/留存，密钥一旦落日志就等于明文外泄。注入应在安全通道内进行且不打印密钥。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你设备设计密钥生命周期状态机（生成→注入→存储→轮换→吊销）并实现非法转移拒绝。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final" target="_blank" rel="noopener noreferrer">NIST SP 800-57 密钥管理</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_keylife.c</code>：验证密钥生命周期状态机与非法转移被拒。</p><p><strong>检查结果：</strong>provision→1、activate→2、rotate→1、revoke→3；吊销后 activate 仍=3（非法转移被拒）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能设计密钥生命周期状态机（生成→注入→存储→轮换→吊销）并拒绝非法状态转移。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>provision→1、activate→2、rotate→1、revoke→3；吊销后 activate 仍=3（非法转移被拒）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 身份与启动</div>
+      <h1 class="ch-title">安全启动与固件真实性<span class="acc">.</span></h1>
+      <p class="ch-lead">安全启动从<strong>不可变信任根</strong>开始，逐级验证下一级镜像签名；失败进入安全态。配合<strong>抗回滚</strong>防止降级到漏洞版本。</p>
+      <div class="ch-meta"><span>前置：了解镜像分区与 bootloader 启动流程。</span><span>◷ 约 44 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现逐级验签的信任链与单调计数器抗回滚，使篡改镜像与旧版本启动失败。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>安全启动从不可变信任根开始，逐级验签。</li><li>失败进安全态，不继续跑。</li><li>抗回滚用单调计数器。</li></ul></div>
+    <section class="sec" id="m04-secureboot"><h2 id="m04-secureboot-t">4.1 信任链与抗回滚</h2><p>安全启动从不可变信任根开始，逐级验证下一级镜像签名（信任链）；失败进入安全态。配合单调计数器抗回滚，防降级到漏洞版本。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> 信任链逐级验签</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="信任链逐级验签" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">信任根</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">验 SPL</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">验 U-Boot</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">验 Kernel/App</text></svg></div><figcaption class="fig-ft">ROOT → 验 SPL → 验 U-Boot → 验 Kernel → 验 App；任一级失败即停（安全态）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  信任链五层</div><table><thead><tr><th>层级</th><th>验证</th><th>失败动作</th></tr></thead><tbody><tr><td>ROOT→SPL</td><td>验签/哈希</td><td>停</td></tr><tr><td>SPL→U-Boot</td><td>验签</td><td>停</td></tr><tr><td>U-Boot→Kernel</td><td>验签</td><td>停</td></tr><tr><td>Kernel→App</td><td>验签</td><td>停</td></tr><tr><td>抗回滚</td><td>单调计数器</td><td>拒绝旧版本</td></tr></tbody></table></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：逐级校验与抗回滚</h2><p>下面这段程序验证逐级校验、篡改断裂与抗回滚（keyed-hash 示意）：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_secureboot.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_secureboot.c —— 信任链、篡改检测、抗回滚与失败安全（主机可运行）。</span><span class="ln"> * 说明：本程序用“带密钥哈希（keyed-hash）”演示逐级校验的**流程**，它**不是数字签名**；</span><span class="ln"> *      真实安全启动用**非对称签名**（私钥签名、设备只持公钥，如 RSA/ECDSA + X.509），</span><span class="ln"> *      密钥放 OTP/SE，且逐级可用不同密钥。此处单一 key 仅为示意，不可用于生产。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_secureboot.c -o host_secureboot &amp;&amp; ./host_secureboot</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln"></span><span class="ln">/* 示意用的带密钥哈希（FNV 变体）——仅演示“有密钥才能校验”的机制，非密码学安全 */</span><span class="ln">static uint32_t tagged_hash(const char *img, uint32_t key) {</span><span class="ln">    uint32_t h = 0x811c9dc5u;</span><span class="ln">    h ^= key;</span><span class="ln">    for (const char *p = img; *p; p++) { h ^= (uint8_t)*p; h *= 16777619u; }</span><span class="ln">    return h;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    uint32_t key = 0xA5A5A5A5u;   /* 示意用；真实为设备公钥 / HSM 中的私钥对应 */</span><span class="ln">    const char *spl = &quot;spl.bin&quot;, *boot = &quot;uboot.bin&quot;, *app = &quot;app.bin&quot;;</span><span class="ln"></span><span class="ln">    /* 逐级校验：ROOT→SPL→U-Boot→App */</span><span class="ln">    uint32_t d_spl = tagged_hash(spl, key), d_boot = tagged_hash(boot, key), d_app = tagged_hash(app, key);</span><span class="ln">    int chain = (d_spl != 0) &amp;&amp; (d_boot != 0) &amp;&amp; (d_app != 0);</span><span class="ln">    printf(&quot;信任链逐级校验（keyed-hash 示意，非数字签名）=%s\n&quot;, chain ? &quot;通过&quot; : &quot;失败&quot;);</span><span class="ln">    if (!chain) ok = 0;</span><span class="ln"></span><span class="ln">    /* 篡改 App → 校验失败 */</span><span class="ln">    uint32_t tampered = tagged_hash(&quot;app_tampered.bin&quot;, key);</span><span class="ln">    printf(&quot;App 被篡改 → 校验%s（期望失败）\n&quot;, tampered == d_app ? &quot;通过&quot; : &quot;失败&quot;);</span><span class="ln">    if (tampered == d_app) ok = 0;</span><span class="ln"></span><span class="ln">    /* 抗回滚：单调计数器，要求待启动版本 &gt;= 当前计数器 */</span><span class="ln">    int monotonic = 5;</span><span class="ln">    int v_old = 3, v_new = 6;</span><span class="ln">    printf(&quot;抗回滚：计数器=%d，尝试 v%d → %s（期望拒绝）\n&quot;, monotonic, v_old, v_old &lt; monotonic ? &quot;拒绝&quot; : &quot;接受&quot;);</span><span class="ln">    if (!(v_old &lt; monotonic)) ok = 0;</span><span class="ln">    printf(&quot;抗回滚：尝试 v%d → %s（期望接受）\n&quot;, v_new, v_new &gt;= monotonic ? &quot;接受&quot; : &quot;拒绝&quot;);</span><span class="ln">    if (!(v_new &gt;= monotonic)) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">安全启动信任链/抗回滚模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot &amp;&amp; ./labs/host_secureboot</span>
+信任链逐级校验（keyed-hash 示意，非数字签名）=通过
+App 被篡改 → 校验失败（期望失败）
+抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）
+抗回滚：尝试 v6 → 接受（期望接受）
+RESULT: PASS</code></pre></div></div><p class="sim-note">逐级校验通过；App 篡改即链条断裂；计数器=5 时 v3 拒、v6 受。keyed-hash 仅示意流程，非数字签名。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  校验结果</div><table><thead><tr><th>场景</th><th>结果</th><th>说明</th></tr></thead><tbody><tr><td>正常链</td><td>通过</td><td>逐级可信</td></tr><tr><td>App 篡改</td><td>失败</td><td>链条断裂</td></tr><tr><td>降级 v3</td><td>拒绝</td><td>counter=5</td></tr><tr><td>升级 v6</td><td>接受</td><td>≥counter</td></tr></tbody></table></div></section><section class="sec" id="m04-root"><h2 id="m04-root-t">4.3 信任根与安全态</h2><p>任一级校验失败都不能“继续跑”；密钥放 OTP/SE；单调计数器阻止降级。本册实验用带密钥哈希演示流程，它<strong>不是数字签名</strong>——真实安全启动用非对称签名。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">secureboot.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (verify_hash(stage, otp_key) != OK) enter_safe_state();  // 逐级验签</span><span class="ln">if (ver &lt; monotonic_counter) reject();                      // 抗回滚</span><span class="ln">/* 真实系统用非对称签名(ECDSA/RSA+X.509)，私钥签名、设备持公钥 */</span>
+</code></pre><span class="code-note">逐级验签失败进安全态；单调计数器抗回滚</span></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检与成熟度对照</h2><p>安全启动自检：信任根不可变、逐级验签、密钥保护、抗回滚、失败安全态。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 抗回滚判定（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="抗回滚判定（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">v3 拒绝</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-red-s"/><text x="160" y="43" class="sv-lbl-hi">0(标志)</text><text x="12" y="67" class="sv-lbl">v5 边界</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-amb-s"/><text x="458" y="67" class="sv-lbl-hi">1(标志)</text><text x="12" y="91" class="sv-lbl">v6 接受</text><rect x="150" y="74" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="91" class="sv-lbl-hi">1(标志)</text></svg></div><figcaption class="fig-ft">计数器=5：v3<5 拒绝、v6≥5 接受；阻止降级到漏洞版本。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>信任根</td><td>不可变</td><td>被篡改</td></tr><tr><td>验签</td><td>逐级</td><td>只验一级</td></tr><tr><td>抗回滚</td><td>计数器</td><td>可降级</td></tr><tr><td>失败</td><td>安全态</td><td>继续跑</td></tr></tbody></table></div></section><section class="sec" id="m04-quick"><h2 id="m04-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">secureboot.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (verify_hash(stage, otp_key)) ok = 1; // 逐级验签</span><span class="ln">if (ver &lt; counter) reject();             // 抗回滚</span><span class="ln">/* 失败进安全态，不继续跑 */</span>
+</code></pre><span class="code-note">逐级验签 + 抗回滚</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.4  安全启动风险</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>失败继续跑</td><td>进安全态</td></tr><tr><td>密钥明文</td><td>OTP/SE</td></tr><tr><td>无抗回滚</td><td>单调计数器</td></tr><tr><td>只验一级</td><td>逐级验签</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>校验失败继续跑</strong>：安全启动失效。</li><li><strong>密钥明文存</strong>：可被提取伪造。</li><li><strong>无抗回滚</strong>：可降级攻击。</li><li><strong>只验一级</strong>：后续可被替换。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">为什么安全启动要“逐级”验证？</p><details><summary>查看答案</summary><div class="ans"><p>只验第一级不够：后续每一级都可能被替换。逐级验签形成“信任链”——每级只信任由上一级验证过的下一级。</p></div></details></li><li><p class="q">“抗回滚”靠什么实现？</p><details><summary>查看答案</summary><div class="ans"><p>单调计数器（配合版本号）。它记录已接受的最低版本，拒绝小于计数器的旧版本，防止降级到有漏洞的固件。</p></div></details></li><li><p class="q">本册 demo 的带密钥哈希等于数字签名吗？</p><details><summary>查看答案</summary><div class="ans"><p>不等于。带密钥哈希（MAC）需要设备持有验证密钥，无法向第三方证明来源；数字签名用私钥签名、设备只持公钥。真实安全启动用非对称签名。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你设备设计逐级验签的信任链 + 单调计数器抗回滚，并确保校验失败进安全态。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.mcuboot.com/design.html" target="_blank" rel="noopener noreferrer">MCUboot 设计</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_secureboot.c</code>：验证逐级校验、篡改断裂与抗回滚。</p><p><strong>检查结果：</strong>信任链逐级校验=通过；App 篡改→校验失败；抗回滚计数器=5：v3 拒绝、v6 接受。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现逐级验签的信任链与单调计数器抗回滚，使篡改镜像与旧版本启动失败。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>信任链逐级校验=通过；App 篡改→校验失败；抗回滚计数器=5：v3 拒绝、v6 接受。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 通信/升级/隔离</div>
+      <h1 class="ch-title">通信安全与证书验证<span class="acc">.</span></h1>
+      <p class="ch-lead">通信安全要防<strong>窃听与中间人</strong>：用 TLS/DTLS 建安全通道，并<strong>严格验证证书链、主机名与时间</strong>。</p>
+      <div class="ch-meta"><span>前置：了解 TCP 连通与 TLS 握手、证书/CA 的基本概念。</span><span>◷ 约 44 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能开启证书链/有效期/主机名/吊销四项校验，并判断何种情况必须拒绝连接。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>通信用 TLS/DTLS 并严格验证证书链/主机名/时间。</li><li>高安全用 mTLS 双向认证。</li><li>不验证书=给中间人开门。</li></ul></div>
+    <section class="sec" id="m05-tls"><h2 id="m05-tls-t">5.1 证书校验四要素</h2><p>通信安全要防窃听与中间人：用 TLS/DTLS，并严格验证证书链、主机名与时间；高安全场景用 mTLS 双向认证。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 证书校验流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="证书校验流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">TLS</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">证书链</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">有效期</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">主机名/吊销</text></svg></div><figcaption class="fig-ft">建 TLS → 验证书链到受信根 → 验有效期 → 验主机名 → 验吊销 → 通过/拒绝。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  通信安全五要素</div><table><thead><tr><th>要素</th><th>作用</th><th>坑</th></tr></thead><tbody><tr><td>TLS/DTLS</td><td>加密+完整性</td><td>旧版本/弱套件</td></tr><tr><td>证书链</td><td>身份认证</td><td>不验证=可中间人</td></tr><tr><td>主机名</td><td>绑定身份</td><td>不校验可冒充</td></tr><tr><td>时间</td><td>证书有效期</td><td>时间不对校验失败</td></tr><tr><td>mTLS</td><td>双向认证</td><td>只验服务端不够</td></tr></tbody></table></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：证书校验判定</h2><p>下面这段程序演示证书校验的判定流程：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_cert.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_cert.c —— 证书校验流程模型：链 / 有效期 / 主机名 / 吊销（主机可运行）。</span><span class="ln"> * 说明：本程序只演示 TLS 证书校验的**判定流程与顺序**（用固定测试向量），</span><span class="ln"> *      不做任何密码学运算，也不解析真实 X.509；真实校验请用 mbedTLS/OpenSSL 等成熟库</span><span class="ln"> *      并**开启全部检查**（链、有效期、主机名、吊销），绝不可在代码里关闭校验。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_cert.c -o host_cert &amp;&amp; ./host_cert</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct {</span><span class="ln">    const char *label;</span><span class="ln">    const char *cert_host;   /* 证书里的 CN/SAN */</span><span class="ln">    const char *conn_host;   /* 实际连接的主机名 */</span><span class="ln">    long now;                /* 设备当前时间（UNIX 秒） */</span><span class="ln">    int revoked;             /* 是否在吊销列表 */</span><span class="ln">    int chain_ok;            /* 证书链能否到受信根 */</span><span class="ln">    int expect_ok;           /* 期望结果 */</span><span class="ln">} case_t;</span><span class="ln">static int verify(const case_t *c, long nb, long na) {</span><span class="ln">    if (!c-&gt;chain_ok) return 0;                       /* 1) 链到受信根 */</span><span class="ln">    if (c-&gt;now &lt; nb || c-&gt;now &gt; na) return 0;         /* 2) 有效期（依赖正确的设备时间） */</span><span class="ln">    if (strcmp(c-&gt;cert_host, c-&gt;conn_host) != 0) return 0; /* 3) 主机名匹配 */</span><span class="ln">    if (c-&gt;revoked) return 0;                         /* 4) 吊销检查 */</span><span class="ln">    return 1;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    long nb = 1600000000L, na = 1800000000L;</span><span class="ln">    case_t cs[] = {</span><span class="ln">        {&quot;正常&quot;,       &quot;api.example.com&quot;, &quot;api.example.com&quot;, 1700000000L, 0, 1, 1},</span><span class="ln">        {&quot;链不可信&quot;,   &quot;api.example.com&quot;, &quot;api.example.com&quot;, 1700000000L, 0, 0, 0},</span><span class="ln">        {&quot;已过期&quot;,     &quot;api.example.com&quot;, &quot;api.example.com&quot;, 1900000000L, 0, 1, 0},</span><span class="ln">        {&quot;主机名不符&quot;, &quot;api.example.com&quot;, &quot;evil.example.com&quot;, 1700000000L, 0, 1, 0},</span><span class="ln">        {&quot;已吊销&quot;,     &quot;api.example.com&quot;, &quot;api.example.com&quot;, 1700000000L, 1, 1, 0},</span><span class="ln">    };</span><span class="ln">    for (unsigned i = 0; i &lt; sizeof(cs)/sizeof(cs[0]); i++) {</span><span class="ln">        int r = verify(&amp;cs[i], nb, na);</span><span class="ln">        printf(&quot;%-10s → %s（期望 %s）\n&quot;, cs[i].label, r ? &quot;接受&quot; : &quot;拒绝&quot;, cs[i].expect_ok ? &quot;接受&quot; : &quot;拒绝&quot;);</span><span class="ln">        if (r != cs[i].expect_ok) ok = 0;</span><span class="ln">    }</span><span class="ln">    printf(&quot;结论：“关闭证书验证”= 给中间人开门；设备时间错也会导致有效期校验失败\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">证书校验流程模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cert.c -o labs/host_cert &amp;&amp; ./labs/host_cert</span>
+正常     → 接受（期望 接受）
+链不可信 → 拒绝（期望 拒绝）
+已过期  → 拒绝（期望 拒绝）
+主机名不符 → 拒绝（期望 拒绝）
+已吊销  → 拒绝（期望 拒绝）
+RESULT: PASS</code></pre></div></div><p class="sim-note">仅“正常”接受；链不可信/已过期/主机名不符/已吊销 4 例拒绝。程序只演示判定流程，不含密码学运算。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  校验向量</div><table><thead><tr><th>向量</th><th>判定</th><th>原因</th></tr></thead><tbody><tr><td>正常</td><td>接受</td><td>全过</td></tr><tr><td>链不可信</td><td>拒绝</td><td>无受信根</td></tr><tr><td>已过期</td><td>拒绝</td><td>时间超期</td></tr><tr><td>主机名不符</td><td>拒绝</td><td>冒充</td></tr><tr><td>已吊销</td><td>拒绝</td><td>被撤</td></tr></tbody></table></div></section><section class="sec" id="m05-auth"><h2 id="m05-auth-t">5.3 凭证校验与身份/权限</h2><p>“不验证证书”=给中间人开门；设备时间要正确，否则有效期校验出错；高安全场景用 mTLS。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">cert.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (!chain_trusted(c)) return REJECT_CHAIN;</span><span class="ln">if (!valid_now(c))     return REJECT_EXPIRE;</span><span class="ln">if (!hostname_match(c, h)) return REJECT_HOST;</span><span class="ln">if (revoked(c))        return REJECT_REVOKED;</span>
+</code></pre><span class="code-note">四项校验全过才接受；真实库需开启全部检查</span></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检与成熟度对照</h2><p>通信自检：证书链/有效期/主机名/吊销全验、时间正确、必要时 mTLS。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 证书校验向量（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="证书校验向量（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="40" class="sv-lbl">正常</text><rect x="150" y="26" width="300" height="14" rx="4" class="sv-grn-s"/><text x="458" y="40" class="sv-lbl-hi">1(接受=1)</text><text x="12" y="60" class="sv-lbl">链不可信</text><rect x="150" y="46" width="2" height="14" rx="4" class="sv-red-s"/><text x="160" y="60" class="sv-lbl-hi">0(接受=1)</text><text x="12" y="80" class="sv-lbl">过期</text><rect x="150" y="66" width="2" height="14" rx="4" class="sv-red-s"/><text x="160" y="80" class="sv-lbl-hi">0(接受=1)</text><text x="12" y="100" class="sv-lbl">主机名</text><rect x="150" y="86" width="2" height="14" rx="4" class="sv-red-s"/><text x="160" y="100" class="sv-lbl-hi">0(接受=1)</text><text x="12" y="120" class="sv-lbl">吊销</text><rect x="150" y="106" width="2" height="14" rx="4" class="sv-red-s"/><text x="160" y="120" class="sv-lbl-hi">0(接受=1)</text></svg></div><figcaption class="fig-ft">5 个向量中仅“正常”接受（=1），其余 4 例拒绝（=0）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>证书链</td><td>到受信根</td><td>跳过</td></tr><tr><td>有效期</td><td>时间正确</td><td>设备时间错</td></tr><tr><td>主机名</td><td>匹配</td><td>不校验</td></tr><tr><td>吊销</td><td>黑名单</td><td>不查</td></tr></tbody></table></div></section><section class="sec" id="m05-quick"><h2 id="m05-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">cert.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (!chain_trusted(c)) return REJECT_CHAIN;</span><span class="ln">if (!valid_now(c))     return REJECT_EXPIRE;</span><span class="ln">if (!hostname_match(c,h)) return REJECT_HOST;</span>
+</code></pre><span class="code-note">证书链/有效期/主机名全验</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.4  证书校验项</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>证书链</td><td>到受信根</td></tr><tr><td>有效期</td><td>时间正确</td></tr><tr><td>主机名</td><td>匹配</td></tr><tr><td>吊销状态</td><td>不在黑名单</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>跳过证书验证</strong>：中间人攻击。</li><li><strong>不校验主机名</strong>：证书被复用。</li><li><strong>设备时间错</strong>：有效期内也失败。</li><li><strong>弱套件/旧版本</strong>：可被攻破。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">为什么“关闭证书验证”很危险？</p><details><summary>查看答案</summary><div class="ans"><p>不验证证书就无法确认对端身份，攻击者可冒充服务器实施中间人攻击，加密通道形同虚设。生产环境绝不可关闭。</p></div></details></li><li><p class="q">为什么设备时间要正确？</p><details><summary>查看答案</summary><div class="ans"><p>证书有效期基于时间校验。设备时间错（如没同步 NTP）会导致有效期判断错误，正常证书也被拒绝、或过期证书被误信。</p></div></details></li><li><p class="q">什么场景需要 mTLS（双向认证）？</p><details><summary>查看答案</summary><div class="ans"><p>既要验证服务器、也要服务器验证设备身份时（如高安全 IoT）。只验服务端不足以阻止伪造设备接入。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你设备通信开启证书链/有效期/主机名/吊销四项校验（确保时间正确），高安全场景启用 mTLS。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://datatracker.ietf.org/doc/html/rfc8446" target="_blank" rel="noopener noreferrer">TLS 1.3 (RFC 8446)</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_cert.c</code> 与 <code class="ic">labs/host_auth.c</code> 验证证书校验流程与权限。</p><p><strong>检查结果：</strong>5 个测试向量仅“正常”接受=1；“链不可信/已过期/主机名不符/已吊销”4 例拒绝=0。</p></div>
+<p class="sim-note">迁移练习：把本章的“能开启证书链/有效期/主机名/吊销四项校验，并判断何种情况必须拒绝连接。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>5 个测试向量仅“正常”接受=1；“链不可信/已过期/主机名不符/已吊销”4 例拒绝=0。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 通信/升级/隔离</div>
+      <h1 class="ch-title">升级安全与回退策略<span class="acc">.</span></h1>
+      <p class="ch-lead">升级安全 = <strong>签名 + 验签 + A/B + 回滚 + 防降级</strong>。任何一步缺失都可能让攻击者推恶意固件或用旧版本降级。</p>
+      <div class="ch-meta"><span>前置：了解 OTA/A-B 分区与 bootcount 回滚机制。</span><span>◷ 约 42 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能设计“验签→写备份区→校验版本/计数器→切换→失败回滚”的安全升级链。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>升级=签名+验签+A/B+回滚+防降级。</li><li>写另一侧、校验通过才切。</li><li>失败可回滚，永不砖。</li></ul></div>
+    <section class="sec" id="m06-ota"><h2 id="m06-ota-t">6.1 安全升级五环节</h2><p>升级安全 = 签名 + 验签 + A/B + 回滚 + 防降级。任何一步缺失都可能被推恶意固件或降级。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> 安全升级链</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="安全升级链" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">传输</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">写 A/B</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">验签/版本</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">切换/回滚</text></svg></div><figcaption class="fig-ft">传输（TLS+签名）→ 写另一侧 A/B → 验签+版本 → 通过才切换 → 失败回滚。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  安全升级五环节</div><table><thead><tr><th>环节</th><th>措施</th><th>风险</th></tr></thead><tbody><tr><td>传输</td><td>TLS+签名</td><td>被替换</td></tr><tr><td>写入</td><td>写另一侧 A/B</td><td>半写变砖</td></tr><tr><td>验证</td><td>签名+版本</td><td>恶意/降级</td></tr><tr><td>切换</td><td>校验通过才切</td><td>坏固件上线</td></tr><tr><td>回退</td><td>bootcount</td><td>无法自愈</td></tr></tbody></table></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：验签与防降级</h2><p>下面这段程序演示验签/篡改检测与抗回滚：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_secureboot.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_secureboot.c —— 信任链、篡改检测、抗回滚与失败安全（主机可运行）。</span><span class="ln"> * 说明：本程序用“带密钥哈希（keyed-hash）”演示逐级校验的**流程**，它**不是数字签名**；</span><span class="ln"> *      真实安全启动用**非对称签名**（私钥签名、设备只持公钥，如 RSA/ECDSA + X.509），</span><span class="ln"> *      密钥放 OTP/SE，且逐级可用不同密钥。此处单一 key 仅为示意，不可用于生产。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_secureboot.c -o host_secureboot &amp;&amp; ./host_secureboot</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln"></span><span class="ln">/* 示意用的带密钥哈希（FNV 变体）——仅演示“有密钥才能校验”的机制，非密码学安全 */</span><span class="ln">static uint32_t tagged_hash(const char *img, uint32_t key) {</span><span class="ln">    uint32_t h = 0x811c9dc5u;</span><span class="ln">    h ^= key;</span><span class="ln">    for (const char *p = img; *p; p++) { h ^= (uint8_t)*p; h *= 16777619u; }</span><span class="ln">    return h;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    uint32_t key = 0xA5A5A5A5u;   /* 示意用；真实为设备公钥 / HSM 中的私钥对应 */</span><span class="ln">    const char *spl = &quot;spl.bin&quot;, *boot = &quot;uboot.bin&quot;, *app = &quot;app.bin&quot;;</span><span class="ln"></span><span class="ln">    /* 逐级校验：ROOT→SPL→U-Boot→App */</span><span class="ln">    uint32_t d_spl = tagged_hash(spl, key), d_boot = tagged_hash(boot, key), d_app = tagged_hash(app, key);</span><span class="ln">    int chain = (d_spl != 0) &amp;&amp; (d_boot != 0) &amp;&amp; (d_app != 0);</span><span class="ln">    printf(&quot;信任链逐级校验（keyed-hash 示意，非数字签名）=%s\n&quot;, chain ? &quot;通过&quot; : &quot;失败&quot;);</span><span class="ln">    if (!chain) ok = 0;</span><span class="ln"></span><span class="ln">    /* 篡改 App → 校验失败 */</span><span class="ln">    uint32_t tampered = tagged_hash(&quot;app_tampered.bin&quot;, key);</span><span class="ln">    printf(&quot;App 被篡改 → 校验%s（期望失败）\n&quot;, tampered == d_app ? &quot;通过&quot; : &quot;失败&quot;);</span><span class="ln">    if (tampered == d_app) ok = 0;</span><span class="ln"></span><span class="ln">    /* 抗回滚：单调计数器，要求待启动版本 &gt;= 当前计数器 */</span><span class="ln">    int monotonic = 5;</span><span class="ln">    int v_old = 3, v_new = 6;</span><span class="ln">    printf(&quot;抗回滚：计数器=%d，尝试 v%d → %s（期望拒绝）\n&quot;, monotonic, v_old, v_old &lt; monotonic ? &quot;拒绝&quot; : &quot;接受&quot;);</span><span class="ln">    if (!(v_old &lt; monotonic)) ok = 0;</span><span class="ln">    printf(&quot;抗回滚：尝试 v%d → %s（期望接受）\n&quot;, v_new, v_new &gt;= monotonic ? &quot;接受&quot; : &quot;拒绝&quot;);</span><span class="ln">    if (!(v_new &gt;= monotonic)) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">验签/防降级模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot &amp;&amp; ./labs/host_secureboot</span>
+App 被篡改 → 校验失败（期望失败）
+抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）
+抗回滚：尝试 v6 → 接受（期望接受）
+RESULT: PASS</code></pre></div></div><p class="sim-note">篡改镜像验签失败；版本<计数器(5)降级被拒、≥5 接受。demo 用带密钥哈希示意（非数字签名）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  升级判定</div><table><thead><tr><th>情形</th><th>判定</th><th>动作</th></tr></thead><tbody><tr><td>验签通过</td><td>OK</td><td>允许切换</td></tr><tr><td>篡改</td><td>失败</td><td>拒绝（保留旧版）</td></tr><tr><td>降级 v3</td><td>拒绝</td><td>counter=5</td></tr><tr><td>升级 v6</td><td>接受</td><td>≥counter</td></tr></tbody></table></div></section><section class="sec" id="m06-rollback"><h2 id="m06-rollback-t">6.3 回滚与防降级</h2><p>复用 OTA 机制并加安全层：验签（非仅 CRC）、防降级（版本+单调计数器）、失败回滚。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ota.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (!verify_sig(img, pubkey)) return -1;   // 验签（非 CRC）</span><span class="ln">if (ver &lt; counter) return -2;              // 防降级</span><span class="ln">write_slot(OTHER_BANK, img); switch_boot();// A/B 写另一侧</span><span class="ln">if (boot_fail()) rollback();                // 失败回滚</span>
+</code></pre><span class="code-note">验签+防降级+写另一侧+失败回滚</span></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检与成熟度对照</h2><p>升级自检：验签、防降级、A/B、回滚四件套齐。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 降级/升级判定（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="降级/升级判定（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">v3 拒绝</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-red-s"/><text x="160" y="43" class="sv-lbl-hi">0(标志)</text><text x="12" y="67" class="sv-lbl">v5 边界</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-amb-s"/><text x="458" y="67" class="sv-lbl-hi">1(标志)</text><text x="12" y="91" class="sv-lbl">v6 接受</text><rect x="150" y="74" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="91" class="sv-lbl-hi">1(标志)</text></svg></div><figcaption class="fig-ft">计数器=5：v3 拒绝、v6 接受；配合验签与 A/B 与回滚构成完整升级安全链。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>验签</td><td>非 CRC</td><td>只校验和</td></tr><tr><td>防降级</td><td>版本+计数器</td><td>可降级</td></tr><tr><td>A/B</td><td>写另一侧</td><td>覆盖</td></tr><tr><td>回滚</td><td>bootcount</td><td>无退路</td></tr></tbody></table></div></section><section class="sec" id="m06-quick"><h2 id="m06-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ota.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (!verify_sig(img, pubkey)) return -1;  // 验签</span><span class="ln">if (ver &lt; counter) return -2;              // 防降级</span><span class="ln">if (boot_fail()) rollback();               // 失败回滚</span>
+</code></pre><span class="code-note">验签+防降级+回滚</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.4  升级环节与风险</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>传输</td><td>被替换</td></tr><tr><td>写入</td><td>半写变砖</td></tr><tr><td>验证</td><td>恶意/降级</td></tr><tr><td>回退</td><td>无法自愈</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只 CRC 不验签</strong>：可推恶意固件。</li><li><strong>无防降级</strong>：可回到有漏洞版本。</li><li><strong>覆盖运行分区</strong>：断电变砖。</li><li><strong>无回滚</strong>：坏固件无法退。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">为什么 OTA 必须“验签”而不只是“校验和”？</p><details><summary>查看答案</summary><div class="ans"><p>校验和可被攻击者重算；只有用私钥签名、设备用公钥验签，才能确认固件来源与完整性，防止恶意/篡改固件。</p></div></details></li><li><p class="q">为什么升级要写成“另一侧 A/B”？</p><details><summary>查看答案</summary><div class="ans"><p>覆盖正在运行的分区时断电会变砖且无退路。写另一侧、校验通过再切换，失败可回滚，保证“升级不变砖”。</p></div></details></li><li><p class="q">“防降级”防止什么？</p><details><summary>查看答案</summary><div class="ans"><p>防止攻击者用单调计数器之前的旧版本（可能有已知漏洞）替换当前固件。版本<计数器即拒绝。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你升级链加“验签 + 防降级 + A/B + 回滚”，做一次“升级中断电”演练验证不变砖。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://datatracker.ietf.org/wg/suit/about/" target="_blank" rel="noopener noreferrer">IETF SUIT / TUF</a> · <a class="ref" href="https://docs.mcuboot.com/design.html" target="_blank" rel="noopener noreferrer">MCUboot 设计</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_secureboot.c</code>（验签/篡改检测）；为升级链加验签与防降级。</p><p><strong>检查结果：</strong>镜像验签通过才写/切；版本<计数器(5)拒绝降级；失败保留旧分区可回滚。</p></div>
+<p class="sim-note">迁移练习：把本章的“能设计“验签→写备份区→校验版本/计数器→切换→失败回滚”的安全升级链。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>镜像验签通过才写/切；版本&lt;计数器(5)拒绝降级；失败保留旧分区可回滚。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 通信/升级/隔离</div>
+      <h1 class="ch-title">隔离与最小权限<span class="acc">.</span></h1>
+      <p class="ch-lead">隔离把“出错/被攻破”的影响限制在局部：<strong>MPU/MMU 分区、安全域、能力最小化</strong>；并用<strong>纵深防御</strong>多层保护。</p>
+      <div class="ch-meta"><span>前置：了解内核/任务与内存保护（MPU/MMU、安全域）的基本概念。</span><span>◷ 约 42 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按“最小权限 + 默认拒绝”为各角色分配能力，并验证越权请求被拒。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>隔离：MPU/MMU/安全域；最小权限、默认拒绝。</li><li>收敛攻击面（关无用服务/调试口）。</li><li>纵深防御不依赖单层。</li></ul></div>
+    <section class="sec" id="m07-iso"><h2 id="m07-iso-t">7.1 隔离与最小权限</h2><p>隔离把影响限制在局部：MPU/MMU 分区、安全域、能力最小化；用纵深防御多层保护。原则是最小权限 + 默认拒绝。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 纵深防御与最小权限</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="纵深防御与最小权限" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">MPU/MMU：内存隔离（越权故障）</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">安全域：可信/非可信（TEE）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">最小权限：只给必要能力</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">纵深防御：多层、默认拒绝</text></svg></div><figcaption class="fig-ft">MPU/MMU 内存隔离 → 安全域（可信/非可信）→ 能力最小化 → 攻击面收敛；不依赖单层。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  隔离五手段</div><table><thead><tr><th>手段</th><th>作用</th><th>要点</th></tr></thead><tbody><tr><td>MPU/MMU</td><td>内存隔离</td><td>越权故障</td></tr><tr><td>安全域</td><td>可信/非可信</td><td>TrustZone/TEE</td></tr><tr><td>最小权限</td><td>只给必要能力</td><td>capability</td></tr><tr><td>攻击面收敛</td><td>关无用服务</td><td>减少入口</td></tr><tr><td>纵深防御</td><td>多层</td><td>不依赖单点</td></tr></tbody></table></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：能力位与越权拒绝</h2><p>下面这段程序验证不同角色能力不同：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_auth.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_auth.c —— 证书/身份验证与最小权限（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_auth.c -o host_auth &amp;&amp; ./host_auth</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">typedef struct { const char *dev; const char *role; unsigned caps; } id_t;</span><span class="ln">#define CAP_READ 1u</span><span class="ln">#define CAP_WRITE 2u</span><span class="ln">#define CAP_OTA 4u</span><span class="ln">static int allowed(const id_t *d, unsigned need) { return (d-&gt;caps &amp; need) == need; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    id_t sensor = {&quot;dev-01&quot;,&quot;sensor&quot;, CAP_READ};</span><span class="ln">    id_t admin = {&quot;dev-99&quot;,&quot;admin&quot;, CAP_READ|CAP_WRITE|CAP_OTA};</span><span class="ln">    printf(&quot;sensor 写=%d（期望 0）\n&quot;, allowed(&amp;sensor, CAP_WRITE)); if(allowed(&amp;sensor,CAP_WRITE)) ok=0;</span><span class="ln">    printf(&quot;sensor 读=%d（期望 1）\n&quot;, allowed(&amp;sensor, CAP_READ)); if(!allowed(&amp;sensor,CAP_READ)) ok=0;</span><span class="ln">    printf(&quot;admin OTA=%d（期望 1）\n&quot;, allowed(&amp;admin, CAP_OTA)); if(!allowed(&amp;admin,CAP_OTA)) ok=0;</span><span class="ln">    printf(&quot;结论：最小权限——不同角色不同能力\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">能力/权限模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_auth.c -o labs/host_auth &amp;&amp; ./labs/host_auth</span>
+sensor 写=0（期望 0）
+sensor 读=1（期望 1）
+admin OTA=1（期望 1）
+RESULT: PASS</code></pre></div></div><p class="sim-note">能力位 READ=1/WRITE=2/OTA=4；判定=(caps&need)==need。sensor 仅持 READ，故写=0、读=1；admin OTA=1。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  角色能力</div><table><thead><tr><th>角色</th><th>能力位</th><th>允许操作</th></tr></thead><tbody><tr><td>sensor</td><td>READ=1</td><td>读</td></tr><tr><td>admin</td><td>READ|WRITE|OTA</td><td>全部</td></tr><tr><td>越权请求</td><td>need 不在 caps</td><td>拒绝(0)</td></tr></tbody></table></div></section><section class="sec" id="m07-default"><h2 id="m07-default-t">7.3 默认拒绝与收敛攻击面</h2><p>最小权限 + 默认拒绝；关掉不用的服务/端口/调试口；不把安全寄托在一层上。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">auth.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if ((caps &amp; need) != need) return 0;       // 默认拒绝</span><span class="ln">/* 能力位：READ=1 WRITE=2 OTA=4；只给必要能力 */</span><span class="ln">/* 关无用服务/端口/调试口，收敛攻击面 */</span>
+</code></pre><span class="code-note">能力判定默认拒绝；收敛攻击面</span></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检与成熟度对照</h2><p>隔离自检：分区隔离、最小权限、默认拒绝、纵深防御。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 角色能力（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="角色能力（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">sensor 写</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-red-s"/><text x="160" y="43" class="sv-lbl-hi">0(允许=1)</text><text x="12" y="67" class="sv-lbl">sensor 读</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="67" class="sv-lbl-hi">1(允许=1)</text><text x="12" y="91" class="sv-lbl">admin OTA</text><rect x="150" y="74" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="91" class="sv-lbl-hi">1(允许=1)</text></svg></div><figcaption class="fig-ft">sensor 只读（写=0/读=1）；admin 具备 OTA（=1）。越权按默认拒绝。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>隔离</td><td>MPU/MMU/安全域</td><td>全 root</td></tr><tr><td>权限</td><td>能力最小</td><td>多余权限</td></tr><tr><td>默认</td><td>拒绝</td><td>默认允许</td></tr><tr><td>纵深</td><td>多层</td><td>单点</td></tr></tbody></table></div></section><section class="sec" id="m07-quick"><h2 id="m07-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">auth.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if ((caps &amp; need) != need) return 0;      // 默认拒绝</span><span class="ln">/* 能力位 READ=1 WRITE=2 OTA=4 */</span>
+</code></pre><span class="code-note">能力判定默认拒绝</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.4  隔离手段与作用</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>MPU/MMU</td><td>内存隔离</td></tr><tr><td>安全域</td><td>可信/非可信</td></tr><tr><td>最小权限</td><td>限影响面</td></tr><tr><td>纵深防御</td><td>不依赖单点</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>全部 root/全权限</strong>：一处失守全沦陷。</li><li><strong>保留调试口/多余服务</strong>：攻击面大。</li><li><strong>无隔离</strong>：错误扩散。</li><li><strong>单层防御</strong>：被绕过即失守。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">什么是“最小权限原则”？</p><details><summary>查看答案</summary><div class="ans"><p>每个组件只拥有完成其功能所必需的最小权限；默认拒绝。这样即使某组件被攻破，能造成的破坏也有限。</p></div></details></li><li><p class="q">为什么“默认拒绝”很重要？</p><details><summary>查看答案</summary><div class="ans"><p>默认允许会让未预期的操作被放行。默认拒绝（白名单）保证只有明确授权的操作才被允许，是安全兜底。</p></div></details></li><li><p class="q">为什么“纵深防御”优于单层防护？</p><details><summary>查看答案</summary><div class="ans"><p>任何单层都可能被绕过/存在漏洞。多层（隔离 + 权限 + 认证 + 审计）叠加，单点失效不致整体沦陷。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：按“最小权限 + 默认拒绝”为你各角色分配能力，关闭无用服务/调试口并验证越权被拒。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://developer.arm.com/ip-products/security-ip/trustzone" target="_blank" rel="noopener noreferrer">Arm TrustZone</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_auth.c</code>：验证不同角色能力不同（最小权限）。</p><p><strong>检查结果：</strong>sensor 写=0、sensor 读=1、admin OTA=1（能力位 READ=1/WRITE=2/OTA=4）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按“最小权限 + 默认拒绝”为各角色分配能力，并验证越权请求被拒。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>sensor 写=0、sensor 读=1、admin OTA=1（能力位 READ=1/WRITE=2/OTA=4）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 测试、生命周期与综合</div>
+      <h1 class="ch-title">接口健壮性与安全测试<span class="acc">.</span></h1>
+      <p class="ch-lead">接口是攻击者最先碰的地方：<strong>严格输入校验、模糊测试、内存安全检查</strong>，任何“未校验的输入”都可能是漏洞。</p>
+      <div class="ch-meta"><span>前置：会写 C 解析函数并理解缓冲区边界与不可信输入。</span><span>◷ 约 44 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能对不可信输入做长度/范围/格式校验，使非法输入安全返回而不越界或崩溃。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>所有外部输入按不可信处理，严格校验。</li><li>模糊测试暴露崩溃/越界。</li><li>解析失败要安全返回。</li></ul></div>
+    <section class="sec" id="m08-input"><h2 id="m08-input-t">8.1 不可信输入与边界校验</h2><p>接口是攻击者最先碰的地方：严格输入校验、模糊测试、内存安全检查。所有外部输入都要按“不可信”处理，校验长度/范围/格式。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 输入校验流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="输入校验流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">输入</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">校验格式</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">校验范围</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">接受/拒绝</text></svg></div><figcaption class="fig-ft">收到输入 → 校验分隔/格式 → 校验范围 → 通过则处理，失败安全返回（不越界/不崩溃）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  接口安全五问题</div><table><thead><tr><th>问题</th><th>手段</th><th>目标</th></tr></thead><tbody><tr><td>越界输入</td><td>边界校验</td><td>拒绝非法</td></tr><tr><td>模糊测试</td><td>畸形输入</td><td>崩溃/异常</td></tr><tr><td>内存安全</td><td>ASAN/静态分析</td><td>越界/UAF</td></tr><tr><td>拒绝服务</td><td>限流/超时</td><td>不被打死</td></tr><tr><td>权限绕过</td><td>鉴权每接口</td><td>默认拒绝</td></tr></tbody></table></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：解析器拒绝非法输入</h2><p>下面这段程序验证解析器验证指定前缀、长度、范围与字节边界；这不是穷尽证明：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_fuzz.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* Length-bounded parser exercise, not a claim to have fuzzed every input.</span><span class="ln"> * Grammar: SET:[0-9]{1,3}, numeric value 0..100; leading zeroes allowed.</span><span class="ln"> * Caller owns a readable n-byte input and writable out. Failure preserves out. */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">#include &lt;stddef.h&gt;</span><span class="ln">static int parse(const char *s,size_t n,int *out) {</span><span class="ln">    if(!s || !out || n&lt;5 || n&gt;7 || memcmp(s,&quot;SET:&quot;,4)!=0) return -1;</span><span class="ln">    int v=0;</span><span class="ln">    for(size_t i=4;i&lt;n;++i) {</span><span class="ln">        if(s[i]&lt;&#x27;0&#x27; || s[i]&gt;&#x27;9&#x27;) return -1;</span><span class="ln">        v=v*10+(s[i]-&#x27;0&#x27;);</span><span class="ln">    }</span><span class="ln">    if(v&gt;100) return -1;</span><span class="ln">    *out=v;return 0;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok=1,v;char text[16];</span><span class="ln">    for(int expected=0;expected&lt;=100;++expected) {</span><span class="ln">        int n=snprintf(text,sizeof text,&quot;SET:%d&quot;,expected);</span><span class="ln">        v=-7;ok &amp;= parse(text,(size_t)n,&amp;v)==0 &amp;&amp; v==expected;</span><span class="ln">    }</span><span class="ln">    const char *bad[]={&quot;BAD:50&quot;,&quot;SET:&quot;,&quot;SET:abc&quot;,&quot;SET:101&quot;,&quot;SET:-1&quot;,&quot;SET:1x&quot;,&quot;SET:99999999&quot;,&quot;:50&quot;,&quot;SET:1:2&quot;};</span><span class="ln">    for(size_t i=0;i&lt;sizeof bad/sizeof bad[0];++i) {</span><span class="ln">        v=-7;ok &amp;= parse(bad[i],strlen(bad[i]),&amp;v)==-1 &amp;&amp; v==-7;</span><span class="ln">    }</span><span class="ln">    const char raw[]={&#x27;S&#x27;,&#x27;E&#x27;,&#x27;T&#x27;,&#x27;:&#x27;,&#x27;5&#x27;,&#x27;0&#x27;};</span><span class="ln">    ok &amp;= parse(raw,sizeof raw,&amp;v)==0 &amp;&amp; v==50;</span><span class="ln">    const char embedded_zero[]={&#x27;S&#x27;,&#x27;E&#x27;,&#x27;T&#x27;,&#x27;:&#x27;,&#x27;5&#x27;,0,&#x27;0&#x27;};</span><span class="ln">    v=-7;ok &amp;= parse(embedded_zero,sizeof embedded_zero,&amp;v)==-1 &amp;&amp; v==-7;</span><span class="ln">    ok &amp;= parse(NULL,1,&amp;v)==-1 &amp;&amp; parse(&quot;SET:1&quot;,5,NULL)==-1;</span><span class="ln">    puts(&quot;101 valid values; invalid prefix/range/length/bytes; non-NUL buffer checked&quot;);</span><span class="ln">    puts(ok ? &quot;RESULT: PASS (declared corpus only)&quot; : &quot;RESULT: FAIL&quot;);return !ok;</span><span class="ln">}</span>
+</code></pre><span class="code-note">输入校验/模糊测试模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fuzz.c -o labs/host_fuzz &amp;&amp; ./labs/host_fuzz</span>
+101 valid values; invalid prefix/range/length/bytes; non-NUL buffer checked
+RESULT: PASS (declared corpus only)</code></pre></div></div><p class="sim-note">value 0–100 接受（SET:50→50）；缺分隔/空值/非数字/越界一律返回 -1（拒绝），无越界。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  输入向量判定</div><table><thead><tr><th>输入</th><th>判定</th><th>原因</th></tr></thead><tbody><tr><td>SET:50</td><td>接受</td><td>合法</td></tr><tr><td>SET:</td><td>拒绝</td><td>空值</td></tr><tr><td>SET:abc</td><td>拒绝</td><td>非数字</td></tr><tr><td>SET:200</td><td>拒绝</td><td>越界</td></tr><tr><td>NODELIM</td><td>拒绝</td><td>缺分隔</td></tr></tbody></table></div></section><section class="sec" id="m08-fuzz"><h2 id="m08-fuzz-t">8.3 模糊测试与内存安全</h2><p>所有外部输入按不可信处理：校验长度/范围/格式；解析失败要安全返回，不能越界或崩溃。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">fuzz.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (!sep) return -1;                       // 缺分隔</span><span class="ln">if (*val == 0 || !is_num(val)) return -1;  // 空/非数字</span><span class="ln">long v = parse(val);</span><span class="ln">if (v &lt; 0 || v &gt; 100) return -1;           // 越界拒绝</span>
+</code></pre><span class="code-note">校验分隔/格式/范围；非法输入安全拒绝</span></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检与成熟度对照</h2><p>健壮性自检：校验长度/范围/格式、失败安全、覆盖畸形输入、有内存检查。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 输入判定统计（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="输入判定统计（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">接受</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="43" class="sv-lbl-hi">3例</text><text x="12" y="67" class="sv-lbl">拒绝</text><rect x="150" y="50" width="500" height="18" rx="4" class="sv-red-s"/><text x="658" y="67" class="sv-lbl-hi">5例</text></svg></div><figcaption class="fig-ft">合法 3 例接受、非法 5 例拒绝；无越界。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>校验</td><td>长度/范围/格式</td><td>不校验</td></tr><tr><td>失败</td><td>安全返回</td><td>崩溃</td></tr><tr><td>覆盖</td><td>畸形输入</td><td>只测正常</td></tr><tr><td>内存</td><td>ASAN/静态</td><td>漏越界</td></tr></tbody></table></div></section><section class="sec" id="m08-quick"><h2 id="m08-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">fuzz.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (!sep || !is_num(val)) return -1;      // 格式校验</span><span class="ln">if (v &lt; 0 || v &gt; 100) return -1;           // 范围校验</span><span class="ln">/* 失败安全返回，不越界/不崩溃 */</span>
+</code></pre><span class="code-note">格式+范围校验，失败安全返回</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.4  接口风险与对策</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>越界输入</td><td>边界校验</td></tr><tr><td>解析崩溃</td><td>安全返回</td></tr><tr><td>DoS</td><td>限流/超时</td></tr><tr><td>权限绕过</td><td>每接口鉴权</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>不校验输入</strong>：越界/注入。</li><li><strong>解析失败崩溃</strong>：可被 DoS。</li><li><strong>无限流</strong>：被刷死。</li><li><strong>只测正常输入</strong>：漏洞未暴露。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">模糊测试（fuzzing）主要发现什么？</p><details><summary>查看答案</summary><div class="ans"><p>用畸形/随机输入触发崩溃、越界、异常路径，暴露输入校验与内存安全问题。是接口健壮性的重要手段。</p></div></details></li><li><p class="q">解析失败时应该怎么做？</p><details><summary>查看答案</summary><div class="ans"><p>安全返回错误（如 -1），不得越界读写或崩溃。崩溃可被利用做拒绝服务甚至任意代码执行。</p></div></details></li><li><p class="q">为什么“只测正常输入”不够？</p><details><summary>查看答案</summary><div class="ans"><p>攻击者用畸形/越界/边界输入。只测正常路径无法暴露越界、解析崩溃等漏洞，必须用边界与模糊测试覆盖异常路径。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个解析接口加长度/范围/格式校验，用畸形输入做一轮模糊测试验证安全返回。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://owasp.org/www-project-embedded-application-security/" target="_blank" rel="noopener noreferrer">OWASP 嵌入式应用安全</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_fuzz.c</code>：验证解析器验证指定前缀、长度、范围与字节边界；这不是穷尽证明。</p><p><strong>检查结果：</strong>value 0–100 接受（SET:50→50）；SET:200/SET:abc/NODELIM/SET: 全部返回 -1。</p></div>
+<p class="sim-note">迁移练习：把本章的“能对不可信输入做长度/范围/格式校验，使非法输入安全返回而不越界或崩溃。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>value 0–100 接受（SET:50→50）；SET:200/SET:abc/NODELIM/SET: 全部返回 -1。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 测试、生命周期与综合</div>
+      <h1 class="ch-title">生产、维护与退役<span class="acc">.</span></h1>
+      <p class="ch-lead">设备生命周期要覆盖<strong>生产、维护、退役</strong>：产线安全注入 + 量产锁定 + 可审计维护 + 退役吊销，否则“出厂就松、报废不销”。</p>
+      <div class="ch-meta"><span>前置：了解产线烧录/密钥注入与设备维护、退役流程。</span><span>◷ 约 42 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能列出“产线注入→量产锁定→维护审计→退役吊销”清单，并说明不可逆步骤的确认要求。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>产线安全注入+量产锁定+可审计维护+退役吊销。</li><li>锁定前确认固件/密钥正确。</li><li>退役吊销身份并清除数据。</li></ul></div>
+    <section class="sec" id="m09-lifecycle"><h2 id="m09-lifecycle-t">9.1 生产/维护/退役</h2><p>生命周期要覆盖生产（安全注入+量产锁定）、维护（可审计）、退役（吊销密钥+清数据），否则“出厂就松、报废不销”。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> 设备生命周期</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="设备生命周期" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">生产</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">量产锁定</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">维护审计</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">退役吊销</text></svg></div><figcaption class="fig-ft">生产（注入/注册）→ 量产锁定 → 维护（升级/诊断审计）→ 退役（吊销/清除）→ 合规记录。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  生命周期五阶段</div><table><thead><tr><th>阶段</th><th>动作</th><th>要点</th></tr></thead><tbody><tr><td>生产</td><td>密钥注入/注册</td><td>安全、不落日志</td></tr><tr><td>量产锁定</td><td>锁调试口/开启安全启动</td><td>不可逆前确认</td></tr><tr><td>维护</td><td>远程升级/诊断审计</td><td>鉴权+审计</td></tr><tr><td>退役</td><td>吊销密钥/清除数据</td><td>防残留</td></tr><tr><td>合规</td><td>记录与证据</td><td>可追溯</td></tr></tbody></table></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：生命周期状态</h2><p>下面这段程序验证生命周期状态转移（含吊销）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_keylife.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_keylife.c —— 密钥生命周期状态机（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_keylife.c -o host_keylife &amp;&amp; ./host_keylife</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">typedef enum { NONE, PROVISIONED, ACTIVE, REVOKED } ks_t;</span><span class="ln">static ks_t step(ks_t s, int ev) {   /* ev: 0=provision 1=activate 2=rotate 3=revoke */</span><span class="ln">    if (ev==0 &amp;&amp; s==NONE) return PROVISIONED;</span><span class="ln">    if (ev==1 &amp;&amp; s==PROVISIONED) return ACTIVE;</span><span class="ln">    if (ev==2 &amp;&amp; s==ACTIVE) return PROVISIONED;   /* 轮换：换新密钥后再激活 */</span><span class="ln">    if (ev==3 &amp;&amp; (s==ACTIVE||s==PROVISIONED)) return REVOKED;</span><span class="ln">    return s;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; ks_t s = NONE;</span><span class="ln">    s = step(s,0); printf(&quot;provision → %d（期望 1）\n&quot;, s); if(s!=PROVISIONED) ok=0;</span><span class="ln">    s = step(s,1); printf(&quot;activate  → %d（期望 2）\n&quot;, s); if(s!=ACTIVE) ok=0;</span><span class="ln">    s = step(s,2); printf(&quot;rotate    → %d（期望 1）\n&quot;, s); if(s!=PROVISIONED) ok=0;</span><span class="ln">    s = step(s,3); printf(&quot;revoke    → %d（期望 3）\n&quot;, s); if(s!=REVOKED) ok=0;</span><span class="ln">    ks_t s2 = step(s,1); printf(&quot;撤销后 activate → %d（仍 3，非法转移被拒）\n&quot;, s2); if(s2!=REVOKED) ok=0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok?&quot;RESULT: PASS&quot;:&quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok?0:1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">密钥生命周期模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife &amp;&amp; ./labs/host_keylife</span>
+provision → 1（期望 1）
+activate  → 2（期望 2）
+rotate    → 1（期望 1）
+revoke    → 3（期望 3）
+撤销后 activate → 3（仍 3，非法转移被拒）
+RESULT: PASS</code></pre></div></div><p class="sim-note">注入(1)→激活(2)→轮换(1)→吊销(3)；吊销后状态=3 不可再激活（退役止损）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  生命周期状态</div><table><thead><tr><th>阶段</th><th>状态</th><th>说明</th></tr></thead><tbody><tr><td>注入</td><td>1</td><td>产线</td></tr><tr><td>激活</td><td>2</td><td>使用</td></tr><tr><td>轮换</td><td>1</td><td>更新</td></tr><tr><td>吊销</td><td>3</td><td>退役止损</td></tr></tbody></table></div></section><section class="sec" id="m09-lock"><h2 id="m09-lock-t">9.3 量产锁定与退役</h2><p>量产锁定（锁调试口）一旦执行通常不可逆，必须在确认固件/密钥正确后进行；退役要吊销身份并清除敏感数据。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">lifecycle.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">生产: 安全注入密钥 + 注册身份（不落日志）</span><span class="ln">量产锁定: 锁调试口 + 开启安全启动（不可逆前确认）</span><span class="ln">维护: 升级/诊断须鉴权 + 审计记录</span><span class="ln">退役: 吊销密钥 + 清除敏感数据（防残留）</span>
+</code></pre><span class="code-note">注入→锁定→维护审计→退役吊销，不可逆步骤先确认</span></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检与成熟度对照</h2><p>生命周期自检：注入安全、锁定确认、维护审计、退役吊销。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> 生命周期状态（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="生命周期状态（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">注入</text><rect x="150" y="26" width="150" height="18" rx="4" class="sv-cyn-s"/><text x="308" y="43" class="sv-lbl-hi">1状态码</text><text x="12" y="67" class="sv-lbl">激活</text><rect x="150" y="50" width="300" height="18" rx="4" class="sv-grn-s"/><text x="458" y="67" class="sv-lbl-hi">2状态码</text><text x="12" y="91" class="sv-lbl">吊销</text><rect x="150" y="74" width="450" height="18" rx="4" class="sv-red-s"/><text x="608" y="91" class="sv-lbl-hi">3状态码</text></svg></div><figcaption class="fig-ft">注入(1)→激活(2)→轮换(1)→吊销(3)；吊销后不可再激活。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.3  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>生产</td><td>安全注入</td><td>落日志</td></tr><tr><td>锁定</td><td>确认后</td><td>贸然</td></tr><tr><td>维护</td><td>鉴权+审计</td><td>无审计</td></tr><tr><td>退役</td><td>吊销+清除</td><td>残留</td></tr></tbody></table></div></section><section class="sec" id="m09-quick"><h2 id="m09-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">lifecycle.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">生产: 安全注入（不落日志）</span><span class="ln">量产锁定: 锁调试口（不可逆前确认）</span><span class="ln">退役: 吊销密钥 + 清除数据</span>
+</code></pre><span class="code-note">注入→锁定→维护→退役吊销</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.4  阶段与风险</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>生产</td><td>注入泄露</td></tr><tr><td>量产锁定</td><td>贸然锁死</td></tr><tr><td>维护</td><td>无审计</td></tr><tr><td>退役</td><td>身份残留</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>出厂不锁调试口</strong>：可被完全控制。</li><li><strong>密钥注入落日志</strong>：泄露。</li><li><strong>维护无审计</strong>：无法追责。</li><li><strong>退役不吊销</strong>：旧身份可被复用。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">为什么“量产锁定调试口”要在确认后才做？</p><details><summary>查看答案</summary><div class="ans"><p>锁定通常不可逆；若固件/密钥有误，锁死后无法再调试/修复。应先在样机验证，再对量产批次执行。</p></div></details></li><li><p class="q">退役时为什么要“吊销密钥并清除数据”？</p><details><summary>查看答案</summary><div class="ans"><p>防止旧设备身份被复用、敏感数据残留被提取。退役是生命周期的最后一环，处理不当会留下长期风险。</p></div></details></li><li><p class="q">维护为什么必须“鉴权 + 审计”？</p><details><summary>查看答案</summary><div class="ans"><p>维护通道是特权入口。鉴权防止未授权访问，审计让每次维护可追溯，异常操作可被发现与追责。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你产品写一张“生产-维护-退役”清单，标出不可逆步骤的确认要求与退役吊销流程。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://csrc.nist.gov/publications/detail/sp/800-57-part-1/rev-5/final" target="_blank" rel="noopener noreferrer">NIST SP 800-57 密钥管理</a> · <a class="ref" href="https://developer.arm.com/ip-products/security-ip/trustzone" target="_blank" rel="noopener noreferrer">Arm TrustZone</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_keylife.c</code>（生命周期）；为产品写一张“生产-维护-退役”清单。</p><p><strong>检查结果：</strong>密钥按 注入(1)→激活(2)→轮换(1)→吊销(3) 转移；退役吊销后状态=3 不可再激活；锁定步骤须确认。</p></div>
+<p class="sim-note">迁移练习：把本章的“能列出“产线注入→量产锁定→维护审计→退役吊销”清单，并说明不可逆步骤的确认要求。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>密钥按 注入(1)→激活(2)→轮换(1)→吊销(3) 转移；退役吊销后状态=3 不可再激活；锁定步骤须确认。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 测试、生命周期与综合</div>
+      <h1 class="ch-title">综合：可维护的安全设备<span class="acc">.</span></h1>
+      <p class="ch-lead">综合项目把 10 章收口：<strong>威胁建模 → 密码 → 身份/密钥 → 安全启动 → 通信/升级 → 隔离 → 测试 → 生命周期</strong>，目标“可维护的安全设备”。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M09。</span><span>◷ 约 46 分钟</span><span>◈ 身份/固件/通信对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按六维清单（身份/启动/通信/升级/隔离/生命周期）为一台设备做安全自评并给出可验证断言。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>可维护=安全：能升级/回滚/吊销。</li><li>篡改不可启动、通信无 MITM、接口健壮。</li><li>按六维清单自评。</li></ul></div>
+    <section class="sec" id="m10-device"><h2 id="m10-device-t">10.1 可维护安全设备的六维</h2><p>把 10 章收口成可维护的安全设备：能升级、能恢复、能止损。六维都要有可验证断言。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 安全设备的六维</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="安全设备的六维" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">身份：一机一密</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">启动：逐级验签</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">通信：TLS + mTLS</text><rect x="60" y="132" width="680" height="44" rx="6" class="sv-box"/><text x="75" y="158.0" class="sv-lbl-hi">升级/隔离/生命周期</text></svg></div><figcaption class="fig-ft">身份（一机一密）→ 启动（逐级验签）→ 通信（TLS+mTLS）→ 升级（验签+防降级+回滚）→ 隔离（最小权限）→ 生命周期（注入/锁定/吊销）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  六维清单</div><table><thead><tr><th>维度</th><th>措施</th><th>验收</th></tr></thead><tbody><tr><td>身份</td><td>一机一密</td><td>不可伪造</td></tr><tr><td>启动</td><td>逐级验签</td><td>篡改启动失败</td></tr><tr><td>通信</td><td>TLS+mTLS</td><td>无中间人</td></tr><tr><td>升级</td><td>验签+防降级+回滚</td><td>不变砖</td></tr><tr><td>隔离</td><td>最小权限</td><td>越权被拒</td></tr><tr><td>生命周期</td><td>注入/锁定/吊销</td><td>可止损</td></tr></tbody></table></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：信任链与抗回滚</h2><p>下面这段程序给出信任链/抗回滚的可运行证据：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_secureboot.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_secureboot.c —— 信任链、篡改检测、抗回滚与失败安全（主机可运行）。</span><span class="ln"> * 说明：本程序用“带密钥哈希（keyed-hash）”演示逐级校验的**流程**，它**不是数字签名**；</span><span class="ln"> *      真实安全启动用**非对称签名**（私钥签名、设备只持公钥，如 RSA/ECDSA + X.509），</span><span class="ln"> *      密钥放 OTP/SE，且逐级可用不同密钥。此处单一 key 仅为示意，不可用于生产。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_secureboot.c -o host_secureboot &amp;&amp; ./host_secureboot</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln"></span><span class="ln">/* 示意用的带密钥哈希（FNV 变体）——仅演示“有密钥才能校验”的机制，非密码学安全 */</span><span class="ln">static uint32_t tagged_hash(const char *img, uint32_t key) {</span><span class="ln">    uint32_t h = 0x811c9dc5u;</span><span class="ln">    h ^= key;</span><span class="ln">    for (const char *p = img; *p; p++) { h ^= (uint8_t)*p; h *= 16777619u; }</span><span class="ln">    return h;</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    uint32_t key = 0xA5A5A5A5u;   /* 示意用；真实为设备公钥 / HSM 中的私钥对应 */</span><span class="ln">    const char *spl = &quot;spl.bin&quot;, *boot = &quot;uboot.bin&quot;, *app = &quot;app.bin&quot;;</span><span class="ln"></span><span class="ln">    /* 逐级校验：ROOT→SPL→U-Boot→App */</span><span class="ln">    uint32_t d_spl = tagged_hash(spl, key), d_boot = tagged_hash(boot, key), d_app = tagged_hash(app, key);</span><span class="ln">    int chain = (d_spl != 0) &amp;&amp; (d_boot != 0) &amp;&amp; (d_app != 0);</span><span class="ln">    printf(&quot;信任链逐级校验（keyed-hash 示意，非数字签名）=%s\n&quot;, chain ? &quot;通过&quot; : &quot;失败&quot;);</span><span class="ln">    if (!chain) ok = 0;</span><span class="ln"></span><span class="ln">    /* 篡改 App → 校验失败 */</span><span class="ln">    uint32_t tampered = tagged_hash(&quot;app_tampered.bin&quot;, key);</span><span class="ln">    printf(&quot;App 被篡改 → 校验%s（期望失败）\n&quot;, tampered == d_app ? &quot;通过&quot; : &quot;失败&quot;);</span><span class="ln">    if (tampered == d_app) ok = 0;</span><span class="ln"></span><span class="ln">    /* 抗回滚：单调计数器，要求待启动版本 &gt;= 当前计数器 */</span><span class="ln">    int monotonic = 5;</span><span class="ln">    int v_old = 3, v_new = 6;</span><span class="ln">    printf(&quot;抗回滚：计数器=%d，尝试 v%d → %s（期望拒绝）\n&quot;, monotonic, v_old, v_old &lt; monotonic ? &quot;拒绝&quot; : &quot;接受&quot;);</span><span class="ln">    if (!(v_old &lt; monotonic)) ok = 0;</span><span class="ln">    printf(&quot;抗回滚：尝试 v%d → %s（期望接受）\n&quot;, v_new, v_new &gt;= monotonic ? &quot;接受&quot; : &quot;拒绝&quot;);</span><span class="ln">    if (!(v_new &gt;= monotonic)) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">信任链/抗回滚模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot &amp;&amp; ./labs/host_secureboot</span>
+App 被篡改 → 校验失败（期望失败）
+抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）
+抗回滚：尝试 v6 → 接受（期望接受）
+RESULT: PASS</code></pre></div></div><p class="sim-note">六维中的“启动/升级”可断言：篡改导致校验失败、降级被拒。其余维度证据见各章 labs。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  关键机制与证据</div><table><thead><tr><th>维度</th><th>可运行证据</th><th>验收</th></tr></thead><tbody><tr><td>威胁建模</td><td>host_threat.c</td><td>风险排序</td></tr><tr><td>密码</td><td>host_crypto.c</td><td>篡改检测</td></tr><tr><td>证书</td><td>host_cert.c</td><td>4 类拒绝</td></tr><tr><td>隔离</td><td>host_auth.c</td><td>越权=0</td></tr><tr><td>健壮性</td><td>host_fuzz.c</td><td>非法拒绝</td></tr></tbody></table></div></section><section class="sec" id="m10-accept"><h2 id="m10-accept-t">10.3 六维可验证断言</h2><p>验收：篡改固件无法启动；通信无中间人；升级失败可回滚；密钥泄露可吊销；接口对畸形输入安全。可维护性本身就是安全的一部分。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">accept.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">身份: 一机一密 → 不可伪造</span><span class="ln">启动: 逐级验签 → 篡改→失败</span><span class="ln">通信: 证书校验全过 → 无中间人</span><span class="ln">升级: 验签+防降级+回滚 → 不变砖</span><span class="ln">隔离: 最小权限 → 越权=0</span><span class="ln">生命周期: 注入/锁定/吊销 → 可止损</span>
+</code></pre><span class="code-note">六维各给出可验证断言</span></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检与成熟度对照</h2><p>综合自检：六维齐全、每维有可验证断言、可维护（升级/恢复/止损）。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 六维自评（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="六维自评（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="38" class="sv-lbl">身份</text><rect x="150" y="26" width="545" height="11" rx="4" class="sv-grn-s"/><text x="703" y="38" class="sv-lbl-hi">100%</text><text x="12" y="54" class="sv-lbl">启动</text><rect x="150" y="43" width="545" height="11" rx="4" class="sv-grn-s"/><text x="703" y="54" class="sv-lbl-hi">100%</text><text x="12" y="71" class="sv-lbl">通信</text><rect x="150" y="59" width="545" height="11" rx="4" class="sv-grn-s"/><text x="703" y="71" class="sv-lbl-hi">100%</text><text x="12" y="88" class="sv-lbl">升级</text><rect x="150" y="76" width="545" height="11" rx="4" class="sv-grn-s"/><text x="703" y="88" class="sv-lbl-hi">100%</text><text x="12" y="104" class="sv-lbl">隔离</text><rect x="150" y="93" width="545" height="11" rx="4" class="sv-grn-s"/><text x="703" y="104" class="sv-lbl-hi">100%</text><text x="12" y="121" class="sv-lbl">生命周期</text><rect x="150" y="109" width="327" height="11" rx="4" class="sv-amb-s"/><text x="485" y="121" class="sv-lbl-hi">60%</text></svg></div><figcaption class="fig-ft">六维中任一缺失都会形成短板：可伪造/可替换/可窃听/不可维护。逐维给出断言。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.3  自评要点</div><table><thead><tr><th>维度</th><th>断言</th><th>证据</th></tr></thead><tbody><tr><td>启动</td><td>篡改→失败</td><td>host_secureboot.c</td></tr><tr><td>通信</td><td>4 类拒绝</td><td>host_cert.c</td></tr><tr><td>隔离</td><td>越权=0</td><td>host_auth.c</td></tr><tr><td>健壮性</td><td>非法拒绝</td><td>host_fuzz.c</td></tr></tbody></table></div></section><section class="sec" id="m10-quick"><h2 id="m10-quick-t">速查与常见错误</h2><p>把本章的易错点与对策集中对照：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">accept.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">六维: 身份/启动/通信/升级/隔离/生命周期</span><span class="ln">每维给出可验证断言 + 证据文件</span><span class="ln">任一维缺失 = 短板</span>
+</code></pre><span class="code-note">六维各项可验证</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.4  六维与断言</div><table><thead><tr><th>要点</th><th>正确做法</th></tr></thead><tbody><tr><td>启动</td><td>篡改→失败</td></tr><tr><td>通信</td><td>4 类拒绝</td></tr><tr><td>隔离</td><td>越权=0</td></tr><tr><td>生命周期</td><td>可吊销</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>可伪造</strong>：无身份/弱密钥。</li><li><strong>可替换</strong>：无安全启动。</li><li><strong>可窃听</strong>：不验证书。</li><li><strong>不可维护</strong>：无升级/回滚/吊销。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">“可维护”为什么也是安全的一部分？</p><details><summary>查看答案</summary><div class="ans"><p>无法升级就无法修补漏洞、无法吊销泄露密钥、无法回滚坏固件。可维护性决定了安全事件发生后的止损与恢复能力。</p></div></details></li><li><p class="q">六维安全自评中，为什么“任一维缺失都会形成短板”？</p><details><summary>查看答案</summary><div class="ans"><p>攻击者走最弱的一环：无身份则可伪造、无安全启动则可替换、不验证书则可窃听、无生命周期则不可止损。六维是“与”关系。</p></div></details></li><li><p class="q">安全设备“能恢复”指什么？</p><details><summary>查看答案</summary><div class="ans"><p>升级失败能回滚、被篡改能拒绝启动、密钥泄露能吊销、接口异常能安全返回。恢复能力让设备在事故后仍可用、可修。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：按六维清单为你的设备做一次安全自评，每维写出“可验证断言 + 证据文件”，补齐短板。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://owasp.org/www-project-embedded-application-security/" target="_blank" rel="noopener noreferrer">OWASP 嵌入式应用安全</a> · <a class="ref" href="https://datatracker.ietf.org/wg/suit/about/" target="_blank" rel="noopener noreferrer">IETF SUIT / TUF</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_secureboot.c</code>（信任链）；按六维清单为设备做一次安全自评。</p><p><strong>检查结果：</strong>六维均可断言：篡改固件启动失败、证书 4 类异常拒绝、计数器=5 时 v3 拒/v6 受、sensor 写=0。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按六维清单（身份/启动/通信/升级/隔离/生命周期）为一台设备做安全自评并给出可验证断言。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>六维均可断言：篡改固件启动失败、证书 4 类异常拒绝、计数器=5 时 v3 拒/v6 受、sensor 写=0。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">一台可维护的安全设备<span class="acc">.</span></h1><p class="ch-lead">把 10 章串成一条路径：威胁建模 → 密码学 → 身份/密钥 → 安全启动 → 通信/升级 → 隔离/最小权限 → 测试与生命周期。</p><div class="ch-meta"><span>◈ 9 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 10 章串成一条路径：<strong>威胁建模 → 密码 → 身份/密钥 → 安全启动 → 通信/升级 → 隔离/最小权限 → 测试与生命周期。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 威胁</strong>（M01）——资产/攻击面/优先级；验收：高危入口有措施。</li>
+<li><strong>② 密码</strong>（M02）——HMAC/AEAD+CSPRNG；验收：篡改可检测。</li>
+<li><strong>③ 身份/密钥</strong>（M03）——一机一密+吊销；验收：不可伪造、可止损。</li>
+<li><strong>④ 安全启动</strong>（M04）——逐级验签+抗回滚；验收：篡改启动失败。</li>
+<li><strong>⑤ 通信</strong>（M05）——TLS+验证书链；验收：无 MITM。</li>
+<li><strong>⑥ 升级</strong>（M06）——验签+防降级+A/B；验收：可回滚不变砖。</li>
+<li><strong>⑦ 隔离</strong>（M07）——最小权限；验收：越权被拒。</li>
+<li><strong>⑧ 测试</strong>（M08）——校验+模糊；验收：畸形输入安全。</li>
+<li><strong>⑨ 生命周期</strong>（M09/M10）——注入/锁定/吊销；验收：可维护=可止损。</li>
+</ol>
+<p class="sim-note">本册为工程实践，不构成任何认证结论。真实安全启动/TLS/产线为板/台架/产线实测项；威胁评分、HMAC 流程、密钥生命周期、信任链验签、最小权限、输入校验等主机可验证部分已给出真实运行结果（简化哈希仅演示流程）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">security baseline</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">资产/威胁 → 密码(HMAC/AEAD,CSPRNG) → 身份(一机一密,可吊销) → 安全启动(逐级验签,抗回滚)</span><span class="ln">  → 通信(TLS,验证书) → 升级(验签,防降级,A/B,回滚) → 隔离(最小权限)</span><span class="ln">  → 测试(校验/模糊) → 生命周期(注入/量产锁定/退役吊销)</span><span class="ln">原则: 不要自造密码 · 默认拒绝 · 纵深防御 · 可维护=安全</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">嵌入式安全易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“可伪造 / 可替换 / 可窃听 / 泄露无法止损”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“可伪造 / 可替换 / 可窃听 / 泄露无法止损”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>威胁建模</td><td>资产×暴露×影响</td><td>不做/漏调试口</td><td>高危入口敞开</td></tr><tr><td>密码</td><td>HMAC/AEAD+CSPRNG</td><td>自造/CRC/固定IV</td><td>可伪造</td></tr><tr><td>身份</td><td>一机一密+吊销</td><td>共用/硬编码</td><td>泄露全网</td></tr><tr><td>安全启动</td><td>逐级验签</td><td>失败继续跑</td><td>可替换固件</td></tr><tr><td>通信</td><td>验证书链/主机名/时间</td><td>关闭验证</td><td>中间人</td></tr><tr><td>升级</td><td>验签+防降级+A/B</td><td>只 CRC/无回滚</td><td>恶意/变砖</td></tr><tr><td>隔离</td><td>最小权限+默认拒绝</td><td>全 root</td><td>一处失守全沦陷</td></tr><tr><td>接口</td><td>严格校验+模糊</td><td>不校验</td><td>越界/DoS</td></tr><tr><td>生命周期</td><td>注入/锁定/吊销</td><td>不锁调试口</td><td>可被完全控制</td></tr><tr><td>可维护</td><td>升级/回滚/吊销</td><td>不可维护</td><td>无法止损</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；不同标准叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；不同标准叫法差异也一并标注。</p><dl class="glossary"><dt>资产</dt><dd>需要保护的数据/密钥/功能。</dd><dt>攻击面</dt><dd>攻击者可触达的入口。</dd><dt>信任边界</dt><dd>需要验证的边界。</dd><dt>威胁建模</dt><dd>系统识别威胁并排序。</dd><dt>HMAC</dt><dd>带密钥的完整性/认证码。</dd><dt>AEAD</dt><dd>带认证的加密（如 AES-GCM）。</dd><dt>CSPRNG</dt><dd>密码学安全随机数生成器。</dd><dt>常量时间比较</dt><dd>避免时序侧信道的比较。</dd><dt>一机一密</dt><dd>每台设备独立密钥/证书。</dd><dt>密钥生命周期</dt><dd>生成/注入/使用/轮换/吊销。</dd><dt>信任根</dt><dd>不可变的信任起点。</dd><dt>逐级验签</dt><dd>每级验证下一级签名。</dd><dt>抗回滚</dt><dd>阻止降级到旧版本（单调计数器）。</dd><dt>TLS/DTLS</dt><dd>传输层安全协议。</dd><dt>mTLS</dt><dd>双向证书认证。</dd><dt>中间人</dt><dd>MITM 攻击者冒充对端。</dd><dt>A/B 升级</dt><dd>双区交替升级与回滚。</dd><dt>最小权限</dt><dd>只给必要能力。</dd><dt>默认拒绝</dt><dd>未授权一律拒绝。</dd><dt>模糊测试</dt><dd>用畸形输入找漏洞。</dd><dt>量产锁定</dt><dd>锁定调试口/开启安全启动。</dd><dt>退役</dt><dd>吊销身份并清除数据。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "资产、威胁与信任边界."}, {"id": "m02", "num": "02", "title": "密码学的工程使用."}, {"id": "m03", "num": "03", "title": "设备身份与密钥生命周期."}, {"id": "m04", "num": "04", "title": "安全启动与固件真实性."}, {"id": "m05", "num": "05", "title": "通信安全与证书验证."}, {"id": "m06", "num": "06", "title": "升级安全与回退策略."}, {"id": "m07", "num": "07", "title": "隔离与最小权限."}, {"id": "m08", "num": "08", "title": "接口健壮性与安全测试."}, {"id": "m09", "num": "09", "title": "生产、维护与退役."}, {"id": "m10", "num": "10", "title": "综合：可维护的安全设备."}, {"id": "capstone", "num": "", "title": "一台可维护的安全设备."}, {"id": "cheatsheet", "num": "", "title": "嵌入式安全易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

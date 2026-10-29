@@ -1,0 +1,93 @@
+
+Discarded input sections
+
+ .text          0x00000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+ .data          0x00000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+ .bss           0x00000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+ .text          0x00000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+ .data          0x00000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+ .bss           0x00000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+FLASH            0x08000000         0x00010000         xr
+RAM              0x20000000         0x00005000         xrw
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+LOAD C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+                0x20005000                        _estack = (ORIGIN (RAM) + LENGTH (RAM))
+
+.isr_vector     0x08000000       0x40
+ *(.isr_vector)
+ .isr_vector    0x08000000       0x40 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+                0x08000000                vectors
+
+.text           0x08000040      0x208
+ *(.text*)
+ .text.Default_Handler
+                0x08000040        0x4 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+ .text.Reset_Handler
+                0x08000044       0x40 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+                0x08000044                Reset_Handler
+ .text.SysTick_Handler
+                0x08000084       0x10 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+                0x08000084                SysTick_Handler
+ .text.startup.main
+                0x08000094      0x1b4 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+                0x08000094                main
+ *(.rodata*)
+
+.glue_7         0x08000248        0x0
+ .glue_7        0x08000248        0x0 linker stubs
+
+.glue_7t        0x08000248        0x0
+ .glue_7t       0x08000248        0x0 linker stubs
+
+.vfp11_veneer   0x08000248        0x0
+ .vfp11_veneer  0x08000248        0x0 linker stubs
+
+.v4_bx          0x08000248        0x0
+ .v4_bx         0x08000248        0x0 linker stubs
+
+.iplt           0x08000248        0x0
+ .iplt          0x08000248        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+
+.rel.dyn        0x08000248        0x0
+ .rel.iplt      0x08000248        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+
+.data           0x20000000        0x0 load address 0x08000248
+                0x20000000                        _sdata = .
+ *(.data*)
+                0x20000000                        _edata = .
+                0x08000248                        _sidata = LOADADDR (.data)
+
+.igot.plt       0x20000000        0x0 load address 0x08000248
+ .igot.plt      0x20000000        0x0 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+
+.bss            0x20000000        0x8 load address 0x08000248
+                0x20000000                        _sbss = .
+ *(.bss*)
+ .bss.failures  0x20000000        0x4 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+ .bss.milliseconds
+                0x20000004        0x4 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+ *(COMMON)
+                0x20000008                        _ebss = .
+                0x00000001                        ASSERT ((_ebss <= (_estack - 0x400)), RAM exceeded reserved 1KiB stack)
+OUTPUT(C:\Users\Administrator\Documents\Codex\2026-10-09\http-127-0-0-1-8789\work\quality-example-build\node.elf elf32-littlearm)
+LOAD linker stubs
+
+.comment        0x00000000       0x45
+ .comment       0x00000000       0x45 C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+                                 0x46 (size before relaxing)
+ .comment       0x00000045       0x46 C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o
+
+.ARM.attributes
+                0x00000000       0x2d
+ .ARM.attributes
+                0x00000000       0x2d C:\Users\ADMINI~1\AppData\Local\Temp\ccqrHTIL.o
+ .ARM.attributes
+                0x0000002d       0x2d C:\Users\ADMINI~1\AppData\Local\Temp\ccL3WtvF.o

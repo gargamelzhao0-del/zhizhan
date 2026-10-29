@@ -1,0 +1,2861 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B02a" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>C++ 语言基础 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">C++ 语言基础</div>
+    <div class="m-subtitle">零基础入口 · 12 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">12 模块 · 64 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol cur" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">C++ 分支 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">C++ 学习路径.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">从 C 到 C++：第一印象<span class="m-nav-sub">iostream · namespace · g++</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-1" data-target="m01-1">1.1 用 g++ 编译，用 cout 输出</a><a class="m-sec" href="#m01-2" data-target="m01-2">1.2 C 与 C++ 的常见写法对照</a><a class="m-sec" href="#m01-3" data-target="m01-3">1.3 命名空间：std:: 是什么</a><a class="m-sec" href="#m01-4" data-target="m01-4">01.4 与 C 的对照速查</a><a class="m-sec" href="#m01-5" data-target="m01-5">01.5 常见错误与修复</a><a class="m-sec" href="#m01-6" data-target="m01-6">01.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">引用与 const<span class="m-nav-sub">引用 vs 指针 · const 正确性</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-1" data-target="m02-1">2.1 引用：变量的别名</a><a class="m-sec" href="#m02-2" data-target="m02-2">2.2 用 const 引用避免拷贝</a><a class="m-sec" href="#m02-3" data-target="m02-3">2.3 const 正确性：把&quot;只读&quot;写进类型</a><a class="m-sec" href="#m02-4" data-target="m02-4">02.4 与 C 的对照速查</a><a class="m-sec" href="#m02-5" data-target="m02-5">02.5 常见错误与修复</a><a class="m-sec" href="#m02-6" data-target="m02-6">02.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">函数进阶<span class="m-nav-sub">重载 · 默认参数 · 内联 · 命名空间</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-1" data-target="m03-1">3.1 函数重载：同名不同参</a><a class="m-sec" href="#m03-2" data-target="m03-2">3.2 默认参数</a><a class="m-sec" href="#m03-3" data-target="m03-3">3.3 内联与命名空间</a><a class="m-sec" href="#m03-4" data-target="m03-4">03.4 与 C 的对照速查</a><a class="m-sec" href="#m03-5" data-target="m03-5">03.5 常见错误与修复</a><a class="m-sec" href="#m03-6" data-target="m03-6">03.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">类与对象<span class="m-nav-sub">构造/析构 · 封装 · this</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-1" data-target="m04-1">4.1 一个类：数据 + 操作</a><a class="m-sec" href="#m04-2" data-target="m04-2">4.2 构造、析构与 RAII 的思想</a><a class="m-sec" href="#m04-3" data-target="m04-3">4.3 封装：public 与 private</a><a class="m-sec" href="#m04-4" data-target="m04-4">4.4 this 与成员初始化列表</a><a class="m-sec" href="#m04-5" data-target="m04-5">04.5 与 C 的对照速查</a><a class="m-sec" href="#m04-6" data-target="m04-6">04.6 常见错误与修复</a><a class="m-sec" href="#m04-7" data-target="m04-7">04.7 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">运算符重载与友元<span class="m-nav-sub">让自定义类型像内置类型</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-1" data-target="m05-1">5.1 重载 + 与 &lt;&lt;</a><a class="m-sec" href="#m05-2" data-target="m05-2">5.2 成员运算符与友元</a><a class="m-sec" href="#m05-3" data-target="m05-3">5.3 与嵌入式的关系</a><a class="m-sec" href="#m05-4" data-target="m05-4">05.4 与 C 的对照速查</a><a class="m-sec" href="#m05-5" data-target="m05-5">05.5 常见错误与修复</a><a class="m-sec" href="#m05-6" data-target="m05-6">05.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">继承与多态<span class="m-nav-sub">基类/派生 · virtual · 抽象类</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-1" data-target="m06-1">6.1 继承：复用基类</a><a class="m-sec" href="#m06-2" data-target="m06-2">6.2 多态：virtual 与运行期分派</a><a class="m-sec" href="#m06-4" data-target="m06-4">06.4 与 C 的对照速查</a><a class="m-sec" href="#m06-5" data-target="m06-5">06.5 常见错误与修复</a><a class="m-sec" href="#m06-6" data-target="m06-6">06.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">模板与 STL<span class="m-nav-sub">函数/类模板 · vector/string/map</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-1" data-target="m07-1">7.1 模板：类型也是参数</a><a class="m-sec" href="#m07-2" data-target="m07-2">7.2 STL：常用容器一览</a><a class="m-sec" href="#m07-3" data-target="m07-3">7.3 算法与迭代器（一句带过）</a><a class="m-sec" href="#m07-4" data-target="m07-4">07.4 与 C 的对照速查</a><a class="m-sec" href="#m07-5" data-target="m07-5">07.5 常见错误与修复</a><a class="m-sec" href="#m07-6" data-target="m07-6">07.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">智能指针、异常与 RAII<span class="m-nav-sub">unique_ptr · try/catch · 过渡到 B02</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-1" data-target="m08-1">8.1 RAII 与析构：把释放交给对象</a><a class="m-sec" href="#m08-2" data-target="m08-2">8.2 智能指针：别再用裸 new/delete</a><a class="m-sec" href="#m08-3" data-target="m08-3">8.3 异常：try / catch</a><a class="m-sec" href="#m08-4" data-target="m08-4">8.4 你已经会 C++ 了——下一步</a><a class="m-sec" href="#m08-5" data-target="m08-5">08.5 与 C 的对照速查</a><a class="m-sec" href="#m08-6" data-target="m08-6">08.6 常见错误与修复</a><a class="m-sec" href="#m08-7" data-target="m08-7">08.7 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">对象生命周期与值语义深化<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-mechanism" data-target="m09-mechanism">机制与契约</a><a class="m-sec" href="#m09-boundary" data-target="m09-boundary">边界与误用</a><a class="m-sec" href="#m09-run" data-target="m09-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">容器、算法与迭代器深化<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-mechanism" data-target="m10-mechanism">机制与契约</a><a class="m-sec" href="#m10-boundary" data-target="m10-boundary">边界与误用</a><a class="m-sec" href="#m10-run" data-target="m10-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m11"><summary><span class="m-nav-num">11</span><span class="m-nav-t">泛型、接口与现代 C++<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m11-mechanism" data-target="m11-mechanism">机制与契约</a><a class="m-sec" href="#m11-boundary" data-target="m11-boundary">边界与误用</a><a class="m-sec" href="#m11-run" data-target="m11-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m12"><summary><span class="m-nav-num">12</span><span class="m-nav-t">构建、测试与库边界<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m12-mechanism" data-target="m12-mechanism">机制与契约</a><a class="m-sec" href="#m12-boundary" data-target="m12-boundary">边界与误用</a><a class="m-sec" href="#m12-run" data-target="m12-run">运行完整示例</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num">§</span><span class="m-nav-t">术语与符号对照表<span class="m-nav-sub">单一事实源 · 构建期比对</span></span></summary><div class="m-secs"><a class="m-sec" href="#glossary-terms" data-target="glossary-terms">术语</a><a class="m-sec" href="#glossary-symbols" data-target="glossary-symbols">符号 / 构件</a></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B02a-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE 01–12 · 阶段 ② 现代语言 · 基</div>
+    <h1>C++ <span class="g">语言基础</span><br>从零到能读《迁移地图》<span class="cursor"></span></h1>
+    <p class="lead">
+      这一册把 <strong>C++ 当作一门语言从零讲</strong>：类、封装、继承、多态、模板、STL、智能指针、异常——而不是"从 C 到 C++ 的差异对照"。
+      前提是你会 C（读完 B00）。学完它，你就能顺畅读《C++（嵌入式向）迁移地图》(B02)，把 C++ 用到单片机上。
+      每个示例都用 <code class="ic">g++</code> <strong>真实编译并运行</strong>。
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>12</b><span>核心模块</span></div>
+      <div class="hero-stat"><b>42</b><span>代码与命令</span></div>
+      <div class="hero-stat"><b>20</b><span>原理图示</span></div>
+      <div class="hero-stat"><b>34</b><span>对照表格</span></div>
+    </div>
+    <div class="box key" style="margin-top:26px">
+      <div class="box-t">◆ 谁该读 / 读完能做什么</div>
+      <ul style="margin-bottom:0">
+        <li><strong>会 C、想系统学 C++</strong>：从这一册开始，别直接跳到 B02（B02 假设你已会 C++）。</li>
+        <li>学完你能：写类、用封装、写继承与多态、用模板与 STL、用智能指针与异常。</li>
+        <li>然后进入 B02：把 C++ 放到 MCU 上——算清体积/开销、与 C 互操作、ISR 里的 C++。</li>
+      </ul>
+    </div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B02a-labs.zip" download>下载 B02a 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B02a 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">C++ 分支 · 读到能完成什么？</h2><p><strong>写固定容量数据容器及资源句柄类，提供复制/移动策略、错误通道和独立构建测试。</strong></p><p>入门条件：C 的函数、数组、指针；若选择 C 路线可跳过整册。</p><p>首次阅读：<a href="#m02">引用与 const</a> → <a href="#m04">类与对象</a> → <a href="#m07">模板与 STL</a> → <a href="#m08">智能指针、异常与 RAII</a> → <a href="#m09">对象生命周期与值语义深化</a> → <a href="#m10">容器、算法与迭代器深化</a> → <a href="#m12">构建、测试与库边界</a></p><p>按需延后：运算符重载、复杂继承、泛型技巧按接口需要学习；不要把语法数量当熟练度。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>制造容器扩容、移动后访问和构造失败，分别说明哪些用法被禁止、哪些由接口处理。</p><p><strong>通过判据：</strong>所有权清楚、释放次数正确、无悬空视图；能说明所用语言标准与 ABI 边界。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P01">P01</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">C++ 学习路径<span class="acc">.</span></h1>
+      <p class="ch-lead">本册是"阶段②基础"，与 B02（迁移地图）配对：先学语言本体，再学嵌入式落地。</p>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item"><div class="rm-n">⓪</div><div><div class="rm-t">编程与 C 语言基础</div><div class="rm-d">前置：会 C</div></div><div class="rm-s">已发布</div></div>
+      <div class="rm-item now"><div class="rm-n">②基</div><div><div class="rm-t">C++ 语言基础（本册）</div><div class="rm-d">类/继承/多态/模板/STL/智能指针</div></div><div class="rm-s">进行中</div></div>
+      <div class="rm-item"><div class="rm-n">②</div><div><div class="rm-t">C++（嵌入式向）迁移地图</div><div class="rm-d">把 C++ 用到 MCU：体积/开销/ISR/互操作</div></div><div class="rm-s">已发布</div></div>
+      <div class="rm-item"><div class="rm-n">③–⑩</div><div><div class="rm-t">外设 · RTOS · 通信 · 应用 · …</div><div class="rm-d">语言之后是硬件与应用</div></div><div class="rm-s">已发布</div></div>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 学 C++ 的正确方式</div>
+      <p style="margin-bottom:0"><strong>写出来才算学会</strong>。每段示例都请自己编译、自己改、制造错误再看编译器怎么说——C++ 的编译器会告诉你很多。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 起步</div>
+      <h1 class="ch-title">从 C 到 C++：<span class="acc">第一印象</span></h1>
+      <p class="ch-lead">
+        你已经会 C。C++ 与 C 的关系是"<strong>兼容并增强</strong>"：C 的多数写法在 C++ 里依然可用，同时多了类、模板、命名空间等能力。
+        这一节先建立第一印象：怎么编译、怎么输出、多出来的几个关键字。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ g++ · iostream · namespace</span><span>⚑ 兼容并增强</span>
+      </div>
+    </div>
+
+    <h2 id="m01-1">1.1 用 g++ 编译，用 <code>cout</code> 输出</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">hello.cpp — 第一个 C++ 程序</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;                 // C++ 的输入输出流
+using std::cout;                    // 用到哪个名字就显式引入哪个
+
+int main()
+{
+    int year = 2026;
+    cout &lt;&lt; "Hello, C++!\n";          // &lt;&lt; 把内容"推向"输出流
+    cout &lt;&lt; "year = " &lt;&lt; year &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/m01.sh</code>（本机 g++ 15.2）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra hello.cpp -o hello &amp;&amp; ./hello
+<span class="o">Hello, C++!
+year = 2026</span>
+<span class="w"># 与 C 的 printf 相比：cout 会自动按类型输出，不用记 %d/%f，也不会写错格式符。</span></pre></div>
+    </div>
+
+    <h2 id="m01-2">1.2 C 与 C++ 的常见写法对照</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">想做的事</th><th style="width:35%">C</th><th>C++</th></tr></thead>
+        <tbody>
+          <tr><td>输出</td><td><code class="ic">printf("%d\n", x)</code></td><td><code class="ic">std::cout &lt;&lt; x &lt;&lt; "\n"</code></td></tr>
+          <tr><td>头文件</td><td><code class="ic">#include &lt;stdio.h&gt;</code></td><td><code class="ic">#include &lt;iostream&gt;</code> / <code class="ic">&lt;cstdint&gt;</code></td></tr>
+          <tr><td>布尔类型</td><td>C99 前用 <code class="ic">int</code>；C99 起有 <code class="ic">&lt;stdbool.h&gt;</code></td><td>内建 <code class="ic">bool</code>（<code class="ic">true/false</code>）</td></tr>
+          <tr><td>空指针</td><td><code class="ic">NULL</code>（常是 0）</td><td><code class="ic">nullptr</code>（真正的指针类型）</td></tr>
+          <tr><td>常量</td><td><code class="ic">#define N 10</code></td><td><code class="ic">const int N = 10;</code>（有类型）</td></tr>
+          <tr><td>编译</td><td><code class="ic">gcc</code></td><td><code class="ic">g++</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ C++ 的头文件"去 .h"</div>
+      <p style="margin-bottom:0">C++ 标准库头文件通常不带 <code class="ic">.h</code>：<code class="ic">stdio.h → &lt;cstdio&gt;</code>、<code class="ic">stdlib.h → &lt;cstdlib&gt;</code>。<code class="ic">&lt;iostream&gt;</code> 是 C++ 独有的。</p>
+    </div>
+
+    <h2 id="m01-3">1.3 命名空间：<code>std::</code> 是什么</h2>
+    <p>
+      C++ 标准库的东西都放在 <code class="ic">std</code> 命名空间里，所以写 <code class="ic">std::cout</code>。
+      命名空间是为了<strong>避免名字冲突</strong>——大型工程里两个模块都叫 <code class="ic">log</code> 也不会打架。
+    </p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ns.cpp — 自定义命名空间</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+namespace gpio {                    // 给这批名字分组
+    int pin = 13;
+    void high() { std::cout &lt;&lt; "pin " &lt;&lt; pin &lt;&lt; " -> HIGH\n"; }
+}
+namespace uart {
+    int pin = 17;                   // 同名 pin，互不冲突
+}
+
+int main()
+{
+    gpio::high();                   // 用 命名空间::名字 访问
+    std::cout &lt;&lt; "uart pin = " &lt;&lt; uart::pin &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 别在头文件里写 <code>using namespace std;</code></div>
+      <p style="margin-bottom:0">
+        <code class="ic">using namespace std;</code> 会把整个 std 的名字"倒进"全局，极易冲突。头文件里<strong>绝对不要</strong>；源文件里偶尔图方便可以，但更推荐 <code class="ic">using std::cout;</code> 这种精确引入。
+      </p>
+    </div>
+
+    <h2 id="m01-4">01.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>输出</td><td><code class="ic">printf("%d",x)</code></td><td><code class="ic">std::cout &lt;&lt; x</code></td></tr>
+          <tr><td>头文件</td><td><code class="ic">&lt;stdio.h&gt;</code></td><td><code class="ic">&lt;iostream&gt;</code></td></tr>
+          <tr><td>编译</td><td><code class="ic">gcc</code></td><td><code class="ic">g++</code></td></tr>
+          <tr><td>字符串</td><td><code class="ic">char[]</code></td><td><code class="ic">std::string</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m01-5">01.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>忘了 <code class="ic">std::</code></td><td><code class="ic">cout</code> 未声明</td><td>加 <code class="ic">std::</code> 或 <code class="ic">using</code></td></tr>
+          <tr><td>用 gcc 编 .cpp</td><td>链接 C++ 运行库缺失</td><td>用 <code class="ic">g++</code></td></tr>
+          <tr><td><code class="ic">&lt;&lt;</code> 链方向反</td><td>编译错</td><td>数据流向 <code class="ic">cout</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.2</b> 编译 → 链接 → 运行（C++ 同 C）</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="C++ 源文件经 g++ 编译链接为可执行文件">
+[('hello.cpp', 'sv-box'), ('g++ 编译', 'sv-amb-s'), ('可执行', 'sv-grn-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">用 <code class="ic">g++</code>，不是 <code class="ic">gcc</code>。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.3</b> std 命名空间</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="标准库的东西都住在 std 里，用 :: 访问">
+[('std', 'sv-cyn-s'), ('cout', 'sv-grn-s'), ('endl', 'sv-amb-s'), ('string', 'sv-box')]
+        </svg>
+      </div>
+      <div class="fig-ft"><code class="ic">using namespace std;</code> 可省去前缀，但小工程才推荐。</div>
+    </div>
+    <h2 id="m01-6">01.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">hello.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    std::cout &lt;&lt; "Hello, C++!\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">sum.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int a = 2, b = 3;
+    std::cout &lt;&lt; a + b &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把你在 C 册里写的 hello 程序改成 C++ 版（<code class="ic">cout</code> 输出），用 <code class="ic">g++</code> 编译运行。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>C++ 兼容 C，用 <code class="ic">g++</code> 编译；多了 <code class="ic">cout</code>/命名空间/引用/类/模板。</li>
+        <li><code class="ic">std::cout &lt;&lt; x</code> 在<strong>编译期按 x 的类型</strong>选 <code class="ic">operator&lt;&lt;</code> 重载，不用格式符；<em>但注意 <code class="ic">uint8_t</code>（即 <code class="ic">unsigned char</code>）会按字符打印——要按数值就转成 <code class="ic">int</code>。</em></li>
+        <li>C++ 头文件去 <code class="ic">.h</code>（<code class="ic">&lt;cstdio&gt;</code>/<code class="ic">&lt;iostream&gt;</code>）。</li>
+        <li><code class="ic">bool</code>/<code class="ic">nullptr</code>/<code class="ic">const</code> 是 C++ 更安全的写法。</li>
+        <li>命名空间避免名字冲突；<code class="ic">std</code> 是标准库的命名空间。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：C++ 里输出用 <code class="ic">std::______ &lt;&lt; x</code>，编译用 ______。</p>
+          <details><summary></summary><p><code class="ic">cout</code>；编译用 <code class="ic">g++</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：C 程序直接改后缀为 .cpp 用 g++ 编译，一般能过。</p>
+          <details><summary></summary><p>多数可以（C++ 兼容 C）。但要注意 C++ 更严格的类型检查，个别 C 写法（如 <code class="ic">void*</code> 隐式转换）会报错——这是"更安全"的代价。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">cout &lt;&lt; x;</code> 报 <code class="ic">'cout' was not declared</code>，最可能的原因？</p>
+          <details><summary></summary><p>要么没 <code class="ic">#include &lt;iostream&gt;</code>，要么没写 <code class="ic">std::</code>（也没 <code class="ic">using</code>）。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">hello.cpp</code> 的输出改成用 <code class="ic">printf</code>（加 <code class="ic">#include &lt;cstdio&gt;</code>），两种都能编过，体会"兼容"。</p>
+          <details><summary></summary><p>能编过且输出相同——C++ 里 C 的库也完全可用。这正是"迁移友好"。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">nullptr</code> 和 <code class="ic">NULL</code> 完全一样。</p>
+          <details><summary></summary><p>不完全。<code class="ic">NULL</code> 常被定义成 0（int），在某些重载场景会选错函数；<code class="ic">nullptr</code> 是专门的指针空值类型，更安全。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 01 完成？</b> 用 g++ 编译并运行 <code class="ic">hello.cpp</code>，再写一个自定义命名空间并访问其中的名字。</div>
+      <button class="done-btn" data-done="m01">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>独立构建一个 C++ 程序，说明编译器、标准选项和与 C 链接的边界。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 引用</div>
+      <h1 class="ch-title">引用与 <span class="acc">const</span></h1>
+      <p class="ch-lead">
+        <strong>引用</strong>是 C++ 比 C 更好用的第一件武器：它是变量的"别名"，既能像指针一样避免拷贝，又没有指针的许多坑。
+        <strong>const</strong> 则把"这块数据不该被改"写成编译期约束。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ 引用 vs 指针 · const</span><span>⚑ 少写 * 和 &amp;</span>
+      </div>
+    </div>
+
+    <h2 id="m02-1">2.1 引用：变量的别名</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">reference.cpp — 引用参数与别名（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+void add_one(int &amp;x) { x += 1; }          /* 引用参数：直接改实参 */
+void print(const std::string &amp;s) {        /* const 引用：不改，也不拷贝 */
+    std::cout &lt;&lt; "print: " &lt;&lt; s &lt;&lt; "\n";
+}
+int main()
+{
+    int n = 5;
+    add_one(n);                            /* 传引用，行为像传变量本身 */
+    std::cout &lt;&lt; "n = " &lt;&lt; n &lt;&lt; "\n";
+
+    int &amp;r = n;                            /* r 是 n 的别名 */
+    r = 42;
+    std::cout &lt;&lt; "n via ref = " &lt;&lt; n &lt;&lt; "\n";
+
+    std::string msg = "hello reference";
+    print(msg);
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M02）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra reference.cpp -o reference &amp;&amp; ./reference
+<span class="o">n = 6
+n via ref = 42
+print: hello reference</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 引用 vs 指针</div>
+      <div class="tbl-wrap" style="margin-top:10px">
+        <table>
+          <thead><tr><th style="width:24%">维度</th><th style="width:38%">指针 <code>T*</code></th><th>引用 <code>T&amp;</code></th></tr></thead>
+          <tbody>
+            <tr><td>能否为空</td><td>可以（NULL）</td><td class="y">不能，必须绑定对象</td></tr>
+            <tr><td>能否改指向</td><td>可以</td><td class="y">不能（一旦绑定就不变）</td></tr>
+            <tr><td>语法</td><td>要写 <code class="ic">*</code>/<code class="ic">&amp;</code></td><td class="y">像普通变量</td></tr>
+            <tr><td>用途</td><td>可空、可改指向、C 互操作</td><td>函数参数/返回、避免拷贝</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <h2 id="m02-2">2.2 用 const 引用避免拷贝</h2>
+    <p>
+      传大对象（字符串、结构体、容器）时，按值传会<strong>复制一份</strong>，很贵。
+      传 <code class="ic">const T&amp;</code>：既<strong>不拷贝</strong>、又保证函数<strong>不会改它</strong>——这是 C++ 里最常用的参数形式。
+    </p>
+    <div class="box key">
+      <div class="box-t">◆ 参数传递的三档</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">f(int x)</code>：小类型，按值传（拷贝也便宜）。</li>
+        <li><code class="ic">f(const T&amp; x)</code>：大对象只读，<strong>不发拷贝、不可修改</strong>（首选）。</li>
+        <li><code class="ic">f(T&amp; x)</code>：需要修改调用方的大对象时用。</li>
+      </ul>
+    </div>
+
+    <h2 id="m02-3">2.3 const 正确性：把"只读"写进类型</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">const_demo.cpp — 各种 const</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int main()
+{
+    const int MAX = 100;          /* 常量：不能再赋值 */
+    // MAX = 200;                 // ✕ 编译错误
+
+    int a = 1, b = 2;
+    const int *p = &amp;a;            /* 指向的内容不可改（指针可变） */
+    // *p = 5;                    // ✕
+    p = &amp;b;                      /* ✔ 指针本身可以改指向 */
+
+    int *const q = &amp;a;            /* 指针本身不可改（内容可变） */
+    *q = 9;                       /* ✔ */
+    // q = &amp;b;                    // ✕
+
+    std::cout &lt;&lt; "MAX=" &lt;&lt; MAX &lt;&lt; " a=" &lt;&lt; a &lt;&lt; " *p=" &lt;&lt; *p &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ <code>const</code> 的位置有讲究</div>
+      <p style="margin-bottom:0"><code class="ic">const int *p</code>：<strong>内容</strong>只读（<em>p is a pointer to const int</em>）；<code class="ic">int *const p</code>：<strong>指针本身</strong>只读（<em>p is a const pointer to int</em>）。记法：从右往左读，<code class="ic">const</code> 挨着谁就限制谁。</p>
+    </div>
+
+    <h2 id="m02-4">02.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>取地址</td><td><code class="ic">int *p = &amp;x;</code></td><td><code class="ic">int &amp;r = x;</code></td></tr>
+          <tr><td>使用</td><td><code class="ic">*p</code> 解引用</td><td><code class="ic">r</code> 直接用</td></tr>
+          <tr><td>能否为空</td><td>可以 <code class="ic">NULL</code></td><td>引用必须绑定对象</td></tr>
+          <tr><td>只读传参</td><td><code class="ic">const int *</code></td><td><code class="ic">const int &amp;</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m02-5">02.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>引用未初始化</td><td>编译错</td><td>引用必须绑定到对象</td></tr>
+          <tr><td>返回局部变量的引用</td><td>悬垂</td><td>返回对象或按值</td></tr>
+          <tr><td>该用 const 引用时用了值</td><td>多一次拷贝</td><td>大对象用 <code class="ic">const &amp;</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.2</b> 引用是别名，不是指针</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="引用与原变量是同一块内存的两个名字">
+[('变量 x', 'sv-grn-s'), ('引用 r', 'sv-cyn-s'), ('同一地址', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">改 <code class="ic">r</code> 就是改 <code class="ic">x</code>。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.3</b> 值传递 vs const 引用传递</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="值传递拷贝一份，const 引用只借用不拷贝">
+[('值传递 → 拷贝', 'sv-red-s'), ('const 引用 → 借用', 'sv-grn-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">大对象优先 <code class="ic">const &amp;</code>。</div>
+    </div>
+    <h2 id="m02-6">02.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ref.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    int x = 5;
+    int &amp;r = x;
+    r = 9;
+    std::cout &lt;&lt; x &lt;&lt; "\n";   // 9
+    return 0;
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">constref.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+void show(const std::string &amp;s) { std::cout &lt;&lt; s &lt;&lt; "\n"; }
+
+int main() { show("hi"); return 0; }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把 C 册里"用指针交换两个数"的函数改成 C++ 的引用版 <code class="ic">void swap(int&amp;, int&amp;)</code>，对比可读性。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>引用是别名：不能为空、不能改绑定，语法比指针干净。</li>
+        <li><code class="ic">const T&amp;</code> 是"只读 + 不拷贝"的黄金参数形式。</li>
+        <li><code class="ic">const</code> 把"不该改"写成编译期约束，比注释可靠。</li>
+        <li><code class="ic">const int *</code> 与 <code class="ic">int *const</code> 含义不同，看 <code class="ic">const</code> 靠近谁。</li>
+        <li>引用适合参数/返回；需要"可空/可改指向"时仍用指针。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：要"只读且不拷贝"地传一个大对象，参数写成 ______。</p>
+          <details><summary></summary><p><code class="ic">const T&amp;</code>（const 引用）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：引用一旦绑定，可以再改成引用别的变量。</p>
+          <details><summary></summary><p>不能。引用初始化时绑定，此后一直是它的别名（这点和指针不同）。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">void f(const std::string &s){ s += "!"; }</code> 为什么编不过？</p>
+          <details><summary></summary><p><code class="ic">s</code> 是 const 引用，不能修改。想改就写 <code class="ic">std::string &s</code>（非 const）。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写 <code class="ic">void swap2(int &a, int &b)</code> 用引用交换两个整数，和《编程与 C 语言基础》(B00) 里"传指针才能改实参"的写法对比，体会引用更清爽。</p>
+          <details><summary></summary><p>引用版：<code class="ic">int t=a; a=b; b=t;</code>，调用 <code class="ic">swap2(x,y)</code>——不用写 <code class="ic">&amp;</code> 和 <code class="ic">*</code>，更清爽。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">const int *p</code> 表示 p 本身不能改。</p>
+          <details><summary></summary><p>错。它表示"<strong>p 指向的内容</strong>不可改"，p 可以改指向；"p 本身不可改"是 <code class="ic">int *const p</code>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 02 完成？</b> 把你在 C 里"传指针才能改实参"的函数，改用引用重写一遍，体会差别。</div>
+      <button class="done-btn" data-done="m02">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>比较引用、指针和 const，不能经悬空引用读取已销毁对象。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 函数</div>
+      <h1 class="ch-title">函数<span class="acc">进阶</span></h1>
+      <p class="ch-lead">
+        C++ 给函数加了三样方便的东西：<strong>重载</strong>（同名不同参）、<strong>默认参数</strong>、<strong>内联</strong>。
+        再加上<strong>命名空间</strong>，大型工程的组织能力就上来了。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ 重载 · 默认参数 · 内联</span><span>⚑ 编译期决定</span>
+      </div>
+    </div>
+
+    <h2 id="m03-1">3.1 函数重载：同名不同参</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">overload.cpp — 重载与默认参数（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int area(int w, int h) { return w * h; }          /* 两个 int */
+double area(double r) { return 3.14159 * r * r; }  /* 一个 double：重载 */
+
+int greet(const std::string &amp;name = "world") {     /* 默认参数 */
+    std::cout &lt;&lt; "hello, " &lt;&lt; name &lt;&lt; "\n";
+    return 0;
+}
+int main()
+{
+    std::cout &lt;&lt; "area(3,4)   = " &lt;&lt; area(3, 4) &lt;&lt; "\n";
+    std::cout &lt;&lt; "area(2.0)   = " &lt;&lt; area(2.0) &lt;&lt; "\n";
+    greet();                                          /* 用默认参数 */
+    greet("C++");
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M03）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra overload.cpp -o overload &amp;&amp; ./overload
+<span class="o">area(3,4)   = 12
+area(2.0)   = 12.5664
+hello, world
+hello, C++</span>
+<span class="w"># 编译器按实参类型自动选 area(int,int) 还是 area(double)。</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 重载的判据</div>
+      <p style="margin-bottom:0">重载靠<strong>参数列表</strong>区分（个数/类型/顺序），<strong>不能只靠返回值不同</strong>重载。调用哪个在<strong>编译期</strong>就定下来了。</p>
+    </div>
+
+    <h2 id="m03-2">3.2 默认参数</h2>
+    <p>
+      给参数一个默认值，调用时可以省略。规则：<strong>默认参数必须从右往左连续</strong>（不能再有非默认参数跟在它后面）。
+      上例 <code class="ic">greet()</code> 用默认值 <code class="ic">"world"</code>，<code class="ic">greet("C++")</code> 覆盖它。
+    </p>
+
+    <h2 id="m03-3">3.3 内联与命名空间</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">inline_ns.cpp — 内联函数与命名空间分组</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+namespace mathx {
+    inline int square(int x) { return x * x; }   /* 建议内联：小函数避免调用开销 */
+    int cube(int x) { return x * x * x; }
+}
+
+int main()
+{
+    std::cout &lt;&lt; "square(5) = " &lt;&lt; mathx::square(5) &lt;&lt; "\n";
+    std::cout &lt;&lt; "cube(3)   = " &lt;&lt; mathx::cube(3) &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ inline 是"建议"，不是命令</div>
+      <p style="margin-bottom:0">
+        <code class="ic">inline</code> 告诉编译器"这个函数展开到调用处更合适"（省掉调用开销）。但最终是否内联由<strong>编译器+优化等级</strong>决定。
+        更重要的是：写在头文件里的<strong>函数定义</strong>必须加 <code class="ic">inline</code>，否则被多个 .cpp 包含时会"重复定义"。
+      </p>
+    </div>
+
+    <h2 id="m03-4">03.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>同名多参</td><td>不支持（要改函数名）</td><td>重载</td></tr>
+          <tr><td>默认参数</td><td><code class="ic">#define</code> 变通</td><td>默认参数</td></tr>
+          <tr><td>内联</td><td><code class="ic">static inline</code></td><td><code class="ic">inline</code></td></tr>
+          <tr><td>命名空间</td><td>前缀命名</td><td><code class="ic">namespace</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m03-5">03.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>重载只看返回类型</td><td>编译错</td><td>返回类型不参与重载</td></tr>
+          <tr><td>默认参数写在定义里</td><td>重定义错</td><td>默认值写在声明处</td></tr>
+          <tr><td><code class="ic">inline</code> 当强制内联</td><td>只是建议</td><td>编译器可忽略</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.2</b> 函数重载：同名不同参</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="编译器按参数类型/个数选具体版本">
+[('f(int)', 'sv-grn-s'), ('f(double)', 'sv-amb-s'), ('f(int,int)', 'sv-box')]
+        </svg>
+      </div>
+      <div class="fig-ft">调用时按实参匹配。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.3</b> 默认参数</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="省略的实参用默认值填充">
+[('f(a,b=10)', 'sv-cyn-s'), ('f(1) → b=10', 'sv-amb-s'), ('f(1,2) → b=2', 'sv-grn-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">默认值必须在参数表尾部。</div>
+    </div>
+    <h2 id="m03-6">03.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">overload.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int add(int a, int b) { return a + b; }
+double add(double a, double b) { return a + b; }
+
+int main() { std::cout &lt;&lt; add(1,2) &lt;&lt; " " &lt;&lt; add(1.5,2.5) &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">default.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int area(int w, int h = 10) { return w * h; }
+
+int main() { std::cout &lt;&lt; area(3) &lt;&lt; " " &lt;&lt; area(3,4) &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一组重载的 <code class="ic">max</code> 函数（int/double），再给一个带默认参数的函数，各调用一次。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>写法</th><th>占用</th><th>建议</th></tr></thead>
+        <tbody>
+          <tr><td>传值</td><td>拷贝</td><td>小类型</td></tr>
+          <tr><td>传 <code class="ic">const &amp;</code></td><td>不拷贝</td><td>大对象</td></tr>
+          <tr><td>返回对象</td><td>可能移动/优化</td><td>现代 C++ 友好</td></tr>
+          <tr><td>返回引用</td><td>不拷贝</td><td>别返回局部</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>重载：同名函数按参数列表区分，编译期决定调用哪个。</li>
+        <li>重载<strong>不能</strong>只靠返回值不同。</li>
+        <li>默认参数从右往左连续；调用时可省略。</li>
+        <li><code class="ic">inline</code> 是小函数的调用开销优化，也是头文件函数定义的必要标记。</li>
+        <li>命名空间给名字分组，避免冲突（<code class="ic">mathx::square</code>）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：<code class="ic">int f(int); double f(int);</code> 是合法的重载。</p>
+          <details><summary></summary><p>不合法。参数列表相同、仅返回值不同<strong>不能</strong>重载，会报"重复定义"。</p></details>
+        </li>
+        <li>
+          <p class="q">填空：<code class="ic">void g(int a, int b = 0, int c)</code> 这个声明 ______（合法/非法）。</p>
+          <details><summary></summary><p><strong>非法</strong>。默认参数后面的参数也必须都有默认值；应写成 <code class="ic">void g(int a, int b=0, int c=0)</code> 或把 c 提前。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：把一个普通函数定义放进头文件，被两个 .cpp 包含，链接时报"重复定义"，怎么修？</p>
+          <details><summary></summary><p>给函数加 <code class="ic">inline</code>（或放到匿名命名空间/改成 .cpp 里的定义）。头文件里的函数定义默认会有多个副本。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：想把 <code class="ic">area(int w, int h)</code> 的 <code class="ic">h</code> 默认成"和 w 一样"（正方形），写 <code class="ic">int area(int w, int h = w)</code> 能编过吗？为什么？</p>
+          <details><summary></summary><p><strong>不能，报错</strong>：<code class="ic">parameter 'w' may not appear in this context</code>。原因不是"重载歧义"，而是<strong>默认实参不能引用其它形参</strong>（默认值是编译期常量/表达式，屏蔽不到形参名）。正确做法是用哨兵值：<code class="ic">int area(int w, int h = -1) { return h &lt; 0 ? w * w : w * h; }</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：内联一定会让程序变快。</p>
+          <details><summary></summary><p>不一定。内联省了调用开销、但可能增大代码体积（嵌入式尤其敏感）。是否内联由编译器按优化等级决定。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 03 完成？</b> 写一组重载的 <code class="ic">print</code>（int/double/string），再用命名空间把它们分到 <code class="ic">io</code> 里。</div>
+      <button class="done-btn" data-done="m03">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>解释重载决议与默认参数；设计一个不会误选重载的接口并测试。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 类</div>
+      <h1 class="ch-title">类与<span class="acc">对象</span></h1>
+      <p class="ch-lead">
+        这是 C++ 最核心的一节：<strong>类</strong>把"数据"和"操作数据的函数"打包成一个自定义类型，<strong>对象</strong>是它的一个实例。
+        构造/析构、封装、<code class="ic">this</code>——理解这些，才算真正进入 C++。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ 构造/析构 · 封装 · this</span><span>⚑ C++ 的核心</span>
+      </div>
+    </div>
+
+    <h2 id="m04-1">4.1 一个类：数据 + 操作</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">class.cpp — 类/构造/析构/封装（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;cstdint&gt;
+
+class Counter {
+public:
+    Counter(int start) : value_(start) { std::cout &lt;&lt; "构造: " &lt;&lt; value_ &lt;&lt; "\n"; }
+    ~Counter() { std::cout &lt;&lt; "析构: " &lt;&lt; value_ &lt;&lt; "\n"; }
+
+    void inc() { ++value_; }                 // 成员函数可改私有成员
+    int value() const { return value_; }     // const 成员函数：不修改对象
+
+private:
+    int value_;                              // 私有：外部不能直接改
+};
+
+int main()
+{
+    Counter c(10);
+    c.inc();
+    c.inc();
+    std::cout &lt;&lt; "value = " &lt;&lt; c.value() &lt;&lt; "\n";
+    // c.value_ = 99;                        // 错误：value_ 是 private
+    return 0;                                // main 结束时自动调用析构
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M04）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra class.cpp -o classapp &amp;&amp; ./classapp
+<span class="o">构造: 10
+value = 12
+析构: 12</span>
+<span class="w"># 构造在对象创建时自动调用；析构在对象离开作用域时自动调用。</span></pre></div>
+    </div>
+
+    <h2 id="m04-2">4.2 构造、析构与 RAII 的思想</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.1</b> 对象的生命周期：构造 → 使用 → 析构，全自动</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 130" role="img" aria-label="对象生命周期">
+          <rect x="40" y="46" width="130" height="44" rx="6" class="sv-cyn-s"/>
+          <text x="105" y="66" class="sv-lbl-hi" text-anchor="middle">构造</text>
+          <text x="105" y="83" class="sv-lbl-dim" text-anchor="middle">Counter(10)</text>
+          <path d="M170 68 L230 68" class="sv-arrow"/>
+          <rect x="232" y="46" width="180" height="44" rx="6" class="sv-box"/>
+          <text x="322" y="66" class="sv-lbl-hi" text-anchor="middle">使用（调用成员函数）</text>
+          <text x="322" y="83" class="sv-lbl-dim" text-anchor="middle">inc() / value()</text>
+          <path d="M412 68 L472 68" class="sv-arrow"/>
+          <rect x="474" y="46" width="150" height="44" rx="6" class="sv-amb-s"/>
+          <text x="549" y="66" class="sv-lbl-hi" text-anchor="middle">析构</text>
+          <text x="549" y="83" class="sv-lbl-dim" text-anchor="middle">~Counter() 自动</text>
+        </svg>
+      </div>
+      <div class="fig-ft">把"获取资源"放构造、"释放资源"放析构，就是 <strong>RAII</strong>（本册 M08 会用 <code>unique_ptr</code> 完整演示）。在 C 里你要手写 <code>xxx_init/xxx_deinit</code> 并保证配对；C++ 让编译器替你保证。</div>
+    </div>
+
+    <h2 id="m04-3">4.3 封装：<code>public</code> 与 <code>private</code></h2>
+    <p>
+      <code class="ic">private</code> 成员只有<strong>类自己的成员函数</strong>能访问，外部只能通过 <code class="ic">public</code> 接口。
+      好处：对象内部怎么实现可以随时改，只要接口不变，使用者不受影响。
+    </p>
+    <div class="box key">
+      <div class="box-t">◆ const 成员函数</div>
+      <p style="margin-bottom:0">
+        写成 <code class="ic">int value() const</code> 表示"这个函数<strong>不修改对象</strong>"。对 <code class="ic">const</code> 对象，只能调用 const 成员函数——这是编译期的一种"只读保证"。
+      </p>
+    </div>
+
+    <h2 id="m04-4">4.4 <code>this</code> 与成员初始化列表</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">point.cpp — 初始化列表与 this</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+class Point {
+public:
+    Point(int x, int y) : x_(x), y_(y) {}     // 初始化列表：直接初始化成员
+    Point &amp;move(int dx, int dy) {             // 返回 *this，支持链式调用
+        x_ += dx; y_ += dy;
+        return *this;
+    }
+    void print() const { std::cout &lt;&lt; "(" &lt;&lt; x_ &lt;&lt; ", " &lt;&lt; y_ &lt;&lt; ")\n"; }
+private:
+    int x_, y_;
+};
+
+int main()
+{
+    Point p(0, 0);
+    p.move(1, 2).move(3, 4);                  // 链式调用
+    p.print();
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 初始化列表 <code>: x_(x), y_(y)</code></div>
+      <p style="margin-bottom:0">成员应在<strong>初始化列表</strong>里初始化（而不是在构造体内赋值）：对 <code class="ic">const</code> 成员、引用成员、没有默认构造的成员，这是<strong>唯一</strong>能初始化的地方。</p>
+    </div>
+
+    <h2 id="m04-5">04.5 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>数据+操作</td><td>结构体 + 一组函数</td><td>类（成员函数）</td></tr>
+          <tr><td>访问控制</td><td>无</td><td><code class="ic">public/private</code></td></tr>
+          <tr><td>初始化</td><td>手工赋值</td><td>构造函数</td></tr>
+          <tr><td>清理</td><td>手工释放</td><td>析构函数</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m04-6">04.6 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>构造/析构名字写错</td><td>编译错</td><td>与类同名；析构加 <code class="ic">~</code></td></tr>
+          <tr><td>成员没初始化</td><td>随机值</td><td>用成员初始化列表</td></tr>
+          <tr><td>把实现写进头文件</td><td>重复定义</td><td>实现放 .cpp</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.2</b> 类＝数据 + 操作</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="把相关数据和方法包在一个类型里">
+[('成员变量', 'sv-cyn-s'), ('成员函数', 'sv-grn-s'), ('对象', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">对象是类的一个实例。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.3</b> 构造与析构的时机</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="对象创建时构造，离开作用域时析构">
+[('构造（创建）', 'sv-grn-s'), ('使用', 'sv-cyn-s'), ('析构（销毁）', 'sv-red-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">这就是 RAII 的思想基础。</div>
+    </div>
+    <h2 id="m04-7">04.7 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">point.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+class Point {
+public:
+    Point(int x, int y) : x_(x), y_(y) {}
+    int sum() const { return x_ + y_; }
+private:
+    int x_, y_;
+};
+
+int main() { Point p(2,3); std::cout &lt;&lt; p.sum() &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">ctor.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+struct Guard {
+    Guard()  { std::cout &lt;&lt; "acquire\n"; }
+    ~Guard() { std::cout &lt;&lt; "release\n"; }
+};
+
+int main() { Guard g; std::cout &lt;&lt; "work\n"; return 0; }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把一个 C 结构体 + 操作函数改写成 C++ 类（构造函数初始化、成员函数访问），编译运行验证行为一致。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>关键字</th><th>含义</th><th>默认</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">public</code></td><td>谁都能访问</td><td>结构体默认</td></tr>
+          <tr><td><code class="ic">private</code></td><td>只有类内可访问</td><td>类默认</td></tr>
+          <tr><td><code class="ic">protected</code></td><td>派生类可访问</td><td>—</td></tr>
+          <tr><td><code class="ic">const</code> 成员函数</td><td>不修改对象</td><td>只读方法</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">class</code> 把数据与操作打包；对象是它的实例。</li>
+        <li>构造函数初始化、析构函数清理——生命周期自动管理（RAII 基础）。</li>
+        <li><code class="ic">private</code> 封装内部实现，<code class="ic">public</code> 暴露接口。</li>
+        <li><code class="ic">const</code> 成员函数承诺不修改对象。</li>
+        <li>成员用初始化列表初始化；<code class="ic">return *this</code> 可做链式调用。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：对象创建时自动调用 ______ 函数，销毁时自动调用 ______ 函数。</p>
+          <details><summary></summary><p><strong>构造</strong>函数、<strong>析构</strong>函数。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">private</code> 成员在任何地方都能读。</p>
+          <details><summary></summary><p>不能。只有类的成员函数（及友元）能访问 <code class="ic">private</code>；外部只能通过 <code class="ic">public</code> 接口。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">class A { const int id; public: A(int i){ id = i; } };</code> 为什么编不过？</p>
+          <details><summary></summary><p><code class="ic">id</code> 是 <code class="ic">const</code> 成员，必须在<strong>初始化列表</strong>里初始化：<code class="ic">A(int i) : id(i) {}</code>，不能在构造体内赋值。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Counter</code> 加一个 <code class="ic">reset()</code> 把值清零，并保证 <code class="ic">value()</code> 仍是 const 成员函数。</p>
+          <details><summary></summary><p><code class="ic">reset()</code> 会改成员，<strong>不能</strong>是 const；<code class="ic">value()</code> 只读，保持 const。这体现了 const 正确性的用法。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：构造函数没有返回值，所以要写 <code class="ic">void Counter()</code>。</p>
+          <details><summary></summary><p>错。构造函数<strong>连 void 都不写</strong>，写成 <code class="ic">Counter(...)</code>；写 <code class="ic">void Counter()</code> 反而变成普通函数。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 04 完成？</b> 写一个 <code class="ic">Rectangle</code> 类（宽、高），有构造、<code class="ic">area()</code>、<code class="ic">scale(k)</code>，并用 private 封装宽高。</div>
+      <button class="done-btn" data-done="m04">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>使类在构造后保持不变量；构造失败和析构时资源归属明确。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 运算符</div>
+      <h1 class="ch-title">运算符重载与<span class="acc">友元</span></h1>
+      <p class="ch-lead">
+        让自定义类型也能用 <code class="ic">+ - == &lt;&lt;</code> 这些运算符，代码读起来就像在操作内置类型。
+        这一节讲运算符重载的基本写法，以及 <code class="ic">friend</code> 友元。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ operator+ · operator&lt;&lt; · friend</span><span>⚑ 语法糖</span>
+      </div>
+    </div>
+
+    <h2 id="m05-1">5.1 重载 <code>+</code> 与 <code>&lt;&lt;</code></h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">operator.cpp — 让 Vec2 能做加法、能 cout（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+struct Vec2 {
+    double x, y;
+};
+Vec2 operator+(const Vec2 &amp;a, const Vec2 &amp;b) {     /* 重载 + */
+    return Vec2{a.x + b.x, a.y + b.y};
+}
+std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const Vec2 &amp;v) {   /* 让它能 cout */
+    return os &lt;&lt; "(" &lt;&lt; v.x &lt;&lt; ", " &lt;&lt; v.y &lt;&lt; ")";
+}
+
+int main()
+{
+    Vec2 a{1, 2}, b{3, 4};
+    Vec2 c = a + b;                                 /* 用起来像内置类型 */
+    std::cout &lt;&lt; "a + b = " &lt;&lt; c &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M05）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra operator.cpp -o operatorapp &amp;&amp; ./operatorapp
+<span class="o">a + b = (4, 6)</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 运算符重载的几条常识</div>
+      <ul style="margin-bottom:0">
+        <li>不能发明新运算符，也不能改优先级/结合性；只能给<strong>已有运算符</strong>对自定义类型定义行为。</li>
+        <li>至少一个操作数是自定义类型（不能给两个 int 重载 <code class="ic">+</code>）。</li>
+        <li><code class="ic">operator&lt;&lt;</code> 写成返回 <code class="ic">ostream&amp;</code> 的自由函数，才能链式 <code class="ic">cout &lt;&lt; a &lt;&lt; b</code>。</li>
+        <li>不是所有运算符都该重载——只在语义自然时（如向量加）才做。</li>
+      </ul>
+    </div>
+
+    <h2 id="m05-2">5.2 成员运算符与友元</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">member_op.cpp — 成员 operator== 与 friend operator+</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+class Money {
+public:
+    explicit Money(int cents) : cents_(cents) {}
+    bool operator==(const Money &amp;o) const { return cents_ == o.cents_; }   // 成员运算符
+    friend Money operator+(const Money &amp;a, const Money &amp;b);                 // 声明友元
+    friend std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const Money &amp;m);
+private:
+    int cents_;
+};
+Money operator+(const Money &amp;a, const Money &amp;b) { return Money{a.cents_ + b.cents_}; }
+std::ostream &amp;operator&lt;&lt;(std::ostream &amp;os, const Money &amp;m) { return os &lt;&lt; m.cents_ &lt;&lt; " 分"; }
+
+int main()
+{
+    Money a(120), b(80);
+    std::cout &lt;&lt; "a + b = " &lt;&lt; (a + b) &lt;&lt; "\n";
+    std::cout &lt;&lt; "a == b ? " &lt;&lt; (a == b ? "yes" : "no") &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 友元 <code>friend</code> 是什么</div>
+      <p style="margin-bottom:0">
+        <code class="ic">friend</code> 声明允许某个<strong>外部函数</strong>访问类的 <code class="ic">private</code> 成员。
+        因为 <code class="ic">operator+</code> 需要读两边的私有 <code class="ic">cents_</code>、又要写成自由函数（才能两个操作数对称），所以用友元。
+        <em>友元是"破封装"的例外，能不用就不用。</em>
+      </p>
+    </div>
+
+    <h2 id="m05-3">5.3 与嵌入式的关系</h2>
+    <div class="box warn">
+      <div class="box-t">⚠ 运算符重载本身零开销，但别滥用</div>
+      <p style="margin-bottom:0">
+        重载只是"换个写法调用函数"，调用本身不引入额外开销。<strong>但"返回值运算符"（如本例返回 <code class="ic">Vec2</code>）可能产生临时对象、也可能没被内联——重载不保证比手写函数更快，取决于写法与优化。</strong>此外要注意：<strong>语义要自然</strong>（矩阵乘用 <code class="ic">*</code>、向量加点用 <code class="ic">+</code> 合理；用 <code class="ic">+</code> 表示"发送数据"就令人困惑）。嵌入式里常见的合理重载是：定点数/时间/单位的运算、位标志的 <code class="ic">| &amp;</code>。
+      </p>
+    </div>
+
+    <h2 id="m05-4">05.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>比较</td><td><code class="ic">cmp(a,b)</code></td><td>重载 <code class="ic">==</code></td></tr>
+          <tr><td>输出</td><td><code class="ic">print(a)</code></td><td>重载 <code class="ic">&lt;&lt;</code></td></tr>
+          <tr><td>相加</td><td><code class="ic">add(a,b)</code></td><td>重载 <code class="ic">+</code></td></tr>
+          <tr><td>下标</td><td><code class="ic">get(a,i)</code></td><td>重载 <code class="ic">[]</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m05-5">05.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">&lt;&lt;</code> 写成成员函数</td><td>调用反向</td><td>非成员 + 友元</td></tr>
+          <tr><td>重载语义乱来</td><td>难懂</td><td>保持与内置语义一致</td></tr>
+          <tr><td><code class="ic">operator=</code> 忘记返回自身</td><td>链式赋值错</td><td>返回 <code class="ic">*this</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.2</b> 运算符重载</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="把运算符映射到你类型的操作上">
+[('a + b', 'sv-cyn-s'), ('operator+', 'sv-grn-s'), ('结果', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">同名映射，语义要自然。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.3</b> <code>operator&lt;&lt;</code> 输出</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="把对象写进 ostream">
+[('对象', 'sv-box'), ('operator&lt;&lt;', 'sv-grn-s'), ('std::cout', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">常写成非成员 + <code class="ic">friend</code>。</div>
+    </div>
+    <h2 id="m05-6">05.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">vec2.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+struct V { int x, y; };
+V operator+(V a, V b) { return {a.x+b.x, a.y+b.y}; }
+std::ostream&amp; operator&lt;&lt;(std::ostream&amp; os, V v) { return os &lt;&lt; "(" &lt;&lt; v.x &lt;&lt; "," &lt;&lt; v.y &lt;&lt; ")"; }
+
+int main() { V c = V{1,2} + V{3,4}; std::cout &lt;&lt; c &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">counter.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+struct N { int v; N&amp; operator++() { ++v; return *this; } };
+
+int main() { N n{0}; ++n; ++n; std::cout &lt;&lt; n.v &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>给一个二维向量类型重载 <code class="ic">+</code> 与 <code class="ic">&lt;&lt;</code>，让它像内置类型一样能相加、能 <code class="ic">cout</code> 输出。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>运算符</th><th>常用重载</th><th>形式</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">+ - * /</code></td><td>算术</td><td>非成员或成员</td></tr>
+          <tr><td><code class="ic">== != &lt; &gt;</code></td><td>比较</td><td>通常非成员</td></tr>
+          <tr><td><code class="ic">&lt;&lt; &gt;&gt;</code></td><td>输入输出</td><td>非成员 + friend</td></tr>
+          <tr><td><code class="ic">[]</code></td><td>下标</td><td>成员</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>运算符重载让自定义类型用起来像内置类型（<code class="ic">a + b</code>、<code class="ic">cout &lt;&lt; a</code>）。</li>
+        <li>只能重载已有运算符，不能改优先级；至少一个操作数是自定义类型。</li>
+        <li><code class="ic">operator&lt;&lt;</code> 常写成返回 <code class="ic">ostream&amp;</code> 的自由函数。</li>
+        <li>需要访问私有成员的自由运算符，用 <code class="ic">friend</code> 声明。</li>
+        <li>零运行时开销，但只在语义自然时用。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：可以给两个 <code class="ic">int</code> 重载 <code class="ic">+</code> 改变它的行为。</p>
+          <details><summary></summary><p>不行。运算符重载要求<strong>至少一个操作数是自定义类型</strong>，且不能改变内置类型的语义。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：为什么 <code class="ic">operator&lt;&lt;</code> 常写成自由函数（而非成员）？</p>
+          <details><summary></summary><p>因为左操作数是 <code class="ic">std::ostream</code>（标准库类型，你改不了它的成员）。写成自由函数 <code class="ic">operator&lt;&lt;(ostream&amp;, const T&amp;)</code> 才能 <code class="ic">cout &lt;&lt; obj</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：把 <code class="ic">Money</code> 的 <code class="ic">operator+</code> 里 <code class="ic">a.cents_</code> 直接访问时编译器报"private"，最省事的两种改法？</p>
+          <details><summary></summary><p>要么把它声明为 <code class="ic">friend</code>，要么给类加一个 <code class="ic">int cents() const</code> 只读接口（更推荐，不破封装）。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Vec2</code> 重载 <code class="ic">operator==</code>，比较两个向量是否相等。</p>
+          <details><summary></summary><p><code class="ic">bool operator==(const Vec2&amp; a, const Vec2&amp; b){ return a.x==b.x &amp;&amp; a.y==b.y; }</code>。注意浮点比较的精度问题（工程里常比较差的绝对值）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：运算符重载会让程序变慢。</p>
+          <details><summary></summary><p>通常不会：它只是"换个语法调用函数"，与普通函数调用（可内联）相同。但<b>返回值运算符会有临时对象</b>、且是否内联由编译器决定——别把它当成"一定更快"。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 05 完成？</b> 给一个"定点小数"或"角度"类型重载 <code class="ic">+ - ==</code>，并让它能 <code class="ic">cout</code>。</div>
+      <button class="done-btn" data-done="m05">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>为一个必要的运算符给出直观语义；不为任意转换开放隐式构造。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 继承与多态</div>
+      <h1 class="ch-title">继承与<span class="acc">多态</span></h1>
+      <p class="ch-lead">
+        继承让派生类<strong>复用</strong>基类；多态让"通过基类指针调用"时<strong>执行到派生类的版本</strong>。
+        这是 C++ 面向对象的核心，也是嵌入式里"一套接口、多种实现"的常用手段。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ 继承 · virtual · 抽象类</span><span>⚑ 运行期分派</span>
+      </div>
+    </div>
+
+    <h2 id="m06-1">6.1 继承：复用基类</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">inherit.cpp — 派生类复用基类</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;utility&gt;
+
+class Animal {
+public:
+    explicit Animal(std::string name) : name_(std::move(name)) {}
+    void breathe() const { std::cout &lt;&lt; name_ &lt;&lt; " 在呼吸\n"; }   // 公共行为
+protected:
+    std::string name_;                                            // 派生类可访问
+};
+
+class Dog : public Animal {                 /* Dog 是一种 Animal */
+public:
+    using Animal::Animal;                   /* 继承基类构造函数 */
+    void bark() const { std::cout &lt;&lt; name_ &lt;&lt; ": 汪!\n"; }     // 派生类新增行为
+};
+
+int main()
+{
+    Dog d("旺财");
+    d.breathe();                            /* 用的是基类的函数 */
+    d.bark();                               /* 派生类自己的函数 */
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ public / protected / private 继承与成员可见性</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">public</code> 成员：类外可访问；<code class="ic">protected</code>：类内 + 派生类；<code class="ic">private</code>：仅本类。</li>
+        <li><code class="ic">class Dog : public Animal</code> 里的 <code class="ic">public</code> 是<strong>继承方式</strong>："Animal 的 public 成员在 Dog 里仍是 public"。日常几乎都用 public 继承。</li>
+      </ul>
+    </div>
+
+    <h2 id="m06-2">6.2 多态：<code>virtual</code> 与运行期分派</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">polymorphism.cpp — 抽象基类 + 多态（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;memory&gt;
+
+class Shape {
+public:
+    virtual double area() const = 0;          /* 纯虚：抽象类 */
+    virtual ~Shape() = default;
+};
+class Circle : public Shape {
+    double r_;
+public:
+    explicit Circle(double r) : r_(r) {}
+    double area() const override { return 3.14159 * r_ * r_; }
+};
+class Rect : public Shape {
+    double w_, h_;
+public:
+    Rect(double w, double h) : w_(w), h_(h) {}
+    double area() const override { return w_ * h_; }
+};
+
+int main()
+{
+    std::vector&lt;std::unique_ptr&lt;Shape&gt;&gt; shapes;
+    shapes.push_back(std::make_unique&lt;Circle&gt;(2.0));
+    shapes.push_back(std::make_unique&lt;Rect&gt;(3.0, 4.0));
+    for (const auto &amp;s : shapes)               /* 通过基类指针多态调用 */
+        std::cout &lt;&lt; "area = " &lt;&lt; s-&gt;area() &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M06）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra polymorphism.cpp -o poly &amp;&amp; ./poly
+<span class="o">area = 12.5664
+area = 12</span>
+<span class="w"># 同一个 s->area()，圆形走 Circle::area、矩形走 Rect::area——运行期按真实类型分派。</span></pre></div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.1</b> 多态：一个基类指针，多种实际实现</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="基类指针指向不同派生对象">
+          <rect x="30" y="52" width="150" height="46" rx="6" class="sv-box"/>
+          <text x="105" y="72" class="sv-lbl-hi" text-anchor="middle">Shape* s（示意）</text>
+          <text x="105" y="89" class="sv-lbl-dim" text-anchor="middle">（基类指针）</text>
+          <path d="M180 62 L330 40" class="sv-arrow"/>
+          <path d="M180 88 L330 118" class="sv-arrow-a"/>
+          <rect x="332" y="20" width="200" height="42" rx="6" class="sv-grn-s"/>
+          <text x="432" y="46" class="sv-lbl-hi" text-anchor="middle">Circle::area()</text>
+          <rect x="332" y="98" width="200" height="42" rx="6" class="sv-amb-s"/>
+          <text x="432" y="124" class="sv-lbl-hi" text-anchor="middle">Rect::area()</text>
+          <text x="545" y="46" class="sv-lbl-dim">同一个 s-&gt;area()</text>
+          <text x="545" y="124" class="sv-lbl-dim" style="fill:var(--amb)">调到不同的实现</text>
+        </svg>
+      </div>
+      <div class="fig-ft"><code>virtual</code> 让 <code>s-&gt;area()</code> 在<strong>运行期</strong>按对象真实类型选实现（动态绑定）。没有 virtual 就是编译期绑定（静态）。</div>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 多态的两条纪律</div>
+      <ul style="margin-bottom:0">
+        <li><strong>基类析构要 virtual</strong>：否则通过基类指针 <code class="ic">delete</code> 一个派生对象是<strong>未定义行为（UB）</strong>——不止"漏调析构/泄漏"，可能直接崩溃或破坏堆。</li>
+        <li><strong>多态有代价</strong>：每对象多一个 <code class="ic">vptr</code>，调用要经间接跳转。<strong>嵌入式里要按账单用</strong>（第②册 B02 会实测）。</li>
+      </ul>
+    </div>
+
+    <h2 id="m06-4">06.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>复用</td><td>结构体嵌套</td><td>继承</td></tr>
+          <tr><td>统一接口</td><td>函数指针表</td><td>虚函数</td></tr>
+          <tr><td>运行期分派</td><td>间接调用</td><td><code class="ic">virtual</code> 虚表</td></tr>
+          <tr><td>销毁</td><td>手工</td><td><code class="ic">virtual</code> 析构</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m06-5">06.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>基类析构非 virtual</td><td>派生资源泄漏</td><td>析构加 <code class="ic">virtual</code></td></tr>
+          <tr><td>对象切片</td><td>丢了派生部分</td><td>用指针/引用</td></tr>
+          <tr><td>忘记 override</td><td>签名不匹配</td><td>写 <code class="ic">override</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.2</b> 继承：派生是一种基类</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="派生类复用基类并扩展">
+[('基类 Animal', 'sv-cyn-s'), ('派生 Dog', 'sv-grn-s'), ('is-a', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">派生与基类满足 is-a。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.3</b> 虚表：运行期分派</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="通过对象里的 vptr 找到实际函数">
+[('基类指针', 'sv-box'), ('vptr → 虚表', 'sv-amb-s'), ('实际函数', 'sv-grn-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">运行期才知道调哪个实现。</div>
+    </div>
+    <h2 id="m06-6">06.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">poly.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+struct Shape { virtual double area() const = 0; virtual ~Shape() {} };
+struct Sq : Shape { double s; Sq(double s):s(s){} double area() const override { return s*s; } };
+
+int main() { Sq q(3); Shape* p = &amp;q; std::cout &lt;&lt; p-&gt;area() &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">inherit.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+struct Base { virtual ~Base() {} };
+struct Der : Base { ~Der() { std::cout &lt;&lt; "~Der\n"; } };
+
+int main() { Base* p = new Der; delete p; return 0; }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个基类 <code class="ic">Shape</code> 与两个派生（圆/方），用基类指针统一调用 <code class="ic">area()</code> 并加虚析构。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>要点</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td>基类析构加 <code class="ic">virtual</code></td><td>否则派生资源不释放</td></tr>
+          <tr><td>用基类指针/引用多态</td><td>避免对象切片</td></tr>
+          <tr><td>写 <code class="ic">override</code></td><td>让签名错误及早暴露</td></tr>
+          <tr><td>纯虚 = 0</td><td>接口类/抽象基类</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>继承让派生类复用基类（<code class="ic">class Dog : public Animal</code>）。</li>
+        <li><code class="ic">public/protected/private</code> 控制成员可见性。</li>
+        <li><code class="ic">virtual</code> 成员函数 = 运行期多态；<code class="ic">override</code> 声明"我在覆写基类"。</li>
+        <li>纯虚 <code class="ic">= 0</code> 的类是抽象类，不能实例化，只作接口。</li>
+        <li>基类析构要 <code class="ic">virtual</code>；多态有 vptr/间接跳转代价。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：让基类成员函数可被派生类覆写并在运行期分派，要加关键字 ______。</p>
+          <details><summary></summary><p><code class="ic">virtual</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：抽象类可以直接创建对象。</p>
+          <details><summary></summary><p>不行。含纯虚函数的抽象类不能实例化，只能作基类/接口；你会得到编译错误。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">delete basePtr;</code> 时派生类的析构没执行，为什么？</p>
+          <details><summary></summary><p>基类析构不是 virtual。要通过基类指针多态销毁，基类析构必须 <code class="ic">virtual</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Shape</code> 加一个 <code class="ic">Triangle</code> 派生类，塞进同一个 <code class="ic">vector</code> 里，看 <code class="ic">s-&gt;area()</code> 是否都能正确分派。</p>
+          <details><summary></summary><p>会。多态的价值正在于此：容器里存的是基类指针（本例用 <code class="ic">unique_ptr&lt;Shape&gt;</code>，本质仍是基类指针），运行时各自调到自己的实现。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：多态是"零成本"的。</p>
+          <details><summary></summary><p>不是。它带来每对象 vptr、每次调用的间接跳转，且阻碍内联。嵌入式里要权衡（第②册会实测其字节与周期代价）。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 06 完成？</b> 定义一个抽象基类 <code class="ic">Device</code>（<code class="ic">init()</code> / <code class="ic">read()</code> 纯虚），派生 <code class="ic">SensorA</code> / <code class="ic">SensorB</code>，用基类指针数组统一调用。</div>
+      <button class="done-btn" data-done="m06">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>通过基类接口调用派生对象；涉及多态删除时验证虚析构要求。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 泛型与标准库</div>
+      <h1 class="ch-title">模板与 <span class="acc">STL</span></h1>
+      <p class="ch-lead">
+        <strong>模板</strong>把"类型"当参数，一套代码适配多种类型；<strong>STL</strong> 是标准库给你的现成容器与算法
+        （<code class="ic">vector</code>、<code class="ic">string</code>、<code class="ic">map</code>…）——别自己造轮子。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ 模板 · vector/string/map</span><span>⚑ 编译期生成</span>
+      </div>
+    </div>
+
+    <h2 id="m07-1">7.1 模板：类型也是参数</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">templates.cpp — 函数模板 + STL（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;string&gt;
+#include &lt;map&gt;
+
+template &lt;class T&gt;
+T max_of(const T &amp;a, const T &amp;b) { return a &gt; b ? a : b; }   /* 函数模板 */
+
+int main()
+{
+    std::cout &lt;&lt; "max_of(3,7) = " &lt;&lt; max_of(3, 7) &lt;&lt; "\n";
+    std::cout &lt;&lt; "max_of(2.5,1.5) = " &lt;&lt; max_of(2.5, 1.5) &lt;&lt; "\n";
+
+    std::vector&lt;int&gt; v;
+    for (int i = 1; i &lt;= 5; i++) v.push_back(i * i);          /* 动态数组 */
+    int sum = 0;
+    for (int x : v) sum += x;                                 /* 范围 for */
+    std::cout &lt;&lt; "sum of squares 1..5 = " &lt;&lt; sum &lt;&lt; "\n";
+
+    std::map&lt;std::string, int&gt; counts;                        /* 键值表 */
+    counts["a"]++; counts["a"]++; counts["b"]++;
+    std::cout &lt;&lt; "a=" &lt;&lt; counts["a"] &lt;&lt; " b=" &lt;&lt; counts["b"] &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M07）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra templates.cpp -o tpl &amp;&amp; ./tpl
+<span class="o">max_of(3,7) = 7
+max_of(2.5,1.5) = 2.5
+sum of squares 1..5 = 55
+a=2 b=1</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 模板是"编译期生成"</div>
+      <p style="margin-bottom:0">
+        <code class="ic">max_of(3,7)</code> 与 <code class="ic">max_of(2.5,1.5)</code> 会让编译器生成<strong>两个</strong>具体函数（分别针对 int、double）。
+        这叫<strong>实例化</strong>：运行期零开销、可内联——代价是<strong>代码体积</strong>（每种类型一份）。嵌入式里这正是"零开销抽象"的来源与边界（第②册 B02 详讲）。
+      </p>
+    </div>
+
+    <h2 id="m07-2">7.2 STL：常用容器一览</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">容器</th><th>用途</th><th>常用操作</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">std::string</code></td><td>字符串（可增长、带长度）</td><td><code class="ic">+ / size() / c_str()</code></td></tr>
+          <tr><td><code class="ic">std::vector&lt;T&gt;</code></td><td>动态数组</td><td><code class="ic">push_back / size / [] / 范围 for</code></td></tr>
+          <tr><td><code class="ic">std::map&lt;K,V&gt;</code></td><td>有序键值表</td><td><code class="ic">m[key] / count / find</code></td></tr>
+          <tr><td><code class="ic">std::array&lt;T,N&gt;</code></td><td>固定长度数组（无动态分配）</td><td><code class="ic">[] / size()</code>（嵌入式常用）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 嵌入式里对 STL 要留个心眼</div>
+      <p style="margin-bottom:0">
+        <code class="ic">vector</code>/<code class="ic">string</code>/<code class="ic">map</code> 会<strong>动态分配内存</strong>——在 MCU 上可能带来堆碎片与不确定延迟。
+        嵌入式更常用<strong>固定容量</strong>的 <code class="ic">std::array</code>、<code class="ic">std::span</code>（<strong>C++20 起</strong>）、<code class="ic">etl</code> 等。资源管理在本册 M08 讲了基础；在 MCU 上的取舍（体积/开销）由第②册《C++（嵌入式向）》深入。
+      </p>
+    </div>
+
+    <h2 id="m07-3">7.3 算法与迭代器（一句带过）</h2>
+    <p>
+      STL 还有一套算法（<code class="ic">std::sort</code>、<code class="ic">std::find</code>、<code class="ic">std::accumulate</code>…），配合迭代器或范围使用，
+      例如 <code class="ic">std::sort(v.begin(), v.end());</code>。<em>注意所需头文件：<code class="ic">sort/find</code> 在 <code class="ic">&lt;algorithm&gt;</code>，<code class="ic">accumulate</code> 在 <code class="ic">&lt;numeric&gt;</code>——漏了会报 not declared。</em><strong>先"会读、会用"，不必现在背。</strong>
+    </p>
+
+    <h2 id="m07-4">07.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>泛型</td><td><code class="ic">#define</code> 宏</td><td>模板</td></tr>
+          <tr><td>容器</td><td>手写数组</td><td><code class="ic">std::vector</code></td></tr>
+          <tr><td>排序</td><td>手写 qsort</td><td><code class="ic">std::sort</code></td></tr>
+          <tr><td>字典</td><td>手写哈希</td><td><code class="ic">std::unordered_map</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m07-5">07.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>模板定义放 .cpp</td><td>链接不到</td><td>放头文件</td></tr>
+          <tr><td><code class="ic">vector</code> 越界</td><td>未定义行为</td><td>用 <code class="ic">.at()</code> 或检查</td></tr>
+          <tr><td>迭代器失效</td><td>崩溃</td><td>注意增删后失效</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.2</b> 模板：类型也是参数</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="一份代码为多种类型生成">
+[('template&lt;T&gt;', 'sv-cyn-s'), ('T=int', 'sv-grn-s'), ('T=double', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">编译期实例化。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.3</b> STL 容器速览</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="按需求选容器">
+[('vector 顺序', 'sv-grn-s'), ('map 键值', 'sv-cyn-s'), ('set 去重', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">先想清楚访问模式再选。</div>
+    </div>
+    <h2 id="m07-6">07.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">tmpl.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+template &lt;typename T&gt;
+T bigger(T a, T b) { return a &gt; b ? a : b; }
+
+int main() { std::cout &lt;&lt; bigger(3,7) &lt;&lt; " " &lt;&lt; bigger(2.5,1.5) &lt;&lt; "\n"; return 0; }</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">stl.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+
+int main() {
+    std::vector&lt;int&gt; v{3,1,2};
+    std::sort(v.begin(), v.end());
+    for (int x : v) std::cout &lt;&lt; x &lt;&lt; " ";
+    std::cout &lt;&lt; "\n";
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把 C 册里"手写求最大值 + 排序"改成模板函数 + <code class="ic">std::vector</code>/<code class="ic">std::sort</code> 版。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">template &lt;class T&gt;</code> 把类型当参数，编译期为每种类型生成代码。</li>
+        <li>模板运行期零开销，代价是体积（实例化膨胀）。</li>
+        <li>STL 提供现成容器：<code class="ic">string</code>/<code class="ic">vector</code>/<code class="ic">map</code>/<code class="ic">array</code> 与算法。</li>
+        <li>范围 for（<code class="ic">for (int x : v)</code>）让遍历更简洁。</li>
+        <li>嵌入式对会动态分配的容器要谨慎，优先固定容量类型。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：<code class="ic">template &lt;class T&gt; T max_of(T,T)</code> 被 int 和 double 各用一次，会生成几份代码？</p>
+          <details><summary></summary><p><strong>两份</strong>（各针对一种类型实例化）。这就是模板的体积代价。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">std::vector</code> 适合直接在 MCU 的硬实时路径里用。</p>
+          <details><summary></summary><p>不太适合。它会动态分配/扩容，带来堆碎片与不确定延迟。实时路径优先固定容量容器（<code class="ic">std::array</code>）。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">std::vector&lt;int&gt; v; v[0] = 1;</code> 崩溃了，为什么？</p>
+          <details><summary></summary><p>空 vector 没有元素，<code class="ic">v[0]</code> 越界。应先 <code class="ic">push_back</code>（或先 <code class="ic">resize</code>）。<code class="ic">[]</code> 不检查边界。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">templates.cpp</code> 的 <code class="ic">max_of</code> 用于 <code class="ic">std::string</code>（如 <code class="ic">max_of(std::string("a"), std::string("b"))</code>），看是否可行。</p>
+          <details><summary></summary><p>可行——<code class="ic">std::string</code> 支持 <code class="ic">&gt;</code>。模板对"支持所需运算"的类型都适用，这正是泛型的力量（也是它报错啰嗦的原因）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：STL 里的 <code class="ic">std::array</code> 和 C 数组一样不占额外存储。</p>
+          <details><summary></summary><p>基本对。<code class="ic">std::array&lt;T,N&gt;</code> 就是"包了层接口的定长数组"，无动态分配、不占额外存储，且能和 STL 算法配合——嵌入式里很合适。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 07 完成？</b> 写一个函数模板 <code class="ic">sum(const std::vector&lt;T&gt;&amp;)</code>，对 int 和 double 各用一次。</div>
+      <button class="done-btn" data-done="m07">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>选一个 STL 容器，解释复杂度、容量与迭代器失效，并用算法表达转换。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 资源与收口</div>
+      <h1 class="ch-title">智能指针、异常与 <span class="acc">RAII</span></h1>
+      <p class="ch-lead">
+        手动 <code class="ic">new/delete</code> 容易忘、容易重复释放。C++ 的答案是 <strong>RAII + 智能指针</strong>：把"释放"交给对象的析构。
+        这一节讲 <code class="ic">unique_ptr</code>、异常，并把你引向《C++（嵌入式向）迁移地图》(B02)。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ unique_ptr · try/catch · RAII</span><span>⚑ 过渡到 B02</span>
+      </div>
+    </div>
+
+    <h2 id="m08-1">8.1 RAII 与析构：把释放交给对象</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">smartptr.cpp — RAII + 智能指针 + 异常（可运行）</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+#include &lt;stdexcept&gt;
+
+class Res {
+public:
+    Res()  { std::cout &lt;&lt; "获取资源\n"; }
+    ~Res() { std::cout &lt;&lt; "释放资源（RAII）\n"; }
+};
+
+int main()
+{
+    {
+        std::unique_ptr&lt;Res&gt; p(new Res());   /* 离开作用域自动释放 */
+        std::cout &lt;&lt; "使用资源…\n";
+    }                                        /* 这里自动析构 */
+
+    try {
+        throw std::runtime_error("模拟错误");
+    } catch (const std::exception &amp;e) {
+        std::cout &lt;&lt; "捕获异常: " &lt;&lt; e.what() &lt;&lt; "\n";
+    }
+    return 0;
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M08）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> g++ -std=c++17 -Wall -Wextra smartptr.cpp -o smart &amp;&amp; ./smart
+<span class="o">获取资源
+使用资源…
+释放资源（RAII）
+捕获异常: 模拟错误</span>
+<span class="w"># 抛出异常时，unique_ptr 也在栈展开中析构 → "释放资源（RAII）"照样打印：这就是异常安全。</span></pre></div>
+    </div>
+
+    <h2 id="m08-2">8.2 智能指针：别再用裸 new/delete</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">指针</th><th style="width:34%">所有权</th><th>说明</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">std::unique_ptr&lt;T&gt;</code></td><td>独占</td><td>同一时刻只有一个所有者；不能拷贝、只能移动。<strong>首选</strong></td></tr>
+          <tr><td><code class="ic">std::shared_ptr&lt;T&gt;</code></td><td>共享</td><td>引用计数，最后一个释放；有原子计数开销，嵌入式慎用。</td></tr>
+          <tr><td>裸 <code class="ic">T*</code> + <code class="ic">new/delete</code></td><td>你自己</td><td>容易忘记/重复释放——除非必要，别用。</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 为什么智能指针更好</div>
+      <ul style="margin-bottom:0">
+        <li>离开作用域<strong>自动释放</strong>，不会忘；</li>
+        <li>不能被拷贝（unique_ptr），<strong>不会重复释放</strong>；</li>
+        <li>异常抛出时也会释放（因为走的是析构）。</li>
+      </ul>
+    </div>
+
+    <h2 id="m08-3">8.3 异常：<code>try / catch</code></h2>
+    <p>
+      <code class="ic">throw</code> 抛出一个异常对象，沿调用栈向上找匹配的 <code class="ic">catch</code>。它把"错误"从返回值里分离出来，
+      让正常路径更干净。规则：<strong>可恢复错误用返回值/错误码，不可恢复的意外才抛异常</strong>。
+    </p>
+    <div class="box warn">
+      <div class="box-t">⚠ 嵌入式里通常关掉异常</div>
+      <p style="margin-bottom:0">
+        异常需要"展开表 + 运行时"（体积与不确定性），嵌入式常编译时加 <code class="ic">-fno-exceptions</code> 关掉，改用错误码。
+        <strong>本册为了讲全语言特性用了异常；到 B02 你会学到"MCU 上该不该开异常"的账单。</strong>
+      </p>
+    </div>
+
+    <h2 id="m08-4">8.4 你已经会 C++ 了——下一步</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.1</b> 从"会 C++"到"把 C++ 用到 MCU"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="B02a 到 B02 的过渡">
+          <rect x="20" y="52" width="230" height="46" rx="6" class="sv-box"/>
+          <text x="135" y="72" class="sv-lbl-hi" text-anchor="middle">B02a（本册）</text>
+          <text x="135" y="89" class="sv-lbl-dim" text-anchor="middle">类/继承/多态/模板/STL/RAII</text>
+          <path d="M250 75 L310 75" class="sv-arrow"/>
+          <rect x="312" y="30" width="328" height="90" rx="8" class="sv-grn-s"/>
+          <text x="330" y="54" class="sv-lbl-hi" style="fill:var(--grn)">B02《C++（嵌入式向）迁移地图》</text>
+          <text x="330" y="76" class="sv-lbl-dim">每项特性的真实代价（字节/指令/周期）</text>
+          <text x="330" y="96" class="sv-lbl-dim">-fno-exceptions/-fno-rtti、ISR 里的 C++</text>
+          <text x="330" y="114" class="sv-lbl-dim">与 C 互操作、模板实例化膨胀</text>
+        </svg>
+      </div>
+      <div class="fig-ft">本册教"<strong>怎么写</strong>"；B02 教"<strong>在 MCU 上值不值得、代价多大、怎么落地</strong>"。两册配对，缺一不可。</div>
+    </div>
+
+    <h2 id="m08-5">08.5 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>C++ 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>释放</td><td>手工 free</td><td>析构/智能指针</td></tr>
+          <tr><td>所有权</td><td>靠约定</td><td><code class="ic">unique_ptr</code></td></tr>
+          <tr><td>错误</td><td>返回码</td><td>异常 try/catch</td></tr>
+          <tr><td>拷贝资源</td><td>易重复释放</td><td>移动/独占</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m08-6">08.6 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>后果</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>裸 <code class="ic">new</code> 忘记 delete</td><td>泄漏</td><td>用智能指针</td></tr>
+          <tr><td>析构里抛异常</td><td>terminate</td><td>析构不抛</td></tr>
+          <tr><td>catch(...) 吞掉一切</td><td>难定位</td><td>至少记录</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.2</b> RAII：把释放交给对象</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="对象析构时自动释放">
+[('获取（构造）', 'sv-grn-s'), ('使用', 'sv-cyn-s'), ('释放（析构）', 'sv-red-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">提前 return 也会释放。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.3</b> 智能指针的所有权</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="unique 独占、shared 共享">
+[('unique_ptr 独占', 'sv-grn-s'), ('shared_ptr 共享', 'sv-amb-s')]
+        </svg>
+      </div>
+      <div class="fig-ft">默认先用 <code class="ic">unique_ptr</code>。</div>
+    </div>
+    <h2 id="m08-7">08.7 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译运行</td><td><code class="ic">g++ -std=c++17 -Wall</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>理解每行</td><td>不照抄</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">raii.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;memory&gt;
+
+int main() {
+    auto p = std::make_unique&lt;int&gt;(42);
+    std::cout &lt;&lt; *p &lt;&lt; "\n";
+    return 0;   // 自动释放
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">except.cpp</span>
+        <span class="code-lang">C++</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#include &lt;iostream&gt;
+
+int main() {
+    try { throw 7; }
+    catch (int e) { std::cout &lt;&lt; "caught " &lt;&lt; e &lt;&lt; "\n"; }
+    return 0;
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把一段"裸 new/delete"改成 <code class="ic">unique_ptr</code>，并给可能失败的函数加 <code class="ic">try/catch</code>。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>RAII：构造获取、析构释放；是 C++ 资源管理的基石。</li>
+        <li>用 <code class="ic">unique_ptr</code> 表达独占所有权，自动释放、不可复制。</li>
+        <li><code class="ic">shared_ptr</code> 共享所有权但有开销，嵌入式慎用。</li>
+        <li>异常用 <code class="ic">try/catch</code>；可恢复错误仍优先用错误码。</li>
+        <li>嵌入式常关异常（<code class="ic">-fno-exceptions</code>）——到 B02 学"该不该开"的账单。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：RAII 一句话是什么？它靠什么自动生效？</p>
+          <details><summary></summary><p>构造获取资源、析构释放资源；靠"对象离开作用域必调析构"自动生效，把"记得释放"交给编译器。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">unique_ptr</code> 可以拷贝给另一个 <code class="ic">unique_ptr</code>。</p>
+          <details><summary></summary><p>不能拷贝，只能<strong>移动</strong>（<code class="ic">std::move</code>）。这正是"独占所有权"的保证。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：函数中 <code class="ic">new</code> 了对象，中途 <code class="ic">return</code> 或抛异常，为什么漏了 <code class="ic">delete</code>？怎么根治？</p>
+          <details><summary></summary><p>提前返回/异常跳过了 delete。根治办法：用 <code class="ic">unique_ptr</code> 持有它——无论怎么离开，析构都会释放。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">smartptr.cpp</code> 里的 <code class="ic">unique_ptr</code> 换成裸 <code class="ic">new Res()</code> 且不 delete，再在中间 <code class="ic">throw</code>，观察"释放资源"是否消失。</p>
+          <details><summary></summary><p>释放不再发生（内存/资源泄漏）——直观展示为什么智能指针在异常路径下也安全。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：学完本册就可以直接写 MCU 上的 C++ 了。</p>
+          <details><summary></summary><p>可以写、但还不懂"值不值得"：异常/RTTI/动态分配/多态在 MCU 上的代价、与 C 互操作、ISR 纪律都在 B02。请继续读 B02。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>B02a 完成？</b> 恭喜——你已经掌握 C++ 语言本体。下一步请打开《C++（嵌入式向）迁移地图》(B02)，学"在 MCU 上的代价与落地"。</div>
+      <button class="done-btn" data-done="m08">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>使用 unique_ptr 或值对象表达唯一所有权；异常路径仍能释放资源。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09"><div class="ch-head"><div class="ch-badge">Module 09 · 实现与验收</div><h1 class="ch-title">对象生命周期与值语义深化</h1><p class="ch-lead">解释复制、移动和销毁，设计不会共享悬空资源的值类型。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m09-mechanism">机制与契约</h2><p>值语义要求复制后的对象可以独立使用。Buffer 拥有 unique_ptr 指向的数组，复制构造分配新块并复制元素；移动转移所有权并把源长度置零。赋值按值接收临时对象，再交换：参数复制若失败，目标还未变化；交换和移动应满足 noexcept 承诺。多数实际类优先用 vector/string 实现规则零，只有确实管理独特资源时才手写特殊成员。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>Buffer(const Buffer&amp; b) : Buffer(b.n_) { /* 深复制 */ }
+Buffer&amp; operator=(Buffer b) noexcept { swap(b); return *this; }</code></pre></div>
+<h2 id="m09-boundary">边界与误用</h2><p>复制一个裸指针不会复制它拥有的对象，会造成共享修改或重复释放。std::move 只是允许选择移动重载，不保证所有类型都会便宜地移动。移动后的标准库对象通常只保证有效状态，不能统一假设为空；本例置零是本例明示的契约。</p>
+<h2 id="m09-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values
+./values</pre></div><p>完整源码：<a href="../resources/B02a/labs/values.cpp">labs/values.cpp</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行复制、移动、自赋值测试；修改副本观察原对象。说明复制期间分配失败发生在哪一步、目标为何仍可用。</p><p><strong>验收：</strong>副本修改不影响原对象；自赋值正确；本例移动源为空且可销毁；能解释异常安全与 noexcept 边界。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">按值赋值为什么能处理自赋值？</p><details><summary>查看推理</summary><p>实参先成为独立的临时对象，再交换资源。交换后临时对象释放旧资源；没有先释放原对象再从已释放资源复制的顺序问题。</p></details></div><p class="lesson-ref">核对来源：<a href="https://eel.is/c++draft/">C++ 工作草案 · 生命周期、容器与视图（按 C++20 示例核对）</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m09">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>测试复制、移动、自赋值与移动后契约，记录构造/析构次数。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10"><div class="ch-head"><div class="ch-badge">Module 10 · 实现与验收</div><h1 class="ch-title">容器、算法与迭代器深化</h1><p class="ch-lead">依据布局、失效规则和资源上限选择容器与算法。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m10-mechanism">机制与契约</h2><p>vector 连续存储，随机访问 O(1)，增长可能重新分配；map 保持有序，unordered_map 依靠哈希且最坏情况不能按平均 O(1) 承诺。容器选择要同时考虑元素上限、分配、索引需求和迭代器失效。vector 扩容后地址可能变化，即使迭代器看起来仍指向某个数，也不能继续使用。排序后元素位置改变；索引也不等于稳定对象身份。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>int saved = v[0];  // 保存值，不保存可能失效的地址
+v.reserve(100);
+v.push_back(4);
+std::ranges::sort(v);</code></pre></div>
+<h2 id="m10-boundary">边界与误用</h2><p>reserve 只改变容量，不创建可通过下标访问的元素；v[5] 在 size=3 时仍越界。unordered_map 的负载和哈希函数影响时间与内存，不能把常见情况当最坏执行时间。</p>
+<h2 id="m10-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values
+./values</pre></div><p>完整源码：<a href="../resources/B02a/labs/values.cpp">labs/values.cpp</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>将样本保存在 vector 中，比较 reserve 前后 capacity；增加排序和设备 ID 索引。写出每一步哪些引用仍有效。</p><p><strong>验收：</strong>只访问 size 范围；无失效引用；说明连续性、排序、增长与最坏成本；固定上限方案可解释。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么 reserve(100) 后仍不能直接写 v[99]？</p><details><summary>查看推理</summary><p>capacity 表示存储容量，size 表示已存在元素数。下标访问要求对象已经存在，应该先 resize 或 push_back。</p></details></div><p class="lesson-ref">核对来源：<a href="https://eel.is/c++draft/">C++ 工作草案 · 生命周期、容器与视图（按 C++20 示例核对）</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m10">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>制造扩容导致视图失效的反例，修正对象生命与 span/string_view 接口。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m11"><div class="ch-head"><div class="ch-badge">Module 11 · 实现与验收</div><h1 class="ch-title">泛型、接口与现代 C++</h1><p class="ch-lead">用约束表达接口要求，并维护 span/string_view 的生命周期。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div><!-- COURSE_DIAGRAM_START --><figure class="fig"><div class="fig-hd">视图不拥有数据，也不延长存储生命</div><div class="fig-bd"><svg viewBox="0 0 800 190" role="img" aria-label="视图不拥有数据，也不延长存储生命"><title>视图不拥有数据，也不延长存储生命</title><defs><marker id="mastery-arrow-cpp-view" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="currentColor"/></marker></defs><rect x="10" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="132.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">拥有者</text><text x="132.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">Buffer / vector / string</text><text x="132.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">负责分配与释放</text><text x="132.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">决定存储是否迁移</text><path d="M257 92H272" stroke="currentColor" marker-end="url(#mastery-arrow-cpp-view)"/><rect x="275" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="397.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">非拥有视图</text><text x="397.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">span / string_view</text><text x="397.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">地址与长度</text><text x="397.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">只读也依赖生命</text><path d="M522 92H537" stroke="currentColor" marker-end="url(#mastery-arrow-cpp-view)"/><rect x="540" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="662.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">使用条件</text><text x="662.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">拥有者仍存活</text><text x="662.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">存储位置保持稳定</text><text x="662.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">释放/重分配后禁用</text></svg></div><figcaption>只读与所有权是不同维度。不是每次移动都会迁移底层数据；按对象的具体契约判断视图是否仍有效。</figcaption></figure><!-- COURSE_DIAGRAM_END -->
+<h2 id="m11-mechanism">机制与契约</h2><p>模板使接口复用类型，concepts 使可接受类型直接写在声明中。本例 mean 只接受浮点元素，空输入通过异常通道报告。span 是指针与长度组成的非拥有视图，不复制元素也不延长原对象生命；容器销毁或重新分配会使视图失效。string_view 同样不能拥有临时字符串。接口文档要写清谁拥有数据、调用期间能否修改、错误怎样返回。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>template&lt;std::floating_point T&gt;
+T mean(std::span&lt;const T&gt; values);
+// 视图使用期间，拥有者必须仍存活且存储位置稳定。</code></pre></div>
+<h2 id="m11-boundary">边界与误用</h2><p>return span(local_vector) 会留下悬空视图；只读视图也会悬空。本章用 C++20；旧工具链需选相应替代接口。异常关闭的嵌入式项目应另设计显式错误结果，不能直接复制 throw。</p>
+<h2 id="m11-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values
+./values</pre></div><p>完整源码：<a href="../resources/B02a/labs/values.cpp">labs/values.cpp</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行 mean 正常与空输入测试；尝试 mean&lt;int&gt;，确认约束在编译期拒绝。把接口改成显式错误结果，写出收益与成本。</p><p><strong>验收：</strong>非法类型不能实例化；空输入有错误通道；视图不越过拥有者生命周期；标准与异常政策明确。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">span&lt;const T&gt; 是否保证数据永久有效？</p><details><summary>查看推理</summary><p>const 限制经视图修改元素，不管理存储生命。拥有者仍可能销毁、移动或重新分配，调用者必须维护生命和稳定性。</p></details></div><p class="lesson-ref">核对来源：<a href="https://eel.is/c++draft/">C++ 工作草案 · 生命周期、容器与视图（按 C++20 示例核对）</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m11">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m11"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>用约束清楚的模板替换后端；错误类型在调用边界可诊断。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m12"><div class="ch-head"><div class="ch-badge">Module 12 · 实现与验收</div><h1 class="ch-title">构建、测试与库边界</h1><p class="ch-lead">声明库边界与构建政策，在干净目录复现测试。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m12-mechanism">机制与契约</h2><p>一个可交付库需要公开头文件、实现、测试、工具链标准和配置政策。先把 values.cpp 拆成值类型头文件与测试，再由构建系统生成库目标和测试目标。边界明确是否允许异常、RTTI、动态分配、线程与跨模块拥有对象。对象布局可能随编译器/选项改变，不应把任意 C++ 类当稳定二进制接口。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values
+./values</code></pre></div>
+<h2 id="m12-boundary">边界与误用</h2><p>主机测试通过不能证明目标镜像资源满足要求。目标链接还需启动文件、链接脚本、运行库和板级初始化；保留 map/size 及构建选项，不把单文件 .o 大小当整镜像开销。</p>
+<h2 id="m12-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values
+./values</pre></div><p>完整源码：<a href="../resources/B02a/labs/values.cpp">labs/values.cpp</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>从只有源码的新目录构建；声明异常/RTTI/分配政策；准备一个 C ABI 的薄接口并规定错误与释放方法。</p><p><strong>验收：</strong>不依赖个人目录；标准与编译选项明确；测试可重复；主机验证与目标链接/实测分别记录。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">库升级时为什么只保持函数名字不变还不够？</p><details><summary>查看推理</summary><p>参数布局、调用约定、异常跨边界、内存分配/释放以及行为契约也属于兼容性；跨版本边界应使用明确的 ABI 和版本政策。</p></details></div><p class="lesson-ref">核对来源：<a href="https://eel.is/c++draft/">C++ 工作草案 · 生命周期、容器与视图（按 C++20 示例核对）</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m12">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m12"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>库与调用者独立构建；检查异常/分配/ABI 契约，测试公开接口。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head">
+      <div class="ch-badge">Reference · 对照表</div>
+      <h1 class="ch-title">术语与符号<span class="acc">对照表</span></h1>
+      <p class="ch-lead">本页是 B02a 的<strong>单一事实源</strong>：<code class="ic">verify/glossary.json</code> 与下表逐条比对，漂移即构建失败。</p>
+    </div>
+    <h2 id="glossary-terms">术语</h2>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:18%">术语</th><th>含义</th></tr></thead><tbody>
+          <tr><td data-term="引用"><strong>引用</strong></td><td>变量/对象的别名（Type&amp;）：不是拷贝，也不能重新绑定；比指针更安全、语法更干净。</td></tr>
+          <tr><td data-term="命名空间"><strong>命名空间</strong></td><td>namespace：给名字分组，避免全局名字冲突；用 :: 访问，如 std::cout。</td></tr>
+          <tr><td data-term="函数重载"><strong>函数重载</strong></td><td>同名函数按参数类型/个数区分（编译期决定调用哪个）。</td></tr>
+          <tr><td data-term="类"><strong>类</strong></td><td>class：把数据（成员变量）与操作（成员函数）打包成自定义类型的蓝图。</td></tr>
+          <tr><td data-term="对象"><strong>对象</strong></td><td>类的一个实例，占据内存、有自己的成员值。</td></tr>
+          <tr><td data-term="构造函数"><strong>构造函数</strong></td><td>对象创建时自动调用，用于初始化；名字与类同名、无返回类型。</td></tr>
+          <tr><td data-term="析构函数"><strong>析构函数</strong></td><td>对象销毁时自动调用（~类名），用于释放资源——RAII 的关键。</td></tr>
+          <tr><td data-term="封装"><strong>封装</strong></td><td>用 private/protected/public 控制成员可见性，只暴露必要接口。</td></tr>
+          <tr><td data-term="运算符重载"><strong>运算符重载</strong></td><td>为自定义类型定义 + - == 等运算符的行为。</td></tr>
+          <tr><td data-term="继承"><strong>继承</strong></td><td>派生类复用基类的成员（class B : public A）。</td></tr>
+          <tr><td data-term="多态"><strong>多态</strong></td><td>通过基类指针/引用调用时，实际执行派生类的覆写版本；靠虚函数实现。</td></tr>
+          <tr><td data-term="虚函数"><strong>虚函数</strong></td><td>virtual 成员函数：运行期按对象真实类型分派（动态绑定）。</td></tr>
+          <tr><td data-term="抽象类"><strong>抽象类</strong></td><td>含纯虚函数（= 0）的类，不能实例化，只作接口使用。</td></tr>
+          <tr><td data-term="模板"><strong>模板</strong></td><td>template：把类型当参数，一套代码适配多种类型（编译期生成具体版本）。</td></tr>
+          <tr><td data-term="STL"><strong>STL</strong></td><td>标准模板库：容器（vector/map…）、迭代器、算法（sort/find…）的统称。</td></tr>
+          <tr><td data-term="智能指针"><strong>智能指针</strong></td><td>自动管理生命周期的“指针”包装：unique_ptr 独占、shared_ptr 共享。</td></tr>
+          <tr><td data-term="RAII"><strong>RAII</strong></td><td>构造获取资源、析构释放；把资源生命周期绑到对象上。</td></tr>
+          <tr><td data-term="异常"><strong>异常</strong></td><td>try/catch 的错误处理机制：throw 抛出、catch 捕获；嵌入式常关掉。</td></tr>
+    </tbody></table></div>
+    <h2 id="glossary-symbols">符号 / 构件</h2>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:24%">符号 / 构件</th><th style="width:18%">类别</th><th>说明</th></tr></thead><tbody>
+          <tr><td data-sym="iostream"><code class="ic">iostream</code></td><td>标准库头</td><td>C++ 的输入输出流头文件（std::cout/std::cin）</td></tr>
+          <tr><td data-sym="std::cout"><code class="ic">std::cout</code></td><td>标准库对象</td><td>标准输出流；cout &lt;&lt; x 输出，替代 printf</td></tr>
+          <tr><td data-sym="std::string"><code class="ic">std::string</code></td><td>标准库类型</td><td>可增长、带长度管理的字符串类型</td></tr>
+          <tr><td data-sym="std::vector"><code class="ic">std::vector</code></td><td>标准库容器</td><td>动态数组；push_back/ size/ [] 访问</td></tr>
+          <tr><td data-sym="class"><code class="ic">class</code></td><td>关键字</td><td>定义类（默认 private 成员）</td></tr>
+          <tr><td data-sym="public"><code class="ic">public</code></td><td>访问控制</td><td>成员对外可见（任何地方可访问）</td></tr>
+          <tr><td data-sym="private"><code class="ic">private</code></td><td>访问控制</td><td>仅类内可见的成员</td></tr>
+          <tr><td data-sym="virtual"><code class="ic">virtual</code></td><td>关键字</td><td>声明虚函数，启用运行期多态</td></tr>
+          <tr><td data-sym="template"><code class="ic">template</code></td><td>关键字</td><td>声明模板，用类型参数 T 生成具体代码</td></tr>
+          <tr><td data-sym="std::unique_ptr"><code class="ic">std::unique_ptr</code></td><td>智能指针</td><td>独占所有权的智能指针；离开作用域自动释放</td></tr>
+          <tr><td data-sym="try / catch"><code class="ic">try / catch</code></td><td>异常</td><td>异常处理块：try{...}catch(...){}</td></tr>
+    </tbody></table></div>
+    <p class="done-note">维护提示：正文里新增的术语/符号若要进对照表，先登记到 <code class="ic">verify/glossary.json</code>，再补本表——两处同步后构建才会通过。</p>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "C++ 学习路径."}, {"id": "m01", "num": "01", "title": "从 C 到 C++：第一印象"}, {"id": "m02", "num": "02", "title": "引用与 const"}, {"id": "m03", "num": "03", "title": "函数进阶"}, {"id": "m04", "num": "04", "title": "类与对象"}, {"id": "m05", "num": "05", "title": "运算符重载与友元"}, {"id": "m06", "num": "06", "title": "继承与多态"}, {"id": "m07", "num": "07", "title": "模板与 STL"}, {"id": "m08", "num": "08", "title": "智能指针、异常与 RAII"}, {"id": "m09", "num": "09", "title": "对象生命周期与值语义深化"}, {"id": "m10", "num": "10", "title": "容器、算法与迭代器深化"}, {"id": "m11", "num": "11", "title": "泛型、接口与现代 C++"}, {"id": "m12", "num": "12", "title": "构建、测试与库边界"}, {"id": "glossary", "num": "", "title": "术语与符号对照表"}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

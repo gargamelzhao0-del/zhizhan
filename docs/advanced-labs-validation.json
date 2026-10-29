@@ -1,0 +1,40 @@
+{
+  "platform": "Windows-11-10.0.26200-SP0",
+  "linuxTargetTested": false,
+  "passed": true,
+  "tcpFramingTests": {
+    "passed": true,
+    "count": 8,
+    "output": "test_body_truncated (framing_lab.FramingTests.test_body_truncated) ... ok\ntest_clean_end (framing_lab.FramingTests.test_clean_end) ... ok\ntest_empty_message (framing_lab.FramingTests.test_empty_message) ... ok\ntest_fragmented_and_combined (framing_lab.FramingTests.test_fragmented_and_combined) ... ok\ntest_header_truncated (framing_lab.FramingTests.test_header_truncated) ... ok\ntest_invalid_utf8 (framing_lab.FramingTests.test_invalid_utf8) ... ok\ntest_loopback_tcp (framing_lab.FramingTests.test_loopback_tcp) ... ok\ntest_size_limit (framing_lab.FramingTests.test_size_limit) ... ok\n\n----------------------------------------------------------------------\nRan 8 tests in 0.016s\n\nOK\n",
+    "network": "127.0.0.1 only"
+  },
+  "cmakeOutput": "Test project C:/Users/Administrator/Documents/work/TechVault/build/cmake-lessons\n    Start 1: ownership\n1/3 Test #1: ownership ........................   Passed    0.03 sec\n    Start 2: algorithms\n2/3 Test #2: algorithms .......................   Passed    0.04 sec\n    Start 3: interfaces\n3/3 Test #3: interfaces .......................   Passed    0.05 sec\n\n100% tests passed, 0 tests failed out of 3\n\nTotal Test time (real) =   0.22 sec\n",
+  "cmakeTests": 3,
+  "cmakeVersion": "cmake version 4.0.3",
+  "sources": [
+    {
+      "file": "content/examples/linux/tcp_frames.py",
+      "sha256": "bd3748410ef8fdeda2ab4650d44170456653c40451ed87cf3fc0e2d780d97a5a"
+    },
+    {
+      "file": "content/examples/cpp/CMakeLists.txt",
+      "sha256": "27caaf63b331cc8fa3978ae5162993e237a0cd01abab2a33a938ae4bc89ae98d"
+    },
+    {
+      "file": "content/examples/cpp/07-project.cpp",
+      "sha256": "cb9f707549ddb1779a2c84997d9d82f67745f193e66f41f888a5df318cd0449d"
+    },
+    {
+      "file": "content/examples/cpp/08-ownership.cpp",
+      "sha256": "6a3d3af061c9e3e5e3c8e5d4c2cd54c159483cac8e675a5deb24fbae52083af2"
+    },
+    {
+      "file": "content/examples/cpp/09-algorithms.cpp",
+      "sha256": "5dab3294c0c1bbe4c20b7111181f457e62fe66436456d6094252203976447702"
+    },
+    {
+      "file": "content/examples/cpp/10-interfaces.cpp",
+      "sha256": "49b13c218ec5fa0d066d8680cc9c340071a67a70649556ba4e3bbba0d2d6a1f0"
+    }
+  ]
+}

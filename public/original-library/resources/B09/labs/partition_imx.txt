@@ -1,0 +1,5 @@
+# i.MX6ULL · SD 卡分区（DOS/MBR）
+#  1  FAT32  boot   64MiB   zImage + imx6ull-*.dtb
+#  2  ext4   rootfs 剩余    根文件系统
+# Yocto 用 .wic 镜像把 boot 与 rootfs 一次写入，免手工分区：
+#   bmaptool copy core-image-minimal-imx6ull14x14evk.wic.bz2 /dev/sdX

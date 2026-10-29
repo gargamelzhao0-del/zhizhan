@@ -1,0 +1,245 @@
+[
+ {
+  "id": "B01",
+  "name": "嵌入式 C 精读",
+  "tier": "flagship",
+  "tier_label": "系统精读 · 基准",
+  "chapters": 11,
+  "modules": 9,
+  "kb": 2058
+ },
+ {
+  "id": "B00",
+  "name": "编程与 C 语言基础",
+  "tier": "intro",
+  "tier_label": "零基础入口",
+  "chapters": 14,
+  "modules": 12,
+  "kb": 209
+ },
+ {
+  "id": "B02a",
+  "name": "C++ 语言基础",
+  "tier": "intro",
+  "tier_label": "零基础入口",
+  "chapters": 14,
+  "modules": 12,
+  "kb": 186
+ },
+ {
+  "id": "B03a",
+  "name": "Rust 语言基础",
+  "tier": "intro",
+  "tier_label": "零基础入口",
+  "chapters": 14,
+  "modules": 12,
+  "kb": 188
+ },
+ {
+  "id": "B04a",
+  "name": "Python 语言基础",
+  "tier": "intro",
+  "tier_label": "零基础入口",
+  "chapters": 14,
+  "modules": 12,
+  "kb": 184
+ },
+ {
+  "id": "B02",
+  "name": "C++（嵌入式向）",
+  "tier": "lang",
+  "tier_label": "嵌入式语言",
+  "chapters": 14,
+  "modules": 11,
+  "kb": 385
+ },
+ {
+  "id": "B03",
+  "name": "Rust（嵌入式向）",
+  "tier": "lang",
+  "tier_label": "嵌入式语言",
+  "chapters": 13,
+  "modules": 10,
+  "kb": 246
+ },
+ {
+  "id": "B04",
+  "name": "Python（嵌入式向）",
+  "tier": "lang",
+  "tier_label": "嵌入式语言",
+  "chapters": 10,
+  "modules": 8,
+  "kb": 174
+ },
+ {
+  "id": "B05",
+  "name": "单片机裸机与外设驱动",
+  "tier": "mcu",
+  "tier_label": "MCU / RTOS",
+  "chapters": 25,
+  "modules": 21,
+  "kb": 502
+ },
+ {
+  "id": "B06",
+  "name": "RTOS 与实时系统",
+  "tier": "mcu",
+  "tier_label": "MCU / RTOS",
+  "chapters": 16,
+  "modules": 12,
+  "kb": 317
+ },
+ {
+  "id": "B07",
+  "name": "通信协议与系统集成",
+  "tier": "mcu",
+  "tier_label": "MCU / RTOS",
+  "chapters": 17,
+  "modules": 13,
+  "kb": 318
+ },
+ {
+  "id": "B08",
+  "name": "单片机应用开发实战",
+  "tier": "mcu",
+  "tier_label": "MCU / RTOS",
+  "chapters": 19,
+  "modules": 15,
+  "kb": 331
+ },
+ {
+  "id": "B09",
+  "name": "嵌入式 Linux 系统",
+  "tier": "linux",
+  "tier_label": "嵌入式 Linux",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 265
+ },
+ {
+  "id": "B10",
+  "name": "嵌入式 Linux 驱动开发",
+  "tier": "linux",
+  "tier_label": "嵌入式 Linux",
+  "chapters": 17,
+  "modules": 13,
+  "kb": 292
+ },
+ {
+  "id": "B11",
+  "name": "嵌入式 Linux 应用开发",
+  "tier": "linux",
+  "tier_label": "嵌入式 Linux",
+  "chapters": 15,
+  "modules": 11,
+  "kb": 228
+ },
+ {
+  "id": "B12",
+  "name": "工程化、测试与量产",
+  "tier": "eng",
+  "tier_label": "工程 / 安全",
+  "chapters": 16,
+  "modules": 12,
+  "kb": 233
+ },
+ {
+  "id": "B13",
+  "name": "端侧 AI 与数据闭环",
+  "tier": "ai",
+  "tier_label": "AI / 数据",
+  "chapters": 17,
+  "modules": 13,
+  "kb": 246
+ },
+ {
+  "id": "B14",
+  "name": "数据平台与云边协同",
+  "tier": "ai",
+  "tier_label": "AI / 数据",
+  "chapters": 15,
+  "modules": 11,
+  "kb": 213
+ },
+ {
+  "id": "B15",
+  "name": "前沿与专项技术",
+  "tier": "frontier",
+  "tier_label": "前沿",
+  "chapters": 18,
+  "modules": 14,
+  "kb": 255
+ },
+ {
+  "id": "B16",
+  "name": "开发环境与工程工具",
+  "tier": "support",
+  "tier_label": "基础支撑",
+  "chapters": 12,
+  "modules": 8,
+  "kb": 173
+ },
+ {
+  "id": "B17",
+  "name": "电子电路与硬件调试基础",
+  "tier": "support",
+  "tier_label": "基础支撑",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 192
+ },
+ {
+  "id": "B18",
+  "name": "处理器与计算机体系结构",
+  "tier": "support",
+  "tier_label": "基础支撑",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 277
+ },
+ {
+  "id": "B19",
+  "name": "数据结构、算法与应用数学",
+  "tier": "support",
+  "tier_label": "基础支撑",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 196
+ },
+ {
+  "id": "B20",
+  "name": "传感器、信号处理与控制",
+  "tier": "support",
+  "tier_label": "基础支撑",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 194
+ },
+ {
+  "id": "B21",
+  "name": "机器学习与数据工程基础",
+  "tier": "support",
+  "tier_label": "基础支撑",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 195
+ },
+ {
+  "id": "B22",
+  "name": "嵌入式安全与设备生命周期",
+  "tier": "eng",
+  "tier_label": "工程 / 安全",
+  "chapters": 14,
+  "modules": 10,
+  "kb": 208
+ },
+ {
+  "id": "B23",
+  "name": "算法、数据与控制实战",
+  "tier": "outlier",
+  "tier_label": "实战 · 独立设计",
+  "chapters": 18,
+  "modules": 18,
+  "kb": 119
+ }
+]

@@ -1,0 +1,331 @@
+{
+  "checkedAt": "2026-10-13T12:00:16.656Z",
+  "sourceRoot": "C:/Users/Administrator/Nuwax/computer-project-workspace/1785505821/1695388/embed-c-course",
+  "contentVersion": "2026.10.13.5",
+  "scope": "All source main content except original-site UI/footer; self-assessment controls and thermal simulator have native equivalents. Code is compared verbatim, experiment files byte for byte. This verifies migration, not technical correctness or target-board execution.",
+  "totals": {
+    "articles": 437,
+    "textFragments": 73062,
+    "codeBlocks": 1702,
+    "figures": 618,
+    "tables": 1366,
+    "experimentFiles": 713
+  },
+  "issues": 0,
+  "books": [
+    {
+      "id": "B00",
+      "articles": 15,
+      "textFragments": 1739,
+      "codeBlocks": 47,
+      "figures": 19,
+      "tables": 39,
+      "experimentFiles": 32,
+      "issues": []
+    },
+    {
+      "id": "B01",
+      "articles": 12,
+      "textFragments": 20573,
+      "codeBlocks": 432,
+      "figures": 36,
+      "tables": 206,
+      "experimentFiles": 15,
+      "issues": []
+    },
+    {
+      "id": "B02a",
+      "articles": 15,
+      "textFragments": 1665,
+      "codeBlocks": 46,
+      "figures": 20,
+      "tables": 34,
+      "experimentFiles": 19,
+      "issues": []
+    },
+    {
+      "id": "B03a",
+      "articles": 15,
+      "textFragments": 1699,
+      "codeBlocks": 44,
+      "figures": 21,
+      "tables": 34,
+      "experimentFiles": 14,
+      "issues": []
+    },
+    {
+      "id": "B04a",
+      "articles": 15,
+      "textFragments": 1661,
+      "codeBlocks": 44,
+      "figures": 18,
+      "tables": 41,
+      "experimentFiles": 16,
+      "issues": []
+    },
+    {
+      "id": "B02",
+      "articles": 15,
+      "textFragments": 3951,
+      "codeBlocks": 57,
+      "figures": 21,
+      "tables": 47,
+      "experimentFiles": 54,
+      "issues": []
+    },
+    {
+      "id": "B03",
+      "articles": 14,
+      "textFragments": 2368,
+      "codeBlocks": 55,
+      "figures": 19,
+      "tables": 39,
+      "experimentFiles": 41,
+      "issues": []
+    },
+    {
+      "id": "B04",
+      "articles": 11,
+      "textFragments": 1353,
+      "codeBlocks": 27,
+      "figures": 15,
+      "tables": 30,
+      "experimentFiles": 130,
+      "issues": []
+    },
+    {
+      "id": "B05",
+      "articles": 26,
+      "textFragments": 3632,
+      "codeBlocks": 88,
+      "figures": 43,
+      "tables": 86,
+      "experimentFiles": 69,
+      "issues": []
+    },
+    {
+      "id": "B06",
+      "articles": 17,
+      "textFragments": 2088,
+      "codeBlocks": 61,
+      "figures": 24,
+      "tables": 49,
+      "experimentFiles": 59,
+      "issues": []
+    },
+    {
+      "id": "B07",
+      "articles": 18,
+      "textFragments": 2151,
+      "codeBlocks": 66,
+      "figures": 26,
+      "tables": 53,
+      "experimentFiles": 53,
+      "issues": []
+    },
+    {
+      "id": "B08",
+      "articles": 20,
+      "textFragments": 2400,
+      "codeBlocks": 76,
+      "figures": 30,
+      "tables": 61,
+      "experimentFiles": 60,
+      "issues": []
+    },
+    {
+      "id": "B09",
+      "articles": 15,
+      "textFragments": 2072,
+      "codeBlocks": 44,
+      "figures": 20,
+      "tables": 60,
+      "experimentFiles": 41,
+      "issues": []
+    },
+    {
+      "id": "B10",
+      "articles": 18,
+      "textFragments": 2550,
+      "codeBlocks": 54,
+      "figures": 26,
+      "tables": 53,
+      "experimentFiles": 12,
+      "issues": []
+    },
+    {
+      "id": "B11",
+      "articles": 16,
+      "textFragments": 1866,
+      "codeBlocks": 46,
+      "figures": 22,
+      "tables": 45,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B12",
+      "articles": 17,
+      "textFragments": 1977,
+      "codeBlocks": 50,
+      "figures": 24,
+      "tables": 49,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B13",
+      "articles": 18,
+      "textFragments": 2113,
+      "codeBlocks": 54,
+      "figures": 26,
+      "tables": 54,
+      "experimentFiles": 6,
+      "issues": []
+    },
+    {
+      "id": "B14",
+      "articles": 16,
+      "textFragments": 1759,
+      "codeBlocks": 45,
+      "figures": 22,
+      "tables": 45,
+      "experimentFiles": 6,
+      "issues": []
+    },
+    {
+      "id": "B15",
+      "articles": 19,
+      "textFragments": 2208,
+      "codeBlocks": 57,
+      "figures": 28,
+      "tables": 57,
+      "experimentFiles": 6,
+      "issues": []
+    },
+    {
+      "id": "B16",
+      "articles": 13,
+      "textFragments": 1375,
+      "codeBlocks": 33,
+      "figures": 16,
+      "tables": 33,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B17",
+      "articles": 15,
+      "textFragments": 1596,
+      "codeBlocks": 41,
+      "figures": 20,
+      "tables": 41,
+      "experimentFiles": 7,
+      "issues": []
+    },
+    {
+      "id": "B18",
+      "articles": 15,
+      "textFragments": 2320,
+      "codeBlocks": 47,
+      "figures": 22,
+      "tables": 43,
+      "experimentFiles": 14,
+      "issues": []
+    },
+    {
+      "id": "B19",
+      "articles": 15,
+      "textFragments": 1583,
+      "codeBlocks": 41,
+      "figures": 20,
+      "tables": 41,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B20",
+      "articles": 15,
+      "textFragments": 1554,
+      "codeBlocks": 41,
+      "figures": 20,
+      "tables": 41,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B21",
+      "articles": 15,
+      "textFragments": 1569,
+      "codeBlocks": 41,
+      "figures": 20,
+      "tables": 41,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B22",
+      "articles": 15,
+      "textFragments": 1622,
+      "codeBlocks": 42,
+      "figures": 20,
+      "tables": 41,
+      "experimentFiles": 8,
+      "issues": []
+    },
+    {
+      "id": "B23",
+      "articles": 19,
+      "textFragments": 667,
+      "codeBlocks": 14,
+      "figures": 20,
+      "tables": 3,
+      "experimentFiles": 3,
+      "issues": []
+    }
+  ],
+  "libraryPages": [
+    {
+      "id": "course-learning-path",
+      "articles": 1,
+      "textFragments": 136,
+      "codeBlocks": 0,
+      "figures": 0,
+      "tables": 0,
+      "experimentFiles": 0,
+      "issues": []
+    },
+    {
+      "id": "course-quality-review",
+      "articles": 1,
+      "textFragments": 620,
+      "codeBlocks": 0,
+      "figures": 0,
+      "tables": 0,
+      "experimentFiles": 0,
+      "issues": []
+    },
+    {
+      "id": "course-projects",
+      "articles": 1,
+      "textFragments": 195,
+      "codeBlocks": 9,
+      "figures": 0,
+      "tables": 0,
+      "experimentFiles": 0,
+      "issues": []
+    }
+  ],
+  "supplementalBundles": [
+    {
+      "file": "projects.zip",
+      "files": 23,
+      "issues": []
+    },
+    {
+      "file": "b01-experiments.zip",
+      "files": 5,
+      "issues": []
+    }
+  ]
+}

@@ -1,0 +1,5254 @@
+{
+  "checkedAt": "2026-10-13T12:00:32.921Z",
+  "results": [
+    {
+      "book": "B01",
+      "id": "course-b01-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch0",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch1",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch2",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch3",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch4",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch5",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch6",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch7",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-ch8",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-appendix",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B01",
+      "id": "course-b01-guide",
+      "links": {
+        "checked": 6,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m08",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m09",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m10",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m11",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-m12",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B00",
+      "id": "course-b00-guide",
+      "links": {
+        "checked": 12,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m08",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-m12",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02a",
+      "id": "course-b02a-guide",
+      "links": {
+        "checked": 9,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m08",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m09",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m10",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m11",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-m12",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03a",
+      "id": "course-b03a-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m08",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m09",
+      "links": {
+        "checked": 6,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m10",
+      "links": {
+        "checked": 6,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m11",
+      "links": {
+        "checked": 6,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-m12",
+      "links": {
+        "checked": 6,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04a",
+      "id": "course-b04a-guide",
+      "links": {
+        "checked": 11,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-minidrv",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m08",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m09",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m10",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B02",
+      "id": "course-b02-guide",
+      "links": {
+        "checked": 8,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-minirs",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m08",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m09",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B03",
+      "id": "course-b03-guide",
+      "links": {
+        "checked": 9,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m01",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m02",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m03",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m04",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m05",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m06",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m07",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B04",
+      "id": "course-b04-guide",
+      "links": {
+        "checked": 6,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m06",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m08",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m12",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m13",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m14",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m15",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m16",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m17",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m18",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m19",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m20",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-m21",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B05",
+      "id": "course-b05-guide",
+      "links": {
+        "checked": 11,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m04",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m09",
+      "links": {
+        "checked": 8,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-m12",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B06",
+      "id": "course-b06-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m12",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-m13",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B07",
+      "id": "course-b07-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m04",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m06",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m12",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m13",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m14",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-m15",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B08",
+      "id": "course-b08-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m04",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B09",
+      "id": "course-b09-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m12",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-m13",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B10",
+      "id": "course-b10-guide",
+      "links": {
+        "checked": 11,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m06",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m10",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B11",
+      "id": "course-b11-guide",
+      "links": {
+        "checked": 9,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m06",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m11",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-m12",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B12",
+      "id": "course-b12-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m04",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m11",
+      "links": {
+        "checked": 7,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m12",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-m13",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B13",
+      "id": "course-b13-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m04",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-m11",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B14",
+      "id": "course-b14-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m05",
+      "links": {
+        "checked": 4,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m06",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m10",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m11",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m12",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m13",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-m14",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B15",
+      "id": "course-b15-guide",
+      "links": {
+        "checked": 4,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B16",
+      "id": "course-b16-guide",
+      "links": {
+        "checked": 9,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m02",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B17",
+      "id": "course-b17-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m01",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m02",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m03",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m04",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m05",
+      "links": {
+        "checked": 4,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m06",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m08",
+      "links": {
+        "checked": 4,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-capstone",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B18",
+      "id": "course-b18-guide",
+      "links": {
+        "checked": 8,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B19",
+      "id": "course-b19-guide",
+      "links": {
+        "checked": 9,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m03",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m04",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m05",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m08",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m09",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B20",
+      "id": "course-b20-guide",
+      "links": {
+        "checked": 8,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m07",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B21",
+      "id": "course-b21-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-roadmap",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m01",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m06",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m09",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-m10",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-capstone",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-cheatsheet",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-glossary",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B22",
+      "id": "course-b22-guide",
+      "links": {
+        "checked": 10,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m01",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m02",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m03",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m04",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m05",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m06",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m07",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m08",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m09",
+      "links": {
+        "checked": 3,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m10",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m11",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m12",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m13",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m14",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m15",
+      "links": {
+        "checked": 1,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m16",
+      "links": {
+        "checked": 2,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m17",
+      "links": {
+        "checked": 5,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-b23-m18",
+      "links": {
+        "checked": 0,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "B23",
+      "id": "course-b23-guide",
+      "links": {
+        "checked": 37,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "共享项目与导读",
+      "id": "course-projects",
+      "links": {
+        "checked": 23,
+        "issues": []
+      },
+      "images": {
+        "checked": 1,
+        "issues": []
+      }
+    },
+    {
+      "book": "共享项目与导读",
+      "id": "course-learning-path",
+      "links": {
+        "checked": 69,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    },
+    {
+      "book": "共享项目与导读",
+      "id": "course-quality-review",
+      "links": {
+        "checked": 28,
+        "issues": []
+      },
+      "images": {
+        "checked": 0,
+        "issues": []
+      }
+    }
+  ],
+  "totals": {
+    "links": 868,
+    "images": 1,
+    "issues": 0
+  }
+}

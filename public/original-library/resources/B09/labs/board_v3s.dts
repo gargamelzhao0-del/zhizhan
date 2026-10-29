@@ -1,0 +1,17 @@
+/* Allwinner V3s · 设备树片段：包含 SoC dtsi，并覆盖 uart0 状态 */
+/dts-v1/;
+#include "sun8i-v3s.dtsi"
+
+/ {
+    model = "Lichee Pi Zero";
+    compatible = "licheepi,licheepi-zero", "allwinner,sun8i-v3s";
+
+    chosen {
+        stdout-path = &uart0;
+    };
+};
+
+/* 板级覆盖：SoC dtsi 里默认 disabled，这里打开 */
+&uart0 {
+    status = "okay";
+};

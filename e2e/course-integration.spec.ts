@@ -1,0 +1,75 @@
+import { test, expect } from "@playwright/test";
+import fs from "node:fs/promises";
+import { unzipSync } from "fflate";
+
+test("project route opens native lessons and saves assessments independently of reading", async ({ page }, info) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("/#courses");
+  await page.getByRole("link", { name: /从项目路线开始/ }).click();
+  await expect(page.locator(".reading-paper>h1")).toHaveText("从零基础到独立嵌入式项目");
+  await page.getByRole("link", { name: "程序是怎么跑起来的", exact: true }).click();
+  await expect(page.locator(".reading-paper>h1")).toHaveText("程序是怎么跑起来的");
+  const assessment = page.locator(".course-assessment");
+  await assessment.locator("summary").click();
+  await assessment.getByRole("checkbox").nth(0).check();
+  await assessment.getByRole("checkbox").nth(1).check();
+  await expect(assessment).toContainText("2 / 3 已记录");
+  await expect(page.getByRole("button", { name: "标记已读完", exact: true })).toBeAttached();
+  await page.reload();
+  await assessment.locator("summary").click();
+  await expect(assessment.getByRole("checkbox").nth(0)).toBeChecked();
+  await expect(assessment.getByRole("checkbox").nth(1)).toBeChecked();
+  await expect(assessment.getByRole("checkbox").nth(2)).not.toBeChecked();
+  await assessment.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: info.outputPath("course-assessment.png") });
+  const second = await page.context().newPage();
+  await second.goto("/#article/course-b00-m01");
+  const secondAssessment = second.locator(".course-assessment");
+  await secondAssessment.locator("summary").click();
+  await secondAssessment.getByRole("checkbox").nth(2).check();
+  await expect(assessment).toContainText("3 / 3 已记录");
+  await assessment.getByRole("checkbox").nth(1).uncheck();
+  await expect(secondAssessment.getByRole("checkbox").nth(1)).not.toBeChecked();
+  await second.close();
+  await page.getByRole("button", { name: /我的学习笔记/ }).click();
+  await page.getByLabel("学习笔记").fill("已复现编译错误与链接错误；下一步改为两个源文件。");
+  await expect(page.getByRole("status").filter({ hasText: "笔记已保存" })).toBeVisible();
+  await page.reload();
+  await page.getByRole("button", { name: /我的学习笔记/ }).click();
+  await expect(page.getByLabel("学习笔记")).toHaveValue("已复现编译错误与链接错误；下一步改为两个源文件。");
+});
+
+test("experiment bundles and folded project sources remain available offline", async ({ page, context }, info) => {
+  await page.goto("/#article/course-b00-guide");
+  await expect(page.locator(".reading-paper>h1")).toContainText("导读与实验");
+  await context.setOffline(true);
+  await page.getByRole("button", { name: /下载实验源码包/ }).click();
+  const downloaded = page.waitForEvent("download");
+  await page.getByRole("button", { name: "保存附件", exact: true }).click();
+  const download = await downloaded;
+  const bytes = await fs.readFile((await download.path())!);
+  const files = unzipSync(bytes);
+  expect(Object.keys(files).length).toBeGreaterThan(20);
+  expect(Object.keys(files).some(name => name.endsWith(".c"))).toBe(true);
+  await page.getByRole("button", { name: "关闭弹窗", exact: true }).click();
+  await page.evaluate(() => { location.hash = "#article/course-projects?section=P01"; });
+  await expect(page.locator(".reading-paper>h1")).toHaveText("六项综合项目与工程资料");
+  const firmware = page.locator("details.course-details").filter({ has: page.locator("summary", { hasText: "完整 STM32F103C8 固件与接板验收" }) });
+  await firmware.locator("summary").click();
+  await firmware.getByRole("button", { name: "linker.ld", exact: true }).click();
+  await expect(page.locator(".asset-code")).toContainText("MEMORY");
+  await page.getByRole("button", { name: "关闭弹窗", exact: true }).click();
+  await firmware.scrollIntoViewIfNeeded();
+  await page.screenshot({ path: info.outputPath("course-project-offline.png") });
+});
+
+test("merged engineering tables retain their spans on narrow screens", async ({ page }, info) => {
+  await page.setViewportSize({ width: 320, height: 740 });
+  await page.goto("/#article/course-b01-ch1");
+  const cells = page.locator(".prose table [rowspan], .prose table [colspan]");
+  await expect(cells.first()).toBeAttached();
+  expect(await cells.evaluateAll(nodes => nodes.some(node => Number(node.getAttribute("rowspan")) > 1 || Number(node.getAttribute("colspan")) > 1))).toBe(true);
+  await page.locator(".prose table:has([colspan])").first().scrollIntoViewIfNeeded();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true);
+  await page.screenshot({ path: info.outputPath("course-merged-table.png") });
+});

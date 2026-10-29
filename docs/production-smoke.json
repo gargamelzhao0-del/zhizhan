@@ -1,0 +1,8 @@
+{
+  "passed": true,
+  "desktopRuntime": "v24.15.0",
+  "pageErrors": [],
+  "initialLibraryExported": true,
+  "hostCheck": 403,
+  "postCheck": 405
+}

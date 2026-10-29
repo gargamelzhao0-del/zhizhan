@@ -1,0 +1,251 @@
+{
+  "contentVersion": "2026.10.08.3",
+  "articles": 76,
+  "attachments": 149,
+  "updatedCourseChapters": 36,
+  "nonCodeCharactersBefore": 61129,
+  "nonCodeCharactersAfter": 108786,
+  "chapters": [
+    {
+      "id": "linux-00",
+      "changed": true,
+      "charactersBefore": 2341,
+      "charactersAfter": 3635
+    },
+    {
+      "id": "linux-01",
+      "changed": true,
+      "charactersBefore": 1476,
+      "charactersAfter": 2604
+    },
+    {
+      "id": "linux-02",
+      "changed": true,
+      "charactersBefore": 1488,
+      "charactersAfter": 2649
+    },
+    {
+      "id": "linux-03",
+      "changed": true,
+      "charactersBefore": 1522,
+      "charactersAfter": 2810
+    },
+    {
+      "id": "linux-04",
+      "changed": true,
+      "charactersBefore": 1591,
+      "charactersAfter": 2790
+    },
+    {
+      "id": "linux-05",
+      "changed": true,
+      "charactersBefore": 1600,
+      "charactersAfter": 2605
+    },
+    {
+      "id": "linux-06",
+      "changed": true,
+      "charactersBefore": 1728,
+      "charactersAfter": 2789
+    },
+    {
+      "id": "linux-07",
+      "changed": true,
+      "charactersBefore": 1985,
+      "charactersAfter": 2866
+    },
+    {
+      "id": "linux-08",
+      "changed": true,
+      "charactersBefore": 1429,
+      "charactersAfter": 2907
+    },
+    {
+      "id": "linux-09",
+      "changed": true,
+      "charactersBefore": 1555,
+      "charactersAfter": 2770
+    },
+    {
+      "id": "linux-10",
+      "changed": true,
+      "charactersBefore": 1436,
+      "charactersAfter": 2613
+    },
+    {
+      "id": "linux-11",
+      "changed": false,
+      "charactersBefore": 1781,
+      "charactersAfter": 1781
+    },
+    {
+      "id": "linux-12",
+      "changed": true,
+      "charactersBefore": 1356,
+      "charactersAfter": 2801
+    },
+    {
+      "id": "linux-13",
+      "changed": true,
+      "charactersBefore": 1094,
+      "charactersAfter": 2302
+    },
+    {
+      "id": "linux-14",
+      "changed": true,
+      "charactersBefore": 1118,
+      "charactersAfter": 2326
+    },
+    {
+      "id": "linux-15",
+      "changed": false,
+      "charactersBefore": 1211,
+      "charactersAfter": 1211
+    },
+    {
+      "id": "linux-16",
+      "changed": false,
+      "charactersBefore": 1310,
+      "charactersAfter": 1310
+    },
+    {
+      "id": "linux-17",
+      "changed": false,
+      "charactersBefore": 1295,
+      "charactersAfter": 1295
+    },
+    {
+      "id": "linux-18",
+      "changed": true,
+      "charactersBefore": 1201,
+      "charactersAfter": 2800
+    },
+    {
+      "id": "linux-19",
+      "changed": true,
+      "charactersBefore": 1463,
+      "charactersAfter": 3624
+    },
+    {
+      "id": "cpp-00",
+      "changed": true,
+      "charactersBefore": 2458,
+      "charactersAfter": 3940
+    },
+    {
+      "id": "cpp-01",
+      "changed": true,
+      "charactersBefore": 1579,
+      "charactersAfter": 2949
+    },
+    {
+      "id": "cpp-02",
+      "changed": true,
+      "charactersBefore": 1608,
+      "charactersAfter": 2842
+    },
+    {
+      "id": "cpp-03",
+      "changed": true,
+      "charactersBefore": 1486,
+      "charactersAfter": 2918
+    },
+    {
+      "id": "cpp-04",
+      "changed": true,
+      "charactersBefore": 1563,
+      "charactersAfter": 3029
+    },
+    {
+      "id": "cpp-05",
+      "changed": true,
+      "charactersBefore": 1480,
+      "charactersAfter": 2627
+    },
+    {
+      "id": "cpp-06",
+      "changed": true,
+      "charactersBefore": 1479,
+      "charactersAfter": 2519
+    },
+    {
+      "id": "cpp-07",
+      "changed": true,
+      "charactersBefore": 1975,
+      "charactersAfter": 3266
+    },
+    {
+      "id": "cpp-08",
+      "changed": true,
+      "charactersBefore": 1636,
+      "charactersAfter": 2828
+    },
+    {
+      "id": "cpp-09",
+      "changed": true,
+      "charactersBefore": 1320,
+      "charactersAfter": 2666
+    },
+    {
+      "id": "cpp-10",
+      "changed": true,
+      "charactersBefore": 1452,
+      "charactersAfter": 2545
+    },
+    {
+      "id": "cpp-11",
+      "changed": true,
+      "charactersBefore": 1774,
+      "charactersAfter": 3132
+    },
+    {
+      "id": "cpp-12",
+      "changed": true,
+      "charactersBefore": 1597,
+      "charactersAfter": 3417
+    },
+    {
+      "id": "cpp-13",
+      "changed": true,
+      "charactersBefore": 1514,
+      "charactersAfter": 3362
+    },
+    {
+      "id": "cpp-14",
+      "changed": true,
+      "charactersBefore": 1400,
+      "charactersAfter": 2796
+    },
+    {
+      "id": "cpp-15",
+      "changed": true,
+      "charactersBefore": 1369,
+      "charactersAfter": 2621
+    },
+    {
+      "id": "cpp-16",
+      "changed": true,
+      "charactersBefore": 1288,
+      "charactersAfter": 2460
+    },
+    {
+      "id": "cpp-17",
+      "changed": true,
+      "charactersBefore": 1400,
+      "charactersAfter": 2483
+    },
+    {
+      "id": "cpp-18",
+      "changed": true,
+      "charactersBefore": 1350,
+      "charactersAfter": 2479
+    },
+    {
+      "id": "cpp-19",
+      "changed": true,
+      "charactersBefore": 1421,
+      "charactersAfter": 3419
+    }
+  ],
+  "note": "Excludes fenced code. Counts measure scope, not pedagogical quality. Linux 11/15/16/17 retained after automatic approval rejected the attempted extension; Linux examples and Samsung runtime remain untested."
+}

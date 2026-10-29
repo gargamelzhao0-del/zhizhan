@@ -1,0 +1,794 @@
+{
+  "version": "1.10.2",
+  "passed": true,
+  "pages": [
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 320,
+      "height": 740,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 360,
+      "height": 780,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 393,
+      "height": 852,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 800,
+      "height": 360,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "light",
+      "route": "review",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "home",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "library",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "courses",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "projects",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "shelf/cpp",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "article/cpp-19",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "settings",
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "height": 1050,
+      "theme": "dark",
+      "route": "review",
+      "overflow": false
+    }
+  ],
+  "issues": [],
+  "pageErrors": [],
+  "androidDeviceTested": false,
+  "note": "CSS viewport and touch-target audit in Chromium; actual Samsung insets, keyboard and system font scaling require a phone."
+}

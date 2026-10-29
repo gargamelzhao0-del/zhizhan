@@ -1,0 +1,34 @@
+/* Only wait between FILE reads or complete WebSocket frames, never with a
+ * partially written frame or a microphone/archive ownership lock held. */
+static esp_err_t replay_wait_capture_headroom(nuwax_ws_client_t *ws, uint32_t epoch,
+                                             const atomic_bool *cancel, uint64_t *wait_us)
+{
+    int64_t started = 0;
+    int64_t next_report = 0;
+    uint32_t threshold = 60U;
+    esp_err_t err = ESP_OK;
+    for (;;) {
+        if ((cancel && atomic_load_explicit(cancel, memory_order_acquire)) ||
+            nuwax_offline_audio_storage_busy()) { err = ESP_ERR_NOT_FINISHED; break; }
+        if (!nuwax_ws_is_connected(ws) || nuwax_ws_connection_epoch(ws) != epoch) {
+            err = ESP_ERR_INVALID_STATE; break;
+        }
+        if (nuwax_wake_word_capture_backlog_ms() < threshold) break;
+        const int64_t now = esp_timer_get_time();
+        if (!started) { started = now; next_report = now + 5000000LL; }
+        if (now >= next_report) {
+            ESP_LOGI(TAG, "offline replay paused for wake capture backlog_ms=%lu wait_ms=%llu; connection retained",
+                     (unsigned long)nuwax_wake_word_capture_backlog_ms(),
+                     (unsigned long long)((now - started) / 1000U));
+            next_report = now + 5000000LL;
+        }
+        threshold = 31U; /* Resume at <= 30 ms after entering at >= 60 ms. */
+        /* Backpressure is not a failed transfer. Keep FILE/CRC/ACK slots and
+         * the healthy connection alive until capture catches up. Every tick
+         * remains cancellable; RX/keepalive and the watchdog can still run.
+         * A one-second abort here previously caused reconnect/re-read loops. */
+        vTaskDelay(1U);
+    }
+    if (started) *wait_us += (uint64_t)(esp_timer_get_time() - started);
+    return err;
+}

@@ -1,0 +1,4692 @@
+[
+  {
+    "book": "B01",
+    "path": "tools/cmake/build.cmake",
+    "context": "$IDF_PATH/tools/cmake/build.cmake"
+  },
+  {
+    "book": "B01",
+    "path": "tools/sm_model.js",
+    "context": "/* hsm_history.c — 层次状态机补两件 7.1.2 里没有的东西：\n *                 ① 历史状态（浅历史 / 深历史）：回到\"上次停在哪儿\"；\n *                 ② HANDLED 与 TRANS 的区别，以及派发期间重入怎么办。\n *\n * 7.1.2 那份 hsm.c 已经能算 LCA、能沿父链冒泡，但它退出复合状态"
+  },
+  {
+    "book": "B01",
+    "path": "tools/sm_model.js",
+    "context": "node tools/sm_model.js"
+  },
+  {
+    "book": "B01",
+    "path": "tools/sm_model.js",
+    "context": "$ node tools/sm_model.js\n=== D  编译器看不见的死代码 · verify/src/177__hsm.c ===\n  struct hsm 有 5 个字段：current, depth, transition_count, rejected_count, user\n  · 177__hsm.c:128  字段 depth：出现 1 次，全部是写，0 "
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m01.sh",
+    "context": "bash tools/probes/m01.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m02.sh",
+    "context": "bash tools/probes/m02.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m03.sh",
+    "context": "bash tools/probes/m03.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m03.sh",
+    "context": "bash tools/probes/m03.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m04.sh",
+    "context": "bash tools/probes/m04.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m05.sh",
+    "context": "bash tools/probes/m05.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m06.sh",
+    "context": "bash tools/probes/m06.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m07.sh",
+    "context": "bash tools/probes/m07.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m08.sh",
+    "context": "bash tools/probes/m08.sh"
+  },
+  {
+    "book": "B00",
+    "path": "tools/probes/m09.sh",
+    "context": "bash tools/probes/m09.sh"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler_test.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler_cli.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler_test.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler_cli.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler_test.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B00",
+    "path": "labs/sampler_cli.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_test.c -o sampler_test\n./sampler_test\ngcc -std=c11 -Wall -Wextra -Werror -O2 labs/sampler.c labs/sampler_cli.c -o sampler_c"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/m01.sh",
+    "context": "bash tools/probes/m01.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B02a",
+    "path": "labs/values.cpp",
+    "context": "g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values\n./values"
+  },
+  {
+    "book": "B02a",
+    "path": "labs/values.cpp",
+    "context": "g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values\n./values"
+  },
+  {
+    "book": "B02a",
+    "path": "labs/values.cpp",
+    "context": "g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values\n./values"
+  },
+  {
+    "book": "B02a",
+    "path": "labs/values.cpp",
+    "context": "g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values\n./values"
+  },
+  {
+    "book": "B02a",
+    "path": "labs/values.cpp",
+    "context": "g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/values.cpp -o values\n./values"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B03a",
+    "path": "labs/course-core/Cargo.toml",
+    "context": "cargo test --manifest-path labs/course-core/Cargo.toml --offline\ncargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "tools/probes/run-all.sh",
+    "context": "bash tools/probes/run-all.sh"
+  },
+  {
+    "book": "B04a",
+    "path": "labs/datatool",
+    "context": "cd labs/datatool\npython -m unittest discover -s tests -v\npython -m datatool.cli --help"
+  },
+  {
+    "book": "B04a",
+    "path": "labs/datatool",
+    "context": "cd labs/datatool\npython -m unittest discover -s tests -v\npython -m datatool.cli --help"
+  },
+  {
+    "book": "B04a",
+    "path": "labs/datatool",
+    "context": "cd labs/datatool\npython -m unittest discover -s tests -v\npython -m datatool.cli --help"
+  },
+  {
+    "book": "B04a",
+    "path": "labs/datatool",
+    "context": "cd labs/datatool\npython -m unittest discover -s tests -v\npython -m datatool.cli --help"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m01.sh",
+    "context": "bash tools/probes/m01.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m01.sh",
+    "context": "bash tools/probes/m01.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m02.sh",
+    "context": "bash tools/probes/m02.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m03.sh",
+    "context": "bash tools/probes/m03.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m04.sh",
+    "context": "bash tools/probes/m04.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m04.sh",
+    "context": "bash tools/probes/m04.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m05.sh",
+    "context": "bash tools/probes/m05.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m05.sh",
+    "context": "bash tools/probes/m05.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m06.sh",
+    "context": "bash tools/probes/m06.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m06.sh",
+    "context": "bash tools/probes/m06.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m07.sh",
+    "context": "bash tools/probes/m07.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m08.sh",
+    "context": "bash tools/probes/m08.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m08.sh",
+    "context": "bash tools/probes/m08.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m09.sh",
+    "context": "bash tools/probes/m09.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m10.sh",
+    "context": "bash tools/probes/m10.sh"
+  },
+  {
+    "book": "B02",
+    "path": "tools/probes/m10.sh",
+    "context": "bash tools/probes/m10.sh"
+  },
+  {
+    "book": "B02",
+    "path": "labs/driver_contract.cpp",
+    "context": "g++ -std=c++20 -Wall -Wextra -Werror -O2 labs/driver_contract.cpp -o driver_contract\n./driver_contract"
+  },
+  {
+    "book": "B03",
+    "path": "tools/cargo-demo/",
+    "context": "tools/cargo-demo/"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m01.sh",
+    "context": "bash tools/probes/m01.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m01.sh",
+    "context": "bash tools/probes/m01.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m02.sh",
+    "context": "bash tools/probes/m02.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m03.sh",
+    "context": "bash tools/probes/m03.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m03.sh",
+    "context": "bash tools/probes/m03.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m_cargo.sh",
+    "context": "bash tools/probes/m_cargo.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m04.sh",
+    "context": "bash tools/probes/m04.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m05.sh",
+    "context": "bash tools/probes/m05.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m_cargo.sh",
+    "context": "bash tools/probes/m_cargo.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m06.sh",
+    "context": "bash tools/probes/m06.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m07.sh",
+    "context": "bash tools/probes/m07.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m08.sh",
+    "context": "bash tools/probes/m08.sh"
+  },
+  {
+    "book": "B03",
+    "path": "tools/probes/m09.sh",
+    "context": "bash tools/probes/m09.sh"
+  },
+  {
+    "book": "B03",
+    "path": "labs/dma_contract.rs",
+    "context": "rustc --edition=2021 --test labs/dma_contract.rs -o dma_contract\n./dma_contract\nrustc --edition=2021 --crate-type lib labs/dma_contract.rs"
+  },
+  {
+    "book": "B03",
+    "path": "labs/dma_contract.rs",
+    "context": "rustc --edition=2021 --test labs/dma_contract.rs -o dma_contract\n./dma_contract\nrustc --edition=2021 --crate-type lib labs/dma_contract.rs"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m01_src/choose.py",
+    "context": "python tools/probes/m01_src/choose.py"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m02_src/viper_crc.py",
+    "context": "python tools/probes/m02_src/viper_crc.py"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m03_src/frame_codec.py",
+    "context": "python tools/probes/m03_src/frame_codec.py"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m04_src/analyze.py",
+    "context": "python tools/probes/m04_src/analyze.py"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m05_src/build_all.py",
+    "context": "python tools/probes/m05_src/build_all.py --dry-run"
+  },
+  {
+    "book": "B04",
+    "path": "tools/build_all.py",
+    "context": "# .github/workflows/ci.yml —— 无硬件也能跑的部分\nname: ci\non: [push, pull_request]\njobs:\n  host-tools:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - uses: actions/se"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m05_src/build_all.py",
+    "context": "python tools/probes/m05_src/build_all.py --dry-run"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m06_src/ring.py",
+    "context": "python tools/probes/m06_src/ring.py"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m07_src/split_dataset.py",
+    "context": "python tools/probes/m07_src/split_dataset.py"
+  },
+  {
+    "book": "B04",
+    "path": "tools/probes/m07_src/split_dataset.py",
+    "context": "python tools/probes/m07_src/split_dataset.py"
+  },
+  {
+    "book": "B04",
+    "path": "labs/replay.py",
+    "context": "python labs/replay.py"
+  },
+  {
+    "book": "B05",
+    "path": "labs/m01_clock.c",
+    "context": "labs/m01_clock.c"
+  },
+  {
+    "book": "B05",
+    "path": "labs/host_ringbuf.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ringbuf.c -o labs/host_ringbuf && ./labs/host_ringbuf\npushed=7 (expect 7)\nfifo_order=ok\nwrap_cycles=100 ok\nRESULT: PASS"
+  },
+  {
+    "book": "B05",
+    "path": "labs/host_ringbuf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ringbuf.c -o labs/host_ringbuf && ./labs/host_ringbuf\npushed=7 (expect 7)\nfifo_order=ok\nwrap_cycles=100 ok\nRESULT: PASS"
+  },
+  {
+    "book": "B05",
+    "path": "labs/host_ringbuf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ringbuf.c -o labs/host_ringbuf && ./labs/host_ringbuf\npushed=7 (expect 7)\nfifo_order=ok\nwrap_cycles=100 ok\nRESULT: PASS"
+  },
+  {
+    "book": "B05",
+    "path": "labs/m12_layers.o",
+    "context": "$ arm-none-eabi-objdump -h labs/m12_layers.o | grep .text\n  .text.led_set_reg        00000010   (16 B)\n  .text.led_set_inline     00000010   (16 B)  ← 与宏版逐字节相同\n  .text.gpio_handle_write  000"
+  },
+  {
+    "book": "B05",
+    "path": "labs/host_crc16.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crc16.c -o labs/host_crc16 && ./labs/host_crc16\nCRC16(\"123456789\") = 0x29B1 (expect 0x29B1)\nRESULT: PASS"
+  },
+  {
+    "book": "B05",
+    "path": "labs/host_crc16",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crc16.c -o labs/host_crc16 && ./labs/host_crc16\nCRC16(\"123456789\") = 0x29B1 (expect 0x29B1)\nRESULT: PASS"
+  },
+  {
+    "book": "B05",
+    "path": "labs/host_crc16",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crc16.c -o labs/host_crc16 && ./labs/host_crc16\nCRC16(\"123456789\") = 0x29B1 (expect 0x29B1)\nRESULT: PASS"
+  },
+  {
+    "book": "B05",
+    "path": "labs/m15_isa.o",
+    "context": "$ arm-none-eabi-objdump -d labs/m15_isa.o | sed -n \"/<isa_add_mul>/,+2p\"\n<isa_add_mul>:\n   0:\tfb02 0001 \tmla\tr0, r2, r1, r0\n   4:\t4770      \tbx\tlr"
+  },
+  {
+    "book": "B05",
+    "path": "labs/capstone_node.c",
+    "context": "labs/capstone_node.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sched.c -o labs/host_sched && ./labs/host_sched\nA response=3 completed=64 missed=0\nB response=8 completed=32 missed=0\nC response=19 completed=16 mi"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sched.c -o labs/host_sched && ./labs/host_sched\nA response=3 completed=64 missed=0\nB response=8 completed=32 missed=0\nC response=19 completed=16 mi"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sched.c -o labs/host_sched && ./labs/host_sched\nA response=3 completed=64 missed=0\nB response=8 completed=32 missed=0\nC response=19 completed=16 mi"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched.c",
+    "context": "labs/host_sched.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sched.c -o labs/host_sched && ./labs/host_sched\nA response=3 completed=64 missed=0\nB response=8 completed=32 missed=0\nC response=19 completed=16 mi"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sched.c -o labs/host_sched && ./labs/host_sched\nA response=3 completed=64 missed=0\nB response=8 completed=32 missed=0\nC response=19 completed=16 mi"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sched.c -o labs/host_sched && ./labs/host_sched\nA response=3 completed=64 missed=0\nB response=8 completed=32 missed=0\nC response=19 completed=16 mi"
+  },
+  {
+    "book": "B06",
+    "path": "labs/m02_pendsv.c",
+    "context": "labs/m02_pendsv.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sched.c",
+    "context": "labs/host_sched.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sync.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n关闭优先级继承：H 从 t=2 等到 t=26 拿到锁，反转=24 tick\n开启优先级继承：H 从 t=2 等到 t=7 拿到锁，反转=5 tick\n结论：优先级继承把反转从 24 tick 限制到 5"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n关闭优先级继承：H 从 t=2 等到 t=26 拿到锁，反转=24 tick\n开启优先级继承：H 从 t=2 等到 t=7 拿到锁，反转=5 tick\n结论：优先级继承把反转从 24 tick 限制到 5"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n关闭优先级继承：H 从 t=2 等到 t=26 拿到锁，反转=24 tick\n开启优先级继承：H 从 t=2 等到 t=7 拿到锁，反转=5 tick\n结论：优先级继承把反转从 24 tick 限制到 5"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_sync.c",
+    "context": "labs/host_sync.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_queue.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_queue.c -o labs/host_queue && ./labs/host_queue\n拷贝语义：入队 100 后改原变量为 999，出队得到 100\n满队列：已装 4 项，再 send 返回 失败(正确)\nFIFO 顺序：3,4,5,6\nFromISR：无等待者 → higher_w"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_queue",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_queue.c -o labs/host_queue && ./labs/host_queue\n拷贝语义：入队 100 后改原变量为 999，出队得到 100\n满队列：已装 4 项，再 send 返回 失败(正确)\nFIFO 顺序：3,4,5,6\nFromISR：无等待者 → higher_w"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_queue",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_queue.c -o labs/host_queue && ./labs/host_queue\n拷贝语义：入队 100 后改原变量为 999，出队得到 100\n满队列：已装 4 项，再 send 返回 失败(正确)\nFIFO 顺序：3,4,5,6\nFromISR：无等待者 → higher_w"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_queue.c",
+    "context": "labs/host_queue.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/m05_fromisr.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m05_fromisr.c -o m05.o && arm-none-eabi-size m05.o\n   text    data     bss     dec     hex filename\n     80       0       4      84   "
+  },
+  {
+    "book": "B06",
+    "path": "labs/m05_fromisr.c",
+    "context": "labs/m05_fromisr.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/esp_m05_isr.c",
+    "context": "labs/esp_m05_isr.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/m06_heap_static.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m06_heap_static.c -o m06.o && arm-none-eabi-size m06.o\n   text    data     bss     dec     hex filename\n     63       0    1028    109"
+  },
+  {
+    "book": "B06",
+    "path": "labs/m06_heap_static.c",
+    "context": "labs/m06_heap_static.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/esp_m06_heap.c",
+    "context": "labs/esp_m06_heap.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_time.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_time.c -o labs/host_time && ./labs/host_time\n周期任务 P=10 exec=4，观察 100 tick：\n  vTaskDelay     : 唤醒 8 次，末次漂移 +28 tick（周期被拉长为 14）\n  vTaskDelayUntil: 唤醒"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_time",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_time.c -o labs/host_time && ./labs/host_time\n周期任务 P=10 exec=4，观察 100 tick：\n  vTaskDelay     : 唤醒 8 次，末次漂移 +28 tick（周期被拉长为 14）\n  vTaskDelayUntil: 唤醒"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_time",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_time.c -o labs/host_time && ./labs/host_time\n周期任务 P=10 exec=4，观察 100 tick：\n  vTaskDelay     : 唤醒 8 次，末次漂移 +28 tick（周期被拉长为 14）\n  vTaskDelayUntil: 唤醒"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_time.c",
+    "context": "labs/host_time.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_debug.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_debug.c -o labs/host_debug && ./labs/host_debug\n填充 64 字节栈，用掉 40 字节 → 高水位(最少剩余) = 24 字节\n未按 0xAB 填充的栈 → 高水位 = 0（必须先填充）\n忙 75 / 100 tick → CPU 占用 75%\nR"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_debug",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_debug.c -o labs/host_debug && ./labs/host_debug\n填充 64 字节栈，用掉 40 字节 → 高水位(最少剩余) = 24 字节\n未按 0xAB 填充的栈 → 高水位 = 0（必须先填充）\n忙 75 / 100 tick → CPU 占用 75%\nR"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_debug",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_debug.c -o labs/host_debug && ./labs/host_debug\n填充 64 字节栈，用掉 40 字节 → 高水位(最少剩余) = 24 字节\n未按 0xAB 填充的栈 → 高水位 = 0（必须先填充）\n忙 75 / 100 tick → CPU 占用 75%\nR"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_debug.c",
+    "context": "labs/host_debug.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/m09_rtthread.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m09_rtthread.c -o m09.o && arm-none-eabi-size m09.o\n   text    data     bss     dec     hex filename\n    105       0       4     109  "
+  },
+  {
+    "book": "B06",
+    "path": "labs/m09_rtthread.c",
+    "context": "labs/m09_rtthread.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/esp_m09_zephyr.c",
+    "context": "labs/esp_m09_zephyr.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/h7_m09_compare.c",
+    "context": "labs/h7_m09_compare.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/sdk_pipeline/host_test.c",
+    "context": "gcc -std=c11 -Wall -Wextra -Werror labs/sdk_pipeline/host_test.c -o host_test"
+  },
+  {
+    "book": "B06",
+    "path": "labs/m10_tasksplit.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m10_tasksplit.c -o m10.o && arm-none-eabi-size m10.o\n   text    data     bss     dec     hex filename\n    233       0       8     241 "
+  },
+  {
+    "book": "B06",
+    "path": "labs/m10_tasksplit.c",
+    "context": "labs/m10_tasksplit.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/esp_m10_pipeline.c",
+    "context": "labs/esp_m10_pipeline.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_rm.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rm.c -o labs/host_rm && ./labs/host_rm\n找到：C/T = (1,1,1)/(2,3,9)，U=0.9444 > 界 0.7798\n  响应时间 R = (1,2,6)，均 ≤ 各自周期 → 可调度\nU>1 的例子：(3,4),(4,5) → U=1.55，"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_rm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rm.c -o labs/host_rm && ./labs/host_rm\n找到：C/T = (1,1,1)/(2,3,9)，U=0.9444 > 界 0.7798\n  响应时间 R = (1,2,6)，均 ≤ 各自周期 → 可调度\nU>1 的例子：(3,4),(4,5) → U=1.55，"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_rm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rm.c -o labs/host_rm && ./labs/host_rm\n找到：C/T = (1,1,1)/(2,3,9)，U=0.9444 > 界 0.7798\n  响应时间 R = (1,2,6)，均 ≤ 各自周期 → 可调度\nU>1 的例子：(3,4),(4,5) → U=1.55，"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_rm.c",
+    "context": "labs/host_rm.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_smp.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_smp.c -o labs/host_smp && ./labs/host_smp\n非原子读改写：期望 2，实际 1（丢失更新）\natomic_fetch_add：期望 2，实际 2\n自旋锁保护的自增 1000 次：实际 1000\nRESULT: PASS"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_smp",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_smp.c -o labs/host_smp && ./labs/host_smp\n非原子读改写：期望 2，实际 1（丢失更新）\natomic_fetch_add：期望 2，实际 2\n自旋锁保护的自增 1000 次：实际 1000\nRESULT: PASS"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_smp",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_smp.c -o labs/host_smp && ./labs/host_smp\n非原子读改写：期望 2，实际 1（丢失更新）\natomic_fetch_add：期望 2，实际 2\n自旋锁保护的自增 1000 次：实际 1000\nRESULT: PASS"
+  },
+  {
+    "book": "B06",
+    "path": "labs/host_smp.c",
+    "context": "labs/host_smp.c"
+  },
+  {
+    "book": "B06",
+    "path": "labs/capstone_node_rtos.c",
+    "context": "labs/capstone_node_rtos.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_frame.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_frame.c -o labs/host_frame && ./labs/host_frame\n产出帧=2（期望 2：第 1、3 帧）  CRC 错误=1（期望 1）  重复丢弃=1（期望 1）\n最后被接受的帧：seq=3 payload=de\nRESULT: PASS"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_frame",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_frame.c -o labs/host_frame && ./labs/host_frame\n产出帧=2（期望 2：第 1、3 帧）  CRC 错误=1（期望 1）  重复丢弃=1（期望 1）\n最后被接受的帧：seq=3 payload=de\nRESULT: PASS"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_frame",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_frame.c -o labs/host_frame && ./labs/host_frame\n产出帧=2（期望 2：第 1、3 帧）  CRC 错误=1（期望 1）  重复丢弃=1（期望 1）\n最后被接受的帧：seq=3 payload=de\nRESULT: PASS"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_frame.c",
+    "context": "labs/host_frame.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_crc.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crc.c -o labs/host_crc && ./labs/host_crc\n检查值 \"123456789\"：CRC8=0xF4  CRC16/MODBUS=0x4B37  CRC16/CCITT=0x29B1  CRC32=0xCBF43926\n查表版 CRC16/MODBUS=0x4"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_crc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crc.c -o labs/host_crc && ./labs/host_crc\n检查值 \"123456789\"：CRC8=0xF4  CRC16/MODBUS=0x4B37  CRC16/CCITT=0x29B1  CRC32=0xCBF43926\n查表版 CRC16/MODBUS=0x4"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_crc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crc.c -o labs/host_crc && ./labs/host_crc\n检查值 \"123456789\"：CRC8=0xF4  CRC16/MODBUS=0x4B37  CRC16/CCITT=0x29B1  CRC32=0xCBF43926\n查表版 CRC16/MODBUS=0x4"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_crc.c",
+    "context": "labs/host_crc.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_modbus.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_modbus.c -o labs/host_modbus && ./labs/host_modbus\n请求帧: 01 03 00 00 00 0A C5 CD\n整帧 CRC 自洽（含 CRC 再算=0）：是\n响应帧: 01 03 04 AA BB CC DD 3E 97\n字节数=4 寄存器0="
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_modbus",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_modbus.c -o labs/host_modbus && ./labs/host_modbus\n请求帧: 01 03 00 00 00 0A C5 CD\n整帧 CRC 自洽（含 CRC 再算=0）：是\n响应帧: 01 03 04 AA BB CC DD 3E 97\n字节数=4 寄存器0="
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_modbus",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_modbus.c -o labs/host_modbus && ./labs/host_modbus\n请求帧: 01 03 00 00 00 0A C5 CD\n整帧 CRC 自洽（含 CRC 再算=0）：是\n响应帧: 01 03 04 AA BB CC DD 3E 97\n字节数=4 寄存器0="
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_modbus.c",
+    "context": "labs/host_modbus.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_can.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_can.c -o labs/host_can && ./labs/host_can\n位定时：36MHz / 500kbps / 18tq → 预分频=4（期望 4），采样点=888‰\n仲裁：{0x200,0x100,0x180} 的胜者=0x100（期望 0x100）\n总线负载：1000fps"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_can",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_can.c -o labs/host_can && ./labs/host_can\n位定时：36MHz / 500kbps / 18tq → 预分频=4（期望 4），采样点=888‰\n仲裁：{0x200,0x100,0x180} 的胜者=0x100（期望 0x100）\n总线负载：1000fps"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_can",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_can.c -o labs/host_can && ./labs/host_can\n位定时：36MHz / 500kbps / 18tq → 预分频=4（期望 4），采样点=888‰\n仲裁：{0x200,0x100,0x180} 的胜者=0x100（期望 0x100）\n总线负载：1000fps"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_can.c",
+    "context": "labs/host_can.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m05_ble.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m05_ble.c -o m05.o && arm-none-eabi-size m05.o\n   text    data     bss     dec     hex filename\n     52       0       0      52      3"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m05_ble.c",
+    "context": "labs/m05_ble.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/esp_m05_wifi.c",
+    "context": "labs/esp_m05_wifi.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/h7_m05_lora.c",
+    "context": "labs/h7_m05_lora.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_mqtt.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mqtt.c -o labs/host_mqtt && ./labs/host_mqtt\n剩余长度 60 编码：3C（1 字节）\n剩余长度 321 编码：C1 02（2 字节）\nCONNECT 首字节=0x10 类型=1 标志=0 剩余长度=10\nPUBLISH 首字节=0x32 类型=3 Q"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_mqtt",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mqtt.c -o labs/host_mqtt && ./labs/host_mqtt\n剩余长度 60 编码：3C（1 字节）\n剩余长度 321 编码：C1 02（2 字节）\nCONNECT 首字节=0x10 类型=1 标志=0 剩余长度=10\nPUBLISH 首字节=0x32 类型=3 Q"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_mqtt",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mqtt.c -o labs/host_mqtt && ./labs/host_mqtt\n剩余长度 60 编码：3C（1 字节）\n剩余长度 321 编码：C1 02（2 字节）\nCONNECT 首字节=0x10 类型=1 标志=0 剩余长度=10\nPUBLISH 首字节=0x32 类型=3 Q"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_mqtt.c",
+    "context": "labs/host_mqtt.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m07_bootloader.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m07_bootloader.c -o m07.o && arm-none-eabi-size m07.o\n   text    data     bss     dec     hex filename\n     64       0       0      64"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m07_bootloader.c",
+    "context": "labs/m07_bootloader.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/esp_m07_ota_boot.c",
+    "context": "labs/esp_m07_ota_boot.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/h7_m07_boot.c",
+    "context": "labs/h7_m07_boot.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_ota.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ota.c -o labs/host_ota && ./labs/host_ota\n正常升级：结果=切换（校验通过并确认：切换完成）\n第 2 块后掉电：结果=回滚（掉电：分块未写完）\n镜像被篡改：结果=回滚（整镜像 CRC 不匹配）\n校验通过但未确认：结果=切换（已切换但未确认：下次可退回）\n"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_ota",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ota.c -o labs/host_ota && ./labs/host_ota\n正常升级：结果=切换（校验通过并确认：切换完成）\n第 2 块后掉电：结果=回滚（掉电：分块未写完）\n镜像被篡改：结果=回滚（整镜像 CRC 不匹配）\n校验通过但未确认：结果=切换（已切换但未确认：下次可退回）\n"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_ota",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ota.c -o labs/host_ota && ./labs/host_ota\n正常升级：结果=切换（校验通过并确认：切换完成）\n第 2 块后掉电：结果=回滚（掉电：分块未写完）\n镜像被篡改：结果=回滚（整镜像 CRC 不匹配）\n校验通过但未确认：结果=切换（已切换但未确认：下次可退回）\n"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_ota.c",
+    "context": "labs/host_ota.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m09_debug.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m09_debug.c -o m09.o && arm-none-eabi-size m09.o\n   text    data     bss     dec     hex filename\n     72       0       0      72     "
+  },
+  {
+    "book": "B07",
+    "path": "labs/m10_node.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m10_node.c -o m10.o && arm-none-eabi-size m10.o\n   text    data     bss     dec     hex filename\n    181       0       4     185      "
+  },
+  {
+    "book": "B07",
+    "path": "labs/m10_node.c",
+    "context": "labs/m10_node.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/esp_m10_node.c",
+    "context": "labs/esp_m10_node.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/h7_m10_node.c",
+    "context": "labs/h7_m10_node.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m11_lwip.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m11_lwip.c -o m11.o && arm-none-eabi-size m11.o\n   text    data     bss     dec     hex filename\n     75       0       0      75      "
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_backoff.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_backoff.c -o labs/host_backoff && ./labs/host_backoff\n指数退避（base=100ms, cap=30000ms）：100ms, 200ms, 400ms, …, 30000ms, 30000ms\n去重缓存（容量 4，插入 1..5）：has"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_backoff",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_backoff.c -o labs/host_backoff && ./labs/host_backoff\n指数退避（base=100ms, cap=30000ms）：100ms, 200ms, 400ms, …, 30000ms, 30000ms\n去重缓存（容量 4，插入 1..5）：has"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_backoff",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_backoff.c -o labs/host_backoff && ./labs/host_backoff\n指数退避（base=100ms, cap=30000ms）：100ms, 200ms, 400ms, …, 30000ms, 30000ms\n去重缓存（容量 4，插入 1..5）：has"
+  },
+  {
+    "book": "B07",
+    "path": "labs/host_backoff.c",
+    "context": "labs/host_backoff.c"
+  },
+  {
+    "book": "B07",
+    "path": "labs/m13_version.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m13_version.c -o m13.o && arm-none-eabi-size m13.o\n   text    data     bss     dec     hex filename\n     38       0       0      38   "
+  },
+  {
+    "book": "B07",
+    "path": "labs/capstone_ota_node.c",
+    "context": "labs/capstone_ota_node.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_fsm.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fsm.c -o labs/host_fsm && ./labs/host_fsm\nSTART         : BOOT -> IDLE\nARM           : IDLE -> RUN\nSENSOR_INVALID: RUN -> FAULT\nARM           : FAU"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_fsm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fsm.c -o labs/host_fsm && ./labs/host_fsm\nSTART         : BOOT -> IDLE\nARM           : IDLE -> RUN\nSENSOR_INVALID: RUN -> FAULT\nARM           : FAU"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_fsm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fsm.c -o labs/host_fsm && ./labs/host_fsm\nSTART         : BOOT -> IDLE\nARM           : IDLE -> RUN\nSENSOR_INVALID: RUN -> FAULT\nARM           : FAU"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_fsm.c",
+    "context": "labs/host_fsm.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/m02_skeleton.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m02_skeleton.c -o m02.o && arm-none-eabi-size m02.o\n   text    data     bss     dec     hex filename\n     72       0       0      72  "
+  },
+  {
+    "book": "B08",
+    "path": "labs/m02_skeleton.c",
+    "context": "labs/m02_skeleton.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/esp_m02_skeleton.c",
+    "context": "labs/esp_m02_skeleton.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/h7_m02_skeleton.c",
+    "context": "labs/h7_m02_skeleton.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_keys.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keys.c -o labs/host_keys && ./labs/host_keys\n按下区间=4：[7,17] [102,172] [202,212] [222,232]\n识别事件=3：SHORT LONG DOUBLE\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_keys",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keys.c -o labs/host_keys && ./labs/host_keys\n按下区间=4：[7,17] [102,172] [202,212] [222,232]\n识别事件=3：SHORT LONG DOUBLE\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_keys",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keys.c -o labs/host_keys && ./labs/host_keys\n按下区间=4：[7,17] [102,172] [202,212] [222,232]\n识别事件=3：SHORT LONG DOUBLE\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_keys.c",
+    "context": "labs/host_keys.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_ringlog.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ringlog.c -o labs/host_ringlog && ./labs/host_ringlog\n写完 3 条（第 3 条掉电于提交前）→ 有效记录 2 条：100 200\n损坏第 1 条后 → 有效记录 1 条（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_ringlog",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ringlog.c -o labs/host_ringlog && ./labs/host_ringlog\n写完 3 条（第 3 条掉电于提交前）→ 有效记录 2 条：100 200\n损坏第 1 条后 → 有效记录 1 条（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_ringlog",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ringlog.c -o labs/host_ringlog && ./labs/host_ringlog\n写完 3 条（第 3 条掉电于提交前）→ 有效记录 2 条：100 200\n损坏第 1 条后 → 有效记录 1 条（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_ringlog.c",
+    "context": "labs/host_ringlog.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_pid.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n设定 150 不可达（执行器上限），再回落到 40：\n  开抗饱和：峰值积分=23.4  回落后峰值 y=91.3  最终在 40±2 内=1\n  关抗饱和：峰值积分=1734.8  回落后峰值 y=99.3 "
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_pid",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n设定 150 不可达（执行器上限），再回落到 40：\n  开抗饱和：峰值积分=23.4  回落后峰值 y=91.3  最终在 40±2 内=1\n  关抗饱和：峰值积分=1734.8  回落后峰值 y=99.3 "
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_pid",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n设定 150 不可达（执行器上限），再回落到 40：\n  开抗饱和：峰值积分=23.4  回落后峰值 y=91.3  最终在 40±2 内=1\n  关抗饱和：峰值积分=1734.8  回落后峰值 y=99.3 "
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_pid.c",
+    "context": "labs/host_pid.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/m06_link.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m06_link.c -o m06.o && arm-none-eabi-size m06.o\n   text    data     bss     dec     hex filename\n     62       0       0      62      "
+  },
+  {
+    "book": "B08",
+    "path": "labs/m06_link.c",
+    "context": "labs/m06_link.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/esp_m06_link.c",
+    "context": "labs/esp_m06_link.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/h7_m06_link.c",
+    "context": "labs/h7_m06_link.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_power.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_power.c -o labs/host_power && ./labs/host_power\n低功耗配置平均电流 = 260 µA  → 3000mAh 续航 480 天\n无线常开平均电流   = 23505 µA  → 3000mAh 续航 5 天\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_power",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_power.c -o labs/host_power && ./labs/host_power\n低功耗配置平均电流 = 260 µA  → 3000mAh 续航 480 天\n无线常开平均电流   = 23505 µA  → 3000mAh 续航 5 天\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_power",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_power.c -o labs/host_power && ./labs/host_power\n低功耗配置平均电流 = 260 µA  → 3000mAh 续航 480 天\n无线常开平均电流   = 23505 µA  → 3000mAh 续航 5 天\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_power.c",
+    "context": "labs/host_power.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_heartbeat.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_heartbeat.c -o labs/host_heartbeat && ./labs/host_heartbeat\n检测到 control 卡死的时刻=146（≈ 最后一次打卡 95 + 超时 50 + 1）\n累计恢复次数=1（上界 3）\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_heartbeat",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_heartbeat.c -o labs/host_heartbeat && ./labs/host_heartbeat\n检测到 control 卡死的时刻=146（≈ 最后一次打卡 95 + 超时 50 + 1）\n累计恢复次数=1（上界 3）\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_heartbeat",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_heartbeat.c -o labs/host_heartbeat && ./labs/host_heartbeat\n检测到 control 卡死的时刻=146（≈ 最后一次打卡 95 + 超时 50 + 1）\n累计恢复次数=1（上界 3）\nRESULT: PASS"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_heartbeat.c",
+    "context": "labs/host_heartbeat.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/m09_board.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m09_board.c -o m09.o && arm-none-eabi-size m09.o\n   text    data     bss     dec     hex filename\n     63       0       0      63     "
+  },
+  {
+    "book": "B08",
+    "path": "labs/m10_env.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m10_env.c -o m10.o && arm-none-eabi-size m10.o\n   text    data     bss     dec     hex filename\n    173       0       4     177      b"
+  },
+  {
+    "book": "B08",
+    "path": "labs/m10_env.c",
+    "context": "labs/m10_env.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/esp_m10_env.c",
+    "context": "labs/esp_m10_env.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/h7_m10_env.c",
+    "context": "labs/h7_m10_env.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/m11_motor.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m11_motor.c -o m11.o && arm-none-eabi-size m11.o\n   text    data     bss     dec     hex filename\n     56       0       0      56     "
+  },
+  {
+    "book": "B08",
+    "path": "labs/m12_battery.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m12_battery.c -o m12.o && arm-none-eabi-size m12.o\n   text    data     bss     dec     hex filename\n     28       0       0      28   "
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_power.c",
+    "context": "labs/host_power.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_params.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_params.c -o labs/host_params && ./labs/host_params\n两份都好：r=0 ver=2 t=[-10,85] sample=500ms\nA 损坏：r=0 sample=500ms（应回退到 B=500）\n只有 v1：r=0 ver=2 sample="
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_params",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_params.c -o labs/host_params && ./labs/host_params\n两份都好：r=0 ver=2 t=[-10,85] sample=500ms\nA 损坏：r=0 sample=500ms（应回退到 B=500）\n只有 v1：r=0 ver=2 sample="
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_params",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_params.c -o labs/host_params && ./labs/host_params\n两份都好：r=0 ver=2 t=[-10,85] sample=500ms\nA 损坏：r=0 sample=500ms（应回退到 B=500）\n只有 v1：r=0 ver=2 sample="
+  },
+  {
+    "book": "B08",
+    "path": "labs/host_params.c",
+    "context": "labs/host_params.c"
+  },
+  {
+    "book": "B08",
+    "path": "labs/m14_ui_state.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m14_ui_state.c -o m14.o && arm-none-eabi-size m14.o\n   text    data     bss     dec     hex filename\n     92       0       0      92  "
+  },
+  {
+    "book": "B08",
+    "path": "labs/m15_accept.c",
+    "context": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -Os -c labs/m15_accept.c -o m15.o && arm-none-eabi-size m15.o\n   text    data     bss     dec     hex filename\n     86       0       0      86    "
+  },
+  {
+    "book": "B08",
+    "path": "labs/capstone_app_node.c",
+    "context": "labs/capstone_app_node.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_bootlog.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bootlog.c -o labs/host_bootlog && ./labs/host_bootlog\n== 正常启动 ==\n阶段时间(ms): ROM=0 SPL=8 U-Boot=18 Kernel=600 init=2700\n阶段耗时(ms): ROM→SPL=8 SPL→U-Boo"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_bootlog",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bootlog.c -o labs/host_bootlog && ./labs/host_bootlog\n== 正常启动 ==\n阶段时间(ms): ROM=0 SPL=8 U-Boot=18 Kernel=600 init=2700\n阶段耗时(ms): ROM→SPL=8 SPL→U-Boo"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_bootlog",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bootlog.c -o labs/host_bootlog && ./labs/host_bootlog\n== 正常启动 ==\n阶段时间(ms): ROM=0 SPL=8 U-Boot=18 Kernel=600 init=2700\n阶段耗时(ms): ROM→SPL=8 SPL→U-Boo"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_bootlog.c",
+    "context": "labs/host_bootlog.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_toolchain.c -o labs/host_toolchain && ./labs/host_toolchain\nSTM32MP1   triple=arm-ostl-linux-gnueabi     sysroot=/opt/st/sysroots/cortexa7t2hf-neon"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_toolchain.c -o labs/host_toolchain && ./labs/host_toolchain\nSTM32MP1   triple=arm-ostl-linux-gnueabi     sysroot=/opt/st/sysroots/cortexa7t2hf-neon"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_toolchain.c -o labs/host_toolchain && ./labs/host_toolchain\nSTM32MP1   triple=arm-ostl-linux-gnueabi     sysroot=/opt/st/sysroots/cortexa7t2hf-neon"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain.c",
+    "context": "labs/host_toolchain.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_devtree.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_devtree.c -o labs/host_devtree && ./labs/host_devtree\n找到节点: /soc/uart@40011000  compatible=st,stm32-uart  status=okay\ni2c 节点 status=disabled → 驱动跳过"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_devtree",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_devtree.c -o labs/host_devtree && ./labs/host_devtree\n找到节点: /soc/uart@40011000  compatible=st,stm32-uart  status=okay\ni2c 节点 status=disabled → 驱动跳过"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_devtree",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_devtree.c -o labs/host_devtree && ./labs/host_devtree\n找到节点: /soc/uart@40011000  compatible=st,stm32-uart  status=okay\ni2c 节点 status=disabled → 驱动跳过"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_devtree.c",
+    "context": "labs/host_devtree.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_kconfig.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kconfig.c -o labs/host_kconfig && ./labs/host_kconfig\n请求 {C}：\n启用: B C \n  冲突: B 依赖 A，但 A 未启用\n请求 {A,C}：\n启用: A B C \nRESULT: PASS"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_kconfig",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kconfig.c -o labs/host_kconfig && ./labs/host_kconfig\n请求 {C}：\n启用: B C \n  冲突: B 依赖 A，但 A 未启用\n请求 {A,C}：\n启用: A B C \nRESULT: PASS"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_kconfig",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kconfig.c -o labs/host_kconfig && ./labs/host_kconfig\n请求 {C}：\n启用: B C \n  冲突: B 依赖 A，但 A 未启用\n请求 {A,C}：\n启用: A B C \nRESULT: PASS"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_kconfig.c",
+    "context": "labs/host_kconfig.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_rootfs.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rootfs.c -o labs/host_rootfs && ./labs/host_rootfs\n完整 rootfs 自检：\n  错误数=0（期望 0）\n残缺 rootfs 自检：\n  缺目录: /proc\n  缺文件: /etc/fstab\n  /bin/sh 指向 busybox，但 "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_rootfs",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rootfs.c -o labs/host_rootfs && ./labs/host_rootfs\n完整 rootfs 自检：\n  错误数=0（期望 0）\n残缺 rootfs 自检：\n  缺目录: /proc\n  缺文件: /etc/fstab\n  /bin/sh 指向 busybox，但 "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_rootfs",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rootfs.c -o labs/host_rootfs && ./labs/host_rootfs\n完整 rootfs 自检：\n  错误数=0（期望 0）\n残缺 rootfs 自检：\n  缺目录: /proc\n  缺文件: /etc/fstab\n  /bin/sh 指向 busybox，但 "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_initdeps.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_initdeps.c -o labs/host_initdeps && ./labs/host_initdeps\n启动顺序: sysinit network sshd mqtt ui\nnetwork 失败后已启动: sysinit ui\n环依赖 topo 返回=0（期望 0）\nRESULT: "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_initdeps",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_initdeps.c -o labs/host_initdeps && ./labs/host_initdeps\n启动顺序: sysinit network sshd mqtt ui\nnetwork 失败后已启动: sysinit ui\n环依赖 topo 返回=0（期望 0）\nRESULT: "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_initdeps",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_initdeps.c -o labs/host_initdeps && ./labs/host_initdeps\n启动顺序: sysinit network sshd mqtt ui\nnetwork 失败后已启动: sysinit ui\n环依赖 topo 返回=0（期望 0）\nRESULT: "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_rootfs.c",
+    "context": "labs/host_rootfs.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_initdeps.c",
+    "context": "labs/host_initdeps.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_partition.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_partition.c -o labs/host_partition && ./labs/host_partition\nroot=/dev/mmcblk0p5 → 分区 5：rootfs (ext4)\nroot=/dev/mmcblk0p7 → 不存在（期望“不存在/越界”被拒绝）\n分区 3="
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_partition",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_partition.c -o labs/host_partition && ./labs/host_partition\nroot=/dev/mmcblk0p5 → 分区 5：rootfs (ext4)\nroot=/dev/mmcblk0p7 → 不存在（期望“不存在/越界”被拒绝）\n分区 3="
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_partition",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_partition.c -o labs/host_partition && ./labs/host_partition\nroot=/dev/mmcblk0p5 → 分区 5：rootfs (ext4)\nroot=/dev/mmcblk0p7 → 不存在（期望“不存在/越界”被拒绝）\n分区 3="
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_partition.c",
+    "context": "labs/host_partition.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_debuglog.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_debuglog.c -o labs/host_debuglog && ./labs/host_debuglog\n统计: info=2 warn=1 err=2 emerg=1\n最严重级别=emerg\n是否告警=是（emerg/err 存在即告警）\nRESULT: PASS"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_debuglog",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_debuglog.c -o labs/host_debuglog && ./labs/host_debuglog\n统计: info=2 warn=1 err=2 emerg=1\n最严重级别=emerg\n是否告警=是（emerg/err 存在即告警）\nRESULT: PASS"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_debuglog",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_debuglog.c -o labs/host_debuglog && ./labs/host_debuglog\n统计: info=2 warn=1 err=2 emerg=1\n最严重级别=emerg\n是否告警=是（emerg/err 存在即告警）\nRESULT: PASS"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_debuglog.c",
+    "context": "labs/host_debuglog.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_shellparse.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shellparse.c -o labs/host_shellparse && ./labs/host_shellparse\n命令: echo \"a b\" c\\ d | grep x\n分词(6): [echo] [a b] [c d] [|] [grep] [x]\n分词2(2): [cat] "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_shellparse",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shellparse.c -o labs/host_shellparse && ./labs/host_shellparse\n命令: echo \"a b\" c\\ d | grep x\n分词(6): [echo] [a b] [c d] [|] [grep] [x]\n分词2(2): [cat] "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_shellparse",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shellparse.c -o labs/host_shellparse && ./labs/host_shellparse\n命令: echo \"a b\" c\\ d | grep x\n分词(6): [echo] [a b] [c d] [|] [grep] [x]\n分词2(2): [cat] "
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_shellparse.c",
+    "context": "labs/host_shellparse.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_toolchain.c -o labs/host_toolchain && ./labs/host_toolchain\nSTM32MP1   triple=arm-ostl-linux-gnueabi     sysroot=/opt/st/sysroots/cortexa7t2hf-neon"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_toolchain.c -o labs/host_toolchain && ./labs/host_toolchain\nSTM32MP1   triple=arm-ostl-linux-gnueabi     sysroot=/opt/st/sysroots/cortexa7t2hf-neon"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_toolchain",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_toolchain.c -o labs/host_toolchain && ./labs/host_toolchain\nSTM32MP1   triple=arm-ostl-linux-gnueabi     sysroot=/opt/st/sysroots/cortexa7t2hf-neon"
+  },
+  {
+    "book": "B09",
+    "path": "labs/bsp_mp1.sh",
+    "context": "labs/bsp_mp1.sh"
+  },
+  {
+    "book": "B09",
+    "path": "labs/layer_imx.bb",
+    "context": "labs/layer_imx.bb"
+  },
+  {
+    "book": "B09",
+    "path": "labs/image_v3s.sh",
+    "context": "labs/image_v3s.sh"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_cpio.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cpio.c -o labs/host_cpio && ./labs/host_cpio\n打包：396 字节，含 init(10) 与 etc/fstab(24)\n  解出: init size=10 data=\"#!/bin/sh\n\"\n  解出: etc/fstab size=24 data"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_cpio",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cpio.c -o labs/host_cpio && ./labs/host_cpio\n打包：396 字节，含 init(10) 与 etc/fstab(24)\n  解出: init size=10 data=\"#!/bin/sh\n\"\n  解出: etc/fstab size=24 data"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_cpio",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cpio.c -o labs/host_cpio && ./labs/host_cpio\n打包：396 字节，含 init(10) 与 etc/fstab(24)\n  解出: init size=10 data=\"#!/bin/sh\n\"\n  解出: etc/fstab size=24 data"
+  },
+  {
+    "book": "B09",
+    "path": "labs/host_cpio.c",
+    "context": "labs/host_cpio.c"
+  },
+  {
+    "book": "B09",
+    "path": "labs/abupdate_mp1.sh",
+    "context": "labs/abupdate_mp1.sh"
+  },
+  {
+    "book": "B09",
+    "path": "labs/recovery_v3s.sh",
+    "context": "labs/recovery_v3s.sh"
+  },
+  {
+    "book": "B09",
+    "path": "labs/capstone_image.sh",
+    "context": "labs/capstone_image.sh"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_module.c -o labs/host_module && ./labs/host_module\n首次 init: 0（期望 0）\n重复 init: -17（期望 -17，-EEXIST）\ninit=1 param=7\n两次 open 后 ref=2\nref>0 时 exit: -16（期"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_module.c -o labs/host_module && ./labs/host_module\n首次 init: 0（期望 0）\n重复 init: -17（期望 -17，-EEXIST）\ninit=1 param=7\n两次 open 后 ref=2\nref>0 时 exit: -16（期"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_module.c -o labs/host_module && ./labs/host_module\n首次 init: 0（期望 0）\n重复 init: -17（期望 -17，-EEXIST）\ninit=1 param=7\n两次 open 后 ref=2\nref>0 时 exit: -16（期"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module.c",
+    "context": "labs/host_module.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_chardev.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_chardev.c -o labs/host_chardev && ./labs/host_chardev\n按 minor=0 找到设备: mydev0\nread 返回 5，内容=\"hello\"\nwrite 返回 3\nioctl(0x10) → 1（期望 1）\nminor=9 → 不存在（期望"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_chardev",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_chardev.c -o labs/host_chardev && ./labs/host_chardev\n按 minor=0 找到设备: mydev0\nread 返回 5，内容=\"hello\"\nwrite 返回 3\nioctl(0x10) → 1（期望 1）\nminor=9 → 不存在（期望"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_chardev",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_chardev.c -o labs/host_chardev && ./labs/host_chardev\n按 minor=0 找到设备: mydev0\nread 返回 5，内容=\"hello\"\nwrite 返回 3\nioctl(0x10) → 1（期望 1）\nminor=9 → 不存在（期望"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_chardev.c",
+    "context": "labs/host_chardev.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_concurrency.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_concurrency.c -o labs/host_concurrency && ./labs/host_concurrency\n一致顺序 A→B：cycle=0（期望 0）\n交叉顺序 A→B 与 B→A：cycle=1（期望 1，检测到死锁）\n自旋锁内调用可能睡眠函数 → BUG=1（期望"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_concurrency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_concurrency.c -o labs/host_concurrency && ./labs/host_concurrency\n一致顺序 A→B：cycle=0（期望 0）\n交叉顺序 A→B 与 B→A：cycle=1（期望 1，检测到死锁）\n自旋锁内调用可能睡眠函数 → BUG=1（期望"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_concurrency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_concurrency.c -o labs/host_concurrency && ./labs/host_concurrency\n一致顺序 A→B：cycle=0（期望 0）\n交叉顺序 A→B 与 B→A：cycle=1（期望 1，检测到死锁）\n自旋锁内调用可能睡眠函数 → BUG=1（期望"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_concurrency.c",
+    "context": "labs/host_concurrency.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_irqhalf.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_irqhalf.c -o labs/host_irqhalf && ./labs/host_irqhalf\nISR 后：pending=1 bh_runs=0（下半部尚未运行）\n调度后：pending=0 bh_runs=1  trace=\"IRQ BH \"\nISR 步数=1（期望 1，必须是"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_irqhalf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_irqhalf.c -o labs/host_irqhalf && ./labs/host_irqhalf\nISR 后：pending=1 bh_runs=0（下半部尚未运行）\n调度后：pending=0 bh_runs=1  trace=\"IRQ BH \"\nISR 步数=1（期望 1，必须是"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_irqhalf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_irqhalf.c -o labs/host_irqhalf && ./labs/host_irqhalf\nISR 后：pending=1 bh_runs=0（下半部尚未运行）\n调度后：pending=0 bh_runs=1  trace=\"IRQ BH \"\nISR 步数=1（期望 1，必须是"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_irqhalf.c",
+    "context": "labs/host_irqhalf.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_platform.c -o labs/host_platform && ./labs/host_platform\ndev-b@0  deferred（依赖 v,dev-a 未就绪）\ndev-a@1  probe → drvA\ndev-c@2  unbound（无匹配驱动）\n-- 重试 defe"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_platform.c -o labs/host_platform && ./labs/host_platform\ndev-b@0  deferred（依赖 v,dev-a 未就绪）\ndev-a@1  probe → drvA\ndev-c@2  unbound（无匹配驱动）\n-- 重试 defe"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_platform.c -o labs/host_platform && ./labs/host_platform\ndev-b@0  deferred（依赖 v,dev-a 未就绪）\ndev-a@1  probe → drvA\ndev-c@2  unbound（无匹配驱动）\n-- 重试 defe"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform.c",
+    "context": "labs/host_platform.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_gpio.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gpio.c -o labs/host_gpio && ./labs/host_gpio\nmodel_gpiod_get(\"led\")=ok\nmodel_gpiod_set_value(1) → value=1\nclk 未 enable 访问寄存器 → -19（期望 -19）\nclk enab"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_gpio",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gpio.c -o labs/host_gpio && ./labs/host_gpio\nmodel_gpiod_get(\"led\")=ok\nmodel_gpiod_set_value(1) → value=1\nclk 未 enable 访问寄存器 → -19（期望 -19）\nclk enab"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_gpio",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gpio.c -o labs/host_gpio && ./labs/host_gpio\nmodel_gpiod_get(\"led\")=ok\nmodel_gpiod_set_value(1) → value=1\nclk 未 enable 访问寄存器 → -19（期望 -19）\nclk enab"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_gpio.c",
+    "context": "labs/host_gpio.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bus.c -o labs/host_bus && ./labs/host_bus\n读 reg3=0x5A（期望 0x5A），累计传输=3（写1+读写2=3）\n越界 reg=9 读: -1（期望 -1）\nRESULT: PASS"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bus.c -o labs/host_bus && ./labs/host_bus\n读 reg3=0x5A（期望 0x5A），累计传输=3（写1+读写2=3）\n越界 reg=9 读: -1（期望 -1）\nRESULT: PASS"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bus.c -o labs/host_bus && ./labs/host_bus\n读 reg3=0x5A（期望 0x5A），累计传输=3（写1+读写2=3）\n越界 reg=9 读: -1（期望 -1）\nRESULT: PASS"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus.c",
+    "context": "labs/host_bus.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_dma.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dma.c -o labs/host_dma && ./labs/host_dma\n设备写后未 invalidate：CPU 读到 0x0（期望旧值 0x0，脏数据）\ninvalidate 后：CPU 读到 0xABCD（期望 0xABCD）\nCPU 写后未 clean：mem=0xABCD（"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_dma",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dma.c -o labs/host_dma && ./labs/host_dma\n设备写后未 invalidate：CPU 读到 0x0（期望旧值 0x0，脏数据）\ninvalidate 后：CPU 读到 0xABCD（期望 0xABCD）\nCPU 写后未 clean：mem=0xABCD（"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_dma",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dma.c -o labs/host_dma && ./labs/host_dma\n设备写后未 invalidate：CPU 读到 0x0（期望旧值 0x0，脏数据）\ninvalidate 后：CPU 读到 0xABCD（期望 0xABCD）\nCPU 写后未 clean：mem=0xABCD（"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_dma.c",
+    "context": "labs/host_dma.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_platform.c -o labs/host_platform && ./labs/host_platform\ndev-b@0  deferred（依赖 v,dev-a 未就绪）\ndev-a@1  probe → drvA\ndev-c@2  unbound（无匹配驱动）\n-- 重试 defe"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_platform.c -o labs/host_platform && ./labs/host_platform\ndev-b@0  deferred（依赖 v,dev-a 未就绪）\ndev-a@1  probe → drvA\ndev-c@2  unbound（无匹配驱动）\n-- 重试 defe"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_platform.c -o labs/host_platform && ./labs/host_platform\ndev-b@0  deferred（依赖 v,dev-a 未就绪）\ndev-a@1  probe → drvA\ndev-c@2  unbound（无匹配驱动）\n-- 重试 defe"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_platform.c",
+    "context": "labs/host_platform.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_sysfs.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sysfs.c -o labs/host_sysfs && ./labs/host_sysfs\nstore(\"75\")=0  show=\"75\n\"（期望 0 与 75）\nstore(\"200\")=-22（期望 -22，越界被拒）\nstore(\"abc\")=-22（期望 -22，非数字被拒）\nR"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_sysfs",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sysfs.c -o labs/host_sysfs && ./labs/host_sysfs\nstore(\"75\")=0  show=\"75\n\"（期望 0 与 75）\nstore(\"200\")=-22（期望 -22，越界被拒）\nstore(\"abc\")=-22（期望 -22，非数字被拒）\nR"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_sysfs",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sysfs.c -o labs/host_sysfs && ./labs/host_sysfs\nstore(\"75\")=0  show=\"75\n\"（期望 0 与 75）\nstore(\"200\")=-22（期望 -22，越界被拒）\nstore(\"abc\")=-22（期望 -22，非数字被拒）\nR"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_sysfs.c",
+    "context": "labs/host_sysfs.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bus.c -o labs/host_bus && ./labs/host_bus\n读 reg3=0x5A（期望 0x5A），累计传输=3（写1+读写2=3）\n越界 reg=9 读: -1（期望 -1）\nRESULT: PASS"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bus.c -o labs/host_bus && ./labs/host_bus\n读 reg3=0x5A（期望 0x5A），累计传输=3（写1+读写2=3）\n越界 reg=9 读: -1（期望 -1）\nRESULT: PASS"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bus.c -o labs/host_bus && ./labs/host_bus\n读 reg3=0x5A（期望 0x5A），累计传输=3（写1+读写2=3）\n越界 reg=9 读: -1（期望 -1）\nRESULT: PASS"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_bus.c",
+    "context": "labs/host_bus.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_pm.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pm.c -o labs/host_pm && ./labs/host_pm\n两次 get：usage=2 state=ACTIVE resumes=1\n一次 put：usage=1 state=ACTIVE（仍 ACTIVE）\nusage 归零：state=SUSPENDED suspend"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_pm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pm.c -o labs/host_pm && ./labs/host_pm\n两次 get：usage=2 state=ACTIVE resumes=1\n一次 put：usage=1 state=ACTIVE（仍 ACTIVE）\nusage 归零：state=SUSPENDED suspend"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_pm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pm.c -o labs/host_pm && ./labs/host_pm\n两次 get：usage=2 state=ACTIVE resumes=1\n一次 put：usage=1 state=ACTIVE（仍 ACTIVE）\nusage 归零：state=SUSPENDED suspend"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_pm.c",
+    "context": "labs/host_pm.c"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_module.c -o labs/host_module && ./labs/host_module\n首次 init: 0（期望 0）\n重复 init: -17（期望 -17，-EEXIST）\ninit=1 param=7\n两次 open 后 ref=2\nref>0 时 exit: -16（期"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_module.c -o labs/host_module && ./labs/host_module\n首次 init: 0（期望 0）\n重复 init: -17（期望 -17，-EEXIST）\ninit=1 param=7\n两次 open 后 ref=2\nref>0 时 exit: -16（期"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_module.c -o labs/host_module && ./labs/host_module\n首次 init: 0（期望 0）\n重复 init: -17（期望 -17，-EEXIST）\ninit=1 param=7\n两次 open 后 ref=2\nref>0 时 exit: -16（期"
+  },
+  {
+    "book": "B10",
+    "path": "labs/host_module.c",
+    "context": "labs/host_module.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_syscall.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_syscall.c -o labs/host_syscall && ./labs/host_syscall\nshort reads / EINTR / EAGAIN wait / early EOF: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_syscall",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_syscall.c -o labs/host_syscall && ./labs/host_syscall\nshort reads / EINTR / EAGAIN wait / early EOF: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_syscall",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_syscall.c -o labs/host_syscall && ./labs/host_syscall\nshort reads / EINTR / EAGAIN wait / early EOF: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_syscall.c",
+    "context": "labs/host_syscall.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_ipc.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ipc.c -o labs/host_ipc && ./labs/host_ipc\n填满后 count=4，再 push: -1（期望 -1 满）\n按序取出=是  count=0（期望 1..4、0）\n空时 pop: -1（期望 -1 空）\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_ipc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ipc.c -o labs/host_ipc && ./labs/host_ipc\n填满后 count=4，再 push: -1（期望 -1 满）\n按序取出=是  count=0（期望 1..4、0）\n空时 pop: -1（期望 -1 空）\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_ipc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ipc.c -o labs/host_ipc && ./labs/host_ipc\n填满后 count=4，再 push: -1（期望 -1 满）\n按序取出=是  count=0（期望 1..4、0）\n空时 pop: -1（期望 -1 空）\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_ipc.c",
+    "context": "labs/host_ipc.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket && ./labs/host_socket\n消息1=\"abc\"\n半包（只有长度）take=0（期望 0）\n补齐后消息=\"xy\"\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket && ./labs/host_socket\n消息1=\"abc\"\n半包（只有长度）take=0（期望 0）\n补齐后消息=\"xy\"\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket && ./labs/host_socket\n消息1=\"abc\"\n半包（只有长度）take=0（期望 0）\n补齐后消息=\"xy\"\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket.c",
+    "context": "labs/host_socket.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_build.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n编译顺序: util net app main\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_build",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n编译顺序: util net app main\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_build",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n编译顺序: util net app main\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_build.c",
+    "context": "labs/host_build.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_threads.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 -pthread labs/host_threads.c -o labs/host_threads && ./labs/host_threads\n无锁两线程各 +1（barrier 强制都先读）：期望 2，实际 1（丢失更新）\n加锁自增 2×500：实际 1000（期望 1000）\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_threads",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 -pthread labs/host_threads.c -o labs/host_threads && ./labs/host_threads\n无锁两线程各 +1（barrier 强制都先读）：期望 2，实际 1（丢失更新）\n加锁自增 2×500：实际 1000（期望 1000）\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_threads",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 -pthread labs/host_threads.c -o labs/host_threads && ./labs/host_threads\n无锁两线程各 +1（barrier 强制都先读）：期望 2，实际 1（丢失更新）\n加锁自增 2×500：实际 1000（期望 1000）\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_threads.c",
+    "context": "labs/host_threads.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service.c",
+    "context": "labs/host_service.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_perf.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n实时线程 200us/1ms → CPU 占用 200‰（预算 300‰）：OK\n实时线程 800us/1ms → 超预算（应超预算）\n内存峰值 6000KB/8192KB → OK\n内存峰值 7500K"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_perf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n实时线程 200us/1ms → CPU 占用 200‰（预算 300‰）：OK\n实时线程 800us/1ms → 超预算（应超预算）\n内存峰值 6000KB/8192KB → OK\n内存峰值 7500K"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_perf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n实时线程 200us/1ms → CPU 占用 200‰（预算 300‰）：OK\n实时线程 800us/1ms → 超预算（应超预算）\n内存峰值 6000KB/8192KB → OK\n内存峰值 7500K"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_perf.c",
+    "context": "labs/host_perf.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service.c",
+    "context": "labs/host_service.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_cfg.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cfg.c -o labs/host_cfg && ./labs/host_cfg\n无配置 → 默认 port=1883 interval=1000（r=1）\n保存后加载 port=8883 interval=500\n掉电保存后配置未损坏: 1\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_cfg",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cfg.c -o labs/host_cfg && ./labs/host_cfg\n无配置 → 默认 port=1883 interval=1000（r=1）\n保存后加载 port=8883 interval=500\n掉电保存后配置未损坏: 1\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_cfg",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cfg.c -o labs/host_cfg && ./labs/host_cfg\n无配置 → 默认 port=1883 interval=1000（r=1）\n保存后加载 port=8883 interval=500\n掉电保存后配置未损坏: 1\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_cfg.c",
+    "context": "labs/host_cfg.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket && ./labs/host_socket\n消息1=\"abc\"\n半包（只有长度）take=0（期望 0）\n补齐后消息=\"xy\"\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket && ./labs/host_socket\n消息1=\"abc\"\n半包（只有长度）take=0（期望 0）\n补齐后消息=\"xy\"\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_socket.c -o labs/host_socket && ./labs/host_socket\n消息1=\"abc\"\n半包（只有长度）take=0（期望 0）\n补齐后消息=\"xy\"\nRESULT: PASS"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_socket.c",
+    "context": "labs/host_socket.c"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_service.c -o labs/host_service && ./labs/host_service\n失败 5 次：burst=5 state=RUNNING（仍 RUNNING）\n第 6 次：burst=6 state=FAILED（期望 FAILED，限速生效）\nRESULT: PA"
+  },
+  {
+    "book": "B11",
+    "path": "labs/host_service.c",
+    "context": "labs/host_service.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gate.c -o labs/host_gate && ./labs/host_gate\n  编译通过 hard=1 ok=1\n  单元测试 hard=1 ok=1\n  行宽<=100  hard=0 ok=0\n  无 TODO     hard=1 ok=1\n  覆盖率>=80 hard=0"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gate.c -o labs/host_gate && ./labs/host_gate\n  编译通过 hard=1 ok=1\n  单元测试 hard=1 ok=1\n  行宽<=100  hard=0 ok=0\n  无 TODO     hard=1 ok=1\n  覆盖率>=80 hard=0"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gate.c -o labs/host_gate && ./labs/host_gate\n  编译通过 hard=1 ok=1\n  单元测试 hard=1 ok=1\n  行宽<=100  hard=0 ok=0\n  无 TODO     hard=1 ok=1\n  覆盖率>=80 hard=0"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate.c",
+    "context": "labs/host_gate.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gate.c -o labs/host_gate && ./labs/host_gate\n硬性失败=0 警告=1 → 门禁 PASS\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gate.c -o labs/host_gate && ./labs/host_gate\n硬性失败=0 警告=1 → 门禁 PASS\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_gate.c -o labs/host_gate && ./labs/host_gate\n硬性失败=0 警告=1 → 门禁 PASS\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_gate.c",
+    "context": "labs/host_gate.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_unittest.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_unittest.c -o labs/host_unittest && ./labs/host_unittest\n用例: add\n用例: fail-demo\n  FAIL: 1+1==3(故意失败)\n通过=2 失败=1\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_unittest",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_unittest.c -o labs/host_unittest && ./labs/host_unittest\n用例: add\n用例: fail-demo\n  FAIL: 1+1==3(故意失败)\n通过=2 失败=1\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_unittest",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_unittest.c -o labs/host_unittest && ./labs/host_unittest\n用例: add\n用例: fail-demo\n  FAIL: 1+1==3(故意失败)\n通过=2 失败=1\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_unittest.c",
+    "context": "labs/host_unittest.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hil.c -o labs/host_hil && ./labs/host_hil\n  set_mode   stim=1 expect=3 obs=3 timeout=100ms → PASS\n  read_value stim=5 expect=11 obs=11 timeout=100m"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hil.c -o labs/host_hil && ./labs/host_hil\n  set_mode   stim=1 expect=3 obs=3 timeout=100ms → PASS\n  read_value stim=5 expect=11 obs=11 timeout=100m"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hil.c -o labs/host_hil && ./labs/host_hil\n  set_mode   stim=1 expect=3 obs=3 timeout=100ms → PASS\n  read_value stim=5 expect=11 obs=11 timeout=100m"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil.c",
+    "context": "labs/host_hil.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_version.c -o labs/host_version && ./labs/host_version\n1.2.3 vs 1.3.0 → -1（期望 -1 更旧）\n2.0.0 vs 1.9.9 → 1（期望 1 更新）\n同版准入=0（期望 0）\n跨 2 个主版本准入=-1（期望 -1 需迁"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_version.c -o labs/host_version && ./labs/host_version\n1.2.3 vs 1.3.0 → -1（期望 -1 更旧）\n2.0.0 vs 1.9.9 → 1（期望 1 更新）\n同版准入=0（期望 0）\n跨 2 个主版本准入=-1（期望 -1 需迁"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_version.c -o labs/host_version && ./labs/host_version\n1.2.3 vs 1.3.0 → -1（期望 -1 更旧）\n2.0.0 vs 1.9.9 → 1（期望 1 更新）\n同版准入=0（期望 0）\n跨 2 个主版本准入=-1（期望 -1 需迁"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version.c",
+    "context": "labs/host_version.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hil.c -o labs/host_hil && ./labs/host_hil\n  bad_case   stim=2 expect=99 obs=5 timeout=100ms → FAIL\nHIL 通过 2/3\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hil.c -o labs/host_hil && ./labs/host_hil\n  bad_case   stim=2 expect=99 obs=5 timeout=100ms → FAIL\nHIL 通过 2/3\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hil.c -o labs/host_hil && ./labs/host_hil\n  bad_case   stim=2 expect=99 obs=5 timeout=100ms → FAIL\nHIL 通过 2/3\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_hil.c",
+    "context": "labs/host_hil.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_trace.c -o labs/host_trace && ./labs/host_trace\n未覆盖需求: REQ-03 REQ-05 \n覆盖 3/5 = 60%\n门禁：未达标（嵌入式关键需求建议 100%）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_trace.c -o labs/host_trace && ./labs/host_trace\n未覆盖需求: REQ-03 REQ-05 \n覆盖 3/5 = 60%\n门禁：未达标（嵌入式关键需求建议 100%）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_trace.c -o labs/host_trace && ./labs/host_trace\n未覆盖需求: REQ-03 REQ-05 \n覆盖 3/5 = 60%\n门禁：未达标（嵌入式关键需求建议 100%）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace.c",
+    "context": "labs/host_trace.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_faultinject.c -o labs/host_faultinject && ./labs/host_faultinject\n注入=5 恢复=4 恢复率=80%\n未恢复率=20%（需记录并人工介入）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_faultinject.c -o labs/host_faultinject && ./labs/host_faultinject\n注入=5 恢复=4 恢复率=80%\n未恢复率=20%（需记录并人工介入）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_faultinject.c -o labs/host_faultinject && ./labs/host_faultinject\n注入=5 恢复=4 恢复率=80%\n未恢复率=20%（需记录并人工介入）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject.c",
+    "context": "labs/host_faultinject.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_bom.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bom.c -o labs/host_bom && ./labs/host_bom\n单板 BOM = 23.00 元\n1 万台物料成本 = 230000 元（不含良率/工时）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_bom",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bom.c -o labs/host_bom && ./labs/host_bom\n单板 BOM = 23.00 元\n1 万台物料成本 = 230000 元（不含良率/工时）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_bom",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_bom.c -o labs/host_bom && ./labs/host_bom\n单板 BOM = 23.00 元\n1 万台物料成本 = 230000 元（不含良率/工时）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_bom.c",
+    "context": "labs/host_bom.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_trace.c -o labs/host_trace && ./labs/host_trace\n未覆盖需求: REQ-03 REQ-05 \n覆盖 3/5 = 60%\n门禁：未达标（嵌入式关键需求建议 100%）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_trace.c -o labs/host_trace && ./labs/host_trace\n未覆盖需求: REQ-03 REQ-05 \n覆盖 3/5 = 60%\n门禁：未达标（嵌入式关键需求建议 100%）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_trace.c -o labs/host_trace && ./labs/host_trace\n未覆盖需求: REQ-03 REQ-05 \n覆盖 3/5 = 60%\n门禁：未达标（嵌入式关键需求建议 100%）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_trace.c",
+    "context": "labs/host_trace.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_faultinject.c -o labs/host_faultinject && ./labs/host_faultinject\n注入=5 恢复=4 恢复率=80%\n未恢复率=20%（需记录并人工介入）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_faultinject.c -o labs/host_faultinject && ./labs/host_faultinject\n注入=5 恢复=4 恢复率=80%\n未恢复率=20%（需记录并人工介入）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_faultinject.c -o labs/host_faultinject && ./labs/host_faultinject\n注入=5 恢复=4 恢复率=80%\n未恢复率=20%（需记录并人工介入）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_faultinject.c",
+    "context": "labs/host_faultinject.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_version.c -o labs/host_version && ./labs/host_version\n同版准入=0（期望 0）\n跨 2 个主版本准入=-1（期望 -1 需迁移）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_version.c -o labs/host_version && ./labs/host_version\n同版准入=0（期望 0）\n跨 2 个主版本准入=-1（期望 -1 需迁移）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_version.c -o labs/host_version && ./labs/host_version\n同版准入=0（期望 0）\n跨 2 个主版本准入=-1（期望 -1 需迁移）\nRESULT: PASS"
+  },
+  {
+    "book": "B12",
+    "path": "labs/host_version.c",
+    "context": "labs/host_version.c"
+  },
+  {
+    "book": "B12",
+    "path": "labs/release_manifest.py",
+    "context": "python labs/release_manifest.py test"
+  },
+  {
+    "book": "B12",
+    "path": "labs/release_manifest.py",
+    "context": "python labs/release_manifest.py create --root release --file firmware.bin --file dependencies.lock --revision ACTUAL_COMMIT --manifest inventory.json\npython labs/release_manifest.py verify -"
+  },
+  {
+    "book": "B12",
+    "path": "labs/release_manifest.py",
+    "context": "python labs/release_manifest.py create --root release --file firmware.bin --file dependencies.lock --revision ACTUAL_COMMIT --manifest inventory.json\npython labs/release_manifest.py verify -"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "labs/host_latency.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feature.c -o labs/host_feature && ./labs/host_feature\nmean=4.50 rms(ac)=2.291 peak=3.50 peak-peak=7.0\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feature.c -o labs/host_feature && ./labs/host_feature\nmean=4.50 rms(ac)=2.291 peak=3.50 peak-peak=7.0\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feature.c -o labs/host_feature && ./labs/host_feature\nmean=4.50 rms(ac)=2.291 peak=3.50 peak-peak=7.0\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature.c",
+    "context": "labs/host_feature.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feature.c -o labs/host_feature && ./labs/host_feature\nmean=4.50 rms(ac)=2.291 peak=3.50 peak-peak=7.0\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feature.c -o labs/host_feature && ./labs/host_feature\nmean=4.50 rms(ac)=2.291 peak=3.50 peak-peak=7.0\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feature.c -o labs/host_feature && ./labs/host_feature\nmean=4.50 rms(ac)=2.291 peak=3.50 peak-peak=7.0\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_feature.c",
+    "context": "labs/host_feature.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n泄漏风险：随机按行切分会让同一会话同时出现在 train/test，导致指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n泄漏风险：随机按行切分会让同一会话同时出现在 train/test，导致指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n泄漏风险：随机按行切分会让同一会话同时出现在 train/test，导致指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split.c",
+    "context": "labs/host_split.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_quant.c -o labs/host_quant && ./labs/host_quant\nx=+0.011 q=   1    x'=+0.020 err=0.0090\nx=+3.000 q= 127 clamp x'=+2.540 err=0.4600\nx=-3.000 q=-128 "
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_quant.c -o labs/host_quant && ./labs/host_quant\nx=+0.011 q=   1    x'=+0.020 err=0.0090\nx=+3.000 q= 127 clamp x'=+2.540 err=0.4600\nx=-3.000 q=-128 "
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_quant.c -o labs/host_quant && ./labs/host_quant\nx=+0.011 q=   1    x'=+0.020 err=0.0090\nx=+3.000 q= 127 clamp x'=+2.540 err=0.4600\nx=-3.000 q=-128 "
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant.c",
+    "context": "labs/host_quant.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "labs/host_latency.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "labs/host_latency.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics.c",
+    "context": "labs/host_metrics.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n泄漏风险：随机按行切分会让同一会话同时出现在 train/test，导致指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n泄漏风险：随机按行切分会让同一会话同时出现在 train/test，导致指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n泄漏风险：随机按行切分会让同一会话同时出现在 train/test，导致指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_split.c",
+    "context": "labs/host_split.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics.c",
+    "context": "labs/host_metrics.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_latency.c -o labs/host_latency && ./labs/host_latency\n预设层耗时预算=690us 截止期=800us → 满足\n最重层占 43%（优化优先它）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_latency.c",
+    "context": "labs/host_latency.c"
+  },
+  {
+    "book": "B13",
+    "path": "projects/p05_model_pipeline.py",
+    "context": "python projects/p05_model_pipeline.py\npython b13/labs/benchmark_ort.py --model projects/results/p05/model-int8.onnx --reference projects/results/p05/model.onnx --data projects/results/p05/da"
+  },
+  {
+    "book": "B13",
+    "path": "labs/benchmark_ort.py",
+    "context": "python projects/p05_model_pipeline.py\npython b13/labs/benchmark_ort.py --model projects/results/p05/model-int8.onnx --reference projects/results/p05/model.onnx --data projects/results/p05/da"
+  },
+  {
+    "book": "B13",
+    "path": "projects/results/p05/model-int8.onnx",
+    "context": "python projects/p05_model_pipeline.py\npython b13/labs/benchmark_ort.py --model projects/results/p05/model-int8.onnx --reference projects/results/p05/model.onnx --data projects/results/p05/da"
+  },
+  {
+    "book": "B13",
+    "path": "projects/results/p05/model.onnx",
+    "context": "python projects/p05_model_pipeline.py\npython b13/labs/benchmark_ort.py --model projects/results/p05/model-int8.onnx --reference projects/results/p05/model.onnx --data projects/results/p05/da"
+  },
+  {
+    "book": "B13",
+    "path": "projects/results/p05/data.csv",
+    "context": "python projects/p05_model_pipeline.py\npython b13/labs/benchmark_ort.py --model projects/results/p05/model-int8.onnx --reference projects/results/p05/model.onnx --data projects/results/p05/da"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_metrics.c -o labs/host_metrics && ./labs/host_metrics\nprecision=0.800 recall=0.889 F1=0.842 acc=0.850\n漏报率(FN rate)=0.111 误报率(FP rate)=0.182（按业务权衡阈值"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_metrics.c",
+    "context": "labs/host_metrics.c"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_quant.c -o labs/host_quant && ./labs/host_quant\n范围内最大误差=0.0090（≤ scale/2=0.010）；被裁剪样本数=2（期望 2）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_quant.c -o labs/host_quant && ./labs/host_quant\n范围内最大误差=0.0090（≤ scale/2=0.010）；被裁剪样本数=2（期望 2）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_quant.c -o labs/host_quant && ./labs/host_quant\n范围内最大误差=0.0090（≤ scale/2=0.010）；被裁剪样本数=2（期望 2）\nRESULT: PASS"
+  },
+  {
+    "book": "B13",
+    "path": "labs/host_quant.c",
+    "context": "labs/host_quant.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry && ./labs/host_registry\n设备数=3 在线=2\n配置版本≠3 的设备=1（需下发）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry && ./labs/host_registry\n设备数=3 在线=2\n配置版本≠3 的设备=1（需下发）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry && ./labs/host_registry\n设备数=3 在线=2\n配置版本≠3 的设备=1（需下发）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry.c",
+    "context": "labs/host_registry.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync.c",
+    "context": "labs/host_sync.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb && ./labs/host_tsdb\n区间 [200,500] 点数=4（期望 4：2,3,4,5）\n降采样 [0,1000) 均值=4.50（期望 4.50）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb && ./labs/host_tsdb\n区间 [200,500] 点数=4（期望 4：2,3,4,5）\n降采样 [0,1000) 均值=4.50（期望 4.50）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb && ./labs/host_tsdb\n区间 [200,500] 点数=4（期望 4：2,3,4,5）\n降采样 [0,1000) 均值=4.50（期望 4.50）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb.c",
+    "context": "labs/host_tsdb.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert && ./labs/host_alert\nt=0 v=70 over=0 alarm=0\nt=3 v=90 over=3 alarm=1\nt=5 v=74 over=0 alarm=0\n触发=1 复位=1（迟滞避免抖动）\nRESULT: P"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert && ./labs/host_alert\nt=0 v=70 over=0 alarm=0\nt=3 v=90 over=3 alarm=1\nt=5 v=74 over=0 alarm=0\n触发=1 复位=1（迟滞避免抖动）\nRESULT: P"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert && ./labs/host_alert\nt=0 v=70 over=0 alarm=0\nt=3 v=90 over=3 alarm=1\nt=5 v=74 over=0 alarm=0\n触发=1 复位=1（迟滞避免抖动）\nRESULT: P"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert.c",
+    "context": "labs/host_alert.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb && ./labs/host_tsdb\n区间 [200,500] 点数=4（期望 4：2,3,4,5）\n降采样 [0,1000) 均值=4.50（期望 4.50）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb && ./labs/host_tsdb\n区间 [200,500] 点数=4（期望 4：2,3,4,5）\n降采样 [0,1000) 均值=4.50（期望 4.50）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsdb.c -o labs/host_tsdb && ./labs/host_tsdb\n区间 [200,500] 点数=4（期望 4：2,3,4,5）\n降采样 [0,1000) 均值=4.50（期望 4.50）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tsdb.c",
+    "context": "labs/host_tsdb.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync.c",
+    "context": "labs/host_sync.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tls.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tls.c -o labs/host_tls && ./labs/host_tls\n合法连接: 接受（原因码 0）\n非法连接(TLS1.0): 拒绝（原因码 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tls",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tls.c -o labs/host_tls && ./labs/host_tls\n合法连接: 接受（原因码 0）\n非法连接(TLS1.0): 拒绝（原因码 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tls",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tls.c -o labs/host_tls && ./labs/host_tls\n合法连接: 接受（原因码 0）\n非法连接(TLS1.0): 拒绝（原因码 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_tls.c",
+    "context": "labs/host_tls.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sync.c -o labs/host_sync && ./labs/host_sync\n本地=10 已确认=4 待同步=6\n补传后已确认=10，待同步=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_sync.c",
+    "context": "labs/host_sync.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_semantics.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_semantics.c -o labs/host_semantics && ./labs/host_semantics\n重复=1 乱序=1 序号跳变=3\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_semantics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_semantics.c -o labs/host_semantics && ./labs/host_semantics\n重复=1 乱序=1 序号跳变=3\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_semantics",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_semantics.c -o labs/host_semantics && ./labs/host_semantics\n重复=1 乱序=1 序号跳变=3\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_semantics.c",
+    "context": "labs/host_semantics.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry && ./labs/host_registry\n设备数=3 在线=2\n配置版本≠3 的设备=1（需下发）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry && ./labs/host_registry\n设备数=3 在线=2\n配置版本≠3 的设备=1（需下发）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_registry.c -o labs/host_registry && ./labs/host_registry\n设备数=3 在线=2\n配置版本≠3 的设备=1（需下发）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_registry.c",
+    "context": "labs/host_registry.c"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert && ./labs/host_alert\n触发=1 复位=1（迟滞避免抖动）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert && ./labs/host_alert\n触发=1 复位=1（迟滞避免抖动）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_alert.c -o labs/host_alert && ./labs/host_alert\n触发=1 复位=1（迟滞避免抖动）\nRESULT: PASS"
+  },
+  {
+    "book": "B14",
+    "path": "labs/host_alert.c",
+    "context": "labs/host_alert.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "labs/host_hetero.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_crypto.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crypto.c -o labs/host_crypto && ./labs/host_crypto\nHMAC 可复现=1\n篡改后 MAC 变化=1（期望 1）\n错误密钥 MAC 不同=1（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_crypto",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crypto.c -o labs/host_crypto && ./labs/host_crypto\nHMAC 可复现=1\n篡改后 MAC 变化=1（期望 1）\n错误密钥 MAC 不同=1（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_crypto",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_crypto.c -o labs/host_crypto && ./labs/host_crypto\nHMAC 可复现=1\n篡改后 MAC 变化=1（期望 1）\n错误密钥 MAC 不同=1（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_crypto.c",
+    "context": "labs/host_crypto.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_safety.c -o labs/host_safety && ./labs/host_safety\n(1,1,0)→1 (1,1,1)→1 (0,0,1)→0 (1,0,0)→0\n故障时安全输出=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_safety.c -o labs/host_safety && ./labs/host_safety\n(1,1,0)→1 (1,1,1)→1 (0,0,1)→0 (1,0,0)→0\n故障时安全输出=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_safety.c -o labs/host_safety && ./labs/host_safety\n(1,1,0)→1 (1,1,1)→1 (0,0,1)→0 (1,0,0)→0\n故障时安全输出=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety.c",
+    "context": "labs/host_safety.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_tsn.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsn.c -o labs/host_tsn && ./labs/host_tsn\n采样 n=6 最小=960µs 最大=1000µs 平均=983µs 抖动=40µs\n抖动≤50µs=1 最大时延≤1000µs=1\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_tsn",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsn.c -o labs/host_tsn && ./labs/host_tsn\n采样 n=6 最小=960µs 最大=1000µs 平均=983µs 抖动=40µs\n抖动≤50µs=1 最大时延≤1000µs=1\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_tsn",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_tsn.c -o labs/host_tsn && ./labs/host_tsn\n采样 n=6 最小=960µs 最大=1000µs 平均=983µs 抖动=40µs\n抖动≤50µs=1 最大时延≤1000µs=1\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_tsn.c",
+    "context": "labs/host_tsn.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_protocol.c -o labs/host_protocol && ./labs/host_protocol\n第 1 次超时，退避 100ms\n第 2 次超时，退避 200ms\n第 3 次收到响应\n尝试=3 确认=1 最终退避=400ms\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_protocol.c -o labs/host_protocol && ./labs/host_protocol\n第 1 次超时，退避 100ms\n第 2 次超时，退避 200ms\n第 3 次收到响应\n尝试=3 确认=1 最终退避=400ms\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_protocol.c -o labs/host_protocol && ./labs/host_protocol\n第 1 次超时，退避 100ms\n第 2 次超时，退避 200ms\n第 3 次收到响应\n尝试=3 确认=1 最终退避=400ms\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol.c",
+    "context": "labs/host_protocol.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "labs/host_hetero.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "labs/host_hetero.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar.c",
+    "context": "labs/host_radar.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_safety.c -o labs/host_safety && ./labs/host_safety\n(1,1,0)→1 (1,1,1)→1 (0,0,1)→0 (1,0,0)→0\n故障时安全输出=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_safety.c -o labs/host_safety && ./labs/host_safety\n(1,1,0)→1 (1,1,1)→1 (0,0,1)→0 (1,0,0)→0\n故障时安全输出=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_safety.c -o labs/host_safety && ./labs/host_safety\n(1,1,0)→1 (1,1,1)→1 (0,0,1)→0 (1,0,0)→0\n故障时安全输出=0（期望 0）\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_safety.c",
+    "context": "labs/host_safety.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar.c",
+    "context": "labs/host_radar.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_protocol.c -o labs/host_protocol && ./labs/host_protocol\n尝试=3 确认=1 最终退避=400ms\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_protocol.c -o labs/host_protocol && ./labs/host_protocol\n尝试=3 确认=1 最终退避=400ms\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_protocol.c -o labs/host_protocol && ./labs/host_protocol\n尝试=3 确认=1 最终退避=400ms\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_protocol.c",
+    "context": "labs/host_protocol.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "labs/host_hetero.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_hetero.c -o labs/host_hetero && ./labs/host_hetero\n负载 核0=7 核1=7 makespan=7\n较单核总成本=14 缩短=50%\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_hetero.c",
+    "context": "labs/host_hetero.c"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_radar.c -o labs/host_radar && ./labs/host_radar\nA=22 B=30 满分=50\n结论：迁移成本计入负向后 B 更优（30>22），选型需按业务侧重权衡\nRESULT: PASS"
+  },
+  {
+    "book": "B15",
+    "path": "labs/host_radar.c",
+    "context": "labs/host_radar.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env && ./labs/host_env\nPATH 顺序解析 gcc → <本机 gcc 路径>\n__no_such_tool_xyz__ → (未找到)（期望未找到）\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env && ./labs/host_env\nPATH 顺序解析 gcc → <本机 gcc 路径>\n__no_such_tool_xyz__ → (未找到)（期望未找到）\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env && ./labs/host_env\nPATH 顺序解析 gcc → <本机 gcc 路径>\n__no_such_tool_xyz__ → (未找到)（期望未找到）\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env.c",
+    "context": "labs/host_env.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/env.sh",
+    "context": "labs/env.sh"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell && ./labs/host_shell\ndefault=0 pipefail=1 rightmost_failure=2\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell && ./labs/host_shell\ndefault=0 pipefail=1 rightmost_failure=2\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell && ./labs/host_shell\ndefault=0 pipefail=1 rightmost_failure=2\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell.c",
+    "context": "labs/host_shell.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/env.sh",
+    "context": "labs/env.sh"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell && ./labs/host_shell\ndefault=0 pipefail=1 rightmost_failure=2\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell && ./labs/host_shell\ndefault=0 pipefail=1 rightmost_failure=2\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_shell.c -o labs/host_shell && ./labs/host_shell\ndefault=0 pipefail=1 rightmost_failure=2\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/ci.sh",
+    "context": "labs/ci.sh"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_shell.c",
+    "context": "labs/host_shell.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_git.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_git.c -o labs/host_git && ./labs/host_git\nSHA1(\"blob 5\\0hello\") = b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0\n相同内容哈希相同=1 不同内容哈希不同=1\n提交链 c1(parent=(roo"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_git",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_git.c -o labs/host_git && ./labs/host_git\nSHA1(\"blob 5\\0hello\") = b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0\n相同内容哈希相同=1 不同内容哈希不同=1\n提交链 c1(parent=(roo"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_git",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_git.c -o labs/host_git && ./labs/host_git\nSHA1(\"blob 5\\0hello\") = b6fc4c620b67d95f953a5c1c1230aaab5db5a1b0\n相同内容哈希相同=1 不同内容哈希不同=1\n提交链 c1(parent=(roo"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_git.c",
+    "context": "labs/host_git.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n构建顺序: util lib app\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n构建顺序: util lib app\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n构建顺序: util lib app\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build.c",
+    "context": "labs/host_build.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_py.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_py.c -o labs/host_py && ./labs/host_py\n约束 >=1, <=2 → 选 2（期望 2）\n锁定后写入 requirements/锁文件以复现\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_py",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_py.c -o labs/host_py && ./labs/host_py\n约束 >=1, <=2 → 选 2（期望 2）\n锁定后写入 requirements/锁文件以复现\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_py",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_py.c -o labs/host_py && ./labs/host_py\n约束 >=1, <=2 → 选 2（期望 2）\n锁定后写入 requirements/锁文件以复现\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_py.c",
+    "context": "labs/host_py.c"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env && ./labs/host_env\nPATH 顺序解析 gcc → <本机 gcc 路径>\n__no_such_tool_xyz__ → (未找到)（期望未找到）\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env && ./labs/host_env\nPATH 顺序解析 gcc → <本机 gcc 路径>\n__no_such_tool_xyz__ → (未找到)（期望未找到）\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_env.c -o labs/host_env && ./labs/host_env\nPATH 顺序解析 gcc → <本机 gcc 路径>\n__no_such_tool_xyz__ → (未找到)（期望未找到）\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_env.c",
+    "context": "labs/host_env.c"
+  },
+  {
+    "book": "B16",
+    "path": "tools/env.sh",
+    "context": "# 快速开始1. 环境: gcc>=13, cmake>=3.16 (见 tools/env.sh)2. 依赖: python -m venv .venv && pip install -r requirements.txt3. 构建: ./ci.sh4. 验证: ctest   # 与 tag v1.3.0 一致\n"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n构建顺序: util lib app\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n构建顺序: util lib app\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_build.c -o labs/host_build && ./labs/host_build\n构建顺序: util lib app\nRESULT: PASS"
+  },
+  {
+    "book": "B16",
+    "path": "tools/env.sh",
+    "context": "# 快速开始1. 环境: gcc >=13, cmake >=3.16, python >=3.10 (见 tools/env.sh)2. 依赖: python -m venv .venv && pip install -r requirements.txt3. 构建: ./ci.sh        # set -euo pipefail，幂等4. 验证: ctest --ou"
+  },
+  {
+    "book": "B16",
+    "path": "labs/host_build.c",
+    "context": "labs/host_build.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm && ./labs/host_ohm\n分压 10k/10k @5V → 2.50V（期望 2.50）\nLED 限流 R=300Ω 功率=0.030W\n功率 10V/100Ω = 1.00W（期望 1.00）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm && ./labs/host_ohm\n分压 10k/10k @5V → 2.50V（期望 2.50）\nLED 限流 R=300Ω 功率=0.030W\n功率 10V/100Ω = 1.00W（期望 1.00）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm && ./labs/host_ohm\n分压 10k/10k @5V → 2.50V（期望 2.50）\nLED 限流 R=300Ω 功率=0.030W\n功率 10V/100Ω = 1.00W（期望 1.00）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm.c",
+    "context": "labs/host_ohm.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_pullup.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pullup.c -o labs/host_pullup && ./labs/host_pullup\n上拉 4.7k / 总线电容 30pF → 上升时间 ≈ 119ns\n满足 400kHz 快速模式(<300ns)=1\n1k 上拉低电平电流=3.3mA（功耗权衡）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_pullup",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pullup.c -o labs/host_pullup && ./labs/host_pullup\n上拉 4.7k / 总线电容 30pF → 上升时间 ≈ 119ns\n满足 400kHz 快速模式(<300ns)=1\n1k 上拉低电平电流=3.3mA（功耗权衡）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_pullup",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pullup.c -o labs/host_pullup && ./labs/host_pullup\n上拉 4.7k / 总线电容 30pF → 上升时间 ≈ 119ns\n满足 400kHz 快速模式(<300ns)=1\n1k 上拉低电平电流=3.3mA（功耗权衡）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_pullup.c",
+    "context": "labs/host_pullup.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc && ./labs/host_rc\nR=10k C=1uF → tau=0.0100s\n截止频率 fc=15.9Hz（期望 ~15.9）\n5tau 后充电到约 99.3%\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc && ./labs/host_rc\nR=10k C=1uF → tau=0.0100s\n截止频率 fc=15.9Hz（期望 ~15.9）\n5tau 后充电到约 99.3%\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc && ./labs/host_rc\nR=10k C=1uF → tau=0.0100s\n截止频率 fc=15.9Hz（期望 ~15.9）\n5tau 后充电到约 99.3%\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc.c",
+    "context": "labs/host_rc.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_xtal.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_xtal.c -o labs/host_xtal && ./labs/host_xtal\nC1=C2=22pF Cstray=5pF → CL=16.0pF（期望 ~16）\n晶振规格 CL=16pF，匹配误差 0.0pF（须 ≤0.5）\n最小系统：电源 → 晶振 → 复位 → BOOT → 调"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_xtal",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_xtal.c -o labs/host_xtal && ./labs/host_xtal\nC1=C2=22pF Cstray=5pF → CL=16.0pF（期望 ~16）\n晶振规格 CL=16pF，匹配误差 0.0pF（须 ≤0.5）\n最小系统：电源 → 晶振 → 复位 → BOOT → 调"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_xtal",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_xtal.c -o labs/host_xtal && ./labs/host_xtal\nC1=C2=22pF Cstray=5pF → CL=16.0pF（期望 ~16）\n晶振规格 CL=16pF，匹配误差 0.0pF（须 ≤0.5）\n最小系统：电源 → 晶振 → 复位 → BOOT → 调"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_xtal.c",
+    "context": "labs/host_xtal.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_adc.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_adc.c -o labs/host_adc && ./labs/host_adc\nraw=2048 → Vadc=1.650V → Vin=3.301V（期望 ~3.30）\nLSB=0.806mV（分辨率）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_adc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_adc.c -o labs/host_adc && ./labs/host_adc\nraw=2048 → Vadc=1.650V → Vin=3.301V（期望 ~3.30）\nLSB=0.806mV（分辨率）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_adc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_adc.c -o labs/host_adc && ./labs/host_adc\nraw=2048 → Vadc=1.650V → Vin=3.301V（期望 ~3.30）\nLSB=0.806mV（分辨率）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_adc.c",
+    "context": "labs/host_adc.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term && ./labs/host_term\n两端 120Ω 终端 → 等效 60Ω（应匹配 z0=120Ω 的差分）\n失配负载 1k 的反射系数=0.79（越接近 0 越好）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term && ./labs/host_term\n两端 120Ω 终端 → 等效 60Ω（应匹配 z0=120Ω 的差分）\n失配负载 1k 的反射系数=0.79（越接近 0 越好）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term && ./labs/host_term\n两端 120Ω 终端 → 等效 60Ω（应匹配 z0=120Ω 的差分）\n失配负载 1k 的反射系数=0.79（越接近 0 越好）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term.c",
+    "context": "labs/host_term.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_drive.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_drive.c -o labs/host_drive && ./labs/host_drive\n线圈 5V/120Ω → 稳态电流=41.7mA（期望 ~41.7）\nGPIO 上限 8mA < 线圈 41.7mA → 须三极管/MOS 驱动=1（期望 1）\n续流二极管钳位关断反峰 → 0.7V"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_drive",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_drive.c -o labs/host_drive && ./labs/host_drive\n线圈 5V/120Ω → 稳态电流=41.7mA（期望 ~41.7）\nGPIO 上限 8mA < 线圈 41.7mA → 须三极管/MOS 驱动=1（期望 1）\n续流二极管钳位关断反峰 → 0.7V"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_drive",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_drive.c -o labs/host_drive && ./labs/host_drive\n线圈 5V/120Ω → 稳态电流=41.7mA（期望 ~41.7）\nGPIO 上限 8mA < 线圈 41.7mA → 须三极管/MOS 驱动=1（期望 1）\n续流二极管钳位关断反峰 → 0.7V"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_drive.c",
+    "context": "labs/host_drive.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc && ./labs/host_rc\nR=10k C=1uF → tau=0.0100s\n截止频率 fc=15.9Hz（期望 ~15.9）\n5tau 后充电到约 99.3%\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc && ./labs/host_rc\nR=10k C=1uF → tau=0.0100s\n截止频率 fc=15.9Hz（期望 ~15.9）\n5tau 后充电到约 99.3%\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc && ./labs/host_rc\nR=10k C=1uF → tau=0.0100s\n截止频率 fc=15.9Hz（期望 ~15.9）\n5tau 后充电到约 99.3%\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_rc.c",
+    "context": "labs/host_rc.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term && ./labs/host_term\n两端 120Ω 终端 → 等效 60Ω\n失配负载 1k 的反射系数=0.79\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term && ./labs/host_term\n两端 120Ω 终端 → 等效 60Ω\n失配负载 1k 的反射系数=0.79\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term && ./labs/host_term\n两端 120Ω 终端 → 等效 60Ω\n失配负载 1k 的反射系数=0.79\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_term.c",
+    "context": "labs/host_term.c"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm && ./labs/host_ohm\n分压 10k/10k @5V → 2.50V（期望 2.50）\nLED 限流 R=300Ω 功率=0.030W\n功率 10V/100Ω = 1.00W（期望 1.00）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm && ./labs/host_ohm\n分压 10k/10k @5V → 2.50V（期望 2.50）\nLED 限流 R=300Ω 功率=0.030W\n功率 10V/100Ω = 1.00W（期望 1.00）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm && ./labs/host_ohm\n分压 10k/10k @5V → 2.50V（期望 2.50）\nLED 限流 R=300Ω 功率=0.030W\n功率 10V/100Ω = 1.00W（期望 1.00）\nRESULT: PASS"
+  },
+  {
+    "book": "B17",
+    "path": "labs/host_ohm.c",
+    "context": "labs/host_ohm.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memmap.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_memmap.c -o labs/host_memmap && ./labs/host_memmap\n地址        区域                   属性             IO\n0x08000100  Code/Flash (alias)     RX, cached  "
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memmap",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_memmap.c -o labs/host_memmap && ./labs/host_memmap\n地址        区域                   属性             IO\n0x08000100  Code/Flash (alias)     RX, cached  "
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memmap",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_memmap.c -o labs/host_memmap && ./labs/host_memmap\n地址        区域                   属性             IO\n0x08000100  Code/Flash (alias)     RX, cached  "
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_layout.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_layout.c -o labs/host_layout && ./labs/host_layout\nregs_c   : sizeof=12  自然对齐（ID 后填充 2 字节）\n  offsetof CR=0 SR=4 ID=8\nregs_p   : sizeof=10  packed（无"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_layout",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_layout.c -o labs/host_layout && ./labs/host_layout\nregs_c   : sizeof=12  自然对齐（ID 后填充 2 字节）\n  offsetof CR=0 SR=4 ID=8\nregs_p   : sizeof=10  packed（无"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_layout",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_layout.c -o labs/host_layout && ./labs/host_layout\nregs_c   : sizeof=12  自然对齐（ID 后填充 2 字节）\n  offsetof CR=0 SR=4 ID=8\nregs_p   : sizeof=10  packed（无"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmio.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mmio.c -o labs/host_mmio && ./labs/host_mmio\nA: MODE=1 EN=0  (RMW 把 EN 覆盖为 0)\nB: MODE=2 EN=1  (原子位操作不丢更新)\n结论: 共享寄存器用 RMW 会被并发覆盖; 应改用位带/BSRR 原子位操作或临"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmio",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mmio.c -o labs/host_mmio && ./labs/host_mmio\nA: MODE=1 EN=0  (RMW 把 EN 覆盖为 0)\nB: MODE=2 EN=1  (原子位操作不丢更新)\n结论: 共享寄存器用 RMW 会被并发覆盖; 应改用位带/BSRR 原子位操作或临"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmio",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mmio.c -o labs/host_mmio && ./labs/host_mmio\nA: MODE=1 EN=0  (RMW 把 EN 覆盖为 0)\nB: MODE=2 EN=1  (原子位操作不丢更新)\n结论: 共享寄存器用 RMW 会被并发覆盖; 应改用位带/BSRR 原子位操作或临"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memmap.c",
+    "context": "labs/host_memmap.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_layout.c",
+    "context": "labs/host_layout.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_abi.c -o labs/host_abi && ./labs/host_abi\n参数 r0=1 r1=2 r2=3 r3=4 返回 r0=15（期望 15）\n第 5 个参数在栈顶=5（第 5 个起走栈）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_abi.c -o labs/host_abi && ./labs/host_abi\n参数 r0=1 r1=2 r2=3 r3=4 返回 r0=15（期望 15）\n第 5 个参数在栈顶=5（第 5 个起走栈）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_abi.c -o labs/host_abi && ./labs/host_abi\n参数 r0=1 r1=2 r2=3 r3=4 返回 r0=15（期望 15）\n第 5 个参数在栈顶=5（第 5 个起走栈）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi.c",
+    "context": "labs/host_abi.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/abi_arm.s",
+    "context": "labs/abi_arm.s"
+  },
+  {
+    "book": "B18",
+    "path": "labs/abi_arm.objdump.txt",
+    "context": "labs/abi_arm.objdump.txt"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_exc.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_exc.c -o labs/host_exc && ./labs/host_exc\n时间线（数值越小优先级越高）:\n  t=  0  IRQ_A 开始 (pri=2)\n  t= 20  IRQ_B 开始 (pri=1)\n  t= 40  IRQ_C 开始 (pri=0)\n  t= 50  IR"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_exc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_exc.c -o labs/host_exc && ./labs/host_exc\n时间线（数值越小优先级越高）:\n  t=  0  IRQ_A 开始 (pri=2)\n  t= 20  IRQ_B 开始 (pri=1)\n  t= 40  IRQ_C 开始 (pri=0)\n  t= 50  IR"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_exc",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_exc.c -o labs/host_exc && ./labs/host_exc\n时间线（数值越小优先级越高）:\n  t=  0  IRQ_A 开始 (pri=2)\n  t= 20  IRQ_B 开始 (pri=1)\n  t= 40  IRQ_C 开始 (pri=0)\n  t= 50  IR"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_exc.c",
+    "context": "labs/host_exc.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_locality.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_locality.c -o labs/host_locality && ./labs/host_locality\n① 顺序   N=256  命中率=75.0%  (hits=192 misses=64)\n② 步长64 N=256  命中率=0.0%  (hits=0 misses=256)\n"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_locality",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_locality.c -o labs/host_locality && ./labs/host_locality\n① 顺序   N=256  命中率=75.0%  (hits=192 misses=64)\n② 步长64 N=256  命中率=0.0%  (hits=0 misses=256)\n"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_locality",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_locality.c -o labs/host_locality && ./labs/host_locality\n① 顺序   N=256  命中率=75.0%  (hits=192 misses=64)\n② 步长64 N=256  命中率=0.0%  (hits=0 misses=256)\n"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_locality.c",
+    "context": "labs/host_locality.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmu.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mmu.c -o labs/host_mmu && ./labs/host_mmu\n读 0x0004 → pa=0x8004（r=0）\n写只读页 → r=-1（期望 -1 权限故障）\n未映射 → r=-2（期望 -2）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmu",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mmu.c -o labs/host_mmu && ./labs/host_mmu\n读 0x0004 → pa=0x8004（r=0）\n写只读页 → r=-1（期望 -1 权限故障）\n未映射 → r=-2（期望 -2）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmu",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_mmu.c -o labs/host_mmu && ./labs/host_mmu\n读 0x0004 → pa=0x8004（r=0）\n写只读页 → r=-1（期望 -1 权限故障）\n未映射 → r=-2（期望 -2）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_mmu.c",
+    "context": "labs/host_mmu.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_dma.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dma.c -o labs/host_dma && ./labs/host_dma\nA 忘 clean : CPU写0xAA, DMA读=0x00 (旧值→bug)\nA 已 clean : DMA读=0xAA (最新)\nB 忘 invalidate: CPU读=0x00 (旧cache→bug"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_dma",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dma.c -o labs/host_dma && ./labs/host_dma\nA 忘 clean : CPU写0xAA, DMA读=0x00 (旧值→bug)\nA 已 clean : DMA读=0xAA (最新)\nB 忘 invalidate: CPU读=0x00 (旧cache→bug"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_dma",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dma.c -o labs/host_dma && ./labs/host_dma\nA 忘 clean : CPU写0xAA, DMA读=0x00 (旧值→bug)\nA 已 clean : DMA读=0xAA (最新)\nB 忘 invalidate: CPU读=0x00 (旧cache→bug"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_dma.c",
+    "context": "labs/host_dma.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memorder.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_memorder.c -o labs/host_memorder && ./labs/host_memorder\nrelease/acquire handshakes=20000 errors=0\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memorder",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_memorder.c -o labs/host_memorder && ./labs/host_memorder\nrelease/acquire handshakes=20000 errors=0\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memorder",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_memorder.c -o labs/host_memorder && ./labs/host_memorder\nrelease/acquire handshakes=20000 errors=0\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memorder.c",
+    "context": "labs/host_memorder.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_abi.c -o labs/host_abi && ./labs/host_abi\n参数 r0=1 r1=2 r2=3 r3=4 返回 r0=15（期望 15）\n第 5 个参数在栈顶=5（第 5 个起走栈）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_abi.c -o labs/host_abi && ./labs/host_abi\n参数 r0=1 r1=2 r2=3 r3=4 返回 r0=15（期望 15）\n第 5 个参数在栈顶=5（第 5 个起走栈）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_abi",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_abi.c -o labs/host_abi && ./labs/host_abi\n参数 r0=1 r1=2 r2=3 r3=4 返回 r0=15（期望 15）\n第 5 个参数在栈顶=5（第 5 个起走栈）\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/abi_arm.s",
+    "context": "labs/abi_arm.s"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n1M 指令 @72MHz CPI=1.5 → 20.83ms\nnote: cache miss 会抬升有效 CPI，预算要含访存\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n1M 指令 @72MHz CPI=1.5 → 20.83ms\nnote: cache miss 会抬升有效 CPI，预算要含访存\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n1M 指令 @72MHz CPI=1.5 → 20.83ms\nnote: cache miss 会抬升有效 CPI，预算要含访存\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf.c",
+    "context": "labs/host_perf.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n1M 指令 @72MHz CPI=1.5 → 20.83ms\nnote: cache miss 会抬升有效 CPI，预算要含访存\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n1M 指令 @72MHz CPI=1.5 → 20.83ms\nnote: cache miss 会抬升有效 CPI，预算要含访存\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_perf",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_perf.c -o labs/host_perf && ./labs/host_perf\n1M 指令 @72MHz CPI=1.5 → 20.83ms\nnote: cache miss 会抬升有效 CPI，预算要含访存\nRESULT: PASS"
+  },
+  {
+    "book": "B18",
+    "path": "labs/host_memmap.c",
+    "context": "labs/host_memmap.c"
+  },
+  {
+    "book": "B18",
+    "path": "labs/abi_arm.s",
+    "context": "labs/abi_arm.s"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_complexity.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_complexity.c -o labs/host_complexity && ./labs/host_complexity\nn=64: O(n^2)≈2048, O(n log n)≈512\nn=256: O(n^2)≈32768, O(n log n)≈2048\n结论：规模增大时 O(n^"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_complexity",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_complexity.c -o labs/host_complexity && ./labs/host_complexity\nn=64: O(n^2)≈2048, O(n log n)≈512\nn=256: O(n^2)≈32768, O(n log n)≈2048\n结论：规模增大时 O(n^"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_complexity",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_complexity.c -o labs/host_complexity && ./labs/host_complexity\nn=64: O(n^2)≈2048, O(n log n)≈512\nn=256: O(n^2)≈32768, O(n log n)≈2048\n结论：规模增大时 O(n^"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_complexity.c",
+    "context": "labs/host_complexity.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_container.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_container.c -o labs/host_container && ./labs/host_container\n池容量=4，满后再分配=NULL（期望 NULL）\n节点数=4 元素和=10（期望 4 10）\n释放 1 个后 used=3（期望 3）\n回收后可再分配: val=7（期望 "
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_container",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_container.c -o labs/host_container && ./labs/host_container\n池容量=4，满后再分配=NULL（期望 NULL）\n节点数=4 元素和=10（期望 4 10）\n释放 1 个后 used=3（期望 3）\n回收后可再分配: val=7（期望 "
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_container",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_container.c -o labs/host_container && ./labs/host_container\n池容量=4，满后再分配=NULL（期望 NULL）\n节点数=4 元素和=10（期望 4 10）\n释放 1 个后 used=3（期望 3）\n回收后可再分配: val=7（期望 "
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_container.c",
+    "context": "labs/host_container.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring && ./labs/host_ring\n满时再 push=-1（期望 -1）\n回绕后顺序: 2 3 4 5（期望 2 3 4 5）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring && ./labs/host_ring\n满时再 push=-1（期望 -1）\n回绕后顺序: 2 3 4 5（期望 2 3 4 5）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring && ./labs/host_ring\n满时再 push=-1（期望 -1）\n回绕后顺序: 2 3 4 5（期望 2 3 4 5）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring.c",
+    "context": "labs/host_ring.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search && ./labs/host_search\n查找 7 → 下标 3（期望 3）\n查找 4 → -1（期望 -1）\n插值 x=15 → 200.0（期望 200.0）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search && ./labs/host_search\n查找 7 → 下标 3（期望 3）\n查找 4 → -1（期望 -1）\n插值 x=15 → 200.0（期望 200.0）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search && ./labs/host_search\n查找 7 → 下标 3（期望 3）\n查找 4 → -1（期望 -1）\n插值 x=15 → 200.0（期望 200.0）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search.c",
+    "context": "labs/host_search.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_graph.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_graph.c -o labs/host_graph && ./labs/host_graph\n拓扑序: 0 1 2 3 4 \n0→4 BFS 最短路=3（期望 3）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_graph",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_graph.c -o labs/host_graph && ./labs/host_graph\n拓扑序: 0 1 2 3 4 \n0→4 BFS 最短路=3（期望 3）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_graph",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_graph.c -o labs/host_graph && ./labs/host_graph\n拓扑序: 0 1 2 3 4 \n0→4 BFS 最短路=3（期望 3）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_graph.c",
+    "context": "labs/host_graph.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_num.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_num.c -o labs/host_num && ./labs/host_num\nx=+0.500 q= 16384 x'=+0.50000 err=0.00000\nx=+0.999 q= 32735 x'=+0.99899 err=0.00001\nx=-1.000 q=-32768 x'="
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_num",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_num.c -o labs/host_num && ./labs/host_num\nx=+0.500 q= 16384 x'=+0.50000 err=0.00000\nx=+0.999 q= 32735 x'=+0.99899 err=0.00001\nx=-1.000 q=-32768 x'="
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_num",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_num.c -o labs/host_num && ./labs/host_num\nx=+0.500 q= 16384 x'=+0.50000 err=0.00000\nx=+0.999 q= 32735 x'=+0.99899 err=0.00001\nx=-1.000 q=-32768 x'="
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_num.c",
+    "context": "labs/host_num.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_vec.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_vec.c -o labs/host_vec && ./labs/host_vec\n旋转 (1,0) 90° → (0.000, 1.000)（期望 (0,1)）\nR 正交性 c^2+s^2=1.000（期望 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_vec",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_vec.c -o labs/host_vec && ./labs/host_vec\n旋转 (1,0) 90° → (0.000, 1.000)（期望 (0,1)）\nR 正交性 c^2+s^2=1.000（期望 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_vec",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_vec.c -o labs/host_vec && ./labs/host_vec\n旋转 (1,0) 90° → (0.000, 1.000)（期望 (0,1)）\nR 正交性 c^2+s^2=1.000（期望 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_vec.c",
+    "context": "labs/host_vec.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_stats.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_stats.c -o labs/host_stats && ./labs/host_stats\n拟合 y=2.000 x + 0.000（期望 2.000 0.000）\ny 均值=6.0 标准差=2.828\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_stats",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_stats.c -o labs/host_stats && ./labs/host_stats\n拟合 y=2.000 x + 0.000（期望 2.000 0.000）\ny 均值=6.0 标准差=2.828\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_stats",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_stats.c -o labs/host_stats && ./labs/host_stats\n拟合 y=2.000 x + 0.000（期望 2.000 0.000）\ny 均值=6.0 标准差=2.828\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_stats.c",
+    "context": "labs/host_stats.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search && ./labs/host_search\n插值 x=15 → 200.0（期望 200.0）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search && ./labs/host_search\n插值 x=15 → 200.0（期望 200.0）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search && ./labs/host_search\n插值 x=15 → 200.0（期望 200.0）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_search.c",
+    "context": "labs/host_search.c"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring && ./labs/host_ring\n满时再 push=-1（期望 -1）\n回绕后顺序: 2 3 4 5（期望 2 3 4 5）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring && ./labs/host_ring\n满时再 push=-1（期望 -1）\n回绕后顺序: 2 3 4 5（期望 2 3 4 5）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring && ./labs/host_ring\n满时再 push=-1（期望 -1）\n回绕后顺序: 2 3 4 5（期望 2 3 4 5）\nRESULT: PASS"
+  },
+  {
+    "book": "B19",
+    "path": "labs/host_ring.c",
+    "context": "labs/host_ring.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_sample.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sample.c -o labs/host_sample && ./labs/host_sample\nNyquist=500Hz\n输入 100Hz → 观测 100Hz（无混叠）\n输入 1200Hz → 观测 200Hz（混叠到 200Hz）\n结论：超过 Nyquist 的信号会混叠成假频率\n"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_sample",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sample.c -o labs/host_sample && ./labs/host_sample\nNyquist=500Hz\n输入 100Hz → 观测 100Hz（无混叠）\n输入 1200Hz → 观测 200Hz（混叠到 200Hz）\n结论：超过 Nyquist 的信号会混叠成假频率\n"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_sample",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sample.c -o labs/host_sample && ./labs/host_sample\nNyquist=500Hz\n输入 100Hz → 观测 100Hz（无混叠）\n输入 1200Hz → 观测 200Hz（混叠到 200Hz）\n结论：超过 Nyquist 的信号会混叠成假频率\n"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_sample.c",
+    "context": "labs/host_sample.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_calib.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib && ./labs/host_calib\n标定 y=2.503 x + -1.024（期望增益≈2.5 偏置≈-1.0）\n最大残差=0.212 残差RMS=0.134（阈值 ≤0.25）\n结论：增益/偏置由拟合得到，残差小且无系统趋势\nRE"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_calib",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib && ./labs/host_calib\n标定 y=2.503 x + -1.024（期望增益≈2.5 偏置≈-1.0）\n最大残差=0.212 残差RMS=0.134（阈值 ≤0.25）\n结论：增益/偏置由拟合得到，残差小且无系统趋势\nRE"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_calib",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib && ./labs/host_calib\n标定 y=2.503 x + -1.024（期望增益≈2.5 偏置≈-1.0）\n最大残差=0.212 残差RMS=0.134（阈值 ≤0.25）\n结论：增益/偏置由拟合得到，残差小且无系统趋势\nRE"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_calib.c",
+    "context": "labs/host_calib.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_filter.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_filter.c -o labs/host_filter && ./labs/host_filter\n均值=28.0（被尖峰拉高）\n中值(窗口)=10（抗尖峰）\nEMA(alpha=0.2)末值=21.52（平滑）\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_filter",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_filter.c -o labs/host_filter && ./labs/host_filter\n均值=28.0（被尖峰拉高）\n中值(窗口)=10（抗尖峰）\nEMA(alpha=0.2)末值=21.52（平滑）\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_filter",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_filter.c -o labs/host_filter && ./labs/host_filter\n均值=28.0（被尖峰拉高）\n中值(窗口)=10（抗尖峰）\nEMA(alpha=0.2)末值=21.52（平滑）\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_filter.c",
+    "context": "labs/host_filter.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_fir.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fir.c -o labs/host_fir && ./labs/host_fir\nFIR 输出: 2 4 6 4 2 (期望 2 4 6 4 2)\nIIR 阶跃响应: 0.500 0.750 0.875 0.938 0.969 (趋向 1)\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_fir",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fir.c -o labs/host_fir && ./labs/host_fir\nFIR 输出: 2 4 6 4 2 (期望 2 4 6 4 2)\nIIR 阶跃响应: 0.500 0.750 0.875 0.938 0.969 (趋向 1)\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_fir",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fir.c -o labs/host_fir && ./labs/host_fir\nFIR 输出: 2 4 6 4 2 (期望 2 4 6 4 2)\nIIR 阶跃响应: 0.500 0.750 0.875 0.938 0.969 (趋向 1)\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_fir.c",
+    "context": "labs/host_fir.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft && ./labs/host_dft\n峰值 bin=2（期望 2）幅度=4.00\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft && ./labs/host_dft\n峰值 bin=2（期望 2）幅度=4.00\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft && ./labs/host_dft\n峰值 bin=2（期望 2）幅度=4.00\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft.c",
+    "context": "labs/host_dft.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_feat.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feat.c -o labs/host_feat && ./labs/host_feat\n正弦      : RMS=0.707 峰峰值=2.000 过零率=0.200 峭度=1.500\n正弦+冲击 : RMS=1.658 峰峰值=7.000 过零率=0.200 峭度=9.309\nRESULT"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_feat",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feat.c -o labs/host_feat && ./labs/host_feat\n正弦      : RMS=0.707 峰峰值=2.000 过零率=0.200 峭度=1.500\n正弦+冲击 : RMS=1.658 峰峰值=7.000 过零率=0.200 峭度=9.309\nRESULT"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_feat",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feat.c -o labs/host_feat && ./labs/host_feat\n正弦      : RMS=0.707 峰峰值=2.000 过零率=0.200 峭度=1.500\n正弦+冲击 : RMS=1.658 峰峰值=7.000 过零率=0.200 峭度=9.309\nRESULT"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_feat.c",
+    "context": "labs/host_feat.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_kalman.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kalman.c -o labs/host_kalman && ./labs/host_kalman\n融合结果 x=0.990（观测均值≈1.01）\n方差 P=0.0197（已收敛）\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_kalman",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kalman.c -o labs/host_kalman && ./labs/host_kalman\n融合结果 x=0.990（观测均值≈1.01）\n方差 P=0.0197（已收敛）\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_kalman",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kalman.c -o labs/host_kalman && ./labs/host_kalman\n融合结果 x=0.990（观测均值≈1.01）\n方差 P=0.0197（已收敛）\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_kalman.c",
+    "context": "labs/host_kalman.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n最终 y=4.956（期望 ~5）输出限幅 [0,10]\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n最终 y=4.956（期望 ~5）输出限幅 [0,10]\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n最终 y=4.956（期望 ~5）输出限幅 [0,10]\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid.c",
+    "context": "labs/host_pid.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n最终 y=4.956（期望 ~5）输出限幅 [0,10]\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n最终 y=4.956（期望 ~5）输出限幅 [0,10]\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid && ./labs/host_pid\n最终 y=4.956（期望 ~5）输出限幅 [0,10]\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_pid.c",
+    "context": "labs/host_pid.c"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft && ./labs/host_dft\n峰值 bin=2（期望 2）幅度=4.00\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft && ./labs/host_dft\n峰值 bin=2（期望 2）幅度=4.00\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft && ./labs/host_dft\n峰值 bin=2（期望 2）幅度=4.00\nRESULT: PASS"
+  },
+  {
+    "book": "B20",
+    "path": "labs/host_dft.c",
+    "context": "labs/host_dft.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear && ./labs/host_linear\n拟合 y=2.000 x + 1.000（期望 2.000 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear && ./labs/host_linear\n拟合 y=2.000 x + 1.000（期望 2.000 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear && ./labs/host_linear\n拟合 y=2.000 x + 1.000（期望 2.000 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear.c",
+    "context": "labs/host_linear.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_contract.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_contract.c -o labs/host_contract && ./labs/host_contract\n契约: accel_x 单位=m/s^2 量程=[-16,16] fs=100Hz\n采样间隔 dt=0.0100s（=1/fs）\n越界样本数=1（期望 1）\n回放哈希 a=2619"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_contract",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_contract.c -o labs/host_contract && ./labs/host_contract\n契约: accel_x 单位=m/s^2 量程=[-16,16] fs=100Hz\n采样间隔 dt=0.0100s（=1/fs）\n越界样本数=1（期望 1）\n回放哈希 a=2619"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_contract",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_contract.c -o labs/host_contract && ./labs/host_contract\n契约: accel_x 单位=m/s^2 量程=[-16,16] fs=100Hz\n采样间隔 dt=0.0100s（=1/fs）\n越界样本数=1（期望 1）\n回放哈希 a=2619"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_contract.c",
+    "context": "labs/host_contract.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_split.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n随机按行切分会泄漏 → 指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_split",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n随机按行切分会泄漏 → 指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_split",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_split.c -o labs/host_split && ./labs/host_split\ntrain=6 val=3 test=3（按会话整段切分，不跨集）\n随机按行切分会泄漏 → 指标虚高\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_split.c",
+    "context": "labs/host_split.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear && ./labs/host_linear\n拟合 y=2.000 x + 1.000（期望 2.000 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear && ./labs/host_linear\n拟合 y=2.000 x + 1.000（期望 2.000 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_linear.c -o labs/host_linear && ./labs/host_linear\n拟合 y=2.000 x + 1.000（期望 2.000 1.000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_linear.c",
+    "context": "labs/host_linear.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train && ./labs/host_train\n训练后 w=2.0000（期望 2.0000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train && ./labs/host_train\n训练后 w=2.0000（期望 2.0000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train && ./labs/host_train\n训练后 w=2.0000（期望 2.0000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train.c",
+    "context": "labs/host_train.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train && ./labs/host_train\n训练后 w=2.0000（期望 2.0000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train && ./labs/host_train\n训练后 w=2.0000（期望 2.0000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_train.c -o labs/host_train && ./labs/host_train\n训练后 w=2.0000（期望 2.0000）\nRESULT: PASS"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_train.c",
+    "context": "labs/host_train.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_calib.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib && ./labs/host_calib\n阈值扫描 (prec/rec):\n  阈值档 0: prec=0.60 rec=0.86\n  阈值档 1: prec=0.80 rec=0.57\n  阈值档 2: prec=0.83 rec=0.1"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_calib",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib && ./labs/host_calib\n阈值扫描 (prec/rec):\n  阈值档 0: prec=0.60 rec=0.86\n  阈值档 1: prec=0.80 rec=0.57\n  阈值档 2: prec=0.83 rec=0.1"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_calib",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib && ./labs/host_calib\n阈值扫描 (prec/rec):\n  阈值档 0: prec=0.60 rec=0.86\n  阈值档 1: prec=0.80 rec=0.57\n  阈值档 2: prec=0.83 rec=0.1"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_calib.c",
+    "context": "labs/host_calib.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_metrics.c",
+    "context": "labs/host_metrics.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_seq.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_seq.c -o labs/host_seq && ./labs/host_seq\n分帧: 窗长=4 hop=2（单位：采样点）\n逐帧 RMS: 1.00 1.00 1.00 1.00 1.00 1.00 1.00 (期望 1.00，共 7 帧)\n时间序切分: train=[0,11) tes"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_seq",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_seq.c -o labs/host_seq && ./labs/host_seq\n分帧: 窗长=4 hop=2（单位：采样点）\n逐帧 RMS: 1.00 1.00 1.00 1.00 1.00 1.00 1.00 (期望 1.00，共 7 帧)\n时间序切分: train=[0,11) tes"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_seq",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_seq.c -o labs/host_seq && ./labs/host_seq\n分帧: 窗长=4 hop=2（单位：采样点）\n逐帧 RMS: 1.00 1.00 1.00 1.00 1.00 1.00 1.00 (期望 1.00，共 7 帧)\n时间序切分: train=[0,11) tes"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_seq.c",
+    "context": "labs/host_seq.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export && ./labs/host_export\n模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3\n模型校验=4042742740\n兼容: 模型需 fw>=1.3，当前 fw_"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export && ./labs/host_export\n模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3\n模型校验=4042742740\n兼容: 模型需 fw>=1.3，当前 fw_"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export && ./labs/host_export\n模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3\n模型校验=4042742740\n兼容: 模型需 fw>=1.3，当前 fw_"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export.c",
+    "context": "labs/host_export.c"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export && ./labs/host_export\n模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3\n模型校验=4042742740\n兼容: 模型需 fw>=1.3，当前 fw_"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export && ./labs/host_export\n模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3\n模型校验=4042742740\n兼容: 模型需 fw>=1.3，当前 fw_"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_export.c -o labs/host_export && ./labs/host_export\n模型包: model=model_v1_int8.tflite pre=pre_v1.norm fw=fw_1.3\n模型校验=4042742740\n兼容: 模型需 fw>=1.3，当前 fw_"
+  },
+  {
+    "book": "B21",
+    "path": "labs/host_export.c",
+    "context": "labs/host_export.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_",
+    "context": "labs/host_*.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_threat.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_threat.c -o labs/host_threat && ./labs/host_threat\n  网络接口 风险=25\n  调试口 风险=12\n  本地总线 风险=6\n  物理外壳 风险=5\n最高风险: 网络接口 (25)，优先缓解\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_threat",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_threat.c -o labs/host_threat && ./labs/host_threat\n  网络接口 风险=25\n  调试口 风险=12\n  本地总线 风险=6\n  物理外壳 风险=5\n最高风险: 网络接口 (25)，优先缓解\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_threat",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_threat.c -o labs/host_threat && ./labs/host_threat\n  网络接口 风险=25\n  调试口 风险=12\n  本地总线 风险=6\n  物理外壳 风险=5\n最高风险: 网络接口 (25)，优先缓解\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_threat.c",
+    "context": "labs/host_threat.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/hmac_sha256.py",
+    "context": "python labs/hmac_sha256.py"
+  },
+  {
+    "book": "B22",
+    "path": "labs/hmac_sha256.py",
+    "context": "$ python labs/hmac_sha256.py\nRFC4231 cases=2; tamper/wrong-key/truncated-tag rejected; RESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/hmac_sha256.py",
+    "context": "python labs/hmac_sha256.py"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife && ./labs/host_keylife\nprovision → 1（期望 1）\nactivate  → 2（期望 2）\nrotate    → 1（期望 1）\nrevoke    → 3（期望 3）\n撤销后 activate "
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife && ./labs/host_keylife\nprovision → 1（期望 1）\nactivate  → 2（期望 2）\nrotate    → 1（期望 1）\nrevoke    → 3（期望 3）\n撤销后 activate "
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife && ./labs/host_keylife\nprovision → 1（期望 1）\nactivate  → 2（期望 2）\nrotate    → 1（期望 1）\nrevoke    → 3（期望 3）\n撤销后 activate "
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife.c",
+    "context": "labs/host_keylife.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\n信任链逐级校验（keyed-hash 示意，非数字签名）=通过\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚："
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\n信任链逐级校验（keyed-hash 示意，非数字签名）=通过\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚："
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\n信任链逐级校验（keyed-hash 示意，非数字签名）=通过\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚："
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot.c",
+    "context": "labs/host_secureboot.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_cert.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cert.c -o labs/host_cert && ./labs/host_cert\n正常     → 接受（期望 接受）\n链不可信 → 拒绝（期望 拒绝）\n已过期  → 拒绝（期望 拒绝）\n主机名不符 → 拒绝（期望 拒绝）\n已吊销  → 拒绝（期望 拒绝）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_cert",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cert.c -o labs/host_cert && ./labs/host_cert\n正常     → 接受（期望 接受）\n链不可信 → 拒绝（期望 拒绝）\n已过期  → 拒绝（期望 拒绝）\n主机名不符 → 拒绝（期望 拒绝）\n已吊销  → 拒绝（期望 拒绝）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_cert",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_cert.c -o labs/host_cert && ./labs/host_cert\n正常     → 接受（期望 接受）\n链不可信 → 拒绝（期望 拒绝）\n已过期  → 拒绝（期望 拒绝）\n主机名不符 → 拒绝（期望 拒绝）\n已吊销  → 拒绝（期望 拒绝）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_cert.c",
+    "context": "labs/host_cert.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_auth.c",
+    "context": "labs/host_auth.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚：尝试 v6 → 接受（期望接受）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚：尝试 v6 → 接受（期望接受）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚：尝试 v6 → 接受（期望接受）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot.c",
+    "context": "labs/host_secureboot.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_auth.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_auth.c -o labs/host_auth && ./labs/host_auth\nsensor 写=0（期望 0）\nsensor 读=1（期望 1）\nadmin OTA=1（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_auth",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_auth.c -o labs/host_auth && ./labs/host_auth\nsensor 写=0（期望 0）\nsensor 读=1（期望 1）\nadmin OTA=1（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_auth",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_auth.c -o labs/host_auth && ./labs/host_auth\nsensor 写=0（期望 0）\nsensor 读=1（期望 1）\nadmin OTA=1（期望 1）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_auth.c",
+    "context": "labs/host_auth.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_fuzz.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fuzz.c -o labs/host_fuzz && ./labs/host_fuzz\n101 valid values; invalid prefix/range/length/bytes; non-NUL buffer checked\nRESULT: PASS (declared cor"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_fuzz",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fuzz.c -o labs/host_fuzz && ./labs/host_fuzz\n101 valid values; invalid prefix/range/length/bytes; non-NUL buffer checked\nRESULT: PASS (declared cor"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_fuzz",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fuzz.c -o labs/host_fuzz && ./labs/host_fuzz\n101 valid values; invalid prefix/range/length/bytes; non-NUL buffer checked\nRESULT: PASS (declared cor"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_fuzz.c",
+    "context": "labs/host_fuzz.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife && ./labs/host_keylife\nprovision → 1（期望 1）\nactivate  → 2（期望 2）\nrotate    → 1（期望 1）\nrevoke    → 3（期望 3）\n撤销后 activate "
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife && ./labs/host_keylife\nprovision → 1（期望 1）\nactivate  → 2（期望 2）\nrotate    → 1（期望 1）\nrevoke    → 3（期望 3）\n撤销后 activate "
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_keylife.c -o labs/host_keylife && ./labs/host_keylife\nprovision → 1（期望 1）\nactivate  → 2（期望 2）\nrotate    → 1（期望 1）\nrevoke    → 3（期望 3）\n撤销后 activate "
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_keylife.c",
+    "context": "labs/host_keylife.c"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot.c",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚：尝试 v6 → 接受（期望接受）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚：尝试 v6 → 接受（期望接受）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot",
+    "context": "$ gcc -std=c11 -Wall -Wextra -O2 labs/host_secureboot.c -o labs/host_secureboot && ./labs/host_secureboot\nApp 被篡改 → 校验失败（期望失败）\n抗回滚：计数器=5，尝试 v3 → 拒绝（期望拒绝）\n抗回滚：尝试 v6 → 接受（期望接受）\nRESULT: PASS"
+  },
+  {
+    "book": "B22",
+    "path": "labs/host_secureboot.c",
+    "context": "labs/host_secureboot.c"
+  },
+  {
+    "book": "B23",
+    "path": "labs/control_checks.py",
+    "context": "labs/control_checks.py"
+  },
+  {
+    "book": "B23",
+    "path": "labs/control_checks.py",
+    "context": "labs/control_checks.py"
+  }
+]

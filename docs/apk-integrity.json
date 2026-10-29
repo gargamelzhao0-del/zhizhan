@@ -1,0 +1,9 @@
+{
+  "version": "1.10.2",
+  "passed": true,
+  "bytes": 6201705,
+  "sha256": "86355ca3783f8d94df7ab86de41948ede108b75175a34ae82b96e01b77990574",
+  "webAssets": 253,
+  "attachments": 149,
+  "crcPassed": true
+}

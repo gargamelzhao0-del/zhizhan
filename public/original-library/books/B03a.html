@@ -1,0 +1,2817 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B03a" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>Rust 语言基础 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">Rust 语言基础</div>
+    <div class="m-subtitle">零基础入口 · 12 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">12 模块 · 59 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol cur" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">Rust 分支 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">Rust 学习路径.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">从 C 到 Rust：第一印象<span class="m-nav-sub">rustc · let/mut · println!</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-1" data-target="m01-1">1.1 第一个 Rust 程序</a><a class="m-sec" href="#m01-2" data-target="m01-2">1.2 与 C 的对照</a><a class="m-sec" href="#m01-3" data-target="m01-3">1.3 为什么变量默认不可变</a><a class="m-sec" href="#m01-4" data-target="m01-4">01.4 与 C 的对照速查</a><a class="m-sec" href="#m01-5" data-target="m01-5">01.5 常见错误与修复</a><a class="m-sec" href="#m01-6" data-target="m01-6">01.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">所有权与移动<span class="m-nav-sub">move · Copy · Clone · Drop</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-1" data-target="m02-1">2.1 移动：交出去就不能再用</a><a class="m-sec" href="#m02-2" data-target="m02-2">2.2 Copy：哪些类型&quot;赋值=c 复制&quot;</a><a class="m-sec" href="#m02-3" data-target="m02-3">2.3 Drop：离开作用域自动清理</a><a class="m-sec" href="#m02-4" data-target="m02-4">02.4 与 C 的对照速查</a><a class="m-sec" href="#m02-5" data-target="m02-5">02.5 常见错误与修复</a><a class="m-sec" href="#m02-6" data-target="m02-6">02.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">借用与引用<span class="m-nav-sub">&amp;/&amp;mut · 借用规则</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-1" data-target="m03-1">3.1 共享借用与可变借用</a><a class="m-sec" href="#m03-2" data-target="m03-2">3.2 借用检查器拦住了什么</a><a class="m-sec" href="#m03-3" data-target="m03-3">3.3 什么时候用引用、什么时候用值</a><a class="m-sec" href="#m03-4" data-target="m03-4">03.4 与 C 的对照速查</a><a class="m-sec" href="#m03-5" data-target="m03-5">03.5 常见错误与修复</a><a class="m-sec" href="#m03-6" data-target="m03-6">03.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">枚举与模式匹配<span class="m-nav-sub">enum · match · Option/Result</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-1" data-target="m04-1">4.1 带数据的枚举 + match</a><a class="m-sec" href="#m04-2" data-target="m04-2">4.2 Option&lt;T&gt;：用类型表达&quot;可能没有&quot;</a><a class="m-sec" href="#m04-4" data-target="m04-4">04.4 与 C 的对照速查</a><a class="m-sec" href="#m04-5" data-target="m04-5">04.5 常见错误与修复</a><a class="m-sec" href="#m04-6" data-target="m04-6">04.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">结构体、方法与 trait<span class="m-nav-sub">struct · impl · trait · derive</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-1" data-target="m05-1">5.1 结构体 + 方法 + trait</a><a class="m-sec" href="#m05-2" data-target="m05-2">5.2 #[derive]：自动生成常用实现</a><a class="m-sec" href="#m05-4" data-target="m05-4">05.4 与 C 的对照速查</a><a class="m-sec" href="#m05-5" data-target="m05-5">05.5 常见错误与修复</a><a class="m-sec" href="#m05-6" data-target="m05-6">05.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">集合与错误处理<span class="m-nav-sub">String/Vec/HashMap · Result/?</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-1" data-target="m06-1">6.1 三个常用集合</a><a class="m-sec" href="#m06-2" data-target="m06-2">6.2 Result 与 ?：错误不靠异常</a><a class="m-sec" href="#m06-4" data-target="m06-4">06.4 与 C 的对照速查</a><a class="m-sec" href="#m06-5" data-target="m06-5">06.5 常见错误与修复</a><a class="m-sec" href="#m06-6" data-target="m06-6">06.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">生命周期与迭代器<span class="m-nav-sub">&#x27;a · 闭包 · iterator</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-1" data-target="m07-1">7.1 生命周期标注：让引用不悬垂</a><a class="m-sec" href="#m07-2" data-target="m07-2">7.2 闭包与迭代器：链式处理数据</a><a class="m-sec" href="#m07-4" data-target="m07-4">07.4 与 C 的对照速查</a><a class="m-sec" href="#m07-5" data-target="m07-5">07.5 常见错误与修复</a><a class="m-sec" href="#m07-6" data-target="m07-6">07.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">模块、Cargo 与测试<span class="m-nav-sub">mod · cargo · #[test] → B03</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-1" data-target="m08-1">8.1 模块与可见性</a><a class="m-sec" href="#m08-2" data-target="m08-2">8.2 Cargo 工程与测试</a><a class="m-sec" href="#m08-3" data-target="m08-3">8.3 你已经会 Rust 了——下一步</a><a class="m-sec" href="#m08-4" data-target="m08-4">08.4 与 C 的对照速查</a><a class="m-sec" href="#m08-5" data-target="m08-5">08.5 常见错误与修复</a><a class="m-sec" href="#m08-6" data-target="m08-6">08.6 上手检查清单</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">泛型、trait 与 API 设计深化<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-mechanism" data-target="m09-mechanism">机制与契约</a><a class="m-sec" href="#m09-boundary" data-target="m09-boundary">边界与误用</a><a class="m-sec" href="#m09-run" data-target="m09-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">集合、借用与错误链深化<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-mechanism" data-target="m10-mechanism">机制与契约</a><a class="m-sec" href="#m10-boundary" data-target="m10-boundary">边界与误用</a><a class="m-sec" href="#m10-run" data-target="m10-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m11"><summary><span class="m-nav-num">11</span><span class="m-nav-t">并发与异步语言基础<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m11-mechanism" data-target="m11-mechanism">机制与契约</a><a class="m-sec" href="#m11-boundary" data-target="m11-boundary">边界与误用</a><a class="m-sec" href="#m11-run" data-target="m11-run">运行完整示例</a></div></details>
+<details class="m-mod" data-id="m12"><summary><span class="m-nav-num">12</span><span class="m-nav-t">Cargo 工程、测试与质量<span class="m-nav-sub">实现与验收</span></span></summary><div class="m-secs"><a class="m-sec" href="#m12-mechanism" data-target="m12-mechanism">机制与契约</a><a class="m-sec" href="#m12-boundary" data-target="m12-boundary">边界与误用</a><a class="m-sec" href="#m12-run" data-target="m12-run">运行完整示例</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num">§</span><span class="m-nav-t">术语与符号对照表<span class="m-nav-sub">单一事实源 · 构建期比对</span></span></summary><div class="m-secs"><a class="m-sec" href="#glossary-terms" data-target="glossary-terms">术语</a><a class="m-sec" href="#glossary-symbols" data-target="glossary-symbols">符号 / 构件</a></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B03a-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE 01–12 · 阶段 ② 现代语言 · 基</div>
+    <h1>Rust <span class="g">语言基础</span><br>从零到能读《Rust 迁移》<span class="cursor"></span></h1>
+    <p class="lead">
+      这一册把 <strong>Rust 当作一门语言从零讲</strong>：变量、所有权与移动、借用、枚举与模式匹配、结构体与 trait、集合与错误处理、生命周期与迭代器、模块/Cargo/测试。
+      前提是你会 C（读完 B00）。学完它，你就能顺畅读《Rust（嵌入式向）》(B03)，把 Rust 用到单片机上。
+      每个示例都用 <code class="ic">rustc</code> <strong>真实编译并运行</strong>。
+    </p>
+    <div class="hero-stats">
+      <div class="hero-stat"><b>12</b><span>核心模块</span></div>
+      <div class="hero-stat"><b>40</b><span>代码与命令</span></div>
+      <div class="hero-stat"><b>21</b><span>原理图示</span></div>
+      <div class="hero-stat"><b>34</b><span>对照表格</span></div>
+    </div>
+    <div class="box key" style="margin-top:26px">
+      <div class="box-t">◆ 谁该读 / 读完能做什么</div>
+      <ul style="margin-bottom:0">
+        <li><strong>会 C、想系统学 Rust</strong>：从这一册开始。B03 假设你已懂所有权/借用，本册正是补这一课。</li>
+        <li>学完你能：写结构体与 enum、用 trait、用 <code class="ic">Result</code> 处理错误、用集合与迭代器、组织 Cargo 工程与测试。</li>
+        <li>然后进入 B03：把 Rust 放到 MCU 上——所有权如何保证 DMA/中断安全、no_std 与体积。</li>
+      </ul>
+    </div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B03a-labs.zip" download>下载 B03a 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B03a 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">Rust 分支 · 读到能完成什么？</h2><p><strong>交付一个带 trait 后端与 Result 错误的库，含单元、文档及编译失败测试。</strong></p><p>入门条件：能写函数与集合处理；C 经验有帮助但不是所有权概念的替代。</p><p>首次阅读：<a href="#m02">所有权与移动</a> → <a href="#m03">借用与引用</a> → <a href="#m04">枚举与模式匹配</a> → <a href="#m05">结构体、方法与 trait</a> → <a href="#m06">集合与错误处理</a> → <a href="#m08">模块、Cargo 与测试</a> → <a href="#m09">泛型、trait 与 API 设计深化</a> → <a href="#m12">Cargo 工程、测试与质量</a></p><p>按需延后：高级异步与线程先延后；进入 B03 的 no_std 与设备驱动时再用。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>把借用对象移出作用域，或把 Rc 交给线程；解释编译错误并调整接口。</p><p><strong>通过判据：</strong>cargo test 与目标 feature 组合通过；不靠 clone/unwrap 掩盖生命和失败政策。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P01">P01</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">Rust 学习路径<span class="acc">.</span></h1>
+      <p class="ch-lead">本册是"阶段②基础"，与 B03（嵌入式 Rust）配对：先学语言本体，再学嵌入式落地。</p>
+    </div>
+    <div class="roadmap">
+      <div class="rm-item"><div class="rm-n">⓪</div><div><div class="rm-t">编程与 C 语言基础</div><div class="rm-d">前置：会 C</div></div><div class="rm-s">已发布</div></div>
+      <div class="rm-item now"><div class="rm-n">②基</div><div><div class="rm-t">Rust 语言基础（本册）</div><div class="rm-d">所有权/借用/enum/trait/集合/错误处理</div></div><div class="rm-s">进行中</div></div>
+      <div class="rm-item"><div class="rm-n">②</div><div><div class="rm-t">Rust（嵌入式向）</div><div class="rm-d">no_std、embedded-hal、中断并发、DMA 所有权</div></div><div class="rm-s">已发布</div></div>
+      <div class="rm-item"><div class="rm-n">③–⑩</div><div><div class="rm-t">外设 · RTOS · 通信 · 应用 · …</div><div class="rm-d">语言之后是硬件与应用</div></div><div class="rm-s">已发布</div></div>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 学 Rust 的正确方式</div>
+      <p style="margin-bottom:0">Rust 的编译器是最好的老师：<strong>它会把问题在哪、怎么改都指给你</strong>。请务必亲手制造错误（悬垂、双重可变借用）并读它的报错——本册很多小节都以真实的编译错误为例。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 起步</div>
+      <h1 class="ch-title">从 C 到 Rust：<span class="acc">第一印象</span></h1>
+      <p class="ch-lead">
+        Rust 与 C 一样贴近硬件，但把"内存安全"做进了编译器。这一节先建立第一印象：怎么编译运行、变量默认不可变、
+        类型推断、以及用 <code class="ic">println!</code> 输出。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 55 分钟</span><span>◈ rustc · let/mut · println!</span><span>⚑ 默认安全</span>
+      </div>
+    </div>
+
+    <h2 id="m01-1">1.1 第一个 Rust 程序</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m01_hello.rs — 变量与输出（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let name = "Rust";          // 不可变绑定
+    let mut n = 0;              // 可变绑定
+    n += 1;
+    let pi = 3.14;              // 类型由字面量推断为 f64
+    println!("Hello, {}!", name);
+    println!("n = {}, pi = {}", n, pi);
+    let sum: i32 = (1..=5).sum();   // 1+2+3+4+5
+    println!("sum 1..=5 = {}", sum);
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M01）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m01_hello.rs -o m01 &amp;&amp; ./m01
+<span class="o">Hello, Rust!
+n = 1, pi = 3.14
+sum 1..=5 = 15</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三个与 C 不同的小地方</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">let</code> 默认<strong>不可变</strong>；要改必须写 <code class="ic">let mut</code>。忘了 <code class="ic">mut</code> 会编译错误——这是把"意外修改"挡在编译期。</li>
+        <li><strong>类型推断</strong>：多数时候不用写类型（<code class="ic">let pi = 3.14</code>），必要时才标注（<code class="ic">sum: i32</code>）。</li>
+        <li><code class="ic">println!</code> 是<strong>宏</strong>（带 <code class="ic">!</code>），占位符是 <code class="ic">{}</code>，按顺序取参数。</li>
+      </ul>
+    </div>
+
+    <h2 id="m01-2">1.2 与 C 的对照</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">想做的事</th><th style="width:35%">C</th><th>Rust</th></tr></thead>
+        <tbody>
+          <tr><td>输出</td><td><code class="ic">printf("%d\n", x)</code></td><td><code class="ic">println!("{}", x)</code></td></tr>
+          <tr><td>变量</td><td><code class="ic">int x = 5;</code>（可改）</td><td><code class="ic">let x = 5;</code>（不可改）/ <code class="ic">let mut x = 5;</code></td></tr>
+          <tr><td>编译</td><td><code class="ic">gcc</code></td><td><code class="ic">rustc</code>（或用 <code class="ic">cargo</code>）</td></tr>
+          <tr><td>入口</td><td><code class="ic">int main(void)</code></td><td><code class="ic">fn main()</code></td></tr>
+          <tr><td>字符串</td><td><code class="ic">char* / char[]</code></td><td><code class="ic">&amp;str</code>（字面量）/<code class="ic">String</code>（可增长）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 两个编译命令</div>
+      <p style="margin-bottom:0">
+        单文件：<code class="ic">rustc m.rs -o m &amp;&amp; ./m</code>。真实工程用 <strong>Cargo</strong>：<code class="ic">cargo new proj</code>、<code class="ic">cargo run</code>（M08 详讲）。
+      </p>
+    </div>
+
+    <h2 id="m01-3">1.3 为什么变量默认不可变</h2>
+    <p>
+      C 里几乎所有变量都可写，所以"谁在什么时候改了它"很难查。Rust 默认不可变：<strong>要改，就得显式声明 <code class="ic">mut</code></strong>——
+      这让"可变性"在代码里一目了然，也帮助编译器做更多推导。
+    </p>
+
+    <h2 id="m01-4">01.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>输出</td><td><code class="ic">printf</code></td><td><code class="ic">println!</code></td></tr>
+          <tr><td>引入</td><td><code class="ic">#include</code></td><td><code class="ic">use</code></td></tr>
+          <tr><td>可变变量</td><td>默认可变</td><td><code class="ic">let mut</code> 才是可变</td></tr>
+          <tr><td>编译</td><td><code class="ic">gcc</code></td><td><code class="ic">rustc</code> / <code class="ic">cargo</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.2</b> rustc 编译 → 运行</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="源文件经 rustc 生成可执行文件">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">main.rs</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">rustc</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">可执行</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft"><code class="ic">cargo run</code> 是更常用的方式。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 1.3</b> 默认不可变</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="不加 mut，值不能被改">
+          <rect x="20" y="50" width="140" height="46" rx="6" class="sv-grn-s"/>
+          <text x="90" y="78" class="sv-lbl-hi" text-anchor="middle">let x = 1</text>
+          <path d="M160 73 L170 73" class="sv-arrow"/>
+          <rect x="180" y="50" width="140" height="46" rx="6" class="sv-red-s"/>
+          <text x="250" y="78" class="sv-lbl-hi" text-anchor="middle">x = 2 → 报错</text>
+          <path d="M320 73 L330 73" class="sv-arrow"/>
+          <rect x="340" y="50" width="140" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="410" y="78" class="sv-lbl-hi" text-anchor="middle">let mut x</text>
+          <path d="M480 73 L490 73" class="sv-arrow"/>
+          <rect x="500" y="50" width="140" height="46" rx="6" class="sv-grn-s"/>
+          <text x="570" y="78" class="sv-lbl-hi" text-anchor="middle">x = 2 可以</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">不可变是默认，安全从变量开始。</div>
+    </div>
+    <h2 id="m01-5">01.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>忘了 <code class="ic">mut</code></td><td>cannot assign twice to immutable</td><td>加 <code class="ic">mut</code></td></tr>
+          <tr><td><code class="ic">println!</code> 少了感叹号</td><td>宏没被调用</td><td>补 <code class="ic">!</code></td></tr>
+          <tr><td>格式化占位写错</td><td>编译错</td><td><code class="ic">{}</code> 对应参数</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m01-6">01.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m01b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let name = "embedded";
+    println!("Hello, {}!", name);
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m01c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let mut n = 0;
+    n += 1;
+    println!("n = {}", n);
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>用 Rust 写一个"读入两个整数打印和"的程序（可用 <code class="ic">let</code> 直接赋值），体会 <code class="ic">mut</code> 的必要。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">fn main()</code> 是入口；<code class="ic">rustc</code> 编译，<code class="ic">cargo</code> 管工程。</li>
+        <li><code class="ic">let</code> 默认不可变，<code class="ic">let mut</code> 才可改。</li>
+        <li>类型常可推断，必要时用 <code class="ic">: i32</code> 标注。</li>
+        <li><code class="ic">println!("{}", x)</code> 是宏，占位符 <code class="ic">{}</code>。</li>
+        <li>范围 <code class="ic">1..=5</code> 可配合迭代器方法（如 <code class="ic">.sum()</code>）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：Rust 里让变量可修改要写 <code class="ic">let ______ x = 5;</code>。</p>
+          <details><summary></summary><p><code class="ic">mut</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">let x = 5; x = 6;</code> 能编过。</p>
+          <details><summary></summary><p>不能。<code class="ic">x</code> 不可变，二次赋值是编译错误。要么 <code class="ic">let mut x = 5;</code>，要么用 <code class="ic">let x = 6;</code> 遮蔽（shadowing）。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">println!("{}", x)</code> 报"cannot find value x"，为什么？</p>
+          <details><summary></summary><p>没有声明 <code class="ic">x</code>（没写 <code class="ic">let x = ...</code>），或写在了别的作用域。Rust 不允许使用未声明的变量。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">m01_hello.rs</code> 里 <code class="ic">pi</code> 改成整数 <code class="ic">3</code> 再打印，观察类型推断（会不会报错？为什么）。</p>
+          <details><summary></summary><p>不会报错：<code class="ic">3</code> 被推断为整数类型（如 i32），<code class="ic">{}</code> 也能打印整数——推断随字面量走。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：Rust 的 <code class="ic">fn main</code> 必须返回 <code class="ic">int</code> 0 表示成功。</p>
+          <details><summary></summary><p>不对。<code class="ic">fn main()</code> 默认返回 <code class="ic">()</code>（空）；要返回错误码可写 <code class="ic">fn main() -&gt; Result&lt;(), E&gt;</code>。这与 C 的 <code class="ic">return 0</code> 不同。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 01 完成？</b> 用 rustc 编译并运行 <code class="ic">m01_hello.rs</code>，再故意去掉一个 <code class="ic">mut</code> 看编译器怎么报错。</div>
+      <button class="done-btn" data-done="m01">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>cargo new/build/run 完成最小程序；从编译错误定位变量不可变等约束。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 所有权</div>
+      <h1 class="ch-title">所有权与<span class="acc">移动</span></h1>
+      <p class="ch-lead">
+        这是 Rust 最核心、也最独特的概念：<strong>每个值只有一个所有者</strong>。交出去叫"移动"，之后原变量就不能再用。
+        它一次消灭了"忘记释放 / 重复释放 / 释放后使用"一整类 bug。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ move · Copy · Clone · Drop</span><span>⚑ Rust 的地基</span>
+      </div>
+    </div>
+
+    <h2 id="m02-1">2.1 移动：交出去就不能再用</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m02_ownership.rs — 移动/Copy/Clone（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#[derive(Clone)]
+struct Buf { data: [u8; 4] }
+
+fn consume(b: Buf) {                 // 取得所有权
+    println!("consume 拿到 Buf, data[0] = {}", b.data[0]);
+}
+
+fn main() {
+    let a = Buf { data: [1, 2, 3, 4] };
+    consume(a);                      // a 被移动进 consume
+    // println!("{}", a.data[0]);    // 取消注释会编译错误：a 已被移动
+
+    let x = 5;                       // i32 是 Copy：赋值/传参是复制
+    let y = x;
+    println!("x = {}, y = {} (Copy: x 仍可用)", x, y);
+
+    let s = String::from("hi");
+    let t = s.clone();               // 需要复制堆数据时显式 clone
+    println!("s = {}, t = {}", s, t);
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M02）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m02_ownership.rs -o m02 &amp;&amp; ./m02
+<span class="o">consume 拿到 Buf, data[0] = 1
+x = 5, y = 5 (Copy: x 仍可用)
+s = hi, t = hi</span></pre></div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.1</b> 移动：所有权像"接力棒"，同一时刻只有一个所有者</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="所有权移动">
+          <rect x="40" y="52" width="140" height="46" rx="6" class="sv-box"/>
+          <text x="110" y="72" class="sv-lbl-hi" text-anchor="middle">let a = Buf{…}</text>
+          <text x="110" y="89" class="sv-lbl-dim" text-anchor="middle">a 拥有数据</text>
+          <path d="M180 75 L300 75" class="sv-arrow"/>
+          <text x="240" y="67" class="sv-lbl-dim" text-anchor="middle">consume(a) 移动</text>
+          <rect x="302" y="52" width="150" height="46" rx="6" class="sv-grn-s"/>
+          <text x="377" y="72" class="sv-lbl-hi" text-anchor="middle">参数 b</text>
+          <text x="377" y="89" class="sv-lbl-dim" text-anchor="middle">现在是唯一所有者</text>
+          <text x="470" y="72" class="sv-lbl-dim" style="fill:var(--red)">a 此后不可用</text>
+          <text x="470" y="92" class="sv-lbl-dim">（编译期检查）</text>
+          <text x="40" y="128" class="sv-lbl-dim">函数结束 → b 离开作用域 → 自动释放。不会有人"忘了 free"。</text>
+        </svg>
+      </div>
+      <div class="fig-ft">C 里 <code>consume(a)</code> 按值传会<strong>拷贝</strong>，两个都能用；Rust 是<strong>移动</strong>，交出去后原变量失效——释放责任随所有权转移，不可能重复释放。</div>
+    </div>
+
+    <h2 id="m02-2">2.2 Copy：哪些类型"赋值=c 复制"</h2>
+    <p>
+      内建标量（整数、浮点、<code class="ic">bool</code>、<code class="ic">char</code>）和共享引用 <code class="ic">&amp;T</code> 是 <code class="ic">Copy</code>；它们的赋值/传参是<strong>按位复制</strong>，原变量仍可用（像 C）。<strong>注意：<code class="ic">Copy</code> 是"显式选择加入"的枚举/结构体——即使所有字段都是 <code class="ic">Copy</code>，只要不写 <code class="ic">#[derive(Copy, Clone)]</code>（或手写 <code class="ic">impl Copy</code>），它就<b>不是</b> <code class="ic">Copy</code>，赋值默认仍是移动。</strong>（本例的 <code class="ic">Buf</code> 正是如此：<code class="ic">[u8; 4]</code> 是 Copy，但 <code class="ic">Buf</code> 没 derive，所以 <code class="ic">consume(a)</code> 会移动。）而 <code class="ic">String</code>/<code class="ic">Vec</code> 这类<strong>拥有堆内存</strong>的类型天生<strong>不能 Copy</strong>，只能是移动或显式 clone。
+    </p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">类型</th><th style="width:24%">Copy？</th><th>赋值时</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">i32</code>/<code class="ic">f64</code>/<code class="ic">bool</code>/<code class="ic">char</code></td><td class="y">是</td><td>复制，原变量仍可用</td></tr>
+          <tr><td><code class="ic">String</code>/<code class="ic">Vec&lt;T&gt;</code>/<code class="ic">HashMap</code></td><td class="n">否</td><td>移动（或显式 <code class="ic">.clone()</code>）</td></tr>
+          <tr><td>含非 Copy 成员的结构体</td><td class="n">否</td><td>移动</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 全量 clone 常常是"用错"的信号</div>
+      <p style="margin-bottom:0">
+        到处 <code class="ic">.clone()</code> 能让代码编过，但可能付出不必要的复制（尤其大对象/嵌入式）。更好的做法往往是<strong>传引用</strong>（下一节 M03）。
+      </p>
+    </div>
+
+    <h2 id="m02-3">2.3 Drop：离开作用域自动清理</h2>
+    <p>
+      值离开作用域时，Rust 自动调用它的 <code class="ic">Drop</code>（析构）——<code class="ic">String</code> 释放堆、文件句柄关闭、锁释放。
+      这就是 Rust 版的 RAII：<strong>你不用写 free，也不会忘</strong>。
+    </p>
+
+    <h2 id="m02-4">02.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>赋值</td><td>拷贝指针</td><td>move（转移所有权）</td></tr>
+          <tr><td>释放</td><td>手工 free</td><td>作用域结束 Drop</td></tr>
+          <tr><td>浅拷贝</td><td>易双重释放</td><td>编译期禁止</td></tr>
+          <tr><td>简单类型</td><td>同</td><td>Copy（按位复制）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.2</b> move 之后原绑定失效</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="所有权只在一个地方">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">let a</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">let b = a</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">用 a → 报错</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">转移所有权，杜绝双重释放。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 2.3</b> Drop 在作用域结束时运行</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="离开作用域自动清理">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">进入作用域</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">使用</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">离开 → Drop</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">资源清理自动发生。</div>
+    </div>
+    <h2 id="m02-5">02.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>move 后继续用原值</td><td>borrow of moved value</td><td>用克隆或改结构</td></tr>
+          <tr><td>循环里 move 出去</td><td>use of moved value</td><td>用引用 <code class="ic">&amp;</code></td></tr>
+          <tr><td>实现 Copy 又实现 Drop</td><td>编译错</td><td>二者不可兼得</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m02-6">02.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m02b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let a = String::from("hi");
+    let b = a;              // move
+    println!("{}", b);
+    // println!("{}", a);   // 取消注释会报错
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m02c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let x = 5;
+    let y = x;              // i32 是 Copy
+    println!("{} {}", x, y);
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把一段 C 里"两个指针指向同一块堆内存导致双重释放"的代码改写成 Rust，观察编译期如何拦住。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>每个值只有一个所有者；交出去（move）后原变量失效。</li>
+        <li>移动让"释放责任"随所有权转移，天然杜绝重复释放/释放后使用。</li>
+        <li><code class="ic">Copy</code> 类型（整数等）赋值是复制；<code class="ic">String</code>/<code class="ic">Vec</code> 默认移动。</li>
+        <li>需要复制堆数据时显式 <code class="ic">.clone()</code>；能用引用就别 clone。</li>
+        <li>离开作用域自动 <code class="ic">Drop</code>（析构），无需手写 free。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：<code class="ic">let s2 = s1;</code>（s1 是 String）之后 s1 还能用。</p>
+          <details><summary></summary><p>不能。<code class="ic">String</code> 非 Copy，这行把 s1 <strong>移动</strong>进了 s2，s1 失效。要保留就 <code class="ic">s1.clone()</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">简答：为什么 Rust 不需要手写 free？</p>
+          <details><summary></summary><p>值离开作用域自动调用 <code class="ic">Drop</code>（析构）；且所有权唯一，不会重复释放。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：函数返回后用 <code class="ic">a.data[0]</code> 报"use of moved value"，怎么修？</p>
+          <details><summary></summary><p>改成把引用传进去（<code class="ic">fn consume(b: &amp;Buf)</code>），这样不夺走所有权，a 仍可用。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">consume(a)</code> 改成 <code class="ic">consume(a.clone())</code>，再取消注释打印 <code class="ic">a.data[0]</code>，体会 clone 的代价与用途。</p>
+          <details><summary></summary><p>clone 复制了一份数据交给函数，a 仍可用——能编过，但多了一次拷贝（对大的缓冲要谨慎）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">Copy</code> 是给"能安全按位复制"的类型打的标记。</p>
+          <details><summary></summary><p>对。整数/浮点等纯值类型是 Copy，赋值即复制；拥有堆资源的类型不能 Copy（否则会双重释放）。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 02 完成？</b> 写一个函数按值接收 <code class="ic">Vec&lt;i32&gt;</code>，另写一个按引用接收；分别调用，观察哪个会让原变量失效。</div>
+      <button class="done-btn" data-done="m02">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>区分 move/Copy/clone，解释移动后旧变量为何不可再用。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 借用</div>
+      <h1 class="ch-title">借用与<span class="acc">引用</span></h1>
+      <p class="ch-lead">
+        总把值"移动"给函数太麻烦。更好的做法是<strong>借用</strong>：把引用传进去，函数用一下、不夺走所有权。
+        规则很简单：同一时刻<strong>要么多个只读、要么一个可写</strong>。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ &amp;/&amp;mut · 借用规则</span><span>⚑ 编译期防别名</span>
+      </div>
+    </div>
+
+    <h2 id="m03-1">3.1 共享借用与可变借用</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m03_borrow.rs — &amp; 与 &amp;mut（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn len(xs: &amp;[i32]) -&gt; usize { xs.len() }      // 共享借用（只读）
+
+fn double_all(xs: &amp;mut [i32]) {               // 可变借用（可写）
+    for v in xs.iter_mut() { *v *= 2; }
+}
+
+fn main() {
+    let mut data = vec![1, 2, 3];
+    double_all(&amp;mut data);                     // 独占可变借用
+    println!("doubled = {:?}, len = {}", data, len(&amp;data));  // 之后才共享借用
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M03）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m03_borrow.rs -o m03 &amp;&amp; ./m03
+<span class="o">doubled = [2, 4, 6], len = 3</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 借用规则（背下来）</div>
+      <ul style="margin-bottom:0">
+        <li>任意时刻：要么<strong>多个 <code class="ic">&amp;T</code></strong>（只读），要么<strong>恰好一个 <code class="ic">&amp;mut T</code></strong>（可写）——<strong>共享 XOR 独占</strong>。</li>
+        <li>借用不能比它借用的数据活得久（生命周期，M07）。</li>
+        <li><code class="ic">&amp;mut</code> 用完（最后一次使用）之后，才能开始新的借用——这就是上面"先可变、后共享"能编过的原因。</li>
+      </ul>
+    </div>
+
+    <h2 id="m03-2">3.2 借用检查器拦住了什么</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">borrow_fail.rs — 反面：同一时刻两个可变借用</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>// 反面：同时存在两个可变借用 —— 编译错误
+fn bad() {
+    let mut v = vec![1, 2, 3];
+    let r1 = &amp;mut v;
+    let r2 = &amp;mut v;      // 错误：cannot borrow `v` as mutable more than once
+    r1.push(4);
+    r2.push(5);
+}</code></pre>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ 这条规则消灭了"数据竞争"</div>
+      <p style="margin-bottom:0">
+        数据竞争的前提是"同时有共享访问和写"。"共享 XOR 独占"让这种局面<strong>根本编译不过</strong>——所以 Rust 敢说"无数据竞争"。
+        在嵌入式里，这也正是"ISR 与主循环同改一个变量"的根本防线（第②册 B03 会接着讲）。
+      </p>
+    </div>
+
+    <h2 id="m03-3">3.3 什么时候用引用、什么时候用值</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:36%">函数需要</th><th>参数写法</th></tr></thead>
+        <tbody>
+          <tr><td>只读地看一眼</td><td><code class="ic">fn f(x: &amp;T)</code></td></tr>
+          <tr><td>修改调用方的值</td><td><code class="ic">fn f(x: &amp;mut T)</code></td></tr>
+          <tr><td>占有它（用完就归函数）</td><td><code class="ic">fn f(x: T)</code>（移动）</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 好习惯</div>
+      <p style="margin-bottom:0">默认先用 <code class="ic">&amp;T</code>（只读借用），需要改才升级到 <code class="ic">&amp;mut T</code>，确实要"交出去"才用值。<strong>能借用就别移动、能移动就别克隆。</strong></p>
+    </div>
+
+    <h2 id="m03-4">03.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>间接访问</td><td>指针</td><td>引用 <code>&amp;</code></td></tr>
+          <tr><td>可写</td><td>任意</td><td><code>&amp;mut</code> 且唯一</td></tr>
+          <tr><td>别名</td><td>可多个裸指针</td><td>共享可多、可变必须唯一</td></tr>
+          <tr><td>悬垂</td><td>运行期出错</td><td>编译期禁止</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.2</b> 共享借用 vs 独占借用</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="多个只读可以，同时只能一个可写">
+          <rect x="20" y="50" width="290" height="46" rx="6" class="sv-grn-s"/>
+          <text x="165" y="78" class="sv-lbl-hi" text-anchor="middle">多个 &</text>
+          <path d="M310 73 L320 73" class="sv-arrow"/>
+          <rect x="330" y="50" width="290" height="46" rx="6" class="sv-red-s"/>
+          <text x="475" y="78" class="sv-lbl-hi" text-anchor="middle">一个 &mut</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">二者不能同时存在。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 3.3</b> 借用的作用域</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="借用活到不再使用为止">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">借用开始</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">使用</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">借用结束</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">NLL 会尽量缩短借用。</div>
+    </div>
+    <h2 id="m03-5">03.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>同时两个 <code class="ic">&amp;mut</code></td><td>cannot borrow as mutable more than once</td><td>缩小作用域</td></tr>
+          <tr><td>借用期间移动</td><td>borrow later used here</td><td>先结束借用</td></tr>
+          <tr><td>返回局部引用</td><td>missing lifetime</td><td>返回值或加生命周期</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m03-6">03.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m03b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let mut v = vec![1, 2, 3];
+    let r = &amp;v;            // 共享借用
+    println!("{:?}", r);
+    v.push(4);               // 借用已结束，可改
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m03c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn sum(xs: &amp;[i32]) -&gt; i32 {
+    let mut s = 0;
+    for x in xs { s += *x; }
+    s
+}
+fn main() { println!("{}", sum(&amp;[1, 2, 3])); }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>写一个函数接受 <code class="ic">&amp;[i32]</code> 求平均，再写一个接受 <code class="ic">&amp;mut Vec</code> 做排序，体会共享与独占借用。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>借用 = 传引用；不夺走所有权。</li>
+        <li>规则：<code class="ic">&amp;T</code> 可多个（只读），<code class="ic">&amp;mut T</code> 同时只能一个（可写）。</li>
+        <li>违反规则是<strong>编译错误</strong>，因此从源头杜绝数据竞争。</li>
+        <li>先可变借用、用完再共享借用，是合法且常见的模式。</li>
+        <li>参数选择：只读 <code class="ic">&amp;T</code> / 修改 <code class="ic">&amp;mut T</code> / 占有 <code class="ic">T</code>。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：同一时刻，要么多个 <code class="ic">&amp;T</code>，要么一个 <code class="ic">______</code>。</p>
+          <details><summary></summary><p><code class="ic">&amp;mut T</code>（可变借用）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：把 <code class="ic">Vec</code> 传给 <code class="ic">fn f(x: &amp;Vec&lt;i32&gt;)</code> 后，原 Vec 就失效了。</p>
+          <details><summary></summary><p>不会。传的是<strong>引用</strong>（借用），所有权没转移，原 Vec 仍可用。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：遍历 <code class="ic">v</code> 的同时想 <code class="ic">v.push(...)</code>，为什么报错？</p>
+          <details><summary></summary><p>遍历持有对 <code class="ic">v</code> 的借用，此时再可变借用 <code class="ic">v</code> 违反"共享 XOR 独占"（且会导致迭代器失效）。应先收集再改，或用索引。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：写 <code class="ic">fn sum(xs: &amp;[i32]) -&gt; i32</code> 与 <code class="ic">fn zero(xs: &amp;mut [i32])</code>，各自调用一次 <code class="ic">data</code>，看编译器是否允许（先后顺序）。</p>
+          <details><summary></summary><p>两种顺序都能编过。关键在于<strong>两次借用的"活跃区间"是否重叠</strong>（Rust 用非词法生命周期 NLL 判断，而非"哪种借用写在前面"）：<code class="ic">sum(&amp;data)</code> 返回的是 <code class="ic">i32</code>（值，不含引用），这次共享借用在调用后就结束了，随后 <code class="ic">zero(&amp;mut data)</code> 不与之重叠 —— 先共享后可变同样合法。只有当共享引用<strong>被继续使用</strong>、与可变借用重叠时才会报错。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：借用检查是运行期检查，会拖慢程序。</p>
+          <details><summary></summary><p>不是。借用检查全在<strong>编译期</strong>完成，运行期零开销。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 03 完成？</b> 把一个"按值接收 Vec"的函数改成"按引用接收"，确认原变量不再失效。</div>
+      <button class="done-btn" data-done="m03">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>给共享/独占借用做成功和 compile_fail 对照，不靠原始指针绕过冲突。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 枚举</div>
+      <h1 class="ch-title">枚举与<span class="acc">模式匹配</span></h1>
+      <p class="ch-lead">
+        Rust 的 <code class="ic">enum</code> 比 C 强大得多：每个"变体"<strong>可以带数据</strong>。
+        配合 <code class="ic">match</code>，能把"这个值是什么情形、里面的数据是什么"一次讲清楚。这也是 <code class="ic">Option</code>/<code class="ic">Result</code> 的基础。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ enum · match · Option/Result</span><span>⚑ 取代空指针</span>
+      </div>
+    </div>
+
+    <h2 id="m04-1">4.1 带数据的枚举 + <code>match</code></h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m04_enums.rs — enum/match/Option（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#[derive(Debug)]
+enum Shape { Circle(f64), Rect(f64, f64) }
+
+impl Shape {
+    fn area(&amp;self) -&gt; f64 {
+        match self {                            // 模式匹配：穷尽所有变体
+            Shape::Circle(r) =&gt; 3.14159 * r * r,
+            Shape::Rect(w, h) =&gt; w * h,
+        }
+    }
+}
+
+fn find_first_even(xs: &amp;[i32]) -&gt; Option&lt;i32&gt; {   // Some / None
+    for &amp;x in xs { if x % 2 == 0 { return Some(x); } }
+    None
+}
+
+fn main() {
+    let shapes = [Shape::Circle(1.0), Shape::Rect(2.0, 3.0)];
+    for s in &amp;shapes { println!("area = {:.2}", s.area()); }
+
+    match find_first_even(&amp;[1, 3, 4, 7]) {
+        Some(v) =&gt; println!("first even = {v}"),
+        None =&gt; println!("no even"),
+    }
+    if let Some(v) = find_first_even(&amp;[1, 3]) { println!("even {v}"); } else { println!("none"); }
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M04）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m04_enums.rs -o m04 &amp;&amp; ./m04
+<span class="o">area = 3.14
+area = 6.00
+first even = 4
+none</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ <code>match</code> 必须"穷尽"</div>
+      <p style="margin-bottom:0">
+        编译器要求你覆盖<strong>所有</strong>变体，少一个就编译错误——这消灭了 C 里"忘了处理某分支"的 bug。<em>若图省事写 <code class="ic">_ =&gt; ...</code> 兜底，就<b>放弃了</b>这个好处：将来给 enum 加变体时，编译器不会再提醒你更新这个 match（自测第 4 题正演示相反的用法）。</em>只想处理一种情形时用 <code class="ic">if let Some(v) = ...</code>。
+      </p>
+    </div>
+
+    <h2 id="m04-2">4.2 <code>Option&lt;T&gt;</code>：用类型表达"可能没有"</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.1</b> <code>Option</code> 取代空指针：要么有值、要么明确"没有"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 130" role="img" aria-label="Option 的两个变体">
+          <rect x="60" y="40" width="200" height="50" rx="8" class="sv-grn-s"/>
+          <text x="160" y="62" class="sv-lbl-hi" text-anchor="middle">Some(T)</text>
+          <text x="160" y="80" class="sv-lbl-dim" text-anchor="middle">有值，可取出来用</text>
+          <rect x="400" y="40" width="200" height="50" rx="8" class="sv-amb-s"/>
+          <text x="500" y="62" class="sv-lbl-hi" text-anchor="middle">None</text>
+          <text x="500" y="80" class="sv-lbl-dim" text-anchor="middle">明确表示"没有值"</text>
+          <text x="60" y="118" class="sv-lbl-dim">C 里用 NULL / 返回 -1 表示"没有"，忘了判断就崩溃；Option 逼你在类型层面处理。</text>
+        </svg>
+      </div>
+      <div class="fig-ft">对 <code>Option</code>，编译器<strong>不允许你"忘了它可能为空"</strong>：要么 <code>match</code>、要么 <code>if let</code>、要么 <code>unwrap</code>（显式承认"我赌它有值"）；失败即 panic，M06 详讲。</div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">类型</th><th>含义</th><th>典型用法</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">Option&lt;T&gt;</code></td><td>有 / 无（Some/None）</td><td>查找、可能缺失的字段</td></tr>
+          <tr><td><code class="ic">Result&lt;T, E&gt;</code></td><td>成功 / 失败（Ok/Err）</td><td>可能出错的操作（M06）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m04-4">04.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>多选一</td><td>枚举 + switch</td><td>enum + match</td></tr>
+          <tr><td>可空</td><td>NULL</td><td><code class="ic">Option&lt;T&gt;</code></td></tr>
+          <tr><td>解构</td><td>手动取字段</td><td>match 绑定</td></tr>
+          <tr><td>穷尽检查</td><td>无</td><td>编译器强制穷尽</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.2</b> enum 的值可以有数据</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="每个变体可携带不同类型">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">Red</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">Rgb(u8,u8,u8)</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-box"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">None</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">比整数枚举表达力更强。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 4.3</b> Option&lt;T&gt; 表达"可能没有"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="Some 有值，None 无值">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">Option<T></text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">Some(v)</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">None</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">用类型消灭空指针。</div>
+    </div>
+    <h2 id="m04-5">04.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>match 没穷尽</td><td>non-exhaustive patterns</td><td>补 <code class="ic">_ =&gt;</code></td></tr>
+          <tr><td><code class="ic">unwrap</code> 了 None</td><td>运行期 panic</td><td>用 <code class="ic">match</code>/<code class="ic">if let</code></td></tr>
+          <tr><td>忘记 derive Debug</td><td>{:?} 编译错</td><td>加 <code class="ic">#[derive(Debug)]</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m04-6">04.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m04b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#[derive(Debug)]
+enum Color { Red, Green, Rgb(u8, u8, u8) }
+
+fn main() {
+    let c = Color::Rgb(10, 20, 30);
+    match c {
+        Color::Red =&gt; println!("red"),
+        Color::Green =&gt; println!("green"),
+        Color::Rgb(r, g, b) =&gt; println!("{},{},{}", r, g, b),
+    }
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m04c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn half(x: i32) -&gt; Option&lt;i32&gt; {
+    if x % 2 == 0 { Some(x / 2) } else { None }
+}
+
+fn main() {
+    match half(10) {
+        Some(v) =&gt; println!("{}", v),
+        None =&gt; println!("odd"),
+    }
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>定义一个 <code class="ic">Shape</code> 枚举（圆/方），用 <code class="ic">match</code> 计算面积；再用 <code class="ic">Option</code> 表达"查找可能失败"。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>Rust 的 <code class="ic">enum</code> 变体<strong>可以带数据</strong>（如 <code class="ic">Circle(f64)</code>）。</li>
+        <li><code class="ic">match</code> 按变体分支并取出数据，且必须穷尽。</li>
+        <li><code class="ic">Option&lt;T&gt;</code> 用 Some/None 表达"可能没有"，取代空指针。</li>
+        <li><code class="ic">if let</code> 是"只关心一种情形"的简写。</li>
+        <li><code class="ic">Result&lt;T,E&gt;</code> 表达可能失败的操作（M06 详讲 <code class="ic">?</code> 与错误传播）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">判断：Rust 的 enum 变体只能像 C 那样是整数常量。</p>
+          <details><summary></summary><p>不对。Rust 的 enum 变体<strong>可以携带任意数据</strong>（元组/结构体形式），这也是 Option/Result 的实现基础。</p></details>
+        </li>
+        <li>
+          <p class="q">填空：函数"可能返回一个值、也可能没有"，返回类型应写成 ______。</p>
+          <details><summary></summary><p><code class="ic">Option&lt;T&gt;</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">match opt { Some(v) =&gt; ... }</code> 漏了 <code class="ic">None</code>，会怎样？</p>
+          <details><summary></summary><p>编译错误：<code class="ic">match</code> 必须穷尽所有变体（除非有 <code class="ic">_ =&gt; ...</code> 兜底）。这正是它比 C 的 switch 安全的地方。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Shape</code> 加一个 <code class="ic">Triangle(a,b,c)</code> 变体（面积用海伦公式），看 <code class="ic">match</code> 是否逼你补上这一分支。</p>
+          <details><summary></summary><p>会。加了变体后，原来的 <code class="ic">match</code> 立即报"未覆盖 Triangle"——编译器帮你找到所有需要更新的地方。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">Option</code> 和 <code class="ic">Result</code> 是同一种东西，只是名字不同。</p>
+          <details><summary></summary><p>不同。<code class="ic">Option</code> 表达"有/无"（无错误信息）；<code class="ic">Result&lt;T,E&gt;</code> 表达"成功/失败"，并<strong>携带错误值 E</strong>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 04 完成？</b> 定义一个 <code class="ic">enum Token { Num(i32), Op(char) }</code>，写 <code class="ic">eval</code> 用 <code class="ic">match</code> 处理两种 token。</div>
+      <button class="done-btn" data-done="m04">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>对所有枚举分支处理并表达 Option/Result；禁止把错误悄悄变成零。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 类型与方法</div>
+      <h1 class="ch-title">结构体、方法与 <span class="acc">trait</span></h1>
+      <p class="ch-lead">
+        <code class="ic">struct</code> 把数据组合起来，<code class="ic">impl</code> 给它加方法，<code class="ic">trait</code> 定义"能力接口"。
+        三者合起来，就是 Rust 的"面向对象"——但它没有继承，用 trait 组合代替。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 70 分钟</span><span>◈ struct · impl · trait · derive</span><span>⚑ 组合优于继承</span>
+      </div>
+    </div>
+
+    <h2 id="m05-1">5.1 结构体 + 方法 + trait</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m05_traits.rs — trait 与泛型约束（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>trait Area { fn area(&amp;self) -&gt; f64; }           // 定义接口
+
+#[derive(Debug)]
+struct Rect { w: f64, h: f64 }
+impl Area for Rect {                             // 实现 trait
+    fn area(&amp;self) -&gt; f64 { self.w * self.h }
+}
+impl Rect {                                      // 普通方法
+    fn new(w: f64, h: f64) -&gt; Self { Rect { w, h } }
+}
+
+fn print_area&lt;T: Area&gt;(x: &amp;T) { println!("area = {:.2}", x.area()); }   // 泛型 + trait 约束
+
+fn main() {
+    let r = Rect::new(3.0, 4.0);
+    println!("{:?}", r);                         // #[derive(Debug)] 支持 {:?}
+    print_area(&amp;r);
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M05）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m05_traits.rs -o m05 &amp;&amp; ./m05
+<span class="o">Rect { w: 3.0, h: 4.0 }
+area = 12.00</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 三个关键字</div>
+      <ul style="margin-bottom:0">
+        <li><code class="ic">struct</code>：定义数据字段。</li>
+        <li><code class="ic">impl</code>：给类型加方法（<code class="ic">impl Type {}</code>）或实现接口（<code class="ic">impl Trait for Type {}</code>）。</li>
+        <li><code class="ic">trait</code>：一组方法签名，作为"具备某能力"的接口；可用作泛型约束 <code class="ic">&lt;T: Area&gt;</code>。</li>
+      </ul>
+    </div>
+
+    <h2 id="m05-2">5.2 <code>#[derive]</code>：自动生成常用实现</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:34%">derive</th><th>给你什么</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">#[derive(Debug)]</code></td><td>能用 <code class="ic">{:?}</code> 打印，便于调试</td></tr>
+          <tr><td><code class="ic">#[derive(Clone)]</code></td><td>能用 <code class="ic">.clone()</code></td></tr>
+          <tr><td><code class="ic">#[derive(Copy, Clone)]</code></td><td>变成"按位复制"的类型（<code class="ic">Copy</code> 是 <code class="ic">Clone</code> 的子 trait，所以两个都要写）</td></tr>
+          <tr><td><code class="ic">#[derive(PartialEq)]</code></td><td>能用 <code class="ic">==</code> 比较</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ Rust 没有"继承"，用 trait 组合</div>
+      <p style="margin-bottom:0">
+        C++ 用继承复用/多态；Rust 用 <strong>trait + 泛型</strong>（静态）或 <strong>trait 对象 <code class="ic">&amp;dyn Trait</code></strong>（动态）。
+        这避免了继承的很多坑（脆弱基类、多重继承）。第②册 B03 会用 trait 表达"什么是显示器/输出引脚"这类硬件能力。
+      </p>
+    </div>
+
+    <h2 id="m05-4">05.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>数据+操作</td><td>结构体+函数</td><td>结构体 + impl</td></tr>
+          <tr><td>接口</td><td>函数指针</td><td>trait</td></tr>
+          <tr><td>自动实现</td><td>手写</td><td><code class="ic">#[derive]</code></td></tr>
+          <tr><td>泛型约束</td><td>宏</td><td>trait bound</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.2</b> struct + impl 打包数据与方法</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="方法定义在 impl 块里">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">struct</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">impl</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">方法</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">不像 C 那样函数散落各处。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 5.3</b> trait 是行为契约</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="谁实现 trait，谁就能提供该行为">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">trait Speak</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">impl for Dog</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">impl for Cat</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">像接口，但可静态分派。</div>
+    </div>
+    <h2 id="m05-5">05.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>忘了 <code class="ic">#[derive(Debug)]</code></td><td>{:?} 报错</td><td>补 derive</td></tr>
+          <tr><td>trait 方法签名不符</td><td>does not match trait</td><td>对齐签名</td></tr>
+          <tr><td><code class="ic">impl</code> 放在别处</td><td>找不到方法</td><td>impl 与被实现类型同 crate</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m05-6">05.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m05b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>#[derive(Debug)]
+struct Point { x: i32, y: i32 }
+
+impl Point {
+    fn sum(&amp;self) -&gt; i32 { self.x + self.y }
+}
+
+fn main() {
+    let p = Point { x: 2, y: 3 };
+    println!("{}", p.sum());
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m05c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>trait Speak { fn say(&amp;self) -&gt; &amp;'static str; }
+struct Dog;
+impl Speak for Dog { fn say(&amp;self) -&gt; &amp;'static str { "woof" } }
+
+fn main() { println!("{}", Dog.say()); }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>给一个 <code class="ic">Sensor</code> 结构体加方法（读取/换算），并为一个 <code class="ic">Readable</code> trait 实现它。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">struct</code> 组合数据，<code class="ic">impl</code> 加方法。</li>
+        <li><code class="ic">trait</code> 定义能力接口；可用作泛型约束 <code class="ic">&lt;T: Trait&gt;</code>。</li>
+        <li><code class="ic">#[derive(Debug/Clone/Copy/PartialEq)]</code> 自动生成常用实现。</li>
+        <li>Rust 没有继承，用 trait 组合实现多态。</li>
+        <li>方法的第一个参数是 <code class="ic">&amp;self</code>（只读）/<code class="ic">&amp;mut self</code>（可写）/<code class="ic">self</code>（取走）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：给 <code class="ic">Rect</code> 实现 <code class="ic">Area</code> 接口，写 <code class="ic">impl ______ for Rect</code>。</p>
+          <details><summary></summary><p><code class="ic">Area</code>（trait 名）：<code class="ic">impl Area for Rect { ... }</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：Rust 有 <code class="ic">class</code> 继承机制。</p>
+          <details><summary></summary><p>没有。Rust 用 <code class="ic">struct</code>/<code class="ic">enum</code> + <code class="ic">trait</code> 组合替代继承，没有"子类继承父类字段"这套。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">println!("{:?}", r)</code> 报"doesn't implement Debug"，怎么办？</p>
+          <details><summary></summary><p>给类型加 <code class="ic">#[derive(Debug)]</code>（或手写 Debug 实现）。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：给 <code class="ic">Rect</code> 加一个 <code class="ic">fn scale(&amp;mut self, k: f64)</code>（把宽高乘 k），并加 <code class="ic">#[derive(Clone, Copy, Debug)]</code>。</p>
+          <details><summary></summary><p>注意 <code class="ic">Copy</code> 要求所有字段都是 Copy（f64 是），所以可行。方法用 <code class="ic">&amp;mut self</code> 才能改自己。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">&lt;T: Area&gt;</code> 里的 <code class="ic">T</code> 在编译期就确定了，调用 <code class="ic">area()</code> 是静态分派。</p>
+          <details><summary></summary><p>对。泛型 + trait 约束是<strong>编译期单态化</strong>（零开销）；要运行期多态得用 <code class="ic">&amp;dyn Area</code>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 05 完成？</b> 定义 <code class="ic">trait Animal { fn sound(&amp;self) -&gt; String; }</code>，实现 <code class="ic">Dog</code>/<code class="ic">Cat</code>，写泛型函数打印它们的叫声。</div>
+      <button class="done-btn" data-done="m05">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>实现一个 trait 的两个后端，调用者不依赖具体实现。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 集合与错误</div>
+      <h1 class="ch-title">集合与<span class="acc">错误处理</span></h1>
+      <p class="ch-lead">
+        处理"一批数据"用 <code class="ic">Vec</code>/<code class="ic">String</code>/<code class="ic">HashMap</code>；
+        处理"可能失败的操作"用 <code class="ic">Result</code> 与 <code class="ic">?</code>。两者是日常代码里出现频率最高的部分。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ Vec/String/HashMap · Result/?</span><span>⚑ 不用异常</span>
+      </div>
+    </div>
+
+    <h2 id="m06-1">6.1 三个常用集合</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m06_collections.rs — Vec/String/HashMap + Result（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>use std::collections::HashMap;
+
+fn parse_int(s: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
+    let n: i32 = s.trim().parse()?;              // ? 传播错误
+    Ok(n)
+}
+
+fn main() {
+    let mut v: Vec&lt;i32&gt; = Vec::new();
+    for i in 1..=4 { v.push(i * i); }
+    println!("vec = {:?}, sum = {}", v, v.iter().sum::&lt;i32&gt;());
+
+    let s = String::from("hello");
+    println!("len = {}, upper = {}", s.len(), s.to_uppercase());
+
+    let mut counts: HashMap&lt;&amp;str, i32&gt; = HashMap::new();
+    for w in ["a", "b", "a", "a"] { *counts.entry(w).or_insert(0) += 1; }
+    println!("a = {}, b = {}", counts["a"], counts["b"]);
+
+    match parse_int("42") {
+        Ok(n) =&gt; println!("parsed = {n}"),
+        Err(e) =&gt; println!("error: {e}"),
+    }
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M06）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m06_collections.rs -o m06 &amp;&amp; ./m06
+<span class="o">vec = [1, 4, 9, 16], sum = 30
+len = 5, upper = HELLO
+a = 3, b = 1
+parsed = 42</span></pre></div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:26%">集合</th><th>用途</th><th>常用操作</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">Vec&lt;T&gt;</code></td><td>动态数组</td><td><code class="ic">push / len / [] / iter</code></td></tr>
+          <tr><td><code class="ic">String</code></td><td>可增长、拥有堆内存的字符串</td><td><code class="ic">push_str / len / to_uppercase</code>；<code class="ic">len()</code> 是<b>字节数</b>（UTF-8），不能按字符下标 <code class="ic">s[0]</code></td></tr>
+          <tr><td><code class="ic">HashMap&lt;K,V&gt;</code></td><td>键值表</td><td><code class="ic">insert / get / entry().or_insert()</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m06-2">6.2 <code>Result</code> 与 <code>?</code>：错误不靠异常</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.1</b> <code>?</code> 的工作方式：Ok 取值继续，Err 直接返回</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="问号运算符传播错误">
+          <rect x="240" y="20" width="180" height="34" rx="6" class="sv-box"/>
+          <text x="330" y="42" class="sv-lbl-hi" text-anchor="middle">let n = s.parse::&lt;i32&gt;()?;</text>
+          <path d="M330 54 L200 92" class="sv-arrow"/>
+          <text x="196" y="90" class="sv-lbl-dim" text-anchor="end">Ok(n) → 取 n 继续</text>
+          <path d="M330 54 L460 92" class="sv-arrow-a"/>
+          <text x="464" y="90" class="sv-lbl-dim">Err(e) → 立刻 return Err(e)</text>
+          <text x="240" y="126" class="sv-lbl-dim">谁调用谁处理——错误沿类型系统"显式"向上传递，无需 try/catch。</text>
+        </svg>
+      </div>
+      <div class="fig-ft">Rust 用 <code>Result</code> + <code>?</code> 取代异常：<strong>错误是返回值的一部分</strong>，不会有"被忽略的异常"。可恢复错误一律这样做；<code>panic!</code> 只留给"不可恢复"。</div>
+    </div>
+    <div class="box warn">
+      <div class="box-t">⚠ <code>unwrap()</code> / <code>expect()</code> 是"我确定不会失败"</div>
+      <p style="margin-bottom:0">
+        <code class="ic">x.unwrap()</code> 在 <code class="ic">Err</code>/<code class="ic">None</code> 时会 <code class="ic">panic</code>（崩溃）。
+        在原型/测试里图方便可用，但<strong>生产代码里要显式处理错误</strong>（match / <code class="ic">?</code> / <code class="ic">unwrap_or</code>）。
+      </p>
+    </div>
+
+    <h2 id="m06-4">06.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>动态数组</td><td>手写/ malloc</td><td><code class="ic">Vec</code></td></tr>
+          <tr><td>字符串</td><td><code class="ic">char[]</code></td><td><code class="ic">String</code></td></tr>
+          <tr><td>键值</td><td>手写哈希</td><td><code class="ic">HashMap</code></td></tr>
+          <tr><td>错误</td><td>返回码</td><td><code class="ic">Result</code> + <code class="ic">?</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.2</b> 常用集合</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="按需求选容器">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">Vec 顺序</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">String 文本</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">HashMap 键值</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">都能安全地动态增长。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 6.3</b> Result 与 ?</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="? 遇到 Err 提前返回错误">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">调用</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">Ok → 继续</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-red-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">Err → 返回</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">错误处理显式、不靠异常。</div>
+    </div>
+    <h2 id="m06-5">06.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>下标越界</td><td>运行期 panic</td><td>用 <code class="ic">get()</code></td></tr>
+          <tr><td><code class="ic">unwrap</code> 了 Err</td><td>panic</td><td>用 <code class="ic">?</code> 或 match</td></tr>
+          <tr><td><code class="ic">?</code> 用在返回非 Result 的函数</td><td>编译错</td><td>函数返回 <code class="ic">Result</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m06-6">06.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m06b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>use std::collections::HashMap;
+
+fn main() {
+    let mut m: HashMap&lt;&amp;str, i32&gt; = HashMap::new();
+    m.insert("a", 1);
+    println!("{}", m["a"]);
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m06c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn parse(s: &amp;str) -&gt; Result&lt;i32, std::num::ParseIntError&gt; {
+    let n: i32 = s.trim().parse()?;
+    Ok(n * 2)
+}
+
+fn main() { println!("{:?}", parse("21")); }</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>用 <code class="ic">Vec</code> 存一组测量值求平均，用 <code class="ic">HashMap</code> 统计频次，用 <code class="ic">Result</code> 处理解析失败。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>常用集合：<code class="ic">Vec&lt;T&gt;</code>、<code class="ic">String</code>、<code class="ic">HashMap&lt;K,V&gt;</code>。</li>
+        <li>可恢复错误用 <code class="ic">Result&lt;T,E&gt;</code>，不用异常。</li>
+        <li><code class="ic">?</code> 是错误传播：Ok 取值、Err 提前返回。</li>
+        <li><code class="ic">unwrap</code>/<code class="ic">expect</code> 失败即 panic，生产代码慎用。</li>
+        <li><code class="ic">entry().or_insert()</code> 是计数/初始化的惯用法。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：把 <code class="ic">Result</code> 里的 <code class="ic">Err</code> 直接往外传，用运算符 ______。</p>
+          <details><summary></summary><p><code class="ic">?</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：Rust 用异常来处理错误。</p>
+          <details><summary></summary><p>不用。Rust 用 <code class="ic">Result</code>/<code class="ic">Option</code> 作为返回值显式表达；<code class="ic">panic!</code> 只用于不可恢复情形。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">let s: i32 = "abc".parse().unwrap();</code> 运行时发生什么？</p>
+          <details><summary></summary><p>解析失败 → <code class="ic">unwrap()</code> 触发 panic → 程序崩溃。应改用 <code class="ic">match</code>/<code class="ic">?</code>/<code class="ic">unwrap_or</code> 处理。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">parse_int</code> 的返回值用于 <code class="ic">main</code>（让 main 返回 <code class="ic">Result</code>），体验 <code class="ic">?</code> 一路向上传。</p>
+          <details><summary></summary><p><code class="ic">fn main() -&gt; Result&lt;(), Box&lt;dyn Error&gt;&gt; { let n = parse_int("42")?; ...; Ok(()) }</code>——错误可一路传到进程出口。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">Vec</code> 的 <code class="ic">[]</code> 会做边界检查，越界必然 panic。</p>
+          <details><summary></summary><p>对。<code class="ic">v[i]</code> 越界会 panic（比 C 安全）。不想 panic 可用 <code class="ic">v.get(i)</code>，返回 <code class="ic">Option</code>。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 06 完成？</b> 写 <code class="ic">fn parse_csv(line: &amp;str) -&gt; Result&lt;Vec&lt;i32&gt;, ParseIntError&gt;</code>：按逗号切分并解析每个数，用 <code class="ic">?</code> 传播错误。</div>
+      <button class="done-btn" data-done="m06">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>处理集合空值与解析错误；用 ? 传播并保留上下文。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 生命周期与迭代</div>
+      <h1 class="ch-title">生命周期与<span class="acc">迭代器</span></h1>
+      <p class="ch-lead">
+        <strong>生命周期</strong>确保引用不会悬垂；<strong>闭包</strong>与<strong>迭代器</strong>则让"处理一串数据"既简洁又高效。
+        这三样是写出地道 Rust 代码的关键。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 60 分钟</span><span>◈ 'a · 闭包 · iterator</span><span>⚑ 零成本抽象</span>
+      </div>
+    </div>
+
+    <h2 id="m07-1">7.1 生命周期标注：让引用不悬垂</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m07_iterators.rs — 生命周期 + 闭包 + 迭代器（可运行）</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn longest&lt;'a&gt;(a: &amp;'a str, b: &amp;'a str) -&gt; &amp;'a str {   // 生命周期标注
+    if a.len() &gt;= b.len() { a } else { b }
+}
+
+fn main() {
+    let nums = vec![1, 2, 3, 4, 5, 6];
+    let evens_sq: Vec&lt;i32&gt; = nums.iter()
+        .filter(|&amp;&amp;x| x % 2 == 0)      // 闭包捕获
+        .map(|&amp;x| x * x)
+        .collect();
+    println!("evens squared = {:?}", evens_sq);
+
+    let add = |a, b| a + b;            // 闭包
+    println!("add(2,3) = {}", add(2, 3));
+
+    println!("longest = {}", longest("hello", "hi"));
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（M07）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> rustc --edition 2021 -O m07_iterators.rs -o m07 &amp;&amp; ./m07
+<span class="o">evens squared = [4, 16, 36]
+add(2,3) = 5
+longest = hello</span></pre></div>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ <code>'a</code> 是什么</div>
+      <p style="margin-bottom:0">
+        <code class="ic">longest&lt;'a&gt;(a: &amp;'a str, b: &amp;'a str) -&gt; &amp;'a str</code> 的意思是："返回值至少不超出 <code class="ic">a</code>、<code class="ic">b</code> 中<b>较短者</b>的存活范围"（编译器取两者生命周期的交集）。
+        编译器据此保证调用方拿到的引用<strong>不会指向已经释放的数据</strong>——正是 C 里悬垂指针的解药。很多情况下生命周期能自动推导，不必手写。
+      </p>
+    </div>
+
+    <h2 id="m07-2">7.2 闭包与迭代器：链式处理数据</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">iter_chain.rs — 一眼看懂流水线</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>// 迭代器 = "取数据"的流水线：惰性、可组合、通常编译成与手写循环相同的代码
+fn main() {
+    let nums = vec![1, 2, 3, 4, 5, 6];
+    let evens_sq: Vec&lt;i32&gt; = nums.iter()
+        .filter(|&amp;&amp;x| x % 2 == 0)   // 只留偶数
+        .map(|&amp;x| x * x)            // 平方
+        .collect();                 // 收集成 Vec
+    println!("evens squared = {:?}", evens_sq);
+}</code></pre>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:28%">迭代器方法</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">.iter()</code></td><td>遍历（借用元素）</td></tr>
+          <tr><td><code class="ic">.filter(pred)</code></td><td>只保留满足条件的元素</td></tr>
+          <tr><td><code class="ic">.map(f)</code></td><td>把每个元素变换成新值</td></tr>
+          <tr><td><code class="ic">.collect()</code></td><td>把结果收集成集合（Vec 等）</td></tr>
+          <tr><td><code class="ic">.sum() / .count()</code></td><td>求和 / 计数</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="box tip">
+      <div class="box-t">✔ 迭代器是"零成本"的</div>
+      <p style="margin-bottom:0">
+        上面的链式写法和手写 <code class="ic">for</code> 循环编译后性能相当（编译期把闭包内联、消除中间数组）。
+        <strong>可读性更好、性能不打折</strong>——这正是 Rust"零成本抽象"的体现。
+      </p>
+    </div>
+
+    <h2 id="m07-4">07.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>回调</td><td>函数指针</td><td>闭包</td></tr>
+          <tr><td>遍历</td><td>循环</td><td>迭代器链</td></tr>
+          <tr><td>借用范围</td><td>靠人</td><td>生命周期标注</td></tr>
+          <tr><td>组合</td><td>手写循环</td><td>map/filter/collect</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.2</b> 生命周期保证引用不悬垂</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="标的借用不能超过被引用数据">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">数据</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">借用</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">不超出范围</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">编译器保证引用有效。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 7.3</b> 迭代器链</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="逐步变换，惰性、可读">
+          <rect x="20" y="50" width="140" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="90" y="78" class="sv-lbl-hi" text-anchor="middle">iter</text>
+          <path d="M160 73 L170 73" class="sv-arrow"/>
+          <rect x="180" y="50" width="140" height="46" rx="6" class="sv-grn-s"/>
+          <text x="250" y="78" class="sv-lbl-hi" text-anchor="middle">map</text>
+          <path d="M320 73 L330 73" class="sv-arrow"/>
+          <rect x="340" y="50" width="140" height="46" rx="6" class="sv-amb-s"/>
+          <text x="410" y="78" class="sv-lbl-hi" text-anchor="middle">filter</text>
+          <path d="M480 73 L490 73" class="sv-arrow"/>
+          <rect x="500" y="50" width="140" height="46" rx="6" class="sv-box"/>
+          <text x="570" y="78" class="sv-lbl-hi" text-anchor="middle">collect</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">链式表达数据处理。</div>
+    </div>
+    <h2 id="m07-5">07.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td>闭包借用了会被移动的值</td><td>borrow/move error</td><td>用 move 闭包</td></tr>
+          <tr><td>返回引用缺生命周期</td><td>missing lifetime specifier</td><td>加 <code class="ic">&lt;'a&gt;</code></td></tr>
+          <tr><td>迭代器用了没消费</td><td>unused 警告</td><td>collect/for 消费</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m07-6">07.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m07b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let v = vec![1, 2, 3, 4, 5];
+    let evens: Vec&lt;i32&gt; = v.iter().filter(|x| *x % 2 == 0).copied().collect();
+    println!("{:?}", evens);
+}</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m07c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn main() {
+    let add = |a: i32, b: i32| a + b;
+    println!("{}", add(2, 3));
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>用迭代器链把一组数过滤出正数、平方、求和；再写一个闭包作为排序比较器。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li>生命周期 <code class="ic">'a</code> 标注"引用能活多久"，保证不悬垂；多数能自动推导。</li>
+        <li>闭包可<strong>捕获环境变量</strong>（示例的 <code class="ic">|a, b| a + b</code> 没捕获，只是演示语法）；常配合迭代器。</li>
+        <li>迭代器可链式：<code class="ic">filter → map → collect</code>。</li>
+        <li>迭代器是零成本抽象，可读性与性能兼得。</li>
+        <li>这些机制在嵌入式里同样适用（第②册 B03 会用它们处理缓冲/数据）。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">简答：生命周期标注解决了什么问题？</p>
+          <details><summary></summary><p>保证引用<strong>不会比它引用的数据活得久</strong>，即杜绝悬垂引用/悬垂指针。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：<code class="ic">v.iter().map(...)</code> 会立刻生成一个新数组。</p>
+          <details><summary></summary><p>不会。迭代器是<strong>惰性</strong>的：直到 <code class="ic">collect()</code>（或消费方法）才真正计算。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：闭包里修改了外部变量，编译器报"cannot borrow as mutable"，为什么？</p>
+          <details><summary></summary><p>闭包捕获方式的规则：需要修改外部变量时，闭包要声明为 <code class="ic">FnMut</code>（并让被捕获变量 <code class="ic">mut</code>、闭包本身 <code class="ic">mut</code>）。这与借用规则一致。</p></details>
+        </li>
+        <li>
+          <p class="q">动手：把 <code class="ic">evens_sq</code> 的计算改成"先 filter 奇数、再 sum"，比较链式与手写循环的可读性。</p>
+          <details><summary></summary><p>链式表达意图更直接；性能相当。日常优先用迭代器链。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：生命周期标注会带来运行期开销。</p>
+          <details><summary></summary><p>不会。它只在编译期用于检查，运行期没有任何影响。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>Module 07 完成？</b> 写一个函数返回切片中最长的字符串（用生命周期标注），再用迭代器求一串数的平方和。</div>
+      <button class="done-btn" data-done="m07">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>说明返回借用来自哪个输入，避免为通过编译滥加 static。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 工程与收口</div>
+      <h1 class="ch-title">模块、Cargo 与测试 + <span class="acc">过渡到 B03</span></h1>
+      <p class="ch-lead">
+        学完语言本体，最后一步是<strong>组织工程</strong>：用 <code class="ic">mod</code> 拆分模块、用 <strong>Cargo</strong> 管理依赖与构建、
+        用 <code class="ic">#[test]</code> 写测试。然后你就可以进入《Rust（嵌入式向）》(B03)。
+      </p>
+      <div class="ch-meta">
+        <span>◷ 约 65 分钟</span><span>◈ mod · cargo · #[test]</span><span>⚑ 过渡到 B03</span>
+      </div>
+    </div>
+
+    <h2 id="m08-1">8.1 模块与可见性</h2>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">modules.rs — mod 与 pub</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>mod math {
+    pub fn square(x: i32) -&gt; i32 { x * x }   // pub：对外可见
+    fn helper() -&gt; i32 { 1 }                 // 私有：模块外不可见
+}
+
+fn main() {
+    println!("square(5) = {}", math::square(5));   // 用 模块::路径 访问
+    // math::helper();                             // 错误：helper 是私有的
+}</code></pre>
+    </div>
+    <div class="box key">
+      <div class="box-t">◆ 模块 = 命名空间 + 可见性</div>
+      <p style="margin-bottom:0">
+        <code class="ic">mod</code> 给代码分组；<code class="ic">pub</code> 决定对外可见性。默认私有——这强制你把"实现细节"藏起来，只暴露必要接口（和 C 的不透明指针、C++ 的 private 是同一个目的）。
+      </p>
+    </div>
+
+    <h2 id="m08-2">8.2 Cargo 工程与测试</h2>
+    <p>真实项目用 Cargo：<code class="ic">cargo new proj</code> 建工程，<code class="ic">cargo run</code> 编译运行，<code class="ic">cargo test</code> 跑测试，<code class="ic">cargo build --release</code> 出发布版。</p>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">Cargo.toml — 工程与依赖</span>
+        <span class="code-lang">TOML</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>[package]
+name = "minirstest"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# 需要第三方 crate 时写在这里，如：
+# libm = "0.2"     # 嵌入式常用数学库</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">src/main.rs — 程序 + 内联测试</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn add(a: i32, b: i32) -&gt; i32 { a + b }
+fn is_even(n: i32) -&gt; bool { n % 2 == 0 }
+
+fn main() {
+    println!("add(2,3) = {}", add(2, 3));
+    println!("is_even(4) = {}", is_even(4));
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    #[test]
+    fn test_add() { assert_eq!(add(2, 3), 5); }
+    #[test]
+    fn test_is_even() { assert!(is_even(4)); assert!(!is_even(5)); }
+}</code></pre>
+    </div>
+    <div class="term">
+      <div class="term-bar"><b>bash</b> — 复跑：<code>bash tools/probes/run-all.sh</code>（另见 tools/probes/m08_cargo/）</div>
+<div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><span class="p">$</span> cargo run -q
+<span class="o">add(2,3) = 5
+is_even(4) = true</span>
+<span class="p">$</span> cargo test
+<span class="o">running 2 tests
+test tests::test_add ... ok
+test tests::test_is_even ... ok
+test result: ok. 2 passed; 0 failed; 0 ignored</span>
+<span class="w"># 测试写在同一个文件里（或 tests/ 目录），cargo test 自动收集运行——语言自带测试框架。</span></pre></div>
+    </div>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th style="width:30%">Cargo 命令</th><th>作用</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">cargo new proj</code></td><td>新建工程（含 Cargo.toml + src/main.rs）</td></tr>
+          <tr><td><code class="ic">cargo run</code></td><td>编译并运行</td></tr>
+          <tr><td><code class="ic">cargo test</code></td><td>运行所有 <code class="ic">#[test]</code></td></tr>
+          <tr><td><code class="ic">cargo build --release</code></td><td>发布版构建（开优化）</td></tr>
+          <tr><td><code class="ic">cargo build --target thumbv7m-none-eabi</code></td><td>交叉编译到 MCU（B03 详讲）</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h2 id="m08-3">8.3 你已经会 Rust 了——下一步</h2>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.1</b> 从"会 Rust"到"把 Rust 用到 MCU"</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 150" role="img" aria-label="B03a 到 B03 的过渡">
+          <rect x="20" y="52" width="230" height="46" rx="6" class="sv-box"/>
+          <text x="135" y="72" class="sv-lbl-hi" text-anchor="middle">B03a（本册）</text>
+          <text x="135" y="89" class="sv-lbl-dim" text-anchor="middle">所有权/借用/enum/trait/集合/迭代器</text>
+          <path d="M250 75 L310 75" class="sv-arrow"/>
+          <rect x="312" y="30" width="328" height="90" rx="8" class="sv-grn-s"/>
+          <text x="330" y="54" class="sv-lbl-hi" style="fill:var(--grn)">B03《Rust（嵌入式向）》</text>
+          <text x="330" y="76" class="sv-lbl-dim">no_std 与 panic、embedded-hal 分层</text>
+          <text x="330" y="96" class="sv-lbl-dim">中断与并发、DMA 与所有权</text>
+          <text x="330" y="114" class="sv-lbl-dim">unsafe/FFI、体积与性能</text>
+        </svg>
+      </div>
+      <div class="fig-ft">本册教"<strong>Rust 怎么写</strong>"；B03 教"<strong>在 MCU 上怎么用</strong>"——所有权如何保证 DMA/中断安全、no_std 与体积、与 C 互操作。两册配对。</div>
+    </div>
+
+    <h2 id="m08-4">08.4 与 C 的对照速查</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>维度</th><th>C 的做法</th><th>Rust 的做法</th></tr></thead>
+        <tbody>
+          <tr><td>拆文件</td><td><code class="ic">#include</code></td><td><code class="ic">mod</code></td></tr>
+          <tr><td>可见性</td><td><code class="ic">static</code></td><td><code class="ic">pub</code></td></tr>
+          <tr><td>构建</td><td>Makefile</td><td>Cargo.toml</td></tr>
+          <tr><td>测试</td><td>手写断言</td><td><code class="ic">#[test]</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.2</b> crate / mod 层级</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="crate 是包，mod 是可嵌套模块">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">crate</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">mod a</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">mod b</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">可见性用 pub 控制。</div>
+    </div>
+    <div class="fig">
+      <div class="fig-hd"><b>FIG 8.3</b> Cargo 工作流</div>
+      <div class="fig-bd">
+        <svg viewBox="0 0 660 140" role="img" aria-label="build / run / test 一条命令">
+          <rect x="20" y="50" width="190" height="46" rx="6" class="sv-grn-s"/>
+          <text x="115" y="78" class="sv-lbl-hi" text-anchor="middle">cargo build</text>
+          <path d="M210 73 L220 73" class="sv-arrow"/>
+          <rect x="230" y="50" width="190" height="46" rx="6" class="sv-cyn-s"/>
+          <text x="325" y="78" class="sv-lbl-hi" text-anchor="middle">cargo run</text>
+          <path d="M420 73 L430 73" class="sv-arrow"/>
+          <rect x="440" y="50" width="190" height="46" rx="6" class="sv-amb-s"/>
+          <text x="535" y="78" class="sv-lbl-hi" text-anchor="middle">cargo test</text>
+
+        </svg>
+      </div>
+      <div class="fig-ft">无需手写构建脚本。</div>
+    </div>
+    <h2 id="m08-5">08.5 常见错误与修复</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>错误</th><th>Rust 报什么</th><th>修复</th></tr></thead>
+        <tbody>
+          <tr><td><code class="ic">mod</code> 路径写错</td><td>unresolved module</td><td>对齐文件/路径</td></tr>
+          <tr><td>忘记 <code class="ic">pub</code></td><td>function is private</td><td>加 <code class="ic">pub</code></td></tr>
+          <tr><td>测试没加 <code class="ic">#[test]</code></td><td>不被执行</td><td>补注解</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h2 id="m08-6">08.6 上手检查清单</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>检查项</th><th>确认</th></tr></thead>
+        <tbody>
+          <tr><td>能编译</td><td><code class="ic">cargo build</code></td></tr>
+          <tr><td>无警告</td><td>处理每条 warning</td></tr>
+          <tr><td>能跑</td><td><code class="ic">cargo run</code></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m08b.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>mod math {
+    pub fn add(a: i32, b: i32) -&gt; i32 { a + b }
+}
+
+fn main() { println!("{}", math::add(2, 3)); }</code></pre>
+    </div>
+    <div class="codeblk">
+      <div class="code-bar">
+        <span class="code-dots"><i></i><i></i><i></i></span>
+        <span class="code-file">m08c.rs</span>
+        <span class="code-lang">Rust</span>
+        <button class="copy-btn">复制</button>
+      </div>
+<pre><code>fn mul(a: i32, b: i32) -&gt; i32 { a * b }
+
+fn main() {
+    assert_eq!(mul(3, 4), 12);
+    println!("ok");
+}</code></pre>
+    </div>
+    <div class="box">
+      <div class="box-t">◆ 迁移练习</div>
+      <div>把你的单文件 Rust 程序拆成 <code class="ic">mod</code>，用 Cargo 建工程，并写一个 <code class="ic">#[test]</code> 跑通。</div>
+    </div>
+    <div class="takeaway">
+      <div class="takeaway-t">◆ 本章要点</div>
+      <ul>
+        <li><code class="ic">mod</code> 拆分模块、<code class="ic">pub</code> 控制可见性（默认私有）。</li>
+        <li>Cargo 管工程：<code class="ic">cargo new/run/test/build</code>。</li>
+        <li>测试用 <code class="ic">#[test]</code> + <code class="ic">assert_eq!</code>，<code class="ic">cargo test</code> 运行——语言自带测试框架。</li>
+        <li><code class="ic">cargo build --target thumbv7m-none-eabi</code> 就是交叉编译到 MCU 的入口。</li>
+        <li>学完本册，进入 B03 学嵌入式落地。</li>
+      </ul>
+    </div>
+
+    <div class="quiz">
+      <div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div>
+      <ol>
+        <li>
+          <p class="q">填空：运行测试命令是 <code class="ic">cargo ______</code>，交叉编译到 MCU 用 <code class="ic">cargo build --target ______</code>。</p>
+          <details><summary></summary><p><code class="ic">cargo test</code>；<code class="ic">cargo build --target thumbv7m-none-eabi</code>（或 thumbv6m）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：mod 里的项默认对外可见。</p>
+          <details><summary></summary><p>不对，默认<strong>私有</strong>；要对模块外可见必须加 <code class="ic">pub</code>。</p></details>
+        </li>
+        <li>
+          <p class="q">诊断：<code class="ic">#[test]</code> 函数报"no test harness"或不被运行，可能是什么原因？</p>
+          <details><summary></summary><p>最根本的原因通常是<strong>没用 <code class="ic">cargo test</code></strong>：测试框架由 Cargo 提供，<code class="ic">rustc</code> 只编译、不会运行 <code class="ic">#[test]</code>。<em>补充：<code class="ic">#[test]</code> 函数并不强制要放进某个模块，<code class="ic">cargo test</code> 会自动发现；惯例是放进 <code class="ic">#[cfg(test)] mod tests</code>，这样发布构建里不含测试代码。</em></p></details>
+        </li>
+        <li>
+          <p class="q">动手：给你的工程写一个 <code class="ic">#[test]</code>，分别用 <code class="ic">cargo test</code> 与 <code class="ic">rustc</code> 试试，体会"测试需要 cargo"。</p>
+          <details><summary></summary><p><code class="ic">cargo test</code> 会运行测试；直接用 <code class="ic">rustc</code> 编单文件不会跑测试（那只是编译）。</p></details>
+        </li>
+        <li>
+          <p class="q">判断：学完本册可以直接写出 MCU 上的 Rust 固件并跑起来。</p>
+          <details><summary></summary><p>语言层面可以，但还需 B03 的知识：<code class="ic">no_std</code>、<code class="ic">panic_handler</code>、链接脚本/memory.x、cortex-m-rt、中断与 DMA —— 请继续读 B03。</p></details>
+        </li>
+      </ol>
+      <p class="done-note">答不上来的，翻回对应小节再看一遍——比直接背结论有效得多。</p>
+    </div>
+
+    <div class="ch-done">
+      <div class="ch-done-txt"><b>B03a 完成？</b> 恭喜——你已经掌握 Rust 语言本体。下一步请打开《Rust（嵌入式向）》(B03)，学"在 MCU 上的所有权、no_std 与并发"。</div>
+      <button class="done-btn" data-done="m08">标记已阅读</button>
+    </div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>拆模块、限定公开 API、运行 cargo test 与文档测试。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09"><div class="ch-head"><div class="ch-badge">Module 09 · 实现与验收</div><h1 class="ch-title">泛型、trait 与 API 设计深化</h1><p class="ch-lead">设计可替换后端的 trait 接口，并选择静态或动态分派。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m09-mechanism">机制与契约</h2><p>Source 通过关联类型 Error 表达后端错误，acquire&lt;S:Source&gt; 使用泛型静态分派，调用者仍能获得具体错误类型。dyn Source&lt;Error=SampleError&gt; 使用运行时分派，需满足 dyn 兼容规则并固定关联类型。泛型可能增加单态化代码，动态分派增加间接调用；是否值得取决于后端数量、镜像体积和实际调用频率。先为接口定义输入输出和失败语义，再决定分派方式。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>pub trait Source {
+    type Error;
+    fn next(&amp;mut self) -&gt; Result&lt;f64, Self::Error&gt;;
+}</code></pre></div>
+<h2 id="m09-boundary">边界与误用</h2><p>trait 不是只写函数名；&amp;self/&amp;mut self 表达共享与独占约束。带泛型方法的 trait 不一定可作为 dyn 使用，接口设计时应核对 dyn 兼容条件。</p>
+<h2 id="m09-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cargo test --manifest-path labs/course-core/Cargo.toml --offline
+cargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features</pre></div><p>完整源码：<a href="../resources/B03a/labs/course-core/Cargo.toml">labs/course-core/Cargo.toml</a> · <a href="../resources/B03a/labs/course-core/src/lib.rs">labs/course-core/src/lib.rs</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>为 Source 增加另一个返回固定值的后端；运行泛型调用与 dyn 调用；让后端读完后返回 End。</p><p><strong>验收：</strong>两类分派都能使用；错误没有被 unwrap 隐藏；解释独占访问和关联错误类型；能够选择适合目标的分派。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为何 dyn Source 必须指定这里的 Error？</p><details><summary>查看推理</summary><p>调用者需要知道 next 的返回类型与布局。dyn 对象隐藏了实现类型，仍须固定关联类型才能确定这个返回契约。</p></details></div><p class="lesson-ref">核对来源：<a href="https://doc.rust-lang.org/book/">Rust 官方 Book · 泛型、所有权、错误与并发</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m09">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>比较泛型静态分发与 dyn trait；说明所有权和对象安全等接口限制。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10"><div class="ch-head"><div class="ch-badge">Module 10 · 实现与验收</div><h1 class="ch-title">集合、借用与错误链深化</h1><p class="ch-lead">处理集合引用、UTF-8 切片和可追溯的错误。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m10-mechanism">机制与契约</h2><p>String 的长度是字节数，任意字节下标不一定处在 UTF-8 字符边界。切片要通过 get 等受检查操作处理非法范围。Vec 增长可能迁移存储，Rust 阻止在活跃引用存在时进行冲突修改；编译器通过不是业务格式正确的证明。parse 将解析错误与非有限数分开，错误枚举允许上层决定记录、重试还是拒绝，而不是在深层 panic。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>let v = text.trim().parse::&lt;f64&gt;().map_err(|_|SampleError::Parse)?;
+if !v.is_finite() { return Err(SampleError::NonFinite); }</code></pre></div>
+<h2 id="m10-boundary">边界与误用</h2><p>用 unwrap 清空错误路径会使坏输入终止程序；NaN 可以成功被解析，仍需业务范围检查。保留字段、行号或设备 ID 等上下文，不只返回“失败”。</p>
+<h2 id="m10-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cargo test --manifest-path labs/course-core/Cargo.toml --offline
+cargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features</pre></div><p>完整源码：<a href="../resources/B03a/labs/course-core/Cargo.toml">labs/course-core/Cargo.toml</a> · <a href="../resources/B03a/labs/course-core/src/lib.rs">labs/course-core/src/lib.rs</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行 parse 测试与 compile_fail 文档测试；增加中文字符串的合法/非法边界切片和带行号的解析错误。</p><p><strong>验收：</strong>坏文本与 NaN 区分；没有失效引用；非法 UTF-8 边界不会 panic；能追踪失败输入位置。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么浮点解析成功后还要 is_finite？</p><details><summary>查看推理</summary><p>词法解析只识别表示形式，NaN/无穷仍属于可解析值。传感器或控制契约通常需要有限数及物理范围，必须再验证。</p></details></div><p class="lesson-ref">核对来源：<a href="https://doc.rust-lang.org/book/">Rust 官方 Book · 泛型、所有权、错误与并发</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m10">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>在借用、迭代和修改集合之间安排生命期；保留底层错误来源。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m11"><div class="ch-head"><div class="ch-badge">Module 11 · 实现与验收</div><h1 class="ch-title">并发与异步语言基础</h1><p class="ch-lead">区分并发、共享状态和异步取消，维护资源所有权。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div>
+<h2 id="m11-mechanism">机制与契约</h2><p>线程可以同时执行任务；Send/Sync 表达类型跨线程转移和共享的条件。示例用有界 sync_channel 传递拥有的数据，以队列容量形成背压；Arc&lt;Mutex&lt;T&gt;&gt; 共享受保护的状态，锁应只覆盖短操作。Future 是可被 poll 推进的状态机，async 函数被调用并不表示已经运行。取消常表现为 Future 被丢弃，但 Drop 不能自动证明真实 IO/DMA 已停止。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>let (tx, rx) = std::sync::mpsc::sync_channel(2);
+// 容量满时 send 阻塞；消费端关闭时发送返回错误。</code></pre></div>
+<h2 id="m11-boundary">边界与误用</h2><p>Rc 不能直接跨线程；Arc 也不自动让任意 T 线程安全。不要持锁等待另一个线程必须获得同一锁才能完成的事件。主机线程模型不能直接套到中断上下文。</p>
+<h2 id="m11-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cargo test --manifest-path labs/course-core/Cargo.toml --offline
+cargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features</pre></div><p>完整源码：<a href="../resources/B03a/labs/course-core/Cargo.toml">labs/course-core/Cargo.toml</a> · <a href="../resources/B03a/labs/course-core/src/lib.rs">labs/course-core/src/lib.rs</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>运行消息与互斥测试，以及 Rc 的 compile_fail 测试；主动关闭接收端，改成处理发送错误。画出阻塞发生在哪一步。</p><p><strong>验收：</strong>消息总和=10、共享计数=400；关闭通道有明确处理；说明异步取消时谁关闭设备和归还缓冲。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">使用 async 是否保证不会阻塞？</p><details><summary>查看推理</summary><p>async 只允许分段让出执行；在 poll 内执行阻塞 IO、长计算或持锁等待仍会阻塞执行器。还需选择合适运行时与 IO 接口。</p></details></div><p class="lesson-ref">核对来源：<a href="https://doc.rust-lang.org/book/">Rust 官方 Book · 泛型、所有权、错误与并发</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m11">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m11"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>用编译失败说明 Rc 的线程边界；取消异步任务时资源释放有定义。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m12"><div class="ch-head"><div class="ch-badge">Module 12 · 实现与验收</div><h1 class="ch-title">Cargo 工程、测试与质量</h1><p class="ch-lead">交付可离线测试、可检查 feature 组合的 Cargo 工程。</p><div class="ch-meta"><span>前置：本册前面的类型、函数与资源管理</span><span>阅读约 15–25 分钟；实践约 30–60 分钟（规划估计）</span></div></div><!-- COURSE_DIAGRAM_START --><figure class="fig"><div class="fig-hd">核心与主机能力分开检查</div><div class="fig-bd"><svg viewBox="0 0 800 190" role="img" aria-label="核心与主机能力分开检查"><title>核心与主机能力分开检查</title><defs><marker id="mastery-arrow-rust-features" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto"><path d="M0 0L10 5L0 10" fill="currentColor"/></marker></defs><rect x="10" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="132.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">核心API</text><text x="132.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">Source + Result</text><text x="132.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">解析与有限数检查</text><text x="132.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">无第三方依赖</text><path d="M257 92H272" stroke="currentColor" marker-end="url(#mastery-arrow-rust-features)"/><rect x="275" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="397.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">feature=host</text><text x="397.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">主机线程与有界通道</text><text x="397.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">单元+compile_fail测试</text><text x="397.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">cargo test --offline</text><path d="M522 92H537" stroke="currentColor" marker-end="url(#mastery-arrow-rust-features)"/><rect x="540" y="20" width="245" height="145" rx="8" fill="none" stroke="currentColor" opacity=".6"/><text x="662.5" y="49" text-anchor="middle" fill="currentColor" font-size="14">关闭默认feature</text><text x="662.5" y="79" text-anchor="middle" fill="currentColor" font-size="14">核心按no_std检查</text><text x="662.5" y="109" text-anchor="middle" fill="currentColor" font-size="14">并非完整固件</text><text x="662.5" y="139" text-anchor="middle" fill="currentColor" font-size="14">目标入口/HAL另接</text></svg></div><figcaption>同一个包分别验证主机测试和 no_std 核心。无 std 不代表已链接、已烧录或满足实时约束。</figcaption></figure><!-- COURSE_DIAGRAM_END -->
+<h2 id="m12-mechanism">机制与契约</h2><p>包清单声明 edition、依赖和 features；本例没有第三方依赖，host feature 控制线程实验，关闭它后核心按 no_std 编译。核心接口不依赖文件、网络或硬件，便于单元测试。单元测试验证模块内部，集成测试验证公开 API，文档测试同时验证例子和预期编译失败。团队项目应记录工具链、依赖锁与目标，不随意让远端最新依赖决定构建。</p><div class="codeblk"><div class="code-bar">关键片段 · 完整可运行项目见下方源码</div><pre><code>cargo test --manifest-path labs/course-core/Cargo.toml --offline
+cargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features</code></pre></div>
+<h2 id="m12-boundary">边界与误用</h2><p>no_std 检查只说明核心没有依赖 std，并不等于完整固件。目标构建还需 target、链接脚本、启动入口、panic 策略和 HAL。不要把某一 feature 组合通过推广到所有组合。</p>
+<h2 id="m12-run">运行完整示例</h2><p>在本册目录运行。Windows 的可执行文件可用 <code>.\名称.exe</code>；下方 <code>./名称</code> 适用于 POSIX shell。命令只构建主机实验；目标板项目另行记录。</p><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre>cargo test --manifest-path labs/course-core/Cargo.toml --offline
+cargo check --manifest-path labs/course-core/Cargo.toml --offline --no-default-features</pre></div><p>完整源码：<a href="../resources/B03a/labs/course-core/Cargo.toml">labs/course-core/Cargo.toml</a> · <a href="../resources/B03a/labs/course-core/src/lib.rs">labs/course-core/src/lib.rs</a></p>
+<div class="box tip"><div class="box-t">动手与迁移</div><p>清洁运行命令；增加集成测试；故意开启/关闭 host 比较可用接口；记录 rustc/cargo 版本。</p><p><strong>验收：</strong>单元与 compile_fail 测试通过；无第三方下载依赖；no-default-features 可检查；明确目标固件尚需哪些组件。</p></div>
+<div class="quiz"><div class="quiz-hd">先预测，再运行</div><p class="q">为什么要把算法核心与硬件后端拆开？</p><details><summary>查看推理</summary><p>核心可以在主机用大量边界输入验证；后端单独处理时钟、中断和设备生命。这样能区分算法错误、接口错误和平台错误，但仍须做整体验收。</p></details></div><p class="lesson-ref">核对来源：<a href="https://doc.rust-lang.org/book/">Rust 官方 Book · 泛型、所有权、错误与并发</a></p>
+<div class="ch-done"><button class="done-btn" data-done="m12">标记已阅读</button></div><!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m12"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>锁定依赖并验证 feature 组合，运行格式/静态检查及公开接口测试。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head">
+      <div class="ch-badge">Reference · 对照表</div>
+      <h1 class="ch-title">术语与符号<span class="acc">对照表</span></h1>
+      <p class="ch-lead">本页是 B03a 的<strong>单一事实源</strong>：<code class="ic">verify/glossary.json</code> 与下表逐条比对，漂移即构建失败。Rust 概念多，这张表可当"术语索引"。</p>
+    </div>
+    <h2 id="glossary-terms">术语</h2>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:16%">术语</th><th>含义</th></tr></thead><tbody>
+          <tr><td data-term="所有权"><strong>所有权</strong></td><td>每个值有且只有一个所有者；所有者离开作用域即自动释放（drop）。这是 Rust 内存安全的核心。</td></tr>
+          <tr><td data-term="移动"><strong>移动</strong></td><td>move：把值的所有权交给别人，原变量不再可用（除非类型实现 Copy）。</td></tr>
+          <tr><td data-term="Copy"><strong>Copy</strong></td><td>标记类型可「按位复制」（如整数、bool）；这类类型赋值不会移动、原变量仍可用。</td></tr>
+          <tr><td data-term="借用"><strong>借用</strong></td><td>不转移所有权的引用：&amp;T 只读、&amp;mut T 可写；同一时刻「多个只读」或「一个可写」，二选一。</td></tr>
+          <tr><td data-term="生命周期"><strong>生命周期</strong></td><td>引用必须不晚于它引用的数据失效；用 'a 标注，编译器据此拒绝悬垂引用。</td></tr>
+          <tr><td data-term="枚举"><strong>枚举</strong></td><td>enum：一个类型取若干「变体」之一，每个变体可带数据；比 C 的枚举强大得多。</td></tr>
+          <tr><td data-term="模式匹配"><strong>模式匹配</strong></td><td>match / if let：按值的形状分支并取出内部数据；必须穷尽所有情况。</td></tr>
+          <tr><td data-term="Option"><strong>Option</strong></td><td>Option&lt;T&gt;：要么 Some(T)（有值）、要么 None（无值）；用类型表达「可能为空」，取代空指针。</td></tr>
+          <tr><td data-term="Result"><strong>Result</strong></td><td>Result&lt;T,E&gt;：要么 Ok(T)、要么 Err(E)；Rust 用来替代异常/错误码的可恢复错误处理。</td></tr>
+          <tr><td data-term="trait"><strong>trait</strong></td><td>一组方法签名（接口）；类型 impl 某 trait 即「具备该能力」，可用于泛型约束。</td></tr>
+          <tr><td data-term="结构体"><strong>结构体</strong></td><td>struct：把多个字段组合成自定义类型，配合 impl 定义方法。</td></tr>
+          <tr><td data-term="泛型"><strong>泛型</strong></td><td>用类型参数写一套代码，适配多种类型；编译期为每种具体类型生成一份（单态化）。</td></tr>
+          <tr><td data-term="迭代器"><strong>迭代器</strong></td><td>Iterator：一系列值的惰性序列，用 map/filter/collect 等链式处理。</td></tr>
+          <tr><td data-term="闭包"><strong>闭包</strong></td><td>|args| expr：能捕获环境变量的匿名函数，常配合迭代器使用。</td></tr>
+          <tr><td data-term="crate"><strong>crate</strong></td><td>编译单元/包；Cargo 管理依赖与构建，crate 是最小编译单位。</td></tr>
+          <tr><td data-term="模块"><strong>模块</strong></td><td>mod：给代码分组与命名空间；用 pub 控制对外可见性。</td></tr>
+    </tbody></table></div>
+    <h2 id="glossary-symbols">符号 / 构件</h2>
+    <div class="tbl-wrap"><table><thead><tr><th style="width:22%">符号 / 构件</th><th style="width:16%">类别</th><th>说明</th></tr></thead><tbody>
+          <tr><td data-sym="fn main"><code class="ic">fn main</code></td><td>入口函数</td><td>可执行程序的入口（fn 定义函数）</td></tr>
+          <tr><td data-sym="println!"><code class="ic">println!</code></td><td>宏</td><td>格式化打印到标准输出（带 ! 表示宏，可带 {} 占位符）</td></tr>
+          <tr><td data-sym="let"><code class="ic">let</code></td><td>变量绑定</td><td>let 定义不可变绑定；let mut 定义可变绑定</td></tr>
+          <tr><td data-sym="match"><code class="ic">match</code></td><td>表达式</td><td>模式匹配分支，必须穷尽所有可能</td></tr>
+          <tr><td data-sym="Some / None"><code class="ic">Some / None</code></td><td>枚举变体</td><td>Option&lt;T&gt; 的两个变体：有值 / 无值</td></tr>
+          <tr><td data-sym="Ok"><code class="ic">Ok</code></td><td>枚举变体</td><td>Result&lt;T,E&gt; 的两个变体：成功 / 失败</td></tr>
+          <tr><td data-sym="?"><code class="ic">?</code></td><td>运算符</td><td>错误传播：Ok 就取值继续，Err 就提前返回</td></tr>
+          <tr><td data-sym="impl"><code class="ic">impl</code></td><td>关键字</td><td>为类型实现方法或 trait（impl Type {} / impl Trait for Type {}）</td></tr>
+          <tr><td data-sym="trait"><code class="ic">trait</code></td><td>关键字</td><td>定义一组方法签名作为接口</td></tr>
+          <tr><td data-sym="#[derive(Debug)]"><code class="ic">#[derive(Debug)]</code></td><td>属性/宏</td><td>自动为结构体/枚举生成 Debug 等实现（可 {:?} 打印）</td></tr>
+          <tr><td data-sym="Vec"><code class="ic">Vec</code></td><td>标准库集合</td><td>可增长的动态数组；push/size/下标访问</td></tr>
+          <tr><td data-sym="HashMap"><code class="ic">HashMap</code></td><td>标准库集合</td><td>键值哈希表；insert/get/entry</td></tr>
+          <tr><td data-sym="cargo run"><code class="ic">cargo run</code></td><td>工具命令</td><td>编译并运行当前 crate</td></tr>
+          <tr><td data-sym="#[test]"><code class="ic">#[test]</code></td><td>属性/宏</td><td>标记一个测试函数，cargo test 会运行它</td></tr>
+    </tbody></table></div>
+    <p class="done-note">维护提示：正文里新增的术语/符号若要进对照表，先登记到 <code class="ic">verify/glossary.json</code>，再补本表——两处同步后构建才会通过。</p>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "Rust 学习路径."}, {"id": "m01", "num": "01", "title": "从 C 到 Rust：第一印象"}, {"id": "m02", "num": "02", "title": "所有权与移动"}, {"id": "m03", "num": "03", "title": "借用与引用"}, {"id": "m04", "num": "04", "title": "枚举与模式匹配"}, {"id": "m05", "num": "05", "title": "结构体、方法与 trait"}, {"id": "m06", "num": "06", "title": "集合与错误处理"}, {"id": "m07", "num": "07", "title": "生命周期与迭代器"}, {"id": "m08", "num": "08", "title": "模块、Cargo 与测试 + 过渡到 B03"}, {"id": "m09", "num": "09", "title": "泛型、trait 与 API 设计深化"}, {"id": "m10", "num": "10", "title": "集合、借用与错误链深化"}, {"id": "m11", "num": "11", "title": "并发与异步语言基础"}, {"id": "m12", "num": "12", "title": "Cargo 工程、测试与质量"}, {"id": "glossary", "num": "", "title": "术语与符号对照表"}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

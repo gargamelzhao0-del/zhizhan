@@ -1,0 +1,91 @@
+{
+  "completedAt": "2026-10-13T06:27:20.324807+00:00",
+  "version": "1.15.0",
+  "androidVersionCode": 21,
+  "contentVersion": "2026.10.13.2",
+  "source": "C:\\Users\\Administrator\\Nuwax\\computer-project-workspace\\1785505821\\1695388\\embed-c-course",
+  "mobileReader": "C:\\Users\\Administrator\\Documents\\work\\手机端书库",
+  "destination": "C:\\Users\\Administrator\\Documents\\work\\TechVault",
+  "audience": "零基础到能独立完成嵌入式项目",
+  "content": {
+    "books": 27,
+    "modules": 317,
+    "readingSections": 407,
+    "bookGuides": 27,
+    "libraryGuides": 3,
+    "referenceProjects": 6,
+    "totalArticlesIncludingPersonalReferences": 475,
+    "attachments": 226,
+    "experimentArchives": 28,
+    "figures": 617,
+    "tables": 1366,
+    "mergedTables": 6,
+    "codeBlocks": 1702,
+    "disclosures": 1207
+  },
+  "migration": {
+    "nativeMarkdown": true,
+    "automaticFirstOpenInstallation": true,
+    "newNamespace": "course-",
+    "retiredTutorialsRepublished": false,
+    "personalArticlesNotesProgressPreserved": true,
+    "selfAssessmentSeparateFromReading": true,
+    "selfAssessmentIncludedInBackup": true,
+    "mobileLocalStorageProgressImported": false
+  },
+  "verification": {
+    "unitTests": {
+      "passed": 89,
+      "files": 12,
+      "log": "course-migration-evidence/course-tests.log"
+    },
+    "browserTests": {
+      "passedDistinctCases": 20,
+      "platforms": [
+        "desktop",
+        "mobile"
+      ],
+      "firstRun": "18 passed; route test in both viewports had an incorrect button locator",
+      "fixes": [
+        "Corrected test to use link role",
+        "Optimistic checkbox feedback reconciles with committed database records; verified reload and multi-window changes"
+      ],
+      "finalRecheck": "2 route/assessment/note cases passed",
+      "logs": [
+        "course-migration-evidence/course-e2e.log",
+        "course-migration-evidence/course-e2e-recheck.log"
+      ]
+    },
+    "textbookIntegrityIssues": 0,
+    "contentReferenceIssues": 0,
+    "zipIntegrityChecked": 28,
+    "allBundledAssetsSha256Verified": 226,
+    "productionDesktopSmoke": "course-migration-evidence/production-smoke.json",
+    "androidSignatureVerified": true,
+    "webBuildPassed": true,
+    "apkWebFilesMatchDist": true,
+    "desktopFilesMatchDist": true
+  },
+  "artifacts": {
+    "apk": "C:\\Users\\Administrator\\Documents\\work\\TechVault\\release\\zhizhan-1.15.0-android.apk",
+    "apkBytes": 8593549,
+    "sha256": "bf104a74fbd87ec9ea54ba736285907d3fc4d524ba9fff539e198c816a1b5d44",
+    "signerSha256": "726ad22d5bf14cf9f282cdee34f9a545fa18cf3759117853ab283f682979256d",
+    "desktopLauncher": "C:\\Users\\Administrator\\Documents\\work\\TechVault\\release\\zhizhan-windows\\启动知栈.vbs",
+    "courseUrl": "http://127.0.0.1:8462/#courses",
+    "remotePublished": true,
+    "publicHttpsVerified": true,
+    "publicationReport": "docs/release-1.15.0-publication.json"
+  },
+  "backup": "C:\\Users\\Administrator\\Documents\\work\\书库修订备份\\2026-10-13-quality\\before-course-integration.zip",
+  "boundaries": [
+    "Migration integrity does not certify all technical claims or target-board execution.",
+    "No new SDK builds, target hardware acceptance, or real Android installation claimed in this migration.",
+    "Historical E2E fixtures referencing retired tutorials are outside this targeted regression run."
+  ],
+  "supersededBy": {
+    "version": "1.15.1",
+    "report": "docs/course-completeness-repair.json",
+    "note": "Original migration checks verified generated counts and links; the subsequent independent source comparison found omitted introductions, references, one diagram and seven experiment files, now restored."
+  }
+}

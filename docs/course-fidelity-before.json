@@ -1,0 +1,4831 @@
+{
+  "checkedAt": "2026-10-13T07:00:56.275Z",
+  "sourceRoot": "C:/Users/Administrator/Nuwax/computer-project-workspace/1785505821/1695388/embed-c-course",
+  "contentVersion": "2026.10.13.2",
+  "scope": "All source main content except original-site UI/footer; self-assessment controls and thermal simulator have native equivalents. Code is compared verbatim, experiment files byte for byte. This verifies migration, not technical correctness or target-board execution.",
+  "totals": {
+    "articles": 434,
+    "textFragments": 60825,
+    "codeBlocks": 1693,
+    "figures": 618,
+    "experimentFiles": 706
+  },
+  "issues": 909,
+  "books": [
+    {
+      "id": "B00",
+      "articles": 15,
+      "textFragments": 1482,
+      "codeBlocks": 47,
+      "figures": 19,
+      "experimentFiles": 32,
+      "issues": [
+        {
+          "id": "course-b00-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m01",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m02",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m03",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m04",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m05",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m06",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m07",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m08",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m08",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m08",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-m09",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b00-m09",
+          "kind": "text",
+          "source": "C11 委员会草案 N1570"
+        },
+        {
+          "id": "course-b00-m09",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–12 · ⓪ 基础 · 零基础入口"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "从零到能读第①册"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "还没有编程基础"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "，或只会一点点——从这一册开始。它只做一件事：把你从\"不知道程序怎么跑\"带到"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "能独立写、编译、调试一个小型 C 程序"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "，然后你能顺畅进入《嵌入式 C 精读》(B01)，再往后是 C++/Rust/Python 与硬件。\n      每个示例都在本机用"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "真实编译并运行"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "，输出就是下面看到的。"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "◆ 谁该读这一册 / 怎么用"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "零基础或初学者"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "：按顺序读，每节都动手敲一遍、编译、运行——这一步不能省。"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "已会 C 的人"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "：可直接跳到 B01《嵌入式 C 精读》，本册当作\"语法速查\"。"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "整条路线的 ⓪ 号入口"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "：读完它，你才具备读第①册所需的最小 C 语言与工具链能力。"
+        },
+        {
+          "id": "course-b00-guide",
+          "kind": "text",
+          "source": "主线入口 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B01",
+      "articles": 12,
+      "textFragments": 18998,
+      "codeBlocks": 432,
+      "figures": 36,
+      "experimentFiles": 13,
+      "issues": [
+        {
+          "id": "course-b01-ch0",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch0",
+          "kind": "text",
+          "source": "C11 N1570 · 对象、类型与语言语义"
+        },
+        {
+          "id": "course-b01-ch0",
+          "kind": "text",
+          "source": "Arm Cortex-M 架构文档"
+        },
+        {
+          "id": "course-b01-ch0",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch1",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch1",
+          "kind": "text",
+          "source": "C11 N1570 · 对象、类型与语言语义"
+        },
+        {
+          "id": "course-b01-ch1",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch2",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch2",
+          "kind": "text",
+          "source": "C11 N1570 · 对象、类型与语言语义"
+        },
+        {
+          "id": "course-b01-ch2",
+          "kind": "text",
+          "source": "GNU ld · SECTIONS、MEMORY、符号与链接"
+        },
+        {
+          "id": "course-b01-ch2",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch3",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch3",
+          "kind": "text",
+          "source": "C11 N1570 · 对象、类型与语言语义"
+        },
+        {
+          "id": "course-b01-ch3",
+          "kind": "text",
+          "source": "ST RM0008 · 外设地址与寄存器语义"
+        },
+        {
+          "id": "course-b01-ch3",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "text",
+          "source": "GNU ld · SECTIONS、MEMORY、符号与链接"
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "text",
+          "source": "ST 官方启动文件 · 向量与复位"
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "code",
+          "source": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -std=c11 -O2 -Wall -Wextra -c vtor_demo.c -o vt.o\n$ arm-none-eabi-objdump -d vt.o\n\nvt.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <relocate_vectors>:\n   0:\t4b01   "
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "code",
+          "source": "$ arm-none-eabi-objdump -d ctor_demo.elf\n\nctor_demo.elf:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n08000000 <__libc_init_array>:\n 8000000:\tb580      \tpush\t{r7, lr}\n 8000002:\tb082      \tsub\tsp, #8\n 8000004:\taf00      \t"
+        },
+        {
+          "id": "course-b01-ch4",
+          "kind": "code",
+          "source": "$ arm-none-eabi-gcc -mcpu=cortex-m3 -mthumb -std=c11 -O2 -c psp_demo.c -o psp_demo_O2.o\n$ arm-none-eabi-objdump -d psp_demo_O2.o\npsp_demo_O2.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <__get_MSP>:\n   0:\tf3e"
+        },
+        {
+          "id": "course-b01-ch5",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch5",
+          "kind": "text",
+          "source": "GCC · -E/-S/-c 与编译阶段"
+        },
+        {
+          "id": "course-b01-ch5",
+          "kind": "text",
+          "source": "GNU ld · SECTIONS、MEMORY、符号与链接"
+        },
+        {
+          "id": "course-b01-ch5",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch5",
+          "kind": "code",
+          "source": "# ============ cmake/arm-none-eabi.cmake ============\n# 工具链描述必须独立成文件，用 -DCMAKE_TOOLCHAIN_FILE= 传给 CMake。\n# 不要把它内联进 CMakeLists.txt —— CMAKE_C_COMPILER 这类变量只在\n# \"首次配置、且尚未用宿主编译器做过任何探测\"时才被采纳；内联进顶层文件\n# 经常会静默失效：CMake 表面上用了你的路径，实际仍在调宿主 gcc。\nset(CM"
+        },
+        {
+          "id": "course-b01-ch5",
+          "kind": "code",
+          "source": "$ cmake -S . -B build -G Ninja -DCMAKE_TOOLCHAIN_FILE=cmake/arm-none-eabi.cmake\n-- The C compiler identification is GNU 13.3.1\n-- The CXX compiler identification is GNU 13.3.1\n-- The ASM compiler identification is GNU\n-- Found assembler: <工"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "text",
+          "source": "C11 N1570 · 对象、类型与语言语义"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "text",
+          "source": "ST RM0008 · 外设地址与寄存器语义"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "code",
+          "source": "#include <stdint.h>\n\n/* STM32 GPIO 寄存器（GPIOA 在 APB2 上）*/\n#define GPIOA_BASE      0x40010800UL\n#define GPIOA_CRL       (*(volatile uint32_t *)(GPIOA_BASE + 0x00))\n#define GPIOA_CRH       (*(volatile uint32_t *)(GPIOA_BASE + 0x04))\n#define GP"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "code",
+          "source": "$ xtensa-esp-elf-objdump -r iomux.o\n\niomux.o:     file format elf32-xtensa-le\n\nRELOCATION RECORDS FOR [.text]:\nOFFSET   TYPE              VALUE\n00000003 R_XTENSA_SLOT0_OP  .literal\n00000006 R_XTENSA_SLOT0_OP  .literal+0x00000004\n00000011 R_"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "code",
+          "source": "$ arm-none-eabi-objdump -d bitops-m3.o\n\nbitops-m3.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <clz_builtin>:\n   0:\tfab0 f080 \tclz\tr0, r0   ← clz 一条 —— ARMv7-M 的指令。这个函数一共 3 行（含末尾对齐 nop）\n   4:\t4770      \tbx\tlr"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "code",
+          "source": "$ arm-none-eabi-objdump -d bitops-m0.o\n\nbitops-m0.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <clz_builtin>:\n   0:\tb510      \tpush\t{r4, lr}\n   2:\tf7ff fffe \tbl\t0 <__clzsi2>   ← M0 没有 clz 指令：这里变成 bl __clzsi2（"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "code",
+          "source": "$ arm-none-eabi-objdump -d atomic-m3.o\n\natomic-m3.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <counter_inc_volatile>:\n   0:\t6803      \tldr\tr3, [r0, #0]   ← volatile 版：ldr / adds / str 三条 —— 中断落在 adds 和 str 之"
+        },
+        {
+          "id": "course-b01-ch6",
+          "kind": "code",
+          "source": "$ arm-none-eabi-objdump -d safe-m3.o\n\nsafe-m3.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <rb_claim_primask>:\n   0:\t4603      \tmov\tr3, r0\n   2:\tf3ef 8210 \tmrs\tr2, PRIMASK   ← mrs r2, PRIMASK：先把\"中断现在是开是关\"存下来\n"
+        },
+        {
+          "id": "course-b01-ch7",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch7",
+          "kind": "text",
+          "source": "C11 N1570 · 对象、类型与语言语义"
+        },
+        {
+          "id": "course-b01-ch7",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-ch8",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b01-ch8",
+          "kind": "text",
+          "source": "GNU GDB · 调试、内存与寄存器"
+        },
+        {
+          "id": "course-b01-ch8",
+          "kind": "text",
+          "source": "Arm Cortex-M 架构文档"
+        },
+        {
+          "id": "course-b01-ch8",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01 · 语言地基"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "系统精读"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "这不是又一份\"C 语言入门\"。这里讨论的是："
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "在 STM32 的 SRAM 里究竟占几个字节、按什么顺序摆放"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "volatile"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "到底阻止了编译器的哪一次优化；链接脚本如何决定你的代码落在 Flash 还是 RAM；\n      以及为什么"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "*(volatile uint32_t *)0x40021018 = 0x10;"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "这一行就能点亮一颗 LED。"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "已经会写 C、但没搞清底层发生了什么"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能读懂"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "struct"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "，\n        但对\"指针为什么能操作寄存器\"\"栈溢出为什么是硬件错误而不是编译错误\"\"为什么加了"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "程序就跑飞了\"这类问题只有模糊印象。"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "全程使用"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "STM32（Cortex-M）"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "ESP32（Xtensa/RISC-V）"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "双平台对照，每一个抽象概念都会落到具体的地址、具体的汇编、具体的字节上。"
+        },
+        {
+          "id": "course-b01-guide",
+          "kind": "text",
+          "source": "主线中的查阅册 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B02a",
+      "articles": 15,
+      "textFragments": 1404,
+      "codeBlocks": 46,
+      "figures": 20,
+      "experimentFiles": 19,
+      "issues": [
+        {
+          "id": "course-b02a-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m01",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m02",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m03",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m04",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m05",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m06",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m07",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-m08",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02a-m08",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02a-m08",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–12 · 阶段 ② 现代语言 · 基"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "从零到能读《迁移地图》"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "这一册把"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "C++ 当作一门语言从零讲"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "：类、封装、继承、多态、模板、STL、智能指针、异常——而不是\"从 C 到 C++ 的差异对照\"。\n      前提是你会 C（读完 B00）。学完它，你就能顺畅读《C++（嵌入式向）迁移地图》(B02)，把 C++ 用到单片机上。\n      每个示例都用"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "真实编译并运行"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "◆ 谁该读 / 读完能做什么"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "会 C、想系统学 C++"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "：从这一册开始，别直接跳到 B02（B02 假设你已会 C++）。"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "学完你能：写类、用封装、写继承与多态、用模板与 STL、用智能指针与异常。"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "然后进入 B02：把 C++ 放到 MCU 上——算清体积/开销、与 C 互操作、ISR 里的 C++。"
+        },
+        {
+          "id": "course-b02a-guide",
+          "kind": "text",
+          "source": "C++ 分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B03a",
+      "articles": 15,
+      "textFragments": 1448,
+      "codeBlocks": 44,
+      "figures": 21,
+      "experimentFiles": 14,
+      "issues": [
+        {
+          "id": "course-b03a-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m01",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m02",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m03",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m04",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m05",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m06",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m07",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-m08",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03a-m08",
+          "kind": "text",
+          "source": "Rust 官方 Book"
+        },
+        {
+          "id": "course-b03a-m08",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–12 · 阶段 ② 现代语言 · 基"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "从零到能读《Rust 迁移》"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "这一册把"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "Rust 当作一门语言从零讲"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "：变量、所有权与移动、借用、枚举与模式匹配、结构体与 trait、集合与错误处理、生命周期与迭代器、模块/Cargo/测试。\n      前提是你会 C（读完 B00）。学完它，你就能顺畅读《Rust（嵌入式向）》(B03)，把 Rust 用到单片机上。\n      每个示例都用"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "rustc"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "真实编译并运行"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "◆ 谁该读 / 读完能做什么"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "会 C、想系统学 Rust"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "：从这一册开始。B03 假设你已懂所有权/借用，本册正是补这一课。"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "学完你能：写结构体与 enum、用 trait、用"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "处理错误、用集合与迭代器、组织 Cargo 工程与测试。"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "然后进入 B03：把 Rust 放到 MCU 上——所有权如何保证 DMA/中断安全、no_std 与体积。"
+        },
+        {
+          "id": "course-b03a-guide",
+          "kind": "text",
+          "source": "Rust 分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B04a",
+      "articles": 15,
+      "textFragments": 1418,
+      "codeBlocks": 44,
+      "figures": 18,
+      "experimentFiles": 16,
+      "issues": [
+        {
+          "id": "course-b04a-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m01",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m02",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m03",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m04",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m05",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m06",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m07",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-m08",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04a-m08",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04a-m08",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–12 · 阶段 ② 现代语言 · 基"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "从零到能读《Python 嵌入式》"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "这一册把"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "Python 当作一门语言从零讲"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "：动态类型、控制流、函数、数据结构、字符串与文件、类与模块、异常与生成器、测试。\n      零基础也能读（会 C 更好理解\"差异\"）。学完它，你就能顺畅进入《Python（嵌入式向）》(B04)，用它做上位机工具与 MicroPython。\n      标"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "「可运行」"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "的示例都用本机"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "python"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "真实运行"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "（正文末尾附真实输出）；其余为补充片段。"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "◆ 谁该读 / 读完能做什么"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "零基础或会 C"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "：都适合。Python 语法直观，是\"入门第一门语言\"的好选择，也是嵌入式工程师做工具的首选。"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "学完你能：写函数与类、用 list/dict 处理数据、读写文件、处理异常、用标准库与第三方库。"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "然后进入 B04：用 Python 做串口工具、数据分析、构建脚本与 MicroPython。"
+        },
+        {
+          "id": "course-b04a-guide",
+          "kind": "text",
+          "source": "主线辅助语言 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B02",
+      "articles": 15,
+      "textFragments": 3601,
+      "codeBlocks": 57,
+      "figures": 21,
+      "experimentFiles": 54,
+      "issues": [
+        {
+          "id": "course-b02-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m01",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m02",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m03",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m04",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m05",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m06",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m07",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m08",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m08",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m08",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m09",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m09",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m09",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-m10",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b02-m10",
+          "kind": "text",
+          "source": "C++ 工作草案（按示例标准核对）"
+        },
+        {
+          "id": "course-b02-m10",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–11 · 阶段 ② 现代语言"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "迁移地图"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "这不是又一份 C++ 教程。这里只回答一件事："
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "从你已经会写的 C 出发，每用上一点 C++，代价是多少、收益是什么"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "。\n      异常和 RTTI 要花多少字节？"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "如何把查找表搬进 Flash？"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "std::atomic"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "在 M0 上会不会链不过？\n      RAII 怎样替掉成对的"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "init/deinit"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "？—— 每个结论都落到具体字节、具体汇编、具体链接结果上。"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "本册的定位"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "已经读完第①册、会在 C 里直接操作寄存器"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "的开发者。前提是你清楚"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "栈/堆/段、编译链接、"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "volatile"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "与内存序"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "的底层含义 ——\n        因为 C++ 的每一个\"高级\"特性，最终都要落到这些底层机制上解释\"它值不值\"。"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "贯穿全册的是一条"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "C ↔ C++ 对照线"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "：同一件功能，先用 C 写一遍，再用 C++ 写一遍，\n        比字节、比指令、比可维护性。平台锚点仍是"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "STM32（Cortex-M3/M0）"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "ESP32"
+        },
+        {
+          "id": "course-b02-guide",
+          "kind": "text",
+          "source": "C++ 固件分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B03",
+      "articles": 14,
+      "textFragments": 2095,
+      "codeBlocks": 55,
+      "figures": 19,
+      "experimentFiles": 36,
+      "issues": [
+        {
+          "id": "course-b03-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m01",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m02",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m03",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m04",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m05",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m06",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m07",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m08",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m08",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m08",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-m09",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b03-m09",
+          "kind": "text",
+          "source": "Rust Embedded Book"
+        },
+        {
+          "id": "course-b03-m09",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–10 · 阶段 ② 现代语言"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "所有权与 no_std"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "这不是又一份 Rust 语言教程。这里只回答一件事："
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "从你已经会写的 C 出发，Rust 用\"所有权\"替你消灭了哪一类 bug，代价是什么"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "。\n      悬垂指针、数据竞争、忘记初始化、DMA 缓冲被移动——这些在 C 里靠纪律，在 Rust 里靠编译器。\n      每个结论都落到真实交叉编译的指令、体积与错误信息上（"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "rustc --target thumbv7m-none-eabi"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "本册的定位"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "已经读完第①册、会在 C 里直接操作寄存器"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "的开发者。前提是你清楚"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "栈/堆/段、编译链接、"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "volatile"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "与内存序"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "的底层含义 ——\n        因为 Rust 的每一个\"安全保证\"，最终都要落到这些底层机制上解释\"它到底保证了什么、又要付什么\"。"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "贯穿全册的是一条"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "C ↔ Rust 对照线"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "：同一件功能，先看 C 怎么写、会出什么错，再看 Rust 如何用类型与所有权让它在"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "不可能发生。\n        平台锚点仍是"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "STM32（Cortex-M3/M0）"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "；交叉编译目标"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "thumbv7m / thumbv6m-none-eabi"
+        },
+        {
+          "id": "course-b03-guide",
+          "kind": "text",
+          "source": "Rust 固件分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B04",
+      "articles": 11,
+      "textFragments": 1163,
+      "codeBlocks": 27,
+      "figures": 15,
+      "experimentFiles": 130,
+      "issues": [
+        {
+          "id": "course-b04-m01",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m01",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m01",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-m02",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m02",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m02",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-m03",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m03",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m03",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-m04",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m04",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m04",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-m05",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m05",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m05",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-m06",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m06",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m06",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-m07",
+          "kind": "text",
+          "source": "核对来源："
+        },
+        {
+          "id": "course-b04-m07",
+          "kind": "text",
+          "source": "Python 3.13 标准库"
+        },
+        {
+          "id": "course-b04-m07",
+          "kind": "text",
+          "source": "；按本章适用平台、语言标准与实际工具版本核对。"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "◆ MODULE 01–08 · 阶段 ② 现代语言"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "工具链与 MicroPython"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "这一册不把 Python 当\"另一种单片机语言\"，而是讲清它在嵌入式里的"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "两个真实位置"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "：\n      ① 上位机侧——串口工具、数据分析、构建与 CI、调试台、数据集；② 设备侧——MicroPython 在 ESP32/STM32 上的取舍。\n      每个脚本都在本机真实运行，数字与输出均可复跑。"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "核心模块"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "代码与命令"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "原理图示"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "对照表格"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "本册的定位"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "已经读完第①册、会在 C 里直接操作寄存器"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "的开发者。Python 在这里主要是"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "生产力工具"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "：\n        把\"手动点串口助手、肉眼找 bug、手工整理数据\"变成\"一条命令跑完\"。"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "设备侧则用"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "（ESP32 / STM32）做快速原型：什么时候它够用、什么时候必须回到 C——本册给出明确边界。\n        与 C/C++/Rust 分册互为参照："
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "同一件事，谁更适合放在哪一层"
+        },
+        {
+          "id": "course-b04-guide",
+          "kind": "text",
+          "source": "工具实战 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B05",
+      "articles": 26,
+      "textFragments": 2950,
+      "codeBlocks": 88,
+      "figures": 43,
+      "experimentFiles": 69,
+      "issues": [
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "◆ MODULE · MCU 与外设"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "寄存器写了不动、中断丢触发、DMA 读到旧数据、总线上偶发 NAK"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "——以及同一件事在"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "STM32F103 / ESP32 / STM32H7"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "三平台上分别该怎么写、错在哪。内容从"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "时钟/GPIO/中断/定时器/ADC/DMA/串行总线"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "看门狗与低功耗、驱动工程、存储/文件系统、USB、指令集与调用约定、现场总线、以太网、WiFi、BLE、OTA 与回滚"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "模块 / 外设"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "目标平台"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "交叉编译源码"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "会写 C、懂一点寄存器，但没系统做过裸机外设驱动"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能读写寄存器，但对“时钟树、中断优先级、DMA 一致性、总线时序”只有模糊印象。"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 可编译代码 →"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "真实交叉编译证据"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "（size/objdump/主机运行）→ 三平台对照 → 失败路径 → 自测。板上项一律标注“需上板”，不把估算写成实测。"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "三平台对照怎么用"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "每章第 2 节是"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "平台切换 Tab"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "STM32F103"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "（Cortex-M3）、"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "ESP32"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "（Xtensa LX6）、"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "STM32H7"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "（Cortex-M7）三种实现并排，代码分别由"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "arm-none-eabi-gcc 13.3.1"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "xtensa-esp32-elf-gcc 15.2.0"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "编译通过。先看一个平台，再切到另外两个看差异。"
+        },
+        {
+          "id": "course-b05-guide",
+          "kind": "text",
+          "source": "硬件主线 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B06",
+      "articles": 17,
+      "textFragments": 1646,
+      "codeBlocks": 61,
+      "figures": 24,
+      "experimentFiles": 59,
+      "issues": [
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "◆ MODULE · RTOS 与通信"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "任务不响应、优先级反转、ISR 里死锁、时间漂移、内存碎片"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "——以及同一件事在"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "FreeRTOS / ESP-IDF / Zephyr"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "三平台上怎么写、错在哪。内容从"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "任务与调度、同步原语、队列/事件、ISR 边界"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "内存/时间管理、反模式调试、可调度性(RM)、多核 SMP"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "内核对照"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "7+37"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "运行 / 交叉编译"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "会写 C、跑过裸机，但没系统用过 RTOS"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂中断与寄存器，但对“调度、优先级反转、FromISR、tickless”只有模糊印象。"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 可编译/可运行代码 →"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "主机运行或真实交叉编译证据"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "→ 三内核对照 → 失败路径 → 自测。板上项一律标注“需上板”，不把估算写成实测。"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "调度时间轴、优先级反转、队列拷贝语义、ticks/漂移、RM 可调度性、栈高水位、SMP 原子性等数字来自"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "）；三平台实现另经真实交叉编译。"
+        },
+        {
+          "id": "course-b06-guide",
+          "kind": "text",
+          "source": "并发主线 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B07",
+      "articles": 18,
+      "textFragments": 1683,
+      "codeBlocks": 66,
+      "figures": 26,
+      "experimentFiles": 53,
+      "issues": [
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 通信协议"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "帧解析粘包、CAN 误码、OTA 变砖、断网丢数据"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "——以及同一件事在"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "STM32F103 / ESP32 / STM32H7"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "三平台上怎么写、错在哪。内容从"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "协议设计、校验、Modbus/CAN、无线、应用层"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "Bootloader/OTA、协议调试、端到端可靠性"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "9+13"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "会写 C、跑过外设，但没系统设计过通信协议与 OTA"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能收发串口/SPI，但对“分帧、CRC、CAN 位定时、端到端可靠性”只有模糊印象。"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 可编译/可运行代码 →"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "主机运行或真实交叉编译证据"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "→ 三平台对照 → 失败路径 → 自测。板上项一律标注“需上板”。"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "分帧、CRC、CAN 位定时、断网续传等数字来自"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "）；三平台实现另经真实交叉编译。"
+        },
+        {
+          "id": "course-b07-guide",
+          "kind": "text",
+          "source": "联网与升级主线 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B08",
+      "articles": 20,
+      "textFragments": 1883,
+      "codeBlocks": 76,
+      "figures": 30,
+      "experimentFiles": 60,
+      "issues": [
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 应用开发实战"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "需求怎么落到状态机、按键误触发、PID 积分饱和、电池几天就空、掉电丢配置"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "——以及同一件事在"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "STM32F103 / ESP32 / STM32H7"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "三平台上怎么写、错在哪。内容从"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "需求到架构、工程骨架、人机交互、数据存储"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "控制、电源、自恢复、综合项目与产品验收"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "7+45"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "会写 C、点亮过外设，但没完整做过一个可交付产品"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能操作 GPIO/定时器/串口，但对“状态机建模、参数持久化、低功耗预算、产品验收”只有模糊印象。"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 可编译/可运行代码 →"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "主机运行或真实交叉编译证据"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "→ 三平台对照 → 失败路径 → 自测。板上项一律标注“需上板”。"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "状态机迁移、按键去抖、PID 抗饱和、功耗预算、掉电日志等数字来自"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "）；三平台实现另经真实交叉编译。"
+        },
+        {
+          "id": "course-b08-guide",
+          "kind": "text",
+          "source": "项目收口主线 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B09",
+      "articles": 15,
+      "textFragments": 1683,
+      "codeBlocks": 44,
+      "figures": 20,
+      "experimentFiles": 41,
+      "issues": [
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "◆ MODULE · Linux 技术栈"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "“内核起了但没到 init”“设备树写了但驱动不 probe”“升级一半掉电变砖”"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "——这些问题分别落在启动链、设备树、根文件系统与升级/恢复上。内容从"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "SoC 启动链、交叉编译与构建系统、设备树、内核、根文件系统、存储分区、系统调试"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "板级移植与镜像交付、A/B 升级与恢复实战"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "，并给出"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "STM32MP1 / i.MX6ULL / Allwinner V3s"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "三条参考路线对照。"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "10+29"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "运行 / 片段"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "会写 C、跑过 MCU/RTOS，但没独立搭过嵌入式 Linux 系统"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "的开发者。默认你了解外设与中断，但对“启动链怎么接力、设备树怎么匹配、rootfs 怎么最小、升级怎么不变砖”只有模糊印象。"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的系统模型 →"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "→ 三条路线对照（DTS/U-Boot/Shell/配置片段，逐字与 labs 一致）→ 失败路径 → 动手练习 → 自测。板上项一律标注“需上板”，不把估算写成实测。"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "启动日志分阶段、设备树匹配、Kconfig 冲突、rootfs 布局、cpio 打包、分区校验、日志等级、工具链一致性、Shell 分词等数字来自"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "）；三条路线的"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": ".dts/.cmd/.sh/.cfg"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "片段全部来自"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "labs/"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "并与正文逐字一致，Shell 片段另经"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "bash -n"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "语法检查。"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "text",
+          "source": "Linux 系统分支 · 读到能完成什么？"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/board_imx.dts"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/board_mp1.dts"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/board_v3s.dts"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/boot_imx.cmd"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/boot_mp1.cmd"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/boot_v3s.cmd"
+        },
+        {
+          "id": "course-b09-guide",
+          "kind": "experiment-file",
+          "source": "labs/layer_imx.bb"
+        }
+      ]
+    },
+    {
+      "id": "B10",
+      "articles": 18,
+      "textFragments": 2060,
+      "codeBlocks": 54,
+      "figures": 26,
+      "experimentFiles": 12,
+      "issues": [
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "◆ MODULE · Linux 技术栈"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "模块能编译但加载失败、probe 不进来、并发下偶发崩溃、用户态读不到数据"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "——这些问题分别落在模块生命周期、设备树匹配、并发与锁、中断上下文与用户态接口上。内容从"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "内核模块基础、字符设备、并发与锁、中断、platform driver 与子系统"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "DMA、驱动调试、真实器件驱动、电源管理、跨版本维护"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "，并给出"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "STM32MP1 / i.MX6ULL / Allwinner V3s"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "三条内核路线的驱动对照。"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "内核路线"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "9+13"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "会写 C、懂寄存器与中断，但没正经写过 Linux 内核驱动"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能读懂指针与并发概念，但对“模块怎么进内核、驱动怎么和硬件对上、并发与睡眠规则”只有模糊印象。"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的驱动模型 →"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "→ 三条内核路线对照（模块/设备树/子系统对照表）→ 失败路径 → 动手练习 → 自测。板上项一律标注“需上板”。"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "字符设备分派、并发/锁、上下半部、platform 匹配、sysfs 属性、DMA 一致性、驱动调试等数字来自"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "）；三条内核路线以对照表形式给出；主机模型来自"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "（共 9 段）并与正文逐字一致。"
+        },
+        {
+          "id": "course-b10-guide",
+          "kind": "text",
+          "source": "Linux 驱动分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B11",
+      "articles": 16,
+      "textFragments": 1476,
+      "codeBlocks": 46,
+      "figures": 22,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "◆ MODULE · Linux 技术栈"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "程序在主机上好好的、进了板子就崩；服务偶发挂掉没人拉起；升级一半设备变砖"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "——问题分别落在系统编程返回值、并发与 IPC、服务化与部署、持久化与恢复上。内容从"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "系统编程、IPC、网络、构建、多线程"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "服务化部署、性能与资源、容器与 OTA、配置恢复、UI/音视频分支"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "，并给出"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "Buildroot / Yocto / Debian"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "三条构建部署路线对照。"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "8+11"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "会写 C、跑过 MCU/RTOS，但没写过可交付 Linux 应用/服务"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂指针与进程概念，但对“系统调用错误处理、并发、服务化、配置恢复”只有模糊印象。"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的应用模型 →"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "→ 三条路线对照 → 失败路径 → 动手练习 → 自测。板上项一律标注“需上板”。"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "系统调用错误处理、IPC 有界队列、TCP 半包分帧、多线程竞态、服务重启限速、配置原子写、构建拓扑、CPU/内存预算等数字来自"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b11-guide",
+          "kind": "text",
+          "source": "Linux 应用分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B12",
+      "articles": 17,
+      "textFragments": 1551,
+      "codeBlocks": 50,
+      "figures": 24,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 产品与工程"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "代码能跑但改不动、测试很多却漏了关键需求、现场问题查不到、量产良率低"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "——这些问题分别落在规范与门禁、测试设计、可追溯、诊断与发布流程上。内容从"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "项目结构、静态分析、单元测试、HIL"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "版本管理、产测标定、合规、现场定位、选型成本、故障注入、发布闭环"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "7+12"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "能写能调、但没建立过工程体系"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "的开发者/小团队。默认你会写 C、跑过硬件，但对“规范、门禁、可追溯、量产闭环”只有模糊印象。"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的工程/测试模型 →"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "→ 三平台/路线对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "单测框架、CI 门禁、HIL 序列、版本准入、故障注入恢复率、需求覆盖率、BOM 成本等数字来自"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b12-guide",
+          "kind": "text",
+          "source": "交付主线 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B13",
+      "articles": 18,
+      "textFragments": 1653,
+      "codeBlocks": 54,
+      "figures": 26,
+      "experimentFiles": 6,
+      "issues": [
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "◆ MODULE · AI 与数据"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "模型在主机上指标很好、上了设备就慢/不准；数据采集不可信；模型更新了但预处理没同步"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "——问题分别落在算力预算、数据与特征、量化与部署、以及模型-预处理-固件的版本兼容上。内容从"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "算力预算、数据工程、特征、训练约束、量化、部署、性能优化"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "数据闭环与模型 OTA、IMU 异常检测、边缘加速、设备端验收、版本兼容"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "5+13"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "会写 C、有硬件经验、想用 AI 但没走完整数据闭环"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂信号与采样，但对“算力预算、量化、部署、模型与固件版本”只有模糊印象。"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的数值/指标模型 →"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "→ 端/边/云对照 → 失败路径 → 动手练习 → 自测。板上项一律标注“需上板”。"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "量化误差、时域特征、分类指标、数据切分、推理延迟预算等数字来自"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b13-guide",
+          "kind": "text",
+          "source": "端侧 AI 分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B14",
+      "articles": 16,
+      "textFragments": 1370,
+      "codeBlocks": 45,
+      "figures": 22,
+      "experimentFiles": 6,
+      "issues": [
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "◆ MODULE · AI 与数据"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "设备在线但数据对不上、时间口径混乱、断网丢数据、告警抖动、模型更新与固件错配"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "——问题分别落在接入与物模型、时间与质量语义、缓存与补传、规则与协同上。内容从"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "接入与物模型、边缘网关、时序存储、可视化告警"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "协同架构、数据安全、完整链路、设备群管理、数据与模型闭环"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "5+11"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "会写 C/脚本、做过设备或云、但没打通端到端数据链路"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂网络与存储概念，但对“时间口径、质量语义、协同与告警”只有模糊印象。"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的时序/协同模型 →"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "→ 端/边/云对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "时序追加/查询/降采样、重复/乱序/缺口检测、设备注册与配置版本、告警迟滞、云边水位补传等数字来自"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b14-guide",
+          "kind": "text",
+          "source": "数据闭环分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B15",
+      "articles": 19,
+      "textFragments": 1716,
+      "codeBlocks": 57,
+      "figures": 28,
+      "experimentFiles": 6,
+      "issues": [
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 专项选修"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "名词都听过但不知道能不能用、值不值得迁移、风险在哪里"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "。内容覆盖"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "RISC-V、安全启动与信任根、功能安全与合规、实时以太网与工业总线、物联网新协议、异构多核与加速器、边缘容器、AI 辅助开发、形式化方法"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "机器人 ROS 2、FPGA、端侧大模型"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "等分支，并给出"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "成熟度档"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "5+14"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "已有工程基础、需要做技术判断与选型"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "的开发者/技术负责人。默认你懂外设/RTOS/Linux，但对这些专项的适用条件与代价没有系统认识。"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的评估/安全/调度模型 →"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "→ 成熟度对照 → 失败路径 → 动手练习 → 自测。本册强调“适用/不适用条件与证据”，不吹名词。"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "HMAC/篡改检测、2oo3 表决与安全态、异构任务分配、CoAP 式重传退避、加权选型矩阵等来自"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b15-guide",
+          "kind": "text",
+          "source": "专项选修索引 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B16",
+      "articles": 13,
+      "textFragments": 1078,
+      "codeBlocks": 33,
+      "figures": 16,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 基础支撑"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "换台机器就编不过、命令记不住、依赖版本乱、找不到权威答案"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "——问题分别落在环境边界、命令行/脚本、版本管理、构建依赖与阅读技术证据上。内容从"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "工作站与环境边界、命令行、Shell、Git"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "构建依赖、Python 打包、读手册源码、可复现工程模板"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "要独立搭建工作环境、让工程可复现"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "的开发者。默认你会写代码，但对命令行的效率、Git 的正确用法、依赖与可复现构建不够系统。"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的工具模型 →"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "→ 三平台对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "PATH 解析、Shell 退出码、内容寻址哈希、构建拓扑、依赖版本解析等来自"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b16-guide",
+          "kind": "text",
+          "source": "主线工具 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B17",
+      "articles": 15,
+      "textFragments": 1234,
+      "codeBlocks": 41,
+      "figures": 20,
+      "experimentFiles": 7,
+      "issues": [
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 基础支撑"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "新板上电没反应、信号电平不对、采样不准、总线偶发出错"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "——问题分别落在电源/去耦、数字电平与总线物理层、采集前端与测量上。内容从"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "基本量与测量、电平与引脚电气、电源去耦复位、时钟最小系统"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "采集前端、接口与总线物理层、传感器执行器、示波器/逻辑分析仪、PCB/EMC 与首板故障树"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "7+10"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "会写固件、但硬件基础薄弱"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能点灯能接线，但对“电平/阻抗/去耦/测量”只有模糊印象。"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的电路/前端模型 →"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "→ 数字/模拟/电源对照 → 失败路径 → 动手练习 → 自测。本册计算为模型验证，真实波形/测量为实测项。"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "欧姆定律/分压/限流、RC 时间常数与截止频率、上拉与上升时间、ADC 前端换算、终端与反射系数等来自"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b17-guide",
+          "kind": "text",
+          "source": "硬件基础主线 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B18",
+      "articles": 15,
+      "textFragments": 1913,
+      "codeBlocks": 47,
+      "figures": 22,
+      "experimentFiles": 14,
+      "issues": [
+        {
+          "id": "course-b18-m02",
+          "kind": "code",
+          "source": "_abi_probe.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <leaf>:\n   0:\teb01 0141 \tadd.w\tr1, r1, r1, lsl #1\n   4:\t4408      \tadd\tr0, r1\n   6:\t4770      \tbx\tlr\n\n00000008 <five>:\n   8:\t4408      \tadd\tr0, r1\n   a:"
+        },
+        {
+          "id": "course-b18-m02",
+          "kind": "code",
+          "source": "_nl.o:     file format elf32-littlearm\n\n\nDisassembly of section .text:\n\n00000000 <framed>:\n   0:\tb570      \tpush\t{r4, r5, r6, lr}\n   2:\t4606      \tmov\tr6, r0\n   4:\tb150      \tcbz\tr0, 1c <framed+0x1c>\n   6:\t2400      \tmovs\tr4, #0\n   8:\t4625 "
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 基础支撑"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "为什么同样的 C 代码在不同芯片上性能差很多、并发内存序出错、DMA 读到旧数据"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "——问题分别落在 ISA/调用约定、内存层次、MMU/MPU、cache 一致性与内存序上。内容从"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "MCU/MPU/SoC、汇编与调用约定、异常特权、内存层次"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "MPU/MMU、DMA 一致性、内存序、RISC-V/Arm 对照、性能预算与跨平台分析"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "5+10"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "会写 C、懂寄存器，但没系统学过体系结构"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "的开发者。默认你能点灯能调度，但对“调用约定、cache、MMU、内存序”只有模糊印象。"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的体系结构模型 →"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "→ 架构对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "调用约定/参数入栈、cache 命中与局部性、内存序 (relaxed vs acquire)、虚拟到物理翻译与权限、CPI/周期预算等来自"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b18-guide",
+          "kind": "text",
+          "source": "按问题查阅 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B19",
+      "articles": 15,
+      "textFragments": 1222,
+      "codeBlocks": 41,
+      "figures": 20,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 基础支撑"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "算法在主机会跑、上设备就慢/溢出；数据规模一大就崩；数值误差说不清"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "——问题分别落在复杂度与资源预算、有界数据结构、数值表示与误差、以及插值/拟合上。内容从"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "复杂度、容器、环形缓冲、查找排序、图与调度"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "数值误差、线性代数、概率统计、插值拟合、有界数据处理库"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "运行环境"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "7+10"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "会写 C、要做嵌入式算法与数据处理"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂指针与基本算法，但对“有界性、定点数、数值误差”不够系统。"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的算法/数值模型 →"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "→ 运行环境对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "复杂度操作计数、环形缓冲边界、二分/插值、Q15 误差、最小二乘拟合、拓扑/BFS、旋转矩阵等来自"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b19-guide",
+          "kind": "text",
+          "source": "按需求补数学 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B20",
+      "articles": 15,
+      "textFragments": 1191,
+      "codeBlocks": 41,
+      "figures": 20,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 基础支撑"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "采样混叠、滤波延迟搞不清、标定不准、融合发散、闭环振荡"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "——问题分别落在采样时基、标定误差、滤波设计、状态估计与控制约束上。内容从"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "采样混叠、标定、时域滤波、FIR/IIR、FFT"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "特征、状态估计与融合、控制基础、PID 与执行器约束、采样到闭环"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "6+10"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "会写 C、要做数据采集与闭环控制"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂采样与中断，但对“混叠、滤波延迟、标定、融合、控制约束”不够系统。"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的采样/滤波/控制模型 →"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "→ 环节对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "混叠频率、均值/中值/EMA、FIR/IIR 差分方程、DFT 峰值、卡尔曼融合、PID 限幅等来自"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b20-guide",
+          "kind": "text",
+          "source": "控制与信号分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B21",
+      "articles": 15,
+      "textFragments": 1208,
+      "codeBlocks": 41,
+      "figures": 20,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "◆ MODULE · AI 与数据"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "模型指标好但上线就崩、数据泄漏、过拟合、阈值拍脑袋、导出后精度掉"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "——问题分别落在问题定义、数据切分、训练工程、评估校准与导出量化上。内容从"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "问题定义、数据契约、切分泄漏、特征与经典 ML"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "神经网络、过拟合、评估校准、时序/音频/视觉、导出量化、可交付模型包"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "6+10"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "会写 C/Python、想做端侧 AI 但没系统学过 ML 工程"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "的开发者。默认你懂采样与统计基础，但对“切分、泄漏、过拟合、校准”不够系统。"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的训练/评估模型 →"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "→ 数据/训练/评估对照 → 失败路径 → 动手练习 → 自测。"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "最小二乘、梯度下降收敛、按会话切分、分类指标、阈值扫描 PR、模型包清单/校验等来自"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b21-guide",
+          "kind": "text",
+          "source": "AI 前置分支 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B22",
+      "articles": 15,
+      "textFragments": 1234,
+      "codeBlocks": 42,
+      "figures": 20,
+      "experimentFiles": 8,
+      "issues": [
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "◆ MODULE · 产品与工程"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "这本书回答的是："
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "设备能被伪造/克隆、固件能被替换、通信能被窃听、升级能变砖、密钥泄露无法止损"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "——问题分别落在威胁建模、密码学使用、身份与密钥生命周期、安全启动与通信/升级安全上。内容从"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "资产/威胁/信任边界、密码学、身份与密钥"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "，一路到"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "安全启动、通信安全、升级回退、隔离最小权限、健壮性与安全测试、生产维护退役、可维护的安全设备"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "模块 / 主题"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "6+10"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "运行 / 对照"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "机制图示"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "本文档的定位"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "做联网/可升级产品、需要安全基线"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "的开发者/团队。默认你懂固件与通信，但对“威胁建模、密钥生命周期、安全启动、最小权限”不够系统。"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "每一章都包含：机制图 → 主机可运行的安全/生命周期模型 →"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "真实运行证据"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "→ 三条防线对照 → 失败路径 → 动手练习 → 自测。本册为工程实践，不构成认证结论。"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "证据怎么读"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "威胁风险评分、HMAC 与篡改检测、密钥生命周期状态机、信任链逐级验签、最小权限能力、输入校验/模糊等来自"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "labs/host_*.c"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "真实运行，打印"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "RESULT: PASS"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "）；简化哈希仅用于演示流程，不代表密码学强度。"
+        },
+        {
+          "id": "course-b22-guide",
+          "kind": "text",
+          "source": "联网交付基础 · 读到能完成什么？"
+        }
+      ]
+    },
+    {
+      "id": "B23",
+      "articles": 19,
+      "textFragments": 465,
+      "codeBlocks": 14,
+      "figures": 20,
+      "experimentFiles": 3,
+      "issues": [
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "B23 / 算法、数据与控制"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "从采样数据出发，让算法按时算对，让控制有据可调。用可回放实验连接 MCU、数据分析与物理系统。"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "正文可读 · 实战入门"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "实现与边界"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "契约与回放"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "响应与约束"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "验证与测量"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "学习路线：从输入数据到可验证的闭环系统"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "从第一章开始"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "打开温控交互实验"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "运行完整仿真"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "语言准备："
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "Python 基础"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "关联学习："
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "算法与数学"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "信号与控制"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "机器学习与数据"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "本册提供入门讲解与主机实验；接板练习结合"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "MCU 与外设"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "完成，板上测量另行记录。"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "控制项目实战 · 读到能完成什么？"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "核对机制，继续深入"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "以下为官方项目文档和作者维护的参考。本文图解与练习为本册自行编写；涉及软件接口时，以实际安装版本的文档为准。"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "Linux 内核：环形缓冲区"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "索引、容量与并发发布顺序"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "ARM CMSIS-DSP：线性插值"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "浮点与定点插值接口"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "NumPy：方差"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "ddof、统计口径与累计精度"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "SciPy：多相重采样"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "改变采样率时的低通滤波"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "SciPy：二阶节滤波"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "因果滤波与分块状态"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "SciPy：双向滤波"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "离线前后向滤波的适用边界"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "SciPy：Welch 功率谱"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "频率与功率谱密度"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "SciPy：连续模型离散化"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "零阶保持与离散模型"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "MathWorks：PID 抗积分饱和"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "条件积分、反算与执行器约束"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "FilterPy：线性卡尔曼滤波"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "状态、协方差与预测更新"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "FreeRTOS：周期任务"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "绝对周期唤醒与调度边界"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "Python：单调计时与性能计数器"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "主机测时与墙上时间的区别"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "W3C SCXML：状态与转换语义（本例为自写 C）"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "事件、转换与状态机语义延伸"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "CMSIS-DSP：Q15乘法与饱和"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "定点范围与乘法饱和边界"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "MathWorks：梯形速度轨迹"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "峰值、加速度与运动时长约束"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "SciPy：非等间隔梯形积分"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "text",
+          "source": "按实际采样点与时间间隔积分"
+        },
+        {
+          "id": "course-b23-guide",
+          "kind": "figures",
+          "source": "学习路线:从输入数据到可验证的闭环系统算法与实现数据与信号控制与估计落地与验证"
+        }
+      ]
+    }
+  ]
+}

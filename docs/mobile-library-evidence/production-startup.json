@@ -1,0 +1,18 @@
+{
+  "checkedAt": "2026-10-13T08:27:35.744Z",
+  "version": "1.15.2",
+  "results": [
+    {
+      "width": 393,
+      "coldMs": 3767,
+      "warmMs": 160,
+      "assetDownloads": 226
+    },
+    {
+      "width": 1440,
+      "coldMs": 2987,
+      "warmMs": 122,
+      "assetDownloads": 226
+    }
+  ]
+}

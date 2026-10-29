@@ -1,0 +1,12 @@
+{
+  "passed": true,
+  "date": "2026-10-13T12:11:40.716Z",
+  "version": "1.15.4",
+  "url": "http://127.0.0.1:8463/latest.json",
+  "bytes": 12266563,
+  "sha256": "baeff92043406f15125dae1f803ddaa71227181d1de88f5604bb32bc163be616",
+  "authenticated": true,
+  "anonymousStatus": 401,
+  "publicHttpsVerified": false,
+  "remotePhoneTested": false
+}

@@ -1,0 +1,1107 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B17" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>电子电路与硬件调试基础 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">电子电路与硬件调试基础</div>
+    <div class="m-subtitle">基础支撑 · 10 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">10 模块 · 51 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol cur" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">硬件基础主线 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">电路基本量与测量<span class="m-nav-sub">基本量</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-quant-t" data-target="m01-quant-t">1.1 先算再测</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：分压/限流/功率</a><a class="m-sec" href="#m01-safety-t" data-target="m01-safety-t">1.3 功率与限流</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">数字电平与引脚电气<span class="m-nav-sub">基本量</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-level-t" data-target="m02-level-t">2.1 门限、驱动、上升时间</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：上拉与上升时间</a><a class="m-sec" href="#m02-choose-t" data-target="m02-choose-t">2.3 上拉取舍与驱动</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">电源、去耦与复位<span class="m-nav-sub">电源与时钟</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-power-t" data-target="m03-power-t">3.1 电源、去耦、复位</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：RC 时间常数与截止频率</a><a class="m-sec" href="#m03-reset-t" data-target="m03-reset-t">3.3 去耦与复位设计</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">时钟与最小系统<span class="m-nav-sub">电源与时钟</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-min-t" data-target="m04-min-t">4.1 最小系统与负载电容</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：负载电容计算</a><a class="m-sec" href="#m04-osc-t" data-target="m04-osc-t">4.3 起振与稳定</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">模拟信号与采集前端<span class="m-nav-sub">采集与接口</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-front-t" data-target="m05-front-t">5.1 前端：分压/运放/抗混叠</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：分压还原与 LSB</a><a class="m-sec" href="#m05-noise-t" data-target="m05-noise-t">5.3 噪声与有效位</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">接口电路与总线物理层<span class="m-nav-sub">采集与接口</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-phy-t" data-target="m06-phy-t">6.1 物理层：驱动、终端、共地</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：终端与反射</a><a class="m-sec" href="#m06-iso-t" data-target="m06-iso-t">6.3 隔离与共地</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">传感器与执行器接口<span class="m-nav-sub">采集与接口</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-iface-t" data-target="m07-iface-t">7.1 传感器与执行器接口</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：驱动电流与续流</a><a class="m-sec" href="#m07-protect-t" data-target="m07-protect-t">7.3 续流与电平转换</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">示波器与逻辑分析仪<span class="m-nav-sub">测量与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-tools-t" data-target="m08-tools-t">8.1 带宽、采样、触发、接地</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：RC 带宽直觉</a><a class="m-sec" href="#m08-decode-t" data-target="m08-decode-t">8.3 协议解码与抖动</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">PCB、EMC 与首板检查<span class="m-nav-sub">测量与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-pcb-t" data-target="m09-pcb-t">9.1 回流路径与回路面积</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：阻抗/反射直觉</a><a class="m-sec" href="#m09-first-t" data-target="m09-first-t">9.3 首板检查清单</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">综合：新板上电与故障树<span class="m-nav-sub">测量与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-tree-t" data-target="m10-tree-t">10.1 先测量再判断</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：基本计算</a><a class="m-sec" href="#m10-practice-t" data-target="m10-practice-t">10.3 故障树实践</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">新板上电与故障树.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">硬件调试易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B17-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · 基础支撑</div>
+    <h1>电子电路<br>与<span class="g">硬件调试</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>新板上电没反应、信号电平不对、采样不准、总线偶发出错</strong>——问题分别落在电源/去耦、数字电平与总线物理层、采集前端与测量上。内容从 <strong>基本量与测量、电平与引脚电气、电源去耦复位、时钟最小系统</strong>，一路到 <strong>采集前端、接口与总线物理层、传感器执行器、示波器/逻辑分析仪、PCB/EMC 与首板故障树</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>10</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>电路域</span></div><div class="hero-stat"><b>7+10</b><span>运行 / 对照</span></div><div class="hero-stat"><b>10</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>会写固件、但硬件基础薄弱</strong>的开发者。默认你能点灯能接线，但对“电平/阻抗/去耦/测量”只有模糊印象。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的电路/前端模型 → <strong>真实运行证据</strong> → 数字/模拟/电源对照 → 失败路径 → 动手练习 → 自测。本册计算为模型验证，真实波形/测量为实测项。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">欧姆定律/分压/限流、RC 时间常数与截止频率、上拉与上升时间、ADC 前端换算、终端与反射系数等来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B17-labs.zip" download>下载 B17 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B17 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">硬件基础主线 · 读到能完成什么？</h2><p><strong>画出最小接线与供电路径，实测电压/时钟/总线并完成新板故障树。</strong></p><p>入门条件：四则运算与单位换算；配合正在使用的板原理图。</p><p>首次阅读：<a href="#m01">电路基本量与测量</a> → <a href="#m02">数字电平与引脚电气</a> → <a href="#m03">电源、去耦与复位</a> → <a href="#m04">时钟与最小系统</a> → <a href="#m05">模拟信号与采集前端</a> → <a href="#m06">接口电路与总线物理层</a> → <a href="#m08">示波器与逻辑分析仪</a> → <a href="#m10">综合：新板上电与故障树</a></p><p>按需延后：PCB/EMC、功率执行器与复杂模拟前端按项目深入；不要只看代码排硬件错。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>错误电平、缺上拉、参考电压偏差和探头长地线，判断会如何影响测量。</p><p><strong>通过判据：</strong>记录仪表档位、接线、误差预算和未参与标定的验证点；ADC 位数不等于准确度。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P01">P01</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">10 章分四段：基本量（M01–M02）→ 电源与时钟（M03–M04）→ 采集与接口（M05–M07）→ 测量、板级与综合（M08–M10）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M04 打基础，再按需要读采集/接口/测量；新板调试把 M09/M10 与故障树走完。动手优先跑 <code class="ic">labs/host_*.c</code> 并对照计算。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 基本量</div>
+      <h1 class="ch-title">电路基本量与测量<span class="acc">.</span></h1>
+      <p class="ch-lead">电路分析的起点是量：<strong>电压、电流、电阻、功率</strong>。欧姆定律与分压/分流是最常用的两把工具。</p>
+      <div class="ch-meta"><span>前置：了解电压/电流/电阻的基本概念与万用表用法。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用欧姆定律/分压/分流先算后测，并用功率核算不超载。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>先算再测：欧姆定律与分压/分流算出预期值。</li><li>LED/器件要限流，注意功率。</li><li>测量与计算不符先查接法/量程。</li></ul></div>
+    <section class="sec" id="m01-quant"><h2 id="m01-quant-t">1.1 先算再测</h2><p>电路分析的起点是量：电压、电流、电阻、功率。欧姆定律与分压/分流最常用。先算预期值，再用万用表/示波器验证——不符说明电路错或量程/接法错。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 先算后测</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="先算后测" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">算预期</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">测量</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">比较</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">查错</text></svg></div><figcaption class="fig-ft">用欧姆定律/分压算出预期 → 万用表/示波器测量 → 与预期比较 → 一致则继续，不一致查电路/接法。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  五个基本量</div><table><thead><tr><th>量</th><th>关系</th><th>单位</th></tr></thead><tbody><tr><td>电压 V</td><td>V=IR</td><td>V</td></tr><tr><td>电流 I</td><td>I=V/R</td><td>A/mA/µA</td></tr><tr><td>功率 P</td><td>P=VI=I²R</td><td>W/mW</td></tr><tr><td>分压</td><td>Vo=Vin·R2/(R1+R2)</td><td>—</td></tr><tr><td>分流</td><td>电流按电导分配</td><td>—</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ohm.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double vr = 5.0 * 10e3 / (10e3 + 10e3);   // 分压 = 2.50V</span><span class="ln">double r  = (5.0 - 2.0) / 0.010;           // LED 限流 = 300Ω</span><span class="ln">double p  = 10.0 * 10.0 / 100.0;           // 功率 = 1.00W</span>
+</code></pre><span class="code-note">先算分压/限流/功率，再选器件额定值</span></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：分压/限流/功率</h2><p>下面这段程序验证分压、LED 限流与功率：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_ohm.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_ohm.c —— 欧姆定律/分压/LED 限流/功率（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_ohm.c -o host_ohm &amp;&amp; ./host_ohm</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float vs = 5.0f, r1 = 10000, r2 = 10000;</span><span class="ln">    float vout = vs * r2 / (r1 + r2);</span><span class="ln">    printf(&quot;分压 10k/10k @5V → %.2fV（期望 2.50）\n&quot;, vout);</span><span class="ln">    if (vout &lt; 2.49f || vout &gt; 2.51f) ok = 0;</span><span class="ln">    /* LED 限流：5V - 2V = 3V, 目标 10mA → R=300Ω */</span><span class="ln">    float rled = (5.0f - 2.0f) / 0.010f;</span><span class="ln">    printf(&quot;LED 限流 R=%.0fΩ 功率=%.3fW\n&quot;, rled, (5.0f-2.0f)*0.010f);</span><span class="ln">    if (rled &lt; 299 || rled &gt; 301) ok = 0;</span><span class="ln">    /* 功耗：10V, 100Ω → 1W */</span><span class="ln">    float p = 10.0f*10.0f/100.0f;</span><span class="ln">    printf(&quot;功率 10V/100Ω = %.2fW（期望 1.00）\n&quot;, p);</span><span class="ln">    if (p &lt; 0.99f || p &gt; 1.01f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">欧姆定律/分压/功率模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm &amp;&amp; ./labs/host_ohm</span>
+分压 10k/10k @5V → 2.50V（期望 2.50）
+LED 限流 R=300Ω 功率=0.030W
+功率 10V/100Ω = 1.00W（期望 1.00）
+RESULT: PASS</code></pre></div></div><p class="sim-note">分压 10k/10k@5V=2.50V；LED 5V-2V/10mA→R=300Ω；功率 10V/100Ω=1.00W。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  常用计算</div><table><thead><tr><th>场景</th><th>计算</th><th>结果</th></tr></thead><tbody><tr><td>分压</td><td>Vo=Vin·R2/(R1+R2)</td><td>2.50V</td></tr><tr><td>LED 限流</td><td>R=(5-2)/10mA</td><td>300Ω</td></tr><tr><td>功率</td><td>P=V²/R</td><td>1.00W</td></tr></tbody></table></div></section><section class="sec" id="m01-safety"><h2 id="m01-safety-t">1.3 功率与限流</h2><p>忘记限流会烧 LED/器件；忽略功率会让电阻过载发热。先算功率再选器件额定值。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ohm.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double vr = 5.0 * 10e3 / (10e3 + 10e3);   // 分压 = 2.50V</span><span class="ln">double r  = (5.0 - 2.0) / 0.010;           // LED 限流 = 300Ω</span><span class="ln">double p  = 10.0 * 10.0 / 100.0;           // 功率 = 1.00W</span>
+</code></pre><span class="code-note">先算分压/限流/功率，再选器件额定值</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  计算与注意</div><table><thead><tr><th>量</th><th>公式</th><th>注意</th></tr></thead><tbody><tr><td>分压</td><td>Vo=Vin·R2/(R1+R2)</td><td>负载效应</td></tr><tr><td>限流</td><td>R=(Vin-Vf)/I</td><td>LED 压降</td></tr><tr><td>功率</td><td>P=VI=I²R</td><td>电阻额定</td></tr><tr><td>分流</td><td>按电导分配</td><td>并联电阻</td></tr></tbody></table></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检</h2><p>电路自检：先算、后测、量程正确、功率不超载。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 分压比与输出（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="分压比与输出（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">输入 5V</text><rect x="150" y="26" width="500" height="18" rx="4" class="sv-amb-s"/><text x="658" y="43" class="sv-lbl-hi">50(×10⁻¹V)</text><text x="12" y="67" class="sv-lbl">输出 2.5V</text><rect x="150" y="50" width="250" height="18" rx="4" class="sv-grn-s"/><text x="408" y="67" class="sv-lbl-hi">25(×10⁻¹V)</text></svg></div><figcaption class="fig-ft">10k/10k 分压输出为输入的一半（2.50V@5V）；改变比例即改变输出。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>算</td><td>欧姆定律</td><td>不先算就测</td></tr><tr><td>测</td><td>万用表/示波器</td><td>量程/接法错</td></tr><tr><td>核功率</td><td>P=VI</td><td>电阻过载</td></tr><tr><td>限流</td><td>LED/器件</td><td>烧毁</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>忘记限流</strong>：LED/器件烧毁。</li><li><strong>量程/接法错</strong>：读数无效或短路。</li><li><strong>忽略功率</strong>：电阻过载发热。</li><li><strong>不先算就测</strong>：无法判断对错。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">5V 点亮 2V 压降、10mA 的 LED，限流电阻取多少？</p><details><summary>查看答案</summary><div class="ans"><p>R=(5−2)/0.01=300Ω。这是最基本也最常考的计算。</p></div></details></li><li><p class="q">为什么“先算再测”？</p><details><summary>查看答案</summary><div class="ans"><p>先算得到预期值，测量后比较才能判断电路是否正确。不先算就无法分辨“读数对不对”。</p></div></details></li><li><p class="q">为什么电阻要考虑功率？</p><details><summary>查看答案</summary><div class="ans"><p>电阻有额定功率，超过会发热甚至烧毁。用 P=VI=I²R 算实际功率再选器件。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：拿你手上一个电路（如分压/LED），先算电压电流功率，再用万用表验证。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.allaboutcircuits.com/textbook/" target="_blank" rel="noopener noreferrer">All About Circuits</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_ohm.c</code>：验证分压、LED 限流与功率计算。</p><p><strong>检查结果：</strong>分压 10k/10k@5V=2.50V；LED 限流 R=300Ω 功率=0.030W；功率 10V/100Ω=1.00W。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用欧姆定律/分压/分流先算后测，并用功率核算不超载。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>分压 10k/10k@5V=2.50V；LED 限流 R=300Ω 功率=0.030W；功率 10V/100Ω=1.00W。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 基本量</div>
+      <h1 class="ch-title">数字电平与引脚电气<span class="acc">.</span></h1>
+      <p class="ch-lead">数字电路不是“理想的 0/1”：有<strong>门限电平、驱动能力、上升时间</strong>与 ESD 限制。开漏总线的高电平靠<strong>上拉电阻</strong>。</p>
+      <div class="ch-meta"><span>前置：了解逻辑 0/1 与输入门限（VIH/VIL）的基本概念。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按 VIH/VIL 与驱动能力配置上拉/开漏，用上升时间估算满足总线速率。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>数字电路有门限、驱动能力与上升时间。</li><li>开漏必须上拉；上升时间≈0.8473RC。</li><li>输入不能悬空。</li></ul></div>
+    <section class="sec" id="m02-level"><h2 id="m02-level-t">2.1 门限、驱动、上升时间</h2><p>数字电路有门限电平（VIH/VIL）、驱动能力（灌/拉电流）、上升时间与 ESD 限制。开漏只能拉低，高电平靠上拉电阻。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 开漏总线靠上拉充电</div><div class="fig-bd"><svg viewBox="0 0 800 86" width="100%" height="86" role="img" aria-label="开漏总线靠上拉充电" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V60"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V60"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">15</text><path class="sv-dash" d="M460,26 V60"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">30</text><path class="sv-dash" d="M615,26 V60"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">45</text><path class="sv-dash" d="M770,26 V60"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">60</text><text x="12" y="48" class="sv-lbl">SCL/SDA</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="103" height="22" rx="4" class="sv-box"/><text x="201.7" y="47" text-anchor="middle" class="sv-lbl-hi">低</text><rect x="253" y="32" width="310" height="22" rx="4" class="sv-cyn-s"/><text x="408.3" y="47" text-anchor="middle" class="sv-lbl-hi">上升(RC)</text><rect x="563" y="32" width="207" height="22" rx="4" class="sv-grn-s"/><text x="666.7" y="47" text-anchor="middle" class="sv-lbl-hi">高</text></svg></div><figcaption class="fig-ft">器件拉低=0；释放后由上拉电阻给总线电容充电上升，上升到门限才判高。RC 决定上升时间。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  引脚电气五概念</div><table><thead><tr><th>概念</th><th>含义</th><th>影响</th></tr></thead><tbody><tr><td>VIH/VIL</td><td>输入门限</td><td>电平不够识别错</td></tr><tr><td>上拉/下拉</td><td>确定默认电平</td><td>悬空乱跳</td></tr><tr><td>开漏</td><td>只能拉低</td><td>高电平靠上拉</td></tr><tr><td>驱动电流</td><td>灌/拉能力</td><td>驱动 LED/总线</td></tr><tr><td>上升时间</td><td>RC 充电</td><td>总线速率上限</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pullup.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double tr = 0.8473 * 4700 * 30e-12;        // 4.7k / 30pF ≈ 119ns</span><span class="ln">if (tr &lt; 300e-9) ok = 1;                   // 400kHz 快速模式</span><span class="ln">double il = 3.3 / 1000;                    // 1k 上拉低电平电流=3.3mA</span>
+</code></pre><span class="code-note">按总线电容选上拉，兼顾速率与功耗</span></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：上拉与上升时间</h2><p>下面这段程序验证上拉与上升时间估算：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_pullup.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_pullup.c —— 上拉电阻与开漏总线的上升时间估算（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_pullup.c -o host_pullup -lm &amp;&amp; ./host_pullup</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* I2C 快速模式 400kHz 要求上升时间 &lt; 300ns；t_r ≈ 0.8473*R*C */</span><span class="ln">    float R = 4700, C = 30e-12f;              /* 4.7k, 30pF */</span><span class="ln">    float tr = 0.8473f * R * C * 1e9f;          /* ns */</span><span class="ln">    printf(&quot;上拉 4.7k / 总线电容 30pF → 上升时间 ≈ %.0fns\n&quot;, tr);</span><span class="ln">    int fast_ok = tr &lt; 300.0f;</span><span class="ln">    printf(&quot;满足 400kHz 快速模式(&lt;300ns)=%d\n&quot;, fast_ok);</span><span class="ln">    if (!fast_ok) ok = 0;</span><span class="ln">    /* 上拉过小 → 功耗大（低电平时电流） */</span><span class="ln">    float i = 3.3f / 1000.0f;                    /* 1k 上拉 3.3V */</span><span class="ln">    printf(&quot;1k 上拉低电平电流=%.1fmA（功耗权衡）\n&quot;, i*1000);</span><span class="ln">    if (i &lt;= 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">上拉/上升时间模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pullup.c -o labs/host_pullup &amp;&amp; ./labs/host_pullup</span>
+上拉 4.7k / 总线电容 30pF → 上升时间 ≈ 119ns
+满足 400kHz 快速模式(&lt;300ns)=1
+1k 上拉低电平电流=3.3mA（功耗权衡）
+RESULT: PASS</code></pre></div></div><p class="sim-note">t_r≈0.8473·R·C=119ns<300ns（满足 400kHz）；1k 上拉低电平电流≈3.3mA（功耗权衡）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  上拉计算</div><table><thead><tr><th>参数</th><th>值</th><th>判据</th></tr></thead><tbody><tr><td>上拉</td><td>4.7k@100kHz / 2.2k@400kHz</td><td>常见取值</td></tr><tr><td>上升时间</td><td>0.8473·R·C</td><td>119ns</td></tr><tr><td>快速模式</td><td>t_r<300ns</td><td>通过</td></tr><tr><td>低电平电流</td><td>V/R</td><td>3.3mA@1k</td></tr></tbody></table></div></section><section class="sec" id="m02-choose"><h2 id="m02-choose-t">2.3 上拉取舍与驱动</h2><p>I²C 要按总线电容选上拉：上拉越大上升越慢（限制速率），越小功耗越大；驱动电流不能超引脚规格。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pullup.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double tr = 0.8473 * 4700 * 30e-12;        // 4.7k / 30pF ≈ 119ns</span><span class="ln">if (tr &lt; 300e-9) ok = 1;                   // 400kHz 快速模式</span><span class="ln">double il = 3.3 / 1000;                    // 1k 上拉低电平电流=3.3mA</span>
+</code></pre><span class="code-note">按总线电容选上拉，兼顾速率与功耗</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  上拉与驱动</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>上拉取值</td><td>匹配速率/功耗</td><td>过大上升慢</td></tr><tr><td>开漏+上拉</td><td>线与总线</td><td>无上拉出不了高</td></tr><tr><td>驱动限流</td><td>不超引脚</td><td>超规格损坏</td></tr><tr><td>下拉/上拉</td><td>定默认电平</td><td>悬空乱跳</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检</h2><p>引脚自检：门限满足、上拉匹配、驱动不超限、上升时间达标。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 上升时间 vs 上拉（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="上升时间 vs 上拉（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">2.2k</text><rect x="150" y="26" width="112" height="18" rx="4" class="sv-grn-s"/><text x="270" y="43" class="sv-lbl-hi">56ns</text><text x="12" y="67" class="sv-lbl">4.7k</text><rect x="150" y="50" width="238" height="18" rx="4" class="sv-cyn-s"/><text x="396" y="67" class="sv-lbl-hi">119ns</text><text x="12" y="91" class="sv-lbl">10k</text><rect x="150" y="74" width="508" height="18" rx="4" class="sv-red-s"/><text x="666" y="91" class="sv-lbl-hi">254ns</text></svg></div><figcaption class="fig-ft">上拉越大上升越慢；要在总线速率要求内，同时兼顾低电平电流功耗。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>门限</td><td>查 VIH/VIL</td><td>电平不够</td></tr><tr><td>上拉</td><td>按电容算</td><td>过大过小</td></tr><tr><td>驱动</td><td>查灌/拉电流</td><td>超规格</td></tr><tr><td>上升时间</td><td>0.8473RC</td><td>超速率上限</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>输入悬空</strong>：电平乱跳。</li><li><strong>开漏无上拉</strong>：永远出不了高电平。</li><li><strong>驱动超限</strong>：引脚电流超规格。</li><li><strong>上拉过大且电容高</strong>：上升慢，通信失败。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">开漏输出为什么一定要上拉？</p><details><summary>查看答案</summary><div class="ans"><p>开漏只能把线拉低，释放后是高阻；没有上拉就无法提供高电平。上拉电阻决定上升时间与功耗。</p></div></details></li><li><p class="q">为什么上拉电阻“越大越好”是错的？</p><details><summary>查看答案</summary><div class="ans"><p>上拉越大，RC 上升越慢，可能超过总线速率要求的上升时间；同时要兼顾低电平电流（功耗）。要按总线电容与速率取值。</p></div></details></li><li><p class="q">引脚驱动 LED 前要确认什么？</p><details><summary>查看答案</summary><div class="ans"><p>引脚的灌/拉电流上限与 LED 电流需求。超规格会损坏引脚；不足则驱动不了，需要驱动级。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你的开漏总线按总线电容算上升时间并选上拉，核对满足目标速率。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.allaboutcircuits.com/textbook/" target="_blank" rel="noopener noreferrer">All About Circuits</a> · <a class="ref" href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/index.html" target="_blank" rel="noopener noreferrer">ESP32 硬件设计指南</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_pullup.c</code>：验证上拉与上升时间估算满足快速模式。</p><p><strong>检查结果：</strong>4.7k/30pF → t_r≈119ns < 300ns（满足 400kHz 快速模式）；1k 上拉 3.3V 低电平电流≈3.3mA。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按 VIH/VIL 与驱动能力配置上拉/开漏，用上升时间估算满足总线速率。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>4.7k/30pF → t_r≈119ns &lt; 300ns（满足 400kHz 快速模式）；1k 上拉 3.3V 低电平电流≈3.3mA。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 电源与时钟</div>
+      <h1 class="ch-title">电源、去耦与复位<span class="acc">.</span></h1>
+      <p class="ch-lead">电源是硬件的地基：<strong>LDO/DCDC 选型、去耦布局、纹波与上电时序、复位</strong>。很多“偶发怪问题”根源在电源与地。</p>
+      <div class="ch-meta"><span>前置：了解电源/地概念与基本滤波、复位。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按纹波/瞬态需求布去耦并设计可靠复位，估算 RC 时间常数与截止频率。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>电源是地基：去耦就近、地回路短。</li><li>复位要可靠，欠压进安全态。</li><li>多电源域注意上电时序。</li></ul></div>
+    <section class="sec" id="m03-power"><h2 id="m03-power-t">3.1 电源、去耦、复位</h2><p>电源是硬件地基：LDO/DCDC 选型、去耦布局、纹波与上电时序、复位。去耦电容要尽量靠近芯片电源引脚，地回路要短；复位要可靠并考虑欠压。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 电源到芯片的去耦</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="电源到芯片的去耦" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="49.0" class="sv-lbl-hi">电源 / LDO-DCDC</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="83.0" class="sv-lbl-hi">体电容（bulk）</text><rect x="60" y="98" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="124.0" class="sv-lbl-hi">就近去耦（贴引脚）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="165.0" class="sv-lbl-hi">芯片（VDD/VSS）</text></svg></div><figcaption class="fig-ft">电源 → 体电容 → 就近去耦（贴引脚）→ 芯片。走线电感会削弱去耦效果，越远越无效。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  电源五要素</div><table><thead><tr><th>要素</th><th>作用</th><th>坑</th></tr></thead><tbody><tr><td>LDO/DCDC</td><td>稳压</td><td>效率/纹波</td></tr><tr><td>去耦</td><td>就近供瞬时电流</td><td>远离引脚无效</td></tr><tr><td>纹波</td><td>电源噪声</td><td>影响 ADC/射频</td></tr><tr><td>上电时序</td><td>多电源域</td><td>顺序错锁死</td></tr><tr><td>复位</td><td>保证初始状态</td><td>无复位/抖动</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">rc.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double tau = 10e3 * 1e-6;              // 0.0100s</span><span class="ln">double fc  = 1.0 / (2*M_PI*tau);       // 15.9Hz</span><span class="ln">/* 复位 RC 延时 ~5τ；去耦电容贴引脚、地回路最短 */</span>
+</code></pre><span class="code-note">RC 计算复位延时/滤波；去耦就近</span></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：RC 时间常数与截止频率</h2><p>下面这段程序验证 RC 时间常数与滤波截止频率：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_rc.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_rc.c —— RC 时间常数与滤波截止频率（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_rc.c -o host_rc -lm &amp;&amp; ./host_rc</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float r = 10000, c = 1e-6f;</span><span class="ln">    float tau = r * c;</span><span class="ln">    printf(&quot;R=10k C=1uF → tau=%.4fs\n&quot;, tau);</span><span class="ln">    if (fabsf(tau - 0.01f) &gt; 1e-5f) ok = 0;</span><span class="ln">    float fc = 1.0f/(2.0f*3.14159265f*r*c);</span><span class="ln">    printf(&quot;截止频率 fc=%.1fHz（期望 ~15.9）\n&quot;, fc);</span><span class="ln">    if (fabsf(fc - 15.9f) &gt; 0.2f) ok = 0;</span><span class="ln">    /* 5tau 达到约 99.3% */</span><span class="ln">    printf(&quot;5tau 后充电到约 %.1f%%\n&quot;, (1-expf(-5))*100);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">RC 时间常数/截止频率模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc &amp;&amp; ./labs/host_rc</span>
+R=10k C=1uF → tau=0.0100s
+截止频率 fc=15.9Hz（期望 ~15.9）
+5tau 后充电到约 99.3%
+RESULT: PASS</code></pre></div></div><p class="sim-note">τ=RC=10.0ms、fc=1/(2πRC)≈15.9Hz；5τ 后充电约 99.3%（复位/滤波的时域依据）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  RC 计算</div><table><thead><tr><th>量</th><th>公式</th><th>值</th></tr></thead><tbody><tr><td>时间常数</td><td>τ=RC</td><td>10.0ms</td></tr><tr><td>截止频率</td><td>fc=1/(2πRC)</td><td>15.9Hz</td></tr><tr><td>5τ 充电</td><td>≈99.3%</td><td>稳定</td></tr><tr><td>复位延时</td><td>依 τ</td><td>可靠复位</td></tr></tbody></table></div></section><section class="sec" id="m03-reset"><h2 id="m03-reset-t">3.3 去耦与复位设计</h2><p>去耦就近引脚、地回路最短；复位用上拉+电容或专用复位芯片，并考虑欠压时进入安全状态。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">rc.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double tau = 10e3 * 1e-6;              // 0.0100s</span><span class="ln">double fc  = 1.0 / (2*M_PI*tau);       // 15.9Hz</span><span class="ln">/* 复位：RC 上电复位延时 ~5τ；去耦电容贴引脚、地回路最短 */</span>
+</code></pre><span class="code-note">RC 计算复位延时/滤波；去耦就近</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  电源与复位实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>就近去耦</td><td>瞬态供电</td><td>离引脚远</td></tr><tr><td>短地回路</td><td>降噪声/EMC</td><td>长回路</td></tr><tr><td>可靠复位</td><td>初始状态</td><td>无复位/抖动</td></tr><tr><td>欠压保护</td><td>安全态</td><td>带病运行</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检</h2><p>电源自检：去耦就近、复位可靠、纹波可控、上电时序正确。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> RC 充电曲线关键点（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="RC 充电曲线关键点（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">1τ 63%</text><rect x="150" y="26" width="378" height="18" rx="4" class="sv-cyn-s"/><text x="536" y="43" class="sv-lbl-hi">63%</text><text x="12" y="67" class="sv-lbl">3τ 95%</text><rect x="150" y="50" width="570" height="18" rx="4" class="sv-amb-s"/><text x="728" y="67" class="sv-lbl-hi">95%</text><text x="12" y="91" class="sv-lbl">5τ 99.3%</text><rect x="150" y="74" width="594" height="18" rx="4" class="sv-grn-s"/><text x="752" y="91" class="sv-lbl-hi">99%</text></svg></div><figcaption class="fig-ft">1τ=63%、5τ≈99.3%。复位延时与滤波带宽都基于 τ=RC。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>纹波</td><td>示波器测</td><td>影响 ADC/射频</td></tr><tr><td>去耦</td><td>就近+短地</td><td>远离无效</td></tr><tr><td>复位</td><td>RC/专用芯片</td><td>不可靠</td></tr><tr><td>时序</td><td>多电源域顺序</td><td>锁死</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>去耦太远</strong>：瞬态供电不足，随机复位。</li><li><strong>地回路长</strong>：噪声大、EMC 差。</li><li><strong>复位不可靠</strong>：偶发不启动。</li><li><strong>上电时序错</strong>：多电源域器件锁死。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">为什么去耦电容必须靠近电源引脚？</p><details><summary>查看答案</summary><div class="ans"><p>去耦是为芯片瞬态电流就近供电；走线电感会削弱效果，离得越远越无效。布局上应紧贴引脚并短接地。</p></div></details></li><li><p class="q">RC 时间常数与截止频率的关系？</p><details><summary>查看答案</summary><div class="ans"><p>τ=RC；fc=1/(2πRC)。τ 决定充放电快慢（如复位延时），fc 决定滤波带宽。</p></div></details></li><li><p class="q">多电源域器件为什么要注意上电时序？</p><details><summary>查看答案</summary><div class="ans"><p>某些器件要求电源按特定顺序上电，否则内部电路可能闩锁/锁死。要按手册的时序设计（或加时序控制）。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你板子核对去耦布局（是否贴引脚）、复位可靠性与多电源域上电时序。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.ti.com/power-management/overview.html" target="_blank" rel="noopener noreferrer">TI 电源设计参考</a> · <a class="ref" href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/index.html" target="_blank" rel="noopener noreferrer">ESP32 硬件设计指南</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_rc.c</code>：验证 RC 时间常数与滤波截止频率。</p><p><strong>检查结果：</strong>R=10k、C=1uF → τ=10.0ms、fc≈15.9Hz；5τ 后充电约 99.3%。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按纹波/瞬态需求布去耦并设计可靠复位，估算 RC 时间常数与截止频率。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>R=10k、C=1uF → τ=10.0ms、fc≈15.9Hz；5τ 后充电约 99.3%。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 电源与时钟</div>
+      <h1 class="ch-title">时钟与最小系统<span class="acc">.</span></h1>
+      <p class="ch-lead">最小系统是“芯片能跑”的最小条件：<strong>电源、晶振、复位、BOOT、调试口</strong>。晶振要按规格配负载电容并考虑起振。</p>
+      <div class="ch-meta"><span>前置：了解晶振/时钟源与芯片最小系统的组成。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按晶振规格计算负载电容 CL 并核对起振条件，搭出稳定最小系统。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>最小系统=电源+晶振+复位+BOOT+调试口。</li><li>负载电容按规格匹配，保证起振。</li><li>等 PLL 锁定再切换时钟。</li></ul></div>
+    <section class="sec" id="m04-min"><h2 id="m04-min-t">4.1 最小系统与负载电容</h2><p>最小系统 = 电源 + 晶振 + 复位 + BOOT + 调试口。晶振按规格配负载电容：CL=(C1·C2)/(C1+C2)+Cstray，不匹配会起振慢或不起振。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> 最小系统的五个要素</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="最小系统的五个要素" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="49.0" class="sv-lbl-hi">电源</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">晶振 + 负载电容</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="131.0" class="sv-lbl-hi">复位</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="165.0" class="sv-lbl-hi">BOOT + 调试口</text></svg></div><figcaption class="fig-ft">电源 → 晶振（含负载电容）→ 复位 → BOOT → 调试口。逐项确认后再等 PLL 锁定。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  最小系统五要素</div><table><thead><tr><th>要素</th><th>内容</th><th>坑</th></tr></thead><tbody><tr><td>晶振</td><td>无源/有源</td><td>负载电容不匹配</td></tr><tr><td>负载电容</td><td>CL=(C1·C2)/(C1+C2)+Cstray</td><td>起振慢/不振</td></tr><tr><td>PLL</td><td>倍频</td><td>等待锁定</td></tr><tr><td>BOOT</td><td>启动模式</td><td>电平错</td></tr><tr><td>调试口</td><td>SWD/JTAG</td><td>接线过长</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">xtal.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double cl = (22e-12*22e-12)/(22e-12+22e-12) + 5e-12;  // 16.0pF</span><span class="ln">if (fabs(cl - 16e-12) &lt;= 0.5e-12) ok = 1;              // 匹配规格</span><span class="ln">/* 起振后等 PLL 锁定再切时钟 */</span>
+</code></pre><span class="code-note">负载电容匹配规格；起振后等 PLL 锁定</span></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：负载电容计算</h2><p>下面这段程序按晶振规格计算负载电容：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_xtal.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_xtal.c —— 晶振负载电容计算与最小系统校核（主机可运行）。</span><span class="ln"> * 无源晶振负载电容：CL = (C1*C2)/(C1+C2) + Cstray；需与晶振规格 CL 匹配（常见 12–16pF）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_xtal.c -o host_xtal &amp;&amp; ./host_xtal</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float c1 = 22e-12f, c2 = 22e-12f, cstray = 5e-12f;   /* 两颗 22pF + 杂散 5pF */</span><span class="ln">    float cl = (c1 * c2) / (c1 + c2) + cstray;</span><span class="ln">    printf(&quot;C1=C2=%.0fpF Cstray=%.0fpF → CL=%.1fpF（期望 ~16）\n&quot;,</span><span class="ln">           c1 * 1e12f, cstray * 1e12f, cl * 1e12f);</span><span class="ln">    if (cl &lt; 15.5e-12f || cl &gt; 16.5e-12f) ok = 0;</span><span class="ln">    /* 与晶振规格（示例 CL=16pF）比较，偏差须在 ±0.5pF 内 */</span><span class="ln">    float cl_spec = 16e-12f;</span><span class="ln">    printf(&quot;晶振规格 CL=%.0fpF，匹配误差 %.1fpF（须 ≤0.5）\n&quot;,</span><span class="ln">           cl_spec * 1e12f, (cl - cl_spec) * 1e12f);</span><span class="ln">    if (cl &lt; cl_spec - 0.5e-12f || cl &gt; cl_spec + 0.5e-12f) ok = 0;</span><span class="ln">    printf(&quot;最小系统：电源 → 晶振 → 复位 → BOOT → 调试口，逐项确认后等 PLL 锁定\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">负载电容计算模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_xtal.c -o labs/host_xtal &amp;&amp; ./labs/host_xtal</span>
+C1=C2=22pF Cstray=5pF → CL=16.0pF（期望 ~16）
+晶振规格 CL=16pF，匹配误差 0.0pF（须 ≤0.5）
+最小系统：电源 → 晶振 → 复位 → BOOT → 调试口，逐项确认后等 PLL 锁定
+RESULT: PASS</code></pre></div></div><p class="sim-note">CL=(C1·C2)/(C1+C2)+Cstray=16.0pF，匹配规格 16pF；起振后须等 PLL 锁定再切时钟。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  负载电容计算</div><table><thead><tr><th>量</th><th>公式/值</th><th>判据</th></tr></thead><tbody><tr><td>负载电容</td><td>(C1·C2)/(C1+C2)+Cstray</td><td>16.0pF</td></tr><tr><td>规格</td><td>16pF</td><td>误差≤0.5</td></tr><tr><td>起振</td><td>需要时间/负阻</td><td>确认稳定</td></tr><tr><td>PLL</td><td>等待锁定</td><td>再切时钟</td></tr></tbody></table></div></section><section class="sec" id="m04-osc"><h2 id="m04-osc-t">4.3 起振与稳定</h2><p>起振需要时间与足够负阻；负载电容不匹配会“偶发不启动”。配上电顺序与等待 PLL 锁定，才能稳定启动。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">xtal.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double cl = (22e-12 * 22e-12)/(22e-12 + 22e-12) + 5e-12;  // 16.0pF</span><span class="ln">if (fabs(cl - 16e-12) &lt;= 0.5e-12) ok = 1;                // 匹配规格</span><span class="ln">/* 起振后等 PLL 锁定再切时钟 */</span>
+</code></pre><span class="code-note">负载电容匹配规格；起振后等 PLL 锁定</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  起振与最小系统</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>匹配 CL</td><td>稳定起振</td><td>偶发不启动</td></tr><tr><td>布线短/远离干扰</td><td>起振可靠</td><td>受干扰</td></tr><tr><td>等 PLL 锁定</td><td>切时钟成功</td><td>锁死</td></tr><tr><td>BOOT 正确</td><td>启动模式</td><td>进不了用户代码</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检</h2><p>最小系统自检：电源/晶振/复位/BOOT/调试口逐项确认。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 负载电容匹配（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="负载电容匹配（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">计算 CL</text><rect x="150" y="26" width="480" height="18" rx="4" class="sv-grn-s"/><text x="638" y="43" class="sv-lbl-hi">16pF</text><text x="12" y="67" class="sv-lbl">规格</text><rect x="150" y="50" width="480" height="18" rx="4" class="sv-cyn-s"/><text x="638" y="67" class="sv-lbl-hi">16pF</text><text x="12" y="91" class="sv-lbl">容差</text><rect x="150" y="74" width="15" height="18" rx="4" class="sv-amb-s"/><text x="173" y="91" class="sv-lbl-hi">0.5pF</text></svg></div><figcaption class="fig-ft">CL=16.0pF 与规格 16pF 匹配（误差 0.0），起振可靠；偏离会起振慢/不振。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>电源</td><td>量电压</td><td>无电怀疑固件</td></tr><tr><td>晶振</td><td>量起振</td><td>电容不匹配</td></tr><tr><td>复位</td><td>量电平</td><td>不可靠</td></tr><tr><td>BOOT/调试</td><td>确认</td><td>模式/连线错</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>负载电容不匹配</strong>：起振慢或不振。</li><li><strong>不等 PLL 锁定</strong>：切换时钟失败。</li><li><strong>BOOT 电平错</strong>：启动模式错误。</li><li><strong>调试口过长</strong>：连不上。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">晶振“偶发不启动”常见原因是什么？</p><details><summary>查看答案</summary><div class="ans"><p>负载电容不匹配、起振余量不足、布线过长或受干扰。应核对晶振规格并测量起振时间与幅度。</p></div></details></li><li><p class="q">负载电容公式是什么？</p><details><summary>查看答案</summary><div class="ans"><p>CL=(C1·C2)/(C1+C2)+Cstray。要让它匹配晶振规格（本例 16pF）。</p></div></details></li><li><p class="q">切到 PLL 时钟前必须做什么？</p><details><summary>查看答案</summary><div class="ans"><p>等待 PLL 锁定（PLLRDY）。未锁定就切换会导致系统不稳定或跑飞。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：按你晶振规格算负载电容并核对最小系统五项（电源/晶振/复位/BOOT/调试口）。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/index.html" target="_blank" rel="noopener noreferrer">ESP32 硬件设计指南</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_xtal.c</code>：按晶振规格计算负载电容并核对起振/最小系统。</p><p><strong>检查结果：</strong>C1=C2=22pF、Cstray≈5pF → CL=16.0pF（匹配规格 16pF±0.5）；起振并等 PLL 锁定后切时钟。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按晶振规格计算负载电容 CL 并核对起振条件，搭出稳定最小系统。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>C1=C2=22pF、Cstray≈5pF → CL=16.0pF（匹配规格 16pF±0.5）；起振并等 PLL 锁定后切时钟。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 采集与接口</div>
+      <h1 class="ch-title">模拟信号与采集前端<span class="acc">.</span></h1>
+      <p class="ch-lead">采集前端决定“测得到、测得准”：<strong>分压/运放调理、阻抗匹配、抗混叠滤波、参考与分辨率</strong>。忽略源阻抗会引入误差。</p>
+      <div class="ch-meta"><span>前置：了解电阻分压与运放/ADC 的基本概念。</span><span>◷ 约 44 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能设计分压/调理与抗混叠前端，按参考电压算 LSB 并评估有效位。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m05-knowledge-boundary">分辨率、准确度和有效位数分开</h3><p>12 位 ADC 把满量程分成 4096 个码，不表示每个读数都精确到 1 LSB。参考电压、偏置、增益、噪声、源阻抗、采样时间和布局共同决定误差。用已知输入做偏置/增益标定，并在未用于标定的点上验证误差；只有重复性好不能证明准确。</p></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>采集前端要匹配阻抗、抗混叠、参考干净。</li><li>先算 LSB 与量程再评估有效位。</li><li>采样时间要匹配源阻抗。</li></ul></div>
+    <section class="sec" id="m05-front"><h2 id="m05-front-t">5.1 前端：分压/运放/抗混叠</h2><p>采集前端把信号映射到 ADC 范围：分压/运放调理、阻抗匹配、抗混叠滤波、参考与分辨率。忽略源阻抗会因采样电容充不满而误差。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 采集前端信号链</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="采集前端信号链" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="49.0" class="sv-lbl-hi">传感器（源阻抗）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-cyn-s"/><text x="75" y="90.0" class="sv-lbl-hi">分压/运放调理</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="131.0" class="sv-lbl-hi">抗混叠滤波</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="165.0" class="sv-lbl-hi">ADC（参考/分辨率）</text></svg></div><figcaption class="fig-ft">传感器 → 分压/运放 → 抗混叠滤波 → ADC（参考决定量程）。逐级都可能引入误差。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  前端五要素</div><table><thead><tr><th>要素</th><th>作用</th><th>坑</th></tr></thead><tbody><tr><td>分压/运放</td><td>映射到 ADC 范围</td><td>超范围/增益错</td></tr><tr><td>源阻抗</td><td>影响采样时间</td><td>高阻抗采样不足</td></tr><tr><td>抗混叠</td><td>限制带宽</td><td>混叠</td></tr><tr><td>参考</td><td>决定量程</td><td>参考噪声</td></tr><tr><td>分辨率</td><td>LSB</td><td>噪声限制有效位</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">adc.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double vadc = 2048.0/4095.0*3.3;         // 1.650V</span><span class="ln">double vin  = vadc*(20e3+20e3)/20e3;      // 还原 3.301V</span><span class="ln">double lsb  = 3.3/4096.0;                 // 0.806mV</span><span class="ln">/* 抗混叠 fc 必须低于 Nyquist = fs/2 */</span>
+</code></pre><span class="code-note">算 LSB/量程；抗混叠低于 Nyquist</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：分压还原与 LSB</h2><p>下面这段程序验证分压还原与 LSB 计算：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_adc.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_adc.c —— 采集前端：分压/增益与 ADC 量化换算（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_adc.c -o host_adc &amp;&amp; ./host_adc</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 12 位 ADC, Vref=3.3V；输入经 2:1 分压（量程扩到 6.6V） */</span><span class="ln">    int raw = 2048;                       /* 半量程 */</span><span class="ln">    float vadc = raw * 3.3f / 4095.0f;</span><span class="ln">    float vin = vadc * 2.0f;              /* 还原分压 */</span><span class="ln">    printf(&quot;raw=%d → Vadc=%.3fV → Vin=%.3fV（期望 ~3.30）\n&quot;, raw, vadc, vin);</span><span class="ln">    if (vin &lt; 3.25f || vin &gt; 3.35f) ok = 0;</span><span class="ln">    float lsb = 3.3f/4095.0f;</span><span class="ln">    printf(&quot;LSB=%.3fmV（分辨率）\n&quot;, lsb*1000);</span><span class="ln">    if (lsb &lt;= 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">分压还原/LSB 模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_adc.c -o labs/host_adc &amp;&amp; ./labs/host_adc</span>
+raw=2048 → Vadc=1.650V → Vin=3.301V（期望 ~3.30）
+LSB=0.806mV（分辨率）
+RESULT: PASS</code></pre></div></div><p class="sim-note">raw=2048 → Vadc=1.650V，经分压比还原 Vin≈3.30V；12 位 理想量化步长 LSB=3.3/4096≈0.806mV；/4095 是端点映射约定。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  换算与分辨率</div><table><thead><tr><th>量</th><th>公式</th><th>值</th></tr></thead><tbody><tr><td>ADC 电压</td><td>raw/4095·Vref</td><td>1.650V</td></tr><tr><td>还原输入</td><td>·分压比</td><td>3.301V</td></tr><tr><td>LSB</td><td>Vref/4096</td><td>0.806mV</td></tr><tr><td>抗混叠</td><td>fc&lt;Nyquist</td><td>防混叠</td></tr></tbody></table></div></section><section class="sec" id="m05-noise"><h2 id="m05-noise-t">5.3 噪声与有效位</h2><p>先算 LSB 与量程，再评估噪声决定有效位数；采样时间要匹配源阻抗；抗混叠截止要低于 Nyquist。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">adc.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double vadc = 2048.0 / 4095.0 * 3.3;      // 1.650V</span><span class="ln">double vin  = vadc * (20e3 + 20e3) / 20e3; // 还原 3.301V</span><span class="ln">double lsb  = 3.3 / 4096.0;               // 0.806mV</span><span class="ln">/* 抗混叠 fc 必须低于 Nyquist = fs/2 */</span>
+</code></pre><span class="code-note">算 LSB/量程；抗混叠低于 Nyquist；采样匹配源阻抗</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  前端设计实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>匹配源阻抗</td><td>采样准确</td><td>充不满偏低</td></tr><tr><td>抗混叠</td><td>防混叠</td><td>假信号</td></tr><tr><td>参考去耦</td><td>低噪声</td><td>有效位下降</td></tr><tr><td>评估有效位</td><td>真实精度</td><td>理论位≠有效位</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检</h2><p>前端自检：量程匹配、阻抗匹配、抗混叠、参考干净、有效位明确。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 分压还原（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="分压还原（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">Vadc</text><rect x="150" y="26" width="283" height="18" rx="4" class="sv-cyn-s"/><text x="441" y="43" class="sv-lbl-hi">1650mV</text><text x="12" y="67" class="sv-lbl">Vin 还原</text><rect x="150" y="50" width="566" height="18" rx="4" class="sv-grn-s"/><text x="724" y="67" class="sv-lbl-hi">3301mV</text></svg></div><figcaption class="fig-ft">ADC 读到 1.650V，经分压比还原输入 3.301V；LSB≈0.806mV 决定最小分辨。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>算 LSB</td><td>Vref/4096</td><td>忽略分辨率</td></tr><tr><td>查阻抗</td><td>源阻抗 vs 采样</td><td>采样不足</td></tr><tr><td>抗混叠</td><td>fc&lt;Nyquist</td><td>混叠</td></tr><tr><td>评估有效位</td><td>噪声实测</td><td>理论位误导</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>不匹配阻抗</strong>：采样不准。</li><li><strong>超量程</strong>：削顶/损坏。</li><li><strong>无抗混叠</strong>：高频混叠成假信号。</li><li><strong>参考噪声大</strong>：有效位下降。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">为什么高源阻抗会让 ADC 采样不准？</p><details><summary>查看答案</summary><div class="ans"><p>采样电容充电受 RC 限制；源阻抗高、采样时间短就充不满，读数偏低。需加缓冲/延长采样时间。</p></div></details></li><li><p class="q">12 位、Vref=3.3V 的 LSB 是多少？</p><details><summary>查看答案</summary><div class="ans"><p>LSB=Vref/4096≈0.806mV。它决定可分辨的最小电压变化。</p></div></details></li><li><p class="q">抗混叠滤波器的截止频率怎么定？</p><details><summary>查看答案</summary><div class="ans"><p>要低于 Nyquist 频率（fs/2），把高于 Nyquist 的分量滤掉，避免混叠成假信号。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你采集前端核对分压/阻抗/抗混叠/参考，实测 LSB 与有效位。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.nxp.com/" target="_blank" rel="noopener noreferrer">NXP AN 模拟设计</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_adc.c</code>：验证分压还原与 LSB 计算。</p><p><strong>检查结果：</strong>raw=2048 → Vin=3.301V；理想量化步长 LSB=3.3/4096≈0.806mV；/4095 是端点映射约定；抗混叠截止须低于 Nyquist。</p></div>
+<p class="sim-note">迁移练习：把本章的“能设计分压/调理与抗混叠前端，按参考电压算 LSB 并评估有效位。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>raw=2048 → Vin=3.301V；理想量化步长 LSB=3.3/4096≈0.806mV；/4095 是端点映射约定；抗混叠截止须低于 Nyquist。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 采集与接口</div>
+      <h1 class="ch-title">接口电路与总线物理层<span class="acc">.</span></h1>
+      <p class="ch-lead">同一协议在不同物理层表现不同：UART 电平、I²C 开漏、SPI 推挽、CAN 差分。关键在<strong>驱动、终端与共地</strong>——很多“偶尔出错”是物理层问题。</p>
+      <div class="ch-meta"><span>前置：了解 UART/I2C/SPI/CAN 的协议与物理层概念。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按总线选电平/驱动与终端匹配，识别共地/隔离/防护问题。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>总线物理层决定“偶尔出错”。</li><li>CAN 两端 120Ω 终端；开漏要上拉。</li><li>跨地电位差用隔离。</li></ul></div>
+    <section class="sec" id="m06-phy"><h2 id="m06-phy-t">6.1 物理层：驱动、终端、共地</h2><p>同一协议在不同物理层表现不同。CAN 两端各 120Ω 终端匹配特征阻抗、减少反射；跨地电位差大时用隔离。物理层问题常表现为“偶尔出错”。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> CAN 差分与终端</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="CAN 差分与终端" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">节点 A（120Ω 终端）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">差分传输线 z0=120Ω</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="131.0" class="sv-lbl-hi">节点 B（120Ω 终端）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-red-s"/><text x="75" y="165.0" class="sv-lbl-hi">失配 → 反射</text></svg></div><figcaption class="fig-ft">CANH/CANL 差分传输；两端各 120Ω 终端匹配 z0，减少反射；差分驱动器看到 60Ω 并联负载。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  总线物理层</div><table><thead><tr><th>总线</th><th>物理层要点</th><th>常见故障</th></tr></thead><tbody><tr><td>UART</td><td>电平/共地</td><td>电平不符/地漂</td></tr><tr><td>I²C</td><td>开漏+上拉</td><td>上拉/电容</td></tr><tr><td>SPI</td><td>推挽/片选</td><td>片选/速率</td></tr><tr><td>CAN</td><td>差分+120Ω 终端</td><td>缺终端/反射</td></tr><tr><td>隔离</td><td>光耦/数字隔离</td><td>地环路</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">term.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double z_par = 120.0*120.0/(120.0+120.0);        // 60Ω</span><span class="ln">double gamma = (1000.0-120.0)/(1000.0+120.0);     // 0.79</span><span class="ln">/* 匹配时 gamma≈0；失配 → 反射 → 误码 */</span>
+</code></pre><span class="code-note">两端终端匹配 z0；失配反射系数大</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：终端与反射</h2><p>下面这段程序验证终端等效阻抗与失配反射系数：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_term.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_term.c —— 总线终端与反射：传输线阻抗匹配（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_term.c -o host_term &amp;&amp; ./host_term</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 特征阻抗 120Ω 的 CAN 总线：两端各 120Ω 终端，等效 60Ω */</span><span class="ln">    float z0 = 120.0f, rterm = 120.0f;</span><span class="ln">    float z_eff = 1.0f/(1.0f/rterm + 1.0f/rterm);</span><span class="ln">    printf(&quot;两端 120Ω 终端 → 等效 %.0fΩ（应匹配 z0=120Ω 的差分）\n&quot;, z_eff);</span><span class="ln">    /* 反射系数：负载 ZL 与 z0 */</span><span class="ln">    float zl_bad = 1000.0f;</span><span class="ln">    float gamma = (zl_bad - z0) / (zl_bad + z0);</span><span class="ln">    printf(&quot;失配负载 1k 的反射系数=%.2f（越接近 0 越好）\n&quot;, gamma);</span><span class="ln">    if (fabsf(gamma) &lt; 0.5f) ok = 0;              /* 失配明显 */</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">终端/反射模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term &amp;&amp; ./labs/host_term</span>
+两端 120Ω 终端 → 等效 60Ω（应匹配 z0=120Ω 的差分）
+失配负载 1k 的反射系数=0.79（越接近 0 越好）
+RESULT: PASS</code></pre></div></div><p class="sim-note">两端各 120Ω 各匹配本端；差分驱动器看到 60Ω 并联负载。失配 1k 反射系数 0.79（越接近 0 越好）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  终端与反射</div><table><thead><tr><th>情形</th><th>等效/系数</th><th>判定</th></tr></thead><tbody><tr><td>两端 120Ω</td><td>差分 60Ω</td><td>匹配</td></tr><tr><td>失配 1k</td><td>反射系数 0.79</td><td>差</td></tr><tr><td>匹配</td><td>反射系数≈0</td><td>好</td></tr><tr><td>缺终端</td><td>反射大</td><td>误码</td></tr></tbody></table></div></section><section class="sec" id="m06-iso"><h2 id="m06-iso-t">6.3 隔离与共地</h2><p>长线/多节点/高速要关注终端与拓扑；跨地电位差大时用隔离（光耦/数字隔离）避免地环路。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">term.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double z_par = 120.0 * 120.0 / (120.0 + 120.0);   // 60Ω</span><span class="ln">double gamma = (1000.0 - 120.0) / (1000.0 + 120.0); // 0.79</span><span class="ln">/* 匹配时 gamma≈0；缺终端/失配 → 反射 → 误码 */</span>
+</code></pre><span class="code-note">两端终端匹配 z0；失配反射系数大</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  物理层实践</div><table><thead><tr><th>场景</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>长线/多节点</td><td>正确终端+拓扑</td><td>反射/误码</td></tr><tr><td>地电位差大</td><td>隔离</td><td>地环路</td></tr><tr><td>ESD</td><td>防护器件</td><td>接口损坏</td></tr><tr><td>共地</td><td>单点/星形地</td><td>地漂移</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检</h2><p>物理层自检：终端匹配、共地良好、必要隔离、ESD 防护。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 反射系数（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="反射系数（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">匹配</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-grn-s"/><text x="160" y="43" class="sv-lbl-hi">0(×10⁻²)</text><text x="12" y="67" class="sv-lbl">失配 1k</text><rect x="150" y="50" width="474" height="18" rx="4" class="sv-red-s"/><text x="632" y="67" class="sv-lbl-hi">79(×10⁻²)</text></svg></div><figcaption class="fig-ft">匹配时反射系数≈0；失配 1k 时 0.79，反射严重会导致误码。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>终端</td><td>测 120Ω×2</td><td>缺终端</td></tr><tr><td>共地</td><td>测地电位差</td><td>地漂移</td></tr><tr><td>隔离</td><td>按需</td><td>地环路</td></tr><tr><td>防护</td><td>ESD 器件</td><td>接口损坏</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>缺终端</strong>：反射导致误码。</li><li><strong>共地不良</strong>：地电位差误触发。</li><li><strong>无隔离</strong>：地环路烧接口。</li><li><strong>ESD 防护缺失</strong>：接口易损。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">CAN 为什么两端各要 120Ω 终端？</p><details><summary>查看答案</summary><div class="ans"><p>匹配传输线特征阻抗、吸收反射，保证信号完整；缺终端会因反射产生误码，高速/长线时更明显。</p></div></details></li><li><p class="q">为什么长线/多节点要关注“拓扑”？</p><details><summary>查看答案</summary><div class="ans"><p>拓扑（总线型 vs 星形）与分支线长度会影响反射与信号质量。总线型 + 正确终端是 CAN 的推荐拓扑。</p></div></details></li><li><p class="q">跨地电位差大时为什么用隔离？</p><details><summary>查看答案</summary><div class="ans"><p>地电位差会形成地环路电流，干扰通信甚至烧接口。隔离（光耦/数字隔离）切断电气连接，消除地环路。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你 CAN/RS-485 总线核对两端终端与共地/隔离，用示波器看波形确认无反射。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.nxp.com/docs/en/user-guide/UM10204.pdf" target="_blank" rel="noopener noreferrer">I²C 总线规范 UM10204</a> · <a class="ref" href="https://www.ti.com/lit/an/slla270/slla270.pdf" target="_blank" rel="noopener noreferrer">CAN 物理层与终端</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_term.c</code>：验证终端等效阻抗与失配反射系数。</p><p><strong>检查结果：</strong>每端 120Ω 各匹配本端 z0=120Ω，差分看到 60Ω 并联负载；失配 1k 负载反射系数=0.79。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按总线选电平/驱动与终端匹配，识别共地/隔离/防护问题。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>每端 120Ω 各匹配本端 z0=120Ω，差分看到 60Ω 并联负载；失配 1k 负载反射系数=0.79。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 采集与接口</div>
+      <h1 class="ch-title">传感器与执行器接口<span class="acc">.</span></h1>
+      <p class="ch-lead">传感器/执行器接口要处理<strong>电平、驱动与保护</strong>：数字传感器配上拉/电平转换，执行器用合适的驱动级并加<strong>续流/保护</strong>。</p>
+      <div class="ch-meta"><span>前置：了解数字/模拟传感器与晶体管/MOS 驱动概念。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为传感器配置电平/上拉，为执行器设计驱动级并加续流/限流保护。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>接口要电平匹配、驱动足够、有保护。</li><li>感性负载必须续流二极管。</li><li>LED/器件要限流。</li></ul></div>
+    <section class="sec" id="m07-iface"><h2 id="m07-iface-t">7.1 传感器与执行器接口</h2><p>数字传感器配上拉/电平转换，模拟传感器用分压/运放加滤波保护，执行器用合适的驱动级并加续流/限流保护。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 从 GPIO 到执行器</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="从 GPIO 到执行器" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">GPIO（≤8mA）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">驱动级（三极管/MOS）</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="131.0" class="sv-lbl-hi">负载（线圈/继电器）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-red-s"/><text x="75" y="165.0" class="sv-lbl-hi">续流二极管（保护）</text></svg></div><figcaption class="fig-ft">GPIO（小电流）→ 驱动级（三极管/MOS）→ 负载；感性负载并联续流二极管钳位反峰。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  接口与保护</div><table><thead><tr><th>器件</th><th>接口/驱动</th><th>保护</th></tr></thead><tbody><tr><td>数字传感器</td><td>I²C/SPI/1-Wire</td><td>上拉/电平转换</td></tr><tr><td>模拟传感器</td><td>分压/运放</td><td>滤波/保护</td></tr><tr><td>LED</td><td>限流电阻/恒流</td><td>限流</td></tr><tr><td>MOSFET 负载</td><td>栅极驱动</td><td>续流二极管</td></tr><tr><td>继电器</td><td>三极管/MOS</td><td>续流+RC 吸收</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">drive.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double icoil = 5.0/120.0;              // 41.7mA</span><span class="ln">if (icoil &gt; 8e-3) need_driver = 1;     // 超 GPIO 上限</span><span class="ln">/* 感性负载并联续流二极管，钳位关断反峰到 ~0.7V */</span>
+</code></pre><span class="code-note">超上限用驱动级；感性负载加续流二极管</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：驱动电流与续流</h2><p>下面这段程序校核执行器驱动电流与续流保护：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_drive.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_drive.c —— 执行器驱动：续流保护与驱动电流校核（主机可运行）。</span><span class="ln"> * 感性负载（继电器/电机）关断需续流二极管钳位反峰；驱动电流超过 GPIO 上限须加三极管/MOS。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_drive.c -o host_drive &amp;&amp; ./host_drive</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 5V 继电器线圈 R=120Ω → 稳态电流 */</span><span class="ln">    float vs = 5.0f, rcoil = 120.0f;</span><span class="ln">    float icoil = vs / rcoil;</span><span class="ln">    printf(&quot;线圈 5V/120Ω → 稳态电流=%.1fmA（期望 ~41.7）\n&quot;, icoil * 1000.0f);</span><span class="ln">    if (icoil &lt; 0.040f || icoil &gt; 0.043f) ok = 0;</span><span class="ln">    /* GPIO 典型灌/拉上限 8mA，直驱线圈不够 */</span><span class="ln">    float gpio_max = 0.008f;</span><span class="ln">    int need_stage = icoil &gt; gpio_max;</span><span class="ln">    printf(&quot;GPIO 上限 8mA &lt; 线圈 %.1fmA → 须三极管/MOS 驱动=%d（期望 1）\n&quot;,</span><span class="ln">           icoil * 1000.0f, need_stage);</span><span class="ln">    if (!need_stage) ok = 0;</span><span class="ln">    /* 续流二极管把关断反峰钳位到正向压降，避免击穿驱动级 */</span><span class="ln">    float vf = 0.7f;</span><span class="ln">    printf(&quot;续流二极管钳位关断反峰 → %.1fV（无续流则反峰击穿驱动级）\n&quot;, vf);</span><span class="ln">    if (vf &lt;= 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">执行器驱动/续流模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_drive.c -o labs/host_drive &amp;&amp; ./labs/host_drive</span>
+线圈 5V/120Ω → 稳态电流=41.7mA（期望 ~41.7）
+GPIO 上限 8mA &lt; 线圈 41.7mA → 须三极管/MOS 驱动=1（期望 1）
+续流二极管钳位关断反峰 → 0.7V（无续流则反峰击穿驱动级）
+RESULT: PASS</code></pre></div></div><p class="sim-note">线圈电流 41.7mA 远超 GPIO 8mA 上限 → 须驱动级；续流二极管把关断反峰钳位到 0.7V。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  驱动校核</div><table><thead><tr><th>量</th><th>值</th><th>结论</th></tr></thead><tbody><tr><td>线圈电流</td><td>5/120=41.7mA</td><td>超 GPIO 上限</td></tr><tr><td>GPIO 上限</td><td>8mA</td><td>须驱动级</td></tr><tr><td>续流钳位</td><td>≈0.7V</td><td>保护驱动级</td></tr><tr><td>无限流 LED</td><td>烧毁</td><td>必加限流</td></tr></tbody></table></div></section><section class="sec" id="m07-protect"><h2 id="m07-protect-t">7.3 续流与电平转换</h2><p>感性负载必须加续流二极管，否则关断反峰击穿驱动；电平不匹配用转换/电平位移，不要硬接。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">drive.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double icoil = 5.0 / 120.0;              // 41.7mA</span><span class="ln">if (icoil &gt; 8e-3) need_driver = 1;       // 超 GPIO 上限</span><span class="ln">/* 感性负载并联续流二极管，钳位关断反峰到 ~0.7V */</span>
+</code></pre><span class="code-note">超上限用驱动级；感性负载加续流二极管</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  驱动与保护实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>驱动级</td><td>带动大电流</td><td>GPIO 超限</td></tr><tr><td>续流二极管</td><td>钳位反峰</td><td>击穿驱动</td></tr><tr><td>电平转换</td><td>匹配电平</td><td>硬接损坏</td></tr><tr><td>限流</td><td>保护 LED</td><td>烧毁</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检</h2><p>接口自检：电流不超 GPIO、有驱动级、感性负载有续流、电平匹配。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> GPIO 电流 vs 负载电流（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="GPIO 电流 vs 负载电流（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">GPIO 上限</text><rect x="150" y="26" width="96" height="18" rx="4" class="sv-cyn-s"/><text x="254" y="43" class="sv-lbl-hi">8mA</text><text x="12" y="67" class="sv-lbl">线圈电流</text><rect x="150" y="50" width="500" height="18" rx="4" class="sv-red-s"/><text x="658" y="67" class="sv-lbl-hi">41.7mA</text></svg></div><figcaption class="fig-ft">GPIO 上限 8mA，线圈 41.7mA——直接驱动会超限，必须用驱动级。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>算电流</td><td>V/R</td><td>超 GPIO</td></tr><tr><td>驱动级</td><td>三极管/MOS</td><td>带不动</td></tr><tr><td>续流</td><td>二极管</td><td>反峰击穿</td></tr><tr><td>限流/电平</td><td>LED/转换</td><td>烧毁/识别错</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无续流</strong>：反峰击穿。</li><li><strong>电平不匹配</strong>：识别错/损坏。</li><li><strong>驱动不足</strong>：带不动负载。</li><li><strong>无限流</strong>：LED/器件烧毁。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">驱动继电器为什么必须加续流二极管？</p><details><summary>查看答案</summary><div class="ans"><p>继电器线圈是感性负载，关断瞬间产生反向高压尖峰，会击穿驱动三极管/MOS。续流二极管为电流提供回路，钳位电压。</p></div></details></li><li><p class="q">GPIO 直接驱动 5V/120Ω 线圈（41.7mA）会怎样？</p><details><summary>查看答案</summary><div class="ans"><p>超过 GPIO 电流上限（如 8mA），会损坏引脚或驱动不足。必须用三极管/MOS 驱动级。</p></div></details></li><li><p class="q">电平不匹配时为什么不能“硬接”？</p><details><summary>查看答案</summary><div class="ans"><p>电平不符会导致识别错误，甚至因过压/倒灌损坏器件。应使用电平转换/电平位移电路。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个执行器（继电器/电机/LED）核算电流并设计驱动级 + 保护（续流/限流）。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.allaboutcircuits.com/textbook/" target="_blank" rel="noopener noreferrer">All About Circuits</a> · <a class="ref" href="https://www.nxp.com/" target="_blank" rel="noopener noreferrer">NXP AN 模拟设计</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_drive.c</code>：校核执行器驱动电流与续流保护，并为执行器设计驱动级。</p><p><strong>检查结果：</strong>5V/120Ω 线圈电流≈41.7mA；GPIO 上限 8mA 小于线圈电流 → 须三极管/MOS；续流钳位关断反峰≈0.7V。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为传感器配置电平/上拉，为执行器设计驱动级并加续流/限流保护。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>5V/120Ω 线圈电流≈41.7mA；GPIO 上限 8mA 小于线圈电流 → 须三极管/MOS；续流钳位关断反峰≈0.7V。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 测量与综合</div>
+      <h1 class="ch-title">示波器与逻辑分析仪<span class="acc">.</span></h1>
+      <p class="ch-lead">测量工具决定“看得见看不见”：<strong>带宽、采样率、触发方式、探头接地</strong>。逻辑分析仪擅长协议解码，示波器擅长模拟与时序细节。</p>
+      <div class="ch-meta"><span>前置：会使用示波器/逻辑分析仪的基本功能。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按信号选探头/带宽与采样率、设置触发捕获偶发事件，并用逻辑分析仪解码协议。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>测量工具：带宽/采样/触发/探头接地。</li><li>数字边沿按上升时间选系统带宽；不要仅看时钟基频。</li><li>协议问题用逻辑分析仪解码。</li></ul></div>
+    <section class="sec" id="m08-tools"><h2 id="m08-tools-t">8.1 带宽、采样、触发、接地</h2><p>带宽不足会平滑掉真实边沿、甚至把探头振铃当信号；采样不足会混叠；触发决定能否捕获偶发。接地线要短。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 边沿的可测与不可测</div><div class="fig-bd"><svg viewBox="0 0 800 120" width="100%" height="120" role="img" aria-label="边沿的可测与不可测" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V94"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V94"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">10</text><path class="sv-dash" d="M460,26 V94"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">20</text><path class="sv-dash" d="M615,26 V94"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">30</text><path class="sv-dash" d="M770,26 V94"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">40</text><text x="12" y="48" class="sv-lbl">真实</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="155" height="22" rx="4" class="sv-grn-s"/><text x="227.5" y="47" text-anchor="middle" class="sv-lbl-hi">陡</text><text x="12" y="82" class="sv-lbl">带宽不足</text><path class="sv-dash" d="M150,78 H770"/><rect x="150" y="66" width="465" height="22" rx="4" class="sv-red-s"/><text x="382.5" y="81" text-anchor="middle" class="sv-lbl-hi">被抹平</text></svg></div><figcaption class="fig-ft">足够带宽能重建真实边沿；带宽不足把边沿“抹平”，误导判断。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  测量工具</div><table><thead><tr><th>工具</th><th>擅长</th><th>注意</th></tr></thead><tbody><tr><td>示波器</td><td>模拟/时序/抖动</td><td>带宽/探头</td></tr><tr><td>逻辑分析仪</td><td>多路数字/解码</td><td>只判高低</td></tr><tr><td>探头</td><td>信号接入</td><td>接地线要短</td></tr><tr><td>触发</td><td>捕获事件</td><td>单次/边沿</td></tr><tr><td>采样</td><td>重建波形</td><td>Nyquist</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">scope.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">选带宽 &gt;=5× 信号频率；采样率 &gt;2× 最高分量</span><span class="ln">接地弹簧要短；协议用逻辑分析仪解码</span><span class="ln">偶发用单次/边沿触发；看抖动/眼图评估信号质量</span>
+</code></pre><span class="code-note">按上升时间选带宽、采样留余量、短接地、正确触发</span></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：RC 带宽直觉</h2><p>用 RC 模型建立“时间常数↔带宽”的直觉（示波器测边沿时的参照）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_rc.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_rc.c —— RC 时间常数与滤波截止频率（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_rc.c -o host_rc -lm &amp;&amp; ./host_rc</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float r = 10000, c = 1e-6f;</span><span class="ln">    float tau = r * c;</span><span class="ln">    printf(&quot;R=10k C=1uF → tau=%.4fs\n&quot;, tau);</span><span class="ln">    if (fabsf(tau - 0.01f) &gt; 1e-5f) ok = 0;</span><span class="ln">    float fc = 1.0f/(2.0f*3.14159265f*r*c);</span><span class="ln">    printf(&quot;截止频率 fc=%.1fHz（期望 ~15.9）\n&quot;, fc);</span><span class="ln">    if (fabsf(fc - 15.9f) &gt; 0.2f) ok = 0;</span><span class="ln">    /* 5tau 达到约 99.3% */</span><span class="ln">    printf(&quot;5tau 后充电到约 %.1f%%\n&quot;, (1-expf(-5))*100);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">RC 时间常数/带宽模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_rc.c -o labs/host_rc &amp;&amp; ./labs/host_rc</span>
+R=10k C=1uF → tau=0.0100s
+截止频率 fc=15.9Hz（期望 ~15.9）
+5tau 后充电到约 99.3%
+RESULT: PASS</code></pre></div></div><p class="sim-note">τ=RC 与 fc=1/(2πRC) 给出边沿时间与带宽的关系；据此判断示波器带宽是否足够。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  测量选取规则</div><table><thead><tr><th>规则</th><th>取值</th><th>说明</th></tr></thead><tbody><tr><td>带宽</td><td>≥5× 信号频率</td><td>重建边沿</td></tr><tr><td>采样率</td><td>>2× 最高分量</td><td>Nyquist</td></tr><tr><td>接地线</td><td>尽量短</td><td>避免振铃</td></tr><tr><td>触发</td><td>边沿/单次</td><td>抓偶发</td></tr></tbody></table></div></section><section class="sec" id="m08-decode"><h2 id="m08-decode-t">8.3 协议解码与抖动</h2><p>协议问题用逻辑分析仪解码更直观；高速信号看抖动/眼图；注意测量引入的寄生（探头接地过长会看到振铃）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">scope.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">选带宽 &gt;=5× 信号频率；采样率 &gt;2× 最高分量</span>
+</code></pre><span class="code-note">接地弹簧要短；协议用逻辑分析仪解码
+偶发用单次/边沿触发；看抖动/眼图评估信号质量</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  按问题选工具</div><table><thead><tr><th>问题</th><th>工具</th><th>做法</th></tr></thead><tbody><tr><td>协议错</td><td>逻辑分析仪</td><td>解码</td></tr><tr><td>边沿怪</td><td>示波器</td><td>短接地</td></tr><tr><td>偶发</td><td>单次触发</td><td>条件触发</td></tr><tr><td>抖动</td><td>眼图</td><td>统计</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检</h2><p>测量自检：带宽/采样足够、接地短、触发设对、协议可解码。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 带宽需求（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="带宽需求（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">信号 10M</text><rect x="150" y="26" width="100" height="18" rx="4" class="sv-cyn-s"/><text x="258" y="43" class="sv-lbl-hi">10MHz</text><text x="12" y="67" class="sv-lbl">5× 带宽</text><rect x="150" y="50" width="500" height="18" rx="4" class="sv-grn-s"/><text x="658" y="67" class="sv-lbl-hi">50MHz</text></svg></div><figcaption class="fig-ft">10MHz/50MHz 仅为基频经验示例。数字信号更应按上升时间选型；近似单极点响应有 t_r≈0.35/BW，探头与示波器共同影响测量。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>估频率</td><td>最高分量</td><td>只看基频</td></tr><tr><td>选带宽</td><td>≥5×</td><td>边沿失真</td></tr><tr><td>选采样</td><td>>2×(Nyquist)</td><td>混叠</td></tr><tr><td>触发</td><td>边沿/单次</td><td>抓不到偶发</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>带宽不足</strong>：看不到真实边沿。</li><li><strong>采样不足</strong>：混叠误判。</li><li><strong>接地线过长</strong>：测到振铃。</li><li><strong>触发设置错</strong>：抓不到偶发。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">为什么数字信号不能只按时钟基频选择示波器带宽？</p><details><summary>查看答案</summary><div class="ans"><p>边沿含高频分量，应按允许的上升时间误差选择探头与示波器的总带宽。单极点近似 t_r≈0.35/BW 只是估算；采样率、触发与记录长度也必须满足目标。</p></div></details></li><li><p class="q">探头接地线为什么必须短？</p><details><summary>查看答案</summary><div class="ans"><p>过长的接地引线有电感，会与探头形成振铃，测到的不是真实信号。用短接地弹簧。</p></div></details></li><li><p class="q">协议问题为什么优先用逻辑分析仪？</p><details><summary>查看答案</summary><div class="ans"><p>逻辑分析仪多路采样并可直接解码协议，能直观看到帧/位，比用示波器肉眼判高低高效。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：用示波器按“上升时间选带宽、采样留余量、短接地”测一次你板的边沿，并与计算对照。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.allaboutcircuits.com/textbook/" target="_blank" rel="noopener noreferrer">All About Circuits</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_rc.c</code>（时间常数/带宽直觉）；用示波器测一次真实上升沿并与计算对照。</p><p><strong>检查结果：</strong>RC 模型 τ=10.0ms、fc≈15.9Hz 正确；按边沿上升时间和探头/示波器总响应选带宽；采样率、存储深度与触发能保留所需事件，Nyquist 只是带限重建的理论下限。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按信号选探头/带宽与采样率、设置触发捕获偶发事件，并用逻辑分析仪解码协议。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>RC 模型 τ=10.0ms、fc≈15.9Hz 正确；按边沿上升时间和探头/示波器总响应选带宽；采样率、存储深度与触发能保留所需事件，Nyquist 只是带限重建的理论下限。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 测量与综合</div>
+      <h1 class="ch-title">PCB、EMC 与首板检查<span class="acc">.</span></h1>
+      <p class="ch-lead">PCB 与 EMC 的核心是<strong>控制回流路径与回路面积</strong>：完整地平面、短回流、就近去耦、高速线参考平面连续。</p>
+      <div class="ch-meta"><span>前置：了解 PCB 布局、地平面与 EMC 的基本概念。</span><span>◷ 约 42 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按回流路径/回路面积规划叠层与去耦，并按清单逐项检查首板。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>PCB/EMC 核心是控制回流与回路面积。</li><li>地平面完整、去耦就近、参考连续。</li><li>首板按清单逐级确认。</li></ul></div>
+    <section class="sec" id="m09-pcb"><h2 id="m09-pcb-t">9.1 回流路径与回路面积</h2><p>EMC 的核心是控制回流路径：完整地平面给回流最短路径，回路面积小则辐射/敏感度低；高速线参考平面要连续，地被割裂会迫使回流绕行。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> 回流路径与回路面积</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="回流路径与回路面积" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">信号线（去路）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">完整地平面（回流）</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="131.0" class="sv-lbl-hi">回路面积（越小越好）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-red-s"/><text x="75" y="165.0" class="sv-lbl-hi">地割裂 → 绕行/辐射</text></svg></div><figcaption class="fig-ft">完整地平面 → 回流就近返回、回路面积小；地割裂 → 回流绕远、回路大、EMC 差。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  PCB/EMC 五要素</div><table><thead><tr><th>要素</th><th>要点</th><th>坑</th></tr></thead><tbody><tr><td>叠层/地</td><td>完整地平面</td><td>地被割裂</td></tr><tr><td>回路面积</td><td>越小越好</td><td>大回路=辐射/敏感</td></tr><tr><td>去耦</td><td>就近引脚</td><td>离太远无效</td></tr><tr><td>回流</td><td>沿最小阻抗返回</td><td>跨分割</td></tr><tr><td>EMC</td><td>辐射/抗扰</td><td>只堆器件不控布局</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">layout.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">完整地平面：回流走最短路径，回路面积最小</span><span class="ln">去耦电容贴芯片电源引脚，地回路最短</span><span class="ln">高速线参考平面连续，不跨地分割</span><span class="ln">终端匹配 z0，减少反射/EMI</span>
+</code></pre><span class="code-note">完整地平面+短回流+就近去耦+连续参考</span></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：阻抗/反射直觉</h2><p>用终端/反射模型理解“阻抗不匹配”的危害（PCB 走线同理）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_term.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_term.c —— 总线终端与反射：传输线阻抗匹配（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_term.c -o host_term &amp;&amp; ./host_term</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 特征阻抗 120Ω 的 CAN 总线：两端各 120Ω 终端，等效 60Ω */</span><span class="ln">    float z0 = 120.0f, rterm = 120.0f;</span><span class="ln">    float z_eff = 1.0f/(1.0f/rterm + 1.0f/rterm);</span><span class="ln">    printf(&quot;两端 120Ω 终端 → 等效 %.0fΩ（应匹配 z0=120Ω 的差分）\n&quot;, z_eff);</span><span class="ln">    /* 反射系数：负载 ZL 与 z0 */</span><span class="ln">    float zl_bad = 1000.0f;</span><span class="ln">    float gamma = (zl_bad - z0) / (zl_bad + z0);</span><span class="ln">    printf(&quot;失配负载 1k 的反射系数=%.2f（越接近 0 越好）\n&quot;, gamma);</span><span class="ln">    if (fabsf(gamma) &lt; 0.5f) ok = 0;              /* 失配明显 */</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">终端/反射模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_term.c -o labs/host_term &amp;&amp; ./labs/host_term</span>
+两端 120Ω 终端 → 等效 60Ω
+失配负载 1k 的反射系数=0.79
+RESULT: PASS</code></pre></div></div><p class="sim-note">阻抗不匹配会产生反射（系数 0.79）；PCB 走线/终端要匹配特征阻抗以控反射与 EMI。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  布局与阻抗</div><table><thead><tr><th>项</th><th>做法</th><th>目的</th></tr></thead><tbody><tr><td>地平面</td><td>完整</td><td>回流最短</td></tr><tr><td>去耦</td><td>贴引脚</td><td>瞬态供电</td></tr><tr><td>参考平面</td><td>连续</td><td>无跨分割</td></tr><tr><td>终端</td><td>匹配 z0</td><td>减反射</td></tr></tbody></table></div></section><section class="sec" id="m09-first"><h2 id="m09-first-t">9.3 首板检查清单</h2><p>首板按“电源→时钟→复位→调试→外设”顺序逐项确认；每级用测量取证，避免在错误分支浪费时间。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">firstboard.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">1) 电源: 量 VDD/VCORE 在规格、纹波可接受</span><span class="ln">2) 时钟: 晶振起振、PLL 锁定</span><span class="ln">3) 复位: 电平正确、复脉冲正常</span><span class="ln">4) 调试: SWD/JTAG 连通</span><span class="ln">5) 外设: 关键总线波形正常</span>
+</code></pre><span class="code-note">首板按电源→时钟→复位→调试→外设逐级检查</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.3  首板分级检查</div><table><thead><tr><th>级</th><th>检查</th><th>依据</th></tr></thead><tbody><tr><td>电源</td><td>VDD/VCORE/纹波</td><td>电压/示波器</td></tr><tr><td>时钟</td><td>起振/PLL</td><td>频率计</td></tr><tr><td>复位</td><td>电平/脉冲</td><td>示波器</td></tr><tr><td>外设</td><td>总线波形</td><td>示波器/逻辑分析仪</td></tr></tbody></table></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检</h2><p>PCB 自检：地完整、回路小、去耦就近、参考连续、首板逐项检查。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> 回路面积与辐射（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="回路面积与辐射（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">小回路</text><rect x="150" y="26" width="120" height="18" rx="4" class="sv-grn-s"/><text x="278" y="43" class="sv-lbl-hi">20(相对辐射)</text><text x="12" y="67" class="sv-lbl">大回路</text><rect x="150" y="50" width="540" height="18" rx="4" class="sv-red-s"/><text x="698" y="67" class="sv-lbl-hi">90(相对辐射)</text></svg></div><figcaption class="fig-ft">回路面积越大，辐射与敏感度越高。完整地平面 + 短回流能显著降低回路面积。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>地平面</td><td>完整连续</td><td>被割裂</td></tr><tr><td>去耦</td><td>贴引脚</td><td>远离</td></tr><tr><td>参考</td><td>连续</td><td>跨分割</td></tr><tr><td>首板</td><td>逐级检查</td><td>乱查</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>地平面割裂</strong>：回流绕远，辐射/误码。</li><li><strong>去耦远离</strong>：瞬态供电差。</li><li><strong>回路面积大</strong>：EMC 差。</li><li><strong>跳过检查</strong>：首板问题排查低效。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">为什么“地平面完整”对 EMC 很重要？</p><details><summary>查看答案</summary><div class="ans"><p>完整地平面给回流电流提供最短路径，回路面积小、辐射与敏感度低。地被割裂会迫使回流绕行、增大回路，恶化 EMC。</p></div></details></li><li><p class="q">为什么高速线不能“跨地分割”？</p><details><summary>查看答案</summary><div class="ans"><p>跨分割会让回流绕远、回路面积骤增，导致阻抗突变/辐射/误码。高速线参考平面必须连续。</p></div></details></li><li><p class="q">首板检查为什么要按“电源→时钟→复位→调试→外设”顺序？</p><details><summary>查看答案</summary><div class="ans"><p>这是依赖顺序：没有电源/时钟/复位，后面都无从谈起。按序逐级取证能最快收敛，避免在错误分支浪费时间。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：按“回流路径/回路面积”审查你一块 PCB 的布局，并用首板清单逐项检查。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://docs.espressif.com/projects/esp-hardware-design-guidelines/en/latest/esp32/index.html" target="_blank" rel="noopener noreferrer">ESP32 硬件设计指南</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_term.c</code>（阻抗/反射直觉）；按检查清单逐项核对首板。</p><p><strong>检查结果：</strong>地平面完整、去耦就近、关键线参考平面连续；终端等效 60Ω、失配反射系数=0.79；首板检查逐项通过。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按回流路径/回路面积规划叠层与去耦，并按清单逐项检查首板。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>地平面完整、去耦就近、关键线参考平面连续；终端等效 60Ω、失配反射系数=0.79；首板检查逐项通过。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 测量与综合</div>
+      <h1 class="ch-title">综合：新板上电与故障树<span class="acc">.</span></h1>
+      <p class="ch-lead">综合项目把测量与电路知识变成<strong>故障树</strong>：从“现象”逐级判断到根因，每一步都有测量依据。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M09，具备电源/时钟/复位/测量与板级基础。</span><span>◷ 约 46 分钟</span><span>◈ 数字/模拟/电源对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按现象→检查→依据构建故障树，先测量再判断，快速收敛到根因。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>新板上电按故障树逐级排查。</li><li>先测量再判断，别靠换件试错。</li><li>现象→检查→依据 形成故障树。</li></ul></div>
+    <section class="sec" id="m10-tree"><h2 id="m10-tree-t">10.1 先测量再判断</h2><p>把测量与电路知识变成故障树：从现象逐级判断到根因，每一步都有测量依据。关键是“先测量再判断”，避免在错误分支浪费时间。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 新板上电故障树</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="新板上电故障树" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">电源/复位</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">时钟/BOOT</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">调试口</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">外设总线</text></svg></div><figcaption class="fig-ft">完全没反应→查电源/复位；不启动→查时钟/BOOT；连不上调试→查调试口/供电；外设不工作→查供电/总线。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  现象→检查→依据</div><table><thead><tr><th>现象</th><th>先查</th><th>依据</th></tr></thead><tbody><tr><td>完全没反应</td><td>电源/复位</td><td>电压/复位电平</td></tr><tr><td>不启动</td><td>时钟/BOOT</td><td>起振/启动模式</td></tr><tr><td>连不上调试</td><td>调试口/供电</td><td>SWD/电压</td></tr><tr><td>外设不工作</td><td>供电/总线/复用</td><td>波形/电平</td></tr><tr><td>偶发异常</td><td>电源/地/EMC</td><td>纹波/回流</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">faulttree.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">完全没反应 -&gt; 量 VDD/VCORE -&gt; 无电则查供电/短路</span><span class="ln">不启动 -&gt; 量晶振起振/PLL -&gt; 不起则查负载电容</span><span class="ln">连不上调试 -&gt; 量 SWD 电压/信号 -&gt; 检查接线长度</span><span class="ln">外设不工作 -&gt; 示波器看总线波形 -&gt; 查终端/复用</span>
+</code></pre><span class="code-note">现象→检查→依据，逐级取证到根因</span></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：基本计算</h2><p>故障树每一步都要有计算/测量依据；用基本计算模型验证：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_ohm.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_ohm.c —— 欧姆定律/分压/LED 限流/功率（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_ohm.c -o host_ohm &amp;&amp; ./host_ohm</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float vs = 5.0f, r1 = 10000, r2 = 10000;</span><span class="ln">    float vout = vs * r2 / (r1 + r2);</span><span class="ln">    printf(&quot;分压 10k/10k @5V → %.2fV（期望 2.50）\n&quot;, vout);</span><span class="ln">    if (vout &lt; 2.49f || vout &gt; 2.51f) ok = 0;</span><span class="ln">    /* LED 限流：5V - 2V = 3V, 目标 10mA → R=300Ω */</span><span class="ln">    float rled = (5.0f - 2.0f) / 0.010f;</span><span class="ln">    printf(&quot;LED 限流 R=%.0fΩ 功率=%.3fW\n&quot;, rled, (5.0f-2.0f)*0.010f);</span><span class="ln">    if (rled &lt; 299 || rled &gt; 301) ok = 0;</span><span class="ln">    /* 功耗：10V, 100Ω → 1W */</span><span class="ln">    float p = 10.0f*10.0f/100.0f;</span><span class="ln">    printf(&quot;功率 10V/100Ω = %.2fW（期望 1.00）\n&quot;, p);</span><span class="ln">    if (p &lt; 0.99f || p &gt; 1.01f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">欧姆定律/分压/功率模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ohm.c -o labs/host_ohm &amp;&amp; ./labs/host_ohm</span>
+分压 10k/10k @5V → 2.50V（期望 2.50）
+LED 限流 R=300Ω 功率=0.030W
+功率 10V/100Ω = 1.00W（期望 1.00）
+RESULT: PASS</code></pre></div></div><p class="sim-note">排查中的分压/限流/功率计算都有预期值，与实测比较才能判断对错。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  每级的依据</div><table><thead><tr><th>级</th><th>检查</th><th>计算/测量依据</th></tr></thead><tbody><tr><td>电源</td><td>电压/纹波</td><td>分压/功率</td></tr><tr><td>时钟</td><td>起振/PLL</td><td>频率</td></tr><tr><td>复位</td><td>电平/脉冲</td><td>RC/阈值</td></tr><tr><td>外设</td><td>波形</td><td>终端/电平</td></tr></tbody></table></div></section><section class="sec" id="m10-practice"><h2 id="m10-practice-t">10.3 故障树实践</h2><p>每一级都用电压/波形/连通性取证；常见现象到根因要有映射，避免每次从零开始。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">faulttree.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">完全没反应 → 量 VDD/VCORE → 无电则查供电/短路</span><span class="ln">不启动 → 量晶振起振/PLL → 不起则查负载电容</span><span class="ln">连不上调试 → 量 SWD 电压/信号 → 检查接线长度</span><span class="ln">外设不工作 → 示波器看总线波形 → 查终端/复用</span>
+</code></pre><span class="code-note">现象→检查→依据，逐级取证到根因</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.3  故障树实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>先测量</td><td>取证</td><td>凭猜换件</td></tr><tr><td>按序排查</td><td>效率</td><td>乱查</td></tr><tr><td>记录依据</td><td>可复盘</td><td>经验流失</td></tr><tr><td>维护故障树</td><td>复用</td><td>每次从零</td></tr></tbody></table></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检</h2><p>故障树自检：覆盖各级、每级有依据、按序排查、可复盘。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 首板问题分布（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="首板问题分布（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">电源/焊接</text><rect x="150" y="26" width="240" height="18" rx="4" class="sv-red-s"/><text x="398" y="43" class="sv-lbl-hi">40%</text><text x="12" y="67" class="sv-lbl">时钟</text><rect x="150" y="50" width="150" height="18" rx="4" class="sv-amb-s"/><text x="308" y="67" class="sv-lbl-hi">25%</text><text x="12" y="91" class="sv-lbl">复位</text><rect x="150" y="74" width="120" height="18" rx="4" class="sv-cyn-s"/><text x="278" y="91" class="sv-lbl-hi">20%</text><text x="12" y="115" class="sv-lbl">其他</text><rect x="150" y="98" width="90" height="18" rx="4" class="sv-box"/><text x="248" y="115" class="sv-lbl-hi">15%</text></svg></div><figcaption class="fig-ft">首板问题多集中在电源/焊接/时钟/复位；按序排查能最快定位。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>定现象</td><td>分类</td><td>描述含糊</td></tr><tr><td>按序查</td><td>电源→时钟→复位</td><td>乱查</td></tr><tr><td>取证</td><td>电压/波形/连通</td><td>凭猜</td></tr><tr><td>收敛</td><td>到根因</td><td>换件试错</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无顺序乱查</strong>：效率低。</li><li><strong>不测量凭猜</strong>：换零件试错。</li><li><strong>跳过电源/时钟</strong>：在错误分支浪费时间。</li><li><strong>不做故障树</strong>：每次从零开始。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">新板“完全没反应”，第一级查什么？</p><details><summary>查看答案</summary><div class="ans"><p>电源与复位。先量 VDD/VCORE 是否在规格、复位电平是否正确，再查晶振与调试口；不要在没电源的情况下怀疑固件。</p></div></details></li><li><p class="q">为什么故障树要“先测量再判断”？</p><details><summary>查看答案</summary><div class="ans"><p>测量取证能把判断建立在事实上，避免凭经验换件试错（既慢又可能引入新问题）。</p></div></details></li><li><p class="q">“外设不工作”一般先查什么？</p><details><summary>查看答案</summary><div class="ans"><p>供电、总线波形、引脚复用。用示波器/逻辑分析仪看总线是否有正确波形，再查复用配置与外设使能。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你板子画一张“现象→检查→依据”的故障树，并做一次新板上电按序排查演练。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.allaboutcircuits.com/textbook/" target="_blank" rel="noopener noreferrer">All About Circuits</a> · <a class="ref" href="https://www.ti.com/power-management/overview.html" target="_blank" rel="noopener noreferrer">TI 电源设计参考</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_ohm.c</code>（基本计算）；为你的板子画“现象→检查→依据”的故障树。</p><p><strong>检查结果：</strong>故障树覆盖电源→时钟→复位→调试→外设，每级有测量依据；基本计算与 host_ohm.c 一致。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按现象→检查→依据构建故障树，先测量再判断，快速收敛到根因。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>故障树覆盖电源→时钟→复位→调试→外设，每级有测量依据；基本计算与 host_ohm.c 一致。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">新板上电与故障树<span class="acc">.</span></h1><p class="ch-lead">把 10 章串成一条路径：电源 → 时钟 → 复位 → 调试口 → 外设，逐级确认并用示波器/逻辑分析仪取证。</p><div class="ch-meta"><span>◈ 8 步排查路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 10 章串成一条路径：<strong>电源 → 时钟 → 复位 → 调试口 → 外设，逐级确认并用示波器/逻辑分析仪取证。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 量</strong>（M01）——电压/电流/功率；验收：计算=测量。</li>
+<li><strong>② 电平</strong>（M02）——门限/上拉/驱动；验收：电平与上升时间达标。</li>
+<li><strong>③ 电源</strong>（M03）——去耦/复位/纹波；验收：无随机复位。</li>
+<li><strong>④ 时钟</strong>（M04）——起振/负载电容/最小系统；验收：稳定起振。</li>
+<li><strong>⑤ 采集</strong>（M05）——前端/参考/LSB；验收：读数准。</li>
+<li><strong>⑥ 接口</strong>（M06/M07）——总线/终端/驱动/续流；验收：波形正确。</li>
+<li><strong>⑦ 测量</strong>（M08）——示波器/逻辑分析仪；验收：证据可复现。</li>
+<li><strong>⑧ 板级</strong>（M09/M10）——PCB/EMC + 故障树；验收：按现象收敛到根因。</li>
+</ol>
+<p class="sim-note">本册计算为模型验证；所有真实波形/测量/EMC 为台架实测项。欧姆定律/分压/限流、RC、上拉/上升时间、ADC 换算、终端/反射等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">fault tree</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">现象 → 电源(VDD/VCORE) → 复位电平 → 晶振起振 → BOOT → 调试口 → 外设波形</span><span class="ln">每一步: 测量(电压/波形/连通) → 判断 → 进入下一分支</span><span class="ln">禁止: 无依据换件试错</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">硬件调试易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“没反应 / 电平不对 / 采样不准 / 总线偶发出错”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“没反应 / 电平不对 / 采样不准 / 总线偶发出错”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>限流</td><td>按电流算电阻</td><td>不限流</td><td>烧器件</td></tr><tr><td>上拉</td><td>开漏必备</td><td>悬空/无上拉</td><td>电平乱/无高电平</td></tr><tr><td>去耦</td><td>就近引脚</td><td>离太远</td><td>随机复位</td></tr><tr><td>复位</td><td>可靠上拉+电容</td><td>悬空/抖动</td><td>偶发不启动</td></tr><tr><td>晶振</td><td>匹配负载电容</td><td>电容乱选</td><td>起振慢/不振</td></tr><tr><td>采集</td><td>阻抗+抗混叠+参考</td><td>源阻抗不匹配</td><td>采样不准</td></tr><tr><td>CAN</td><td>两端 120Ω</td><td>缺终端</td><td>反射误码</td></tr><tr><td>感性负载</td><td>续流二极管</td><td>无续流</td><td>击穿驱动</td></tr><tr><td>测量</td><td>带宽/探头/触发</td><td>带宽不足</td><td>看到假波形</td></tr><tr><td>PCB</td><td>完整地/小回路</td><td>地割裂</td><td>EMC 差</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；不同器件的参数叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；不同器件参数叫法差异也一并标注。</p><dl class="glossary"><dt>欧姆定律</dt><dd>V=IR，电路分析基础。</dd><dt>分压</dt><dd>Vo=Vin·R2/(R1+R2)。</dd><dt>功率</dt><dd>P=VI=I²R，决定发热与额定。</dd><dt>上拉/下拉</dt><dd>确定默认电平，防悬空。</dd><dt>开漏</dt><dd>只能拉低，高电平靠上拉。</dd><dt>上升时间</dt><dd>RC 充电时间；≈0.8473·R·C。</dd><dt>负载电容</dt><dd>晶振规格要求的匹配电容。</dd><dt>LDO/DCDC</dt><dd>线性/开关稳压器。</dd><dt>去耦</dt><dd>就近为芯片提供瞬态电流的电容。</dd><dt>纹波</dt><dd>电源输出上的周期波动。</dd><dt>LSB</dt><dd>ADC 最小可分辨电压。</dd><dt>抗混叠</dt><dd>采样前限制带宽的滤波。</dd><dt>终端电阻</dt><dd>匹配传输线特征阻抗，抑制反射。</dd><dt>反射系数</dt><dd>失配程度，0 为匹配。</dd><dt>续流二极管</dt><dd>为感性负载关断电流提供回路。</dd><dt>地环路</dt><dd>多地连接形成环路引入干扰。</dd><dt>回路面积</dt><dd>信号与回流包围的面积，越小 EMC 越好。</dd><dt>ESD</dt><dd>静电放电，接口需防护。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "电路基本量与测量."}, {"id": "m02", "num": "02", "title": "数字电平与引脚电气."}, {"id": "m03", "num": "03", "title": "电源、去耦与复位."}, {"id": "m04", "num": "04", "title": "时钟与最小系统."}, {"id": "m05", "num": "05", "title": "模拟信号与采集前端."}, {"id": "m06", "num": "06", "title": "接口电路与总线物理层."}, {"id": "m07", "num": "07", "title": "传感器与执行器接口."}, {"id": "m08", "num": "08", "title": "示波器与逻辑分析仪."}, {"id": "m09", "num": "09", "title": "PCB、EMC 与首板检查."}, {"id": "m10", "num": "10", "title": "综合：新板上电与故障树."}, {"id": "capstone", "num": "", "title": "新板上电与故障树."}, {"id": "cheatsheet", "num": "", "title": "硬件调试易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

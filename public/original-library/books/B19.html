@@ -1,0 +1,1104 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B19" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>数据结构、算法与应用数学 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">数据结构、算法与应用数学</div>
+    <div class="m-subtitle">基础支撑 · 10 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">10 模块 · 51 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol cur" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">按需求补数学 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">复杂度与资源预算<span class="m-nav-sub">复杂度与容器</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-complexity-t" data-target="m01-complexity-t">1.1 量级与最坏</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：操作计数增长</a><a class="m-sec" href="#m01-budget-t" data-target="m01-budget-t">1.3 内存与最坏时间</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">数组、链表与容器<span class="m-nav-sub">复杂度与容器</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-containers-t" data-target="m02-containers-t">2.1 布局与局部性</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：对象池与侵入式链表</a><a class="m-sec" href="#m02-pool-t" data-target="m02-pool-t">2.3 固定容量与侵入式</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">栈、队列与环形缓冲<span class="m-nav-sub">复杂度与容器</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-ring-t" data-target="m03-ring-t">3.1 环形缓冲与满/空判定</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：满/空与回绕</a><a class="m-sec" href="#m03-spsc-t" data-target="m03-spsc-t">3.3 SPSC 与溢出策略</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">查找、排序与索引<span class="m-nav-sub">查找与图</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-search-t" data-target="m04-search-t">4.1 二分与标定表</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：二分与插值</a><a class="m-sec" href="#m04-sort-t" data-target="m04-sort-t">4.3 排序稳定性与索引</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">状态机、图与调度<span class="m-nav-sub">查找与图</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-graph-t" data-target="m05-graph-t">5.1 状态机与图</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：拓扑序与最短路</a><a class="m-sec" href="#m05-sched-t" data-target="m05-sched-t">5.3 依赖调度</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">数值表示与误差<span class="m-nav-sub">数值与数学</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-num-t" data-target="m06-num-t">6.1 整数/定点/浮点</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：Q15 量化误差</a><a class="m-sec" href="#m06-sat-t" data-target="m06-sat-t">6.3 定标一致与饱和</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">线性代数与坐标变换<span class="m-nav-sub">数值与数学</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-vec-t" data-target="m07-vec-t">7.1 旋转矩阵与齐次坐标</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：旋转与正交性</a><a class="m-sec" href="#m07-fuse-t" data-target="m07-fuse-t">7.3 姿态融合基础</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">概率、统计与实验设计<span class="m-nav-sub">数值与数学</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-stats-t" data-target="m08-stats-t">8.1 统计量、分布、异常</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：均值/标准差与拟合</a><a class="m-sec" href="#m08-design-t" data-target="m08-design-t">8.3 实验设计与显著性</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">插值、拟合与校准<span class="m-nav-sub">数值与数学</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-interp-t" data-target="m09-interp-t">9.1 插值、拟合、校准</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：插值与拟合</a><a class="m-sec" href="#m09-calib-t" data-target="m09-calib-t">9.3 校准与残差</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">综合：有界的数据处理库<span class="m-nav-sub">数值与数学</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-lib-t" data-target="m10-lib-t">10.1 有界库的五个能力</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：有界容器</a><a class="m-sec" href="#m10-accept-t" data-target="m10-accept-t">10.3 验收：有界、确定、可解释</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">一个有界的数据处理库.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">算法与数值易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B19-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · 基础支撑</div>
+    <h1>数据结构、算法<br>与<span class="g">应用数学</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>算法在主机会跑、上设备就慢/溢出；数据规模一大就崩；数值误差说不清</strong>——问题分别落在复杂度与资源预算、有界数据结构、数值表示与误差、以及插值/拟合上。内容从 <strong>复杂度、容器、环形缓冲、查找排序、图与调度</strong>，一路到 <strong>数值误差、线性代数、概率统计、插值拟合、有界数据处理库</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>10</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>运行环境</span></div><div class="hero-stat"><b>7+10</b><span>运行 / 对照</span></div><div class="hero-stat"><b>10</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>会写 C、要做嵌入式算法与数据处理</strong>的开发者。默认你懂指针与基本算法，但对“有界性、定点数、数值误差”不够系统。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的算法/数值模型 → <strong>真实运行证据</strong> → 运行环境对照 → 失败路径 → 动手练习 → 自测。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">复杂度操作计数、环形缓冲边界、二分/插值、Q15 误差、最小二乘拟合、拓扑/BFS、旋转矩阵等来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B19-labs.zip" download>下载 B19 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B19 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">按需求补数学 · 读到能完成什么？</h2><p><strong>实现有界环形缓冲、校准和统计库，声明容量、数值范围与失败策略。</strong></p><p>入门条件：B00 数组/结构体；对应公式的单位与取值范围。</p><p>首次阅读：<a href="#m01">复杂度与资源预算</a> → <a href="#m03">栈、队列与环形缓冲</a> → <a href="#m05">状态机、图与调度</a> → <a href="#m06">数值表示与误差</a> → <a href="#m08">概率、统计与实验设计</a> → <a href="#m09">插值、拟合与校准</a> → <a href="#m10">综合：有界的数据处理库</a></p><p>按需延后：线代在融合/ML 出现时学习；容器和算法不按目录全部实现一次。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>空/满、回绕、最大输入、中间乘积溢出；与手算或独立高精度参考对拍。</p><p><strong>通过判据：</strong>接口在边界下行为确定；并发协议独立设计，不以单线程 ring 测试证明 ISR 安全。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P01">P01</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">10 章分四段：复杂度与容器（M01–M03）→ 查找/图（M04–M05）→ 数值与数学（M06–M08）→ 校准与综合（M09–M10）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03 打基础，再按需要读查找/图/数值/数学；做数据处理把 M06–M10 走完。动手优先跑 <code class="ic">labs/host_*.c</code>。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 复杂度与容器</div>
+      <h1 class="ch-title">复杂度与资源预算<span class="acc">.</span></h1>
+      <p class="ch-lead">算法选型先看<strong>量级</strong>：输入翻倍，O(n²) 变 4 倍，O(n log n) 只略增。嵌入式还要算<strong>内存与最坏执行时间</strong>。</p>
+      <div class="ch-meta"><span>前置：会写 C 循环/递归、理解指针与数组。</span><span>◷ 约 42 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按输入规模给出 O 量级与最坏执行时间估计，并为算法选定内存上限。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>先看量级：O(n²) 在规模大时不可接受。</li><li>嵌入式还要算最坏时间与内存。</li><li>大 O 忽略常数，小规模另论。</li></ul></div>
+    <section class="sec" id="m01-complexity"><h2 id="m01-complexity-t">1.1 量级与最坏</h2><p>算法选型先看量级：输入翻倍，O(n²) 变 4 倍、O(n log n) 只略增。嵌入式还要算内存与最坏执行时间，常以“有界”换“最优”。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 两种复杂度随规模的增长（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="两种复杂度随规模的增长（真实值）" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><text x="12" y="43" class="sv-lbl">O(n²)@256</text><rect x="150" y="26" width="562" height="18" rx="4" class="sv-red-s"/><text x="720" y="43" class="sv-lbl-hi">32768次操作</text><text x="12" y="67" class="sv-lbl">O(n log n)@256</text><rect x="150" y="50" width="35" height="18" rx="4" class="sv-grn-s"/><text x="193" y="67" class="sv-lbl-hi">2048次操作</text></svg></div><figcaption class="fig-ft">n=256 时 O(n²)≈32768、O(n log n)≈2048（约 16 倍）。规模增大时 O(n²) 迅速不可接受。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  常见复杂度</div><table><thead><tr><th>复杂度</th><th>输入×2</th><th>适用</th></tr></thead><tbody><tr><td>O(1)</td><td>不变</td><td>查表/位运算</td></tr><tr><td>O(log n)</td><td>+常数</td><td>二分/树</td></tr><tr><td>O(n)</td><td>×2</td><td>线性扫描</td></tr><tr><td>O(n log n)</td><td>略大于×2</td><td>排序</td></tr><tr><td>O(n²)</td><td>×4</td><td>仅小规模</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">complexity.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">long ops_n2    = (long)n * n;                       // O(n²)</span><span class="ln">long ops_nlogn = (long)n * (long)(log2((double)n)+1); // O(n log n)</span><span class="ln">/* 小规模看常数，大规模看量级；并给内存上限 */</span>
+</code></pre><span class="code-note">按规模比量级；同时给内存上限</span></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：操作计数增长</h2><p>下面这段程序比较两种复杂度随规模的操作计数：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_complexity.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_complexity.c —— 复杂度与操作计数：O(n^2) vs O(n log n)（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_complexity.c -o host_complexity &amp;&amp; ./host_complexity</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    for (int n = 64; n &lt;= 256; n *= 2) {</span><span class="ln">        long n2 = (long)n*n/2;                 /* 冒泡/插入约为 n^2/2 */</span><span class="ln">        long nlogn = (long)n*8;                /* log2(256)=8 量级 */</span><span class="ln">        printf(&quot;n=%d: O(n^2)≈%ld, O(n log n)≈%ld\n&quot;, n, n2, nlogn);</span><span class="ln">        if (n &gt;= 128 &amp;&amp; !(n2 &gt; 5*nlogn)) ok = 0;</span><span class="ln">    }</span><span class="ln">    printf(&quot;结论：规模增大时 O(n^2) 迅速不可接受，需要 O(n log n)\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">复杂度计数模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_complexity.c -o labs/host_complexity &amp;&amp; ./labs/host_complexity</span>
+n=64: O(n^2)≈2048, O(n log n)≈512
+n=256: O(n^2)≈32768, O(n log n)≈2048
+结论：规模增大时 O(n^2) 迅速不可接受，需要 O(n log n)
+RESULT: PASS</code></pre></div></div><p class="sim-note">n=256 时 O(n²)≈32768 与 O(n log n)≈2048，比值约 16——量级差在小规模时被常数掩盖。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  资源预算维度</div><table><thead><tr><th>量</th><th>含义</th><th>预算</th></tr></thead><tbody><tr><td>O 量级</td><td>输入→工作量</td><td>选算法</td></tr><tr><td>最坏</td><td>最大输入</td><td>实时保证</td></tr><tr><td>常数</td><td>小规模主导</td><td>结合规模</td></tr><tr><td>内存</td><td>额外空间</td><td>有界</td></tr></tbody></table></div></section><section class="sec" id="m01-budget"><h2 id="m01-budget-t">1.3 内存与最坏时间</h2><p>不要只看“能不能算完”，还要看最坏情况与额外内存。嵌入式倾向有界算法：内存上限固定、最坏时间可估。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">complexity.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">long ops_n2   = (long)n * n;                    // O(n²)</span><span class="ln">long ops_nlogn = (long)n * (long)(log2((double)n)+1); // O(n log n)</span><span class="ln">/* 选算法：小规模看常数，大规模看量级；并给内存上限 */</span>
+</code></pre><span class="code-note">按规模比量级；同时给内存上限</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  资源预算实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>看量级</td><td>选算法</td><td>只比常数</td></tr><tr><td>估最坏</td><td>实时保证</td><td>只看平均</td></tr><tr><td>算内存</td><td>不超预算</td><td>额外数组放不下</td></tr><tr><td>有界</td><td>可预测</td><td>无界增长</td></tr></tbody></table></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检</h2><p>复杂度自检：量级、最坏、常数、内存四方面都评估。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 算法选型流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="算法选型流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">看量级</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">估最坏</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">算内存</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">定预算</text></svg></div><figcaption class="fig-ft">看量级 → 估最坏 → 算内存 → 定预算 → 选算法（小规模可容忍高常数）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>量级</td><td>大 O</td><td>忽略规模</td></tr><tr><td>最坏</td><td>最大输入</td><td>只看平均</td></tr><tr><td>常数</td><td>实测</td><td>小规模误判</td></tr><tr><td>内存</td><td>额外空间</td><td>越界</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>只看平均</strong>：最坏输入超期。</li><li><strong>忽略常数因子</strong>：小规模 O(n²) 反而快。</li><li><strong>不算内存</strong>：额外数组放不下。</li><li><strong>规模评估错</strong>：上线后崩。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">输入规模较小时，为什么 O(n²) 可能比 O(n log n) 更快？</p><details><summary>查看答案</summary><div class="ans"><p>大 O 忽略常数因子。小规模时 O(n log n) 的常数/递归开销可能更大。嵌入式要结合规模与常数一起选。</p></div></details></li><li><p class="q">为什么“输入翻倍 O(n²) 变 4 倍”？</p><details><summary>查看答案</summary><div class="ans"><p>O(n²) 的工作量与 n² 成正比；(2n)²=4n²。量级越大，规模增长带来的代价越陡。</p></div></details></li><li><p class="q">嵌入式为什么常“以有界换最优”？</p><details><summary>查看答案</summary><div class="ans"><p>实时与内存受限时，可预测的最坏时间与固定内存比“平均最优”更重要。有界算法保证行为可预测。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个热点算法估 O 量级、最坏时间与额外内存，写进资源预算。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://ocw.mit.edu/" target="_blank" rel="noopener noreferrer">MIT 算法公开课</a> · <a class="ref" href="https://www.embedded.com/" target="_blank" rel="noopener noreferrer">Efficient C 定点</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_complexity.c</code>：比较 O(n²) 与 O(n log n) 的操作计数增长。</p><p><strong>检查结果：</strong>n=256 时 O(n²)≈32768 远大于 O(n log n)≈2048；能据量级选算法。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按输入规模给出 O 量级与最坏执行时间估计，并为算法选定内存上限。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>n=256 时 O(n²)≈32768 远大于 O(n log n)≈2048；能据量级选算法。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 复杂度与容器</div>
+      <h1 class="ch-title">数组、链表与容器<span class="acc">.</span></h1>
+      <p class="ch-lead">容器选择的核心是<strong>布局与局部性</strong>：数组连续（cache 友好、随机访问 O(1)），链表插入方便但局部性差、指针开销大。</p>
+      <div class="ch-meta"><span>前置：掌握数组与指针、结构体，理解连续内存与随机访问。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为给定访问模式选择数组/链表/对象池，并实现固定容量、无运行期分配的容器。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>容器选择看布局与局部性。</li><li>嵌入式倾向固定容量+对象池，避免碎片。</li><li>链表局部性差、指针开销大。</li></ul></div>
+    <section class="sec" id="m02-containers"><h2 id="m02-containers-t">2.1 布局与局部性</h2><p>数组连续（cache 友好、随机访问 O(1)），链表插入 O(1) 但局部性差、指针开销大。嵌入式倾向固定容量 + 对象池：无运行期分配、无碎片、行为可预测。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 数组 vs 链表的内存布局</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="数组 vs 链表的内存布局" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="40" rx="6" class="sv-grn-s"/><text x="75" y="54.0" class="sv-lbl-hi">数组：连续、cache 友好</text><rect x="60" y="74" width="680" height="40" rx="6" class="sv-red-s"/><text x="75" y="98.0" class="sv-lbl-hi">链表：节点分散 + 指针</text><rect x="60" y="118" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="137.0" class="sv-lbl-hi">对象池：固定块、无碎片</text></svg></div><figcaption class="fig-ft">数组：元素连续，cache 友好；链表：节点分散 + next 指针，局部性差。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  容器对比</div><table><thead><tr><th>容器</th><th>随机访问</th><th>插入</th><th>嵌入式</th></tr></thead><tbody><tr><td>数组</td><td>O(1)</td><td>O(n)</td><td>常用、cache 友好</td></tr><tr><td>链表</td><td>O(n)</td><td>O(1)</td><td>局部性差、指针开销</td></tr><tr><td>动态数组</td><td>O(1)</td><td>摊还 O(1)</td><td>需管理增长</td></tr><tr><td>对象池</td><td>—</td><td>O(1)</td><td>固定内存、无碎片</td></tr><tr><td>侵入式链表</td><td>—</td><td>O(1)</td><td>零额外分配</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pool.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">node_t *p = pool_alloc(&amp;pool);          // 固定池，满则 NULL</span><span class="ln">if (!p) return ERR_POOL_FULL;            // 显式失败，不崩溃</span><span class="ln">p-&gt;next = list_head; list_head = p;      // 侵入式：next 在对象里</span>
+</code></pre><span class="code-note">固定池分配（满即 NULL）+ 侵入式链表零额外分配</span></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：对象池与侵入式链表</h2><p>下面这段程序验证对象池满时失败、侵入式链表遍历与回收复用：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_container.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_container.c —— 固定容量对象池 + 侵入式链表（有界，无运行期分配）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_container.c -o host_container &amp;&amp; ./host_container</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln"></span><span class="ln">#define POOL_CAP 4</span><span class="ln">typedef struct node { struct node *next; int val; } node_t;</span><span class="ln"></span><span class="ln">/* 对象池：POOL_CAP 个固定对象，空闲链用侵入式 next 串起，回收即可复用 */</span><span class="ln">static node_t pool[POOL_CAP];</span><span class="ln">static node_t *free_list = NULL;   /* 空闲对象链（侵入式：借对象自身的 next） */</span><span class="ln">static int used = 0;               /* 已分配计数 */</span><span class="ln"></span><span class="ln">static void pool_init(void) {</span><span class="ln">    free_list = NULL;</span><span class="ln">    for (int i = POOL_CAP - 1; i &gt;= 0; i--) { pool[i].next = free_list; free_list = &amp;pool[i]; }</span><span class="ln">    used = 0;</span><span class="ln">}</span><span class="ln">static node_t *pool_alloc(int v) {          /* 固定内存：满时返回 NULL，绝不运行期 malloc */</span><span class="ln">    if (!free_list) return NULL;</span><span class="ln">    node_t *n = free_list; free_list = n-&gt;next; n-&gt;next = NULL; n-&gt;val = v; used++;</span><span class="ln">    return n;</span><span class="ln">}</span><span class="ln">static void pool_free(node_t *n) { n-&gt;next = free_list; free_list = n; used--; }</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    pool_init();</span><span class="ln"></span><span class="ln">    /* 1) 固定容量：连发 POOL_CAP 个后，再分配应为 NULL（分配失败，无碎片） */</span><span class="ln">    node_t *head = NULL;</span><span class="ln">    for (int i = 1; i &lt;= POOL_CAP; i++) {</span><span class="ln">        node_t *n = pool_alloc(i);</span><span class="ln">        if (!n) { ok = 0; continue; }</span><span class="ln">        n-&gt;next = head; head = n;           /* 头插，构成侵入式链表（零额外分配） */</span><span class="ln">    }</span><span class="ln">    node_t *over = pool_alloc(99);</span><span class="ln">    printf(&quot;池容量=%d，满后再分配=%s（期望 NULL）\n&quot;, POOL_CAP, over ? &quot;非空&quot; : &quot;NULL&quot;);</span><span class="ln">    if (over != NULL) ok = 0;</span><span class="ln"></span><span class="ln">    /* 2) 侵入式链表遍历：头插 1..4 → 遍历顺序 4 3 2 1，节点数=4、元素和=10 */</span><span class="ln">    int sum = 0, cnt = 0;</span><span class="ln">    printf(&quot;遍历: &quot;);</span><span class="ln">    for (node_t *q = head; q; q = q-&gt;next) { printf(&quot;%d &quot;, q-&gt;val); sum += q-&gt;val; cnt++; }</span><span class="ln">    printf(&quot;(期望 4 3 2 1)\n&quot;);</span><span class="ln">    printf(&quot;节点数=%d 元素和=%d（期望 4 10）\n&quot;, cnt, sum);</span><span class="ln">    if (cnt != POOL_CAP || sum != 10) ok = 0;</span><span class="ln"></span><span class="ln">    /* 3) 回收一个后可再分配（地址复用同一固定池，无运行期分配） */</span><span class="ln">    pool_free(head);</span><span class="ln">    printf(&quot;释放 1 个后 used=%d（期望 3）\n&quot;, used);</span><span class="ln">    if (used != 3) ok = 0;</span><span class="ln">    node_t *again = pool_alloc(7);</span><span class="ln">    printf(&quot;回收后可再分配: val=%d（期望 7）\n&quot;, again ? again-&gt;val : -1);</span><span class="ln">    if (!again || again-&gt;val != 7) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">对象池/侵入式链表模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_container.c -o labs/host_container &amp;&amp; ./labs/host_container</span>
+池容量=4，满后再分配=NULL（期望 NULL）
+节点数=4 元素和=10（期望 4 10）
+释放 1 个后 used=3（期望 3）
+回收后可再分配: val=7（期望 7）
+RESULT: PASS</code></pre></div></div><p class="sim-note">池容量 4，满后返回 NULL；链表遍历 4 节点、和=10；释放后可复用（val=7）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  对象池 vs malloc</div><table><thead><tr><th>特性</th><th>对象池</th><th>malloc</th></tr></thead><tbody><tr><td>时间</td><td>确定</td><td>不确定</td></tr><tr><td>碎片</td><td>无</td><td>有</td></tr><tr><td>失败行为</td><td>返回 NULL</td><td>返回 NULL/崩溃</td></tr><tr><td>适合</td><td>实时/长期</td><td>启动期</td></tr></tbody></table></div></section><section class="sec" id="m02-pool"><h2 id="m02-pool-t">2.3 固定容量与侵入式</h2><p>对象池预分配固定内存、无碎片、分配时间确定；侵入式链表把 next 指针放进对象本身，零额外分配。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pool.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">node_t *p = pool_alloc(&amp;pool);          // 固定池，满则 NULL</span><span class="ln">if (!p) return ERR_POOL_FULL;            // 显式失败，不崩溃</span><span class="ln">p-&gt;next = list_head; list_head = p;      // 侵入式：next 在对象里</span>
+</code></pre><span class="code-note">固定池分配（满即 NULL）+ 侵入式链表零额外分配</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  嵌入式容器实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>固定容量</td><td>无碎片/可预测</td><td>运行期分配</td></tr><tr><td>对象池</td><td>分配时间确定</td><td>malloc 抖动</td></tr><tr><td>侵入式链表</td><td>零额外分配</td><td>额外节点开销</td></tr><tr><td>对齐</td><td>访问性能</td><td>非对齐异常</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检</h2><p>容器自检：容量有界、无运行期分配、成功/失败行为明确、对齐正确。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 容器选型</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="容器选型" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">看访问模式</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">选结构</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">定容量</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">验行为</text></svg></div><figcaption class="fig-ft">访问模式？随机多→数组；频繁插入→链表/侵入式；实时/长期→对象池。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>容量</td><td>固定</td><td>无界增长</td></tr><tr><td>分配</td><td>池/静态</td><td>运行期 malloc</td></tr><tr><td>失败</td><td>返回 NULL</td><td>静默崩溃</td></tr><tr><td>对齐</td><td>按平台</td><td>非对齐</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>运行期动态分配</strong>：碎片与不确定。</li><li><strong>链表到处用</strong>：cache 差、指针开销。</li><li><strong>无界容器</strong>：内存耗尽。</li><li><strong>忽略对齐</strong>：访问异常/性能差。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">为什么嵌入式常用“对象池”而不是到处 malloc？</p><details><summary>查看答案</summary><div class="ans"><p>对象池预分配固定内存、无碎片、分配时间确定；适合实时与长期运行系统。malloc/free 的时间不确定且会碎片化。</p></div></details></li><li><p class="q">数组相比链表的核心优势是什么？</p><details><summary>查看答案</summary><div class="ans"><p>连续内存带来 cache 友好与 O(1) 随机访问；链表插入虽 O(1)，但局部性差、指针开销大。</p></div></details></li><li><p class="q">“侵入式链表”指什么？</p><details><summary>查看答案</summary><div class="ans"><p>把 next 指针放进对象结构体本身，节点即对象，无需为链表节点额外分配内存，零额外开销。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你项目里一处运行期 malloc 改为固定对象池，并核对容量与对齐。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.embedded.com/" target="_blank" rel="noopener noreferrer">Efficient C 定点</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_container.c</code>：验证固定容量对象池满时分配失败、侵入式链表遍历与回收复用。</p><p><strong>检查结果：</strong>池容量 4，满后再分配返回 NULL；侵入式链表遍历节点数=4、元素和=10；释放后可再分配成功（val=7）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为给定访问模式选择数组/链表/对象池，并实现固定容量、无运行期分配的容器。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>池容量 4，满后再分配返回 NULL；侵入式链表遍历节点数=4、元素和=10；释放后可再分配成功（val=7）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 复杂度与容器</div>
+      <h1 class="ch-title">栈、队列与环形缓冲<span class="acc">.</span></h1>
+      <p class="ch-lead">环形缓冲是嵌入式的“万能胶”：固定内存、O(1) 读写，天然适合流式数据。关键是<strong>满/空判定与溢出策略</strong>。</p>
+      <div class="ch-meta"><span>前置：理解数组下标与取模，写过基本 FIFO/LIFO。</span><span>◷ 约 42 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现有界环形缓冲并正确处理满/空判定与溢出策略（丢最旧/丢新/阻塞）。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>环形缓冲固定内存、O(1)，适合流式。</li><li>明确满/空判定与溢出策略。</li><li>SPSC 无锁要注意内存序。</li></ul></div>
+    <section class="sec" id="m03-ring"><h2 id="m03-ring-t">3.1 环形缓冲与满/空判定</h2><p>环形缓冲固定内存、O(1) 读写，天然适合流式数据。关键是满/空判定：用计数器或“牺牲一格”。多生产/消费要同步（内存序）。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 环形缓冲的 head/tail</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="环形缓冲的 head/tail" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">push→head</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">取模回绕</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">pop←tail</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">满/空判定</text></svg></div><figcaption class="fig-ft">push 到 head、pop 从 tail；head/tail 取模回绕。满/空判定决定是否可读写。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  五种结构</div><table><thead><tr><th>结构</th><th>语义</th><th>注意</th></tr></thead><tbody><tr><td>栈</td><td>LIFO</td><td>深度固定</td></tr><tr><td>队列</td><td>FIFO</td><td>满/空判定</td></tr><tr><td>环形</td><td>循环复用</td><td>head/tail</td></tr><tr><td>SPSC 无锁</td><td>单生产单消费</td><td>内存序</td></tr><tr><td>溢出</td><td>丢新/丢旧/阻塞</td><td>明确策略</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ring.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (count == CAP) return -1;          // 满：拒绝（或丢最旧）</span><span class="ln">buf[head] = v; head = (head + 1) % CAP; count++;</span><span class="ln">/* SPSC：生产者 release 写 head，消费者 acquire 读 head */</span>
+</code></pre><span class="code-note">满则拒绝；回绕取模；SPSC 用 acquire/release</span></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：满/空与回绕</h2><p>下面这段程序验证满/空边界与回绕：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_ring.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_ring.c —— 栈/队列/环形缓冲（有界）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_ring.c -o host_ring &amp;&amp; ./host_ring</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#define CAP 4</span><span class="ln">typedef struct { int b[CAP]; int head, tail, n; } ring_t;</span><span class="ln">static int push(ring_t *r, int v) { if (r-&gt;n == CAP) return -1; r-&gt;b[r-&gt;tail] = v; r-&gt;tail = (r-&gt;tail+1)%CAP; r-&gt;n++; return 0; }</span><span class="ln">static int pop(ring_t *r, int *v) { if (r-&gt;n == 0) return -1; *v = r-&gt;b[r-&gt;head]; r-&gt;head = (r-&gt;head+1)%CAP; r-&gt;n--; return 0; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; ring_t r = {{0},0,0,0}; int v;</span><span class="ln">    for (int i = 1; i &lt;= 4; i++) if (push(&amp;r, i)) ok = 0;</span><span class="ln">    printf(&quot;满时再 push=%d（期望 -1）\n&quot;, push(&amp;r, 9));</span><span class="ln">    if (push(&amp;r, 9) != -1) ok = 0;</span><span class="ln">    if (pop(&amp;r, &amp;v) || v != 1) ok = 0;</span><span class="ln">    if (push(&amp;r, 5)) ok = 0;                  /* 回绕后写入 */</span><span class="ln">    printf(&quot;回绕后顺序: &quot;);</span><span class="ln">    while (pop(&amp;r, &amp;v) == 0) printf(&quot;%d &quot;, v);</span><span class="ln">    printf(&quot;(期望 2 3 4 5)\n&quot;);</span><span class="ln">    /* 简化校验：总量守恒 */</span><span class="ln">    if (r.n != 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">环形缓冲边界模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring &amp;&amp; ./labs/host_ring</span>
+满时再 push=-1（期望 -1）
+回绕后顺序: 2 3 4 5（期望 2 3 4 5）
+RESULT: PASS</code></pre></div></div><p class="sim-note">环容量 4 槽；满时 push 返回 -1；回绕后取出顺序正确 2 3 4 5。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  环形状态机</div><table><thead><tr><th>状态</th><th>push</th><th>pop</th></tr></thead><tbody><tr><td>空</td><td>成功</td><td>失败(-1)</td></tr><tr><td>非空非满</td><td>成功</td><td>成功</td></tr><tr><td>满</td><td>失败(-1)</td><td>成功</td></tr><tr><td>回绕</td><td>取模</td><td>取模</td></tr></tbody></table></div></section><section class="sec" id="m03-spsc"><h2 id="m03-spsc-t">3.3 SPSC 与溢出策略</h2><p>单生产单消费（SPSC）可用无锁环形缓冲，但要 acquire/release 内存序；溢出策略要显式（丢最旧/丢新/阻塞）并计数。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">ring.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (count == CAP) return -1;          // 满：拒绝（或丢最旧）</span><span class="ln">buf[head] = v; head = (head + 1) % CAP; count++;</span><span class="ln">/* SPSC：生产者 release 写 head，消费者 acquire 读 head */</span>
+</code></pre><span class="code-note">满则拒绝；回绕取模；SPSC 用 acquire/release 配内存序</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  溢出策略</div><table><thead><tr><th>策略</th><th>行为</th><th>适合</th></tr></thead><tbody><tr><td>丢新</td><td>满时拒绝</td><td>最新不重要</td></tr><tr><td>丢旧</td><td>覆盖最旧</td><td>最新重要</td></tr><tr><td>阻塞</td><td>等待空间</td><td>有同步机制</td></tr><tr><td>计数</td><td>丢掉要计数</td><td>可观测</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检</h2><p>环形自检：满/空正确、回绕无越界、SPSC 有内存序、溢出有策略。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 环形缓冲容量与状态（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="环形缓冲容量与状态（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">容量</text><rect x="150" y="26" width="480" height="18" rx="4" class="sv-box"/><text x="638" y="43" class="sv-lbl-hi">4(计数)</text><text x="12" y="67" class="sv-lbl">满时 push</text><rect x="150" y="50" width="2" height="18" rx="4" class="sv-red-s"/><text x="160" y="67" class="sv-lbl-hi">0(计数)</text><text x="12" y="91" class="sv-lbl">空时 pop</text><rect x="150" y="74" width="2" height="18" rx="4" class="sv-red-s"/><text x="160" y="91" class="sv-lbl-hi">0(计数)</text></svg></div><figcaption class="fig-ft">容量 4：空/非空非满/满三态；满时 push 拒绝、空时 pop 拒绝。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>满/空</td><td>计数或牺牲格</td><td>读空/覆盖</td></tr><tr><td>回绕</td><td>取模</td><td>越界</td></tr><tr><td>SPSC</td><td>内存序</td><td>读到未完成</td></tr><tr><td>溢出</td><td>策略+计数</td><td>静默丢</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>空满判定错</strong>：读空/覆盖未读数据。</li><li><strong>无溢出策略</strong>：静默丢数据。</li><li><strong>SPSC 不加内存序</strong>：读到未完成数据。</li><li><strong>越界</strong>：索引未取模。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">环形缓冲如何区分“空”和“满”（head==tail 时）？</p><details><summary>查看答案</summary><div class="ans"><p>用计数器，或牺牲一个槽位（满时 tail 的下一格是 head）。两种都要保证读写不越界。</p></div></details></li><li><p class="q">SPSC 无锁环形缓冲为什么要内存序？</p><details><summary>查看答案</summary><div class="ans"><p>生产者写数据与更新 head、消费者读 head 与取数据之间存在顺序要求；用 release/acquire 配对保证“看到 head 就能看到数据”。</p></div></details></li><li><p class="q">环形缓冲满了应该怎么办？</p><details><summary>查看答案</summary><div class="ans"><p>按显式策略处理：丢新（拒绝）、丢旧（覆盖最旧）或阻塞等待，并计数以便观测。不能静默丢数据。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你采集/通信流实现一个有界环形缓冲，定义满/空判定与溢出策略并计数。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.embedded.com/" target="_blank" rel="noopener noreferrer">Efficient C 定点</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_ring.c</code>：验证满/空边界与回绕正确。</p><p><strong>检查结果：</strong>满时 push 返回 -1；回绕后顺序 2 3 4 5；最终计数守恒、无越界。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现有界环形缓冲并正确处理满/空判定与溢出策略（丢最旧/丢新/阻塞）。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>满时 push 返回 -1；回绕后顺序 2 3 4 5；最终计数守恒、无越界。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 查找与图</div>
+      <h1 class="ch-title">查找、排序与索引<span class="acc">.</span></h1>
+      <p class="ch-lead">查找/排序是数据处理的基础：<strong>有序数据用二分 O(log n)</strong>；排序要考虑<strong>稳定性与内存</strong>；频繁查找可建索引/哈希。</p>
+      <div class="ch-meta"><span>前置：理解数组与时间复杂度，会写循环比较。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为有序数据实现二分查找与标定表线性插值，并选择稳定/不稳定的排序。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>有序数据用二分 O(log n)；频繁查找建索引。</li><li>排序看稳定性与内存（归并稳定）。</li><li>标定表用有序表+插值。</li></ul></div>
+    <section class="sec" id="m04-search"><h2 id="m04-search-t">4.1 二分与标定表</h2><p>有序数据用二分 O(log n)；排序要考虑稳定性与内存；频繁查找建索引/哈希。嵌入式常把标定/映射做成有序表 + 二分/插值，O(log n) 且可预测。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> 二分查找</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="二分查找" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">取中点</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">比较</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">缩半</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">命中/未命中</text></svg></div><figcaption class="fig-ft">取中点 → 比较 → 缩半 → 命中或区间为空。每步排除一半，O(log n)。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  查找与排序</div><table><thead><tr><th>方法</th><th>复杂度</th><th>适用</th></tr></thead><tbody><tr><td>线性查找</td><td>O(n)</td><td>小规模/无序</td></tr><tr><td>二分查找</td><td>O(log n)</td><td>有序</td></tr><tr><td>哈希</td><td>O(1) 平均</td><td>键值查找</td></tr><tr><td>快排</td><td>O(n log n)</td><td>通用/原地</td></tr><tr><td>归并</td><td>O(n log n)</td><td>稳定/外部</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">search.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int lo=0, hi=n-1;</span><span class="ln">while (lo &lt;= hi) { int m=(lo+hi)/2; if (a[m]==key) return m; a[m]&lt;key?lo=m+1:hi=m-1; }</span><span class="ln">return -1;   // 未命中</span><span class="ln">/* 插值 y=y0+(y1-y0)*(x-x0)/(x1-x0)，仅标定区间内 */</span>
+</code></pre><span class="code-note">二分 O(log n)；插值仅区间内有效</span></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：二分与插值</h2><p>下面这段程序验证二分查找与标定表线性插值：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_search.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_search.c —— 二分查找与标定表线性插值（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_search.c -o host_search &amp;&amp; ./host_search</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">static int bsearch_int(const int *a, int n, int key) { int lo=0, hi=n-1; while (lo&lt;=hi){ int m=(lo+hi)/2; if(a[m]==key) return m; if(a[m]&lt;key) lo=m+1; else hi=m-1; } return -1; }</span><span class="ln">/* 标定点 (x,y) 线性插值 */</span><span class="ln">static float interp(const float *x, const float *y, int n, float xi) {</span><span class="ln">    if (xi &lt;= x[0]) return y[0];</span><span class="ln">    if (xi &gt;= x[n-1]) return y[n-1];</span><span class="ln">    for (int i = 0; i &lt; n-1; i++)</span><span class="ln">        if (xi &gt;= x[i] &amp;&amp; xi &lt;= x[i+1])</span><span class="ln">            return y[i] + (y[i+1]-y[i]) * (xi-x[i]) / (x[i+1]-x[i]);</span><span class="ln">    return y[n-1];</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int a[] = {1,3,5,7,9,11};</span><span class="ln">    printf(&quot;查找 7 → 下标 %d（期望 3）\n&quot;, bsearch_int(a,6,7));</span><span class="ln">    if (bsearch_int(a,6,7) != 3) ok = 0;</span><span class="ln">    printf(&quot;查找 4 → %d（期望 -1）\n&quot;, bsearch_int(a,6,4));</span><span class="ln">    if (bsearch_int(a,6,4) != -1) ok = 0;</span><span class="ln">    float x[] = {0,10,20}, y[] = {0,100,300};</span><span class="ln">    float v = interp(x,y,3,15);</span><span class="ln">    printf(&quot;插值 x=15 → %.1f（期望 200.0）\n&quot;, v);</span><span class="ln">    if (v &lt; 199.9f || v &gt; 200.1f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">二分/插值模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search &amp;&amp; ./labs/host_search</span>
+查找 7 → 下标 3（期望 3）
+查找 4 → -1（期望 -1）
+插值 x=15 → 200.0（期望 200.0）
+RESULT: PASS</code></pre></div></div><p class="sim-note">有序表 {1,3,5,7,9,11}：7 命中下标 3、4 未命中 -1；插值 x=15→200.0（区间内）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  查找/插值结果</div><table><thead><tr><th>操作</th><th>输入</th><th>输出</th></tr></thead><tbody><tr><td>二分命中</td><td>7</td><td>下标 3</td></tr><tr><td>二分未命中</td><td>4</td><td>-1</td></tr><tr><td>插值</td><td>x=15</td><td>200.0</td></tr><tr><td>区间</td><td>[0,20]</td><td>区间内</td></tr></tbody></table></div></section><section class="sec" id="m04-sort"><h2 id="m04-sort-t">4.3 排序稳定性与索引</h2><p>相同键的相对顺序有意义时必须用稳定排序（归并）；否则快排/堆排。频繁查找可建索引/哈希。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">search.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int lo=0, hi=n-1;</span><span class="ln">while (lo &lt;= hi) { int m=(lo+hi)/2; if (a[m]==key) return m; a[m]&lt;key?lo=m+1:hi=m-1; }</span><span class="ln">return -1;   // 未命中</span><span class="ln">/* 插值 y = y0 + (y1-y0)*(x-x0)/(x1-x0)，仅在标定区间内有效 */</span>
+</code></pre><span class="code-note">二分 O(log n)；插值仅区间内有效</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  选择依据</div><table><thead><tr><th>需求</th><th>选择</th><th>原因</th></tr></thead><tbody><tr><td>稳定</td><td>归并排序</td><td>保持相对顺序</td></tr><tr><td>原地省内存</td><td>快排/堆排</td><td>额外空间小</td></tr><tr><td>频繁查找</td><td>哈希/索引</td><td>O(1) 平均</td></tr><tr><td>标定映射</td><td>有序表+插值</td><td>可预测</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检</h2><p>查找/排序自检：数据有序、区间正确、稳定性满足、外插标注。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> 查找复杂度（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="查找复杂度（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">线性 n=256</text><rect x="150" y="26" width="512" height="18" rx="4" class="sv-red-s"/><text x="670" y="43" class="sv-lbl-hi">256比较次数</text><text x="12" y="67" class="sv-lbl">二分 n=256</text><rect x="150" y="50" width="16" height="18" rx="4" class="sv-grn-s"/><text x="174" y="67" class="sv-lbl-hi">8比较次数</text></svg></div><figcaption class="fig-ft">线性 O(n) 对二分 O(log n)：n 大时差距巨大。有序数据应二分。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>有序</td><td>二分前提</td><td>对无序二分</td></tr><tr><td>区间</td><td>不越界</td><td>标定表越界</td></tr><tr><td>稳定</td><td>按需求</td><td>顺序被扰动</td></tr><tr><td>外插</td><td>标注/降级</td><td>盲目外插</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>对无序数据二分</strong>：结果错。</li><li><strong>忽略排序稳定性</strong>：顺序有意义的数据被扰动。</li><li><strong>哈希冲突处理差</strong>：性能退化。</li><li><strong>标定表越界</strong>：读写越界。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">什么时候必须用稳定排序？</p><details><summary>查看答案</summary><div class="ans"><p>当相同键的元素的相对顺序有意义时（如多级排序的第二关键字）。归并排序稳定；快排通常不稳定。</p></div></details></li><li><p class="q">二分查找的前提是什么？</p><details><summary>查看答案</summary><div class="ans"><p>数据必须是有序的。对无序数据二分会得到错误结果。</p></div></details></li><li><p class="q">标定表插值为什么只应在标定区间内使用？</p><details><summary>查看答案</summary><div class="ans"><p>标定关系通常只在测量区间内成立；区间外（外插）误差不可控，必须标注有效范围并在越界时降级/告警。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你一张映射/标定表改为有序 + 二分/插值，并标注有效区间。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://ocw.mit.edu/" target="_blank" rel="noopener noreferrer">MIT 算法公开课</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_search.c</code>：验证二分查找与标定表线性插值。</p><p><strong>检查结果：</strong>二分 7→下标 3、4→-1；插值 x=15→200.0（|误差|<0.1）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为有序数据实现二分查找与标定表线性插值，并选择稳定/不稳定的排序。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>二分 7→下标 3、4→-1；插值 x=15→200.0（|误差|&lt;0.1）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 查找与图</div>
+      <h1 class="ch-title">状态机、图与调度<span class="acc">.</span></h1>
+      <p class="ch-lead">状态机与图是“有结构的行为”：状态机描述转移，图描述依赖/连通；<strong>拓扑排序</strong>解决依赖顺序，<strong>BFS</strong> 解决最短路。</p>
+      <div class="ch-meta"><span>前置：会写 switch/转移表，理解队列与栈。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把协议/模式建模为状态机，用图表示依赖并做拓扑排序与 BFS 最短路。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>状态机描述行为，图描述依赖/连通。</li><li>拓扑排序解依赖，BFS 解无权最短路。</li><li>有环则不可拓扑排序。</li></ul></div>
+    <section class="sec" id="m05-graph"><h2 id="m05-graph-t">5.1 状态机与图</h2><p>状态机描述转移，图描述依赖/连通。拓扑排序解决依赖顺序，BFS 在无权图给最短路。依赖调度本质就是拓扑排序：有环则不可调度。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> 拓扑排序与 BFS</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="拓扑排序与 BFS" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">入度=0 队列</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">出队输出</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">减少后继入度</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">拓扑序/最短路</text></svg></div><figcaption class="fig-ft">拓扑排序按入度出队得到依赖顺序；BFS 从源点按层扩展得无权最短路。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  结构与算法</div><table><thead><tr><th>结构</th><th>用途</th><th>算法</th></tr></thead><tbody><tr><td>状态机</td><td>协议/模式</td><td>转移表</td></tr><tr><td>邻接矩阵</td><td>稠密图</td><td>O(V²) 遍历</td></tr><tr><td>邻接表</td><td>稀疏图</td><td>省内存</td></tr><tr><td>拓扑排序</td><td>依赖/构建</td><td>入度法</td></tr><tr><td>BFS/DFS</td><td>最短/连通</td><td>队列/栈</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">graph.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">while (queue_not_empty())</span><span class="ln">  for (each v with indeg==0) { out[u++]=v; for (w in adj[v]) if (--indeg[w]==0) push(w); }</span><span class="ln">/* out 数 &lt; V 则有环；BFS 按层扩展给无权最短路 */</span>
+</code></pre><span class="code-note">入度法拓扑排序可检测环；BFS 在无权图或等权图上给出最少边数路径</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：拓扑序与最短路</h2><p>下面这段程序验证拓扑排序与 BFS 最短路：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_graph.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_graph.c —— 图：拓扑排序与 BFS 最短路（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_graph.c -o host_graph &amp;&amp; ./host_graph</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;string.h&gt;</span><span class="ln">#define N 5</span><span class="ln">static int adj[N][N] = {</span><span class="ln">    /* 0-&gt;1, 0-&gt;2, 1-&gt;3, 2-&gt;3, 3-&gt;4 */</span><span class="ln">    {0,1,1,0,0},{0,0,0,1,0},{0,0,0,1,0},{0,0,0,0,1},{0,0,0,0,0}</span><span class="ln">};</span><span class="ln">static int bfs(int s, int t) {</span><span class="ln">    int dist[N]; for (int i=0;i&lt;N;i++) dist[i]=-1;</span><span class="ln">    int q[N], h=0, tl=0; dist[s]=0; q[tl++]=s;</span><span class="ln">    while (h&lt;tl) { int u=q[h++]; for (int v=0;v&lt;N;v++) if (adj[u][v] &amp;&amp; dist[v]&lt;0){dist[v]=dist[u]+1;q[tl++]=v;} }</span><span class="ln">    return dist[t];</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 拓扑排序（入度为 0 依次输出） */</span><span class="ln">    int indeg[N]; memset(indeg,0,sizeof(indeg));</span><span class="ln">    for (int u=0;u&lt;N;u++) for (int v=0;v&lt;N;v++) if (adj[u][v]) indeg[v]++;</span><span class="ln">    int order[N], oc=0;</span><span class="ln">    for (int step=0; step&lt;N; step++) { for (int i=0;i&lt;N;i++) if (!indeg[i]){ indeg[i]=-1; order[oc++]=i; for(int v=0;v&lt;N;v++) if(adj[i][v]) indeg[v]--; break; } }</span><span class="ln">    printf(&quot;拓扑序: &quot;); for (int i=0;i&lt;oc;i++) printf(&quot;%d &quot;, order[i]); printf(&quot;\n&quot;);</span><span class="ln">    if (!(oc==5 &amp;&amp; order[0]==0 &amp;&amp; order[4]==4)) ok = 0;</span><span class="ln">    printf(&quot;0→4 BFS 最短路=%d（期望 3）\n&quot;, bfs(0,4));</span><span class="ln">    if (bfs(0,4) != 3) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">拓扑排序/BFS 模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_graph.c -o labs/host_graph &amp;&amp; ./labs/host_graph</span>
+拓扑序: 0 1 2 3 4 
+0→4 BFS 最短路=3（期望 3）
+RESULT: PASS</code></pre></div></div><p class="sim-note">拓扑序 5 个节点、无环；BFS 0→4 最短路=3 跳（无权图，单位是边数）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  结果</div><table><thead><tr><th>量</th><th>值</th><th>说明</th></tr></thead><tbody><tr><td>节点</td><td>5</td><td>无环</td></tr><tr><td>拓扑序</td><td>0 1 2 3 4</td><td>依赖顺序</td></tr><tr><td>BFS 最短路</td><td>3 跳</td><td>无权图</td></tr><tr><td>有环</td><td>不可调度</td><td>需拆分</td></tr></tbody></table></div></section><section class="sec" id="m05-sched"><h2 id="m05-sched-t">5.3 依赖调度</h2><p>依赖调度就是拓扑排序：有环不可调度。BFS 在无权图给最短路，DFS 适合连通/回溯。状态机要有默认分支处理异常事件。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">graph.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">while (queue_not_empty())</span><span class="ln">    for (each v with indeg==0) { out[u++]=v; for (w in adj[v]) if (--indeg[w]==0) push(w); }</span><span class="ln">/* 若 out 数 &lt; V 则有环；BFS 按层扩展给无权最短路 */</span>
+</code></pre><span class="code-note">入度法拓扑排序（可检测环）；BFS 按层给最短路</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  调度与遍历</div><table><thead><tr><th>问题</th><th>方法</th><th>注意</th></tr></thead><tbody><tr><td>依赖顺序</td><td>拓扑排序</td><td>有环即失败</td></tr><tr><td>无权最短路</td><td>BFS</td><td>加权图不适用</td></tr><tr><td>连通/回溯</td><td>DFS</td><td>栈深度</td></tr><tr><td>异常事件</td><td>状态机默认分支</td><td>不丢入未知</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检</h2><p>图自检：无环、拓扑序正确、BFS 最短路正确、状态机有默认分支。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 拓扑排序与环检测（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="拓扑排序与环检测（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">输出节点</text><rect x="150" y="26" width="500" height="18" rx="4" class="sv-grn-s"/><text x="658" y="43" class="sv-lbl-hi">5个</text><text x="12" y="67" class="sv-lbl">节点总数</text><rect x="150" y="50" width="500" height="18" rx="4" class="sv-cyn-s"/><text x="658" y="67" class="sv-lbl-hi">5个</text></svg></div><figcaption class="fig-ft">无环则输出全部节点；有环则输出数 < V，判定不可调度。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>建图</td><td>邻接表/矩阵</td><td>稀疏用矩阵</td></tr><tr><td>拓扑</td><td>入度法</td><td>忽略环</td></tr><tr><td>BFS</td><td>按层</td><td>当加权最短路</td></tr><tr><td>状态机</td><td>默认分支</td><td>丢入未知</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>忽略环</strong>：拓扑排序失败/死循环。</li><li><strong>邻接矩阵太浪费</strong>：稀疏图内存爆。</li><li><strong>BFS 当加权最短路</strong>：结果错。</li><li><strong>状态机无默认分支</strong>：异常丢入未知。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">拓扑排序失败的常见原因是什么？</p><details><summary>查看答案</summary><div class="ans"><p>图中存在环（循环依赖）。此时无法确定顺序，应检测并拆分/消除环。</p></div></details></li><li><p class="q">什么时候用 BFS、什么时候用 DFS？</p><details><summary>查看答案</summary><div class="ans"><p>无权图最短路用 BFS（按层扩展）；连通性/回溯/拓扑（DFS 版）用 DFS。加权最短路要用 Dijkstra 等而非 BFS。</p></div></details></li><li><p class="q">状态机为什么要有“默认分支”？</p><details><summary>查看答案</summary><div class="ans"><p>处理未预期的输入/事件，避免落入未定义状态。默认分支可做安全处理与日志，而不是“丢入未知”。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你的协议/模式建模为状态机，把依赖画成图做一次拓扑排序与环检测。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://ocw.mit.edu/" target="_blank" rel="noopener noreferrer">MIT 算法公开课</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_graph.c</code>：验证拓扑排序与 BFS 最短路。</p><p><strong>检查结果：</strong>拓扑序输出 5 个节点且首=0、末=4（无环）；BFS 0→4 最短路=3 跳。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把协议/模式建模为状态机，用图表示依赖并做拓扑排序与 BFS 最短路。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>拓扑序输出 5 个节点且首=0、末=4（无环）；BFS 0→4 最短路=3 跳。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 数值与数学</div>
+      <h1 class="ch-title">数值表示与误差<span class="acc">.</span></h1>
+      <p class="ch-lead">数值表示决定“能不能算、算多准”：整数精确但范围小，浮点范围大但有误差，<strong>定点 Q15</strong> 是嵌入式常用折中。</p>
+      <div class="ch-meta"><span>前置：理解整数位宽、二进制补码与浮点基本概念。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能为变量选定点/浮点表示与定标，做饱和运算并把误差控制在 1 LSB 内。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m06-knowledge-boundary">数值接口先写范围，再选择位宽</h3><p>定点中间乘积用足够宽的类型；溢出前转换，缩回时规定舍入与饱和。负数除法与移位规则可能不同；Q15 的正端不能表示 1。把输入上限、最大累计量和返回错误写入接口，再用端点与参考实现对拍。</p></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>数值表示决定范围与误差：整数/定点/浮点。</li><li>Q15 误差 ≤ 1/32768；乘法升位。</li><li>溢出要用饱和而非回绕。</li></ul></div>
+    <section class="sec" id="m06-num"><h2 id="m06-num-t">6.1 整数/定点/浮点</h2><p>整数精确但范围小（会溢出），浮点范围大但有舍入误差且慢，定点 Q15 是嵌入式常用折中：范围 [-1,1)、量化误差 ≤ 1/32768。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> 三种数值表示的取舍</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="三种数值表示的取舍" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="49.0" class="sv-lbl-hi">定长整数：精确但会溢出</text><rect x="60" y="64" width="680" height="50" rx="6" class="sv-grn-s"/><text x="75" y="93.0" class="sv-lbl-hi">定点 Q15：快、可预测、[-1,1)</text><rect x="60" y="118" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="137.0" class="sv-lbl-hi">浮点：范围大、有舍入误差</text></svg></div><figcaption class="fig-ft">定长整数（精确/易溢出）、定点 Q15（快/可预测/范围小）、浮点（范围大/有误差/慢）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  数值表示</div><table><thead><tr><th>表示</th><th>范围</th><th>误差/代价</th></tr></thead><tbody><tr><td>定长整数</td><td>有限</td><td>溢出</td></tr><tr><td>定点 Q15</td><td>[-1,1)</td><td>量化误差 ≤ 1/32768</td></tr><tr><td>单精度浮点</td><td>大</td><td>舍入误差、慢</td></tr><tr><td>双精度</td><td>更大</td><td>更慢/占内存</td></tr><tr><td>饱和运算</td><td>——</td><td>防溢出回绕</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">num.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int16_t q = (int16_t)lrintf(x * 32768.0f);       // 量化</span><span class="ln">if (q &gt; 32767) q = 32767; else if (q &lt; -32768) q = -32768;  // 饱和</span><span class="ln">float xr = q / 32768.0f;                          // 反量化</span><span class="ln">/* 乘法中间结果升 32 位再右移，避免溢出 */</span>
+</code></pre><span class="code-note">Q15 量化+饱和；乘法升位防溢出</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：Q15 量化误差</h2><p>下面这段程序验证 Q15 量化/反量化误差：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_num.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_num.c —— 定点 Q15 与浮点误差（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_num.c -o host_num &amp;&amp; ./host_num</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;stdint.h&gt;</span><span class="ln">static int16_t q15(float x) { float s = x*32768.0f; if (s &gt; 32767) s = 32767; if (s &lt; -32768) s = -32768; return (int16_t)(s &lt; 0 ? s - 0.5f : s + 0.5f); }</span><span class="ln">static float q15_to_f(int16_t q) { return q / 32768.0f; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    float xs[] = {0.5f, -0.5f, 0.999f, -1.0f};</span><span class="ln">    float maxe = 0;</span><span class="ln">    for (unsigned i = 0; i &lt; sizeof(xs)/sizeof(xs[0]); i++) {</span><span class="ln">        int16_t q = q15(xs[i]); float r = q15_to_f(q); float e = r - xs[i]; if (e &lt; 0) e = -e;</span><span class="ln">        if (e &gt; maxe) maxe = e;</span><span class="ln">        printf(&quot;x=%+.3f q=%6d x&#x27;=%+.5f err=%.5f\n&quot;, xs[i], q, r, e);</span><span class="ln">    }</span><span class="ln">    printf(&quot;最大误差=%.5f（≤ 1/32768=%.5f）\n&quot;, maxe, 1.0f/32768.0f);</span><span class="ln">    if (maxe &gt; 1.0f/32768.0f + 1e-6f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">Q15 定点量化模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_num.c -o labs/host_num &amp;&amp; ./labs/host_num</span>
+x=+0.500 q= 16384 x&#x27;=+0.50000 err=0.00000
+x=+0.999 q= 32735 x&#x27;=+0.99899 err=0.00001
+x=-1.000 q=-32768 x&#x27;=-1.00000 err=0.00000
+最大误差=0.00001（≤ 1/32768=0.00003）
+RESULT: PASS</code></pre></div></div><p class="sim-note">Q15 定标：q=round(x·32768) 裁剪到 [-32768,32767]；最大误差 ≤1/32768≈3.05e-5。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  Q15 关键值</div><table><thead><tr><th>量</th><th>公式</th><th>值</th></tr></thead><tbody><tr><td>Q15 定标</td><td>q=round(x·32768)</td><td>[-32768,32767]</td></tr><tr><td>LSB</td><td>1/32768</td><td>≈3.05e-5</td></tr><tr><td>量化误差</td><td>≤1/2 LSB</td><td>≈1.5e-5</td></tr><tr><td>边界</td><td>饱和</td><td>-32768</td></tr></tbody></table></div></section><section class="sec" id="m06-sat"><h2 id="m06-sat-t">6.3 定标一致与饱和</h2><p>定点要点：定标（scale）要一致、乘法用宽类型中间结果、结果做饱和而非回绕。能确定范围时定点又快又可预测。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">num.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">int16_t q = (int16_t)lrintf(x * 32768.0f);       // 量化</span><span class="ln">if (q &gt; 32767) q = 32767; else if (q &lt; -32768) q = -32768;  // 饱和</span><span class="ln">float xr = q / 32768.0f;                          // 反量化</span><span class="ln">/* 乘法中间结果升 32 位再右移，避免溢出 */</span>
+</code></pre><span class="code-note">Q15 量化+饱和；乘法升位防溢出</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  定点实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>定标一致</td><td>结果正确</td><td>差倍数</td></tr><tr><td>中间升位</td><td>乘法不溢出</td><td>回绕</td></tr><tr><td>饱和</td><td>防符号翻转</td><td>灾难错误</td></tr><tr><td>范围明确</td><td>定点可预测</td><td>隐含溢出</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检</h2><p>数值自检：定标一致、误差 ≤1 LSB、边界饱和、乘法升位。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> Q15 量化误差（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="Q15 量化误差（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">误差</text><rect x="150" y="26" width="150" height="18" rx="4" class="sv-grn-s"/><text x="308" y="43" class="sv-lbl-hi">1(×10⁻⁵)</text><text x="12" y="67" class="sv-lbl">1/32768</text><rect x="150" y="50" width="450" height="18" rx="4" class="sv-amb-s"/><text x="608" y="67" class="sv-lbl-hi">3(×10⁻⁵)</text></svg></div><figcaption class="fig-ft">各测试点误差 ≤1/32768≈3.05e-5；边界饱和为 -32768 而非回绕。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>定标</td><td>统一 scale</td><td>不一致</td></tr><tr><td>误差</td><td>≤1 LSB</td><td>超规格</td></tr><tr><td>饱和</td><td>边界钳位</td><td>回绕</td></tr><tr><td>升位</td><td>乘法中间 32 位</td><td>溢出</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>溢出回绕</strong>：符号翻转，灾难性错误。</li><li><strong>定标不一致</strong>：结果差倍数。</li><li><strong>中间结果溢出</strong>：乘法未升位。</li><li><strong>浮点误差累积</strong>：长期漂移。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">定点乘法为什么常用宽类型中间结果？</p><details><summary>查看答案</summary><div class="ans"><p>两个 Q15 相乘结果是 Q30 量级，直接用 16 位会溢出；应升到 32 位再移位回 Q15。配合饱和可避免回绕。</p></div></details></li><li><p class="q">为什么边界要做“饱和”而不是“回绕”？</p><details><summary>查看答案</summary><div class="ans"><p>回绕会让最大正数加一变成最大负数，造成灾难性错误；饱和把越界值钳到边界，行为可预测。</p></div></details></li><li><p class="q">什么时候用定点、什么时候用浮点？</p><details><summary>查看答案</summary><div class="ans"><p>能确定范围且追求速度/可预测/无 FPU 时用定点；范围大、精度要求高或有 FPU 时用浮点。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个信号处理变量选定点 Q 格式与定标，做饱和运算并核对误差 ≤1 LSB。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://dlmf.nist.gov/" target="_blank" rel="noopener noreferrer">NIST 数值方法</a> · <a class="ref" href="https://www.embedded.com/" target="_blank" rel="noopener noreferrer">Efficient C 定点</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_num.c</code>：验证 Q15 量化/反量化误差 ≤ 1/32768。</p><p><strong>检查结果：</strong>4 个测试点最大量化误差=0.00001 ≤ 1/32768≈0.00003；-1.0 边界饱和为 -32768（不回绕）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能为变量选定点/浮点表示与定标，做饱和运算并把误差控制在 1 LSB 内。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>4 个测试点最大量化误差=0.00001 ≤ 1/32768≈0.00003；-1.0 边界饱和为 -32768（不回绕）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 数值与数学</div>
+      <h1 class="ch-title">线性代数与坐标变换<span class="acc">.</span></h1>
+      <p class="ch-lead">坐标变换是机器人/姿态/图形的数学基础：<strong>旋转矩阵、平移、齐次坐标</strong>；旋转矩阵是<strong>正交</strong>的（保长度、可逆）。</p>
+      <div class="ch-meta"><span>前置：会矩阵乘法，理解三角函数与向量。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用旋转矩阵与齐次坐标实现坐标变换，并用正交性（RᵀR=I）校验/求逆。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>坐标变换用旋转矩阵（正交）+齐次坐标。</li><li>矩阵乘法不可交换，注意顺序。</li><li>正交性可校验/求逆。</li></ul></div>
+    <section class="sec" id="m07-vec"><h2 id="m07-vec-t">7.1 旋转矩阵与齐次坐标</h2><p>旋转矩阵、平移、齐次坐标。旋转矩阵正交（保长度、可逆，R⁻¹=Rᵀ），用齐次坐标把旋转与平移统一成矩阵乘法。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 旋转矩阵与齐次坐标</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="旋转矩阵与齐次坐标" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">旋转 R=[[c,-s],[s,c]]</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">正交 c²+s²=1（保长度）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">平移需齐次坐标（多一维）</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">多传感器姿态融合</text></svg></div><figcaption class="fig-ft">2D 旋转 R=[[c,-s],[s,c]]，c²+s²=1（正交）；平移需齐次坐标把旋转+平移统一。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  坐标变换五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>性质</th></tr></thead><tbody><tr><td>向量/矩阵</td><td>表示与运算</td><td>乘法不可交换</td></tr><tr><td>旋转矩阵</td><td>旋转变换</td><td>正交、行列式=1</td></tr><tr><td>平移</td><td>位置变化</td><td>需齐次坐标统一</td></tr><tr><td>齐次坐标</td><td>统一旋转+平移</td><td>多一维</td></tr><tr><td>姿态融合</td><td>多传感器</td><td>旋转叠加</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">vec.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double c=cos(th), s=sin(th);</span><span class="ln">double x2 = x*c - y*s, y2 = x*s + y*c;   // 旋转</span><span class="ln">/* 正交性 c²+s²=1；求逆用转置 Rᵀ；平移用齐次坐标 */</span>
+</code></pre><span class="code-note">旋转公式 + 正交性校验；只有正交矩阵的逆等于转置</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：旋转与正交性</h2><p>下面这段程序验证旋转与正交性：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_vec.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_vec.c —— 线性代数与坐标变换：二维旋转矩阵（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_vec.c -o host_vec -lm &amp;&amp; ./host_vec</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double deg = 90.0, th = deg*3.14159265358979/180.0;</span><span class="ln">    double c = cos(th), s = sin(th);</span><span class="ln">    double x = 1, y = 0;</span><span class="ln">    double xr = c*x - s*y, yr = s*x + c*y;</span><span class="ln">    printf(&quot;旋转 (1,0) 90° → (%.3f, %.3f)（期望 (0,1)）\n&quot;, xr, yr);</span><span class="ln">    if (fabs(xr) &gt; 1e-9 || fabs(yr-1.0) &gt; 1e-9) ok = 0;</span><span class="ln">    /* 旋转矩阵正交：R^T R = I */</span><span class="ln">    double d = c*c + s*s;</span><span class="ln">    printf(&quot;R 正交性 c^2+s^2=%.3f（期望 1.000）\n&quot;, d);</span><span class="ln">    if (fabs(d-1.0) &gt; 1e-9) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">旋转/正交性模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_vec.c -o labs/host_vec &amp;&amp; ./labs/host_vec</span>
+旋转 (1,0) 90° → (0.000, 1.000)（期望 (0,1)）
+R 正交性 c^2+s^2=1.000（期望 1.000）
+RESULT: PASS</code></pre></div></div><p class="sim-note">旋转 90° 把 (1,0) 变 (0.000,1.000)（误差<1e-9）；正交性 c²+s²=1.000。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  旋转与正交</div><table><thead><tr><th>量</th><th>公式</th><th>值</th></tr></thead><tbody><tr><td>旋转</td><td>x'=x·c-y·s</td><td>(0,1)@90°</td></tr><tr><td>正交</td><td>c²+s²=1</td><td>1.000</td></tr><tr><td>行列式</td><td>det(R)=1</td><td>保长度/朝向</td></tr><tr><td>逆</td><td>R⁻¹=Rᵀ</td><td>省计算</td></tr></tbody></table></div></section><section class="sec" id="m07-fuse"><h2 id="m07-fuse-t">7.3 姿态融合基础</h2><p>用齐次坐标统一旋转与平移；旋转矩阵正交性可用于校验与求逆（R⁻¹=Rᵀ）。这是 IMU 姿态/坐标系变换的数学基础。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">vec.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double c=cos(th), s=sin(th);</span><span class="ln">double x2 = x*c - y*s, y2 = x*s + y*c;   // 旋转</span><span class="ln">/* 正交性 c²+s²=1；求逆用转置 Rᵀ；平移用齐次坐标 */</span>
+</code></pre><span class="code-note">旋转公式 + 正交性校验；只有正交矩阵的逆等于转置</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  坐标变换实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>正交校验</td><td>防漂移</td><td>忽略归一</td></tr><tr><td>转置求逆</td><td>省计算</td><td>数值求逆</td></tr><tr><td>齐次坐标</td><td>统一变换</td><td>平移当线性</td></tr><tr><td>乘法顺序</td><td>复合变换</td><td>顺序反</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检</h2><p>坐标变换自检：旋转正确、正交性好、顺序正确、平移用齐次坐标。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 正交性校验（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="正交性校验（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">c²+s²</text><rect x="150" y="26" width="571" height="18" rx="4" class="sv-grn-s"/><text x="729" y="43" class="sv-lbl-hi">1000(×10⁻³)</text><text x="12" y="67" class="sv-lbl">期望 1</text><rect x="150" y="50" width="571" height="18" rx="4" class="sv-cyn-s"/><text x="729" y="67" class="sv-lbl-hi">1000(×10⁻³)</text></svg></div><figcaption class="fig-ft">c²+s²=1.000，说明旋转矩阵正交（保长度）；偏离则误差累积。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>旋转</td><td>R·x</td><td>公式错</td></tr><tr><td>正交</td><td>c²+s²=1</td><td>忽略归一</td></tr><tr><td>顺序</td><td>矩阵相乘</td><td>顺序反</td></tr><tr><td>平移</td><td>齐次坐标</td><td>当线性</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>矩阵乘法顺序错</strong>：变换结果反。</li><li><strong>忘记正交归一</strong>：误差累积漂移。</li><li><strong>平移当线性变换</strong>：需齐次坐标。</li><li><strong>数值累积误差</strong>：长期失准。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">旋转矩阵为什么可以“转置求逆”？</p><details><summary>查看答案</summary><div class="ans"><p>旋转矩阵是正交矩阵（RᵀR=I），其逆等于转置。这既省计算又便于校验姿态。</p></div></details></li><li><p class="q">为什么平移要用齐次坐标？</p><details><summary>查看答案</summary><div class="ans"><p>平移不是线性变换（不能用矩阵乘法直接表示点位移）。齐次坐标多一维，把旋转+平移统一成矩阵乘法。</p></div></details></li><li><p class="q">为什么姿态解算要定期校验正交性？</p><details><summary>查看答案</summary><div class="ans"><p>数值累积误差会让旋转矩阵偏离正交（c²+s²≠1），导致尺度/朝向漂移。定期归一/正交化可纠正。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：用旋转矩阵 + 齐次坐标实现一次坐标变换，并用正交性校验结果。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://dlmf.nist.gov/" target="_blank" rel="noopener noreferrer">NIST 数值方法</a> · <a class="ref" href="https://numpy.org/doc/stable/user/basics.types.html" target="_blank" rel="noopener noreferrer">NumPy 数据类型</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_vec.c</code>：验证旋转 (1,0)90°→(0,1) 与正交性。</p><p><strong>检查结果：</strong>旋转 (1,0)90°→(0,1)（|误差|<1e-9）；正交性 c²+s²=1.000。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用旋转矩阵与齐次坐标实现坐标变换，并用正交性（RᵀR=I）校验/求逆。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>旋转 (1,0)90°→(0,1)（|误差|&lt;1e-9）；正交性 c²+s²=1.000。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 数值与数学</div>
+      <h1 class="ch-title">概率、统计与实验设计<span class="acc">.</span></h1>
+      <p class="ch-lead">统计把“感觉”变成“证据”：<strong>均值/方差/标准差、分布与异常、样本量与显著性</strong>；实验设计要控制变量、有对照。</p>
+      <div class="ch-meta"><span>前置：理解均值/方差，知道抽样与误差。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能计算均值/标准差与最小二乘拟合，并按样本量/对照组设计可复现实验。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>统计给均值/方差/样本量，别只给均值。</li><li>实验要有对照、控制变量。</li><li>异常值用稳健统计判断。</li></ul></div>
+    <section class="sec" id="m08-stats"><h2 id="m08-stats-t">8.1 统计量、分布、异常</h2><p>统计把“感觉”变成“证据”：均值/方差/标准差、分布与异常、样本量与显著性。实验设计要控制变量、有对照。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 从数据到结论</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="从数据到结论" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">统计量</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">分布/异常</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">对照实验</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">结论</text></svg></div><figcaption class="fig-ft">算统计量（均值/方差）→ 看分布与异常 → 设计对照实验 → 判显著性 → 结论（含不确定性）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  统计五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>注意</th></tr></thead><tbody><tr><td>均值/方差</td><td>集中/离散</td><td>受异常值影响</td></tr><tr><td>中位数/MAD</td><td>稳健统计</td><td>抗异常</td></tr><tr><td>样本量</td><td>置信</td><td>太少不可靠</td></tr><tr><td>对照</td><td>排除干扰</td><td>控制变量</td></tr><tr><td>显著性</td><td>判差异</td><td>多重比较</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">stats.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double mean = sum / n;</span><span class="ln">double sd = sqrt(sqsum / (n - 1));       // 样本标准差</span><span class="ln">/* 最小二乘：k=Σ(x-x̄)(y-ȳ)/Σ(x-x̄)², b=ȳ-k·x̄ */</span><span class="ln">/* 报告须给 n 与条件；异常先用中位数/MAD 判 */</span>
+</code></pre><span class="code-note">算均值/标准差与最小二乘；报告给样本量</span></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：均值/标准差与拟合</h2><p>下面这段程序计算均值/标准差与最小二乘拟合：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_stats.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_stats.c —— 均值/标准差与最小二乘线性拟合（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_stats.c -o host_stats -lm &amp;&amp; ./host_stats</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double x[] = {1,2,3,4,5}, y[] = {2,4,6,8,10};   /* y=2x */</span><span class="ln">    int n = 5; double sx=0, sy=0, sxx=0, sxy=0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) { sx+=x[i]; sy+=y[i]; sxx+=x[i]*x[i]; sxy+=x[i]*y[i]; }</span><span class="ln">    double slope = (n*sxy - sx*sy)/(n*sxx - sx*sx);</span><span class="ln">    double intercept = (sy - slope*sx)/n;</span><span class="ln">    printf(&quot;拟合 y=%.3f x + %.3f（期望 2.000 0.000）\n&quot;, slope, intercept);</span><span class="ln">    if (fabs(slope-2.0) &gt; 1e-6 || fabs(intercept) &gt; 1e-6) ok = 0;</span><span class="ln">    double my = sy/n, var = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) var += (y[i]-my)*(y[i]-my);</span><span class="ln">    printf(&quot;y 均值=%.1f 标准差=%.3f\n&quot;, my, sqrt(var/n));</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">统计/最小二乘模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_stats.c -o labs/host_stats &amp;&amp; ./labs/host_stats</span>
+拟合 y=2.000 x + 0.000（期望 2.000 0.000）
+y 均值=6.0 标准差=2.828
+RESULT: PASS</code></pre></div></div><p class="sim-note">最小二乘拟合得斜率 2.000、截距 0.000；y 均值 6.0、标准差 2.828（n=5）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  统计结果</div><table><thead><tr><th>量</th><th>公式</th><th>值</th></tr></thead><tbody><tr><td>均值</td><td>Σy/n</td><td>6.0</td></tr><tr><td>标准差</td><td>√(Σ(y-ȳ)²/(n-1))</td><td>2.828</td></tr><tr><td>斜率</td><td>最小二乘</td><td>2.000</td></tr><tr><td>截距</td><td>最小二乘</td><td>0.000</td></tr></tbody></table></div></section><section class="sec" id="m08-design"><h2 id="m08-design-t">8.3 实验设计与显著性</h2><p>报告要给样本量、条件与不确定性；“跑 3 次都一样”不足以证明稳定。异常值先用稳健统计判断，再决定剔除或保留。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">stats.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double mean = sum / n;</span><span class="ln">double sd = sqrt(sqsum / (n - 1));       // 样本标准差</span><span class="ln">/* 最小二乘：k=Σ(x-x̄)(y-ȳ)/Σ(x-x̄)², b=ȳ-k·x̄ */</span><span class="ln">/* 报告须给 n 与条件；异常先用中位数/MAD 判 */</span>
+</code></pre><span class="code-note">算均值/标准差与最小二乘；报告给样本量与条件</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  实验设计实践</div><table><thead><tr><th>要求</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>样本量</td><td>足够且注明</td><td>太少</td></tr><tr><td>对照</td><td>控制变量</td><td>把环境当效果</td></tr><tr><td>稳健</td><td>中位数/MAD</td><td>被异常带偏</td></tr><tr><td>显著性</td><td>α 校正</td><td>多重比较假阳性</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检</h2><p>统计自检：统计量正确、有样本量、有对照、结论含不确定性。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 均值与标准差（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="均值与标准差（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">均值</text><rect x="150" y="26" width="514" height="18" rx="4" class="sv-cyn-s"/><text x="672" y="43" class="sv-lbl-hi">60(×10⁻¹)</text><text x="12" y="67" class="sv-lbl">标准差</text><rect x="150" y="50" width="240" height="18" rx="4" class="sv-amb-s"/><text x="398" y="67" class="sv-lbl-hi">28(×10⁻¹)</text></svg></div><figcaption class="fig-ft">y 均值 6.0、标准差 2.828（n=5）。标准差反映离散度，结论要带它。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>统计量</td><td>均值/标准差</td><td>只看均值</td></tr><tr><td>异常</td><td>稳健统计</td><td>被带偏</td></tr><tr><td>对照</td><td>控制变量</td><td>无对照</td></tr><tr><td>报告</td><td>n + 条件</td><td>结论不可复现</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>样本太少</strong>：结论偶然。</li><li><strong>无对照</strong>：把环境变化当效果。</li><li><strong>被异常值带偏</strong>：均值失真。</li><li><strong>多重比较不校正</strong>：假阳性。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">为什么报告要写“样本量与条件”？</p><details><summary>查看答案</summary><div class="ans"><p>脱离样本量与条件，统计结论无法复现或推广。样本太少、条件不同都会导致结论不可靠。</p></div></details></li><li><p class="q">标准差和均值分别反映什么？</p><details><summary>查看答案</summary><div class="ans"><p>均值反映集中趋势（中心），标准差反映离散程度（波动）。结论应同时给出两者。</p></div></details></li><li><p class="q">异常值应该怎么处理？</p><details><summary>查看答案</summary><div class="ans"><p>先用稳健统计（中位数/MAD）判断是否异常，再决定剔除或保留，并记录理由。不要直接删掉可疑点。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：对你一组测量数据算均值/标准差，用稳健统计判异常，并按样本量/对照写清结论。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://numpy.org/doc/stable/user/basics.types.html" target="_blank" rel="noopener noreferrer">NumPy 数据类型</a> · <a class="ref" href="https://scikit-learn.org/stable/common_pitfalls.html" target="_blank" rel="noopener noreferrer">scikit-learn 常见陷阱</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_stats.c</code>：计算均值/标准差与最小二乘拟合。</p><p><strong>检查结果：</strong>拟合 y=2.000x+0.000；y 均值=6.0、标准差=2.828（n=5）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能计算均值/标准差与最小二乘拟合，并按样本量/对照组设计可复现实验。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>拟合 y=2.000x+0.000；y 均值=6.0、标准差=2.828（n=5）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 数值与数学</div>
+      <h1 class="ch-title">插值、拟合与校准<span class="acc">.</span></h1>
+      <p class="ch-lead">插值/拟合/校准把离散数据变成可用模型：<strong>插值</strong>填充标定点之间，<strong>拟合</strong>找关系，<strong>校准</strong>修正系统误差。注意<strong>外插风险</strong>。</p>
+      <div class="ch-meta"><span>前置：理解线性函数与最小二乘，读过 M04/M08。</span><span>◷ 约 44 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能用标定数据拟合 y=kx+b 得增益/偏置并检查残差，明确有效区间与外插风险。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>插值填区间内，拟合找关系，标定修系统误差。</li><li>外插风险大，要限定有效范围。</li><li>残差要看有无系统趋势。</li></ul></div>
+    <section class="sec" id="m09-interp"><h2 id="m09-interp-t">9.1 插值、拟合、校准</h2><p>插值填充标定点之间、拟合找关系、校准修正系统误差。标定方程 y=kx+b 由数据拟合；插值只在标定区间内可信，外插必须谨慎并标注。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> 标定区间与插值/外插</div><div class="fig-bd"><svg viewBox="0 0 800 110" width="100%" height="110" role="img" aria-label="标定区间与插值/外插" preserveAspectRatio="xMidYMid meet"><text x="185" y="24" text-anchor="middle" class="sv-lbl-dim">区间内</text><text x="295" y="24" text-anchor="middle" class="sv-lbl-dim">区间外</text><text x="12" y="50" class="sv-lbl">插值</text><rect x="158" y="38" width="94" height="22" rx="4" class="sv-grn-s"/><text x="205" y="53" text-anchor="middle" class="sv-lbl-hi">可信</text><rect x="268" y="38" width="94" height="22" rx="4" class="sv-red-s"/><text x="315" y="53" text-anchor="middle" class="sv-lbl-hi">谨慎/标注</text><text x="12" y="78" class="sv-lbl">示例</text><rect x="158" y="66" width="94" height="22" rx="4" class="sv-cyn-s"/><text x="205" y="81" text-anchor="middle" class="sv-lbl-hi">x=15→200</text><rect x="268" y="66" width="94" height="22" rx="4" class="sv-amb-s"/><text x="315" y="81" text-anchor="middle" class="sv-lbl-hi">越界→降级</text></svg></div><figcaption class="fig-ft">区间内插值可信；区间外为外插，误差不可控。必须在越界时降级/告警。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  方法与应用</div><table><thead><tr><th>方法</th><th>用途</th><th>风险</th></tr></thead><tbody><tr><td>线性插值</td><td>标定表</td><td>区间外外插</td></tr><tr><td>多项式插值</td><td>光滑数据</td><td>过拟合/振荡</td></tr><tr><td>最小二乘</td><td>找线性关系</td><td>异常值影响</td></tr><tr><td>标定</td><td>增益/偏置</td><td>范围外无效</td></tr><tr><td>残差</td><td>评估质量</td><td>忽略趋势</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">calib.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double slope = (y1 - y0) / (x1 - x0);     // 两点标定增益</span><span class="ln">double offset = y0 - slope * x0;          // 偏置</span><span class="ln">if (x &lt; X_MIN || x &gt; X_MAX) return EXTRAPOLATE;  // 越界→降级</span><span class="ln">/* 检查残差：有系统趋势说明模型/范围不对 */</span>
+</code></pre><span class="code-note">两点标定增益/偏置；越界外插须降级；查残差</span></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：插值与拟合</h2><p>插值证据见 host_search.c（x=15→200）；拟合证据见 host_stats.c（斜率 2.000）：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_search.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_search.c —— 二分查找与标定表线性插值（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_search.c -o host_search &amp;&amp; ./host_search</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">static int bsearch_int(const int *a, int n, int key) { int lo=0, hi=n-1; while (lo&lt;=hi){ int m=(lo+hi)/2; if(a[m]==key) return m; if(a[m]&lt;key) lo=m+1; else hi=m-1; } return -1; }</span><span class="ln">/* 标定点 (x,y) 线性插值 */</span><span class="ln">static float interp(const float *x, const float *y, int n, float xi) {</span><span class="ln">    if (xi &lt;= x[0]) return y[0];</span><span class="ln">    if (xi &gt;= x[n-1]) return y[n-1];</span><span class="ln">    for (int i = 0; i &lt; n-1; i++)</span><span class="ln">        if (xi &gt;= x[i] &amp;&amp; xi &lt;= x[i+1])</span><span class="ln">            return y[i] + (y[i+1]-y[i]) * (xi-x[i]) / (x[i+1]-x[i]);</span><span class="ln">    return y[n-1];</span><span class="ln">}</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int a[] = {1,3,5,7,9,11};</span><span class="ln">    printf(&quot;查找 7 → 下标 %d（期望 3）\n&quot;, bsearch_int(a,6,7));</span><span class="ln">    if (bsearch_int(a,6,7) != 3) ok = 0;</span><span class="ln">    printf(&quot;查找 4 → %d（期望 -1）\n&quot;, bsearch_int(a,6,4));</span><span class="ln">    if (bsearch_int(a,6,4) != -1) ok = 0;</span><span class="ln">    float x[] = {0,10,20}, y[] = {0,100,300};</span><span class="ln">    float v = interp(x,y,3,15);</span><span class="ln">    printf(&quot;插值 x=15 → %.1f（期望 200.0）\n&quot;, v);</span><span class="ln">    if (v &lt; 199.9f || v &gt; 200.1f) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">插值模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_search.c -o labs/host_search &amp;&amp; ./labs/host_search</span>
+插值 x=15 → 200.0（期望 200.0）
+RESULT: PASS</code></pre></div></div><p class="sim-note">标定区间 [0,20] 内 x=15→200.0；区间外为外插，误差不可控，须标注并降级。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  插值/拟合结果</div><table><thead><tr><th>情形</th><th>处理</th><th>输出</th></tr></thead><tbody><tr><td>区间内</td><td>线性插值</td><td>200.0</td></tr><tr><td>区间外</td><td>外插（标注）</td><td>降级/告警</td></tr><tr><td>拟合</td><td>最小二乘</td><td>k=2.000,b=0.000</td></tr><tr><td>残差</td><td>检查趋势</td><td>无系统趋势</td></tr></tbody></table></div></section><section class="sec" id="m09-calib"><h2 id="m09-calib-t">9.3 校准与残差</h2><p>标定方程 y=kx+b 由数据拟合；残差要检查是否有系统趋势（隐含非线性或范围外）。外插必须标注并在越界时降级/告警。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">calib.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double slope = (y1 - y0) / (x1 - x0);     // 两点标定增益</span><span class="ln">double offset = y0 - slope * x0;          // 偏置</span><span class="ln">if (x &lt; X_MIN || x &gt; X_MAX) return EXTRAPOLATE;  // 越界→降级</span><span class="ln">/* 检查残差：有系统趋势说明模型/范围不对 */</span>
+</code></pre><span class="code-note">两点标定增益/偏置；越界外插须降级；查残差</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.3  校准实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>两点/多点标定</td><td>求增益/偏置</td><td>单点不可靠</td></tr><tr><td>限定区间</td><td>只区间内可信</td><td>盲目外插</td></tr><tr><td>查残差</td><td>发现偏差</td><td>忽略趋势</td></tr><tr><td>越界降级</td><td>安全</td><td>外插误差爆炸</td></tr></tbody></table></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检</h2><p>校准自检：区间明确、残差无趋势、外插有策略、增益/偏置正确。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> 标定区间与越界（示例）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="标定区间与越界（示例）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">区间内</text><rect x="150" y="26" width="257" height="18" rx="4" class="sv-grn-s"/><text x="415" y="43" class="sv-lbl-hi">15x</text><text x="12" y="67" class="sv-lbl">越界</text><rect x="150" y="50" width="514" height="18" rx="4" class="sv-red-s"/><text x="672" y="67" class="sv-lbl-hi">30x</text></svg></div><figcaption class="fig-ft">x∈[0,20] 内插值可信（x=15→200）；越界外插误差不可控，须降级/告警。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>标定</td><td>拟合 kx+b</td><td>单点</td></tr><tr><td>区间</td><td>标注有效范围</td><td>外插</td></tr><tr><td>残差</td><td>查系统趋势</td><td>忽略</td></tr><tr><td>越界</td><td>降级/告警</td><td>继续外插</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>盲目外插</strong>：区间外误差爆炸。</li><li><strong>高次插值振荡</strong>：Runge 现象。</li><li><strong>异常值污染拟合</strong>：斜率错。</li><li><strong>不看残差</strong>：模型偏差被忽略。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">为什么标定要限定有效范围？</p><details><summary>查看答案</summary><div class="ans"><p>标定关系通常只在测量区间内成立；区间外（外插）误差不可控，必须标注有效范围并在越界时降级/告警。</p></div></details></li><li><p class="q">残差有“系统趋势”说明什么？</p><details><summary>查看答案</summary><div class="ans"><p>模型与实际关系不符（如实际非线性、或数据超出有效区间）。应改模型或限定范围，而不是忽略。</p></div></details></li><li><p class="q">高次多项式插值有什么风险？</p><details><summary>查看答案</summary><div class="ans"><p>Runge 现象：高次插值在端点附近剧烈振荡，反而失真。通常用低次/分段插值更稳。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：用你的标定数据拟合 y=kx+b、画残差并标注有效区间，越界时给出降级/告警策略。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://numpy.org/doc/stable/user/basics.types.html" target="_blank" rel="noopener noreferrer">NumPy 数据类型</a> · <a class="ref" href="https://www.kalmanfilter.net/" target="_blank" rel="noopener noreferrer">Kalman/姿态基础</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_search.c</code>（插值）；用 <code class="ic">host_stats.c</code>（拟合）做标定并看残差。</p><p><strong>检查结果：</strong>插值 x=15→200.0（标定区间 [0,20] 内）；拟合斜率 2.000；残差无系统趋势，区间外仅外插并标注。</p></div>
+<p class="sim-note">迁移练习：把本章的“能用标定数据拟合 y=kx+b 得增益/偏置并检查残差，明确有效区间与外插风险。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>插值 x=15→200.0（标定区间 [0,20] 内）；拟合斜率 2.000；残差无系统趋势，区间外仅外插并标注。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 数值与数学</div>
+      <h1 class="ch-title">综合：有界的数据处理库<span class="acc">.</span></h1>
+      <p class="ch-lead">综合项目把前 9 章收口成一个库：<strong>有界容器 + 查找/滤波 + 定点/统计/插值</strong>，保证内存有界、时间可预测、误差可解释。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M09，理解有界容器、定点、统计与插值。</span><span>◷ 约 46 分钟</span><span>◈ 主机固定点/加速对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把容器+查找+定点+统计整合成内存有界、行为确定的库并写验收。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>有界库：固定容量、无运行期分配、溢出有策略。</li><li>数值误差在规格内。</li><li>超量输入不崩溃、行为可预测。</li></ul></div>
+    <section class="sec" id="m10-lib"><h2 id="m10-lib-t">10.1 有界库的五个能力</h2><p>把前 9 章收口：有界容器 + 查找/滤波 + 定点/统计/插值，保证内存有界、时间可预测、误差可解释。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 有界数据处理库的结构</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="有界数据处理库的结构" preserveAspectRatio="xMidYMid meet"><rect x="60" y="30" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="49.0" class="sv-lbl-hi">存储：环形缓冲/对象池</text><rect x="60" y="64" width="680" height="30" rx="6" class="sv-grn-s"/><text x="75" y="83.0" class="sv-lbl-hi">查找：二分/插值（区间内）</text><rect x="60" y="98" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="117.0" class="sv-lbl-hi">数值：定点 Q15（误差≤1 LSB）</text><rect x="60" y="132" width="680" height="30" rx="6" class="sv-box"/><text x="75" y="151.0" class="sv-lbl-hi">统计：均值/方差（可解释）</text></svg></div><figcaption class="fig-ft">存储（环形/对象池）→ 查找（二分/插值）→ 数值（Q15）→ 统计（均值/方差）→ 固定容量接口。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  库的五能力</div><table><thead><tr><th>能力</th><th>实现</th><th>验收</th></tr></thead><tbody><tr><td>存储</td><td>环形缓冲</td><td>有界、不越界</td></tr><tr><td>查找</td><td>二分/插值</td><td>O(log n)、区间内</td></tr><tr><td>数值</td><td>定点 Q15</td><td>误差 ≤ LSB</td></tr><tr><td>统计</td><td>均值/方差</td><td>可解释</td></tr><tr><td>接口</td><td>固定容量参数</td><td>无运行期分配</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">lib_accept.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">无运行期分配: 是（池/静态）</span><span class="ln">溢出策略: 丢最旧 + 计数</span><span class="ln">数值误差: Q15 ≤ 1 LSB ≈ 3.05e-5</span><span class="ln">查找: 二分 O(log n); 插值仅在标定区间 [0,20]</span>
+</code></pre><span class="code-note">验收清单：有界、无分配、溢出计数、误差规格内</span></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：有界容器</h2><p>有界性的核心证据——环形缓冲在固定容量下不越界、溢出按策略处理：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_ring.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_ring.c —— 栈/队列/环形缓冲（有界）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_ring.c -o host_ring &amp;&amp; ./host_ring</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#define CAP 4</span><span class="ln">typedef struct { int b[CAP]; int head, tail, n; } ring_t;</span><span class="ln">static int push(ring_t *r, int v) { if (r-&gt;n == CAP) return -1; r-&gt;b[r-&gt;tail] = v; r-&gt;tail = (r-&gt;tail+1)%CAP; r-&gt;n++; return 0; }</span><span class="ln">static int pop(ring_t *r, int *v) { if (r-&gt;n == 0) return -1; *v = r-&gt;b[r-&gt;head]; r-&gt;head = (r-&gt;head+1)%CAP; r-&gt;n--; return 0; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1; ring_t r = {{0},0,0,0}; int v;</span><span class="ln">    for (int i = 1; i &lt;= 4; i++) if (push(&amp;r, i)) ok = 0;</span><span class="ln">    printf(&quot;满时再 push=%d（期望 -1）\n&quot;, push(&amp;r, 9));</span><span class="ln">    if (push(&amp;r, 9) != -1) ok = 0;</span><span class="ln">    if (pop(&amp;r, &amp;v) || v != 1) ok = 0;</span><span class="ln">    if (push(&amp;r, 5)) ok = 0;                  /* 回绕后写入 */</span><span class="ln">    printf(&quot;回绕后顺序: &quot;);</span><span class="ln">    while (pop(&amp;r, &amp;v) == 0) printf(&quot;%d &quot;, v);</span><span class="ln">    printf(&quot;(期望 2 3 4 5)\n&quot;);</span><span class="ln">    /* 简化校验：总量守恒 */</span><span class="ln">    if (r.n != 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">有界环形缓冲（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_ring.c -o labs/host_ring &amp;&amp; ./labs/host_ring</span>
+满时再 push=-1（期望 -1）
+回绕后顺序: 2 3 4 5（期望 2 3 4 5）
+RESULT: PASS</code></pre></div></div><p class="sim-note">环容量固定 4 槽；满时按策略拒绝（-1）并计数；无运行期分配、无越界。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  关键机制与证据</div><table><thead><tr><th>能力</th><th>可运行证据</th><th>验收</th></tr></thead><tbody><tr><td>有界容器</td><td>host_ring.c</td><td>满→拒绝(-1)</td></tr><tr><td>查找/插值</td><td>host_search.c</td><td>区间内 x=15→200</td></tr><tr><td>定点</td><td>host_num.c</td><td>误差≤3.05e-5</td></tr><tr><td>统计</td><td>host_stats.c</td><td>均值6.0/σ2.828</td></tr></tbody></table></div></section><section class="sec" id="m10-accept"><h2 id="m10-accept-t">10.3 验收：有界、确定、可解释</h2><p>验收：固定缓冲处理超量数据不崩溃（按溢出策略丢弃并计数）；数值误差在规格内；查找/插值在有效区间内。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">lib_accept.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">无运行期分配: 是（池/静态）</span><span class="ln">溢出策略: 丢最旧 + 计数</span><span class="ln">数值误差: Q15 ≤ 1 LSB ≈ 3.05e-5</span><span class="ln">查找: 二分 O(log n); 插值仅在标定区间 [0,20]</span>
+</code></pre><span class="code-note">验收清单：有界、无分配、溢出计数、误差规格内</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.3  验收标准</div><table><thead><tr><th>验收项</th><th>标准</th><th>避免</th></tr></thead><tbody><tr><td>内存</td><td>有界/无分配</td><td>碎片/不确定</td></tr><tr><td>溢出</td><td>策略+计数</td><td>静默丢</td></tr><tr><td>误差</td><td>≤1 LSB</td><td>未界定</td></tr><tr><td>区间</td><td>标注有效范围</td><td>越界/外插</td></tr></tbody></table></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检</h2><p>综合自检：库内存有界、无运行期分配、溢出有策略、误差可解释。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 库的验收闭环</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="库的验收闭环" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">定接口</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">实现</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">溢出策略</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">超量不崩</text></svg></div><figcaption class="fig-ft">定接口（固定容量）→ 实现（池/环形）→ 溢出策略 → 误差规格 → 超量输入不崩溃。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>容量</td><td>固定参数</td><td>无界</td></tr><tr><td>分配</td><td>池/静态</td><td>运行期 malloc</td></tr><tr><td>溢出</td><td>策略+计数</td><td>静默丢</td></tr><tr><td>误差</td><td>规格化</td><td>不可解释</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>运行期分配</strong>：碎片/不确定。</li><li><strong>无溢出策略</strong>：静默丢数据。</li><li><strong>误差未界定</strong>：结果不可信。</li><li><strong>接口无容量约束</strong>：越界/崩溃。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">“有界数据处理库”的核心验收是什么？</p><details><summary>查看答案</summary><div class="ans"><p>内存有界、无运行期分配、溢出有明确策略并计数、数值误差在规格内、在超量输入下不崩溃（行为可预测）。</p></div></details></li><li><p class="q">为什么库要“无运行期分配”？</p><details><summary>查看答案</summary><div class="ans"><p>运行期分配会带来碎片与时间不确定，在实时/长期系统中不可接受。固定池/静态分配保证可预测。</p></div></details></li><li><p class="q">溢出为什么要“计数”？</p><details><summary>查看答案</summary><div class="ans"><p>计数让“丢了多少数据”可观测。静默丢弃会让上层以为数据完整，导致错误结论。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：把你项目的容器+查找+定点+统计整合成一个内存有界、行为确定的小库，并写验收清单。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.embedded.com/" target="_blank" rel="noopener noreferrer">Efficient C 定点</a> · <a class="ref" href="https://ocw.mit.edu/" target="_blank" rel="noopener noreferrer">MIT 算法公开课</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_ring.c</code>（有界容器）；把容器+查找+定点+统计组成一个小库并写验收。</p><p><strong>检查结果：</strong>无运行期分配；环容量固定为 4，超量按丢最旧策略并计数；Q15 误差 ≤1 LSB≈3.05e-5；接口容量固定。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把容器+查找+定点+统计整合成内存有界、行为确定的库并写验收。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>无运行期分配；环容量固定为 4，超量按丢最旧策略并计数；Q15 误差 ≤1 LSB≈3.05e-5；接口容量固定。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">一个有界的数据处理库<span class="acc">.</span></h1><p class="ch-lead">把 10 章串成一条路径：复杂度预算 → 有界容器 → 查找/图 → 定点与误差 → 统计/插值/拟合 → 组成有界的数据处理库。</p><div class="ch-meta"><span>◈ 8 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 10 章串成一条路径：<strong>复杂度预算 → 有界容器 → 查找/图 → 定点与误差 → 统计/插值/拟合 → 组成有界的数据处理库。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 复杂度</strong>（M01）——量级与预算；验收：最坏可控。</li>
+<li><strong>② 容器</strong>（M02/M03）——固定容量/环形；验收：有界不越界。</li>
+<li><strong>③ 查找</strong>（M04/M05）——二分/插值/图；验收：区间内正确。</li>
+<li><strong>④ 数值</strong>（M06）——Q15+饱和；验收：误差 ≤ LSB。</li>
+<li><strong>⑤ 变换</strong>（M07）——正交校验；验收：姿态正确。</li>
+<li><strong>⑥ 统计</strong>（M08）——样本量与对照；验收：结论可靠。</li>
+<li><strong>⑦ 校准</strong>（M09）——插值/拟合+残差；验收：区间内、残差无趋势。</li>
+<li><strong>⑧ 库</strong>（M10）——无运行期分配+溢出策略；验收：超量不崩溃。</li>
+</ol>
+<p class="sim-note">本册所有真实板上数值/性能为实测项；复杂度计数、环形边界、二分/插值、Q15 误差、最小二乘、拓扑/BFS、旋转矩阵等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">bounded library</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">库能力: 环形缓冲 | 二分/插值 | Q15 定点 | 统计 | 标定</span><span class="ln">约束: 固定容量 · 无运行期分配 · 溢出计数 · 误差 ≤ LSB</span><span class="ln">验收: 超量输入按策略丢弃不崩溃；区间外降级/告警</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">算法与数值易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“主机能跑设备慢 / 规模一大就崩 / 误差说不清”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“主机能跑设备慢 / 规模一大就崩 / 误差说不清”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>复杂度</td><td>按量级选算法</td><td>只看平均</td><td>最坏超期</td></tr><tr><td>容器</td><td>固定容量/对象池</td><td>运行期分配</td><td>碎片/崩溃</td></tr><tr><td>环形</td><td>明确满空/溢出</td><td>判定错</td><td>丢数据/覆盖</td></tr><tr><td>查找</td><td>有序才二分</td><td>无序二分</td><td>结果错</td></tr><tr><td>图</td><td>先查环再拓扑</td><td>忽略环</td><td>死循环</td></tr><tr><td>数值</td><td>Q15+饱和</td><td>溢出回绕</td><td>符号翻转</td></tr><tr><td>变换</td><td>齐次+正交校验</td><td>顺序错</td><td>姿态反</td></tr><tr><td>统计</td><td>样本量+对照</td><td>样本太少</td><td>结论偶然</td></tr><tr><td>插值</td><td>限区间</td><td>盲目外插</td><td>误差爆炸</td></tr><tr><td>库</td><td>有界可预测</td><td>无界/动态</td><td>崩溃</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；定点/浮点叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；定点/浮点叫法差异也一并标注。</p><dl class="glossary"><dt>大 O</dt><dd>复杂度的量级描述。</dd><dt>局部性</dt><dd>访存规律，决定 cache 命中。</dd><dt>对象池</dt><dd>预分配固定对象的分配器。</dd><dt>侵入式链表</dt><dd>节点内嵌指针，零额外分配。</dd><dt>环形缓冲</dt><dd>固定内存的循环 FIFO。</dd><dt>SPSC</dt><dd>单生产者单消费者无锁队列。</dd><dt>二分查找</dt><dd>有序数组上 O(log n) 查找。</dd><dt>稳定排序</dt><dd>相同键元素相对顺序不变。</dd><dt>拓扑排序</dt><dd>按依赖给有向无环图排序。</dd><dt>BFS/DFS</dt><dd>广度/深度优先遍历。</dd><dt>Q15</dt><dd>1.15 定点格式，范围 [-1,1)。</dd><dt>饱和运算</dt><dd>越界钳位而非回绕。</dd><dt>旋转矩阵</dt><dd>正交矩阵，保长度。</dd><dt>齐次坐标</dt><dd>统一旋转与平移。</dd><dt>标准差</dt><dd>离散程度度量。</dd><dt>稳健统计</dt><dd>用中位数/MAD 抗异常值。</dd><dt>最小二乘</dt><dd>最小化残差平方的拟合。</dd><dt>残差</dt><dd>观测与模型之差。</dd><dt>外插</dt><dd>在标定区间外预测，风险大。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "复杂度与资源预算."}, {"id": "m02", "num": "02", "title": "数组、链表与容器."}, {"id": "m03", "num": "03", "title": "栈、队列与环形缓冲."}, {"id": "m04", "num": "04", "title": "查找、排序与索引."}, {"id": "m05", "num": "05", "title": "状态机、图与调度."}, {"id": "m06", "num": "06", "title": "数值表示与误差."}, {"id": "m07", "num": "07", "title": "线性代数与坐标变换."}, {"id": "m08", "num": "08", "title": "概率、统计与实验设计."}, {"id": "m09", "num": "09", "title": "插值、拟合与校准."}, {"id": "m10", "num": "10", "title": "综合：有界的数据处理库."}, {"id": "capstone", "num": "", "title": "一个有界的数据处理库."}, {"id": "cheatsheet", "num": "", "title": "算法与数值易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

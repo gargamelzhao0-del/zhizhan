@@ -1,0 +1,8 @@
+{
+  "version": "1.10.2",
+  "passed": true,
+  "stableFixture": true,
+  "refractionChangesRenderedPixels": true,
+  "backdropDiffusionChangesRenderedPixels": true,
+  "androidDeviceTested": false
+}

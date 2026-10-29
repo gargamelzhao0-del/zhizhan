@@ -1,0 +1,47 @@
+{
+  "updatedAt": "2026-10-13T06:42:26.939469+00:00",
+  "version": "1.15.0",
+  "versionCode": 21,
+  "status": "published_and_public_https_verified",
+  "previousServedVersion": "1.13.0",
+  "serviceVersion": "1.15.0",
+  "feedDirectory": "C:\\Users\\Administrator\\Documents\\work\\TechVault\\release\\zhizhan-1.15.0-update-feed",
+  "apk": {
+    "url": "./zhizhan-1.15.0-android.apk",
+    "bytes": 8593549,
+    "sha256": "bf104a74fbd87ec9ea54ba736285907d3fc4d524ba9fff539e198c816a1b5d44"
+  },
+  "signatureVerified": true,
+  "localValidation": {
+    "passed": true,
+    "date": "2026-10-13T06:32:21.556Z",
+    "version": "1.15.0",
+    "url": "http://127.0.0.1:8463/latest.json",
+    "bytes": 8593549,
+    "sha256": "bf104a74fbd87ec9ea54ba736285907d3fc4d524ba9fff539e198c816a1b5d44",
+    "authenticated": true,
+    "anonymousStatus": 401,
+    "publicHttpsVerified": false,
+    "remotePhoneTested": false
+  },
+  "remoteValidation": {
+    "passed": true,
+    "date": "2026-10-13T06:41:36.614Z",
+    "version": "1.15.0",
+    "url": "https://win-bcgslpa5ria.taile4a98d.ts.net:8443/latest.json",
+    "bytes": 8593549,
+    "sha256": "bf104a74fbd87ec9ea54ba736285907d3fc4d524ba9fff539e198c816a1b5d44",
+    "authenticated": true,
+    "anonymousStatus": 401,
+    "publicHttpsVerified": true,
+    "remotePhoneTested": false
+  },
+  "configPreserved": true,
+  "diagnosticLimits": [
+    "Automatic approval rejected temporary daemon-log collection: blocked by policy (no further reason supplied).",
+    "Restart-Service Tailscale failed because the current process could not open the Windows service."
+  ],
+  "reference": "https://github.com/tailscale/tailscale/issues/21114",
+  "referenceNote": "Similar symptoms; this does not establish the exact cause on this PC.",
+  "recovery": "User restarted the Windows Tailscale service with administrator privileges; authenticated public HTTPS download subsequently passed."
+}

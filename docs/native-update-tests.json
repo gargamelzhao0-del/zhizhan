@@ -1,0 +1,32 @@
+{
+  "passed": true,
+  "runner": "Gradle :app:testReleaseUnitTest / JVM",
+  "timestamp": "2026-10-08T03:41:23.232Z",
+  "testsPassed": 9,
+  "androidRuntimeTested": false,
+  "checks": [
+    "cancellationStopsBeforeFurtherWrites",
+    "copiesAcrossBufferBoundariesAndChecksDigest",
+    "malformedCredentialsCannotBecomeHeaders",
+    "comparesCompleteSignerSets",
+    "onlyHttpsWithoutCredentialsOrFragments",
+    "credentialsAreScopedToHttpsOriginIncludingPort",
+    "rejectsTruncationExtraBytesAndCorruption",
+    "limitsManifestEvenWithoutContentLength",
+    "refusesWrongAppDowngradeIncompatibleAndOversized"
+  ],
+  "sources": [
+    {
+      "file": "android/app/src/main/java/app/zhizhan/local/UpdatePolicy.java",
+      "sha256": "b67d5923d20c7254bcb1a1466ccc6ce36c788f44efb4f03ba486d97250f92020"
+    },
+    {
+      "file": "android/app/src/main/java/app/zhizhan/local/UpdatesPlugin.java",
+      "sha256": "7e237207a8a24edc8d7cae61801ecdad65a22bca904771f3ae45684976169131"
+    },
+    {
+      "file": "android/app/src/test/java/app/zhizhan/local/UpdatePolicyTest.java",
+      "sha256": "21779aaabdb1d236cc489555e9642dd1527790ede05b5fcabc823e65f7205d28"
+    }
+  ]
+}

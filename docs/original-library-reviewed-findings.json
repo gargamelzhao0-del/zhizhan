@@ -1,0 +1,68 @@
+{
+  "reviewedAt": "2026-10-13",
+  "findings": [
+    {
+      "id": "B18-prerequisite-links",
+      "book": "B18",
+      "chapter": "m03",
+      "type": "migration-link-loss",
+      "priority": "需修复",
+      "title": "6 个前置章节链接迁入后变成普通文字",
+      "description": "原版 M03→M02、M05→M01/M03、M06→M04、M08→M02/M07 共 6 个链接存在于章节前置说明。知栈保留了文字，却没有保留链接；导入器对 ch-meta 使用纯文本转换，未经过普通链接转换分支。",
+      "consequence": "读者无法从这些前置说明直接打开对应章节；章节正文和整册目录入口仍在。",
+      "classification": "已确认的迁移功能损失，计入问题清单。"
+    },
+    {
+      "id": "B01-model-dependencies",
+      "book": "B01",
+      "chapter": "ch7",
+      "type": "missing-reference-files",
+      "priority": "需修复",
+      "title": "状态机实证脚本及其输入未随包提供",
+      "description": "正文代码注释点名 tools/sm_model.js。该文件存在于编写源目录，但手机端书库和知栈资料包均未提供。继续追查脚本的实际 readFileSync 调用，发现必需输入 verify/src/177__hsm.c 也未提供；另外两个输入 tools/src/sm_event.c、tools/src/hsm_history.c 已在知栈本册包中。",
+      "missingFiles": ["tools/sm_model.js", "verify/src/177__hsm.c"],
+      "consequence": "无法仅靠当前本册资料复跑文中提到的这项状态机检查。",
+      "classification": "原手机版资料交付不全，知栈也未补齐；不是整章正文丢失。"
+    },
+    {
+      "id": "B03-cargo-demo",
+      "book": "B03",
+      "chapter": "minirs",
+      "type": "missing-reference-files",
+      "priority": "需修复",
+      "title": "minirs 的 Cargo 工程缺少 5 个文件",
+      "description": "minirs 导读引用 tools/cargo-demo/；M03 要求运行 tools/probes/m_cargo.sh，该脚本也会进入 ../cargo-demo。工程在编写源中存在，但手机端书库和知栈实验包中均无此目录，包括容易漏查的 .cargo 配置。",
+      "missingFiles": ["tools/cargo-demo/.cargo/config.toml", "tools/cargo-demo/Cargo.lock", "tools/cargo-demo/Cargo.toml", "tools/cargo-demo/memory.x", "tools/cargo-demo/src/main.rs"],
+      "consequence": "读者不能从实验包直接执行这条 Cargo 构建路径。",
+      "classification": "原手机版资料交付不全，知栈也未补齐；正文片段仍存在。"
+    },
+    {
+      "id": "B04-ci-path",
+      "book": "B04",
+      "chapter": "m05",
+      "type": "example-path-mismatch",
+      "priority": "需澄清",
+      "title": "CI 示例与可复跑脚本使用不同路径",
+      "description": "正文复跑入口为 tools/probes/m05_src/build_all.py，知栈包中有此文件；CI 示例却使用 tools/build_all.py。示例对应的是读者自行组织的项目，文中未给出将配套脚本放到该路径的具体步骤。",
+      "consequence": "直接在解压目录照抄 CI 命令会找不到脚本；应给出统一路径或明确复制/项目布局步骤。",
+      "classification": "示例路径说明不足，不将其误算为迁移丢文件。"
+    },
+    {
+      "id": "B16-template-path",
+      "book": "B16",
+      "chapter": "m08",
+      "type": "example-path-mismatch",
+      "priority": "需澄清",
+      "title": "README 模板中的环境脚本路径未对上本册包",
+      "description": "M08 的 README 节选写 tools/env.sh；本册实际提供 labs/env.sh，M01 使用的也是 labs/env.sh。README 是自建工程模板，需要明确从实验目录迁入 tools/ 的步骤。",
+      "consequence": "照模板路径寻找环境脚本会落空；应统一说明工程目录。",
+      "classification": "示例路径说明不足，不将其误算为迁移丢文件。"
+    }
+  ],
+  "excludedCandidates": [
+    { "book": "B01", "path": "$IDF_PATH/tools/cmake/build.cmake", "reason": "ESP-IDF 自带文件，随 SDK 安装，不属于书库漏件。" },
+    { "book": "B05", "paths": ["labs/m12_layers.o", "labs/m15_isa.o"], "reason": "编译生成的目标文件；配套源文件存在，不要求把二进制产物随书打包。" },
+    { "book": "B01", "path": "verify/src/176__fsm_table.c", "reason": "sm_model.js 声明了常量 F_BASE_FSM，但没有实际读取；不计入运行必需的缺件数。" }
+  ],
+  "presentationDifference": "27 册导读的封面标题因 HTML br 转 Markdown 换行，被拆成标题和普通段落；文字在原顺序核对及发布网页中均存在。B23 的外层折叠章转换为独立文章；原版无 summary 的答案在知栈标为“展开答案”。这些单列为表现差异。"
+}

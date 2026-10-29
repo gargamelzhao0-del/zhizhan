@@ -1,0 +1,30 @@
+import { chromium } from '@playwright/test';
+import fs from 'node:fs/promises';
+import http from 'node:http';
+await fs.mkdir('release/previews',{recursive:true});
+const browser=await chromium.launch({channel:'chrome',headless:true});
+try {
+ const page=await browser.newPage({viewport:{width:1440,height:1040}});
+ const errors=[];page.on('pageerror',e=>errors.push(e.message));
+ await page.goto('http://127.0.0.1:8462/');
+ await page.getByRole('heading',{name:'学习'}).waitFor();
+ await page.screenshot({path:'release/previews/desktop.png',fullPage:false});
+ await page.goto('http://127.0.0.1:8462/#settings');
+ await page.getByRole('button',{name:'查看开源组件与许可证'}).click();
+ await page.getByRole('dialog').waitFor();
+ if(!(await page.locator('.asset-code').textContent()).includes('MIT'))throw new Error('License notice missing');
+ await page.getByRole('button',{name:'关闭弹窗'}).click();
+ const pending=page.waitForEvent('download');await page.getByRole('button',{name:'导出备份'}).click();
+ const download=await pending;await download.saveAs('release/zhizhan-initial-library.zip');
+ const mobile=await browser.newPage({viewport:{width:393,height:852},isMobile:true,hasTouch:true});
+ await mobile.goto('http://127.0.0.1:8462/');await mobile.getByRole('heading',{name:'学习'}).waitFor();
+ await mobile.screenshot({path:'release/previews/mobile.png',fullPage:false});
+ await mobile.goto('http://127.0.0.1:8462/#article/handbook-14');await mobile.locator('.diagram svg').first().waitFor({timeout:30000});
+ await mobile.screenshot({path:'release/previews/reading.png',fullPage:false});
+ if(errors.length)throw new Error(errors.join('\n'));
+ const status=(options)=>new Promise((resolve,reject)=>{const req=http.request({hostname:'127.0.0.1',port:8462,path:'/',...options},res=>{res.resume();resolve(res.statusCode);});req.on('error',reject);req.end();});
+ if(await status({method:'POST'})!==405)throw new Error('POST must be rejected');
+ if(await status({headers:{Host:'untrusted.example'}})!==403)throw new Error('Untrusted Host must be rejected');
+ await fs.writeFile('docs/production-smoke.json',JSON.stringify({passed:true,desktopRuntime:process.version,pageErrors:errors,initialLibraryExported:true,hostCheck:403,postCheck:405},null,2));
+ console.log('Production smoke passed; initial library and previews saved.');
+}finally{await browser.close();}

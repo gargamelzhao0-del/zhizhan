@@ -1,0 +1,1099 @@
+<!doctype html>
+<html lang="zh-CN" data-vol="B20" data-mobile-version="2">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#070B09">
+<title>传感器、信号处理与控制 · 手机端书库</title>
+<style>
+
+/* ============================================================
+   嵌入式 C 系统精读 — 视觉系统
+   方向：精密仪器 / 芯片 datasheet / 示波器终端
+   ============================================================ */
+
+*,*::before,*::after{box-sizing:border-box}
+
+:root{
+  --bg:#070B09;
+  --bg-2:#0B1110;
+  --bg-3:#101816;
+  --card:#0D1512;
+  --card-2:#121C18;
+  --line:#1B2A24;
+  --line-2:#2A4038;
+  --txt:#B9CCC3;
+  --txt-2:#8AA398;
+  --txt-dim:#5E7A6E;
+  --txt-hi:#E9F6EF;
+  --grn:#4EF08A;
+  --grn-2:#2FD873;
+  --grn-d:#10301D;
+  --amb:#FFC44D;
+  --amb-d:#38290B;
+  --cyn:#4FD6E8;
+  --cyn-d:#0C2A31;
+  --red:#FF6B6B;
+  --red-d:#371212;
+  --vio:#B79CF7;
+  --vio-d:#251C3D;
+  --sel:rgba(78,240,138,.22);
+  --shadow:0 8px 32px rgba(0,0,0,.55);
+  --mono:'Cascadia Mono','Cascadia Code','JetBrains Mono','IBM Plex Mono','SF Mono',Consolas,'Liberation Mono',monospace;
+  --sans:'Noto Sans SC','PingFang SC','Hiragino Sans GB','Microsoft YaHei',system-ui,-apple-system,sans-serif;
+  --nav-w:290px;
+  --toc-w:224px;
+  --top-h:58px;
+  --grid:rgba(78,240,138,.045);
+}
+
+html[data-theme="light"]{
+  --bg:#F4F6F2;
+  --bg-2:#EAEFE9;
+  --bg-3:#E2E9E1;
+  --card:#FFFFFF;
+  --card-2:#F7FAF5;
+  --line:#D5DED4;
+  --line-2:#B8C7B6;
+  --txt:#26332C;
+  --txt-2:#4E6157;
+  --txt-dim:#7E9187;
+  --txt-hi:#0C1611;
+  --grn:#0F9D53;
+  --grn-2:#0B7C41;
+  --grn-d:#DCF3E5;
+  --amb:#A66A00;
+  --amb-d:#FCF0D6;
+  --cyn:#0E7F94;
+  --cyn-d:#DAF1F5;
+  --red:#C93B3B;
+  --red-d:#FBE2E2;
+  --vio:#6B45C9;
+  --vio-d:#EDE7FB;
+  --sel:rgba(15,157,83,.18);
+  --shadow:0 8px 32px rgba(30,50,40,.10);
+  --grid:rgba(15,157,83,.05);
+}
+
+html{scroll-behavior:smooth;scroll-padding-top:calc(var(--top-h) + 16px);-webkit-text-size-adjust:100%}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--txt);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.85;
+  font-weight:400;
+  letter-spacing:.01em;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+/* 坐标纸网格背景 */
+body::before{
+  content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:32px 32px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+  -webkit-mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,#000 20%,transparent 100%);
+}
+
+::selection{background:var(--sel);color:var(--txt-hi)}
+::-webkit-scrollbar{width:11px;height:11px}
+::-webkit-scrollbar-track{background:var(--bg-2)}
+::-webkit-scrollbar-thumb{background:var(--line-2);border:3px solid var(--bg-2);border-radius:6px}
+::-webkit-scrollbar-thumb:hover{background:var(--txt-dim)}
+
+/* ============ 顶部栏 ============ */
+.topbar{
+  position:fixed;top:0;left:0;right:0;height:var(--top-h);z-index:100;
+  display:flex;align-items:center;gap:20px;padding:0 20px;
+  background:color-mix(in srgb,var(--bg) 88%,transparent);
+  backdrop-filter:blur(14px) saturate(1.4);
+  -webkit-backdrop-filter:blur(14px) saturate(1.4);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:11px;flex-shrink:0;text-decoration:none}
+.brand-chip{
+  width:34px;height:34px;flex-shrink:0;border:1.5px solid var(--grn);border-radius:7px;
+  display:grid;place-items:center;position:relative;background:var(--grn-d);
+  font-family:var(--mono);font-size:11px;font-weight:700;color:var(--grn);letter-spacing:-.5px;
+  box-shadow:0 0 18px -4px var(--grn);
+}
+.brand-chip::after{
+  content:'';position:absolute;inset:-4px;border:1px dashed var(--line-2);border-radius:10px;opacity:.6;
+}
+.brand-txt{display:flex;flex-direction:column;line-height:1.15}
+.brand-txt b{font-family:var(--mono);font-size:13.5px;font-weight:700;color:var(--txt-hi);letter-spacing:.02em}
+.brand-txt span{font-size:10.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.06em}
+
+.search-wrap{flex:1;max-width:460px;position:relative;margin-left:8px}
+.search-wrap svg{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--txt-dim);pointer-events:none}
+#searchInput{
+  width:100%;height:36px;padding:0 66px 0 34px;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;
+  color:var(--txt-hi);font-family:var(--sans);font-size:13.5px;outline:none;
+  transition:border-color .18s,box-shadow .18s,background .18s;
+}
+#searchInput::placeholder{color:var(--txt-dim)}
+#searchInput:focus{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d);background:var(--card)}
+.kbd-hint{
+  position:absolute;right:9px;top:50%;transform:translateY(-50%);
+  font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:4px;padding:2px 6px;background:var(--bg-2);pointer-events:none;
+}
+.search-count{position:absolute;right:60px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:11px;color:var(--amb);pointer-events:none;display:none}
+
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:14px;flex-shrink:0}
+.prog-mini{display:flex;align-items:center;gap:9px}
+.prog-mini-bar{width:96px;height:5px;background:var(--bg-3);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.prog-mini-fill{height:100%;width:0;background:linear-gradient(90deg,var(--grn-2),var(--grn));transition:width .4s cubic-bezier(.4,0,.2,1);box-shadow:0 0 10px -1px var(--grn)}
+.prog-mini-txt{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);min-width:34px;text-align:right}
+.icon-btn{
+  width:34px;height:34px;display:grid;place-items:center;flex-shrink:0;
+  background:var(--bg-3);border:1px solid var(--line);border-radius:8px;color:var(--txt-2);
+  cursor:pointer;transition:all .18s;
+}
+.icon-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.menu-btn{display:none}
+
+/* 阅读进度条 */
+.read-bar{position:fixed;top:var(--top-h);left:0;height:2px;width:0;z-index:101;background:linear-gradient(90deg,var(--cyn),var(--grn));box-shadow:0 0 12px var(--grn);transition:width .1s linear}
+
+/* ============ 侧边导航 ============ */
+.sidebar{
+  position:fixed;top:var(--top-h);left:0;bottom:0;width:var(--nav-w);z-index:90;
+  background:var(--bg-2);border-right:1px solid var(--line);
+  overflow-y:auto;overscroll-behavior:contain;padding:18px 0 40px;
+  transition:transform .28s cubic-bezier(.4,0,.2,1);
+}
+.side-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--txt-dim);padding:0 20px 10px;display:flex;align-items:center;gap:8px;
+}
+.side-label::after{content:'';flex:1;height:1px;background:var(--line)}
+.nav-group{margin-bottom:4px}
+.nav-item{
+  display:flex;align-items:flex-start;gap:11px;padding:9px 18px 9px 20px;
+  cursor:pointer;position:relative;text-decoration:none;color:var(--txt-2);
+  transition:background .16s,color .16s;border-left:2px solid transparent;
+}
+.nav-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.nav-item.active{background:var(--grn-d);color:var(--grn);border-left-color:var(--grn)}
+.nav-item.active .nav-num{color:var(--grn);border-color:var(--grn)}
+.nav-num{
+  font-family:var(--mono);font-size:10.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 4px;margin-top:4px;flex-shrink:0;
+  transition:all .16s;line-height:1.3;
+}
+.nav-txt{font-size:13.5px;line-height:1.5;flex:1;padding-top:1px}
+.nav-sub{font-size:11px;color:var(--txt-dim);display:block;margin-top:2px;line-height:1.4}
+.nav-item.done .nav-num{background:var(--grn);color:var(--bg);border-color:var(--grn)}
+.nav-item.done .nav-txt::after{content:' ✓';color:var(--grn);font-size:11px}
+
+.side-foot{padding:18px 20px 0;margin-top:14px;border-top:1px solid var(--line)}
+.side-stat{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--txt-dim);margin-bottom:7px}
+.side-stat b{color:var(--txt-2);font-weight:600}
+
+/* ============ 卷（册）切换（I-11）============ */
+.vol-switch{padding:0 12px 12px;margin:0 0 10px;border-bottom:1px solid var(--line)}
+.vol-head{
+  font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--txt-dim);
+  padding:0 6px 8px;display:flex;justify-content:space-between;gap:8px;align-items:baseline;
+}
+.vol-head b{color:var(--cyn);font-weight:700}
+.vol-item{
+  width:100%;text-align:left;display:flex;align-items:center;gap:8px;cursor:pointer;
+  background:none;border:none;border-radius:6px;padding:6px 8px;color:var(--txt-2);
+  font:inherit;transition:background .15s,color .15s;margin-bottom:1px;
+}
+.vol-item:hover:not(.planned){background:var(--bg-3);color:var(--txt-hi)}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:.5;cursor:default}
+.vol-tag{
+  font-family:var(--mono);font-size:9.5px;font-weight:700;color:var(--txt-dim);
+  border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:32px;text-align:center;
+}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.35;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);flex-shrink:0}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-more{
+  font-family:var(--mono);font-size:9.5px;color:var(--txt-dim);padding:6px 8px 0;cursor:pointer;
+  background:none;border:none;width:100%;text-align:left;
+}
+.vol-more:hover{color:var(--cyn)}
+
+/* ============ 主内容区 ============ */
+.main{margin-left:var(--nav-w);padding-top:var(--top-h);position:relative;z-index:1}
+.wrap{max-width:1080px;margin:0 auto;padding:0 48px 140px;display:flex;gap:52px;align-items:flex-start}
+.content{flex:1;min-width:0;max-width:760px}
+
+/* 右侧 TOC */
+.toc{
+  width:var(--toc-w);flex-shrink:0;position:sticky;top:calc(var(--top-h) + 34px);
+  max-height:calc(100vh - var(--top-h) - 70px);overflow-y:auto;padding-top:8px;
+}
+.toc-title{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--txt-dim);margin-bottom:12px}
+.toc a{
+  display:block;font-size:12px;color:var(--txt-dim);text-decoration:none;
+  padding:4px 0 4px 12px;border-left:1px solid var(--line);line-height:1.5;
+  transition:all .16s;
+}
+.toc a:hover{color:var(--txt-hi);border-left-color:var(--line-2)}
+.toc a.active{color:var(--grn);border-left-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),transparent)}
+.toc a.lv3{padding-left:24px;font-size:11.5px}
+
+/* ============ 章节排版 ============ */
+.chapter{padding-top:56px;scroll-margin-top:calc(var(--top-h) + 24px)}
+.chapter:first-child{padding-top:24px}
+
+.ch-head{margin-bottom:34px;position:relative;padding-bottom:24px;border-bottom:1px solid var(--line)}
+.ch-head::after{content:'';position:absolute;bottom:-1px;left:0;width:130px;height:2px;background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.ch-badge{
+  display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--grn);
+  border:1px solid var(--grn);border-radius:4px;padding:3px 9px;margin-bottom:16px;background:var(--grn-d);
+}
+.ch-badge::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--grn);box-shadow:0 0 8px var(--grn);animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+
+h1.ch-title{
+  font-size:clamp(26px,3.4vw,39px);line-height:1.25;font-weight:800;color:var(--txt-hi);
+  margin:0 0 14px;letter-spacing:-.015em;
+}
+h1.ch-title .acc{color:var(--grn)}
+.ch-lead{font-size:16.5px;color:var(--txt-2);line-height:1.8;margin:0;max-width:660px}
+.ch-meta{display:flex;flex-wrap:wrap;gap:16px;margin-top:20px;font-family:var(--mono);font-size:11px;color:var(--txt-dim)}
+.ch-meta span{display:flex;align-items:center;gap:6px}
+
+h2{
+  font-size:23px;font-weight:700;color:var(--txt-hi);margin:56px 0 18px;line-height:1.35;
+  letter-spacing:-.01em;position:relative;padding-left:17px;scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h2::before{
+  content:'';position:absolute;left:0;top:.28em;bottom:.28em;width:3px;border-radius:2px;
+  background:linear-gradient(180deg,var(--grn),var(--cyn));
+}
+h3{
+  font-size:17.5px;font-weight:700;color:var(--txt-hi);margin:36px 0 13px;line-height:1.45;
+  scroll-margin-top:calc(var(--top-h) + 20px);
+}
+h3::before{content:'▸ ';color:var(--grn);font-weight:400}
+h4{font-size:15px;font-weight:700;color:var(--txt-hi);margin:26px 0 10px;letter-spacing:.01em}
+h4::before{content:'// ';color:var(--txt-dim);font-family:var(--mono);font-weight:400}
+
+p{margin:0 0 17px;text-wrap:pretty}
+strong{color:var(--txt-hi);font-weight:700}
+em{color:var(--amb);font-style:normal;font-weight:600;border-bottom:1px dashed var(--amb);padding-bottom:1px}
+a.ref{color:var(--cyn);text-decoration:none;border-bottom:1px dotted var(--cyn)}
+a.ref:hover{color:var(--grn);border-bottom-color:var(--grn)}
+
+/* 行内代码 */
+code.ic{
+  font-family:var(--mono);font-size:.875em;color:var(--grn);
+  background:var(--grn-d);border:1px solid var(--line);border-radius:4px;
+  padding:1.5px 5.5px;white-space:nowrap;font-weight:500;
+}
+html[data-theme="light"] code.ic{background:#E8F5EC;border-color:#C6E3D2}
+
+/* 列表 */
+ul,ol{margin:0 0 17px;padding-left:22px}
+li{margin-bottom:8px;line-height:1.8}
+li::marker{color:var(--grn)}
+ul>li::marker{content:'▪  ';font-size:.85em}
+ol>li::marker{font-family:var(--mono);font-size:.85em;font-weight:700}
+ul ul,ol ol,ul ol,ol ul{margin-top:8px;margin-bottom:0}
+
+/* ============ 代码块 ============ */
+.codeblk{
+  margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;
+  background:var(--card);box-shadow:var(--shadow);
+}
+html[data-theme="light"] .codeblk{box-shadow:0 2px 14px rgba(30,50,40,.07)}
+.code-bar{
+  display:flex;align-items:center;gap:10px;padding:8px 13px;
+  background:var(--bg-3);border-bottom:1px solid var(--line);
+}
+.code-dots{display:flex;gap:5px;flex-shrink:0}
+.code-dots i{width:8px;height:8px;border-radius:50%;display:block}
+.code-dots i:nth-child(1){background:#FF5F57}
+.code-dots i:nth-child(2){background:#FEBC2E}
+.code-dots i:nth-child(3){background:#28C840}
+.code-file{font-family:var(--mono);font-size:11.5px;color:var(--txt-2);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.code-lang{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 6px;text-transform:uppercase}
+.copy-btn{
+  background:transparent;border:1px solid var(--line-2);border-radius:4px;color:var(--txt-dim);
+  font-family:var(--mono);font-size:10px;padding:2.5px 8px;cursor:pointer;transition:all .16s;flex-shrink:0;
+}
+.copy-btn:hover{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.copy-btn.ok{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+.codeblk pre{margin:0;overflow-x:auto;padding:15px 0;background:var(--card)}
+.codeblk code{
+  font-family:var(--mono);font-size:13px;line-height:1.72;color:var(--txt);
+  display:block;counter-reset:ln;white-space:pre;
+}
+.codeblk .ln{display:block;padding:0 17px 0 0;counter-increment:ln;position:relative}
+.codeblk .ln::before{
+  content:counter(ln);display:inline-block;width:44px;padding-right:15px;
+  text-align:right;color:var(--txt-dim);opacity:.5;user-select:none;font-size:12px;
+  border-right:1px solid var(--line);margin-right:15px;
+}
+.codeblk .ln.hl{background:linear-gradient(90deg,var(--grn-d),transparent 70%)}
+.codeblk .ln.hl::before{color:var(--grn);opacity:1}
+
+/* 语法着色 */
+.tk-cmt{color:var(--txt-dim);font-style:italic}
+.tk-str{color:var(--amb)}
+.tk-chr{color:var(--amb)}
+.tk-pre{color:var(--vio);font-weight:600}
+.tk-num{color:var(--cyn)}
+.tk-kw{color:var(--grn);font-weight:600}
+.tk-typ{color:var(--cyn);font-weight:600}
+.tk-fn{color:#8FD3FF}
+html[data-theme="light"] .tk-fn{color:#1A6FA8}
+.tk-mac{color:var(--vio)}
+.tk-reg{color:#FF9F6B;font-weight:600}
+html[data-theme="light"] .tk-reg{color:#B45309}
+
+/* 终端输出块 */
+.term{margin:20px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:#050807}
+html[data-theme="light"] .term{background:#1A211E}
+.term-bar{padding:7px 13px;background:#0B1110;border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:#6E887D;display:flex;align-items:center;gap:8px}
+.term-bar b{color:#4EF08A;font-weight:400}
+.term pre{margin:0;padding:14px 16px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+.term .p{color:#4EF08A}
+.term .o{color:#7E9C8F}
+.term .e{color:#FF6B6B}
+.term .w{color:#FFC44D}
+
+/* ============ 提示卡片 ============ */
+.box{
+  margin:22px 0;padding:16px 19px 16px 21px;border-radius:8px;
+  border:1px solid var(--line);border-left:3px solid var(--cyn);
+  background:var(--card);position:relative;
+}
+.box-t{display:flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;margin-bottom:9px;color:var(--cyn)}
+.box p:last-child{margin-bottom:0}
+.box ul:last-child,.box ol:last-child{margin-bottom:0}
+.box.tip{border-left-color:var(--grn)}      .box.tip .box-t{color:var(--grn)}
+.box.warn{border-left-color:var(--amb)}     .box.warn .box-t{color:var(--amb)}
+.box.danger{border-left-color:var(--red)}   .box.danger .box-t{color:var(--red)}
+.box.key{border-left-color:var(--vio)}      .box.key .box-t{color:var(--vio)}
+.box.tip{background:linear-gradient(180deg,var(--grn-d),var(--card) 60%)}
+.box.warn{background:linear-gradient(180deg,var(--amb-d),var(--card) 60%)}
+.box.danger{background:linear-gradient(180deg,var(--red-d),var(--card) 60%)}
+.box.key{background:linear-gradient(180deg,var(--vio-d),var(--card) 60%)}
+.box.plain{background:var(--card-2);border-left-color:var(--line-2)}
+
+/* ============ 表格 ============ */
+.tbl-wrap{margin:22px 0;overflow-x:auto;border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:var(--card)}
+thead{background:var(--bg-3)}
+th{
+  text-align:left;padding:11px 14px;font-weight:700;color:var(--txt-hi);
+  font-size:12px;letter-spacing:.03em;border-bottom:1px solid var(--line-2);white-space:nowrap;
+}
+td{padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.65}
+tbody tr:last-child td{border-bottom:none}
+tbody tr:hover{background:var(--bg-3)}
+td code{font-family:var(--mono);font-size:12px;color:var(--grn);background:var(--grn-d);padding:1px 5px;border-radius:3px}
+td.y{color:var(--grn);font-weight:700;font-family:var(--mono)}
+td.n{color:var(--red);font-weight:700;font-family:var(--mono)}
+td.m{font-family:var(--mono);color:var(--cyn)}
+
+/* ============ 图表容器 ============ */
+.fig{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.fig-hd{
+  padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-2);display:flex;align-items:center;gap:9px;
+}
+.fig-hd b{color:var(--grn);font-weight:600}
+.fig-bd{padding:22px 18px;overflow-x:auto}
+.fig-ft{padding:10px 15px;border-top:1px solid var(--line);font-size:12.5px;color:var(--txt-dim);line-height:1.65;background:var(--card-2)}
+.fig svg{display:block;margin:0 auto;max-width:100%;height:auto}
+
+/* SVG 通用类 */
+.sv-box{fill:var(--card-2);stroke:var(--line-2);stroke-width:1.2}
+.sv-lbl{font-family:var(--mono);font-size:11px;fill:var(--txt)}
+.sv-lbl-hi{font-family:var(--mono);font-size:11px;fill:var(--txt-hi);font-weight:700}
+.sv-lbl-dim{font-family:var(--mono);font-size:10px;fill:var(--txt-dim)}
+.sv-t{font-family:var(--sans);font-size:11.5px;fill:var(--txt)}
+.sv-arrow{stroke:var(--grn);stroke-width:1.6;fill:none;marker-end:url(#ah)}
+.sv-arrow-a{stroke:var(--amb);stroke-width:1.6;fill:none;marker-end:url(#aha)}
+.sv-dash{stroke:var(--line-2);stroke-width:1;stroke-dasharray:4 4;fill:none}
+.sv-grn{fill:var(--grn)}.sv-amb{fill:var(--amb)}.sv-cyn{fill:var(--cyn)}.sv-red{fill:var(--red)}
+.sv-grn-s{fill:var(--grn-d);stroke:var(--grn);stroke-width:1.2}
+.sv-amb-s{fill:var(--amb-d);stroke:var(--amb);stroke-width:1.2}
+.sv-cyn-s{fill:var(--cyn-d);stroke:var(--cyn);stroke-width:1.2}
+.sv-vio-s{fill:var(--vio-d);stroke:var(--vio);stroke-width:1.2}
+.sv-red-s{fill:var(--red-d);stroke:var(--red);stroke-width:1.2}
+
+/* 位格子 */
+.bitgrid{display:flex;flex-wrap:wrap;gap:3px;justify-content:center}
+.bit{
+  width:34px;height:40px;display:grid;place-items:center;border-radius:4px;
+  border:1px solid var(--line-2);background:var(--card-2);
+  font-family:var(--mono);font-size:15px;font-weight:700;color:var(--txt-hi);
+  position:relative;transition:transform .16s,box-shadow .16s;
+}
+.bit:hover{transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,0,0,.4)}
+.bit.g{background:var(--red-d);border-color:var(--red);color:var(--red)}
+.bit.e{background:var(--amb-d);border-color:var(--amb);color:var(--amb)}
+.bit.m{background:var(--cyn-d);border-color:var(--cyn);color:var(--cyn)}
+.bit.d{background:var(--grn-d);border-color:var(--grn);color:var(--grn)}
+.bit .ix{position:absolute;bottom:-16px;left:0;right:0;text-align:center;font-size:8.5px;color:var(--txt-dim);font-weight:400}
+.bit-row{display:flex;gap:3px;margin-bottom:22px;justify-content:center;flex-wrap:wrap}
+
+/* ============ 关键结论 ============ */
+.takeaway{
+  margin:34px 0 10px;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--grn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--grn);
+}
+.takeaway-t{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--grn);font-weight:700;margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.takeaway ul{margin:0;padding-left:0;list-style:none}
+.takeaway li{padding-left:20px;position:relative;margin-bottom:7px;font-size:14.5px;line-height:1.7}
+.takeaway li::before{content:'▹';position:absolute;left:0;color:var(--grn);font-weight:700}
+.takeaway li:last-child{margin-bottom:0}
+
+/* 章节完成按钮 */
+.ch-done{
+  margin:38px 0 0;padding:15px 20px;border:1px dashed var(--line-2);border-radius:9px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;background:var(--card);
+}
+.ch-done-txt{font-size:13.5px;color:var(--txt-2)}
+.ch-done-txt b{color:var(--txt-hi)}
+.done-btn{
+  background:var(--grn-d);border:1px solid var(--grn);color:var(--grn);
+  font-family:var(--mono);font-size:12px;font-weight:600;padding:8px 17px;border-radius:7px;
+  cursor:pointer;transition:all .18s;white-space:nowrap;flex-shrink:0;
+}
+.done-btn:hover{background:var(--grn);color:var(--bg);box-shadow:0 0 20px -3px var(--grn)}
+.done-btn.on{background:var(--grn);color:var(--bg)}
+
+/* ============ 模块自测（I-09）============ */
+.quiz{
+  margin:34px 0 0;padding:20px 22px;border-radius:10px;
+  background:linear-gradient(135deg,var(--cyn-d),var(--card-2) 55%);
+  border:1px solid var(--line-2);border-top:2px solid var(--cyn);
+}
+.quiz-hd{
+  font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--cyn);font-weight:700;margin-bottom:14px;display:flex;align-items:center;gap:8px;
+}
+.quiz ol{margin:0;padding-left:24px}
+.quiz li{margin-bottom:14px;font-size:14.5px;line-height:1.7}
+.quiz li:last-child{margin-bottom:0}
+.quiz .q{margin:0}
+.quiz details{margin-top:7px}
+.quiz summary{
+  cursor:pointer;list-style:none;display:inline-block;user-select:none;
+  font-family:var(--mono);font-size:12px;color:var(--cyn);
+  padding:3px 11px;border:1px solid var(--line-2);border-radius:6px;background:var(--card-2);
+  transition:background .16s,border-color .16s;
+}
+.quiz summary:hover{border-color:var(--cyn)}
+.quiz summary::-webkit-details-marker{display:none}
+.quiz summary::before{content:'▸ 看答案'}
+.quiz details[open] summary::before{content:'▾ 收起'}
+.quiz details>p,.quiz details>div{
+  margin:9px 0 0;padding:11px 14px;background:var(--card);border-radius:8px;
+  border-left:3px solid var(--grn);font-size:14px;line-height:1.72;color:var(--txt);
+}
+.quiz .done-note{font-size:12.5px;color:var(--txt-2);margin:14px 0 0}
+
+/* ============ 平台切换 Tab（I-07）============ */
+.ptabs{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.ptab-bar{display:flex;flex-wrap:wrap;border-bottom:1px solid var(--line);background:var(--bg-3)}
+.ptab{
+  font-family:var(--mono);font-size:12px;padding:9px 15px;cursor:pointer;
+  background:none;border:none;border-right:1px solid var(--line);color:var(--txt-2);
+  transition:color .15s,background .15s;
+}
+.ptab:hover{color:var(--txt-hi)}
+.ptab.active{color:var(--grn);background:var(--grn-d);box-shadow:inset 0 -2px 0 var(--grn)}
+.ptab-pane{display:none;padding:16px 18px;font-size:14px;line-height:1.72}
+.ptab-pane.active{display:block}
+.ptab-pane pre{margin:0;font-family:var(--mono);font-size:12.5px;line-height:1.65;white-space:pre;overflow-x:auto}
+
+/* ============ 代码 Diff 视图（I-08）============ */
+.diff{margin:22px 0;border:1px solid var(--line);border-radius:9px;overflow:hidden}
+.diff-hd{display:flex;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11.5px}
+.diff-hd>span{flex:1;padding:8px 14px;color:var(--txt-2)}
+.diff-hd>span:first-child{border-right:1px solid var(--line);color:var(--red)}
+.diff-hd>span:last-child{color:var(--grn)}
+.diff-bd{display:grid;grid-template-columns:1fr 1fr}
+.diff-col{overflow-x:auto}
+.diff-col:first-child{border-right:1px solid var(--line)}
+.diff-col pre{margin:0;padding:12px 14px;background:var(--card);font-family:var(--mono);font-size:12.5px;line-height:1.7;white-space:pre;color:var(--txt)}
+.diff .del{display:block;background:rgba(255,107,107,.13)}
+.diff .ins{display:block;background:rgba(63,224,150,.13)}
+.diff .same{display:block}
+
+/* ============ 时序图（I-10）============ */
+.seq{margin:26px 0;border:1px solid var(--line);border-radius:10px;background:var(--card);overflow:hidden}
+.seq-hd{padding:9px 15px;background:var(--bg-3);border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;color:var(--txt-2)}
+.seq-hd b{color:var(--cyn);font-weight:600}
+.seq-bd{padding:20px 16px;overflow-x:auto}
+.seq-bd svg{display:block;margin:0 auto;max-width:100%;height:auto}
+.lifeline{stroke:var(--line-2);stroke-width:1;stroke-dasharray:3 4;fill:none}
+.msg{stroke:var(--grn);stroke-width:1.5;fill:none;marker-end:url(#ah)}
+.msg-ret{stroke:var(--cyn);stroke-width:1.5;fill:none;stroke-dasharray:5 3;marker-end:url(#ah)}
+
+/* 搜索高亮 */
+mark.hit{background:var(--amb);color:var(--bg);border-radius:2px;padding:0 2px}
+mark.hit.cur{background:var(--grn);box-shadow:0 0 0 2px var(--grn-d)}
+
+/* 首屏 Hero */
+.hero{padding:52px 0 20px;position:relative}
+.hero-chip{display:inline-flex;align-items:center;gap:9px;font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--cyn);border:1px solid var(--cyn);border-radius:20px;padding:5px 14px;margin-bottom:24px;background:var(--cyn-d)}
+.hero h1{font-size:clamp(30px,4.6vw,52px);line-height:1.14;font-weight:800;color:var(--txt-hi);margin:0 0 20px;letter-spacing:-.025em}
+.hero h1 .g{color:var(--grn)}
+.hero h1 .cursor{display:inline-block;width:.55ch;height:.92em;background:var(--grn);vertical-align:-.09em;margin-left:5px;animation:blink 1.1s step-end infinite;box-shadow:0 0 16px var(--grn)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.hero p.lead{font-size:17px;color:var(--txt-2);max-width:640px;line-height:1.8;margin-bottom:30px}
+.hero-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:34px 0 10px}
+.hero-stat{background:var(--card);padding:17px 16px}
+.hero-stat b{display:block;font-family:var(--mono);font-size:25px;font-weight:700;color:var(--grn);line-height:1.1;letter-spacing:-.02em}
+.hero-stat span{font-size:11.5px;color:var(--txt-dim);font-family:var(--mono);letter-spacing:.03em}
+
+/* 路线图 */
+.roadmap{display:grid;gap:11px;margin:26px 0}
+.rm-item{
+  display:grid;grid-template-columns:52px 1fr auto;gap:16px;align-items:center;
+  padding:15px 18px;background:var(--card);border:1px solid var(--line);border-radius:9px;
+  transition:all .2s;position:relative;overflow:hidden;
+}
+.rm-item::before{content:'';position:absolute;left:0;top:0;bottom:0;width:2px;background:var(--line-2);transition:background .2s}
+.rm-item:hover{border-color:var(--line-2);transform:translateX(4px)}
+.rm-item:hover::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now::before{background:var(--grn);box-shadow:0 0 14px var(--grn)}
+.rm-item.now{border-color:var(--grn);background:linear-gradient(90deg,var(--grn-d),var(--card) 40%)}
+.rm-n{font-family:var(--mono);font-size:20px;font-weight:700;color:var(--txt-dim);text-align:center}
+.rm-item.now .rm-n{color:var(--grn)}
+.rm-t{font-weight:700;color:var(--txt-hi);font-size:14.5px;margin-bottom:3px}
+.rm-d{font-size:12.5px;color:var(--txt-2);line-height:1.55}
+.rm-s{font-family:var(--mono);font-size:10px;padding:3px 9px;border-radius:11px;border:1px solid var(--line-2);color:var(--txt-dim);white-space:nowrap}
+.rm-item.now .rm-s{background:var(--grn);color:var(--bg);border-color:var(--grn);font-weight:700}
+
+/* 响应式 */
+@media(max-width:1400px){.wrap{gap:36px}.content{max-width:100%}}
+@media(max-width:1200px){.toc{display:none}.wrap{padding:0 40px 120px}}
+@media(max-width:900px){
+  :root{--nav-w:280px}
+  .sidebar{transform:translateX(-100%);box-shadow:var(--shadow)}
+  .sidebar.open{transform:translateX(0)}
+  .main{margin-left:0}
+  .wrap{padding:0 20px 100px}
+  .menu-btn{display:grid}
+  .search-wrap{max-width:none}
+  .kbd-hint{display:none}
+  .prog-mini{display:none}
+  body.nav-open::after{content:'';position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:85;backdrop-filter:blur(2px)}
+}
+@media(max-width:640px){
+  body{font-size:15px}
+  .wrap{padding:0 15px 90px}
+  .search-wrap{display:none}
+  .codeblk code{font-size:12px}
+  .codeblk .ln::before{width:32px;padding-right:10px;margin-right:10px}
+  .hero{padding:32px 0 10px}
+  .rm-item{grid-template-columns:40px 1fr;gap:12px}
+  .rm-s{display:none}
+}
+
+/* 入场动画 */
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.2,.7,.3,1),transform .55s cubic-bezier(.2,.7,.3,1)}
+.reveal.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}html{scroll-behavior:auto}}
+
+/* 打印 */
+@media print{
+  .topbar,.sidebar,.toc,.read-bar,.ch-done,.copy-btn{display:none!important}
+  .main{margin:0}.wrap{padding:0}
+  body{background:#fff;color:#000}
+}
+
+
+/* B09 追加：实测证据里的程序输出、平台小节标题 */
+.box pre{margin:12px 0;background:#050807;border:1px solid var(--line);border-radius:7px;padding:13px 15px;overflow-x:auto;font-family:var(--mono);font-size:12.5px;line-height:1.7;color:#A8C4B8}
+html[data-theme="light"] .box pre{background:#1A211E;color:#A8C4B8}
+.box pre code{font-family:var(--mono);font-size:12.5px;background:none;border:0;padding:0;color:inherit;white-space:pre}
+.box .sim-note{font-size:12px;color:var(--txt-dim);margin:10px 0 0}
+h4.plat-h{font-size:14px;color:var(--txt-hi);margin:22px 0 8px}
+.ptab-pane .codeblk{margin:12px 0}
+.ptab-pane .codeblk+.codeblk{margin-top:14px}
+
+
+/* B09 追加：速查/术语/贯穿项目 */
+.sim-caption{font-size:12.5px;color:var(--txt-dim);margin:8px 0 14px}
+.glossary{display:grid;grid-template-columns:max-content 1fr;gap:7px 20px;font-size:13.5px;margin:16px 0}
+.glossary dt{color:var(--cyn);font-family:var(--mono);font-size:12px}
+.glossary dd{margin:0;color:var(--txt-2);line-height:1.7}
+.capstone-steps{padding-left:22px;font-size:14px;color:var(--txt-2)}
+.capstone-steps li{margin:8px 0}
+@media(max-width:700px){.glossary{grid-template-columns:1fr}.glossary dd{margin-bottom:10px}}
+
+
+/* ============ 页脚 ============ */
+.site-foot{margin-top:80px;padding-top:8px}
+.sf-line{height:1px;background:linear-gradient(90deg,var(--grn),var(--line) 40%,transparent)}
+.sf-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:26px;padding:32px 0 10px}
+.sf-t{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--grn);margin-bottom:9px}
+.site-foot p{font-size:12.5px;line-height:1.75;color:var(--txt-dim);margin:0}
+.site-foot kbd{
+  font-family:var(--mono);font-size:10.5px;color:var(--txt-2);
+  border:1px solid var(--line-2);border-bottom-width:2px;border-radius:4px;
+  padding:1px 5px;background:var(--bg-3);
+}
+.sf-end{
+  margin-top:24px;padding-top:18px;border-top:1px solid var(--line);
+  font-family:var(--mono);font-size:11px;color:var(--txt-dim);text-align:center;letter-spacing:.04em;
+}
+
+/* ============ 回到顶部 ============ */
+.to-top{
+  position:fixed;right:26px;bottom:26px;width:42px;height:42px;z-index:99;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--grn);background:var(--card-2);border:1px solid var(--line-2);border-radius:9px;
+  opacity:0;visibility:hidden;transform:translateY(10px);
+  transition:all .22s cubic-bezier(.2,.7,.3,1);
+  backdrop-filter:blur(8px);
+}
+.to-top.show{opacity:1;visibility:visible;transform:none}
+.to-top:hover{border-color:var(--grn);box-shadow:0 0 0 3px var(--grn-d),0 8px 24px rgba(0,0,0,.4)}
+
+/* ============ 搜索结果面板 ============ */
+#searchPanel{
+  position:fixed;top:calc(var(--top-h) + 2px);left:50%;transform:translateX(-50%) translateY(-6px);
+  width:min(680px,92vw);max-height:min(66vh,560px);overflow-y:auto;z-index:120;
+  background:var(--card);border:1px solid var(--line-2);border-radius:10px;
+  box-shadow:0 18px 48px rgba(0,0,0,.5),0 0 0 1px rgba(78,240,138,.06);
+  padding:8px;opacity:0;visibility:hidden;pointer-events:none;
+  transition:opacity .16s,transform .16s,visibility .16s;
+}
+html[data-theme="light"] #searchPanel{box-shadow:0 18px 48px rgba(20,40,30,.18)}
+#searchPanel.show{opacity:1;visibility:visible;pointer-events:auto;transform:translateX(-50%) translateY(0)}
+.sp-head{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--txt-dim);padding:8px 10px 7px;
+}
+.sp-item{
+  display:block;padding:8px 10px;border-radius:6px;cursor:pointer;text-decoration:none;
+  border-left:2px solid transparent;transition:background .13s,border-color .13s;
+}
+.sp-item:hover,.sp-item.sel{background:var(--bg-3);border-left-color:var(--grn)}
+.sp-ch{font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;color:var(--txt-dim);text-transform:uppercase}
+.sp-ti{font-size:13px;color:var(--txt-hi);margin-top:3px;line-height:1.4}
+.sp-sn{font-size:11.5px;color:var(--txt-dim);margin-top:3px;line-height:1.5;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.sp-sn b{color:var(--amb);font-weight:600;background:var(--amb-d);border-radius:2px;padding:0 2px}
+.sp-empty{padding:22px 12px;text-align:center;font-size:12.5px;color:var(--txt-dim)}
+.sp-foot{
+  display:flex;justify-content:space-between;padding:9px 10px 5px;margin-top:4px;
+  border-top:1px solid var(--line);font-family:var(--mono);font-size:10px;color:var(--txt-dim);
+}
+
+/* ============ 完成按钮状态 ============ */
+.done-btn.is-done{background:var(--grn-d);color:var(--grn);border-color:var(--grn)}
+.ch-done.is-done{border-color:var(--grn)}
+
+/* ============ 表格内的行内代码允许换行 ============
+   默认 code.ic / th 是 nowrap，在 4 列以上的窄表格里会把列撑破导致横向滚动。
+   这里放开换行，让长标识符（volatile sig_atomic_t / -Warray-bounds）自动折行。 */
+td{overflow-wrap:anywhere;word-break:break-word}
+td code.ic{white-space:normal;overflow-wrap:anywhere}
+th{white-space:normal}
+td,th{hyphens:none}
+
+/* ============ 移动端遮罩 ============ */
+.nav-scrim{
+  position:fixed;inset:var(--top-h) 0 0 0;z-index:88;
+  background:rgba(0,0,0,.55);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:opacity .2s,visibility .2s;
+}
+.nav-scrim.show{opacity:1;visibility:visible}
+
+/* ============ 复制反馈 ============ */
+.copy-btn.copied{color:var(--grn);border-color:var(--grn);background:var(--grn-d)}
+
+/* ============ 章节淡入 ============ */
+.q-flash{animation:qflash 1.1s ease-out}
+@keyframes qflash{0%{background:var(--sel)}100%{background:transparent}}
+
+@media(max-width:640px){
+  .to-top{right:14px;bottom:14px;width:38px;height:38px}
+  #searchPanel{width:95vw;top:calc(var(--top-h) - 2px);max-height:70vh}
+  /* 手机上保留搜索入口（默认样式把它隐藏了），同时收起品牌文字腾出空间 */
+  .search-wrap{display:block !important;max-width:none;margin-left:0}
+  .brand-txt{display:none}
+  #searchInput{padding:0 12px 0 32px;font-size:13px}
+  .search-count{display:none}
+  .sp-sn{-webkit-line-clamp:3}
+}
+
+/* ../book-directory.css */
+/* Shared learner-facing book navigation. */
+.vol-switch{padding:0 12px 12px;margin:0 0 12px;border-bottom:1px solid var(--line)}
+.vol-head{display:flex;justify-content:space-between;align-items:center;padding:0 6px 10px;font-size:12px;color:var(--txt-2);letter-spacing:0}
+.vol-head b{font-size:11px;color:var(--cyn)}
+.vol-books{max-height:38vh;min-height:180px;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:var(--line-2) transparent;position:relative;padding-right:3px}
+.vol-group-title{font-size:10px;color:var(--txt-dim);padding:11px 8px 5px;margin:0;letter-spacing:.05em}
+.vol-group:first-child .vol-group-title{padding-top:2px}
+.vol-item{width:100%;text-align:left;display:flex;align-items:center;gap:7px;cursor:pointer;background:none;border:0;border-radius:6px;padding:7px 8px;color:var(--txt-2);font:inherit;margin-bottom:1px;text-decoration:none;box-sizing:border-box}
+.vol-item:hover{background:var(--bg-3);color:var(--txt-hi)}
+.vol-item:focus-visible{outline:2px solid var(--cyn);outline-offset:-2px}
+.vol-item.active{background:var(--cyn-d);color:var(--cyn)}
+.vol-item.planned{opacity:1;cursor:pointer}
+.vol-tag{font-family:var(--mono);font-size:9px;font-weight:700;color:var(--txt-dim);border:1px solid var(--line-2);border-radius:3px;padding:1px 3px;flex-shrink:0;min-width:31px;text-align:center}
+.vol-item.active .vol-tag{color:var(--cyn);border-color:var(--cyn)}
+.vol-name{flex:1;font-size:12px;line-height:1.5;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.vol-pct{font-size:9px;color:var(--txt-dim);flex-shrink:0;white-space:nowrap}
+.vol-item.active .vol-pct{color:var(--cyn)}
+.vol-item[data-status=writing] .vol-pct{color:var(--amb)}
+@media(max-width:700px){.vol-books{max-height:43vh}}
+
+/* ../learning.css */
+.learning-plan,.learning-note,.learning-assessment{border:1px solid var(--line,#425462);border-radius:8px;padding:18px 22px;margin:24px 0;background:var(--card-2,var(--card,transparent));color:var(--txt,var(--text,inherit));line-height:1.8}
+.learning-plan h2{font-size:22px;margin:0 0 13px}.learning-note h3{font-size:18px;margin:0 0 10px}.learning-plan p,.learning-note p{margin:10px 0}.learning-plan details>summary,.learning-assessment>summary{cursor:pointer;font-weight:600}.learning-assessment label{display:block;padding:8px 0;cursor:pointer}.learning-assessment input{margin-right:10px;accent-color:var(--grn,#2aa58a)}.learning-scope{font-size:13px;opacity:.75}.mastery-status{font-size:12px;margin-left:8px;padding:2px 7px;border-radius:4px;background:var(--bg-3,transparent)}.learning-assessment[data-complete=true]{border-color:var(--grn,#2aa58a)}.learning-note{border-left:3px solid var(--amber,#e0a550)}.lesson-ref{font-size:13px;line-height:1.8;overflow-wrap:anywhere}.learning-plan a,.lesson-ref a{color:var(--grn,var(--cyn,#27a894))} .learning-note pre{white-space:pre-wrap;overflow-wrap:anywhere}
+@media(max-width:640px){.learning-plan,.learning-note,.learning-assessment{padding:15px 14px}.learning-plan h2{font-size:19px}}
+@media print{.learning-assessment{display:none}.learning-plan details{display:block}}
+.learning-reuse{border:1px solid var(--line,#425462);border-radius:6px;padding:10px 14px;margin:18px 0}.learning-reuse>summary{cursor:pointer;font-size:13px;opacity:.8}
+
+.learning-platform{margin:20px 0;border:1px solid var(--line,#425462);border-radius:8px;padding:12px}.learning-platform>summary{cursor:pointer;font-weight:600;padding:6px}.learning-platform[open]>summary{margin-bottom:12px}
+
+</style>
+<link rel="stylesheet" href="../assets/mobile.css?v=46954fb397ac">
+<link rel="stylesheet" href="../assets/s24.css?v=ccc5e30c88c4">
+</head>
+<body class="m-body">
+<header class="m-header" id="mHeader">
+  <a class="m-btn m-back" href="../index.html" aria-label="返回书架">‹</a>
+  <div class="m-titlewrap">
+    <div class="m-title">传感器、信号处理与控制</div>
+    <div class="m-subtitle">基础支撑 · 10 模块</div>
+  </div>
+  <button class="m-btn" id="mFont" aria-label="字号">A<span>a</span></button>
+  <button class="m-btn" id="mMenu" aria-label="目录">☰</button>
+</header>
+<div class="m-progress" id="mProgress"></div>
+
+<div class="m-scrim" id="mScrim"></div>
+<aside class="m-drawer" id="mDrawer" aria-label="目录">
+  <div class="m-drawer-hd">
+    <div class="m-drawer-title">10 模块 · 51 小节</div>
+    <button class="m-btn" id="mTheme" aria-label="切换阅读主题">◐</button><button class="m-btn" id="mClose" aria-label="关闭目录">×</button>
+  </div>
+  <details class="m-vols" id="mVols">
+    <summary>切换分册（共 27 册）</summary>
+    <div class="m-vol-list"><a class="m-vol" href="B01.html">B01 · 嵌入式 C 精读</a><a class="m-vol" href="B00.html">B00 · 编程与 C 语言基础</a><a class="m-vol" href="B02a.html">B02a · C++ 语言基础</a><a class="m-vol" href="B03a.html">B03a · Rust 语言基础</a><a class="m-vol" href="B04a.html">B04a · Python 语言基础</a><a class="m-vol" href="B02.html">B02 · C++（嵌入式向）</a><a class="m-vol" href="B03.html">B03 · Rust（嵌入式向）</a><a class="m-vol" href="B04.html">B04 · Python（嵌入式向）</a><a class="m-vol" href="B05.html">B05 · 单片机裸机与外设驱动</a><a class="m-vol" href="B06.html">B06 · RTOS 与实时系统</a><a class="m-vol" href="B07.html">B07 · 通信协议与系统集成</a><a class="m-vol" href="B08.html">B08 · 单片机应用开发实战</a><a class="m-vol" href="B09.html">B09 · 嵌入式 Linux 系统</a><a class="m-vol" href="B10.html">B10 · 嵌入式 Linux 驱动开发</a><a class="m-vol" href="B11.html">B11 · 嵌入式 Linux 应用开发</a><a class="m-vol" href="B12.html">B12 · 工程化、测试与量产</a><a class="m-vol" href="B13.html">B13 · 端侧 AI 与数据闭环</a><a class="m-vol" href="B14.html">B14 · 数据平台与云边协同</a><a class="m-vol" href="B15.html">B15 · 前沿与专项技术</a><a class="m-vol" href="B16.html">B16 · 开发环境与工程工具</a><a class="m-vol" href="B17.html">B17 · 电子电路与硬件调试基础</a><a class="m-vol" href="B18.html">B18 · 处理器与计算机体系结构</a><a class="m-vol" href="B19.html">B19 · 数据结构、算法与应用数学</a><a class="m-vol cur" href="B20.html">B20 · 传感器、信号处理与控制</a><a class="m-vol" href="B21.html">B21 · 机器学习与数据工程基础</a><a class="m-vol" href="B22.html">B22 · 嵌入式安全与设备生命周期</a><a class="m-vol" href="B23.html">B23 · 算法、数据与控制实战</a></div>
+  </details>
+  <div class="m-drawer-search"><input id="mSearch" type="search" placeholder="搜索章 / 小节标题…" autocomplete="off"></div>
+  <nav class="m-nav" id="mNav">
+<div class="m-nav-group">学习指引</div>
+<details class="m-mod" data-id="book-mastery"><summary><span class="m-nav-num">导读</span><span class="m-nav-t">学习路径与整册验收</span></summary><div class="m-secs"><a class="m-sec" href="#book-mastery-title" data-target="book-mastery-title">控制与信号分支 · 读到能完成什么？</a></div></details>
+<details class="m-mod" data-id="roadmap"><summary><span class="m-nav-num"></span><span class="m-nav-t">本册怎么读.</span></summary><div class="m-secs"></div></details>
+<div class="m-nav-group">本册模块 / Modules</div>
+<details class="m-mod" data-id="m01"><summary><span class="m-nav-num">01</span><span class="m-nav-t">采样、时基与混叠<span class="m-nav-sub">采样与标定</span></span></summary><div class="m-secs"><a class="m-sec" href="#m01-sample-t" data-target="m01-sample-t">1.1 Nyquist 与混叠</a><a class="m-sec" href="#m01-evidence-t" data-target="m01-evidence-t">1.2 真实证据：混叠</a><a class="m-sec" href="#m01-jitter-t" data-target="m01-jitter-t">1.3 抖动与过采样</a><a class="m-sec" href="#m01-check-t" data-target="m01-check-t">1.4 自检</a><a class="m-sec" href="#m01-pitfalls-t" data-target="m01-pitfalls-t">1.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m02"><summary><span class="m-nav-num">02</span><span class="m-nav-t">传感器标定与误差预算<span class="m-nav-sub">采样与标定</span></span></summary><div class="m-secs"><a class="m-sec" href="#m02-calib-t" data-target="m02-calib-t">2.1 系统误差与随机误差</a><a class="m-sec" href="#m02-evidence-t" data-target="m02-evidence-t">2.2 真实证据：增益/偏置与残差</a><a class="m-sec" href="#m02-budget-t" data-target="m02-budget-t">2.3 误差预算与温漂</a><a class="m-sec" href="#m02-check-t" data-target="m02-check-t">2.4 自检</a><a class="m-sec" href="#m02-pitfalls-t" data-target="m02-pitfalls-t">2.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m03"><summary><span class="m-nav-num">03</span><span class="m-nav-t">时域滤波<span class="m-nav-sub">滤波与频谱</span></span></summary><div class="m-secs"><a class="m-sec" href="#m03-filter-t" data-target="m03-filter-t">3.1 三种时域滤波</a><a class="m-sec" href="#m03-evidence-t" data-target="m03-evidence-t">3.2 真实证据：均值/中值/EMA</a><a class="m-sec" href="#m03-delay-t" data-target="m03-delay-t">3.3 延迟与权衡</a><a class="m-sec" href="#m03-check-t" data-target="m03-check-t">3.4 自检</a><a class="m-sec" href="#m03-pitfalls-t" data-target="m03-pitfalls-t">3.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m04"><summary><span class="m-nav-num">04</span><span class="m-nav-t">FIR 与 IIR<span class="m-nav-sub">滤波与频谱</span></span></summary><div class="m-secs"><a class="m-sec" href="#m04-fir-t" data-target="m04-fir-t">4.1 FIR vs IIR</a><a class="m-sec" href="#m04-evidence-t" data-target="m04-evidence-t">4.2 真实证据：FIR 与 IIR 响应</a><a class="m-sec" href="#m04-stable-t" data-target="m04-stable-t">4.3 稳定性与量化</a><a class="m-sec" href="#m04-check-t" data-target="m04-check-t">4.4 自检</a><a class="m-sec" href="#m04-pitfalls-t" data-target="m04-pitfalls-t">4.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m05"><summary><span class="m-nav-num">05</span><span class="m-nav-t">FFT 与频谱分析<span class="m-nav-sub">滤波与频谱</span></span></summary><div class="m-secs"><a class="m-sec" href="#m05-fft-t" data-target="m05-fft-t">5.1 DFT/FFT、分辨率、窗</a><a class="m-sec" href="#m05-evidence-t" data-target="m05-evidence-t">5.2 真实证据：峰值检测</a><a class="m-sec" href="#m05-window-t" data-target="m05-window-t">5.3 加窗与读数</a><a class="m-sec" href="#m05-check-t" data-target="m05-check-t">5.4 自检</a><a class="m-sec" href="#m05-pitfalls-t" data-target="m05-pitfalls-t">5.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m06"><summary><span class="m-nav-num">06</span><span class="m-nav-t">特征提取与流式计算<span class="m-nav-sub">特征与融合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m06-feat-t" data-target="m06-feat-t">6.1 时域特征</a><a class="m-sec" href="#m06-evidence-t" data-target="m06-evidence-t">6.2 真实证据：正弦与冲击</a><a class="m-sec" href="#m06-stream-t" data-target="m06-stream-t">6.3 流式窗口与口径</a><a class="m-sec" href="#m06-check-t" data-target="m06-check-t">6.4 自检</a><a class="m-sec" href="#m06-pitfalls-t" data-target="m06-pitfalls-t">6.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m07"><summary><span class="m-nav-num">07</span><span class="m-nav-t">状态估计与传感器融合<span class="m-nav-sub">特征与融合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m07-kalman-t" data-target="m07-kalman-t">7.1 预测/更新与 Q/R</a><a class="m-sec" href="#m07-evidence-t" data-target="m07-evidence-t">7.2 真实证据：收敛与方差</a><a class="m-sec" href="#m07-innovation-t" data-target="m07-innovation-t">7.3 创新序列与丢样</a><a class="m-sec" href="#m07-check-t" data-target="m07-check-t">7.4 自检</a><a class="m-sec" href="#m07-pitfalls-t" data-target="m07-pitfalls-t">7.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m08"><summary><span class="m-nav-num">08</span><span class="m-nav-t">控制系统基础<span class="m-nav-sub">控制与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m08-control-t" data-target="m08-control-t">8.1 反馈、误差与稳定性</a><a class="m-sec" href="#m08-evidence-t" data-target="m08-evidence-t">8.2 真实证据：闭环收敛</a><a class="m-sec" href="#m08-stable-t" data-target="m08-stable-t">8.3 延迟、离散与限幅</a><a class="m-sec" href="#m08-check-t" data-target="m08-check-t">8.4 自检</a><a class="m-sec" href="#m08-pitfalls-t" data-target="m08-pitfalls-t">8.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m09"><summary><span class="m-nav-num">09</span><span class="m-nav-t">PID 与执行器约束<span class="m-nav-sub">控制与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m09-pid-t" data-target="m09-pid-t">9.1 P/I/D 与落地四件事</a><a class="m-sec" href="#m09-evidence-t" data-target="m09-evidence-t">9.2 真实证据：抗饱和与限幅</a><a class="m-sec" href="#m09-tune-t" data-target="m09-tune-t">9.3 抗饱和与整定</a><a class="m-sec" href="#m09-check-t" data-target="m09-check-t">9.4 自检</a><a class="m-sec" href="#m09-pitfalls-t" data-target="m09-pitfalls-t">9.5 常见误区与排障</a></div></details>
+<details class="m-mod" data-id="m10"><summary><span class="m-nav-num">10</span><span class="m-nav-t">综合：从采样到闭环与 AI 特征<span class="m-nav-sub">控制与综合</span></span></summary><div class="m-secs"><a class="m-sec" href="#m10-chain-t" data-target="m10-chain-t">10.1 端到端链路</a><a class="m-sec" href="#m10-evidence-t" data-target="m10-evidence-t">10.2 真实证据：频谱特征</a><a class="m-sec" href="#m10-budget-t" data-target="m10-budget-t">10.3 延迟与时间对齐</a><a class="m-sec" href="#m10-check-t" data-target="m10-check-t">10.4 自检</a><a class="m-sec" href="#m10-pitfalls-t" data-target="m10-pitfalls-t">10.5 常见误区与排障</a></div></details>
+<div class="m-nav-group">项目与参考</div>
+<details class="m-mod" data-id="capstone"><summary><span class="m-nav-num"></span><span class="m-nav-t">从采样到闭环与 AI 特征.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="cheatsheet"><summary><span class="m-nav-num"></span><span class="m-nav-t">信号与控制易错点速查.</span></summary><div class="m-secs"></div></details>
+<details class="m-mod" data-id="glossary"><summary><span class="m-nav-num"></span><span class="m-nav-t">术语表.</span></summary><div class="m-secs"></div></details>
+  </nav>
+  <p class="m-search-empty" id="mSearchEmpty" hidden>没有匹配的章节或小节。</p>
+  <div class="m-drawer-ft"><a href="../projects/index.html">综合工程</a> · <a href="../resources/B20-labs.zip" download>本册实验包</a></div>
+  <div class="m-drawer-ft"><a href="../index.html">← 返回书架</a></div>
+</aside>
+
+<main class="m-main" id="mMain">
+<section class="hero">
+    <div class="hero-chip">◆ MODULE · 基础支撑</div>
+    <h1>传感器、信号处理<br>与<span class="g">控制</span><span class="cursor"></span></h1>
+    <p class="lead">这本书回答的是：<strong>采样混叠、滤波延迟搞不清、标定不准、融合发散、闭环振荡</strong>——问题分别落在采样时基、标定误差、滤波设计、状态估计与控制约束上。内容从 <strong>采样混叠、标定、时域滤波、FIR/IIR、FFT</strong>，一路到 <strong>特征、状态估计与融合、控制基础、PID 与执行器约束、采样到闭环</strong>。</p>
+    <div class="hero-stats"><div class="hero-stat"><b>10</b><span>模块 / 主题</span></div><div class="hero-stat"><b>3</b><span>环节</span></div><div class="hero-stat"><b>6+10</b><span>运行 / 对照</span></div><div class="hero-stat"><b>10</b><span>机制图示</span></div></div>
+    <div class="box plain" style="margin-top:26px"><div class="box-t">本文档的定位</div><p style="font-size:14.5px;margin-bottom:10px">面向<strong>会写 C、要做数据采集与闭环控制</strong>的开发者。默认你懂采样与中断，但对“混叠、滤波延迟、标定、融合、控制约束”不够系统。</p><p style="font-size:14.5px;margin-bottom:0">每一章都包含：机制图 → 主机可运行的采样/滤波/控制模型 → <strong>真实运行证据</strong> → 环节对照 → 失败路径 → 动手练习 → 自测。</p></div>
+    <div class="box key" style="margin-top:16px"><div class="box-t">证据怎么读</div><p style="margin-bottom:0">混叠频率、均值/中值/EMA、FIR/IIR 差分方程、DFT 峰值、卡尔曼融合、PID 限幅等来自 <code class="ic">labs/host_*.c</code>（主机 <code class="ic">gcc</code> 真实运行，打印 <code class="ic">RESULT: PASS</code>）。</p></div>
+  </section>
+<div class="m-resume" id="mResume" hidden><p id="mResumeTitle"></p><button id="mResumeGo" type="button">继续阅读</button></div>
+<details class="m-resource-panel"><summary>获取本册实验与综合项目</summary><p><a href="../resources/B20-labs.zip" download>下载 B20 配套实验资料</a> · <a href="../projects/index.html">进入 6 项综合工程</a></p><p>解压后进入 B20 分册目录，在电脑或目标开发环境运行本章命令。正文中的源码链接也可直接查看。</p></details>
+<div class="m-plan-wrap"><section class="learning-plan" id="book-mastery"><h2 id="book-mastery-title">控制与信号分支 · 读到能完成什么？</h2><p><strong>对一个采样链完成标定、滤波与受限执行器闭环，保存原始数据和回放。</strong></p><p>入门条件：B19 基本统计、B05 采样；信号单位、时间间隔。</p><p>首次阅读：<a href="#m01">采样、时基与混叠</a> → <a href="#m02">传感器标定与误差预算</a> → <a href="#m03">时域滤波</a> → <a href="#m08">控制系统基础</a> → <a href="#m09">PID 与执行器约束</a> → <a href="#m10">综合：从采样到闭环与 AI 特征</a></p><p>按需延后：FFT、FIR/IIR、融合按信号任务扩展；先与 B23 选一个贯穿案例。</p><details><summary>独立验收：先做，再展开核对</summary><p><strong>需求变更与故障：</strong>采样抖动、饱和、传感器断线和滤波延迟；比较离散仿真与实测差异。</p><p><strong>通过判据：</strong>稳定性结论写明模型与工作点；限幅与抗积分饱和可解释，时基进入误差积分。</p><p>先不看示例独立实现；卡住时只查对应小节。成功复现后换一个输入、平台或需求，说明为什么仍成立。记录证据路径与失败原因，不以勾选数量代替能力。</p><p>参考工程：<a href="../projects/index.html#P02">P02</a>；<a href="../projects/learning-path.html">全库项目路线与时间安排</a>。</p></details><p class="learning-scope">时间为规划估计，阅读、编程、排错分开记录。主机测试、SDK 构建与板上测量分别验收；自评不等于能力认证。</p></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="roadmap" style="padding-top:52px">
+    <div class="ch-head">
+      <div class="ch-badge">Roadmap</div>
+      <h1 class="ch-title">本册怎么读<span class="acc">.</span></h1>
+      <p class="ch-lead">10 章分四段：采样与标定（M01–M02）→ 滤波与频谱（M03–M05）→ 特征与融合（M06–M07）→ 控制与综合（M08–M10）。</p>
+    </div>
+    <div class="box tip">
+      <div class="box-t">推荐路径</div>
+      <p style="margin-bottom:0">第一次读：M01→M02→M03→M04 打基础，再读 M05/M07/M08/M09；做闭环把 M08–M10 走完。动手优先跑 <code class="ic">labs/host_*.c</code>。</p>
+    </div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m01">
+    <div class="ch-head">
+      <div class="ch-badge">Module 01 · 采样与标定</div>
+      <h1 class="ch-title">采样、时基与混叠<span class="acc">.</span></h1>
+      <p class="ch-lead">采样第一原则：<strong>采样率 > 2×最高频率（Nyquist）</strong>，否则高频会“混叠”成假低频。采样<strong>时基抖动</strong>同样引入误差。</p>
+      <div class="ch-meta"><span>前置：理解正弦/频率，会写 ADC 采样循环。</span><span>◷ 约 44 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能按 Nyquist 选采样率、设计前置抗混叠滤波并量化时基抖动影响。</span></div>
+    </div><!-- COURSE_NOTE_START --><div class="learning-note"><h3 id="m01-knowledge-boundary">采样条件比 Nyquist 口号更重要</h3><p>Nyquist 条件针对带限信号。现实传感器的高频噪声仍可混叠，需要模拟抗混叠与适当采样。采样率 100 Hz 时，90 Hz 分量可能表现为 10 Hz；采集后再低通不能还原已经混叠的来源。实验应改变输入频率，查看采样序列和频谱。</p></div><!-- COURSE_NOTE_END -->
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>采样率须 > 2×最高频率，否则混叠。</li><li>抗混叠滤波放在 ADC 前。</li><li>时基抖动与多通道同步要保证。</li></ul></div>
+    <section class="sec" id="m01-sample"><h2 id="m01-sample-t">1.1 Nyquist 与混叠</h2><p>采样第一原则：采样率 > 2×最高频率，否则高频会混叠成假低频。采样时基抖动同样引入误差。抗混叠滤波器要放在 ADC 之前。</p><figure class="fig" id="fig-图-1-1"><div class="fig-hd"><strong>图 1.1</strong> 抗混叠滤波在 ADC 之前</div><div class="fig-bd"><svg viewBox="0 0 800 160" width="100%" height="160" role="img" aria-label="抗混叠滤波在 ADC 之前" preserveAspectRatio="xMidYMid meet"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--grn)"/></marker><marker id="aha" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="var(--amb)"/></marker></defs><rect x="60" y="30" width="680" height="30" rx="6" class="sv-amb-s"/><text x="75" y="49.0" class="sv-lbl-hi">信号（含带外）</text><rect x="60" y="64" width="680" height="44" rx="6" class="sv-grn-s"/><text x="75" y="90.0" class="sv-lbl-hi">抗混叠低通（fc ≤ fs/2）</text><rect x="60" y="112" width="680" height="30" rx="6" class="sv-cyn-s"/><text x="75" y="131.0" class="sv-lbl-hi">ADC（fs）</text><rect x="60" y="146" width="680" height="30" rx="6" class="sv-red-s"/><text x="75" y="165.0" class="sv-lbl-hi">不带滤波 → 混叠</text></svg></div><figcaption class="fig-ft">信号 → 抗混叠低通（截止 ≤ Nyquist）→ ADC。带外成分被滤掉，避免折叠成假频率。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.1  采样五概念</div><table><thead><tr><th>概念</th><th>含义</th><th>处理</th></tr></thead><tbody><tr><td>Nyquist</td><td>fs/2</td><td>不低于 2×信号带宽</td></tr><tr><td>混叠</td><td>高频变假低频</td><td>抗混叠滤波</td></tr><tr><td>抖动</td><td>采样时刻不准</td><td>稳定时基</td></tr><tr><td>过采样</td><td>fs 远高于需求</td><td>平均/降噪</td></tr><tr><td>同步</td><td>多通道对齐</td><td>共用时基</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">sample.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double nyq = fs / 2.0;                       // 500Hz</span><span class="ln">double obs = fabs(f - fs);                   // 1200-1000=200（镜像）</span><span class="ln">/* 抗混叠滤波器截止 &lt;= Nyquist 且置于 ADC 之前 */</span>
+</code></pre><span class="code-note">超过 Nyquist 的频率镜像折叠；滤波须前置</span></div></section><section class="sec" id="m01-evidence"><h2 id="m01-evidence-t">1.2 真实证据：混叠</h2><p>下面这段程序验证混叠：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_sample.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_sample.c —— 采样与混叠：Nyquist 与混叠频率计算（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_sample.c -o host_sample &amp;&amp; ./host_sample</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">static double alias(double f, double fs) { double a = fmod(f, fs); if (a &gt; fs/2) a = fs - a; return a; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double fs = 1000;      /* 采样率 1kHz，Nyquist 500Hz */</span><span class="ln">    printf(&quot;Nyquist=%.0fHz\n&quot;, fs/2);</span><span class="ln">    printf(&quot;输入 100Hz → 观测 %.0fHz（无混叠）\n&quot;, alias(100, fs));</span><span class="ln">    if (fabs(alias(100,fs)-100) &gt; 1e-9) ok = 0;</span><span class="ln">    printf(&quot;输入 1200Hz → 观测 %.0fHz（混叠到 200Hz）\n&quot;, alias(1200, fs));</span><span class="ln">    if (fabs(alias(1200,fs)-200) &gt; 1e-9) ok = 0;</span><span class="ln">    printf(&quot;结论：超过 Nyquist 的信号会混叠成假频率\n&quot;);</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">采样/混叠模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_sample.c -o labs/host_sample &amp;&amp; ./labs/host_sample</span>
+Nyquist=500Hz
+输入 100Hz → 观测 100Hz（无混叠）
+输入 1200Hz → 观测 200Hz（混叠到 200Hz）
+结论：超过 Nyquist 的信号会混叠成假频率
+RESULT: PASS</code></pre></div></div><p class="sim-note">fs=1000Hz→Nyquist=500Hz；1200Hz 混叠到 |1200−1000|=200Hz；100Hz 无混叠。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 1.2  混叠示例</div><table><thead><tr><th>输入</th><th>fs=1000Hz</th><th>结果</th></tr></thead><tbody><tr><td>100Hz</td><td>< Nyquist</td><td>无混叠</td></tr><tr><td>1200Hz</td><td>> Nyquist</td><td>混叠到 200Hz</td></tr><tr><td>Nyquist</td><td>500Hz</td><td>边界</td></tr><tr><td>过采样</td><td>fs 高</td><td>降噪但降带宽</td></tr></tbody></table></div></section><section class="sec" id="m01-jitter"><h2 id="m01-jitter-t">1.3 抖动与过采样</h2><p>采样时基抖动会让采样时刻不准，信噪比下降；过采样 + 平均能降噪但降低有效带宽。多通道要共用时基保证相位对齐。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">sample.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">double nyq = fs / 2.0;                       // 500Hz</span><span class="ln">double obs = fabs(f - fs);                   // 1200-1000=200（镜像）</span><span class="ln">/* 抗混叠滤波器截止 &lt;= Nyquist 且置于 ADC 之前 */</span>
+</code></pre><span class="code-note">超过 Nyquist 的频率镜像折叠；滤波须前置</span></div><div class="tbl-wrap"><div class="tbl-cap">表 1.3  采样实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>fs>2×带宽</td><td>不混叠</td><td>采样率不足</td></tr><tr><td>前置抗混叠</td><td>滤带外</td><td>折叠</td></tr><tr><td>稳定时基</td><td>低抖动</td><td>SNR 下降</td></tr><tr><td>多通道共时基</td><td>相位对齐</td><td>关系错</td></tr></tbody></table></div></section><section class="sec" id="m01-check"><h2 id="m01-check-t">1.4 自检</h2><p>采样自检：fs 满足 Nyquist、有前置抗混叠、时基稳定、多通道同步。</p><figure class="fig" id="fig-图-1-2"><div class="fig-hd"><strong>图 1.2</strong> 混叠后的观测频率（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="混叠后的观测频率（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">100Hz 输入</text><rect x="150" y="26" width="240" height="18" rx="4" class="sv-grn-s"/><text x="398" y="43" class="sv-lbl-hi">100Hz</text><text x="12" y="67" class="sv-lbl">1200Hz 观测</text><rect x="150" y="50" width="480" height="18" rx="4" class="sv-red-s"/><text x="638" y="67" class="sv-lbl-hi">200Hz</text></svg></div><figcaption class="fig-ft">100Hz 正常；1200Hz 混叠为 200Hz 假频率——只能靠抗混叠滤波避免。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 1.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>选 fs</td><td>>2×带宽</td><td>混叠</td></tr><tr><td>滤波</td><td>前置</td><td>带外折叠</td></tr><tr><td>时基</td><td>稳定</td><td>抖动</td></tr><tr><td>同步</td><td>共时基</td><td>相位错</td></tr></tbody></table></div></section><section class="sec" id="m01-pitfalls"><h2 id="m01-pitfalls-t">1.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>采样率不足</strong>：混叠出假频率。</li><li><strong>无抗混叠滤波</strong>：带外噪声折叠进来。</li><li><strong>时基抖动</strong>：信噪比下降。</li><li><strong>多通道不同步</strong>：相位关系错。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 01（先答再看）</div><ol><li><p class="q">1kHz 采样一个 1200Hz 信号会看到什么？</p><details><summary>查看答案</summary><div class="ans"><p>混叠到 200Hz（fs−f 的镜像）。这是采样定理的直接后果，只能靠抗混叠滤波器避免。</p></div></details></li><li><p class="q">抗混叠滤波器为什么要放在 ADC 之前？</p><details><summary>查看答案</summary><div class="ans"><p>要在采样前把超过 Nyquist 的成分滤掉，否则它们会折叠成带内假频率，事后无法去除。</p></div></details></li><li><p class="q">过采样 + 平均的好处与代价？</p><details><summary>查看答案</summary><div class="ans"><p>好处是降噪（平均抑制随机噪声）；代价是降低有效带宽、增加数据量与计算。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：按你信号带宽选采样率（>2×），设计前置抗混叠滤波并核对时基抖动。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.dspguide.com/" target="_blank" rel="noopener noreferrer">Smith 数字信号处理</a> · <a class="ref" href="https://pysdr.org/" target="_blank" rel="noopener noreferrer">PySDR</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_sample.c</code>：验证 1200Hz 在 1kHz 采样下混叠到 200Hz。</p><p><strong>检查结果：</strong>Nyquist=500Hz；1200Hz 输入混叠到 200Hz；100Hz 无混叠。</p></div>
+<p class="sim-note">迁移练习：把本章的“能按 Nyquist 选采样率、设计前置抗混叠滤波并量化时基抖动影响。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 01 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m01">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m01"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>Nyquist=500Hz；1200Hz 输入混叠到 200Hz；100Hz 无混叠。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m02">
+    <div class="ch-head">
+      <div class="ch-badge">Module 02 · 采样与标定</div>
+      <h1 class="ch-title">传感器标定与误差预算<span class="acc">.</span></h1>
+      <p class="ch-lead">测量要“准”，就要做<strong>误差预算</strong>：把系统误差（偏置/增益）与随机误差分开，并逐项估算对结果的影响。</p>
+      <div class="ch-meta"><span>前置：理解线性函数与最小二乘，知道测量误差概念。</span><span>◷ 约 44 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能对传感器做增益/偏置标定、列误差预算并给出主导项与残差。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>把系统误差（标定）与随机误差（滤波）分开。</li><li>做误差预算找主导项。</li><li>标定要覆盖范围并留残差。</li></ul></div>
+    <section class="sec" id="m02-calib"><h2 id="m02-calib-t">2.1 系统误差与随机误差</h2><p>系统误差（偏置/增益）用标定消除，随机误差用滤波/平均降低；两者处理方式不同，混在一起就无法针对性优化。误差预算把各项合成，找主导项。</p><figure class="fig" id="fig-图-2-1"><div class="fig-hd"><strong>图 2.1</strong> 误差预算</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="误差预算" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">列误差源</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">逐项估</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">合成</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">主导项</text></svg></div><figcaption class="fig-ft">列误差源 → 逐项估影响 → 合成 → 找主导项 → 优先处理（标定/补偿/滤波）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.1  误差类型</div><table><thead><tr><th>误差</th><th>来源</th><th>处理</th></tr></thead><tbody><tr><td>偏置</td><td>零点</td><td>标定减去</td></tr><tr><td>增益</td><td>比例不准</td><td>标定乘系数</td></tr><tr><td>温漂</td><td>温度</td><td>温度补偿</td></tr><tr><td>随机噪声</td><td>器件/环境</td><td>滤波/平均</td></tr><tr><td>量化</td><td>ADC 分辨率</td><td>按 LSB 计</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">calib.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">k = (n*Sxy - Sx*Sy) / (n*Sxx - Sx*Sx);   // 增益</span><span class="ln">b = (Sy - k*Sx) / n;                      // 偏置</span><span class="ln">double resid = fabs(y - (k*x + b));       // 残差</span><span class="ln">/* 误差预算: sqrt(偏置^2+增益误差^2+噪声^2+量化^2) */</span>
+</code></pre><span class="code-note">最小二乘求 k/b；残差检查；误差预算合成</span></div></section><section class="sec" id="m02-evidence"><h2 id="m02-evidence-t">2.2 真实证据：增益/偏置与残差</h2><p>下面这段程序用最小二乘拟合 y=kx+b 得增益/偏置并检查残差：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_calib.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_calib.c —— 传感器标定：最小二乘拟合 y=kx+b 得增益/偏置与残差（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_calib.c -o host_calib -lm &amp;&amp; ./host_calib</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 标定点：真值增益 2.5、偏置 -1.0，叠加小噪声 */</span><span class="ln">    double x[] = {0, 1, 2, 3, 4, 5};</span><span class="ln">    double y[] = {-1.0, 1.4, 4.1, 6.3, 9.2, 11.4};</span><span class="ln">    int n = 6; double sx = 0, sy = 0, sxx = 0, sxy = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) { sx += x[i]; sy += y[i]; sxx += x[i]*x[i]; sxy += x[i]*y[i]; }</span><span class="ln"></span><span class="ln">    /* 最小二乘 y = k x + b：k=增益、b=偏置 */</span><span class="ln">    double k = (n*sxy - sx*sy) / (n*sxx - sx*sx);</span><span class="ln">    double b = (sy - k*sx) / n;</span><span class="ln">    printf(&quot;标定 y=%.3f x + %.3f（期望增益≈2.5 偏置≈-1.0）\n&quot;, k, b);</span><span class="ln">    if (fabs(k - 2.5) &gt; 0.05 || fabs(b + 1.0) &gt; 0.05) ok = 0;</span><span class="ln"></span><span class="ln">    /* 残差评估：最大绝对残差与残差 RMS，检查是否有系统趋势 */</span><span class="ln">    double maxr = 0, ss = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) {</span><span class="ln">        double r = y[i] - (k*x[i] + b);</span><span class="ln">        if (fabs(r) &gt; maxr) maxr = fabs(r);</span><span class="ln">        ss += r*r;</span><span class="ln">    }</span><span class="ln">    double rms = sqrt(ss/n);</span><span class="ln">    printf(&quot;最大残差=%.3f 残差RMS=%.3f（阈值 ≤0.25）\n&quot;, maxr, rms);</span><span class="ln">    if (maxr &gt; 0.25) ok = 0;</span><span class="ln">    printf(&quot;结论：增益/偏置由拟合得到，残差小且无系统趋势\n&quot;);</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">标定/误差预算模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_calib.c -o labs/host_calib &amp;&amp; ./labs/host_calib</span>
+标定 y=2.503 x + -1.024（期望增益≈2.5 偏置≈-1.0）
+最大残差=0.212 残差RMS=0.134（阈值 ≤0.25）
+结论：增益/偏置由拟合得到，残差小且无系统趋势
+RESULT: PASS</code></pre></div></div><p class="sim-note">拟合增益 2.503、偏置 -1.024；最大残差 0.212、RMS 0.134（≤0.25），无系统趋势。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 2.2  标定结果</div><table><thead><tr><th>量</th><th>值</th><th>判据</th></tr></thead><tbody><tr><td>增益 k</td><td>2.503</td><td>≈2.5</td></tr><tr><td>偏置 b</td><td>-1.024</td><td>≈-1.0</td></tr><tr><td>最大残差</td><td>0.212</td><td>≤0.25</td></tr><tr><td>残差 RMS</td><td>0.134</td><td>小且无趋势</td></tr></tbody></table></div></section><section class="sec" id="m02-budget"><h2 id="m02-budget-t">2.3 误差预算与温漂</h2><p>误差预算把各项贡献合成，找主导项优先处理；标定要覆盖工作范围并留残差记录；温度变化后要补偿。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">calib.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">k = (n*Sxy - Sx*Sy) / (n*Sxx - Sx*Sx);   // 增益</span><span class="ln">b = (Sy - k*Sx) / n;                      // 偏置</span><span class="ln">double resid = fabs(y - (k*x + b));       // 残差</span><span class="ln">/* 误差预算: sqrt(偏置^2+增益误差^2+噪声^2+量化^2) */</span>
+</code></pre><span class="code-note">最小二乘求 k/b；残差检查；误差预算合成</span></div><div class="tbl-wrap"><div class="tbl-cap">表 2.3  标定实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>系统/随机分开</td><td>针对性处理</td><td>混在一起</td></tr><tr><td>覆盖范围</td><td>工作点有效</td><td>范围不足</td></tr><tr><td>残差记录</td><td>评估质量</td><td>忽略趋势</td></tr><tr><td>温漂补偿</td><td>全温区准</td><td>只标常温</td></tr></tbody></table></div></section><section class="sec" id="m02-check"><h2 id="m02-check-t">2.4 自检</h2><p>标定自检：系统/随机分开、覆盖范围、残差无趋势、有温漂补偿。</p><figure class="fig" id="fig-图-2-2"><div class="fig-hd"><strong>图 2.2</strong> 标定残差（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="标定残差（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">最大残差</text><rect x="150" y="26" width="454" height="18" rx="4" class="sv-cyn-s"/><text x="612" y="43" class="sv-lbl-hi">212(×10⁻³)</text><text x="12" y="67" class="sv-lbl">阈值</text><rect x="150" y="50" width="536" height="18" rx="4" class="sv-amb-s"/><text x="694" y="67" class="sv-lbl-hi">250(×10⁻³)</text><text x="12" y="91" class="sv-lbl">RMS</text><rect x="150" y="74" width="287" height="18" rx="4" class="sv-grn-s"/><text x="445" y="91" class="sv-lbl-hi">134(×10⁻³)</text></svg></div><figcaption class="fig-ft">最大残差 0.212、RMS 0.134（阈值 0.25）。残差小且无系统趋势，说明模型合适。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 2.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>列源</td><td>系统+随机</td><td>只列一项</td></tr><tr><td>标定</td><td>最小二乘</td><td>单点/范围窄</td></tr><tr><td>残差</td><td>查趋势</td><td>忽略</td></tr><tr><td>预算</td><td>合成找主导</td><td>优化错方向</td></tr></tbody></table></div></section><section class="sec" id="m02-pitfalls"><h2 id="m02-pitfalls-t">2.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>不标定</strong>：系统误差长期存在。</li><li><strong>不做误差预算</strong>：优化错方向。</li><li><strong>忽略温漂</strong>：温度变化后不准。</li><li><strong>标定范围不足</strong>：工作点外无效。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 02（先答再看）</div><ol><li><p class="q">为什么要把系统误差与随机误差分开？</p><details><summary>查看答案</summary><div class="ans"><p>系统误差用标定消除，随机误差用滤波/平均降低；处理方式不同。混在一起就无法针对性优化。</p></div></details></li><li><p class="q">残差有什么用处？</p><details><summary>查看答案</summary><div class="ans"><p>残差 = 实测 − 模型预测。检查残差是否有系统趋势，可判断模型/范围是否合适；趋势说明模型有偏差。</p></div></details></li><li><p class="q">为什么标定要覆盖工作范围并考虑温漂？</p><details><summary>查看答案</summary><div class="ans"><p>标定关系只在标定范围内成立；温度变化会引起偏置/增益漂移。覆盖范围 + 温漂补偿才能全工况准确。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一个传感器做增益/偏置标定与误差预算，列出主导误差项并考虑温漂。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.st.com/en/embedded-software/motor-control.html" target="_blank" rel="noopener noreferrer">STM32 电机控制</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_calib.c</code>：用最小二乘拟合 y=kx+b 得增益/偏置并检查残差。</p><p><strong>检查结果：</strong>拟合增益 k=2.503、偏置 b=-1.024；最大残差 0.212、残差 RMS 0.134（阈值 ≤0.25）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能对传感器做增益/偏置标定、列误差预算并给出主导项与残差。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 02 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m02">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m02"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>拟合增益 k=2.503、偏置 b=-1.024；最大残差 0.212、残差 RMS 0.134（阈值 ≤0.25）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m03">
+    <div class="ch-head">
+      <div class="ch-badge">Module 03 · 滤波与频谱</div>
+      <h1 class="ch-title">时域滤波<span class="acc">.</span></h1>
+      <p class="ch-lead">时域滤波简单高效：<strong>滑动平均</strong>平滑但怕尖峰，<strong>中值</strong>抗脉冲，<strong>EMA</strong> 只需一个状态、延迟可调。</p>
+      <div class="ch-meta"><span>前置：理解序列与循环缓冲，知道均值。</span><span>◷ 约 42 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现滑动平均/中值/EMA 并在平滑度、抗脉冲与延迟之间权衡。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>时域滤波：均值平滑、中值抗尖峰、EMA 省状态。</li><li>滤波有延迟，闭环里会削相位裕度。</li><li>权衡平滑/延迟/抗噪。</li></ul></div>
+    <section class="sec" id="m03-filter"><h2 id="m03-filter-t">3.1 三种时域滤波</h2><p>滑动平均平滑但怕尖峰，中值抗脉冲，EMA 只需一个状态、延迟可调。滤波都有延迟：闭环里滤波延迟会削减相位裕度（可能引起振荡）。</p><figure class="fig" id="fig-图-3-1"><div class="fig-hd"><strong>图 3.1</strong> 尖峰对不同滤波的影响（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="尖峰对不同滤波的影响（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">均值</text><rect x="150" y="26" width="560" height="18" rx="4" class="sv-red-s"/><text x="718" y="43" class="sv-lbl-hi">280(×10⁻¹)</text><text x="12" y="67" class="sv-lbl">中值</text><rect x="150" y="50" width="200" height="18" rx="4" class="sv-grn-s"/><text x="358" y="67" class="sv-lbl-hi">100(×10⁻¹)</text><text x="12" y="91" class="sv-lbl">EMA</text><rect x="150" y="74" width="430" height="18" rx="4" class="sv-amb-s"/><text x="588" y="91" class="sv-lbl-hi">215(×10⁻¹)</text></svg></div><figcaption class="fig-ft">序列 {10,10,100,10,10}：均值 28.0 被尖峰拉高、中值 10 抗脉冲、EMA 21.52 平滑。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.1  时域滤波对比</div><table><thead><tr><th>滤波</th><th>特点</th><th>代价</th></tr></thead><tbody><tr><td>滑动平均</td><td>平滑</td><td>延迟、怕尖峰</td></tr><tr><td>中值</td><td>抗脉冲</td><td>排序开销</td></tr><tr><td>EMA</td><td>少状态</td><td>相位延迟</td></tr><tr><td>加权平均</td><td>可调</td><td>设计权重</td></tr><tr><td>滤波延迟</td><td>固有</td><td>影响闭环相位</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">filter.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">ema = alpha*x + (1-alpha)*ema;             // EMA 递推</span><span class="ln">median = median_of(window, N);             // 中值抗脉冲</span><span class="ln">/* 闭环中滤波延迟会削相位裕度，需权衡平滑与延迟 */</span>
+</code></pre><span class="code-note">EMA 单状态递推；中值抗脉冲；注意延迟</span></div></section><section class="sec" id="m03-evidence"><h2 id="m03-evidence-t">3.2 真实证据：均值/中值/EMA</h2><p>下面这段程序对比三种滤波对尖峰的表现：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_filter.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_filter.c —— 时域滤波：均值/中值/EMA（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_filter.c -o host_filter &amp;&amp; ./host_filter</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">static int med3(int a,int b,int c){ if((a&lt;=b&amp;&amp;b&lt;=c)||(c&lt;=b&amp;&amp;b&lt;=a))return b; if((b&lt;=a&amp;&amp;a&lt;=c)||(c&lt;=a&amp;&amp;a&lt;=b))return a; return c; }</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int x[] = {10,10,100,10,10};    /* 中间一个尖峰 */</span><span class="ln">    int n = 5, sum = 0;</span><span class="ln">    for (int i=0;i&lt;n;i++) sum += x[i];</span><span class="ln">    printf(&quot;均值=%.1f（被尖峰拉高）\n&quot;, sum/(double)n);</span><span class="ln">    int med = med3(x[1],x[2],x[3]);</span><span class="ln">    printf(&quot;中值(窗口)=%d（抗尖峰）\n&quot;, med);</span><span class="ln">    if (med != 10) ok = 0;</span><span class="ln">    double ema = 10, alpha = 0.2;</span><span class="ln">    for (int i=0;i&lt;n;i++) ema = alpha*x[i] + (1-alpha)*ema;</span><span class="ln">    printf(&quot;EMA(alpha=0.2)末值=%.2f（平滑）\n&quot;, ema);</span><span class="ln">    if (ema &lt;= 10 || ema &gt;= 100) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">时域滤波模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_filter.c -o labs/host_filter &amp;&amp; ./labs/host_filter</span>
+均值=28.0（被尖峰拉高）
+中值(窗口)=10（抗尖峰）
+EMA(alpha=0.2)末值=21.52（平滑）
+RESULT: PASS</code></pre></div></div><p class="sim-note">同样含尖峰的序列：均值被拉高、中值抗脉冲、EMA 平滑但仍有滞后。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 3.2  输出对比</div><table><thead><tr><th>滤波</th><th>序列</th><th>输出</th></tr></thead><tbody><tr><td>均值</td><td>{10,10,100,10,10}</td><td>28.0</td></tr><tr><td>中值</td><td>窗口</td><td>10</td></tr><tr><td>EMA(α=0.2)</td><td>递推</td><td>21.52</td></tr><tr><td>权衡</td><td>平滑/延迟</td><td>按场景</td></tr></tbody></table></div></section><section class="sec" id="m03-delay"><h2 id="m03-delay-t">3.3 延迟与权衡</h2><p>滤波都有延迟：闭环里滤波延迟会削减相位裕度。选择滤波要在“平滑度/延迟/抗噪”之间权衡。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">filter.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">ema = alpha*x + (1-alpha)*ema;             // EMA 递推</span><span class="ln">median = median_of(window, N);             // 中值抗脉冲</span><span class="ln">/* 闭环中滤波延迟会削相位裕度，需权衡平滑与延迟 */</span>
+</code></pre><span class="code-note">EMA 单状态递推；中值抗脉冲；注意延迟</span></div><div class="tbl-wrap"><div class="tbl-cap">表 3.3  滤波选择</div><table><thead><tr><th>目标</th><th>选择</th><th>避免</th></tr></thead><tbody><tr><td>平滑</td><td>平均/EMA</td><td>窗口过大延迟</td></tr><tr><td>抗脉冲</td><td>中值</td><td>用均值</td></tr><tr><td>少状态</td><td>EMA</td><td>大窗口</td></tr><tr><td>闭环</td><td>控制延迟</td><td>延迟削相位</td></tr></tbody></table></div></section><section class="sec" id="m03-check"><h2 id="m03-check-t">3.4 自检</h2><p>滤波自检：选型匹配、延迟在预算内、抗脉冲正确、边界处理对。</p><figure class="fig" id="fig-图-3-2"><div class="fig-hd"><strong>图 3.2</strong> 滤波选型</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="滤波选型" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">看噪声</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">看状态</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">选滤波</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">控延迟</text></svg></div><figcaption class="fig-ft">有脉冲噪声？→ 中值；要少状态？→ EMA；要最平滑？→ 平均；闭环要控延迟。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 3.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>噪声类型</td><td>脉冲→中值</td><td>均值抗脉冲</td></tr><tr><td>延迟</td><td>在预算内</td><td>削相位</td></tr><tr><td>状态</td><td>EMA 少状态</td><td>大窗口</td></tr><tr><td>边界</td><td>处理启动瞬态</td><td>瞬态大</td></tr></tbody></table></div></section><section class="sec" id="m03-pitfalls"><h2 id="m03-pitfalls-t">3.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>滤波延迟影响闭环</strong>：振荡/失稳。</li><li><strong>用均值抗尖峰</strong>：脉冲被摊开。</li><li><strong>窗口太大</strong>：响应慢。</li><li><strong>边界处理错</strong>：启动瞬态大。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 03（先答再看）</div><ol><li><p class="q">为什么闭环里要小心滤波延迟？</p><details><summary>查看答案</summary><div class="ans"><p>滤波引入相位滞后，会降低相位裕度，使系统更易振荡。要在平滑与延迟之间权衡，必要时补偿。</p></div></details></li><li><p class="q">抗脉冲噪声应该用什么滤波？</p><details><summary>查看答案</summary><div class="ans"><p>中值滤波。它对脉冲（尖峰）不敏感，而滑动平均会被尖峰拉高。</p></div></details></li><li><p class="q">EMA 的优点是什么？</p><details><summary>查看答案</summary><div class="ans"><p>只需一个状态（上一个输出），计算/内存开销小，且 α 可调平滑程度；代价是相位延迟。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一路含脉冲噪声的信号选滤波（如中值），并核对滤波延迟在你的闭环预算内。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.dspguide.com/" target="_blank" rel="noopener noreferrer">Smith 数字信号处理</a> · <a class="ref" href="https://arm-software.github.io/CMSIS-DSP/main/" target="_blank" rel="noopener noreferrer">CMSIS-DSP 文档</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_filter.c</code>：对比均值被尖峰拉高、中值抗尖峰、EMA 平滑。</p><p><strong>检查结果：</strong>序列 {10,10,100,10,10}：均值 28.0、窗口中值 10、EMA(α=0.2) 末值 21.52。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现滑动平均/中值/EMA 并在平滑度、抗脉冲与延迟之间权衡。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 03 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m03">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m03"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>序列 {10,10,100,10,10}：均值 28.0、窗口中值 10、EMA(α=0.2) 末值 21.52。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m04">
+    <div class="ch-head">
+      <div class="ch-badge">Module 04 · 滤波与频谱</div>
+      <h1 class="ch-title">FIR 与 IIR<span class="acc">.</span></h1>
+      <p class="ch-lead">FIR 无反馈（一定稳定、可线性相位、阶数高）；IIR 有反馈（低阶高效、但要注意<strong>极点与稳定性</strong>）。</p>
+      <div class="ch-meta"><span>前置：会差分方程与循环，理解单位阶跃响应。</span><span>◷ 约 44 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现 FIR/IIR 差分方程并检查 IIR 极点稳定性与系数量化误差。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>FIR 无反馈稳定可线性相位；IIR 低阶高效但查极点。</li><li>实现即差分方程；系数量化注意精度。</li><li>按频响需求选阶数。</li></ul></div>
+    <section class="sec" id="m04-fir"><h2 id="m04-fir-t">4.1 FIR vs IIR</h2><p>FIR 无反馈（一定稳定、可线性相位、阶数高）；IIR 有反馈（低阶高效、但要注意极点与稳定性）。实现就是差分方程。</p><figure class="fig" id="fig-图-4-1"><div class="fig-hd"><strong>图 4.1</strong> FIR 与 IIR 的结构</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="FIR 与 IIR 的结构" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">输入 x[n]</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">FIR：Σa·x</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">IIR：Σb·y</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">输出 y[n]</text></svg></div><figcaption class="fig-ft">FIR：只累加输入（无反馈）→ 稳定/线性相位；IIR：还累加输出（有反馈）→ 需查极点。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.1  FIR/IIR 对比</div><table><thead><tr><th>类型</th><th>特点</th><th>注意</th></tr></thead><tbody><tr><td>FIR</td><td>无反馈、线性相位</td><td>阶数/延迟高</td></tr><tr><td>IIR</td><td>低阶高效</td><td>极点稳定/非线性相位</td></tr><tr><td>差分方程</td><td>y[n]=Σa x + Σb y</td><td>系数与实现</td></tr><tr><td>稳定性</td><td>极点单位圆内</td><td>IIR 必查</td></tr><tr><td>量化</td><td>系数定点</td><td>精度/极限环</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">fir.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">y = (x[n]+x[n-1]+x[n-2])/3;            // 3 点 FIR</span><span class="ln">y = 0.5*y_prev + 0.5*x;                 // 一阶 IIR (极点 0.5)</span><span class="ln">/* IIR：极点须 |p|&lt;1；定系数注意量化误差/极限环 */</span>
+</code></pre><span class="code-note">FIR 无反馈；IIR 有反馈需查极点稳定性</span></div></section><section class="sec" id="m04-evidence"><h2 id="m04-evidence-t">4.2 真实证据：FIR 与 IIR 响应</h2><p>下面这段程序验证 FIR 输出与 IIR 一阶阶跃响应：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_fir.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_fir.c —— FIR/IIR 差分方程（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_fir.c -o host_fir &amp;&amp; ./host_fir</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 3 点滑动平均 FIR: y[n]=(x[n]+x[n-1]+x[n-2])/3 */</span><span class="ln">    int x[] = {0,0,6,6,6,0,0};</span><span class="ln">    int n = 7;</span><span class="ln">    printf(&quot;FIR 输出: &quot;);</span><span class="ln">    for (int i=2;i&lt;n;i++) printf(&quot;%d &quot;, (x[i]+x[i-1]+x[i-2])/3);</span><span class="ln">    printf(&quot;(期望 2 4 6 4 2)\n&quot;);</span><span class="ln">    /* IIR 一阶：y[n]=0.5y[n-1]+0.5x[n] */</span><span class="ln">    double y = 0;</span><span class="ln">    printf(&quot;IIR 阶跃响应: &quot;);</span><span class="ln">    for (int i=0;i&lt;5;i++){ y = 0.5*y + 0.5*1.0; printf(&quot;%.3f &quot;, y); }</span><span class="ln">    printf(&quot;(趋向 1)\n&quot;);</span><span class="ln">    if (y &lt; 0.9 || y &gt; 1.0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">FIR/IIR 差分方程模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_fir.c -o labs/host_fir &amp;&amp; ./labs/host_fir</span>
+FIR 输出: 2 4 6 4 2 (期望 2 4 6 4 2)
+IIR 阶跃响应: 0.500 0.750 0.875 0.938 0.969 (趋向 1)
+RESULT: PASS</code></pre></div></div><p class="sim-note">3 点 FIR 对 {0,0,6,6,6,0,0} 输出 2 4 6 4 2；IIR 一阶阶跃趋于 1（0.500→0.969）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 4.2  响应结果</div><table><thead><tr><th>类型</th><th>输入</th><th>输出</th></tr></thead><tbody><tr><td>FIR</td><td>{0,0,6,6,6,0,0}</td><td>2 4 6 4 2</td></tr><tr><td>IIR 阶跃</td><td>一步</td><td>0.500→0.969</td></tr><tr><td>IIR 极点</td><td>0.5</td><td>单位圆内</td></tr><tr><td>稳定性</td><td>|p|<1</td><td>收敛</td></tr></tbody></table></div></section><section class="sec" id="m04-stable"><h2 id="m04-stable-t">4.3 稳定性与量化</h2><p>FIR 只累加输入，IIR 还累加输出。IIR 系数做定点时要注意量化误差与稳定性（极点须在单位圆内）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">fir.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">y = (x[n]+x[n-1]+x[n-2])/3;            // 3 点 FIR</span><span class="ln">y = 0.5*y_prev + 0.5*x;                 // 一阶 IIR (极点 0.5)</span><span class="ln">/* IIR：极点须 |p|&lt;1；定系数注意量化误差/极限环 */</span>
+</code></pre><span class="code-note">FIR 无反馈；IIR 有反馈需查极点稳定性</span></div><div class="tbl-wrap"><div class="tbl-cap">表 4.3  FIR/IIR 实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>FIR 无反馈</td><td>必稳定</td><td>阶数/延迟</td></tr><tr><td>IIR 低阶</td><td>高效</td><td>极点外→发散</td></tr><tr><td>查极点</td><td>稳定</td><td>IIR 不稳</td></tr><tr><td>量化注意</td><td>频响/极限环</td><td>精度损失</td></tr></tbody></table></div></section><section class="sec" id="m04-check"><h2 id="m04-check-t">4.4 自检</h2><p>滤波自检：FIR/IIR 选型、IIR 极点稳定、系数精度、响应符合预期。</p><figure class="fig" id="fig-图-4-2"><div class="fig-hd"><strong>图 4.2</strong> IIR 一阶阶跃响应（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="IIR 一阶阶跃响应（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">step1</text><rect x="150" y="26" width="300" height="18" rx="4" class="sv-cyn-s"/><text x="458" y="43" class="sv-lbl-hi">500(×10⁻³)</text><text x="12" y="67" class="sv-lbl">step3</text><rect x="150" y="50" width="525" height="18" rx="4" class="sv-amb-s"/><text x="683" y="67" class="sv-lbl-hi">875(×10⁻³)</text><text x="12" y="91" class="sv-lbl">step5</text><rect x="150" y="74" width="581" height="18" rx="4" class="sv-grn-s"/><text x="739" y="91" class="sv-lbl-hi">969(×10⁻³)</text></svg></div><figcaption class="fig-ft">一阶 IIR 阶跃 0.500→0.969，趋向 1；说明极点 0.5 在单位圆内，稳定。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 4.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>选型</td><td>FIR/IIR</td><td>不看需求</td></tr><tr><td>极点</td><td>|p|<1</td><td>IIR 发散</td></tr><tr><td>量化</td><td>检查频响</td><td>极限环</td></tr><tr><td>响应</td><td>对拍预期</td><td>偏差容忍</td></tr></tbody></table></div></section><section class="sec" id="m04-pitfalls"><h2 id="m04-pitfalls-t">4.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>IIR 不稳定</strong>：极点在外，输出发散。</li><li><strong>系数量化误差</strong>：频响偏移/极限环。</li><li><strong>FIR 阶数不够</strong>：过渡带太宽。</li><li><strong>不改线性相位却需要它</strong>：波形失真。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 04（先答再看）</div><ol><li><p class="q">FIR 与 IIR 最本质的区别是什么？</p><details><summary>查看答案</summary><div class="ans"><p>FIR 只有前馈（无反馈），所以一定稳定且可线性相位；IIR 有反馈，低阶即可陡峭但必须检查极点稳定性。</p></div></details></li><li><p class="q">IIR 稳定的条件是什么？</p><details><summary>查看答案</summary><div class="ans"><p>所有极点都在单位圆内（|p|<1）。极点在外或接近 1 会导致输出发散或长时间振荡。</p></div></details></li><li><p class="q">什么时候优先选 FIR？</p><details><summary>查看答案</summary><div class="ans"><p>需要线性相位（波形不失真）、要求绝对稳定、或系数需易量化时，选 FIR（代价是阶数/延迟高）。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你一路信号选 FIR 或 IIR，写差分方程并核对 IIR 极点稳定性与系数精度。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://arm-software.github.io/CMSIS-DSP/main/" target="_blank" rel="noopener noreferrer">CMSIS-DSP 文档</a> · <a class="ref" href="https://www.dspguide.com/" target="_blank" rel="noopener noreferrer">Smith 数字信号处理</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_fir.c</code>：验证 FIR 滑动平均输出与 IIR 一阶阶跃响应。</p><p><strong>检查结果：</strong>FIR 对 {0,0,6,6,6,0,0} 输出 2 4 6 4 2；IIR 一阶阶跃 0.500→0.969 趋向 1。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现 FIR/IIR 差分方程并检查 IIR 极点稳定性与系数量化误差。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 04 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m04">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m04"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>FIR 对 {0,0,6,6,6,0,0} 输出 2 4 6 4 2；IIR 一阶阶跃 0.500→0.969 趋向 1。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m05">
+    <div class="ch-head">
+      <div class="ch-badge">Module 05 · 滤波与频谱</div>
+      <h1 class="ch-title">FFT 与频谱分析<span class="acc">.</span></h1>
+      <p class="ch-lead">频域分析把时域信号分解成频率成分：<strong>DFT/FFT、频率分辨率、窗函数</strong>是关键。分辨率 ≈ fs/N。</p>
+      <div class="ch-meta"><span>前置：理解复数/三角函数，读过 M01 采样。</span><span>◷ 约 44 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能对信号做 DFT/FFT 并正确加窗、读频率分辨率与峰值。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>FFT 前加窗减少泄漏；分辨率≈fs/N。</li><li>点数决定分辨率，不能靠插值。</li><li>峰值检测找主频/谐波。</li></ul></div>
+    <section class="sec" id="m05-fft"><h2 id="m05-fft-t">5.1 DFT/FFT、分辨率、窗</h2><p>DFT/FFT 把时域分解成频率成分。分辨率 ≈ fs/N（由点数决定，不是靠插值）；非整周期截断会产生泄漏，要加窗。</p><figure class="fig" id="fig-图-5-1"><div class="fig-hd"><strong>图 5.1</strong> DFT 峰值（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="DFT 峰值（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">bin0</text><rect x="150" y="26" width="2" height="18" rx="4" class="sv-box"/><text x="160" y="43" class="sv-lbl-hi">0(×10⁻²)</text><text x="12" y="67" class="sv-lbl">bin2 峰值</text><rect x="150" y="50" width="533" height="18" rx="4" class="sv-grn-s"/><text x="691" y="67" class="sv-lbl-hi">400(×10⁻²)</text><text x="12" y="91" class="sv-lbl">bin4</text><rect x="150" y="74" width="2" height="18" rx="4" class="sv-box"/><text x="160" y="91" class="sv-lbl-hi">0(×10⁻²)</text></svg></div><figcaption class="fig-ft">对 bin=2 的余弦做 DFT，峰值出现在 bin=2、幅度 4.00；分辨率 Δf=fs/N。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.1  频域五概念</div><table><thead><tr><th>概念</th><th>含义</th><th>注意</th></tr></thead><tbody><tr><td>DFT/FFT</td><td>时→频</td><td>FFT 是快速算法</td></tr><tr><td>分辨率</td><td>fs/N</td><td>点数决定</td></tr><tr><td>泄漏</td><td>非整周期截断</td><td>加窗</td></tr><tr><td>窗函数</td><td>抑制泄漏</td><td>主瓣/旁瓣权衡</td></tr><tr><td>峰值</td><td>主频</td><td>找局部最大</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">dft.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">X[k] = sum x[n]*exp(-j*2*pi*k*n/N);    // DFT</span><span class="ln">mag = 2*sqrt(re*re + im*im)/N;         // 单边幅度</span><span class="ln">/* 非整周期截断要加窗；分辨率 df=fs/N */</span>
+</code></pre><span class="code-note">DFT 求幅度；非整周期加窗；分辨率=fs/N</span></div></section><section class="sec" id="m05-evidence"><h2 id="m05-evidence-t">5.2 真实证据：峰值检测</h2><p>下面这段程序对 bin=2 的余弦做 DFT 并找峰值：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_dft.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_dft.c —— DFT 幅度与峰值检测（N=8）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_dft.c -o host_dft -lm &amp;&amp; ./host_dft</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int N = 8;</span><span class="ln">    double x[8];</span><span class="ln">    for (int n=0;n&lt;N;n++) x[n] = cos(2*3.14159265358979*2*n/N);   /* 频率 bin=2 */</span><span class="ln">    int peak = 0; double pmax = 0;</span><span class="ln">    for (int k=0;k&lt;N;k++) {</span><span class="ln">        double re=0, im=0;</span><span class="ln">        for (int n=0;n&lt;N;n++){ re += x[n]*cos(2*3.14159265358979*k*n/N); im -= x[n]*sin(2*3.14159265358979*k*n/N); }</span><span class="ln">        double mag = sqrt(re*re+im*im);</span><span class="ln">        if (mag &gt; pmax) { pmax = mag; peak = k; }</span><span class="ln">    }</span><span class="ln">    printf(&quot;峰值 bin=%d（期望 2）幅度=%.2f\n&quot;, peak, pmax);</span><span class="ln">    if (peak != 2) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">DFT/峰值检测模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft &amp;&amp; ./labs/host_dft</span>
+峰值 bin=2（期望 2）幅度=4.00
+RESULT: PASS</code></pre></div></div><p class="sim-note">N=8、输入 bin=2 余弦，峰值出现在 bin=2、幅度 4.00；分辨率 Δf=fs/N。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 5.2  频谱结果</div><table><thead><tr><th>量</th><th>公式</th><th>值</th></tr></thead><tbody><tr><td>峰值 bin</td><td>局部最大</td><td>2</td></tr><tr><td>幅度</td><td>2·|X[k]|/N</td><td>4.00</td></tr><tr><td>分辨率</td><td>fs/N</td><td>Δf</td></tr><tr><td>窗</td><td>抑制泄漏</td><td>按需</td></tr></tbody></table></div></section><section class="sec" id="m05-window"><h2 id="m05-window-t">5.3 加窗与读数</h2><p>分析前要加窗减少泄漏；分辨率由 N 决定，不是靠“插值”提高。峰值检测用于找主频/谐波，是振动/音频诊断的基础。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">dft.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">X[k] = Σ x[n]·e^{-j2πkn/N};            // DFT</span><span class="ln">mag = 2*sqrt(re*re + im*im)/N;         // 单边幅度</span><span class="ln">/* 非整周期截断要加窗；分辨率 Δf=fs/N */</span>
+</code></pre><span class="code-note">DFT 求幅度；非整周期加窗；分辨率=fs/N</span></div><div class="tbl-wrap"><div class="tbl-cap">表 5.3  频谱实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>加窗</td><td>抑泄漏</td><td>频谱糊</td></tr><tr><td>点数 N</td><td>提分辨率</td><td>点数不足</td></tr><tr><td>前置抗混叠</td><td>防假峰</td><td>混叠</td></tr><tr><td>bin→Hz</td><td>换算</td><td>把 bin 当 Hz</td></tr></tbody></table></div></section><section class="sec" id="m05-check"><h2 id="m05-check-t">5.4 自检</h2><p>频谱自检：加窗、点数足够、无混叠、bin 换算正确。</p><figure class="fig" id="fig-图-5-2"><div class="fig-hd"><strong>图 5.2</strong> 频谱分析流程</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="频谱分析流程" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">采样</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">加窗</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">DFT</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">峰值/换算</text></svg></div><figcaption class="fig-ft">采样（抗混叠）→ 加窗 → DFT/FFT → 求幅度 → 找峰值 → bin→Hz。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 5.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>加窗</td><td>抑泄漏</td><td>不加窗</td></tr><tr><td>点数</td><td>≥周期数</td><td>分辨率不足</td></tr><tr><td>混叠</td><td>前置滤波</td><td>假峰</td></tr><tr><td>换算</td><td>bin×fs/N</td><td>把 bin 当 Hz</td></tr></tbody></table></div></section><section class="sec" id="m05-pitfalls"><h2 id="m05-pitfalls-t">5.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>不加窗</strong>：泄漏导致频谱糊。</li><li><strong>点数不足</strong>：分辨率不够。</li><li><strong>混叠未滤</strong>：频谱有假峰。</li><li><strong>把 bin 当 Hz</strong>：换算错。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 05（先答再看）</div><ol><li><p class="q">频率分辨率由什么决定？</p><details><summary>查看答案</summary><div class="ans"><p>由采样率与点数决定，分辨率 ≈ fs/N。想提高分辨率要么加长采样（增大 N），要么降低 fs（同时要满足 Nyquist）。</p></div></details></li><li><p class="q">为什么频谱分析前要加窗？</p><details><summary>查看答案</summary><div class="ans"><p>非整周期截断会造成频谱泄漏（能量扩散）。加窗抑制旁瓣，让峰值更清晰、幅度更准。</p></div></details></li><li><p class="q">bin 如何换算成频率？</p><details><summary>查看答案</summary><div class="ans"><p>频率 = bin × fs/N。把 bin 直接当 Hz 是常见错误。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：对你一段振动/音频信号做 FFT：加窗、读分辨率与峰值，并换算成 Hz。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://pysdr.org/" target="_blank" rel="noopener noreferrer">PySDR</a> · <a class="ref" href="https://arm-software.github.io/CMSIS-DSP/main/" target="_blank" rel="noopener noreferrer">CMSIS-DSP 文档</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_dft.c</code>：对 bin=2 的余弦做 DFT 并找峰值。</p><p><strong>检查结果：</strong>峰值出现在 bin=2、幅度=4.00；分辨率 Δf=fs/N。</p></div>
+<p class="sim-note">迁移练习：把本章的“能对信号做 DFT/FFT 并正确加窗、读频率分辨率与峰值。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 05 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m05">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m05"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>峰值出现在 bin=2、幅度=4.00；分辨率 Δf=fs/N。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m06">
+    <div class="ch-head">
+      <div class="ch-badge">Module 06 · 特征与融合</div>
+      <h1 class="ch-title">特征提取与流式计算<span class="acc">.</span></h1>
+      <p class="ch-lead">特征把原始信号压缩成“可判别且算得起”的指标：<strong>时域（RMS/峰峰值/峭度）、频域</strong>。流式实现要维护窗口状态。</p>
+      <div class="ch-meta"><span>前置：理解均值/方差，读过 M03 时域滤波。</span><span>◷ 约 44 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能计算 RMS/峰峰值/过零率/峭度并以窗口+重叠方式流式维护。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>特征要可判别且算得起；口径与下游一致。</li><li>流式维护窗口状态、处理窗口未满。</li><li>按窗口+重叠计算。</li></ul></div>
+    <section class="sec" id="m06-feat"><h2 id="m06-feat-t">6.1 时域特征</h2><p>特征把原始信号压缩成可判别且算得起的指标。RMS 对能量、峰峰值对冲击、过零率对频率成分、峭度对冲击/故障敏感。流式要维护窗口状态。</p><figure class="fig" id="fig-图-6-1"><div class="fig-hd"><strong>图 6.1</strong> 正弦 vs 正弦+冲击的特征（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="正弦 vs 正弦+冲击的特征（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">峰峰值</text><rect x="150" y="26" width="420" height="18" rx="4" class="sv-amb-s"/><text x="578" y="43" class="sv-lbl-hi">700(×10⁻²)</text><text x="12" y="67" class="sv-lbl">峭度×100</text><rect x="150" y="50" width="559" height="18" rx="4" class="sv-red-s"/><text x="717" y="67" class="sv-lbl-hi">931(×10⁻²)</text></svg></div><figcaption class="fig-ft">叠加冲击后峰峰值 2.000→7.000、峭度 1.500→9.309（>3 提示冲击），RMS 也上升。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.1  时域/频域特征</div><table><thead><tr><th>特征</th><th>敏感于</th><th>成本</th></tr></thead><tbody><tr><td>RMS</td><td>能量</td><td>低</td></tr><tr><td>峰峰值</td><td>冲击</td><td>低</td></tr><tr><td>过零率</td><td>频率成分</td><td>低</td></tr><tr><td>峭度</td><td>冲击/故障</td><td>中</td></tr><tr><td>频谱峰</td><td>周期</td><td>中高</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">feat.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (count &lt; N) return;                 // 窗口未满不输出</span><span class="ln">rms = sqrt(sumsq / N);</span><span class="ln">kurt = moment4 / (rms*rms*rms*rms);     // 峭度&gt;3 提示冲击</span><span class="ln">/* 窗口+重叠；口径与训练一致（B13 M03） */</span>
+</code></pre><span class="code-note">窗口未满不输出；流式窗口与离线口径一致</span></div></section><section class="sec" id="m06-evidence"><h2 id="m06-evidence-t">6.2 真实证据：正弦与冲击</h2><p>下面这段程序计算正弦与“正弦+冲击”的时域特征：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_feat.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_feat.c —— 时域特征：RMS/峰峰值/过零率/峭度（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_feat.c -o host_feat -lm &amp;&amp; ./host_feat</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln"></span><span class="ln">#define N 16</span><span class="ln">static const double PI = 3.14159265358979;</span><span class="ln"></span><span class="ln">static void feat(const char *name, const double *x, int n) {</span><span class="ln">    double sum = 0; for (int i = 0; i &lt; n; i++) sum += x[i];</span><span class="ln">    double mean = sum / n;</span><span class="ln">    double m2 = 0, m4 = 0, vmin = x[0], vmax = x[0];</span><span class="ln">    int zc = 0;</span><span class="ln">    for (int i = 0; i &lt; n; i++) {</span><span class="ln">        double d = x[i] - mean; m2 += d*d; m4 += d*d*d*d;</span><span class="ln">        if (x[i] &lt; vmin) vmin = x[i];</span><span class="ln">        if (x[i] &gt; vmax) vmax = x[i];</span><span class="ln">        if (i &gt; 0 &amp;&amp; ((x[i-1] &lt; 0) != (x[i] &lt; 0))) zc++;   /* 过零率：符号翻转/(n-1) */</span><span class="ln">    }</span><span class="ln">    m2 /= n; m4 /= n;</span><span class="ln">    double rms = sqrt(m2 + mean*mean);            /* RMS 含直流分量 */</span><span class="ln">    double p2p = vmax - vmin;                     /* 峰峰值 */</span><span class="ln">    double zcr = (double)zc / (n - 1);            /* 过零率 ∈ [0,1] */</span><span class="ln">    double kurt = m4 / (m2*m2);                   /* 峭度（正态=3） */</span><span class="ln">    printf(&quot;%s: RMS=%.3f 峰峰值=%.3f 过零率=%.3f 峭度=%.3f\n&quot;, name, rms, p2p, zcr, kurt);</span><span class="ln">}</span><span class="ln"></span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double smooth[N], spiky[N];</span><span class="ln">    for (int i = 0; i &lt; N; i++) {</span><span class="ln">        smooth[i] = sin(2*PI*i/8.0);   /* 2 个周期正弦 */</span><span class="ln">        spiky[i]  = smooth[i];</span><span class="ln">    }</span><span class="ln">    spiky[4] += 6.0;                   /* 叠加一个冲击，考察峭度敏感性 */</span><span class="ln"></span><span class="ln">    printf(&quot;窗口 N=%d（单位：采样点）\n&quot;, N);</span><span class="ln">    feat(&quot;正弦      &quot;, smooth, N);</span><span class="ln">    feat(&quot;正弦+冲击 &quot;, spiky, N);</span><span class="ln"></span><span class="ln">    /* 断言：正弦峭度≈1.5、冲击信号峭度&gt;3（提示冲击/故障） */</span><span class="ln">    double ms=0, s2=0, s4=0; for (int i=0;i&lt;N;i++){ s2+=smooth[i]*smooth[i]; s4+=smooth[i]*smooth[i]*smooth[i]*smooth[i]; } s2/=N; s4/=N; ms=s4/(s2*s2);</span><span class="ln">    double ps=0, p2=0, p4=0, mean=0; for (int i=0;i&lt;N;i++) mean+=spiky[i]; mean/=N;</span><span class="ln">    for (int i=0;i&lt;N;i++){ double d=spiky[i]-mean; p2+=d*d; p4+=d*d*d*d; } p2/=N; p4/=N; ps=p4/(p2*p2);</span><span class="ln">    if (fabs(ms-1.5) &gt; 0.05) ok = 0;</span><span class="ln">    if (ps &lt;= 3.0) ok = 0;</span><span class="ln"></span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">时域特征模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_feat.c -o labs/host_feat &amp;&amp; ./labs/host_feat</span>
+正弦      : RMS=0.707 峰峰值=2.000 过零率=0.200 峭度=1.500
+正弦+冲击 : RMS=1.658 峰峰值=7.000 过零率=0.200 峭度=9.309
+RESULT: PASS</code></pre></div></div><p class="sim-note">同一窗口叠加冲击后：峰峰值 2.000→7.000、峭度 1.500→9.309（>3 提示冲击）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 6.2  特征数值</div><table><thead><tr><th>特征</th><th>正弦</th><th>正弦+冲击</th></tr></thead><tbody><tr><td>RMS</td><td>0.707</td><td>1.658</td></tr><tr><td>峰峰值</td><td>2.000</td><td>7.000</td></tr><tr><td>过零率</td><td>0.200</td><td>0.200</td></tr><tr><td>峭度</td><td>1.500</td><td>9.309</td></tr></tbody></table></div></section><section class="sec" id="m06-stream"><h2 id="m06-stream-t">6.3 流式窗口与口径</h2><p>特征口径必须与训练/下游一致；流式按窗口+重叠计算，注意窗口未满与分块边界（启动时窗口不足会算错）。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">feat.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">if (count &lt; N) return;                 // 窗口未满不输出</span><span class="ln">rms = sqrt(sumsq / N); kurt = moment4 / (rms*rms*rms*rms);</span><span class="ln">/* 窗口+重叠；口径与训练一致（B13 M03） */</span>
+</code></pre><span class="code-note">窗口未满不输出；流式窗口与离线口径一致</span></div><div class="tbl-wrap"><div class="tbl-cap">表 6.3  流式特征实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>窗口+重叠</td><td>边界连续</td><td>丢边界样本</td></tr><tr><td>窗口未满处理</td><td>口径正确</td><td>错误统计</td></tr><tr><td>口径一致</td><td>可训练/推理</td><td>分布偏移</td></tr><tr><td>算成本</td><td>在预算内</td><td>超算力</td></tr></tbody></table></div></section><section class="sec" id="m06-check"><h2 id="m06-check-t">6.4 自检</h2><p>特征自检：口径一致、窗口状态正确、特征成本在预算内、边界连续。</p><figure class="fig" id="fig-图-6-2"><div class="fig-hd"><strong>图 6.2</strong> 流式特征</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="流式特征" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">滑动窗口</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">算特征</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">窗口满输出</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">馈送下游</text></svg></div><figcaption class="fig-ft">滑动窗口 → 计算特征（RMS/峭度…）→ 输出（窗口未满不输出）→ 馈送下游/AI。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 6.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>窗口</td><td>长度+重叠</td><td>边界丢失</td></tr><tr><td>未满</td><td>不输出</td><td>错误统计</td></tr><tr><td>口径</td><td>与训练一致</td><td>偏移</td></tr><tr><td>成本</td><td>估 MAC</td><td>超预算</td></tr></tbody></table></div></section><section class="sec" id="m06-pitfalls"><h2 id="m06-pitfalls-t">6.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>口径不一致</strong>：训练/在线特征不同。</li><li><strong>窗口状态错</strong>：流式结果与离线不符。</li><li><strong>特征太贵</strong>：超算力预算。</li><li><strong>不做重叠</strong>：边界样本丢失。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 06（先答再看）</div><ol><li><p class="q">为什么流式特征要特别处理“窗口未满”？</p><details><summary>查看答案</summary><div class="ans"><p>启动时窗口数据不足，若照常计算会得到错误统计。应等待窗口填满或明确标注，保证在线与离线口径一致。</p></div></details></li><li><p class="q">哪个特征对“冲击/故障”最敏感？</p><details><summary>查看答案</summary><div class="ans"><p>峭度（kurtosis）。正常信号峭度约 3，冲击会显著抬高（本例 1.5→9.3）；峰峰值也能反映冲击。</p></div></details></li><li><p class="q">为什么特征口径要与训练一致？</p><details><summary>查看答案</summary><div class="ans"><p>模型按特定特征分布训练。在线口径不同会导致输入分布偏移，精度下降（见 B13）。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你信号选一组特征（RMS/峰峰值/峭度）流式计算，并与离线/训练口径对齐。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://arm-software.github.io/CMSIS-DSP/main/" target="_blank" rel="noopener noreferrer">CMSIS-DSP 文档</a> · <a class="ref" href="https://www.dspguide.com/" target="_blank" rel="noopener noreferrer">Smith 数字信号处理</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_feat.c</code>：计算正弦与“正弦+冲击”的特征并对照期望值。</p><p><strong>检查结果：</strong>N=16：正弦 RMS=0.707、峰峰值=2.000、过零率=0.200、峭度=1.500；叠加冲击后峭度 9.309。</p></div>
+<p class="sim-note">迁移练习：把本章的“能计算 RMS/峰峰值/过零率/峭度并以窗口+重叠方式流式维护。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 06 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m06">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m06"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>N=16：正弦 RMS=0.707、峰峰值=2.000、过零率=0.200、峭度=1.500；叠加冲击后峭度 9.309。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m07">
+    <div class="ch-head">
+      <div class="ch-badge">Module 07 · 特征与融合</div>
+      <h1 class="ch-title">状态估计与传感器融合<span class="acc">.</span></h1>
+      <p class="ch-lead">传感器融合用<strong>模型 + 观测</strong>估计真实状态：互补滤波简单，<strong>卡尔曼</strong>按不确定度加权。Q/R 决定信任谁。</p>
+      <div class="ch-meta"><span>前置：理解概率/方差，读过 M02 标定。</span><span>◷ 约 44 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现标量卡尔曼/互补滤波，设定 Q/R 并观察创新序列是否发散。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>融合=模型预测+观测更新；Q/R 决定信任。</li><li>看创新序列发现异常观测。</li><li>丢样只预测不更新，不伪造观测。</li></ul></div>
+    <section class="sec" id="m07-kalman"><h2 id="m07-kalman-t">7.1 预测/更新与 Q/R</h2><p>融合用模型 + 观测估计真实状态。卡尔曼按不确定度加权：Q（过程噪声）大→更信观测；R（观测噪声）大→更信模型。</p><figure class="fig" id="fig-图-7-1"><div class="fig-hd"><strong>图 7.1</strong> 卡尔曼的两步循环</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="卡尔曼的两步循环" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">预测</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">更新</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">增益加权</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">循环</text></svg></div><figcaption class="fig-ft">预测（用模型外推）→ 更新（用观测校正，增益由 P/Q/R 决定）→ 循环。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.1  卡尔曼五概念</div><table><thead><tr><th>概念</th><th>作用</th><th>调参</th></tr></thead><tbody><tr><td>预测</td><td>用模型外推</td><td>Q 大→更信观测</td></tr><tr><td>更新</td><td>用观测校正</td><td>R 大→更信模型</td></tr><tr><td>卡尔曼增益</td><td>加权</td><td>自动随 P 变化</td></tr><tr><td>创新</td><td>观测−预测</td><td>异常检测</td></tr><tr><td>发散</td><td>P 失控</td><td>检查模型/异常观测</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">kalman.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">P = P + Q;                                   // 预测</span><span class="ln">K = P / (P + R); x += K*(z - x); P *= (1-K);  // 更新</span><span class="ln">/* 丢样：只预测不更新（R→无穷）；创新异常 → 报警 */</span>
+</code></pre><span class="code-note">预测/更新；丢样只预测；创新查异常</span></div></section><section class="sec" id="m07-evidence"><h2 id="m07-evidence-t">7.2 真实证据：收敛与方差</h2><p>下面这段程序验证标量卡尔曼收敛且方差不失控：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_kalman.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_kalman.c —— 标量卡尔曼/互补滤波融合（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_kalman.c -o host_kalman &amp;&amp; ./host_kalman</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    /* 一维卡尔曼：预测 x 不变，更新用观测，增益随不确定度变化 */</span><span class="ln">    double x = 0, P = 1, Q = 1e-4, R = 0.1;</span><span class="ln">    double obs[] = {1.0, 1.1, 0.9, 1.05, 1.0};</span><span class="ln">    for (int i=0;i&lt;5;i++) {</span><span class="ln">        P += Q;                                  /* 预测 */</span><span class="ln">        double K = P / (P + R);                  /* 增益 */</span><span class="ln">        x = x + K * (obs[i] - x);                /* 更新 */</span><span class="ln">        P = (1 - K) * P;</span><span class="ln">    }</span><span class="ln">    printf(&quot;融合结果 x=%.3f（观测均值≈1.01）\n&quot;, x);</span><span class="ln">    if (x &lt; 0.9 || x &gt; 1.1) ok = 0;</span><span class="ln">    printf(&quot;方差 P=%.4f（已收敛）\n&quot;, P);</span><span class="ln">    if (P &lt;= 0) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">标量卡尔曼模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_kalman.c -o labs/host_kalman &amp;&amp; ./labs/host_kalman</span>
+融合结果 x=0.990（观测均值≈1.01）
+方差 P=0.0197（已收敛）
+RESULT: PASS</code></pre></div></div><p class="sim-note">Q=1e-4、R=0.1，融合结果 0.990 接近观测均值 1.01；方差 P=0.0197 收敛（>0，未发散）。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 7.2  融合结果</div><table><thead><tr><th>量</th><th>值</th><th>含义</th></tr></thead><tbody><tr><td>融合结果</td><td>0.990</td><td>接近真值</td></tr><tr><td>方差 P</td><td>0.0197</td><td>收敛</td></tr><tr><td>Q</td><td>1e-4</td><td>过程噪声</td></tr><tr><td>R</td><td>0.1</td><td>观测噪声</td></tr></tbody></table></div></section><section class="sec" id="m07-innovation"><h2 id="m07-innovation-t">7.3 创新序列与丢样</h2><p>观察创新序列（观测−预测）可发现异常观测与模型失配；丢样时只预测不更新，绝不能伪造观测。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">kalman.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">x = x; P = P + Q;                          // 预测</span><span class="ln">K = P / (P + R); x += K*(z - x); P *= (1-K);  // 更新</span><span class="ln">/* 丢样：只预测不更新（R→无穷）；创新异常 → 报警 */</span>
+</code></pre><span class="code-note">预测/更新；丢样只预测；创新查异常</span></div><div class="tbl-wrap"><div class="tbl-cap">表 7.3  融合情形处理</div><table><thead><tr><th>情形</th><th>处理</th><th>原因</th></tr></thead><tbody><tr><td>正常</td><td>预测+更新</td><td>有观测</td></tr><tr><td>丢样</td><td>只预测</td><td>无观测（勿伪造）</td></tr><tr><td>异常观测</td><td>据创新剔除/降权</td><td>离群</td></tr><tr><td>发散</td><td>查模型/Q/R</td><td>失配</td></tr></tbody></table></div></section><section class="sec" id="m07-check"><h2 id="m07-check-t">7.4 自检</h2><p>融合自检：收敛不发散、Q/R 合理、创新可查、丢样只预测。</p><figure class="fig" id="fig-图-7-2"><div class="fig-hd"><strong>图 7.2</strong> 融合结果与方差（真实值）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="融合结果与方差（真实值）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">观测均值</text><rect x="150" y="26" width="551" height="18" rx="4" class="sv-cyn-s"/><text x="709" y="43" class="sv-lbl-hi">1010(×10⁻³)</text><text x="12" y="67" class="sv-lbl">融合结果</text><rect x="150" y="50" width="540" height="18" rx="4" class="sv-grn-s"/><text x="698" y="67" class="sv-lbl-hi">990(×10⁻³)</text><text x="12" y="91" class="sv-lbl">方差P</text><rect x="150" y="74" width="107" height="18" rx="4" class="sv-amb-s"/><text x="265" y="91" class="sv-lbl-hi">197(×10⁻³)</text></svg></div><figcaption class="fig-ft">融合结果 0.990 接近观测均值 1.01；方差 P=0.0197 收敛（未发散）。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 7.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>模型</td><td>状态方程</td><td>模型错</td></tr><tr><td>Q/R</td><td>按噪声定</td><td>不合理</td></tr><tr><td>创新</td><td>监控异常</td><td>忽略</td></tr><tr><td>丢样</td><td>只预测</td><td>伪造观测</td></tr></tbody></table></div></section><section class="sec" id="m07-pitfalls"><h2 id="m07-pitfalls-t">7.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>丢样伪造观测</strong>：估计被带偏。</li><li><strong>Q/R 不合理</strong>：过度平滑或抖动。</li><li><strong>模型错</strong>：估计发散。</li><li><strong>不看创新</strong>：异常观测未被发现。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 07（先答再看）</div><ol><li><p class="q">丢样时滤波器应该怎么做？</p><details><summary>查看答案</summary><div class="ans"><p>只做预测、跳过更新（相当于 R 无穷大）。绝不能“补一个观测值”，那会引入虚假信息使估计失真。</p></div></details></li><li><p class="q">Q 和 R 分别越大意味着什么？</p><details><summary>查看答案</summary><div class="ans"><p>Q（过程噪声）越大→更信观测、响应更快但更抖；R（观测噪声）越大→更信模型、更平滑但滞后。</p></div></details></li><li><p class="q">“创新序列”有什么用？</p><details><summary>查看答案</summary><div class="ans"><p>创新=观测−预测。若创新出现异常大值，说明观测离群或模型失配，可用于异常检测与告警。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你两路传感器做一次融合（卡尔曼/互补），设定 Q/R 并监控创新序列。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://www.kalmanfilter.net/" target="_blank" rel="noopener noreferrer">Kalman Filter 教程</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_kalman.c</code>：验证标量卡尔曼收敛且方差不失控。</p><p><strong>检查结果：</strong>融合结果 x=0.990（观测均值≈1.01）；方差 P=0.0197 收敛（>0）；无发散。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现标量卡尔曼/互补滤波，设定 Q/R 并观察创新序列是否发散。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 07 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m07">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m07"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>融合结果 x=0.990（观测均值≈1.01）；方差 P=0.0197 收敛（&gt;0）；无发散。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m08">
+    <div class="ch-head">
+      <div class="ch-badge">Module 08 · 控制与综合</div>
+      <h1 class="ch-title">控制系统基础<span class="acc">.</span></h1>
+      <p class="ch-lead">闭环控制用反馈把误差拉小，但引入<strong>稳定性</strong>问题：延迟、滤波、离散化都会削减相位裕度，过度增益导致振荡。</p>
+      <div class="ch-meta"><span>前置：理解微分方程/传递函数直觉，读过 M07。</span><span>◷ 约 42 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能分析闭环稳定性（相位裕度）并考虑采样离散化、延迟与执行器约束。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>闭环抗扰但可能振荡；延迟/滤波削裕度。</li><li>采样周期过大等于加延迟。</li><li>执行器约束要纳入设计。</li></ul></div>
+    <section class="sec" id="m08-control"><h2 id="m08-control-t">8.1 反馈、误差与稳定性</h2><p>闭环用反馈把误差拉小，但引入稳定性问题：延迟、滤波、离散化都会削减相位裕度，过度增益导致振荡。</p><figure class="fig" id="fig-图-8-1"><div class="fig-hd"><strong>图 8.1</strong> 闭环控制回路</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="闭环控制回路" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">设定值</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">误差</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">控制器</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">对象/反馈</text></svg></div><figcaption class="fig-ft">设定值 → 误差（目标−测量）→ 控制器 → 执行器 → 被控对象 → 测量反馈 → 闭环。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.1  控制五概念</div><table><thead><tr><th>概念</th><th>含义</th><th>注意</th></tr></thead><tbody><tr><td>开环/闭环</td><td>有/无反馈</td><td>闭环抗扰但可能振荡</td></tr><tr><td>误差</td><td>目标−测量</td><td>驱动控制</td></tr><tr><td>相位裕度</td><td>稳定余量</td><td>延迟/滤波吃掉</td></tr><tr><td>离散化</td><td>ZOH/采样周期</td><td>周期过大不稳</td></tr><tr><td>执行器约束</td><td>限幅/速率</td><td>影响性能</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">control.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">e = sp - y;                                  // 误差</span><span class="ln">u = clamp(pid(e), U_MIN, U_MAX);             // 限幅</span><span class="ln">/* 采样周期/滤波延迟 -&gt; 相位滞后；周期过大失稳 */</span>
+</code></pre><span class="code-note">误差驱动控制；限幅尊重执行器；周期/延迟影响稳定</span></div></section><section class="sec" id="m08-evidence"><h2 id="m08-evidence-t">8.2 真实证据：闭环收敛</h2><p>下面这段程序是闭环控制模型，验证收敛到设定值且不振荡：</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_pid.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_pid.c —— PID 与执行器约束（限幅/抗饱和）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_pid.c -o host_pid &amp;&amp; ./host_pid</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double kp=2, ki=0.5, I=0, hi=10, lo=0;</span><span class="ln">    double set=5, y=0, dt=0.1; int aw=1;</span><span class="ln">    for (int i=0;i&lt;200;i++) {</span><span class="ln">        double e = set - y;</span><span class="ln">        double u = kp*e + ki*I;</span><span class="ln">        int sat = 0;</span><span class="ln">        if (u &gt; hi) { u = hi; sat = 1; }</span><span class="ln">        if (u &lt; lo) { u = lo; sat = -1; }</span><span class="ln">        if (!(aw &amp;&amp; sat &amp;&amp; ((sat&gt;0&amp;&amp;e&gt;0)||(sat&lt;0&amp;&amp;e&lt;0)))) I += e*dt;</span><span class="ln">        y += dt*(u - y);                 /* 一阶对象 */</span><span class="ln">    }</span><span class="ln">    printf(&quot;最终 y=%.3f（期望 ~5）输出限幅 [%.0f,%.0f]\n&quot;, y, lo, hi);</span><span class="ln">    if (y &lt; 4.5 || y &gt; 5.5) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">闭环控制模型（主机 gcc 真实编译运行）</span></div><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid &amp;&amp; ./labs/host_pid</span>
+最终 y=4.956（期望 ~5）输出限幅 [0,10]
+RESULT: PASS</code></pre></div></div><p class="sim-note">闭环收敛到设定值 5 附近（4.956），输出守限幅 [0,10]；延迟/滤波会削相位裕度。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 8.2  闭环指标</div><table><thead><tr><th>指标</th><th>值</th><th>说明</th></tr></thead><tbody><tr><td>设定值</td><td>5</td><td>目标</td></tr><tr><td>最终 y</td><td>4.956</td><td>收敛</td></tr><tr><td>限幅</td><td>[0,10]</td><td>执行器约束</td></tr><tr><td>相位裕度</td><td>≥45°</td><td>稳定余量</td></tr></tbody></table></div></section><section class="sec" id="m08-stable"><h2 id="m08-stable-t">8.3 延迟、离散与限幅</h2><p>采样周期、滤波延迟与执行器速率限制都会影响闭环；先分析稳定性，再调参数。降低采样周期可减少离散延迟、改善稳定性。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">control.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">e = sp - y;                                  // 误差</span><span class="ln">u = clamp(pid(e), U_MIN, U_MAX);             // 限幅</span><span class="ln">/* 采样周期/滤波延迟 → 相位滞后；周期过大失稳 */</span>
+</code></pre><span class="code-note">误差驱动控制；限幅尊重执行器；周期/延迟影响稳定</span></div><div class="tbl-wrap"><div class="tbl-cap">表 8.3  影响稳定的因素</div><table><thead><tr><th>因素</th><th>影响</th><th>对策</th></tr></thead><tbody><tr><td>采样周期</td><td>离散延迟</td><td>减小周期</td></tr><tr><td>滤波延迟</td><td>削相位裕度</td><td>补偿/减阶</td></tr><tr><td>增益</td><td>振荡/发散</td><td>整定</td></tr><tr><td>限幅/速率</td><td>饱和/过冲</td><td>抗饱和</td></tr></tbody></table></div></section><section class="sec" id="m08-check"><h2 id="m08-check-t">8.4 自检</h2><p>控制自检：收敛不振荡、相位裕度足够、周期/延迟在预算内、执行器约束被尊重。</p><figure class="fig" id="fig-图-8-2"><div class="fig-hd"><strong>图 8.2</strong> 阶跃响应（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 86" width="100%" height="86" role="img" aria-label="阶跃响应（示意）" preserveAspectRatio="xMidYMid meet"><path class="sv-dash" d="M150,26 V60"/><text x="150" y="18" text-anchor="middle" class="sv-lbl-dim">0</text><path class="sv-dash" d="M305,26 V60"/><text x="305" y="18" text-anchor="middle" class="sv-lbl-dim">15</text><path class="sv-dash" d="M460,26 V60"/><text x="460" y="18" text-anchor="middle" class="sv-lbl-dim">30</text><path class="sv-dash" d="M615,26 V60"/><text x="615" y="18" text-anchor="middle" class="sv-lbl-dim">45</text><path class="sv-dash" d="M770,26 V60"/><text x="770" y="18" text-anchor="middle" class="sv-lbl-dim">60</text><text x="12" y="48" class="sv-lbl">响应</text><path class="sv-dash" d="M150,44 H770"/><rect x="150" y="32" width="103" height="22" rx="4" class="sv-cyn-s"/><text x="201.7" y="47" text-anchor="middle" class="sv-lbl-hi">上升</text><rect x="253" y="32" width="207" height="22" rx="4" class="sv-amb-s"/><text x="356.7" y="47" text-anchor="middle" class="sv-lbl-hi">小超调</text><rect x="460" y="32" width="310" height="22" rx="4" class="sv-grn-s"/><text x="615.0" y="47" text-anchor="middle" class="sv-lbl-hi">稳态</text></svg></div><figcaption class="fig-ft">闭环阶跃应快速收敛、无持续振荡、无大幅超调；延迟/滤波会引入滞后与振荡。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 8.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>稳定性</td><td>相位裕度≥45°</td><td>增益过高</td></tr><tr><td>周期</td><td>足够小</td><td>离散失稳</td></tr><tr><td>延迟</td><td>预算内</td><td>砍相位</td></tr><tr><td>限幅</td><td>尊重</td><td>饱和过冲</td></tr></tbody></table></div></section><section class="sec" id="m08-pitfalls"><h2 id="m08-pitfalls-t">8.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>增益过高</strong>：振荡/发散。</li><li><strong>采样周期过大</strong>：离散化失稳。</li><li><strong>忽略延迟</strong>：相位裕度不足。</li><li><strong>忽略执行器约束</strong>：饱和/过冲。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 08（先答再看）</div><ol><li><p class="q">为什么“降低采样周期”有时反而让闭环更稳？</p><details><summary>查看答案</summary><div class="ans"><p>采样/控制周期过大等于在回路里插入延迟，吃掉相位裕度。减小周期降低离散延迟，改善稳定性（但增加计算/功耗）。</p></div></details></li><li><p class="q">相位裕度衡量什么？</p><details><summary>查看答案</summary><div class="ans"><p>闭环距失稳的余量。常见要求 ≥45°；延迟、滤波、过大增益都会降低它，导致振荡。</p></div></details></li><li><p class="q">执行器限幅为什么影响控制性能？</p><details><summary>查看答案</summary><div class="ans"><p>限幅会让控制量饱和，闭环“想给更多但给不出”，导致响应变慢、超调或积分饱和。需配合抗饱和设计。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：分析你闭环的采样周期、滤波延迟与限幅对稳定性的影响，评估相位裕度。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://en.wikipedia.org/wiki/PID_controller" target="_blank" rel="noopener noreferrer">PID 控制入门</a> · <a class="ref" href="https://www.st.com/en/embedded-software/motor-control.html" target="_blank" rel="noopener noreferrer">STM32 电机控制</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_pid.c</code>（闭环模型）；分析闭环里延迟/滤波/限幅的影响。</p><p><strong>检查结果：</strong>闭环收敛到设定值且不振荡；能识别延迟/滤波对相位裕度的影响与限幅 [0,10]。</p></div>
+<p class="sim-note">迁移练习：把本章的“能分析闭环稳定性（相位裕度）并考虑采样离散化、延迟与执行器约束。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 08 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m08">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m08"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>闭环收敛到设定值且不振荡；能识别延迟/滤波对相位裕度的影响与限幅 [0,10]。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m09">
+    <div class="ch-head">
+      <div class="ch-badge">Module 09 · 控制与综合</div>
+      <h1 class="ch-title">PID 与执行器约束<span class="acc">.</span></h1>
+      <p class="ch-lead">PID 落地四件事：<strong>抗饱和、限幅、微分滤波、整定</strong>。执行器有物理约束，控制输出必须尊重它们。</p>
+      <div class="ch-meta"><span>前置：理解 M08 反馈与误差，会调 P/I/D 直觉。</span><span>◷ 约 42 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能实现带抗饱和、限幅与微分滤波的 PID 并整定出可验收指标。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>PID 落地：抗饱和+限幅+微分滤波+整定。</li><li>微分对测量而非误差。</li><li>整定一次一参数并记录指标。</li></ul></div>
+    <section class="sec" id="m09-pid"><h2 id="m09-pid-t">9.1 P/I/D 与落地四件事</h2><p>P 响应误差、I 消除稳态误差、D 抑制变化。落地四件事：抗饱和、限幅、微分滤波、整定。执行器有物理约束，输出必须尊重。</p><figure class="fig" id="fig-图-9-1"><div class="fig-hd"><strong>图 9.1</strong> PID 落地链</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="PID 落地链" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">P/I/D</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">求和</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">限幅</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">执行器</text></svg></div><figcaption class="fig-ft">P/I/D 求和 → 输出限幅 → 执行器；饱和时冻结积分（抗饱和）；D 对测量滤波。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.1  PID 五环节</div><table><thead><tr><th>环节</th><th>作用</th><th>坑</th></tr></thead><tbody><tr><td>P</td><td>响应误差</td><td>过冲击振荡</td></tr><tr><td>I</td><td>消除稳态误差</td><td>饱和 windup</td></tr><tr><td>D</td><td>抑制变化</td><td>噪声放大</td></tr><tr><td>限幅</td><td>尊重执行器</td><td>饱和</td></tr><tr><td>整定</td><td>性能</td><td>一次一参数</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pid.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">u = kp*e + ki*integ + kd*(y - y_prev);       // D 用测量微分</span><span class="ln">if (u &gt; U_MAX) { u = U_MAX; } else if (u &lt; U_MIN) { u = U_MIN; }</span><span class="ln">else integ += e;                              // 饱和时冻结积分（抗饱和）</span>
+</code></pre><span class="code-note">限幅 + 抗饱和（冻结积分）+ D 用测量微分</span></div></section><section class="sec" id="m09-evidence"><h2 id="m09-evidence-t">9.2 真实证据：抗饱和与限幅</h2><p>下面这段程序验证带抗饱和与限幅的闭环收敛：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_pid.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_pid.c —— PID 与执行器约束（限幅/抗饱和）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_pid.c -o host_pid &amp;&amp; ./host_pid</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    double kp=2, ki=0.5, I=0, hi=10, lo=0;</span><span class="ln">    double set=5, y=0, dt=0.1; int aw=1;</span><span class="ln">    for (int i=0;i&lt;200;i++) {</span><span class="ln">        double e = set - y;</span><span class="ln">        double u = kp*e + ki*I;</span><span class="ln">        int sat = 0;</span><span class="ln">        if (u &gt; hi) { u = hi; sat = 1; }</span><span class="ln">        if (u &lt; lo) { u = lo; sat = -1; }</span><span class="ln">        if (!(aw &amp;&amp; sat &amp;&amp; ((sat&gt;0&amp;&amp;e&gt;0)||(sat&lt;0&amp;&amp;e&lt;0)))) I += e*dt;</span><span class="ln">        y += dt*(u - y);                 /* 一阶对象 */</span><span class="ln">    }</span><span class="ln">    printf(&quot;最终 y=%.3f（期望 ~5）输出限幅 [%.0f,%.0f]\n&quot;, y, lo, hi);</span><span class="ln">    if (y &lt; 4.5 || y &gt; 5.5) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">PID/限幅模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_pid.c -o labs/host_pid &amp;&amp; ./labs/host_pid</span>
+最终 y=4.956（期望 ~5）输出限幅 [0,10]
+RESULT: PASS</code></pre></div></div><p class="sim-note">输出始终在限幅 [0,10]；抗饱和下终值 4.956 接近设定 5，无大幅超调。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 9.2  PID 结果</div><table><thead><tr><th>量</th><th>值</th><th>说明</th></tr></thead><tbody><tr><td>设定值</td><td>5</td><td>目标</td></tr><tr><td>终值</td><td>4.956</td><td>≈5</td></tr><tr><td>限幅</td><td>[0,10]</td><td>执行器约束</td></tr><tr><td>抗饱和</td><td>冻结积分</td><td>防超调</td></tr></tbody></table></div></section><section class="sec" id="m09-tune"><h2 id="m09-tune-t">9.3 抗饱和与整定</h2><p>输出限幅 + 饱和时冻结积分（抗饱和）+ 微分对测量滤波。整定记录超调/整定时间/稳态误差。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">pid.c 节选</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">u = kp*e + ki*integ + kd*(y - y_prev);       // D 用测量微分</span><span class="ln">if (u &gt; U_MAX) { u = U_MAX; } else if (u &lt; U_MIN) { u = U_MIN; }</span><span class="ln">else integ += e;                              // 饱和时冻结积分（抗饱和）</span>
+</code></pre><span class="code-note">限幅 + 抗饱和（冻结积分）+ D 用测量微分</span></div><div class="tbl-wrap"><div class="tbl-cap">表 9.3  PID 实践</div><table><thead><tr><th>做法</th><th>目的</th><th>避免</th></tr></thead><tbody><tr><td>限幅</td><td>尊重执行器</td><td>饱和失真</td></tr><tr><td>抗饱和</td><td>防积分 windup</td><td>回落超调</td></tr><tr><td>D 用测量</td><td>避设定值冲击</td><td>微分冲击</td></tr><tr><td>一次一参数</td><td>可归因</td><td>多参数乱调</td></tr></tbody></table></div></section><section class="sec" id="m09-check"><h2 id="m09-check-t">9.4 自检</h2><p>PID 自检：限幅、抗饱和、微分滤波、整定可验收。</p><figure class="fig" id="fig-图-9-2"><div class="fig-hd"><strong>图 9.2</strong> PID 阶跃响应指标（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="PID 阶跃响应指标（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">超调</text><rect x="150" y="26" width="150" height="18" rx="4" class="sv-amb-s"/><text x="308" y="43" class="sv-lbl-hi">15(相对)</text><text x="12" y="67" class="sv-lbl">整定时间</text><rect x="150" y="50" width="400" height="18" rx="4" class="sv-cyn-s"/><text x="558" y="67" class="sv-lbl-hi">40(相对)</text><text x="12" y="91" class="sv-lbl">稳态误差</text><rect x="150" y="74" width="50" height="18" rx="4" class="sv-grn-s"/><text x="208" y="91" class="sv-lbl-hi">5(相对)</text></svg></div><figcaption class="fig-ft">整定记录超调量、整定时间、稳态误差；目标是快速收敛、超调可接受。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 9.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>限幅</td><td>尊重执行器</td><td>饱和</td></tr><tr><td>抗饱和</td><td>冻结积分</td><td>windup</td></tr><tr><td>微分</td><td>测量滤波</td><td>噪声放大</td></tr><tr><td>整定</td><td>记录指标</td><td>乱调</td></tr></tbody></table></div></section><section class="sec" id="m09-pitfalls"><h2 id="m09-pitfalls-t">9.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>无抗饱和</strong>：回落大幅超调。</li><li><strong>D 用误差微分</strong>：设定值阶跃冲击。</li><li><strong>超限幅</strong>：执行器失真。</li><li><strong>一次改多个参数</strong>：无法归因。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 09（先答再看）</div><ol><li><p class="q">积分抗饱和的作用是什么？</p><details><summary>查看答案</summary><div class="ans"><p>执行器饱和时停止积分累积，避免回落时因积分过大而大幅超调。常配合输出限幅一起用。</p></div></details></li><li><p class="q">为什么 D 项常用“测量微分”而不是“误差微分”？</p><details><summary>查看答案</summary><div class="ans"><p>设定值阶跃时，误差微分会产生冲击（derivative kick），使输出突变。用测量微分可避免。</p></div></details></li><li><p class="q">PID 整定应该怎么做？</p><details><summary>查看答案</summary><div class="ans"><p>一次只改一个参数并记录指标（超调/整定时间/稳态误差），否则无法归因。先 P、再 I、再 D。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：为你闭环实现带限幅与抗饱和的 PID，整定并记录超调/整定时间/稳态误差。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://en.wikipedia.org/wiki/PID_controller" target="_blank" rel="noopener noreferrer">PID 控制入门</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_pid.c</code>：验证带抗饱和与限幅的闭环收敛。</p><p><strong>检查结果：</strong>输出始终在限幅 [0,10]；抗饱和下终值 y=4.956（期望 ~5）。</p></div>
+<p class="sim-note">迁移练习：把本章的“能实现带抗饱和、限幅与微分滤波的 PID 并整定出可验收指标。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 09 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m09">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m09"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>输出始终在限幅 [0,10]；抗饱和下终值 y=4.956（期望 ~5）。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="m10">
+    <div class="ch-head">
+      <div class="ch-badge">Module 10 · 控制与综合</div>
+      <h1 class="ch-title">综合：从采样到闭环与 AI 特征<span class="acc">.</span></h1>
+      <p class="ch-lead">综合项目把全册串起来：<strong>采样（抗混叠）→ 滤波 → 特征 → 状态估计 → 控制</strong>，同时把特征喂给端侧 AI。</p>
+      <div class="ch-meta"><span>前置：完成 M01–M09。</span><span>◷ 约 46 分钟</span><span>◈ 传感/DSP/控制对照</span><span>⚑ 主机模型；目标构建与测量按章验收</span><span>能力目标：能把采样→滤波→特征→估计→控制串成链并量化端到端延迟与时间对齐。</span></div>
+    </div>
+    <div class="takeaway"><div class="takeaway-t">本章速览</div><ul><li>端到端预算总延迟与时间对齐。</li><li>各环节口径一致，否则整链不可信。</li><li>异常数据不进控制。</li></ul></div>
+    <section class="sec" id="m10-chain"><h2 id="m10-chain-t">10.1 端到端链路</h2><p>把采样（抗混叠）→ 滤波 → 特征 → 状态估计 → 控制串成一条链，同时把特征喂给端侧 AI。要对齐时间、控制延迟、处理异常。</p><figure class="fig" id="fig-图-10-1"><div class="fig-hd"><strong>图 10.1</strong> 采样到控制与 AI 的链路</div><div class="fig-bd"><svg viewBox="0 0 800 132" width="100%" height="132" role="img" aria-label="采样到控制与 AI 的链路" preserveAspectRatio="xMidYMid meet"><rect x="20" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="107.5" y="66" text-anchor="middle" class="sv-lbl-hi">采样</text><path d="M197,69 H213" class="sv-arrow"/><rect x="215" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="302.5" y="66" text-anchor="middle" class="sv-lbl-hi">滤波</text><path d="M392,69 H408" class="sv-arrow"/><rect x="410" y="44" width="175" height="50" rx="7" class="sv-box"/><text x="497.5" y="66" text-anchor="middle" class="sv-lbl-hi">特征/估计</text><path d="M587,69 H603" class="sv-arrow"/><rect x="605" y="44" width="175" height="50" rx="7" class="sv-cyn-s"/><text x="692.5" y="66" text-anchor="middle" class="sv-lbl-hi">控制</text></svg></div><figcaption class="fig-ft">采样（抗混叠）→ 滤波 → 特征（喂 AI）→ 状态估计 → 控制（限幅）。任一口径不一致则输出不可信。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.1  链路五环节</div><table><thead><tr><th>环节</th><th>验收</th><th>风险</th></tr></thead><tbody><tr><td>采样</td><td>无混叠/同步</td><td>抖动/不同步</td></tr><tr><td>滤波</td><td>延迟在预算内</td><td>延迟削相位</td></tr><tr><td>特征</td><td>口径一致</td><td>与训练不符</td></tr><tr><td>估计</td><td>不发散</td><td>异常观测</td></tr><tr><td>控制</td><td>稳定+限幅</td><td>振荡/饱和</td></tr></tbody></table></div><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">chain.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">总延迟 = ADC + 滤波 + 特征 + 估计 + 控制（求和，单位采样周期/ms）</span><span class="ln">时间对齐: 特征与 AI 输入用同一时间基准（事件时间）</span><span class="ln">控制守限幅 [0,10]；异常观测据创新剔除</span><span class="ln">闭环相位预算: 总延迟折算相位滞后 &lt; 相位裕度</span>
+</code></pre><span class="code-note">端到端延迟预算 + 时间对齐 + 控制约束</span></div></section><section class="sec" id="m10-evidence"><h2 id="m10-evidence-t">10.2 真实证据：频谱特征</h2><p>链路中的“特征”环节可用 DFT 频谱特征验证：</p><details class="learning-reuse"><summary>共用程序 · 按需展开完整代码</summary><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">host_dft.c</span><span class="code-lang">C</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">/* host_dft.c —— DFT 幅度与峰值检测（N=8）（主机可运行）。</span><span class="ln"> * 编译运行：gcc -std=c11 -Wall -Wextra -O2 host_dft.c -o host_dft -lm &amp;&amp; ./host_dft</span><span class="ln"> */</span><span class="ln">#include &lt;stdio.h&gt;</span><span class="ln">#include &lt;math.h&gt;</span><span class="ln">int main(void) {</span><span class="ln">    int ok = 1;</span><span class="ln">    int N = 8;</span><span class="ln">    double x[8];</span><span class="ln">    for (int n=0;n&lt;N;n++) x[n] = cos(2*3.14159265358979*2*n/N);   /* 频率 bin=2 */</span><span class="ln">    int peak = 0; double pmax = 0;</span><span class="ln">    for (int k=0;k&lt;N;k++) {</span><span class="ln">        double re=0, im=0;</span><span class="ln">        for (int n=0;n&lt;N;n++){ re += x[n]*cos(2*3.14159265358979*k*n/N); im -= x[n]*sin(2*3.14159265358979*k*n/N); }</span><span class="ln">        double mag = sqrt(re*re+im*im);</span><span class="ln">        if (mag &gt; pmax) { pmax = mag; peak = k; }</span><span class="ln">    }</span><span class="ln">    printf(&quot;峰值 bin=%d（期望 2）幅度=%.2f\n&quot;, peak, pmax);</span><span class="ln">    if (peak != 2) ok = 0;</span><span class="ln">    printf(&quot;\n%s\n&quot;, ok ? &quot;RESULT: PASS&quot; : &quot;RESULT: FAIL&quot;);</span><span class="ln">    return ok ? 0 : 1;</span><span class="ln">}</span>
+</code></pre><span class="code-note">DFT/特征模型（主机 gcc 真实编译运行）</span></div></details><div class="box plain"><div class="box-t">真实运行</div><div class="term"><div class="term-bar"><span class="term-dots"><i></i><i></i><i></i></span><span class="term-title">$</span></div><div class="codeblk m-code"><div class="code-bar"><span class="code-file">命令与代码</span><button class="copy-btn" type="button">复制</button></div><pre><code><span class="term-cmd">$ gcc -std=c11 -Wall -Wextra -O2 labs/host_dft.c -o labs/host_dft &amp;&amp; ./labs/host_dft</span>
+峰值 bin=2（期望 2）幅度=4.00
+RESULT: PASS</code></pre></div></div><p class="sim-note">频谱峰值可作为 AI 特征；它必须与训练口径一致，并计入链路延迟预算。</p></div><div class="tbl-wrap"><div class="tbl-cap">表 10.2  关键机制与证据</div><table><thead><tr><th>环节</th><th>可运行证据</th><th>验收</th></tr></thead><tbody><tr><td>采样</td><td>host_sample.c</td><td>无混叠</td></tr><tr><td>滤波</td><td>host_filter.c</td><td>延迟预算</td></tr><tr><td>特征</td><td>host_dft.c</td><td>峰值/口径</td></tr><tr><td>估计</td><td>host_kalman.c</td><td>不发散</td></tr><tr><td>控制</td><td>host_pid.c</td><td>限幅/收敛</td></tr></tbody></table></div></section><section class="sec" id="m10-budget"><h2 id="m10-budget-t">10.3 延迟与时间对齐</h2><p>端到端要量化：采样到控制的总延迟、特征到 AI 的时间对齐；任何环节口径不一致，整条链输出都不可信。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">chain.txt 节选</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">总延迟 = ADC + 滤波 + 特征 + 估计 + 控制（求和，单位采样周期/ms）</span><span class="ln">时间对齐: 特征与 AI 输入用同一时间基准（事件时间）</span><span class="ln">控制守限幅 [0,10]；异常观测据创新剔除</span><span class="ln">闭环相位预算: 总延迟折算相位滞后 &lt; 相位裕度</span>
+</code></pre><span class="code-note">端到端延迟预算 + 时间对齐 + 控制约束</span></div><div class="tbl-wrap"><div class="tbl-cap">表 10.3  端到端预算</div><table><thead><tr><th>预算项</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>总延迟</td><td>各段求和</td><td>超期</td></tr><tr><td>时间对齐</td><td>同基准</td><td>错配</td></tr><tr><td>相位</td><td>延迟<裕度</td><td>振荡</td></tr><tr><td>异常</td><td>创新剔除</td><td>坏数据进控制</td></tr></tbody></table></div></section><section class="sec" id="m10-check"><h2 id="m10-check-t">10.4 自检</h2><p>链路自检：无混叠、延迟在预算内、口径一致、估计不发散、控制限幅。</p><figure class="fig" id="fig-图-10-2"><div class="fig-hd"><strong>图 10.2</strong> 端到端延迟构成（示意）</div><div class="fig-bd"><svg viewBox="0 0 800 150" width="100%" height="150" role="img" aria-label="端到端延迟构成（示意）" preserveAspectRatio="xMidYMid meet"><text x="12" y="43" class="sv-lbl">ADC</text><rect x="150" y="26" width="60" height="18" rx="4" class="sv-cyn-s"/><text x="218" y="43" class="sv-lbl-hi">10%</text><text x="12" y="67" class="sv-lbl">滤波</text><rect x="150" y="50" width="180" height="18" rx="4" class="sv-amb-s"/><text x="338" y="67" class="sv-lbl-hi">30%</text><text x="12" y="91" class="sv-lbl">特征</text><rect x="150" y="74" width="150" height="18" rx="4" class="sv-amb-s"/><text x="308" y="91" class="sv-lbl-hi">25%</text><text x="12" y="115" class="sv-lbl">估计/控制</text><rect x="150" y="98" width="210" height="18" rx="4" class="sv-grn-s"/><text x="368" y="115" class="sv-lbl-hi">35%</text></svg></div><figcaption class="fig-ft">总延迟 = ADC + 滤波 + 特征 + 估计 + 控制。滤波与特征常占大头，需在相位预算内。</figcaption></figure><div class="tbl-wrap"><div class="tbl-cap">表 10.4  自检四步</div><table><thead><tr><th>步骤</th><th>做法</th><th>避免</th></tr></thead><tbody><tr><td>采样</td><td>无混叠/同步</td><td>假频率</td></tr><tr><td>延迟</td><td>求和预算</td><td>超期</td></tr><tr><td>口径</td><td>特征一致</td><td>AI 分布偏</td></tr><tr><td>控制</td><td>限幅/收敛</td><td>振荡</td></tr></tbody></table></div></section><section class="sec" id="m10-pitfalls"><h2 id="m10-pitfalls-t">10.5 常见误区与排障</h2><div class="box warn"><div class="box-t">失败路径与排障</div><ul><li><strong>延迟未预算</strong>：闭环/特征超时。</li><li><strong>时间未对齐</strong>：特征与控制错配。</li><li><strong>口径不一致</strong>：AI 输入分布偏。</li><li><strong>异常未处理</strong>：坏数据进控制。</li></ul></div></section><div class="quiz"><div class="quiz-hd">◆ 自测 · Module 10（先答再看）</div><ol><li><p class="q">端到端闭环最容易被忽略的预算是什么？</p><details><summary>查看答案</summary><div class="ans"><p>“采样→控制”的总延迟（含滤波与计算）。它直接削减相位裕度、影响稳定性，必须在设计阶段预算并测量。</p></div></details></li><li><p class="q">为什么特征与 AI 输入要“时间对齐”？</p><details><summary>查看答案</summary><div class="ans"><p>特征与控制/推理用同一时间基准（事件时间）才能正确配对；时间错配会导致“用旧特征做新决策”。</p></div></details></li><li><p class="q">链路中“异常观测”应该怎么处理？</p><details><summary>查看答案</summary><div class="ans"><p>据创新序列识别离群观测，剔除或降权，避免坏数据进入估计与控制。绝不能伪造补值。</p></div></details></li></ol><p class="done-note">答完再看解析；不确定的点回到对应小节复读。</p></div><p class="sim-note">迁移练习：画出你的“采样→滤波→特征→估计→控制/ AI”链路，给出端到端延迟预算与时间对齐方案。</p><p class="sim-note">核对与延伸：<a class="ref" href="https://arm-software.github.io/CMSIS-DSP/main/" target="_blank" rel="noopener noreferrer">CMSIS-DSP 文档</a> · <a class="ref" href="https://en.wikipedia.org/wiki/PID_controller" target="_blank" rel="noopener noreferrer">PID 控制入门</a></p>
+    <div class="box tip"><div class="box-t">动手练习</div><p>运行 <code class="ic">labs/host_dft.c</code>（频谱特征）；画出采样→控制→AI 链路与延迟预算。</p><p><strong>检查结果：</strong>链路延迟可预算；时间对齐；控制守限幅 [0,10]；特征口径一致。</p></div>
+<p class="sim-note">迁移练习：把本章的“能把采样→滤波→特征→估计→控制串成链并量化端到端延迟与时间对齐。”用到你自己的芯片/项目上，并在 <code>labs/</code> 留一份可复跑的命令与结果记录。</p>
+    <div class="ch-done"><div class="ch-done-txt"><strong>Module 10 完成？</strong> 先阅读，再完成本章行为验收与迁移自评。</div><button class="done-btn" data-done="m10">标记已阅读</button></div>
+  <!-- COURSE_ASSESS_START --><details class="learning-assessment" data-assess="m10"><summary>本章验收自评 <span class="mastery-status">未记录</span></summary><p><strong>本章判据：</strong>链路延迟可预算；时间对齐；控制守限幅 [0,10]；特征口径一致。</p><label><input type="checkbox" data-criterion="explain">能不看答案解释机制与适用边界</label><label><input type="checkbox" data-criterion="run">已独立完成练习并检查正常与失败结果</label><label><input type="checkbox" data-criterion="transfer">改变输入/需求后仍能解释、验证并迁移</label><p class="learning-scope">这是学习者自评记录；目标板测量按本章条件另行保存。</p></details><!-- COURSE_ASSESS_END --></section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="capstone">
+    <div class="ch-head"><div class="ch-badge">贯穿项目 · Capstone</div><h1 class="ch-title">从采样到闭环与 AI 特征<span class="acc">.</span></h1><p class="ch-lead">把 10 章串成一条路径：采样抗混叠 → 标定 → 滤波 → 频谱/特征 → 状态估计 → 控制 → 闭环与特征输出。</p><div class="ch-meta"><span>◈ 8 步构建路径</span><span>⚑ 每步可验收</span></div></div>
+
+<p>把 10 章串成一条路径：<strong>采样抗混叠 → 标定 → 滤波 → 频谱/特征 → 状态估计 → 控制 → 闭环与特征输出。</strong></p>
+<ol class="capstone-steps">
+<li><strong>① 采样</strong>（M01）——抗混叠+够高 fs；验收：无假频率。</li>
+<li><strong>② 标定</strong>（M02）——系统/随机分离；验收：误差预算明确。</li>
+<li><strong>③ 滤波</strong>（M03/M04）——选型+延迟；验收：延迟在预算内。</li>
+<li><strong>④ 频谱</strong>（M05/M06）——加窗+分辨率；验收：峰值正确。</li>
+<li><strong>⑤ 特征</strong>（M06）——口径一致；验收：在线=离线。</li>
+<li><strong>⑥ 估计</strong>（M07）——Q/R+创新；验收：不发散、不伪造。</li>
+<li><strong>⑦ 控制</strong>（M08/M09）——稳定+抗饱和；验收：收敛、守限幅。</li>
+<li><strong>⑧ 链路</strong>（M10）——总延迟与对齐；验收：端到端达标。</li>
+</ol>
+<p class="sim-note">本册所有真实频谱/闭环为板/台架实测项；混叠、滤波、FIR/IIR、DFT、卡尔曼、PID 等主机可验证部分已给出真实运行结果。</p><div class="codeblk"><div class="code-bar"><span class="code-dots"><i></i><i></i><i></i></span><span class="code-file">sample-to-control</span><span class="code-lang">Text</span><button class="copy-btn">复制</button></div>
+<pre><code><span class="ln">采样(抗混叠,Nyquist) → 标定 → 滤波(FIR/IIR,算延迟) → 频谱/特征(加窗,口径一致)</span><span class="ln">     → 状态估计(卡尔曼,丢样只预测) → 控制(PID 限幅+抗饱和) → 闭环</span><span class="ln">预算: 采样→控制总延迟 · 特征时间对齐 · 执行器约束</span>
+</code></pre></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="cheatsheet">
+    <div class="ch-head"><div class="ch-badge">速查 · Reference</div><h1 class="ch-title">信号与控制易错点速查<span class="acc">.</span></h1><p class="ch-lead">把“采样混叠 / 滤波延迟 / 标定不准 / 闭环振荡”的点集中在一张表里。</p></div>
+<p class="sim-caption">把“采样混叠 / 滤波延迟 / 标定不准 / 闭环振荡”的点集中在一张表里。</p><div class="tbl-wrap"><table><thead><tr><th>主题</th><th>正确做法</th><th>常见错误</th><th>后果</th></tr></thead><tbody><tr><td>采样</td><td>抗混叠+够高 fs</td><td>采样率不足</td><td>假频率</td></tr><tr><td>标定</td><td>系统/随机分离</td><td>不标定</td><td>系统误差</td></tr><tr><td>滤波</td><td>按需求选并算延迟</td><td>忽略延迟</td><td>闭环失稳</td></tr><tr><td>FIR/IIR</td><td>查极点稳定性</td><td>IIR 极点外</td><td>发散</td></tr><tr><td>FFT</td><td>加窗+够点数</td><td>不加窗</td><td>频谱糊</td></tr><tr><td>特征</td><td>口径一致</td><td>训练/在线不同</td><td>精度降</td></tr><tr><td>融合</td><td>丢样只预测</td><td>伪造观测</td><td>估计偏</td></tr><tr><td>闭环</td><td>分析稳定性</td><td>增益过高</td><td>振荡</td></tr><tr><td>PID</td><td>抗饱和+限幅</td><td>无抗饱和</td><td>大幅超调</td></tr><tr><td>链路</td><td>预算总延迟</td><td>不对齐</td><td>超期/错配</td></tr></tbody></table></div>
+  </section></div>
+<div class="m-chapter-wrap"><section class="chapter" id="glossary">
+    <div class="ch-head"><div class="ch-badge">术语 · Glossary</div><h1 class="ch-title">术语表<span class="acc">.</span></h1><p class="ch-lead">按“先定义、再结论”的方式收口；DSP/控制叫法差异也一并标注。</p></div>
+<p class="sim-caption">按“先定义、再结论”的方式收口；DSP/控制叫法差异也一并标注。</p><dl class="glossary"><dt>Nyquist</dt><dd>采样率的一半，可表示的最高频率。</dd><dt>混叠</dt><dd>高频采样后变成假低频。</dd><dt>抗混叠滤波</dt><dd>ADC 前限制带宽的模拟滤波。</dd><dt>标定</dt><dd>用已知输入修正系统误差。</dd><dt>误差预算</dt><dd>各项误差对总误差贡献的合成。</dd><dt>滑动平均</dt><dd>窗口均值，平滑但怕尖峰。</dd><dt>中值滤波</dt><dd>取窗口中值，抗脉冲噪声。</dd><dt>EMA</dt><dd>指数移动平均，状态少、有延迟。</dd><dt>FIR</dt><dd>有限冲激响应，无反馈、可线性相位。</dd><dt>IIR</dt><dd>无限冲激响应，有反馈、需查极点。</dd><dt>差分方程</dt><dd>y[n]=Σa x[n-k]+Σb y[n-k]。</dd><dt>DFT/FFT</dt><dd>离散傅里叶变换及其快速算法。</dd><dt>窗函数</dt><dd>减少频谱泄漏。</dd><dt>频率分辨率</dt><dd>约 fs/N。</dd><dt>RMS</dt><dd>均方根，反映能量。</dd><dt>状态估计</dt><dd>由含噪观测估计真实状态。</dd><dt>卡尔曼滤波</dt><dd>按不确定度加权的递归估计。</dd><dt>创新</dt><dd>观测与预测之差。</dd><dt>相位裕度</dt><dd>闭环稳定余量。</dd><dt>抗饱和</dt><dd>饱和时抑制积分累积。</dd></dl>
+  </section></div>
+
+<div class="m-theend">— 本册完 —</div>
+</main>
+
+<script type="application/json" id="mChapters">[{"id": "book-mastery", "num": "导读", "title": "学习路径与整册验收"}, {"id": "roadmap", "num": "", "title": "本册怎么读."}, {"id": "m01", "num": "01", "title": "采样、时基与混叠."}, {"id": "m02", "num": "02", "title": "传感器标定与误差预算."}, {"id": "m03", "num": "03", "title": "时域滤波."}, {"id": "m04", "num": "04", "title": "FIR 与 IIR."}, {"id": "m05", "num": "05", "title": "FFT 与频谱分析."}, {"id": "m06", "num": "06", "title": "特征提取与流式计算."}, {"id": "m07", "num": "07", "title": "状态估计与传感器融合."}, {"id": "m08", "num": "08", "title": "控制系统基础."}, {"id": "m09", "num": "09", "title": "PID 与执行器约束."}, {"id": "m10", "num": "10", "title": "综合：从采样到闭环与 AI 特征."}, {"id": "capstone", "num": "", "title": "从采样到闭环与 AI 特征."}, {"id": "cheatsheet", "num": "", "title": "信号与控制易错点速查."}, {"id": "glossary", "num": "", "title": "术语表."}]</script>
+<script src="../assets/reader.js?v=dee36baf7af8"></script>
+<script src="../assets/learning.js?v=dacc1a58b635"></script>
+<script src="../assets/download.js?v=f100fb879eb1"></script>
+
+</body>
+</html>

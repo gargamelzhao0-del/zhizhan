@@ -1,0 +1,73 @@
+{
+  "checkedAt": "2026-10-13T08:30:51.450Z",
+  "version": "1.15.2",
+  "unitTests": {
+    "passed": 91,
+    "files": 12,
+    "log": "docs/mobile-library-evidence/unit-tests.log"
+  },
+  "browserChecks": {
+    "distinctCasesPassed": 18,
+    "allArticlesPerViewport": 437,
+    "viewports": [
+      "desktop",
+      "mobile"
+    ],
+    "allBookDirectories": 27,
+    "chapterSectionLinks": 1574,
+    "widths": [
+      320,
+      360,
+      393,
+      480,
+      560,
+      700,
+      1000
+    ],
+    "logs": [
+      "docs/mobile-library-evidence/browser-tests.log",
+      "docs/mobile-library-evidence/upgrade-verified.log"
+    ],
+    "qualification": "The main run passed 16 cases; two full-import upgrade cases exceeded the interaction wait while still on the startup screen. The fixture now waits explicitly for first import (60 s budget) before unchanged data assertions; both passed on rerun. Earlier serial-attachment startup failures led to bounded concurrent loading and verified asset reuse."
+  },
+  "comparison": {
+    "books": 27,
+    "mobileChapters": 407,
+    "appChapters": 407,
+    "textChecks": 71876,
+    "codeBlocks": 1693,
+    "figures": 618,
+    "tables": 1366,
+    "contentIssues": 0,
+    "sectionLinks": 1574,
+    "navigationIssues": 0,
+    "experimentFiles": 408,
+    "unmatchedFiles": 0
+  },
+  "preservation": {
+    "checkedAt": "2026-10-13T08:29:03.005Z",
+    "version": "1.15.2",
+    "contentVersion": "2026.10.13.4",
+    "preservedPersonalArticles": 38,
+    "personalDifferences": [],
+    "lostArticleIds": [],
+    "changedArticleIds": [
+      "course-b01-guide"
+    ],
+    "apk": {
+      "bytes": 8661753,
+      "sha256": "1dd070ae774370460b1d6d74823f36c4c10f2a7dc7d321a42983049539b106d8",
+      "comparedDistFiles": 330,
+      "mismatched": []
+    },
+    "sourceLibraryUnmodified": true,
+    "desktop": {
+      "version": "1.15.2",
+      "comparedDistFiles": 330,
+      "mismatched": []
+    }
+  },
+  "physicalPhoneTested": false,
+  "status": "complete_published_and_public_https_verified",
+  "publication": "docs/release-1.15.2-publication.json"
+}

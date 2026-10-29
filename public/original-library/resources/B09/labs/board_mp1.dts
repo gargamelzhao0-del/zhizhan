@@ -1,0 +1,20 @@
+/* STM32MP1 · 设备树片段：把 UART4 设为可用并指定 bootargs */
+/dts-v1/;
+
+/ {
+    model = "STM32MP157 DK2";
+    compatible = "st,stm32mp157c-dk2", "st,stm32mp157";
+
+    chosen {
+        bootargs = "console=ttySTM0,115200 root=/dev/mmcblk0p5 rootwait";
+    };
+
+    soc {
+        uart4: serial@40010000 {
+            compatible = "st,stm32h7-uart";
+            reg = <0x40010000 0x400>;
+            interrupts = <GIC_SPI 53 IRQ_TYPE_LEVEL_HIGH>;
+            status = "okay";
+        };
+    };
+};

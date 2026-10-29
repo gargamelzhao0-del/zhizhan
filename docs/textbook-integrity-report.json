@@ -1,0 +1,3078 @@
+{
+  "checkedAt": "2026-10-13T08:07:50.286Z",
+  "books": 27,
+  "readableBooks": 27,
+  "chapterCount": 407,
+  "guideCount": 27,
+  "resourcePages": 3,
+  "assessments": 317,
+  "details": 1207,
+  "spanTables": 6,
+  "structuredTables": 48,
+  "figures": 618,
+  "tables": 1366,
+  "code": 1702,
+  "chapters": [
+    {
+      "id": "course-b00-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b00-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 6,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b00-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 5
+    },
+    {
+      "id": "course-b00-m10",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b00-m11",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b00-m12",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b00-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b00-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b01-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b01-ch0",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 21,
+      "tables": 14
+    },
+    {
+      "id": "course-b01-ch1",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 60,
+      "tables": 10
+    },
+    {
+      "id": "course-b01-ch2",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 51,
+      "tables": 10
+    },
+    {
+      "id": "course-b01-ch3",
+      "kind": "chapter",
+      "figures": 5,
+      "code": 39,
+      "tables": 8
+    },
+    {
+      "id": "course-b01-ch4",
+      "kind": "chapter",
+      "figures": 9,
+      "code": 65,
+      "tables": 15
+    },
+    {
+      "id": "course-b01-ch5",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 87,
+      "tables": 34
+    },
+    {
+      "id": "course-b01-ch6",
+      "kind": "chapter",
+      "figures": 4,
+      "code": 57,
+      "tables": 28
+    },
+    {
+      "id": "course-b01-ch7",
+      "kind": "chapter",
+      "figures": 5,
+      "code": 38,
+      "tables": 15
+    },
+    {
+      "id": "course-b01-ch8",
+      "kind": "chapter",
+      "figures": 5,
+      "code": 7,
+      "tables": 57
+    },
+    {
+      "id": "course-b01-appendix",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 7,
+      "tables": 15
+    },
+    {
+      "id": "course-b01-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b02a-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b02a-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m04",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m06",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m08",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b02a-m09",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b02a-m10",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b02a-m11",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b02a-m12",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b02a-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b02a-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b03a-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b03a-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m02",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m04",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m06",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m08",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 6,
+      "tables": 4
+    },
+    {
+      "id": "course-b03a-m09",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b03a-m10",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b03a-m11",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b03a-m12",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b03a-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b03a-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b04a-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b04a-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 5
+    },
+    {
+      "id": "course-b04a-m08",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b04a-m09",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b04a-m10",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b04a-m11",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b04a-m12",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b04a-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b04a-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b02-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b02-minidrv",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b02-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 6
+    },
+    {
+      "id": "course-b02-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b02-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 8,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 6,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m06",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 6,
+      "tables": 5
+    },
+    {
+      "id": "course-b02-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 8,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b02-m11",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b02-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b02-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b03-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b03-minirs",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b03-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 9,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 11,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 8,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b03-m10",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b03-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b03-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b04-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b04-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 3,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 3,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 3,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b04-m08",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b04-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 2
+    },
+    {
+      "id": "course-b04-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b05-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b05-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b05-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m13",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m14",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m15",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m16",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m17",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m18",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m19",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m20",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-m21",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b05-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b05-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b05-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b05-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b06-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b06-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b06-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b06-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b06-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b06-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b07-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b07-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-m13",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b07-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b07-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b07-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b07-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b08-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b08-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m13",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m14",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-m15",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b08-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b08-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b08-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b08-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b09-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b09-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 6
+    },
+    {
+      "id": "course-b09-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 5
+    },
+    {
+      "id": "course-b09-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b09-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b09-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 6
+    },
+    {
+      "id": "course-b09-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 5
+    },
+    {
+      "id": "course-b09-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 6
+    },
+    {
+      "id": "course-b09-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 7
+    },
+    {
+      "id": "course-b09-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 7
+    },
+    {
+      "id": "course-b09-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 7
+    },
+    {
+      "id": "course-b09-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b09-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b09-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b09-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b10-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b10-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-m13",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b10-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b10-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b10-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b10-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b11-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b11-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b11-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b11-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b11-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b11-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b12-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b12-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b12-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b12-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b12-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b12-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b13-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b13-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 5
+    },
+    {
+      "id": "course-b13-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-m13",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b13-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b13-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b13-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b13-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b14-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b14-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b14-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b14-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b14-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b14-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b15-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b15-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m12",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m13",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-m14",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b15-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b15-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b15-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b15-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b16-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b16-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b16-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b16-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b16-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b16-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b17-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b17-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b17-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b17-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b17-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b17-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b18-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b18-m01",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 8,
+      "tables": 6
+    },
+    {
+      "id": "course-b18-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 6,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m03",
+      "kind": "chapter",
+      "figures": 3,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b18-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b18-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b18-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b18-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b19-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b19-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b19-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b19-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b19-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b19-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b20-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b20-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b20-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b20-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b20-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b20-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b21-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b21-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b21-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b21-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b21-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b21-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b22-roadmap",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b22-m01",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m02",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 5,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m03",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m04",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m05",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m06",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m07",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m08",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m09",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-m10",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 4,
+      "tables": 4
+    },
+    {
+      "id": "course-b22-capstone",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b22-cheatsheet",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b22-glossary",
+      "kind": "chapter",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b22-guide",
+      "kind": "guide",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m01",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b23-b23-m02",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b23-b23-m03",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m04",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m05",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m06",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m07",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m08",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m09",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m10",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m11",
+      "kind": "chapter",
+      "figures": 2,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m12",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m13",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m14",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m15",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 1,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m16",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 0,
+      "tables": 1
+    },
+    {
+      "id": "course-b23-b23-m17",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 2,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-b23-m18",
+      "kind": "chapter",
+      "figures": 1,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-b23-guide",
+      "kind": "guide",
+      "figures": 1,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-learning-path",
+      "kind": "resource",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-quality-review",
+      "kind": "resource",
+      "figures": 0,
+      "code": 0,
+      "tables": 0
+    },
+    {
+      "id": "course-projects",
+      "kind": "resource",
+      "figures": 0,
+      "code": 9,
+      "tables": 0
+    }
+  ],
+  "issues": [],
+  "note": "Checks migration integrity and references, not every factual statement or target-board execution."
+}

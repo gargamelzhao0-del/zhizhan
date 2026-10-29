@@ -1,0 +1,4544 @@
+{
+  "sourceVersion": "2",
+  "books": 27,
+  "readableBooks": 27,
+  "chapters": [
+    {
+      "id": "course-b00-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 527,
+      "sha256": "360ec81d7b5cd25b2b44d18b0b97d869c2c006fd202ffddeafe760b21a8a51f4"
+    },
+    {
+      "id": "course-b00-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 7314,
+      "sha256": "506c9eb19e43a54f30cf38d437387b9f158dab5ce4cb9d1bd45bd7a95b77e6be"
+    },
+    {
+      "id": "course-b00-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 7105,
+      "sha256": "1f7cdef0d98dd2723c4be21dc5744ccf01bac2db36e95a3ea25dbc3480c0013c"
+    },
+    {
+      "id": "course-b00-m03",
+      "kind": "chapter",
+      "code": 6,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6739,
+      "sha256": "9da9367787ad294684f1ca2c3cb9faec3f92ca69c6ddd9f753154e0bbfa10633"
+    },
+    {
+      "id": "course-b00-m04",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6893,
+      "sha256": "953acff1c2d7b1e0dfd410c18a03bff207e264bd8b18edd795be933b080e6958"
+    },
+    {
+      "id": "course-b00-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7834,
+      "sha256": "c36b34d1509d7f6e614a32977ebff52cef1563d649add74f8ed3f70c3653f299"
+    },
+    {
+      "id": "course-b00-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 7122,
+      "sha256": "7a6c2f400d6cef93d29efff41b2a99a1ea494e8348ac60fcd84b8562ebf07b07"
+    },
+    {
+      "id": "course-b00-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6382,
+      "sha256": "76223344e85f7dba924d69919c8da235b84b141dd8ac2cf527ec5d1a6b350b77"
+    },
+    {
+      "id": "course-b00-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6895,
+      "sha256": "92fd8ff4c5c00f722ed03a14e323643f05e58f0c8771c436c2261915a37d07be"
+    },
+    {
+      "id": "course-b00-m09",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 6979,
+      "sha256": "4f5b2e8a0f4a4886f470e0cf509af8844d1eaaa3004037f485bdd6b467219d32"
+    },
+    {
+      "id": "course-b00-m10",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 2011,
+      "sha256": "71089cf3dd13d9292d32b34ef387c316d04f5d025cdb9f47316caafba681e57d"
+    },
+    {
+      "id": "course-b00-m11",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 4087,
+      "sha256": "cdc2f1e4190afc851169291a22eefa3ef473d60c29ecdc0f11b4d2257c86ab2a"
+    },
+    {
+      "id": "course-b00-m12",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1969,
+      "sha256": "249f48f19eb6784b3149a67d05d58462cf0b13abe2d4e7ecd340a75400cf6a89"
+    },
+    {
+      "id": "course-b00-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 1719,
+      "sha256": "a708e93a3502c2c9607fc4e7eeb2c5f4c3dbefbf6d2d8e223224b8aae19c3904"
+    },
+    {
+      "id": "course-b00-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1569,
+      "sha256": "f9930ec2919a708de3d2e5d493c9e64f624726c6920ba38be2919878f944f5e5"
+    },
+    {
+      "id": "course-b01-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 2,
+      "characters": 565,
+      "sha256": "1d5fc31a6c1b78c3fc58d6ca9a74ca9fbe83e5774ddd434c29d40b6e02c435ec"
+    },
+    {
+      "id": "course-b01-ch0",
+      "kind": "chapter",
+      "code": 21,
+      "figures": 2,
+      "tables": 14,
+      "anchors": 17,
+      "characters": 39927,
+      "sha256": "a321cce4f565cf522b1a8ac243a95c1a0e945306c81b7b87de925cf5fa2ff8c1"
+    },
+    {
+      "id": "course-b01-ch1",
+      "kind": "chapter",
+      "code": 60,
+      "figures": 0,
+      "tables": 10,
+      "anchors": 24,
+      "characters": 83065,
+      "sha256": "a93712ffaa6cd5f28e87e456ae8bfa6d17e1d4a6f383ddc943d72b71afbdf111"
+    },
+    {
+      "id": "course-b01-ch2",
+      "kind": "chapter",
+      "code": 51,
+      "figures": 2,
+      "tables": 10,
+      "anchors": 35,
+      "characters": 70965,
+      "sha256": "092b055d9b71a05717da0d59abd779d88a0effbe03bc1d9aa31ab7819053c7a8"
+    },
+    {
+      "id": "course-b01-ch3",
+      "kind": "chapter",
+      "code": 39,
+      "figures": 5,
+      "tables": 8,
+      "anchors": 28,
+      "characters": 68851,
+      "sha256": "2140fdce65a8247233e1b80794a166b3e211a1bf77b2fd4bd63ecad6e00fa070"
+    },
+    {
+      "id": "course-b01-ch4",
+      "kind": "chapter",
+      "code": 65,
+      "figures": 9,
+      "tables": 15,
+      "anchors": 19,
+      "characters": 151432,
+      "sha256": "0f245ac81e585588789cea56f85d0dcbc77d8c1fd206d6191ae47f9b0311ca5e"
+    },
+    {
+      "id": "course-b01-ch5",
+      "kind": "chapter",
+      "code": 87,
+      "figures": 2,
+      "tables": 34,
+      "anchors": 22,
+      "characters": 130556,
+      "sha256": "39bc48cfeb3d4728784e4cf67da869e7066c13844cc485066314ca5fb33a3d17"
+    },
+    {
+      "id": "course-b01-ch6",
+      "kind": "chapter",
+      "code": 57,
+      "figures": 4,
+      "tables": 28,
+      "anchors": 21,
+      "characters": 182166,
+      "sha256": "03117579c9387ebdd63e7191b95b8b49a31667b2a6ccaaceb68ac6b1cf8b4430"
+    },
+    {
+      "id": "course-b01-ch7",
+      "kind": "chapter",
+      "code": 38,
+      "figures": 5,
+      "tables": 15,
+      "anchors": 16,
+      "characters": 156287,
+      "sha256": "0765e195455d01c63040e37af192613daf32485e9a4a53dfd8df020f4cf65a74"
+    },
+    {
+      "id": "course-b01-ch8",
+      "kind": "chapter",
+      "code": 7,
+      "figures": 5,
+      "tables": 57,
+      "anchors": 76,
+      "characters": 126586,
+      "sha256": "1c0f8e65a8b5206ebc3bb26fc80febdb71e8cefe2b09d9fab3fa07c2ecd25260"
+    },
+    {
+      "id": "course-b01-appendix",
+      "kind": "chapter",
+      "code": 7,
+      "figures": 2,
+      "tables": 15,
+      "anchors": 23,
+      "characters": 47437,
+      "sha256": "d83f5ebce1b81f0d89d979d2110608e34140fa6e284387259cecc428f1b3d9ff"
+    },
+    {
+      "id": "course-b01-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1457,
+      "sha256": "a440fc084ed34a077f70a25bcc992cd71312b99840e59661291682d2ae4ece5c"
+    },
+    {
+      "id": "course-b02a-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 431,
+      "sha256": "faa214e4d8ada58962377023a857a2635af4748876fb26680ac9b2316b470ccc"
+    },
+    {
+      "id": "course-b02a-m01",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 5355,
+      "sha256": "1cfc0b86213f60eafc73b9409b42d4cebd34ba39fc13d068072ccc1813d5c72a"
+    },
+    {
+      "id": "course-b02a-m02",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 5378,
+      "sha256": "3617033b039cd6d1ef2eb7aaefdcf95b36f323584c2edc327ac323825c90c591"
+    },
+    {
+      "id": "course-b02a-m03",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 5249,
+      "sha256": "1a2dc73fddceaa41070a6e71295e1cccd8b4d9438f3c0d2bc154966b6b2d7a13"
+    },
+    {
+      "id": "course-b02a-m04",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 8,
+      "characters": 6702,
+      "sha256": "0fc88b7da293562bc19301d8e5f7d5718815673020225efa93666113b1d46223"
+    },
+    {
+      "id": "course-b02a-m05",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 5907,
+      "sha256": "9850a55bd132e49d82c39d73e71e6fa709e35518354fc84bf168aa30beed9eea"
+    },
+    {
+      "id": "course-b02a-m06",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6959,
+      "sha256": "e462e42f6f67d01d929a488f09f68e74ea00daac706af3e043f1f71606e92cca"
+    },
+    {
+      "id": "course-b02a-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 5604,
+      "sha256": "c9101eab39a88fefae115c7961734597e0c68f48f20df3e8e34b4f33af9b3fd7"
+    },
+    {
+      "id": "course-b02a-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 8,
+      "characters": 5926,
+      "sha256": "a3493bc6c103fcd022b7dcfce2a66bdda112c3a5bf66d01647c27e774184e6d5"
+    },
+    {
+      "id": "course-b02a-m09",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1616,
+      "sha256": "09ff0e1bd80b17d953bcbf3a9986d014fa802c3fb67ed093bcf3fccc863a3a54"
+    },
+    {
+      "id": "course-b02a-m10",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1607,
+      "sha256": "558b1d11237574c56a8c05d52320b06a06590eea36cfd37008bfcc6c464ec98e"
+    },
+    {
+      "id": "course-b02a-m11",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 3652,
+      "sha256": "b7bbd1bfa536e6c5271317c68c36ff0aa9aaeac6b06ff5c504a4a577af9cc6b9"
+    },
+    {
+      "id": "course-b02a-m12",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1502,
+      "sha256": "56f05bb8353b79aed66bde4169c8a8b226ac9dae9d3f2086f3ab4ac5cad94bae"
+    },
+    {
+      "id": "course-b02a-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 1855,
+      "sha256": "d964b3bc0bb3671aa74ad59a68dc09434c2a7c14eceb9822ac0445eb88091cdc"
+    },
+    {
+      "id": "course-b02a-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1471,
+      "sha256": "190e504cdf2063f37396fb43374550f5ae984060bbc43c72041a6d4571f022e9"
+    },
+    {
+      "id": "course-b03a-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 495,
+      "sha256": "96233064bac519d137e8b6d62853e2cba0f07db29abef9770d74203f2005619f"
+    },
+    {
+      "id": "course-b03a-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 6021,
+      "sha256": "b5510323d580f6d978f341ac7a5d09ac2d08eea625f5181ce9fd842ab8d5be7d"
+    },
+    {
+      "id": "course-b03a-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 7283,
+      "sha256": "b037d0ac8f8e669ac8ee5c97d64d6f3d0c609149a6f90f77818f8f432d5356b2"
+    },
+    {
+      "id": "course-b03a-m03",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 5736,
+      "sha256": "2440f413b75ffdb0e2f20b6b661663c4a3c4bee36460a4d9f6034cc8d64f3af3"
+    },
+    {
+      "id": "course-b03a-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7131,
+      "sha256": "b368569ee53bca7d69d1b7ad10f47cd74bcc9acf26782ad11a74a94b3f1e69b2"
+    },
+    {
+      "id": "course-b03a-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6159,
+      "sha256": "61ce3b82e773ebd8fc5c3774d0eec165e44cf55142b746519d2c5e5aefa01a43"
+    },
+    {
+      "id": "course-b03a-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6930,
+      "sha256": "aff531c6b657259d415539835ae15a7090005138ab7ed62d3cdcd84c3e980e15"
+    },
+    {
+      "id": "course-b03a-m07",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 6115,
+      "sha256": "38211ecc14a99ab6ba5dd2d28868b3a641a34741568b86a7a1bfb142b49aad70"
+    },
+    {
+      "id": "course-b03a-m08",
+      "kind": "chapter",
+      "code": 6,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 7568,
+      "sha256": "23d82702c7dc084f288443a78005c7ef260ddfa1d3e7d924b6e86cbb218c2b74"
+    },
+    {
+      "id": "course-b03a-m09",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1785,
+      "sha256": "fb1e3619b251a8a65641dc36bdd4ac274c9f2e09da858ae9b780e0001fcce165"
+    },
+    {
+      "id": "course-b03a-m10",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1753,
+      "sha256": "39a4ff6c6729d05d9b25228b94faec41922d9fb8985287de0d06590eea064999"
+    },
+    {
+      "id": "course-b03a-m11",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1799,
+      "sha256": "61f5daee1b8af207c4edd1c94776f04702fdbd319818729694626d2e78eacc7c"
+    },
+    {
+      "id": "course-b03a-m12",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 3922,
+      "sha256": "7ca370ece54f4f7fefa225420b75ef84b699a3fe18cf78f5a30c509d0568b335"
+    },
+    {
+      "id": "course-b03a-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 2059,
+      "sha256": "7ed7bf2d8aa56849274977e30ab438897bc56208a7f44af046c9ba84439ecbe7"
+    },
+    {
+      "id": "course-b03a-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1603,
+      "sha256": "600fe91b1ce04232c5c52d4fee8613a737b14ec602d83fcc2ff40e6b8307a39c"
+    },
+    {
+      "id": "course-b04a-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 472,
+      "sha256": "8c2437ea57a626e1eab57c19d52aa25058c90c13220984a1a009307afd767ee6"
+    },
+    {
+      "id": "course-b04a-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 5287,
+      "sha256": "d6741e94bd1cba853ad055fc7640018b59cf941f8d46b4664ec6493cdcea262e"
+    },
+    {
+      "id": "course-b04a-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 5708,
+      "sha256": "3660845dc852b7b7349eda0790e596f755d3a13b037b119c9d734716e94d2767"
+    },
+    {
+      "id": "course-b04a-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 5626,
+      "sha256": "b1da1415d02193f7a46a377243df06c8c32b7fe12eecfc216955fc46459c3f3c"
+    },
+    {
+      "id": "course-b04a-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 5845,
+      "sha256": "a4f41805a4360a6cd1581341d966e77e01a2c633653973a6a4ea7e15911b0697"
+    },
+    {
+      "id": "course-b04a-m05",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 6572,
+      "sha256": "87693cfc9344ecad2908001f33df9060cd9dabcbe640a6a3c2e994befe37a974"
+    },
+    {
+      "id": "course-b04a-m06",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 6266,
+      "sha256": "51c309a3c72aaca27730df46243159f15d48caa28346fdf6e140177f568fa957"
+    },
+    {
+      "id": "course-b04a-m07",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 6357,
+      "sha256": "500113a12bb5457a3499081976d610f74e807416f457a00b6181791dd708ed2a"
+    },
+    {
+      "id": "course-b04a-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 6981,
+      "sha256": "78253e42f1dac6822a944608d6eb05c61eeeacad9821dd0c7ff5a450afe2fc8a"
+    },
+    {
+      "id": "course-b04a-m09",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1974,
+      "sha256": "d514b6d27eeed468786bcb2c1316f7983b67f9a61f2b6bc295017626df7e164f"
+    },
+    {
+      "id": "course-b04a-m10",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1952,
+      "sha256": "b34368c6958b637407ff49a00d02b8f152a63724509ca5112f4d86cc0cd29bc4"
+    },
+    {
+      "id": "course-b04a-m11",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 4079,
+      "sha256": "a0752ba8c7ae25391c11f6d19e08f66364af6c033bb6fb376c0d42dcbf3e76c5"
+    },
+    {
+      "id": "course-b04a-m12",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1940,
+      "sha256": "9c320d922a99e75324878c5eb9f3318320bc8f4c4965d44ddd0c9c2a681b4968"
+    },
+    {
+      "id": "course-b04a-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 2028,
+      "sha256": "136e3b79bf6981e98f2f18d86e99c63a002a4ae14a266bbe33c2d2638563d7c3"
+    },
+    {
+      "id": "course-b04a-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1569,
+      "sha256": "cc9fcf05a6a4d4d9bc18d02d72e5704c18ebc4e0c9e26616591e236f3a7e53be"
+    },
+    {
+      "id": "course-b02-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 890,
+      "sha256": "114e3682289e5f1a4befee6e22268db12d40a9eebccf66a2ab60bd1f9cf8bf0a"
+    },
+    {
+      "id": "course-b02-minidrv",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 1597,
+      "sha256": "36e711423688a6750e0ae33d2dcd43d0a557002a06a57323e56b75107dc8cc34"
+    },
+    {
+      "id": "course-b02-m01",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 6,
+      "anchors": 10,
+      "characters": 19451,
+      "sha256": "71679bb371d565c08ca4f59cf7d0f8260880360e30fc30b0a733ac2b660f434d"
+    },
+    {
+      "id": "course-b02-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 7,
+      "characters": 16645,
+      "sha256": "dc2e3e18e066d5bb1388bc0cfa9ccde5c0708a0bad7fa46d5a5bd2260be97bce"
+    },
+    {
+      "id": "course-b02-m03",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 16339,
+      "sha256": "d5bc509890b3ee7a35010e05c0da23a26d4f93ea09768dd4e2273e0145597da5"
+    },
+    {
+      "id": "course-b02-m04",
+      "kind": "chapter",
+      "code": 8,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 16593,
+      "sha256": "13cee5eb7ce3502fb72af9d2dffb09a18b82ff49b541ef3aaa42e3ba8b79d83c"
+    },
+    {
+      "id": "course-b02-m05",
+      "kind": "chapter",
+      "code": 6,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 18270,
+      "sha256": "4c555e5562e5b2d7aef259f2464978eb9de0e14147e97042e7b4c8b3eb372a9a"
+    },
+    {
+      "id": "course-b02-m06",
+      "kind": "chapter",
+      "code": 6,
+      "figures": 3,
+      "tables": 5,
+      "anchors": 6,
+      "characters": 15505,
+      "sha256": "280b199fb3f1d44a41e896dd8e187dcbb1c9efa3854cf8107c5bc258b7c588d8"
+    },
+    {
+      "id": "course-b02-m07",
+      "kind": "chapter",
+      "code": 8,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 14041,
+      "sha256": "22a811bbd16719c2683946e692755aa8087bdc0462674ed909d502d684b5be1c"
+    },
+    {
+      "id": "course-b02-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 15474,
+      "sha256": "0b15b5b321f7a176cd1b5fb19bc82025d057d6dc3ba9f2b7099782fbc850fdd7"
+    },
+    {
+      "id": "course-b02-m09",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 16090,
+      "sha256": "80f8dc25097f40ded3ea228a1fe17c19fb0452f9279dc8b64a7f434ad8887b6a"
+    },
+    {
+      "id": "course-b02-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 15932,
+      "sha256": "7a2d768c21f6098fd771213823522a7a3d77852254a2ec95190022984ef05b25"
+    },
+    {
+      "id": "course-b02-m11",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1600,
+      "sha256": "de907fa3742ba80f583eea2e49b39e2e8b0dfd4da36a5df67d48adb3b6c3131d"
+    },
+    {
+      "id": "course-b02-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 2270,
+      "sha256": "25acbed39fa46622045b350e29d991079f2b10f0bb5e1e72d2d9ec1b1e833ff8"
+    },
+    {
+      "id": "course-b02-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1551,
+      "sha256": "1584f6a5b2d7b84d5e7f97de82c490ecce75826acb8cf178b7f901df1c489a26"
+    },
+    {
+      "id": "course-b03-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 803,
+      "sha256": "4ec32af3c6d3a15f013ff4db686cb6fd98527cdccd620d0137a817bd85237c70"
+    },
+    {
+      "id": "course-b03-minirs",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 1445,
+      "sha256": "b9b0e67170869a44e361293dbcdd4a0fe051eeab25f35ab3f500dc19b9746e61"
+    },
+    {
+      "id": "course-b03-m01",
+      "kind": "chapter",
+      "code": 9,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 12150,
+      "sha256": "e05b406f47e55ac463cca5c91d3f1aa80d1542109cab2312cb9b54b0c9f70454"
+    },
+    {
+      "id": "course-b03-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 8830,
+      "sha256": "25db6df7d17e1da36b06d21f0e8081d8c3af159ec9aa27b0741132287a2b8c12"
+    },
+    {
+      "id": "course-b03-m03",
+      "kind": "chapter",
+      "code": 11,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 11930,
+      "sha256": "07440c531e08b34081a2df5704e570aa11bea9b946fd3ff3cfbe3b051557848b"
+    },
+    {
+      "id": "course-b03-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 8106,
+      "sha256": "87e0e9d050e3b7c449f0469aa66373f391772d6f62c57e8dfa36faefdcafd08c"
+    },
+    {
+      "id": "course-b03-m05",
+      "kind": "chapter",
+      "code": 8,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 7,
+      "characters": 12148,
+      "sha256": "29c4e8684526b1e3951350ed9e057bba4314501319910b3f4ae435438b3f0120"
+    },
+    {
+      "id": "course-b03-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 8315,
+      "sha256": "23318f315a80e9fbaee6e78e2171d2fa350566200478bc692ff582d17f78b0ef"
+    },
+    {
+      "id": "course-b03-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7783,
+      "sha256": "0910dbd3373c675b8723d517eb1302e2262f6ebc0f2e3cc97b330eebaf70d714"
+    },
+    {
+      "id": "course-b03-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7983,
+      "sha256": "1f6cdefecc46ade712caf31885dd9f8973a3adbd3275bf2d47b21276e939aa0e"
+    },
+    {
+      "id": "course-b03-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7518,
+      "sha256": "ad2cfcd265178deac77a12f852c4832cc4b4aa15c2102268024f56740624986f"
+    },
+    {
+      "id": "course-b03-m10",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 3827,
+      "sha256": "8d2bbb3e385d7f5bd623fa3d00e146b1a54f6e592938074e2ef3c08fd712ec9a"
+    },
+    {
+      "id": "course-b03-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 2207,
+      "sha256": "93b41a5dafab7f91af975c6a7de9ea5af53b22bd4a4abdfc0a1b2bb97409e61d"
+    },
+    {
+      "id": "course-b03-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1671,
+      "sha256": "7861fe1bfe8aa3cd96fe3eb6b04cac0628ed5705971c909c484883f61d64255f"
+    },
+    {
+      "id": "course-b04-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 712,
+      "sha256": "dede2f93b0eecfe47aa57712cbfd37bd1c749c89df680bc089e3d86bea837f10"
+    },
+    {
+      "id": "course-b04-m01",
+      "kind": "chapter",
+      "code": 3,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7249,
+      "sha256": "7e57920a966b2df6c280fc64e9e6ec6f909fa8f3c91350b490199253b1076d60"
+    },
+    {
+      "id": "course-b04-m02",
+      "kind": "chapter",
+      "code": 3,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7780,
+      "sha256": "4317f590b13f87027deb77572598dd21bcbca4f00a1601aa51345c79f6a15f03"
+    },
+    {
+      "id": "course-b04-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 8777,
+      "sha256": "ccce7a8bfa0718780c21fe179b650659c198b4c0bac10191da1849e7bd3f2ae7"
+    },
+    {
+      "id": "course-b04-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7984,
+      "sha256": "03e65dbda791b249c1cd13a058bae78ae788365b4fcb595c00c4973c5f3b5b13"
+    },
+    {
+      "id": "course-b04-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7661,
+      "sha256": "ff0e79ccc83675a58995beacdaeba77b91cc4440f4a5bbda38fc0a22ff6c8a57"
+    },
+    {
+      "id": "course-b04-m06",
+      "kind": "chapter",
+      "code": 3,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 7668,
+      "sha256": "5f4700331095715d7cff2a2c75b9a63455b4732da9eb462d4caf9eef7bfeded4"
+    },
+    {
+      "id": "course-b04-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 6,
+      "characters": 8578,
+      "sha256": "96e7ac68db715ad30bdc1122b08e5834d7c91d98087cfee88c5dcf5b0efc0a45"
+    },
+    {
+      "id": "course-b04-m08",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 3586,
+      "sha256": "dcb64608e8d7610e9ea7db79407d39164f971d05afbecca09cd1270e88479231"
+    },
+    {
+      "id": "course-b04-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 2,
+      "anchors": 3,
+      "characters": 2146,
+      "sha256": "1a69523a76f275e29962a956ff51658819f62da84d15a0318d59a09b410686bf"
+    },
+    {
+      "id": "course-b04-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1346,
+      "sha256": "fbc6f63895101ba10643c07a5bf783264e6eeae23392f5650c87dc06f1fa1070"
+    },
+    {
+      "id": "course-b05-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 375,
+      "sha256": "5ba6eddcd9e3d3fa949fd55c9985f7d793b7dcf4bb02a32beba491cdb6c3445a"
+    },
+    {
+      "id": "course-b05-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 12193,
+      "sha256": "af87cbf58fd9bf522c5f57bf952ecb17d24ec1da44b67048a38f536b3cf97344"
+    },
+    {
+      "id": "course-b05-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8926,
+      "sha256": "795824092ba47097a256c1e6c921de66fcd1477807f56aa3b8985a39a30b7e84"
+    },
+    {
+      "id": "course-b05-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10085,
+      "sha256": "8834e03b9e76f9458058cac4931f65e6c1367ec99514a45d4d86d48fc0e4d49a"
+    },
+    {
+      "id": "course-b05-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 13,
+      "characters": 10829,
+      "sha256": "e23de2cd09391366469e9acff844cbf8c0d11785df505d929e9f13d883f65175"
+    },
+    {
+      "id": "course-b05-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9497,
+      "sha256": "0b96890034f845673033505f2039872c4933dd7506836a9fa297c754564fe777"
+    },
+    {
+      "id": "course-b05-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10195,
+      "sha256": "08377a264bc9e016f1456810a1a8c787b975c4ebabb25d5a04bfbbd091ff5d5f"
+    },
+    {
+      "id": "course-b05-m07",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11455,
+      "sha256": "122befdabf5cfcbe7780d1053bee1c930c6efefec778dc472efac150193ea4a8"
+    },
+    {
+      "id": "course-b05-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11869,
+      "sha256": "a5a8129a245abf8ac4fcd6a64e59b08b5b9e93c82bef93dfc88c7eb0474aa977"
+    },
+    {
+      "id": "course-b05-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10579,
+      "sha256": "d31362fcadb87d9eb1bc5061a6126f55665bc50c6ca36b63fccc323b716aa22d"
+    },
+    {
+      "id": "course-b05-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10524,
+      "sha256": "de76d3b5c7208ce05421535e6c0be201d432755acd28c5f09bfeb35a1371d741"
+    },
+    {
+      "id": "course-b05-m11",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9547,
+      "sha256": "cfde360197565eacd813da65323fdce627f1d0c246e39870a5acc9a274f67463"
+    },
+    {
+      "id": "course-b05-m12",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8276,
+      "sha256": "cae945ebdb096870785e664f89221107e5b3c44a2ab018c28402265e9df8ad94"
+    },
+    {
+      "id": "course-b05-m13",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 12032,
+      "sha256": "5f7566e01b717b5ab47383ec414c7c1f8474d2f963ece311f14539315f7f5b1d"
+    },
+    {
+      "id": "course-b05-m14",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10398,
+      "sha256": "c52dc245ea0b46125b5366ba3cd023c807ad6dcc69a34fc4cd52671b91cbe5cc"
+    },
+    {
+      "id": "course-b05-m15",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8206,
+      "sha256": "504eb4c987af74c6c8935ba9f4460afabec556508068bf2ee31e3b6241e8fa86"
+    },
+    {
+      "id": "course-b05-m16",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 10820,
+      "sha256": "6910bd91c142db4c63b62ce7f7c538b0e8fc8dba9b0d95851261d713b31c9245"
+    },
+    {
+      "id": "course-b05-m17",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 12363,
+      "sha256": "d746612cf310037896644a57937a0c002a31611cec388cbc18410901d90912bc"
+    },
+    {
+      "id": "course-b05-m18",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11712,
+      "sha256": "e7df10976c4e5e4ebe937c6cdf30482c770da7eee505f6e2fe2af70b28a8f7e6"
+    },
+    {
+      "id": "course-b05-m19",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9491,
+      "sha256": "23bee0a5b7e2995eed72c8fd279220c71952162fa60318aa5f2179096416aecd"
+    },
+    {
+      "id": "course-b05-m20",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10582,
+      "sha256": "f9cc1687721a9beebf9db76458a8a4d59748b86de9ff9c16c8380ce1a0305077"
+    },
+    {
+      "id": "course-b05-m21",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10396,
+      "sha256": "6057c84cd10a5aaf5036668c6e4050ca03636ae82ad00830333422fa254b746a"
+    },
+    {
+      "id": "course-b05-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 3498,
+      "sha256": "15f1bea324653a2ae4143a80cacb82a855d56bcb19397818e104c55f16bb4e2d"
+    },
+    {
+      "id": "course-b05-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 973,
+      "sha256": "ac7f1720ecf91bcf63ac8eb740880a0dbd194c8bf73526c15b18d56b4ebaa04c"
+    },
+    {
+      "id": "course-b05-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1175,
+      "sha256": "fd4a0cf4936db463a8690e066561eb75b5434c46f48fe85b2fe024d73cba5889"
+    },
+    {
+      "id": "course-b05-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1781,
+      "sha256": "bfdfa1b362083bc52bb6561b0257e57d46f89c15fc77c996054603f308bc720f"
+    },
+    {
+      "id": "course-b06-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 279,
+      "sha256": "ef06ad195810355572c4cd3c5dd4f736a9996145cd3834c77937b6220285a955"
+    },
+    {
+      "id": "course-b06-m01",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 12664,
+      "sha256": "89240066f38116e725eefc35ad945a1921e0f7b8aefed06990c23fe50821eaab"
+    },
+    {
+      "id": "course-b06-m02",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 12567,
+      "sha256": "838e0ae2b0544b9081cc4b7a1482d3547bc463b82278012989e994e9c207b231"
+    },
+    {
+      "id": "course-b06-m03",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11413,
+      "sha256": "bb29df7aad02b2f123ff9366a74c9f87ee89025f93f9e0dd6bcc80cce4839679"
+    },
+    {
+      "id": "course-b06-m04",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11729,
+      "sha256": "6d1197c538b3e159586a4703b423a3a8313eb8ba7183d470bd84f460883e3184"
+    },
+    {
+      "id": "course-b06-m05",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9011,
+      "sha256": "3fa50c7b5371f4b4c78872c915190d316065ffda3e0b6180ba46ce2cccbf0cd3"
+    },
+    {
+      "id": "course-b06-m06",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7573,
+      "sha256": "863a6d0c6b9b7dddcaa5f1cc98d4dc8c3b981015cfdee111d07906fdb28c1302"
+    },
+    {
+      "id": "course-b06-m07",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10935,
+      "sha256": "756b6d2b551f14a9363bb1e98480c21e74e60b4b09486fe3900dcac45feb670b"
+    },
+    {
+      "id": "course-b06-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8781,
+      "sha256": "9958a195b3ab1587a0039defd52852acc02016f039e5ee964bc50f4297b1f9d6"
+    },
+    {
+      "id": "course-b06-m09",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 11750,
+      "sha256": "3aeb1f4569ed589f8cc696aa49113aa203a9ae6d4f4fa819b51ffb85ac35ccce"
+    },
+    {
+      "id": "course-b06-m10",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9498,
+      "sha256": "a1d4f378b228dacccf97eb8ade298cbf294b87c1ccba3649979290dd13146d3c"
+    },
+    {
+      "id": "course-b06-m11",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9707,
+      "sha256": "5988ed257b14008f1ca4b6da0c175117d2b132039e7006ef2fa917bd17002b87"
+    },
+    {
+      "id": "course-b06-m12",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9713,
+      "sha256": "763f09e6eae0d0f2a0474990f0b92777b975ff3d4d09f9b144cb88e579d36206"
+    },
+    {
+      "id": "course-b06-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2627,
+      "sha256": "1cdbcd164ebd5f659aaff1c99a1e7890e1c67c316b57fac035e200c3bbfe11af"
+    },
+    {
+      "id": "course-b06-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 1138,
+      "sha256": "ca3ceb52f733e0fee963ef49b00dbac7b235882c3928dedf5e5b761c20903889"
+    },
+    {
+      "id": "course-b06-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1492,
+      "sha256": "bdc512f969d50b0f181817c6d9eb8fd569e4ea06bf3c44a76abfcfe42714b3a8"
+    },
+    {
+      "id": "course-b06-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1636,
+      "sha256": "58a6b24829b6b97fbea8bfdad1ad7e12747d90441862d2b363f24cb950322b56"
+    },
+    {
+      "id": "course-b07-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 249,
+      "sha256": "81744128f66bb756a90a86b4d4cd7f9d026bbd72dba6b78283fdedcf24f12f04"
+    },
+    {
+      "id": "course-b07-m01",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 12640,
+      "sha256": "947936689a2897d3f446641542636afc5f724d8be70108a73341084b2935d0df"
+    },
+    {
+      "id": "course-b07-m02",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10514,
+      "sha256": "4cc6f3481506d3cb311f97cc7aebcf0692e4170b81f44b2a44ccbbaac0b3df5e"
+    },
+    {
+      "id": "course-b07-m03",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10254,
+      "sha256": "d6be2d1d2ae1e6f728ac33ec53ac58bfa30266d47de9ac106bad526724184f6b"
+    },
+    {
+      "id": "course-b07-m04",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10013,
+      "sha256": "0aef824fb9d13565086ea4314475cf4c664c85dbdb33114ca78f5f12949fe043"
+    },
+    {
+      "id": "course-b07-m05",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8031,
+      "sha256": "48cfd05e27e91afb8641214f6072834e786b1b4401a8509ddbd65aecbad41474"
+    },
+    {
+      "id": "course-b07-m06",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10041,
+      "sha256": "59d199da5c6b4d50e86a7d7a0ec6fed17a43de42676d807dd319c2c54a814076"
+    },
+    {
+      "id": "course-b07-m07",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8852,
+      "sha256": "4faa1c8d4e1a660d66a3a7f9c02fd964c39b7175264ba232825d05f750d1d23c"
+    },
+    {
+      "id": "course-b07-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10092,
+      "sha256": "dd1798efb643959adf80b8afd1b03d46ae9dd3ee56c8bb165ef68736ac334b14"
+    },
+    {
+      "id": "course-b07-m09",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8208,
+      "sha256": "13cbabafb1a3b39e11c63dbe09a844a5575f81cb5aa4c44eb9f4a4291d9da30d"
+    },
+    {
+      "id": "course-b07-m10",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8632,
+      "sha256": "01ce72be6306c958160b7aba00b3de7bcd7873bbbb9db3aa4be429ccd8af5750"
+    },
+    {
+      "id": "course-b07-m11",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7760,
+      "sha256": "95b8c1f0ff4f1b33273da94511d47177e38789318b32dec5651546b7c35b163e"
+    },
+    {
+      "id": "course-b07-m12",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10214,
+      "sha256": "fe0eb6e4708bd540109eca751cb186ca1eddb0d01de59335c87869e2b53b857f"
+    },
+    {
+      "id": "course-b07-m13",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7836,
+      "sha256": "26e1a23dd3c14e0e1d4ca99ba95fd80b960083ad198868ead3737cbc0dc1cd67"
+    },
+    {
+      "id": "course-b07-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2453,
+      "sha256": "d3a425adecaf334880956c6491620f6b944808ae6890bdc2b2d5b0cd8c891c64"
+    },
+    {
+      "id": "course-b07-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 850,
+      "sha256": "3176bac22bf31f5a372cb18056c1e467206be9ecc4feb00b90e7d393f29c9db9"
+    },
+    {
+      "id": "course-b07-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1381,
+      "sha256": "d8da5aa9c34442558c8ee0e3cba0ef54436bd9d16df95fe4706b24cf664d475e"
+    },
+    {
+      "id": "course-b07-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1580,
+      "sha256": "b6bbeb7c326cc7d4af3bf344cc45ff1aa6034f9951ac7ce6552cd92714fb9b8f"
+    },
+    {
+      "id": "course-b08-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 254,
+      "sha256": "806160c0786ab0eb608e1a6146b946696b792e4a3c097c653c1f538576d2b434"
+    },
+    {
+      "id": "course-b08-m01",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11430,
+      "sha256": "4f7d2ddf9c84cfddfd14d9006948431b9083382292833c38a3b1adb07a6989c8"
+    },
+    {
+      "id": "course-b08-m02",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7606,
+      "sha256": "1d62151a6b242646494c94c8bf522f0bf518170043f7ff37f9acbe98546732fd"
+    },
+    {
+      "id": "course-b08-m03",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10169,
+      "sha256": "11a358cf1aa9a71119a5a062ee8f03d7dd6f854841114181182e06e0652d2949"
+    },
+    {
+      "id": "course-b08-m04",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9370,
+      "sha256": "dd8c1371951633b50d438b3e593e74600ca315ccf02721aa2e1b828eb88bf123"
+    },
+    {
+      "id": "course-b08-m05",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9680,
+      "sha256": "ccee527ebc973802d683f90b1f6d9c1c64886175a6cb9bd53decbbd11beec2e5"
+    },
+    {
+      "id": "course-b08-m06",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6777,
+      "sha256": "bcddc7057f89a550fd7f68a0ca83a7acd970e2a13763664357d1a558c2326759"
+    },
+    {
+      "id": "course-b08-m07",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8593,
+      "sha256": "40725effcfa92c7fc27f7b80b3d464600281c59a8b0ae65639d1904c21981b7d"
+    },
+    {
+      "id": "course-b08-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8124,
+      "sha256": "2c61c404fbd8faa73f9d86b62ab233de228722a7175ebffa4e623657a27a7b66"
+    },
+    {
+      "id": "course-b08-m09",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7006,
+      "sha256": "537caa90e185db3e9c6eeeff8475a988c5678ddefccba116f4cf7f90425e9f83"
+    },
+    {
+      "id": "course-b08-m10",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8064,
+      "sha256": "bf82a4dd341941bb036f1faa92104c5dc234817edc8eda3aa644826cd051ba90"
+    },
+    {
+      "id": "course-b08-m11",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7248,
+      "sha256": "8246e1a488e1cedbf470f9682b66002c493e75042ad57c8e12db552f62ef9d69"
+    },
+    {
+      "id": "course-b08-m12",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6886,
+      "sha256": "045c03e9dc279d5634c68c20840daa2fa3799d7c156e3b93af5592d834578aaa"
+    },
+    {
+      "id": "course-b08-m13",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 10305,
+      "sha256": "32d746ff40cf6382ce3a68831377dfc376bb51b05e2c4bd5a57675e24f36bd30"
+    },
+    {
+      "id": "course-b08-m14",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6883,
+      "sha256": "c5f176be5ebca1e241178580bce11a401860d1ce4bf15c6c4febc65a3b5e3bfe"
+    },
+    {
+      "id": "course-b08-m15",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7014,
+      "sha256": "4135e7e21236ac970672964ca1c5552dfaa97fa48c84155838b3810d07353645"
+    },
+    {
+      "id": "course-b08-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2457,
+      "sha256": "9f30257a24b5393d8d8fbf72065708dd7aa99a02f3b105032a74aaaf61e61e6b"
+    },
+    {
+      "id": "course-b08-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 735,
+      "sha256": "3f2beb24a9c6ff5dc90113fbedeb01b6bbeeffb24fc68e82d537865193f16e83"
+    },
+    {
+      "id": "course-b08-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 899,
+      "sha256": "39371c50e86a3a560304519b275ddb1f5b0e72ef29ecf3828b4bad993eacfb3f"
+    },
+    {
+      "id": "course-b08-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1576,
+      "sha256": "92f13d775e84c01079e262dbf0b4ff46a8323b60646fe6a0df9fd3a2cdc25e39"
+    },
+    {
+      "id": "course-b09-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 328,
+      "sha256": "74f3eca5437f8c3a9b97bdec133a6e7fb54cd05637461038400f81a48e98708c"
+    },
+    {
+      "id": "course-b09-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 6,
+      "anchors": 13,
+      "characters": 12072,
+      "sha256": "d6acd509188250be8d6062e1ea5d20d07f7c07c83dd832ceb13d9d0cb5bfea85"
+    },
+    {
+      "id": "course-b09-m02",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 14,
+      "characters": 9404,
+      "sha256": "ceae63027f342a31457fbcdbbcdb7a63ee8e0c00e53d3cb0550e314ae6b0fce6"
+    },
+    {
+      "id": "course-b09-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 13,
+      "characters": 10284,
+      "sha256": "6830433b934f145ecb64aa9deda6f3ca237e1a7970ef32f2a014dc4c5830c253"
+    },
+    {
+      "id": "course-b09-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 13,
+      "characters": 8684,
+      "sha256": "3d2c5ed6bc0dc525426b763192d18f7bbdce73120c004e2d033543af3b4db431"
+    },
+    {
+      "id": "course-b09-m05",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 6,
+      "anchors": 15,
+      "characters": 12447,
+      "sha256": "d8b362cf96e6d703f0b999d0d320681046482b7aae57acf031c5766a0c645204"
+    },
+    {
+      "id": "course-b09-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 13,
+      "characters": 8588,
+      "sha256": "be437924c143dfb0ba3db4108a76ac09f657348d686f8586a2a114e36bdcb941"
+    },
+    {
+      "id": "course-b09-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 6,
+      "anchors": 15,
+      "characters": 8861,
+      "sha256": "24bb1f4112505d67c9a33b3e20ad411f7d8d3b0ab720dc7214d96b1e1d2b1ae9"
+    },
+    {
+      "id": "course-b09-m08",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 7,
+      "anchors": 15,
+      "characters": 9363,
+      "sha256": "2a70d7d3e447ea4020cc50e93b640600db683e0d0c44687c4895d899d4a42974"
+    },
+    {
+      "id": "course-b09-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 7,
+      "anchors": 15,
+      "characters": 8507,
+      "sha256": "b0a9bf8b8d0c1f3a1534f7591d01e85282ac3fa812ea6891d4d7fee57c155706"
+    },
+    {
+      "id": "course-b09-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 7,
+      "anchors": 15,
+      "characters": 10235,
+      "sha256": "571c55095347fbe173bc849af71ca52a2e0fe1325be3720e68b9106e8e91af3b"
+    },
+    {
+      "id": "course-b09-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1750,
+      "sha256": "e3d345ccbccf42ac78db8a1fd11e039b5a67a076872fed59a34b29b0edd4e61f"
+    },
+    {
+      "id": "course-b09-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 1081,
+      "sha256": "508f82e5d9e849b28d25402d3a0fc07a472f16b47a947030dd6fc07728b16a9d"
+    },
+    {
+      "id": "course-b09-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1107,
+      "sha256": "7908cfcfd66032a10067b25827a6af219339b52212954492978641995fa01e2f"
+    },
+    {
+      "id": "course-b09-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1834,
+      "sha256": "33ea61e51cbfc9f2d256116e72f2aa1edaa120138e2f64e9e68e523c94681c74"
+    },
+    {
+      "id": "course-b10-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 312,
+      "sha256": "e9aa7103d4797d7b97abfcee49b528b4c94e20ef17d2f61086706181a62c96a9"
+    },
+    {
+      "id": "course-b10-m01",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8880,
+      "sha256": "a707db68f90e73799712697ab7173d4bf8ad2a8ad28e6e0048cbf6eb8f1c41a6"
+    },
+    {
+      "id": "course-b10-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 9274,
+      "sha256": "df6e1149c7a7385312e856d4179108dcaab5d90a542b36880ad98acd019ff0cb"
+    },
+    {
+      "id": "course-b10-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8216,
+      "sha256": "88969e014c694bea6835f7b6185faa6e841bcf4f057a9aedddf6a3f5a6d30030"
+    },
+    {
+      "id": "course-b10-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8878,
+      "sha256": "cee0230f8d50954f213389ecbfb89a5257fcea113dc21a22e198a6fe0ea0c529"
+    },
+    {
+      "id": "course-b10-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 9945,
+      "sha256": "bd54bd32209616635447e7338a665d0ded720e6ad14583c98eb2dbe51352d024"
+    },
+    {
+      "id": "course-b10-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 16,
+      "characters": 9895,
+      "sha256": "08f7cf52b01a85618db8b1f917553ffc34af9a339cd2f429866e6eb353f2232e"
+    },
+    {
+      "id": "course-b10-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 7909,
+      "sha256": "02039134643d18179e0052df422bdecd22a27a185f432fec5c33bb3cc9a050fb"
+    },
+    {
+      "id": "course-b10-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 9609,
+      "sha256": "9488dadde7a06008303da6b0d46ec017a7ccd0357f5b6b76a9389b463cdb84e7"
+    },
+    {
+      "id": "course-b10-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8968,
+      "sha256": "9495546dbc3e314d028be507b4c9901aeb2182809d5a6c0d4c6caecbdd26301e"
+    },
+    {
+      "id": "course-b10-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8752,
+      "sha256": "c3a22d7e5ab24b83a8ae59babe40bed542d7e4447f504e26dc1e6021a6a4aa7b"
+    },
+    {
+      "id": "course-b10-m11",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8297,
+      "sha256": "d2151951bd7ad3ff41d9a85c424d6d100b8b860539f76fde107bff7cfebdef30"
+    },
+    {
+      "id": "course-b10-m12",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8657,
+      "sha256": "a44305d9bfd2011bafe9b32c0ece9a0bfaea8939b8ee5e72cecfb1c25ed3efe3"
+    },
+    {
+      "id": "course-b10-m13",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 8256,
+      "sha256": "bfcac3b842d85296cba312a41bebb72a7089ae19b77c9771bce60435dc86cb85"
+    },
+    {
+      "id": "course-b10-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2254,
+      "sha256": "ecf84791bb9433869fc2453df89febc44b509af3a9389ce5e885b78ce56cdba8"
+    },
+    {
+      "id": "course-b10-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 719,
+      "sha256": "a014e448e55a1877c88b4fddc364370fd897d5714c64bbf3ff317f56613df5eb"
+    },
+    {
+      "id": "course-b10-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1052,
+      "sha256": "9c46a830b37b027228a888d02c781cc9416931cdf93d9d61269ce669fa48750d"
+    },
+    {
+      "id": "course-b10-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1843,
+      "sha256": "928b4c842495737a1f76fba4c971e6ecc3fe28cc3e3b98fe2fc5aebc25ed473e"
+    },
+    {
+      "id": "course-b11-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 314,
+      "sha256": "518d1e74b834c91d41d73962b8acc09854393c1875c9d61c80860f1084e473ea"
+    },
+    {
+      "id": "course-b11-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7978,
+      "sha256": "fd0e8d52f6b3ff988495aba6d0d86d5d2f2b7b516abef7130042179cdc177031"
+    },
+    {
+      "id": "course-b11-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6874,
+      "sha256": "21a2b7973afabc5a4d0befdbefcce3108b30aec9ece972062a4068754272b307"
+    },
+    {
+      "id": "course-b11-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7745,
+      "sha256": "7b35d07086bbc2b044b0eab3eac477b93c44452e1a23b4901fa9b12c02adb597"
+    },
+    {
+      "id": "course-b11-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7045,
+      "sha256": "8c7d401c3c5660bb47332bff69241ed704a7eabc9d2f766ee3c6bc584fc26a2c"
+    },
+    {
+      "id": "course-b11-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8407,
+      "sha256": "75c0b835d8a8108eb2646f68a6cda18a76bd4e32b3c5f14d0fc6d876b5d7583e"
+    },
+    {
+      "id": "course-b11-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6816,
+      "sha256": "e58e18c55f91b020fb96da78fcd2500dda694bf3491e58e4db57e8774c41a9c1"
+    },
+    {
+      "id": "course-b11-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6530,
+      "sha256": "09e5bb3c228fe9af5da480a090a72b8488483442effa146f5741989ea2ab4d87"
+    },
+    {
+      "id": "course-b11-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6828,
+      "sha256": "ebea3ecfd40a0da349812b4b54f73fdeadd99bf5a6d9f39740356adace838a3e"
+    },
+    {
+      "id": "course-b11-m09",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 8004,
+      "sha256": "49f02ced8a3c72f60183dd1dc1edb034c477392403830d268d5abad9d8a8a99b"
+    },
+    {
+      "id": "course-b11-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8248,
+      "sha256": "5d400dc79d79171f9bc70efad0941370eb088adff5d6a0f99ecef25f6d38bfb1"
+    },
+    {
+      "id": "course-b11-m11",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7136,
+      "sha256": "9983b84c158f88a07026761b7332cb3d0c6df311ce853708a34daa5945f48691"
+    },
+    {
+      "id": "course-b11-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1220,
+      "sha256": "607d38183635e149ec96d7acec6d09d4dff868983dc770130ea52db5b0ee855e"
+    },
+    {
+      "id": "course-b11-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 625,
+      "sha256": "fb8b2be253e602d2345f2db2daad2c8deffdc6498b335da177250004dd39fdd8"
+    },
+    {
+      "id": "course-b11-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 805,
+      "sha256": "64726936c9df70b4ef4e4a89027a6cefd3e27c2a50c6e87d4e748991df2d758f"
+    },
+    {
+      "id": "course-b11-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1618,
+      "sha256": "44d2cd8eec3b32fdc3a97728d363e54728171952b631d39f3ef291193a7a3a5f"
+    },
+    {
+      "id": "course-b12-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 296,
+      "sha256": "fcc1e64d81593312bf92a895d27b0f95097073f469c14fc948850725d27fb07e"
+    },
+    {
+      "id": "course-b12-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6767,
+      "sha256": "7a2f74f4cd8639318b859d89af6575fd813f93f5baf0505cf00efb34d5a4cd18"
+    },
+    {
+      "id": "course-b12-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7128,
+      "sha256": "1b3f6f333cdcb8c4c2425ac952648d3a37265b025aa89272bd0945dd43efbf17"
+    },
+    {
+      "id": "course-b12-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6343,
+      "sha256": "29c553ef4f3c0722818a87c7ed4daf4205ff0835c2710b9ba3d485f147b4b250"
+    },
+    {
+      "id": "course-b12-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7542,
+      "sha256": "2a2a8fe63aff952828f77a1f775219a41bfa9f7d8d381f6c8a617cb3354c1bb8"
+    },
+    {
+      "id": "course-b12-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6618,
+      "sha256": "9400be828de0f92085f94caf856160e310a40372b7df462c79cb16879a25a490"
+    },
+    {
+      "id": "course-b12-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6606,
+      "sha256": "911900050ee034f4e222c9881cd53a52d9a58c7356a6fd68d053893f2333349f"
+    },
+    {
+      "id": "course-b12-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5997,
+      "sha256": "f6f542b46533b72e28dedbb3e78db48587036a0c5911b27170c0873f51588cb9"
+    },
+    {
+      "id": "course-b12-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6590,
+      "sha256": "9b7f407bda7d590ffa936213d2f99d8ff5c0c2112297745b6209289c5b1d1acb"
+    },
+    {
+      "id": "course-b12-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6284,
+      "sha256": "32201ee71fe336166e498887249cc946b7665e1683de8701c91fe3719c09834c"
+    },
+    {
+      "id": "course-b12-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6706,
+      "sha256": "29613c34540d73c8bffe2a692cb09932f2526beb7f780d7285ed0353a7b23226"
+    },
+    {
+      "id": "course-b12-m11",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6264,
+      "sha256": "203db62879aea477d2ac53e5700fed4254d536ad80e0d032371f844ab9ca96c0"
+    },
+    {
+      "id": "course-b12-m12",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 7909,
+      "sha256": "fbc388f8e31a8a521ab4df4c617b4c26fb25d0be23c2f6a8c87e3d36a8481103"
+    },
+    {
+      "id": "course-b12-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1260,
+      "sha256": "169a7f32b889bc5b704d709ba745400b7782f500123610943fcee5ba86621770"
+    },
+    {
+      "id": "course-b12-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 629,
+      "sha256": "abce8035946bb0c5529a669a244edd51de1d9e8163d4ebbf81a451444da1289f"
+    },
+    {
+      "id": "course-b12-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 700,
+      "sha256": "31cd7a558c0b6176e49c9edc8b3378fbfecfe88afe1766bec40154f86482a917"
+    },
+    {
+      "id": "course-b12-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1555,
+      "sha256": "62415e85df26648204f833ae60b23c2a10119b5ea147b7bd0e7316c839d22801"
+    },
+    {
+      "id": "course-b13-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 278,
+      "sha256": "59e423f4bfb2f49080d5dc3c8dc368f0793d7bc001072cdba88844625c113af0"
+    },
+    {
+      "id": "course-b13-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6703,
+      "sha256": "0ff4c4ab6b327244998e31acf57983d0b1599bdc893dd44348f252703ec4c06d"
+    },
+    {
+      "id": "course-b13-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6470,
+      "sha256": "79105f48533e35acd4a00cf86830d181a69c46f1a83769320b883615903c8ab6"
+    },
+    {
+      "id": "course-b13-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6707,
+      "sha256": "d620ddf09005d8b470b33c3e65396cb44572e6101d1dafb3d7e48c7d559f9743"
+    },
+    {
+      "id": "course-b13-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6656,
+      "sha256": "fd3ed980e2d15dd2406317f1435cd93d40d798c425053a20a119772466bc9550"
+    },
+    {
+      "id": "course-b13-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7093,
+      "sha256": "4c74e78bac99fddcee31556403cbb90f39d693abcd1ec09e3ff2611bc89763c8"
+    },
+    {
+      "id": "course-b13-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6510,
+      "sha256": "eedaa5bcead6ffade9e812d8f50288ba1695e86035368e0f5f750188ed396738"
+    },
+    {
+      "id": "course-b13-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6134,
+      "sha256": "9fa9a069ab224bf5a3fac9091d2f6383f4e42d9f1ad1c1ee7aa1a663d9b82169"
+    },
+    {
+      "id": "course-b13-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6808,
+      "sha256": "70464bf409d8d840ba9713487c36382c1658f4cb542fa48267f203cb16331ad7"
+    },
+    {
+      "id": "course-b13-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6990,
+      "sha256": "0f3f72d15ae67e6773184a5a987a66bd026c5dbd68b94cd4949e908bbc551624"
+    },
+    {
+      "id": "course-b13-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6494,
+      "sha256": "28a4ed3e5e2fe22f6e5c4a98980523d64f10bcfd7f57f46128df80a4b5371803"
+    },
+    {
+      "id": "course-b13-m11",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 5,
+      "anchors": 15,
+      "characters": 7568,
+      "sha256": "91795755d8e1b5fbd80bac48e4c8ff9d4ae1332462d80bedf6d8ba4fcb98a174"
+    },
+    {
+      "id": "course-b13-m12",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6271,
+      "sha256": "050cd32ec1b6843cda2c9d77f97c62f6a31cdace68c4c62806c204aefd3a8f7c"
+    },
+    {
+      "id": "course-b13-m13",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7129,
+      "sha256": "e486b3388993c279dbfcb402d376d13cbb26c08fb76ebb65953b44f0dfe07a4b"
+    },
+    {
+      "id": "course-b13-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1202,
+      "sha256": "27b5bc9b61f46a5857160ff3770609ca79daec1313f8711fa42b232c8e17d8d6"
+    },
+    {
+      "id": "course-b13-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 573,
+      "sha256": "a9bb5eaad5e429d0fb948f2b619f05eb1a09c104a9a58a6451951ac7b751b22f"
+    },
+    {
+      "id": "course-b13-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 735,
+      "sha256": "32fec9c2a032e52975b7cd33f78344fbcac21c36901734bb1f256d29ff2b656b"
+    },
+    {
+      "id": "course-b13-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1637,
+      "sha256": "7b6fa30fb29ab0e565aac44e8e818a78a0df07b3c3a4a3e50df5f98ce10bf39c"
+    },
+    {
+      "id": "course-b14-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 274,
+      "sha256": "9663da8d88c1efc204387d226b4a2983e6a836abc2bf2abc95edfc7ab58fed0e"
+    },
+    {
+      "id": "course-b14-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6342,
+      "sha256": "19262b4cad7c6c2319c86a9e12b024cb9bb3371247050b2418c745f773bbbf84"
+    },
+    {
+      "id": "course-b14-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6106,
+      "sha256": "bc9c383698d8d053b0359a57e00b69d88983f7042c26deadde387c1992d879e5"
+    },
+    {
+      "id": "course-b14-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6403,
+      "sha256": "40a3e56771b6bb0db62d94325861e9fad57be06f7a2ef07b699eb352ca040d18"
+    },
+    {
+      "id": "course-b14-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6988,
+      "sha256": "6d10e8fb26462a525f2ac7bd5034f85b109c00c05043f5b68b8b78a933fad84a"
+    },
+    {
+      "id": "course-b14-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6544,
+      "sha256": "2bbbf1ef6b44254f66496a5775ac2546cb8bde0985021cd81a46b040a7ae0b30"
+    },
+    {
+      "id": "course-b14-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5893,
+      "sha256": "8495cd59eb3c14bd0a216c6e8d3ff184a0b66b354ddb72fac4007e69d892a308"
+    },
+    {
+      "id": "course-b14-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6943,
+      "sha256": "967ceabd015f5e1047d7221cfe74ba0da4f82ba91dc041e8ffd341c84a99e23a"
+    },
+    {
+      "id": "course-b14-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6665,
+      "sha256": "c44fe6f07d656094479020c1b05515ebc16d12daddcd0782acf915f4508df165"
+    },
+    {
+      "id": "course-b14-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6946,
+      "sha256": "1c5d98b2409e2b1aba0b324abb85202502c170c7d6e564ea1583f1dba1ef2aad"
+    },
+    {
+      "id": "course-b14-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6106,
+      "sha256": "5d71e0f1bc5f2832101786b9c9976b0e7e3fa317d2c8cf3723bf54e16dde6e9d"
+    },
+    {
+      "id": "course-b14-m11",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6531,
+      "sha256": "0894acb28bd05a74098b6e6bf3c46d877fc9265aa7e118d8dc17981ab0dc9cbc"
+    },
+    {
+      "id": "course-b14-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1017,
+      "sha256": "dcd44493826b50f5889a2b11a2b48c032fc5b242dc5bd34029d9a3146d46ab11"
+    },
+    {
+      "id": "course-b14-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 568,
+      "sha256": "968529cfe8d7afacc283a5d8abfae4aeaaac5def13234cbaab15b5956ae0f9e6"
+    },
+    {
+      "id": "course-b14-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 645,
+      "sha256": "cd10aa4e20069e2e1fa8308064f5c69802780b473682da7e2bfc46a0a4df9796"
+    },
+    {
+      "id": "course-b14-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1545,
+      "sha256": "121801696550670c8a623f28a4f3de72b6521aaf1d09d7a2762ccbf77a7dfc62"
+    },
+    {
+      "id": "course-b15-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 261,
+      "sha256": "f317a6b2b7c676dd59e8807a1da5009cfe1eb6f68d7dabc78e1e82c0830308b7"
+    },
+    {
+      "id": "course-b15-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6443,
+      "sha256": "daccccfc19eabdfbc4bf20bd5021daf0950be421429a83718b662f730a75ba53"
+    },
+    {
+      "id": "course-b15-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6827,
+      "sha256": "b95aa79911aca9d24332fcc4867e4d3008fbfe8cdaed8ad0308a7a66af88ddeb"
+    },
+    {
+      "id": "course-b15-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6115,
+      "sha256": "69e825aa8c2f103b83d8ea3c0d118ec649def47a14ac6f0e89fbbf540153b014"
+    },
+    {
+      "id": "course-b15-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7513,
+      "sha256": "262438f9b66fc5038e3f0ca9104f2a554c747c20b6418d4762891feacfdc0dc9"
+    },
+    {
+      "id": "course-b15-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6885,
+      "sha256": "87de6b34c88fe5b82a8253112570a70d35172f7099f3e3c42d75b0fcb4ddbe8d"
+    },
+    {
+      "id": "course-b15-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5866,
+      "sha256": "476c8987feb304e5d00c3617af6c05fa9eb473bfb67bb9340449af5b7a4cc983"
+    },
+    {
+      "id": "course-b15-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6281,
+      "sha256": "52a1fb045e88ed8d9d79f2c3b7c59faed3b6ce7d9a7227961e1df500b8e01452"
+    },
+    {
+      "id": "course-b15-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6565,
+      "sha256": "2dbf691b832a9ea9a5898655cad0866c723c280a116449840370ba9daf7eca7e"
+    },
+    {
+      "id": "course-b15-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6094,
+      "sha256": "770b7f2d0cab0888089e741cfb07320fe29f42f0304429c185d6593fc5979494"
+    },
+    {
+      "id": "course-b15-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6311,
+      "sha256": "d7f26d11cff3368301a8869312f592a9536b3df582fd8b1809f278e7d53b2844"
+    },
+    {
+      "id": "course-b15-m11",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6019,
+      "sha256": "cc7fb8ff09eb8932832d063ddc8c3a914004b92ea1a300e15d4590917ca42f3c"
+    },
+    {
+      "id": "course-b15-m12",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6062,
+      "sha256": "0b622a9982e00cb73f69022c07965f10e7e292a12fdadc6887b574ced742aeeb"
+    },
+    {
+      "id": "course-b15-m13",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6067,
+      "sha256": "4033226d23c2e4d3934526be481db0117fc7de10d1230398bdf0f1e6548f26c6"
+    },
+    {
+      "id": "course-b15-m14",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6900,
+      "sha256": "0c67ecf18821dfd06ad325995835d26cfdcb0c3e358fcdbd186d42dd5abc39ec"
+    },
+    {
+      "id": "course-b15-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 843,
+      "sha256": "bf932bcd5439278f3c54bc3454f9db58c287c45238086d84f633b02d0dc2db9b"
+    },
+    {
+      "id": "course-b15-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 700,
+      "sha256": "b2249a2fba1707ff38072bbe1dda13db6c596f95dab2273e5f39c2c12d91edb1"
+    },
+    {
+      "id": "course-b15-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 674,
+      "sha256": "21b9ed25365abda5ea563f9672388538e2b2ba0358c083afab4832c663b02e88"
+    },
+    {
+      "id": "course-b15-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1370,
+      "sha256": "6622e4b0379cac4bac023763640a21520bbc5e70f5df652d0d658f20f1992b88"
+    },
+    {
+      "id": "course-b16-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 258,
+      "sha256": "31c1590488df47641663df59a5098c7622ebabf2881234205f05d872e394c16e"
+    },
+    {
+      "id": "course-b16-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7287,
+      "sha256": "d15a292da70c80f80850a043bb55a669c57a1b9608b6f6af6db9c8239ddff2f8"
+    },
+    {
+      "id": "course-b16-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6345,
+      "sha256": "9434fb3d960a152f8f948faa61326fc5c81023135313d396a41a9059520767dc"
+    },
+    {
+      "id": "course-b16-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6369,
+      "sha256": "c61d80c8a1c1c01adc91a0664abfc267ec9fa2c791fb3447818100530b1c7b2a"
+    },
+    {
+      "id": "course-b16-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9115,
+      "sha256": "dceac2ddac36b6e66b216efea2a21fb420694aada9af00c863c8467313838f25"
+    },
+    {
+      "id": "course-b16-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5814,
+      "sha256": "90e65582dce8f1884484b79b545d6e292d34fe6e485058283fea6f26d2962759"
+    },
+    {
+      "id": "course-b16-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5794,
+      "sha256": "fbcd9674c20da796fcdffc2b01bae28613b3c6b55555ecd21d1c7b838e778da8"
+    },
+    {
+      "id": "course-b16-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6966,
+      "sha256": "e569553395d2ae20c818079462a40a07b6c03d37dc7de5a27df0c5d8f8618703"
+    },
+    {
+      "id": "course-b16-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6797,
+      "sha256": "e789d5596784ef669656635f9353aab27b07ef60354c2f8b867169689ef2c63b"
+    },
+    {
+      "id": "course-b16-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 977,
+      "sha256": "b46b2dab25f5d6147c7c6c7ba6589a921d8b7137be5cb6f607e83e63d15ed3de"
+    },
+    {
+      "id": "course-b16-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 536,
+      "sha256": "b0ee8d5edff108a2b69113ae0e392333e93439e5f69cef81fb730f3e53da3287"
+    },
+    {
+      "id": "course-b16-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 656,
+      "sha256": "9bdd4ef749cf94d8448368120ac1080c889077292ac8a0b0ed7ba11551e050d0"
+    },
+    {
+      "id": "course-b16-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1491,
+      "sha256": "a52152a141b9aa315a521b56c480b48483bb8fe360baa9898bf779f3bdb037d7"
+    },
+    {
+      "id": "course-b17-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 267,
+      "sha256": "cfbf0977c3bf9a7147a0ad0a1097817a61af9f1c0ee8260954b54a333bb30ab8"
+    },
+    {
+      "id": "course-b17-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6339,
+      "sha256": "18092dd62eea40fe4c83d634e461580c2f4cb3319d67570f75e835e8e112651b"
+    },
+    {
+      "id": "course-b17-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6823,
+      "sha256": "4d49539582e7ea8267fd349367e16f00cbdaf91d3ef390da0e0071badfa19a8a"
+    },
+    {
+      "id": "course-b17-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5807,
+      "sha256": "7b0317c677723fc12e5548b12d7b77c3b9d8eab30caf67a59c60445e993354a4"
+    },
+    {
+      "id": "course-b17-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6215,
+      "sha256": "6f7250f05dba1768dc63791299f46380d3b62a1d5198990767e2ed37103010e1"
+    },
+    {
+      "id": "course-b17-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 5983,
+      "sha256": "f31d0e5b8b0ff286cfff9bd21120ef432fe31ea24a643f98b4d428ca31ed09ad"
+    },
+    {
+      "id": "course-b17-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5739,
+      "sha256": "5ab8cb3159ae765822c1cfbb290157cbeadb2b7edfe8cbcd48fe188544290256"
+    },
+    {
+      "id": "course-b17-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6017,
+      "sha256": "9a128a7b0244cb8ad8af0609953259355c3b19f94d50212d59ef950508ce38fa"
+    },
+    {
+      "id": "course-b17-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6128,
+      "sha256": "976d206ec7f040d5e05d7afe2c7a07ac8627d7d7c9867fa4f54d20701fd6c205"
+    },
+    {
+      "id": "course-b17-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5646,
+      "sha256": "881bd0e4aa879d05bed560927d3ade7c6b7e2f11feeb089dcebd624aa7271658"
+    },
+    {
+      "id": "course-b17-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6359,
+      "sha256": "6c6c2a069b96bfbf1c0c5838a4c6fe0c35428384c107511ee41d45ae8f341a5f"
+    },
+    {
+      "id": "course-b17-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 810,
+      "sha256": "4bead26175edb32e79bf6a345810a6145dd6bb01ce4b104372f47ebdef0f1de1"
+    },
+    {
+      "id": "course-b17-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 554,
+      "sha256": "4fad7977d1ca870ca2df0818fa32f17dd29b1430729c5634b81f61199969fccd"
+    },
+    {
+      "id": "course-b17-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 614,
+      "sha256": "0dddced580eb8eb2920252a15740dcb33a57d3ad013a1ac93648df9339dbc2ca"
+    },
+    {
+      "id": "course-b17-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1568,
+      "sha256": "4e135626a1a174fc5a405bfc5c301c7f7afcfa89d9a57861096fb21b53637812"
+    },
+    {
+      "id": "course-b18-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 263,
+      "sha256": "88c1ebd8eb8c1c8365c403eb3016fdc340ec04c990fbeceef7fd243cf7686ab8"
+    },
+    {
+      "id": "course-b18-m01",
+      "kind": "chapter",
+      "code": 8,
+      "figures": 3,
+      "tables": 6,
+      "anchors": 20,
+      "characters": 19410,
+      "sha256": "00e59f2de7b293970097c5d18758d545bdf4a7b806a6a628065092fb5eec4bc9"
+    },
+    {
+      "id": "course-b18-m02",
+      "kind": "chapter",
+      "code": 6,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 17,
+      "characters": 12886,
+      "sha256": "8df228fcfc8c0b31be05c51a3454f1531798db4c9894721b6ad29560a15a6172"
+    },
+    {
+      "id": "course-b18-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 3,
+      "tables": 4,
+      "anchors": 16,
+      "characters": 12405,
+      "sha256": "7f14ecd0938926e0729b6e07e2667403b066673afc4bb6733ebbeaf0d26fdf58"
+    },
+    {
+      "id": "course-b18-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 9411,
+      "sha256": "3d59987e5009793aed63ec899aae5ba4959371d4477ede32d5dae050da82b166"
+    },
+    {
+      "id": "course-b18-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 8011,
+      "sha256": "c13724dc71dfbb748405dec2985c6cfcaeecdfb36f2beafc01f235505f873c3d"
+    },
+    {
+      "id": "course-b18-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 9279,
+      "sha256": "ca53940779ae40ec48a107c653cde957b4ad3d0c16445c45ac53d9ef71ec6e68"
+    },
+    {
+      "id": "course-b18-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 9988,
+      "sha256": "89106611e50410465c00668712f30912218e2853c23b419c05ea999f2bf4f3cf"
+    },
+    {
+      "id": "course-b18-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 11664,
+      "sha256": "114c237f97fed800400879498531f28d5fd6edddcce6270cc8aea9a7c0c87663"
+    },
+    {
+      "id": "course-b18-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7380,
+      "sha256": "881d47fbd152496c7d2b4a19afae138f8b1011e9f9a1e856b8b5397229586b03"
+    },
+    {
+      "id": "course-b18-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7370,
+      "sha256": "0bd2d4852e04532ddb1dc3af589c9eadedef4b3d1616d1e6cb283619366616f4"
+    },
+    {
+      "id": "course-b18-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1437,
+      "sha256": "1db00f374a7bcd316742a6aaad027f80d5fe9e8adf66a1315a2aa3e994ed187e"
+    },
+    {
+      "id": "course-b18-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 584,
+      "sha256": "1d52de0d5284b188569ab1118d682287525d45615e44f2c36b776920bd5f7faf"
+    },
+    {
+      "id": "course-b18-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 676,
+      "sha256": "cafcc6b5ea36294e1fe1fbf6c7d4e0c2efce4d816591462c142e4aad51eb6a94"
+    },
+    {
+      "id": "course-b18-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1565,
+      "sha256": "20660f8e23701212b9936431307f82343a7f1d631582297d7b03e67813910bc6"
+    },
+    {
+      "id": "course-b19-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 255,
+      "sha256": "6f9d5b23edd3400f0075eeed93c829cc757ef18e842b60fd3ff24658b90a7ad1"
+    },
+    {
+      "id": "course-b19-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6332,
+      "sha256": "34b110dd630526ca340c06062d08b711424fc55a2c5b956bb3d4204db077fdc7"
+    },
+    {
+      "id": "course-b19-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7443,
+      "sha256": "290b07a5fb20860fcb4ff5af79046ddbbcdcaaef4efe57f06173be151a513a09"
+    },
+    {
+      "id": "course-b19-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6310,
+      "sha256": "9e2e7d0882bfc9d2f7da1c1fc9ce0d830696a8cfb1daa6cbf2095db0e3a40614"
+    },
+    {
+      "id": "course-b19-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6261,
+      "sha256": "09cceab0db9b38c9c6b7217e7a4ac47f6b86be16a7b2c6d3897e95ac5d813db6"
+    },
+    {
+      "id": "course-b19-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6305,
+      "sha256": "035f8b0313688dac75f93314cda55a933f9920522237a9d4c60b1815add7c338"
+    },
+    {
+      "id": "course-b19-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6232,
+      "sha256": "6bdaae2f5ae748645f7fe8e4cb9791e7f9d23bf32871b6ee52b206c1c868aeed"
+    },
+    {
+      "id": "course-b19-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5614,
+      "sha256": "e2c89428655dfd4571103da51844399717eb8c26af5ff2f3a2a6cf573596d53d"
+    },
+    {
+      "id": "course-b19-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5994,
+      "sha256": "c31f60d7a9affad427d2e2af9ef86c44c23e1671151494063ad5b243347a76f2"
+    },
+    {
+      "id": "course-b19-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6669,
+      "sha256": "9dcac392232175985795aba33eeeb50119688a4d86aaac6df9c159f549e7c07a"
+    },
+    {
+      "id": "course-b19-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6440,
+      "sha256": "5944fd197de95d29e024e7b401bd95a059f89ba456e566a184e47055c9d7f8ab"
+    },
+    {
+      "id": "course-b19-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 812,
+      "sha256": "64ee94375a0193685b282201605182d552860ec43b872c412d0708641bc63acb"
+    },
+    {
+      "id": "course-b19-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 531,
+      "sha256": "116f5ab4ab93a6649d8e35edb916a38ee04eb1fedee7c0441fd8d7633ede64c8"
+    },
+    {
+      "id": "course-b19-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 609,
+      "sha256": "1c9cce18269e037b5ee38449d16d4f7c307cdd536a60da9503248d5c84e9774e"
+    },
+    {
+      "id": "course-b19-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1503,
+      "sha256": "c7236d1afd4fdd67b4bd64bf0f03bc583405dca3c20b4d5652f0b006cae42d85"
+    },
+    {
+      "id": "course-b20-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 260,
+      "sha256": "d59d0d7144636a53507a9d973bce5ec77893030076879b55130b95f3c46dc642"
+    },
+    {
+      "id": "course-b20-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6391,
+      "sha256": "01d70e292e056b866256c25bbe4c5e8d307723002e83c083edda2e2eb11c2a76"
+    },
+    {
+      "id": "course-b20-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6622,
+      "sha256": "48d0e13ac86126795cf3507089cc01ff0c4c6e1c6e9c17b5736099d8ff0614ad"
+    },
+    {
+      "id": "course-b20-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6091,
+      "sha256": "6f3bd2c0617a93bb4637236d125d1fbffe99e71fc2617a2ebaafaa4f9e86cb75"
+    },
+    {
+      "id": "course-b20-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6224,
+      "sha256": "fdfef5c38b699f024456d415df970c67175de259e4250b3dd51b3c136fa288dd"
+    },
+    {
+      "id": "course-b20-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5925,
+      "sha256": "7e01ad9aa5b4616a56eae35a317ce829b3971e271fe01940fcdd79876d3bc39c"
+    },
+    {
+      "id": "course-b20-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7167,
+      "sha256": "4ffcb84fce02a0fdb1759377cc073a186b3c4b133db6d59f806b99e4cc2084b7"
+    },
+    {
+      "id": "course-b20-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5977,
+      "sha256": "ccff79cae9ca005707a0e2f98967539d722310d852a05205730f0b35ddd892ff"
+    },
+    {
+      "id": "course-b20-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6592,
+      "sha256": "460d4138960e0e03732a8e1cbc460435a9fde01dcc06514e6dc30e2d019981e6"
+    },
+    {
+      "id": "course-b20-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6090,
+      "sha256": "acfae076e95c1f909a694eff2710c439e9451a6fe3f2d790827e41bd99b03581"
+    },
+    {
+      "id": "course-b20-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6338,
+      "sha256": "7593a56ad5c9a8e103bd179184c019dbecd65443d1d018f2cbdb31752c71f1ad"
+    },
+    {
+      "id": "course-b20-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 825,
+      "sha256": "713e39a211bdaa926d306e37c98c7a13b29cadd5d5cb5f037a51aa9fbf3418f7"
+    },
+    {
+      "id": "course-b20-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 543,
+      "sha256": "523e5659fc40ec8eaf95dc87fe39dfc1d26327175c5c5fd63062aa7bbfe74640"
+    },
+    {
+      "id": "course-b20-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 655,
+      "sha256": "ecb25d17bb3feb987c32c68864a1187e242ec0a46b05981244ffcc690775217b"
+    },
+    {
+      "id": "course-b20-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1463,
+      "sha256": "513cadceae4d057995e2ff9339f07fd57343dfe0752d098c8fa47b69f3021ee2"
+    },
+    {
+      "id": "course-b21-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 256,
+      "sha256": "de3e05019e7861e7abe086df763d4176dac21384d42bbf467b9d4244b1201e9a"
+    },
+    {
+      "id": "course-b21-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6128,
+      "sha256": "54947c4994cecf5c7ca5f6ef40ac98ec755cc8da01c7d9ec205f3706db543259"
+    },
+    {
+      "id": "course-b21-m02",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6678,
+      "sha256": "9724507df39177c74ee3867c7adde8b3e4cf96c6da55884742247f1990ba7d2d"
+    },
+    {
+      "id": "course-b21-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 14,
+      "characters": 6548,
+      "sha256": "a1b97073f64250d00fc8859dc221a4012ee3b7bd20e3cc0c1c3503146917da28"
+    },
+    {
+      "id": "course-b21-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5683,
+      "sha256": "525af44f03227aaac20ffd6defc94c8e8748c6c649bdf9baefb7b706968a7027"
+    },
+    {
+      "id": "course-b21-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5670,
+      "sha256": "7daaba4093c519cec91902766066cd01260b4ba4cfd950edf208c7d1f08ea43a"
+    },
+    {
+      "id": "course-b21-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 5977,
+      "sha256": "bb4287007d0981d1d84c9ccc23b41569b55965dc7d37107d99f5d704a7c2a783"
+    },
+    {
+      "id": "course-b21-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6411,
+      "sha256": "b52f71fd5bedda2a9f07b5ac2aec6b86a390765162e7e277a0a8551a20ca02a1"
+    },
+    {
+      "id": "course-b21-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 7132,
+      "sha256": "726ae38c40487e8ff46292f2fe4836c0f6daf6572f621cf5028539af980fd0bd"
+    },
+    {
+      "id": "course-b21-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6157,
+      "sha256": "93ea8892ecf1c19d1fbec62d0f59f5e15110dd37e013664a308e63ac046c95aa"
+    },
+    {
+      "id": "course-b21-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 13,
+      "characters": 6349,
+      "sha256": "a791f80d1c2d54eb2dd2ed6e912bb4aa1add878c185f5dd11a321b985e30b598"
+    },
+    {
+      "id": "course-b21-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 946,
+      "sha256": "0be26abb81444dc8a03f2774e1ad22a99da891d15e2939a2fceb163e022dc17e"
+    },
+    {
+      "id": "course-b21-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 550,
+      "sha256": "308b3fa09ef4ec870e5b21ba7d7d9536f6a15b180bd62513850e0485da8dad58"
+    },
+    {
+      "id": "course-b21-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 644,
+      "sha256": "20517e3efc6d235cb361ed61d34d005bf031e59dca53dfda01b2f8155879b1a1"
+    },
+    {
+      "id": "course-b21-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1545,
+      "sha256": "2653f687e2e65dac75e8327a43bc7f547c255e89b9f509fd66b2e0c93382e178"
+    },
+    {
+      "id": "course-b22-roadmap",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 266,
+      "sha256": "653e2b9a21775671dcb1e2b2b58978c667b5838cf23d2b5d346c04ee5c299949"
+    },
+    {
+      "id": "course-b22-m01",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6608,
+      "sha256": "4ea21c0e5a897ed6ce9558cc58dc8be5e85bcb5fce7a35f24e503b2dfd992bf7"
+    },
+    {
+      "id": "course-b22-m02",
+      "kind": "chapter",
+      "code": 5,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 16,
+      "characters": 6747,
+      "sha256": "84a9cb3f23d9c7d65f4ae00df6b4e5b4b87c3518ca66a9c59759b837727054c5"
+    },
+    {
+      "id": "course-b22-m03",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6490,
+      "sha256": "c95adecfa3a0bdf8113549da3792bec3136971bc40d4a7f0190346e5fae5f391"
+    },
+    {
+      "id": "course-b22-m04",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 7205,
+      "sha256": "536b65151b913f1bf4c4addd2325567911d59be16659da60db416b41a4d680b5"
+    },
+    {
+      "id": "course-b22-m05",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 7687,
+      "sha256": "bbc6d0a208870411fa73ca8011ab77ae08f058150f8c778cb765aa1f862221bb"
+    },
+    {
+      "id": "course-b22-m06",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 7376,
+      "sha256": "615b837b1707fa4897128b54817a6ad6c6bc8732a4cd49452c4044b475446e18"
+    },
+    {
+      "id": "course-b22-m07",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6108,
+      "sha256": "2b19a21241f028fad55a1b29c7646bdff3f65d21612c479c3f33446ee652208d"
+    },
+    {
+      "id": "course-b22-m08",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6776,
+      "sha256": "65ff46afd1bb6d6e36522d110f8f3d97f422a4bd1b40e716cd8eae9da7e3fcc7"
+    },
+    {
+      "id": "course-b22-m09",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 6573,
+      "sha256": "a81f0985acefac16b46ef62ed9597fbc9e0a5e2ea10226520ec14e3aecb35d5a"
+    },
+    {
+      "id": "course-b22-m10",
+      "kind": "chapter",
+      "code": 4,
+      "figures": 2,
+      "tables": 4,
+      "anchors": 15,
+      "characters": 7722,
+      "sha256": "d53d143d6c78147073c0349c21e3a1a7bc724f8f89ee375c231d83112c95dc28"
+    },
+    {
+      "id": "course-b22-capstone",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 1005,
+      "sha256": "88b7f32e77341387c3919d92faca2a2ed2820bc2417292555c2dd00bf802d5a5"
+    },
+    {
+      "id": "course-b22-cheatsheet",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 603,
+      "sha256": "4940b64431890a8364bc0a720c771e28d613a59ecd7a76b149a524c1e9607201"
+    },
+    {
+      "id": "course-b22-glossary",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 677,
+      "sha256": "2fcb758329519b611c35fe3af4426a6ca51f2c221772b9727128566df757dd4b"
+    },
+    {
+      "id": "course-b22-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 1617,
+      "sha256": "b72829456386be63287229b1876715d03acfdf5fe9ccbd0f9ab6de98d37bff51"
+    },
+    {
+      "id": "course-b23-b23-m01",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 1,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 2345,
+      "sha256": "bcc0a85d77ea98e1e3c9761248c1fe736f5f41e100e1fcb67b254276d1567174"
+    },
+    {
+      "id": "course-b23-b23-m02",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 1,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 2329,
+      "sha256": "d4a4902c2e55ea81cb15e300366d82cd9a6482f8e7577a13592beef4a0804f3d"
+    },
+    {
+      "id": "course-b23-b23-m03",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2376,
+      "sha256": "85fd255feb35a4abb7c1d7dc84f207195bdc67073492cdc88315db6679860c05"
+    },
+    {
+      "id": "course-b23-b23-m04",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2210,
+      "sha256": "cc36f13750345d346bbe41ae067ad7d86d1ecde11c6b004eddc5a68569b466d1"
+    },
+    {
+      "id": "course-b23-b23-m05",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2272,
+      "sha256": "ad85dd3ec913a8569be378efa42a435340355348e0c811775fbc90ec0f73624f"
+    },
+    {
+      "id": "course-b23-b23-m06",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2337,
+      "sha256": "eb8aa857aa6ad484f70e195a23f90fcfd03d5472248d866faca1d2e7908064cd"
+    },
+    {
+      "id": "course-b23-b23-m07",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2327,
+      "sha256": "a482276d19b698bcd9cee898db18d6d3c35f260cc1a1acce4cc4d8f6450e9de0"
+    },
+    {
+      "id": "course-b23-b23-m08",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2389,
+      "sha256": "047b44b4bc035f2b604f6c14d982208e175b600635a2ee1ab157bac68be69908"
+    },
+    {
+      "id": "course-b23-b23-m09",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2570,
+      "sha256": "c8ff27467720377b3aae2722fb5295c85bc65320c9941b3c4543fb1ca8d6266f"
+    },
+    {
+      "id": "course-b23-b23-m10",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2418,
+      "sha256": "b5e5efd2cdc40dd0a0781f8ca44cd1b23d636ed43be1d8ead76c107c2642ca1a"
+    },
+    {
+      "id": "course-b23-b23-m11",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 2,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 3973,
+      "sha256": "cf0166918afaef91c3a93eed59465f28df0f4e338fe7dbd90557ae42fb19a34b"
+    },
+    {
+      "id": "course-b23-b23-m12",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2469,
+      "sha256": "eac1b6f3865ef111efb9ae096230f1c4b7e316fc5ab1d6d85f07120c229292c7"
+    },
+    {
+      "id": "course-b23-b23-m13",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2855,
+      "sha256": "c81192150901a9d84bfcec54e7f1277771bbc5e83947f89fe81840ea8cf02f9d"
+    },
+    {
+      "id": "course-b23-b23-m14",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2374,
+      "sha256": "a2a0bc49a9f2e14ef00e1aba2f3fc39d9ecdf5c0099d50494a9e4555fd8e33bd"
+    },
+    {
+      "id": "course-b23-b23-m15",
+      "kind": "chapter",
+      "code": 1,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2517,
+      "sha256": "d28b363df582195d4cc25b261cc049b2cafcc783926290ce7464c452144b8600"
+    },
+    {
+      "id": "course-b23-b23-m16",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 1,
+      "tables": 1,
+      "anchors": 1,
+      "characters": 2539,
+      "sha256": "0cc9f007725bff77bb8da51d6a004c0fcac7b00f3926db9dc93586fc422218ba"
+    },
+    {
+      "id": "course-b23-b23-m17",
+      "kind": "chapter",
+      "code": 2,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 3088,
+      "sha256": "36044e3b813c73f881f1f3a5acd5180cc8f636bdb2402ce0e6ac6606aef25a61"
+    },
+    {
+      "id": "course-b23-b23-m18",
+      "kind": "chapter",
+      "code": 0,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 1,
+      "characters": 2186,
+      "sha256": "5ded452f2f052540c4897cb24765dd060d681fea93bad7bc10926105a850dbb2"
+    },
+    {
+      "id": "course-b23-guide",
+      "kind": "guide",
+      "code": 0,
+      "figures": 1,
+      "tables": 0,
+      "anchors": 4,
+      "characters": 4647,
+      "sha256": "0dd3171d62058bfc0fb0b9434db8a2de0483cf8acc58b13305fe4da808c20a61"
+    },
+    {
+      "id": "course-learning-path",
+      "kind": "resource",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 10,
+      "characters": 4398,
+      "sha256": "6def4bd29fa51cd987f1baefcad1d70e488f195615f1d7ee3f29b03bf652174f"
+    },
+    {
+      "id": "course-quality-review",
+      "kind": "resource",
+      "code": 0,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 27,
+      "characters": 13689,
+      "sha256": "f2d5ac146aca872579dd15b2d39ae414976b7ddf3de230e9ecb035291b65d695"
+    },
+    {
+      "id": "course-projects",
+      "kind": "resource",
+      "code": 9,
+      "figures": 0,
+      "tables": 0,
+      "anchors": 6,
+      "characters": 6236,
+      "sha256": "393eed489ea8aba49a21914a3fa8943d88087bdacd3862e457fe44ff8c2f8ec6"
+    }
+  ],
+  "assets": [
+    {
+      "path": "b00/labs/sampler.h",
+      "sha256": "1b728653a23289c982e475022cbd2b85dabc8e2a4a6bde533f08af9dc55e1938"
+    },
+    {
+      "path": "b00/labs/sampler_test.c",
+      "sha256": "0202c4b9b60899e1ccc736bac20bab883523190385f6f85b0e0c399514a177b8"
+    },
+    {
+      "path": "b00/labs/sampler_cli.c",
+      "sha256": "e5d1625824e6f6bb5e0b2adbb5c5b9fd759fbd362282d75e680379952c7c0e15"
+    },
+    {
+      "path": "b00/labs/sampler.c",
+      "sha256": "51fe26521ea4399a9655971a5ea71a1d9f32174426726d59a22fb7cb14037f0b"
+    },
+    {
+      "path": "b02a/labs/values.cpp",
+      "sha256": "83ef9604555fd184c246e61dc4573f4f6b767add48642a71d9107b0175d79d66"
+    },
+    {
+      "path": "b03a/labs/course-core/Cargo.toml",
+      "sha256": "797301f15de150951c1f2c53732d64724f9921b9386f5f36def13c66d1dee511"
+    },
+    {
+      "path": "b03a/labs/course-core/src/lib.rs",
+      "sha256": "619d99aad48ba7fdeafa432e410c519f948cafa8c2e77073ade27f28c4347246"
+    },
+    {
+      "path": "b04a/labs/datatool/pyproject.toml",
+      "sha256": "1ef8d07e474d15e6b4778e3adf93aede5bed4f8b6153fdba639adc8ffe84fb09"
+    },
+    {
+      "path": "b04a/labs/datatool/datatool/data.py",
+      "sha256": "451130b7640ca05a62833a8a7be61701a7bb40f58fecb63c272d71bba96c8cb8"
+    },
+    {
+      "path": "b04a/labs/datatool/datatool/pipeline.py",
+      "sha256": "b2f16bceebb4defef8a8bc4895f58c33ec300de594bee35bcfd2ed83516925e6"
+    },
+    {
+      "path": "b04a/labs/datatool/tests/test_data.py",
+      "sha256": "34a3295942079eb868e3816fd2900155d6d04a1811389241eb6cbddb9a148e4d"
+    },
+    {
+      "path": "b04a/labs/datatool/datatool/cli.py",
+      "sha256": "c1c495824d02e6d68814b07e2a5f3a366cf05863e84fe39447cd659f1e567b07"
+    },
+    {
+      "path": "b02/labs/driver_contract.cpp",
+      "sha256": "30c08e949d79e052baaeeb640de264d440dee97aa246bb88131aaa8ca3f950da"
+    },
+    {
+      "path": "b03/labs/dma_contract.rs",
+      "sha256": "c1b22a20288d8d57ca2c54e7a64b71c5e17e58b15310cda6497c4fab46c3c098"
+    },
+    {
+      "path": "b04/labs/replay.py",
+      "sha256": "cc6a0437f8a29906aff5e63f640caf69f0bf95f985922d32480151aab379e4ad"
+    },
+    {
+      "path": "b06/labs/sdk_pipeline/README.txt",
+      "sha256": "56b706b88c083c4a3a817d10cd37ea8645c4c8b8ca2b1a8d238cd75c21e30cdd"
+    },
+    {
+      "path": "b12/labs/release_manifest.py",
+      "sha256": "210c8b7ffe3b4753510e4de9f05a61d4b49ea467ca413e1da712ddfd2c24ff0d"
+    },
+    {
+      "path": "b13/labs/benchmark_ort.py",
+      "sha256": "506cbdbe2b2bacd95c2b156ba0a97985af275a00e40dd9219531650b4946f5c0"
+    },
+    {
+      "path": "b23/labs/thermal_pi.py",
+      "sha256": "4944581fda3618ee42db5aa286138194d1b79cb47edee75204d817c0bdb699b7"
+    },
+    {
+      "path": "b23/labs/algorithms.c",
+      "sha256": "91b47a57e88f2d6b75e8fb2768b8aa16ebfa20a33e53ab80f91261e2ea78f5ec"
+    },
+    {
+      "path": "projects/p01_acquisition.py",
+      "sha256": "a4f6e6b8aa3b748485c8a128423f9d217b110db5de7c1da79f152e64748fdf19"
+    },
+    {
+      "path": "projects/requirements.txt",
+      "sha256": "06cdbbd525c3f9c55b90e54d2958e0ab673f703f58eaf13dcb73add73773d9b6"
+    },
+    {
+      "path": "projects/results/p05/evidence.png",
+      "sha256": "6c457c465735a2c9176908a2ff1c6e0df64d97af091fb7ad89f2b4483c5b931a"
+    },
+    {
+      "path": "projects/p01_stm32f103/startup.c",
+      "sha256": "aeb39dd3920053fc6b166f02bf6e58d3742c802d0c230095f7355005af103b56"
+    },
+    {
+      "path": "projects/results/p01/build-record.json",
+      "sha256": "59c8083100ee5eba48a222a988ec8c60dcf805efb6fde2c82b20baa268e3bf5f"
+    },
+    {
+      "path": "projects/p01_stm32f103/main.c",
+      "sha256": "3fc85550fbf41df76d94b7d58f6e891d6f031c3d9f3d2dde9b745faf91554b7b"
+    },
+    {
+      "path": "projects/results/p01/node.elf",
+      "sha256": "dfde69aaf0b05772a5f1486d292aba32f0237a353441e58bfc49a52cdf8a387e"
+    },
+    {
+      "path": "projects/p01_stm32f103/linker.ld",
+      "sha256": "0ae93fbcfdd4bb3fe32e6bca6dce4264d4f15a1ab2c92c6ea7b49fcd39780775"
+    },
+    {
+      "path": "projects/results/p01/node.map",
+      "sha256": "d7a5c54109ae25d0143f325e453c63cc99355b12ef66a4107ce0236192e1fe3d"
+    },
+    {
+      "path": "projects/p01_stm32f103/Makefile",
+      "sha256": "9eced9b7c361fb58a4555936feeff4dbf85b7daf16db1bf0d511d7b73cd603de"
+    },
+    {
+      "path": "projects/p04_gateway.py",
+      "sha256": "dac8cfaa6440e792ba818f3f818089b4390a92297f022dc64025317df9e4fc0f"
+    },
+    {
+      "path": "b10/labs/Makefile",
+      "sha256": "e285b6cefdbd07477791a6aaaee25d9cca40da636c4b84f96261879684ba13d5"
+    },
+    {
+      "path": "projects/p02_realtime.py",
+      "sha256": "2d2bbbdfe9213b207d9d22b66f7767c969172b3471cd7c52c8ecef48cb050adf"
+    },
+    {
+      "path": "projects/p03_signed_update.py",
+      "sha256": "cffb226263c7d1101943246a0f1d7359716c3fc25143fbee1b298ee53986326d"
+    },
+    {
+      "path": "projects/p05_model_pipeline.py",
+      "sha256": "c542abdbd755f6f6ffcc9de8c137ad43273ee8b51a6bfdcd5a114ad5fc2d1fca"
+    },
+    {
+      "path": "projects/results/p05/data.csv",
+      "sha256": "8a4220764e27d510f2d2af6137984479464c672d193f186c40af642fd9ac4ca3"
+    },
+    {
+      "path": "projects/p06_data_loop.py",
+      "sha256": "f5561a93bdd1bc9742c4dc94fd3b69c72bed3d4ca24f42099494d5cb07d66fea"
+    },
+    {
+      "path": "projects/results/p05/model-int8.onnx",
+      "sha256": "90dededa0020d2973457457be18d2658d6f16b0496c70875a858bbf844998559"
+    },
+    {
+      "path": "projects/results/p05/model.onnx",
+      "sha256": "8491cb1eb026c6833e445cdd37311742b3cf77bb6c81d36d1aeb25b390424a07"
+    },
+    {
+      "path": "b10/labs/btn_platform.c",
+      "sha256": "786cd607f387ab59cf64648d4b917d4441ba041af52eff56bfc15619e6b95ca0"
+    },
+    {
+      "path": "projects/results/p05/report.json",
+      "sha256": "ea0708e60bf9713d5c122bc0818f34a27b773e91392c9fb31ec2e38bb9f4cda2"
+    }
+  ],
+  "unresolved": []
+}

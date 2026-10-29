@@ -1,0 +1,2043 @@
+{
+  "date": "2026-10-09",
+  "source": "C:/Users/Administrator/Documents/work/Nuwax AI Partner/Nuwax AI Partner 7.0/NuwaxAIPartner-v2",
+  "chapters": 32,
+  "articles": 475,
+  "assets": [
+    {
+      "id": "source-1e7de1ae2d059d21e1dd75d5",
+      "name": "CMakeLists.txt",
+      "mime": "text/plain",
+      "path": "assets/source-1e7de1ae2d059d21e1dd75d5-065329e5901403fa.bin",
+      "source": "CMakeLists.txt",
+      "sha256": "065329e5901403faba751eab4281c6bf9fa968fd12f566cae6ef29e9dc102065",
+      "bytes": 7488
+    },
+    {
+      "id": "source-980c299aa482a029d5ea04d9",
+      "name": "sdkconfig.product-ota.defaults",
+      "mime": "text/plain",
+      "path": "assets/source-980c299aa482a029d5ea04d9-b62e1f69aa0c1743.bin",
+      "source": "sdkconfig.product-ota.defaults",
+      "sha256": "b62e1f69aa0c174310e4c61a47f5547b75724239c4907c568e352e1cc3873242",
+      "bytes": 8122
+    },
+    {
+      "id": "source-7cc563627f2d9a361b14d8cf",
+      "name": "sdkconfig.sd-replay-formal.defaults",
+      "mime": "text/plain",
+      "path": "assets/source-7cc563627f2d9a361b14d8cf-3addd92d0ccd0ffd.bin",
+      "source": "sdkconfig.sd-replay-formal.defaults",
+      "sha256": "3addd92d0ccd0ffdb0fd384445d1187c576ab8f59d262f631876ae05aea8affe",
+      "bytes": 887
+    },
+    {
+      "id": "source-cd26a03813abf076ec2d616f",
+      "name": "idf_component.yml",
+      "mime": "text/plain",
+      "path": "assets/source-cd26a03813abf076ec2d616f-8bd1b1141ac928ab.bin",
+      "source": "main/idf_component.yml",
+      "sha256": "8bd1b1141ac928ab09e676562c50ae77db0b3469af768e4e5652ee1a4db1a11c",
+      "bytes": 224
+    },
+    {
+      "id": "source-b697ec6008133c8de3b7820b",
+      "name": "source-manifest.json",
+      "mime": "application/json",
+      "path": "assets/source-b697ec6008133c8de3b7820b-50fb31ddf8f44d7d.bin",
+      "source": "docs/工程开发学习手册/evidence/source-manifest.json",
+      "sha256": "50fb31ddf8f44d7d8fe631c633ce16da1a2da874860d54a47c0a2a536078e2b5",
+      "bytes": 27327
+    },
+    {
+      "id": "source-8c8855b5490497e19a4edd17",
+      "name": "config-snapshot.json",
+      "mime": "application/json",
+      "path": "assets/source-8c8855b5490497e19a4edd17-4133af240c88b115.bin",
+      "source": "docs/工程开发学习手册/evidence/config-snapshot.json",
+      "sha256": "4133af240c88b115708ec417d306ac738eed157653f6aa664c96ef2f32b95a99",
+      "bytes": 3529
+    },
+    {
+      "id": "source-068f585868d09089a84d30a9",
+      "name": "audio_frame.h",
+      "mime": "text/plain",
+      "path": "assets/source-068f585868d09089a84d30a9-f220b838e666c930.bin",
+      "source": "main/audio_frame.h",
+      "sha256": "f220b838e666c930346d86947794811dee20abd8bbde0f691515981ecdb8b7ab",
+      "bytes": 2459
+    },
+    {
+      "id": "source-e1bc61f89706898f75413438",
+      "name": "CMakeLists.txt",
+      "mime": "text/plain",
+      "path": "assets/source-e1bc61f89706898f75413438-9af1fe10fdfa73e0.bin",
+      "source": "main/CMakeLists.txt",
+      "sha256": "9af1fe10fdfa73e07715c9987311a9ed89b938f67fec928e6e9567ed2c3d03ee",
+      "bytes": 9205
+    },
+    {
+      "id": "source-1744997fed815e946ffd7deb",
+      "name": "nuwax_ai_partner_main.c",
+      "mime": "text/plain",
+      "path": "assets/source-1744997fed815e946ffd7deb-501e50badfa9f751.bin",
+      "source": "main/nuwax_ai_partner_main.c",
+      "sha256": "501e50badfa9f751a8ea950e42b40a26f3af26909fa92d1575ac221779783c8d",
+      "bytes": 1664227
+    },
+    {
+      "id": "source-c0d17a13ad3d0e4347317cdd",
+      "name": "wake_word_detector.c",
+      "mime": "text/plain",
+      "path": "assets/source-c0d17a13ad3d0e4347317cdd-4271b00306228658.bin",
+      "source": "main/wake_word_detector.c",
+      "sha256": "4271b00306228658393ddd9cc85a08a277144676c47f0c665e91ef121af9e113",
+      "bytes": 136863
+    },
+    {
+      "id": "source-dbc3c8a71fbf1d5a4501eb5d",
+      "name": "turn_guard.h",
+      "mime": "text/plain",
+      "path": "assets/source-dbc3c8a71fbf1d5a4501eb5d-40693c6eef147dc0.bin",
+      "source": "main/conversation/turn_guard.h",
+      "sha256": "40693c6eef147dc025db65d79d0b1f0eca3c091944932cac346dd51a02682e4b",
+      "bytes": 3827
+    },
+    {
+      "id": "source-f66c79d7963dd63756f9465d",
+      "name": "speaker_playback.c",
+      "mime": "text/plain",
+      "path": "assets/source-f66c79d7963dd63756f9465d-a4bc52097cd027a5.bin",
+      "source": "main/conversation/speaker_playback.c",
+      "sha256": "a4bc52097cd027a5ed05f8c605d3e22906e2b67511a784e803d2e4f6be4e0069",
+      "bytes": 258313
+    },
+    {
+      "id": "source-f1435c11792302af4c07eeae",
+      "name": "nuwax_state_bridge.c",
+      "mime": "text/plain",
+      "path": "assets/source-f1435c11792302af4c07eeae-091a7ff57354ddf2.bin",
+      "source": "main/nuwax_ui_v28/nuwax_state_bridge.c",
+      "sha256": "091a7ff57354ddf2aa1f0f0cbc62633bf34e63a867efb062013f13aad7cea575",
+      "bytes": 43438
+    },
+    {
+      "id": "source-968deeae37322cd413af31f0",
+      "name": "partitions.customwake.csv",
+      "mime": "text/plain",
+      "path": "assets/source-968deeae37322cd413af31f0-a5e19490f219bd67.bin",
+      "source": "partitions.customwake.csv",
+      "sha256": "a5e19490f219bd677eb5b6f33cd119d034fd97af25b5ae856c4561ed6ac2a064",
+      "bytes": 405
+    },
+    {
+      "id": "source-b4584cb883ebc90de200facd",
+      "name": "README.md",
+      "mime": "text/plain",
+      "path": "assets/source-b4584cb883ebc90de200facd-7ce63dcd533ebc84.bin",
+      "source": "artifacts/release-7.0.113/README.md",
+      "sha256": "7ce63dcd533ebc84e253630d93fcede3def23702521705d241472e72ef64326b",
+      "bytes": 1628
+    },
+    {
+      "id": "source-60a88155090089b76281e927",
+      "name": "build-sd-replay-formal.ps1",
+      "mime": "text/plain",
+      "path": "assets/source-60a88155090089b76281e927-8b33535b51f85706.bin",
+      "source": "tools/build-sd-replay-formal.ps1",
+      "sha256": "8b33535b51f85706f4649b27e9512018dc127e30b05dab0ae5740d60b643106f",
+      "bytes": 5790
+    },
+    {
+      "id": "source-e8321de8569c523bc83f5b8e",
+      "name": "flash-sd-replay-formal.ps1",
+      "mime": "text/plain",
+      "path": "assets/source-e8321de8569c523bc83f5b8e-a6cf6a6be4224e71.bin",
+      "source": "tools/flash-sd-replay-formal.ps1",
+      "sha256": "a6cf6a6be4224e714c5fa93583be3d222520ec0a5dbecb345e62e322d0a9132a",
+      "bytes": 360
+    },
+    {
+      "id": "source-5b234f6d1195afc032f49ccc",
+      "name": "flash-sd-replay-test.ps1",
+      "mime": "text/plain",
+      "path": "assets/source-5b234f6d1195afc032f49ccc-28db83bd25b84a01.bin",
+      "source": "tools/flash-sd-replay-test.ps1",
+      "sha256": "28db83bd25b84a0143bce55d4bd79847a667e261d18de6711bd0c8f14b2b941f",
+      "bytes": 4032
+    },
+    {
+      "id": "source-2e5672220d60a094f7726368",
+      "name": "esp_vocat_v1_0_pins.h",
+      "mime": "text/plain",
+      "path": "assets/source-2e5672220d60a094f7726368-8f76a1d76e28f9c9.bin",
+      "source": "main/board/esp_vocat_v1_0_pins.h",
+      "sha256": "8f76a1d76e28f9c98308983165d2f71e37810f63caeacc6fae4efd3fcfe4a644",
+      "bytes": 4446
+    },
+    {
+      "id": "source-63319c77faa6fe3a4e498fa6",
+      "name": "vocat_audio_board.c",
+      "mime": "text/plain",
+      "path": "assets/source-63319c77faa6fe3a4e498fa6-76f5d4fc55fcd676.bin",
+      "source": "main/board/vocat_audio_board.c",
+      "sha256": "76f5d4fc55fcd67627910aae9f46433a321233e28aea591d8ca4c901c4860f6b",
+      "bytes": 110276
+    },
+    {
+      "id": "source-6bfcead732e2be4cd6f63756",
+      "name": "mic_input.c",
+      "mime": "text/plain",
+      "path": "assets/source-6bfcead732e2be4cd6f63756-8bab566945ca2e67.bin",
+      "source": "main/mic_input.c",
+      "sha256": "8bab566945ca2e673406df2810fe2d395d1392019d2f308038e601498164a6d9",
+      "bytes": 46388
+    },
+    {
+      "id": "source-51da6b97bf9e03e7859d7531",
+      "name": "nuwax_early_power_hold.c",
+      "mime": "text/plain",
+      "path": "assets/source-51da6b97bf9e03e7859d7531-86919813481dcbe2.bin",
+      "source": "bootloader_components/nuwax_power_hold/nuwax_early_power_hold.c",
+      "sha256": "86919813481dcbe2e40a7873280f3ea948271f4e9a6282f837e46d88b2152fcf",
+      "bytes": 4927
+    },
+    {
+      "id": "source-6f8f34b5bed29c186fa83c1f",
+      "name": "nuwax_power_ctrl.c",
+      "mime": "text/plain",
+      "path": "assets/source-6f8f34b5bed29c186fa83c1f-b47e85b6951c8813.bin",
+      "source": "main/board/nuwax_power_ctrl.c",
+      "sha256": "b47e85b6951c88130736687f45975775e23bb3eb7d4d2d44b733472695dc4de9",
+      "bytes": 26380
+    },
+    {
+      "id": "source-812922cb1ef20d8a542582e8",
+      "name": "2026-09-28-充电温度配置诊断.md",
+      "mime": "text/plain",
+      "path": "assets/source-812922cb1ef20d8a542582e8-d590620980c3eae4.bin",
+      "source": "docs/2026-09-28-充电温度配置诊断.md",
+      "sha256": "d590620980c3eae42f6f545a83b0abc35f658a4a6b3ec74db7444f29b0456077",
+      "bytes": 3737
+    },
+    {
+      "id": "source-4a95e6b68bee7d58f304fa38",
+      "name": "bq27220_driver.c",
+      "mime": "text/plain",
+      "path": "assets/source-4a95e6b68bee7d58f304fa38-3b47a8007b561ffa.bin",
+      "source": "main/board/bq27220_driver.c",
+      "sha256": "3b47a8007b561ffa81f3c7e149d573040e5a1e1f73c7d0231c6d13387b24885c",
+      "bytes": 37750
+    },
+    {
+      "id": "source-d9a2141cedc98008f1907500",
+      "name": "battery_service.c",
+      "mime": "text/plain",
+      "path": "assets/source-d9a2141cedc98008f1907500-72a77ace01e62018.bin",
+      "source": "main/board/battery_service.c",
+      "sha256": "72a77ace01e62018e0430a4e4d08f2c57a62462ceb4f4ecb6c4b9a73142b81c8",
+      "bytes": 34681
+    },
+    {
+      "id": "source-59f556a2e5e86fb785be31c8",
+      "name": "led_driver.c",
+      "mime": "text/plain",
+      "path": "assets/source-59f556a2e5e86fb785be31c8-8e87044145d9859e.bin",
+      "source": "main/board/led_driver.c",
+      "sha256": "8e87044145d9859e992a2dafdd3902fea1adc3a82c60eb06579694f70cca7493",
+      "bytes": 12140
+    },
+    {
+      "id": "source-79039b9e9ace8b4f8945b581",
+      "name": "led_status.c",
+      "mime": "text/plain",
+      "path": "assets/source-79039b9e9ace8b4f8945b581-d21ed34b1ca47f57.bin",
+      "source": "main/board/led_status.c",
+      "sha256": "d21ed34b1ca47f577b59e907341b1c83cf6e0754520f763c8b7e2c0f2fac57a9",
+      "bytes": 6756
+    },
+    {
+      "id": "source-22e114603e9697cb64905d1e",
+      "name": "2026-09-29-充电指示修复与验证.md",
+      "mime": "text/plain",
+      "path": "assets/source-22e114603e9697cb64905d1e-232f54055878b306.bin",
+      "source": "docs/2026-09-29-充电指示修复与验证.md",
+      "sha256": "232f54055878b306a8ea3ad15d41c6e6a4528593468d9b1ea34a088ba01aba5e",
+      "bytes": 3517
+    },
+    {
+      "id": "source-6abfdd7039f8c421d7f44169",
+      "name": "2026-09-29-LED关灯残余PWM修复.md",
+      "mime": "text/plain",
+      "path": "assets/source-6abfdd7039f8c421d7f44169-cbc8085dcbd2385f.bin",
+      "source": "docs/2026-09-29-LED关灯残余PWM修复.md",
+      "sha256": "cbc8085dcbd2385f0eacc3344a783697304cfa13ee830f08beafa6971e0598bd",
+      "bytes": 3247
+    },
+    {
+      "id": "source-a4621fde9fad2d49efb215e7",
+      "name": "battery_service.h",
+      "mime": "text/plain",
+      "path": "assets/source-a4621fde9fad2d49efb215e7-0ef690a7add80e11.bin",
+      "source": "main/board/battery_service.h",
+      "sha256": "0ef690a7add80e112e2d4975cef2aef41d6abfa08cbbb324daf7b2e90e1c85b1",
+      "bytes": 3702
+    },
+    {
+      "id": "source-e1b285b226b0a2dc5bf28a22",
+      "name": "test-charging-led.py",
+      "mime": "text/plain",
+      "path": "assets/source-e1b285b226b0a2dc5bf28a22-56fb4d89a60a2839.bin",
+      "source": "tools/test-charging-led.py",
+      "sha256": "56fb4d89a60a283958522e1a74e25ffc4c7ccd662055f846652805b882f4d3fe",
+      "bytes": 9206
+    },
+    {
+      "id": "source-68d846166812ee950f49b8b9",
+      "name": "test-battery-history.py",
+      "mime": "text/plain",
+      "path": "assets/source-68d846166812ee950f49b8b9-5a43eace533ec3be.bin",
+      "source": "tools/test-battery-history.py",
+      "sha256": "5a43eace533ec3bebb88ff0b4e2fa2e17bb791b19bf05feed04e4f67ac9b066c",
+      "bytes": 4770
+    },
+    {
+      "id": "source-e843e829439eb313c452020a",
+      "name": "i2c_bus_manager.c",
+      "mime": "text/plain",
+      "path": "assets/source-e843e829439eb313c452020a-84f32c930f02513b.bin",
+      "source": "main/board/i2c_bus_manager.c",
+      "sha256": "84f32c930f02513be2fc502c3877887db6030f6a6ca4919fc1a97fb0943266e7",
+      "bytes": 16830
+    },
+    {
+      "id": "source-fa9023254503dbf9df830dc8",
+      "name": "sd_card_driver.c",
+      "mime": "text/plain",
+      "path": "assets/source-fa9023254503dbf9df830dc8-fad4d1d1e5ab008b.bin",
+      "source": "main/board/sd_card_driver.c",
+      "sha256": "fad4d1d1e5ab008b4e6f0beb3e0842126c18dff72dcca20cd2d49a4f1b081d3f",
+      "bytes": 18240
+    },
+    {
+      "id": "source-10be20314923051b2776ef57",
+      "name": "display.c",
+      "mime": "text/plain",
+      "path": "assets/source-10be20314923051b2776ef57-16a0e39b029f8086.bin",
+      "source": "main/display.c",
+      "sha256": "16a0e39b029f8086f8ada4dc0ead2397b4896bff75135b8d3660dc1836e41ddd",
+      "bytes": 60591
+    },
+    {
+      "id": "source-4711f615c5e891c3ecc12183",
+      "name": "nuwax_lvgl_port.c",
+      "mime": "text/plain",
+      "path": "assets/source-4711f615c5e891c3ecc12183-1953bb11febb53d8.bin",
+      "source": "main/nuwax_lvgl_port.c",
+      "sha256": "1953bb11febb53d81b4555672cd126e43123511cc97fe377c5b9ff87eac57a3e",
+      "bytes": 79115
+    },
+    {
+      "id": "source-442a2f3cb89645aca9bc0313",
+      "name": "i2c_bus_manager.h",
+      "mime": "text/plain",
+      "path": "assets/source-442a2f3cb89645aca9bc0313-0f0e254e3cd0be6b.bin",
+      "source": "main/board/i2c_bus_manager.h",
+      "sha256": "0f0e254e3cd0be6b56f26b1bbc908176b7adf87ea1526c570c5608d98521c16c",
+      "bytes": 2579
+    },
+    {
+      "id": "source-5f7342e1618b18fcfec8ac99",
+      "name": "test-mic-init-owner.py",
+      "mime": "text/plain",
+      "path": "assets/source-5f7342e1618b18fcfec8ac99-16a759c68e78f669.bin",
+      "source": "tools/test-mic-init-owner.py",
+      "sha256": "16a759c68e78f6696c59e8f89ff837b29c6bb8610cb371b3dd92ea709c17aff1",
+      "bytes": 3685
+    },
+    {
+      "id": "source-52da4a3cf230b310f2fed0c0",
+      "name": "mic_input.h",
+      "mime": "text/plain",
+      "path": "assets/source-52da4a3cf230b310f2fed0c0-b8046d276e789277.bin",
+      "source": "main/mic_input.h",
+      "sha256": "b8046d276e7892772e869cd5cd2b5dcd32a309bb51520e3f4374fa94e187adc8",
+      "bytes": 4402
+    },
+    {
+      "id": "source-98c57aa74edd869cec629dd7",
+      "name": "audio_runtime_memory_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-98c57aa74edd869cec629dd7-38f1a29985d37ffd.bin",
+      "source": "main/audio_runtime_memory_policy.h",
+      "sha256": "38f1a29985d37ffd5e6145261b412f2849407fd0bfd4e2695570c9a33d26de52",
+      "bytes": 1741
+    },
+    {
+      "id": "source-e7aac046a19cbebd9fd63dd5",
+      "name": "audio_frame.c",
+      "mime": "text/plain",
+      "path": "assets/source-e7aac046a19cbebd9fd63dd5-61bfab74059d4a0e.bin",
+      "source": "main/audio_frame.c",
+      "sha256": "61bfab74059d4a0e24786a39ef128d07f9f57551689b29fcc1f385384508a167",
+      "bytes": 6147
+    },
+    {
+      "id": "source-0f40479636154192adff4fa3",
+      "name": "audio_uplink.c",
+      "mime": "text/plain",
+      "path": "assets/source-0f40479636154192adff4fa3-76a488419b0373f2.bin",
+      "source": "main/conversation/audio_uplink.c",
+      "sha256": "76a488419b0373f268ab41fae136310001a0ea2fe6678e92d99281645b585096",
+      "bytes": 110688
+    },
+    {
+      "id": "source-d68391b57c0026a9f9dced7b",
+      "name": "preroll_window.c",
+      "mime": "text/plain",
+      "path": "assets/source-d68391b57c0026a9f9dced7b-3993e3181fcd2bde.bin",
+      "source": "main/conversation/preroll_window.c",
+      "sha256": "3993e3181fcd2bde43da02abf7541c33589ab0b339e03221b79f343a98fbd1de",
+      "bytes": 6584
+    },
+    {
+      "id": "source-3579b6067f052e279593f050",
+      "name": "frame_roundtrip.py",
+      "mime": "text/plain",
+      "path": "assets/source-3579b6067f052e279593f050-c895b89e5c89265a.bin",
+      "source": "docs/工程开发学习手册/examples/frame_roundtrip.py",
+      "sha256": "c895b89e5c89265a5f4d9ddfadff0bf78faf3d91a824c98c4baa3b64c869eb6d",
+      "bytes": 3944
+    },
+    {
+      "id": "source-38527f8758cc42231320d4f5",
+      "name": "live_aec.c",
+      "mime": "text/plain",
+      "path": "assets/source-38527f8758cc42231320d4f5-d7c60e9488b87422.bin",
+      "source": "main/conversation/live_aec.c",
+      "sha256": "d7c60e9488b87422d526c461b591243df6844b1c45281668ec38206b724ebb97",
+      "bytes": 154902
+    },
+    {
+      "id": "source-d8ee88790d08478fe929be70",
+      "name": "7.0-P3-工作记录-硬件reference-AEC入口收口.md",
+      "mime": "text/plain",
+      "path": "assets/source-d8ee88790d08478fe929be70-cb2187a4af568f47.bin",
+      "source": "docs/7.0-P3-工作记录-硬件reference-AEC入口收口.md",
+      "sha256": "cb2187a4af568f47c41ac4418d99adb1c89904e49141cba7695d7d243c43fecc",
+      "bytes": 100336
+    },
+    {
+      "id": "source-f2a4ef0bf8cc9c433d6a05b4",
+      "name": "audio_cleaner.c",
+      "mime": "text/plain",
+      "path": "assets/source-f2a4ef0bf8cc9c433d6a05b4-62fde8ae85db1c6f.bin",
+      "source": "main/conversation/audio_cleaner.c",
+      "sha256": "62fde8ae85db1c6f6d786a4d175bcb270a1d762584dc5b42084f63e3e859f26b",
+      "bytes": 55268
+    },
+    {
+      "id": "source-b5229187a97c6afca867364b",
+      "name": "adaptive_endpoint.c",
+      "mime": "text/plain",
+      "path": "assets/source-b5229187a97c6afca867364b-f10b64487165d54c.bin",
+      "source": "main/conversation/adaptive_endpoint.c",
+      "sha256": "f10b64487165d54ce388d0f132a96aaa327ef6bd533a0a624c8ae79639cc34b6",
+      "bytes": 19888
+    },
+    {
+      "id": "source-f9bda9f40de0b4622c7a7e1d",
+      "name": "wake_word_detection_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-f9bda9f40de0b4622c7a7e1d-f3bfbdff04dbf53d.bin",
+      "source": "main/conversation/wake_word_detection_policy.h",
+      "sha256": "f3bfbdff04dbf53d85fab02aaae5a5a0ecade369042c3909ad83e72f3e203bc6",
+      "bytes": 7800
+    },
+    {
+      "id": "source-5e6cb75920a312a0ecc290a9",
+      "name": "wake_noise_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-5e6cb75920a312a0ecc290a9-6820c4c83764b1a2.bin",
+      "source": "main/conversation/wake_noise_policy.h",
+      "sha256": "6820c4c83764b1a2fe3d14e7c7ddb329cba2f5ebf107dc275b46b83a57569fc7",
+      "bytes": 2656
+    },
+    {
+      "id": "source-55af84f2450eb5f7e6215dd2",
+      "name": "2026-09-29-唤醒音画同步与休眠响应修复.md",
+      "mime": "text/plain",
+      "path": "assets/source-55af84f2450eb5f7e6215dd2-9b69ff7c19e5aa78.bin",
+      "source": "docs/2026-09-29-唤醒音画同步与休眠响应修复.md",
+      "sha256": "9b69ff7c19e5aa787efdf0d816b418b10108122805a30b206b3ac715811414bd",
+      "bytes": 3672
+    },
+    {
+      "id": "source-fda99007605ebc5521800022",
+      "name": "test-wake-response.py",
+      "mime": "text/plain",
+      "path": "assets/source-fda99007605ebc5521800022-df6774b4e0ca8171.bin",
+      "source": "tools/test-wake-response.py",
+      "sha256": "df6774b4e0ca817155a7383052a45fd98e65af1c119d07040b9f4fd8f47b70cd",
+      "bytes": 7689
+    },
+    {
+      "id": "source-bc0b1a620bcac701412d6074",
+      "name": "wake_word_detector.h",
+      "mime": "text/plain",
+      "path": "assets/source-bc0b1a620bcac701412d6074-87b72c3dc0363e67.bin",
+      "source": "main/wake_word_detector.h",
+      "sha256": "87b72c3dc0363e67339814b8e366cd266b740d94228fd597435ebbd8d430f352",
+      "bytes": 5057
+    },
+    {
+      "id": "source-c8b486304405d77d16919c10",
+      "name": "test-wake-evidence.py",
+      "mime": "text/plain",
+      "path": "assets/source-c8b486304405d77d16919c10-4a6d05f063bae6ff.bin",
+      "source": "tools/test-wake-evidence.py",
+      "sha256": "4a6d05f063bae6ff5d37d86eda45a6cf81f754bfc39aedc024c3f97011adb398",
+      "bytes": 3147
+    },
+    {
+      "id": "source-10cff2eb752000115e5a8237",
+      "name": "notification_rx_barrier.h",
+      "mime": "text/plain",
+      "path": "assets/source-10cff2eb752000115e5a8237-699a89f609b28df4.bin",
+      "source": "main/conversation/notification_rx_barrier.h",
+      "sha256": "699a89f609b28df4e242c245017702ec3dc503fb9e7228c3846a3ff22ef41527",
+      "bytes": 3004
+    },
+    {
+      "id": "source-484f3ed794ef88f998bb4b43",
+      "name": "shake_motion_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-484f3ed794ef88f998bb4b43-2d2c95d26cbf67d2.bin",
+      "source": "main/board/shake_motion_policy.h",
+      "sha256": "2d2c95d26cbf67d295a80fe5b8c91710b80a40d9fb46b79e41c05ec36d3bf02e",
+      "bytes": 7162
+    },
+    {
+      "id": "source-40fbe5648a3a2570ebec96fd",
+      "name": "head_touch_agent_intent.c",
+      "mime": "text/plain",
+      "path": "assets/source-40fbe5648a3a2570ebec96fd-4d5010cfbef09e0c.bin",
+      "source": "main/conversation/head_touch_agent_intent.c",
+      "sha256": "4d5010cfbef09e0cfa3a330b3655f0e7823135cc4005a3cf37250fa9db14b387",
+      "bytes": 14404
+    },
+    {
+      "id": "source-b5f008032c5daf1ed0b0fbc9",
+      "name": "turn_guard.c",
+      "mime": "text/plain",
+      "path": "assets/source-b5f008032c5daf1ed0b0fbc9-bf5e5a168c8fdbb2.bin",
+      "source": "main/conversation/turn_guard.c",
+      "sha256": "bf5e5a168c8fdbb2ae674bfca04eaee40f3402b4c58aebc5ff6d68a31f1dce75",
+      "bytes": 12109
+    },
+    {
+      "id": "source-733c73c653231d517d2ebfa7",
+      "name": "playback_terminal_guard.c",
+      "mime": "text/plain",
+      "path": "assets/source-733c73c653231d517d2ebfa7-e08123243d212ae4.bin",
+      "source": "main/conversation/playback_terminal_guard.c",
+      "sha256": "e08123243d212ae431ac499b2b38cfec846f76a62eb59f2f6c5335a3927329f9",
+      "bytes": 10529
+    },
+    {
+      "id": "source-1e16f4d5eb3576cb7832805e",
+      "name": "sleep_transaction.c",
+      "mime": "text/plain",
+      "path": "assets/source-1e16f4d5eb3576cb7832805e-61047a8fea21d169.bin",
+      "source": "main/conversation/sleep_transaction.c",
+      "sha256": "61047a8fea21d1690d5b5d170cb3e149a9344857ae73df634c275666ecea48bd",
+      "bytes": 14601
+    },
+    {
+      "id": "source-b22403e3d6cd3a3f2a1bb6bc",
+      "name": "head_touch_control.c",
+      "mime": "text/plain",
+      "path": "assets/source-b22403e3d6cd3a3f2a1bb6bc-be6813a5c40a5f35.bin",
+      "source": "main/conversation/head_touch_control.c",
+      "sha256": "be6813a5c40a5f359f06e723eabd81bf412f8afb80d2ed057ba47d63e17e3251",
+      "bytes": 13306
+    },
+    {
+      "id": "source-41fa45e337df7fd9c1b9f567",
+      "name": "head_touch_control_policy.c",
+      "mime": "text/plain",
+      "path": "assets/source-41fa45e337df7fd9c1b9f567-eefe2277b2dd764a.bin",
+      "source": "main/conversation/head_touch_control_policy.c",
+      "sha256": "eefe2277b2dd764aa2e706099d6b42e3b8600f1be27097c991cadcf53c4b8af2",
+      "bytes": 1042
+    },
+    {
+      "id": "source-db233c4124fd63ae2db5d45a",
+      "name": "sleep_transaction.h",
+      "mime": "text/plain",
+      "path": "assets/source-db233c4124fd63ae2db5d45a-43680610e96bf600.bin",
+      "source": "main/conversation/sleep_transaction.h",
+      "sha256": "43680610e96bf6000cf6f831f869a7a87585e88b9e1a4777dec5c83da98f9eeb",
+      "bytes": 5434
+    },
+    {
+      "id": "source-475e7890c0f4e978bde99ed9",
+      "name": "notification_playback.h",
+      "mime": "text/plain",
+      "path": "assets/source-475e7890c0f4e978bde99ed9-3cb4c9cb7c812687.bin",
+      "source": "main/conversation/notification_playback.h",
+      "sha256": "3cb4c9cb7c8126878ea1367e2c386090898717772f14bf5d0e22aeab93b0ad90",
+      "bytes": 6033
+    },
+    {
+      "id": "source-186c2b192abfe256b8e6ac10",
+      "name": "notification_playback.c",
+      "mime": "text/plain",
+      "path": "assets/source-186c2b192abfe256b8e6ac10-420fc7b1c391f2f2.bin",
+      "source": "main/conversation/notification_playback.c",
+      "sha256": "420fc7b1c391f2f21276897a49abd0cc8e47527cdb263ddef748b6a3a1ef47a1",
+      "bytes": 19699
+    },
+    {
+      "id": "source-8f8b070eae59a84c21a97d29",
+      "name": "test-interaction-boundaries.py",
+      "mime": "text/plain",
+      "path": "assets/source-8f8b070eae59a84c21a97d29-e24a64d7b29acc04.bin",
+      "source": "tools/test-interaction-boundaries.py",
+      "sha256": "e24a64d7b29acc04eca90202a5f57276d550696353e0b248b1c60e9035e18626",
+      "bytes": 5712
+    },
+    {
+      "id": "source-6bef21f34c63096131958f07",
+      "name": "test-shake-gap.py",
+      "mime": "text/plain",
+      "path": "assets/source-6bef21f34c63096131958f07-0f73f9b2004cb457.bin",
+      "source": "tools/test-shake-gap.py",
+      "sha256": "0f73f9b2004cb4578eb2e4649e78675f59797cf3de8f0c289af9db48da4b5600",
+      "bytes": 6950
+    },
+    {
+      "id": "source-a652f5129b247299a9183f50",
+      "name": "test-notification-startup.py",
+      "mime": "text/plain",
+      "path": "assets/source-a652f5129b247299a9183f50-3e4cf104f02004e1.bin",
+      "source": "tools/test-notification-startup.py",
+      "sha256": "3e4cf104f02004e19f677c720cc9e6f198b4dcf010510da87753ea55b8bb8d1a",
+      "bytes": 4178
+    },
+    {
+      "id": "source-ff1d0ddc7037f7ad218f0dc2",
+      "name": "speaker_jitter_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-ff1d0ddc7037f7ad218f0dc2-e058001769eec443.bin",
+      "source": "main/conversation/speaker_jitter_policy.h",
+      "sha256": "e058001769eec44392c6da5ab94dd8b76e61ea7e4e90adf1081d1b970346406a",
+      "bytes": 9204
+    },
+    {
+      "id": "source-6cf4f0a79eecf28fff2fcfc3",
+      "name": "speaker_generation_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-6cf4f0a79eecf28fff2fcfc3-a6fbaf8cf96cd11c.bin",
+      "source": "main/conversation/speaker_generation_policy.h",
+      "sha256": "a6fbaf8cf96cd11c19d98f8004ac0fa06ba2ea896b9b6dea05ca94c6c7c0ebfd",
+      "bytes": 8898
+    },
+    {
+      "id": "source-46ef7685524f4d438f8a5791",
+      "name": "test-playback-startup.py",
+      "mime": "text/plain",
+      "path": "assets/source-46ef7685524f4d438f8a5791-77ae9befbc600524.bin",
+      "source": "tools/test-playback-startup.py",
+      "sha256": "77ae9befbc600524678f8f96ad91e5b5fe83eedb63df688a2b14014b90031870",
+      "bytes": 19707
+    },
+    {
+      "id": "source-d6f91c1d6af01eb64247fd95",
+      "name": "test-jitter-stability.py",
+      "mime": "text/plain",
+      "path": "assets/source-d6f91c1d6af01eb64247fd95-f79942a23e6272c3.bin",
+      "source": "tools/test-jitter-stability.py",
+      "sha256": "f79942a23e6272c33eff008cc4a37c17e100f59b5cd8303352da9c6e1d81056e",
+      "bytes": 2019
+    },
+    {
+      "id": "source-35a2ab4e20fecfa101389a9e",
+      "name": "speaker_playback.h",
+      "mime": "text/plain",
+      "path": "assets/source-35a2ab4e20fecfa101389a9e-d6fe013580c02257.bin",
+      "source": "main/conversation/speaker_playback.h",
+      "sha256": "d6fe013580c02257fe1647fe8052fd39f465b0fc4ef2052062443350578f403b",
+      "bytes": 14205
+    },
+    {
+      "id": "source-7b624f5a89141ca7a23fc472",
+      "name": "meeting-monitoring-sd-current-20260910.md",
+      "mime": "text/plain",
+      "path": "assets/source-7b624f5a89141ca7a23fc472-f4b2b51bc1e5c521.bin",
+      "source": "docs/protocol/meeting-monitoring-sd-current-20260910.md",
+      "sha256": "f4b2b51bc1e5c52185bb52d6f98944c37201c00afeaf147f1628dd8e0e206547",
+      "bytes": 5848
+    },
+    {
+      "id": "source-d3b3c5e1d5e338aa78ea9cce",
+      "name": "meeting_mode.c",
+      "mime": "text/plain",
+      "path": "assets/source-d3b3c5e1d5e338aa78ea9cce-3fb73cbeb8d76dc2.bin",
+      "source": "main/audio_modes/meeting/meeting_mode.c",
+      "sha256": "3fb73cbeb8d76dc29eba8d5d70dee4fa3af387fe111fcf1a9e21b4d64342f398",
+      "bytes": 71521
+    },
+    {
+      "id": "source-9eee80312c0d723c71593297",
+      "name": "monitoring_mode.c",
+      "mime": "text/plain",
+      "path": "assets/source-9eee80312c0d723c71593297-098ec89af0a1c73b.bin",
+      "source": "main/audio_modes/monitoring/monitoring_mode.c",
+      "sha256": "098ec89af0a1c73b0b8f7bf25a25dac84d7e3b15cb000aa1d299939e0968fb04",
+      "bytes": 96393
+    },
+    {
+      "id": "source-85cf1cf2b1ef9f41445d0109",
+      "name": "meeting_mode.h",
+      "mime": "text/plain",
+      "path": "assets/source-85cf1cf2b1ef9f41445d0109-2a70f91852e99efe.bin",
+      "source": "main/audio_modes/meeting/meeting_mode.h",
+      "sha256": "2a70f91852e99efec2445738a643d89f1bd3ff1f5104b4e2d6e53411f3dd0a1b",
+      "bytes": 5410
+    },
+    {
+      "id": "source-a67e99ac73dbfe6496a24fda",
+      "name": "offline_audio_spool.h",
+      "mime": "text/plain",
+      "path": "assets/source-a67e99ac73dbfe6496a24fda-8e9e9653f1357981.bin",
+      "source": "main/offline_audio_spool.h",
+      "sha256": "8e9e9653f1357981567a864c84c9a3222d752b447cd2d0a3a04b70eba47cf4d4",
+      "bytes": 11226
+    },
+    {
+      "id": "source-4b23d14ccfef87839ec7e22c",
+      "name": "offline_audio_spool.c",
+      "mime": "text/plain",
+      "path": "assets/source-4b23d14ccfef87839ec7e22c-37f0cc9344601dbd.bin",
+      "source": "main/offline_audio_spool.c",
+      "sha256": "37f0cc9344601dbd17dc3f269f20f737e26fa0d383b0585f798dab21e32c3f80",
+      "bytes": 235755
+    },
+    {
+      "id": "source-e88436f437611405289188de",
+      "name": "sd数据上传协议-云端完整版.md",
+      "mime": "text/plain",
+      "path": "assets/source-e88436f437611405289188de-81635d0a9e511fe5.bin",
+      "source": "docs/sd数据上传协议-云端完整版.md",
+      "sha256": "81635d0a9e511fe58d1fcd1b7c4ef86b428294d8ed997e2662b15dfd47bb3c00",
+      "bytes": 28065
+    },
+    {
+      "id": "source-1da87d9a73c9f0268306665e",
+      "name": "SD音频补传协议文档.md",
+      "mime": "text/plain",
+      "path": "assets/source-1da87d9a73c9f0268306665e-c0c30b5e618892ac.bin",
+      "source": "docs/SD音频补传协议文档.md",
+      "sha256": "c0c30b5e618892ac2924452738086accfb8b6ef294e2d7862ad07e186a3337d9",
+      "bytes": 6943
+    },
+    {
+      "id": "source-a0ea94189446fea154da01f5",
+      "name": "SD音频高速补传v2.md",
+      "mime": "text/plain",
+      "path": "assets/source-a0ea94189446fea154da01f5-df73f88103c03920.bin",
+      "source": "docs/SD音频高速补传v2.md",
+      "sha256": "df73f88103c039204ecf0de3b88bbc649d34e8e9f36e840438e32c0b923c9b91",
+      "bytes": 26408
+    },
+    {
+      "id": "source-431668ddacebb7416c0b1f6d",
+      "name": "start-sd-replay-gateway.ps1",
+      "mime": "text/plain",
+      "path": "assets/source-431668ddacebb7416c0b1f6d-876dfc1711235bfc.bin",
+      "source": "tools/start-sd-replay-gateway.ps1",
+      "sha256": "876dfc1711235bfc8585e16a1e799294c65d445e4b55a114e327b8d90e8e86db",
+      "bytes": 2222
+    },
+    {
+      "id": "source-74cdc6c46e0a0982c52e8460",
+      "name": "offline_replay_prefetch.inc",
+      "mime": "text/plain",
+      "path": "assets/source-74cdc6c46e0a0982c52e8460-d4a1f3296f28cc50.bin",
+      "source": "main/offline_replay_prefetch.inc",
+      "sha256": "d4a1f3296f28cc5087eb0ac575e97914c8fab6578cf6464ea9eb52a0111e7475",
+      "bytes": 10465
+    },
+    {
+      "id": "source-6440c6d9319ed01d1a12ba0c",
+      "name": "offline_replay_read.inc",
+      "mime": "text/plain",
+      "path": "assets/source-6440c6d9319ed01d1a12ba0c-13b663392599fa43.bin",
+      "source": "main/offline_replay_read.inc",
+      "sha256": "13b663392599fa43b702f9d6b5fb945c4222056985b34c0eaa73d56d14159b88",
+      "bytes": 11236
+    },
+    {
+      "id": "source-f7c6120f8ef4cdd3f320ed0f",
+      "name": "offline_replay_stream.inc",
+      "mime": "text/plain",
+      "path": "assets/source-f7c6120f8ef4cdd3f320ed0f-6702415390af9b37.bin",
+      "source": "main/offline_replay_stream.inc",
+      "sha256": "6702415390af9b37220af244a0cba5749aed987fe3ee1f1e36a193644166eec8",
+      "bytes": 5309
+    },
+    {
+      "id": "source-a94c835f5096a6874aed36b0",
+      "name": "offline-audio-replay-gateway.js",
+      "mime": "text/plain",
+      "path": "assets/source-a94c835f5096a6874aed36b0-f77ea090ceb33a08.bin",
+      "source": "tools/protocol/offline-audio-replay-gateway.js",
+      "sha256": "f77ea090ceb33a084129b104248b94367cf9c7073598b246dad48b111ee74b34",
+      "bytes": 45611
+    },
+    {
+      "id": "source-7cb1e0caf86026601b99e789",
+      "name": "audit-offline-session.js",
+      "mime": "text/plain",
+      "path": "assets/source-7cb1e0caf86026601b99e789-fbab1cbea93fcaf2.bin",
+      "source": "tools/protocol/audit-offline-session.js",
+      "sha256": "fbab1cbea93fcaf24107fbe777954c056a79ec24535337dba55708ac1ca85ec2",
+      "bytes": 2861
+    },
+    {
+      "id": "source-f1bd21eb9f77d89b5fc0c726",
+      "name": "offline_replay_pressure.inc",
+      "mime": "text/plain",
+      "path": "assets/source-f1bd21eb9f77d89b5fc0c726-58387662156630b0.bin",
+      "source": "main/offline_replay_pressure.inc",
+      "sha256": "58387662156630b04c4596cf3640eac3d503cfd231e0cc9d1da884943a43972b",
+      "bytes": 1812
+    },
+    {
+      "id": "source-353c50c5d6291c6a1124b474",
+      "name": "test-network-recovery-boundaries.py",
+      "mime": "text/plain",
+      "path": "assets/source-353c50c5d6291c6a1124b474-8f31d0e60b39af44.bin",
+      "source": "tools/test-network-recovery-boundaries.py",
+      "sha256": "8f31d0e60b39af44942066f62086aed35a2144fe10a1322c2fe420de18b967fc",
+      "bytes": 7615
+    },
+    {
+      "id": "source-9b7a4c14eed1611fc5fe7403",
+      "name": "test-network-join-handoff.py",
+      "mime": "text/plain",
+      "path": "assets/source-9b7a4c14eed1611fc5fe7403-aca369c6f727d6c2.bin",
+      "source": "tools/test-network-join-handoff.py",
+      "sha256": "aca369c6f727d6c2314b50185a68b244400f46725fccfee2fdd233792918b4fe",
+      "bytes": 14342
+    },
+    {
+      "id": "source-6146920cbb54c9a29ee00038",
+      "name": "ws_transport.h",
+      "mime": "text/plain",
+      "path": "assets/source-6146920cbb54c9a29ee00038-184522f1e955a99b.bin",
+      "source": "main/ws_transport.h",
+      "sha256": "184522f1e955a99b03aa2656a9cdf6564389f31282e80776ca446b61b080e8b4",
+      "bytes": 12165
+    },
+    {
+      "id": "source-c290b57dfd55f65afdc2971d",
+      "name": "ws_transport.c",
+      "mime": "text/plain",
+      "path": "assets/source-c290b57dfd55f65afdc2971d-3448549d210451d7.bin",
+      "source": "main/ws_transport.c",
+      "sha256": "3448549d210451d7aa185d6636457800aaec57fa2db1cd5dc6f276830685fa67",
+      "bytes": 135448
+    },
+    {
+      "id": "source-a7801f6797da5629585c53b9",
+      "name": "wifi_manager.h",
+      "mime": "text/plain",
+      "path": "assets/source-a7801f6797da5629585c53b9-ce04587031fc06f0.bin",
+      "source": "main/wifi_manager.h",
+      "sha256": "ce04587031fc06f0b34ee878991bec4a27206f2c01a867aaad9d30987e5be533",
+      "bytes": 2719
+    },
+    {
+      "id": "source-3ad9a6758b12ae0755a3d8b0",
+      "name": "README.md",
+      "mime": "text/plain",
+      "path": "assets/source-3ad9a6758b12ae0755a3d8b0-33e734bb09557983.bin",
+      "source": "main/nuwax_provision_new/README.md",
+      "sha256": "33e734bb0955798303956b8b0e0e8b14ff65218be47a75d391cc8f5accc8f2dd",
+      "bytes": 11899
+    },
+    {
+      "id": "source-9dea8ad7a5b22a71fb677c4e",
+      "name": "esp32s3-idf6-provisioning-contract.json",
+      "mime": "application/json",
+      "path": "assets/source-9dea8ad7a5b22a71fb677c4e-e61484d539469f3c.bin",
+      "source": "main/nuwax_provision_new/esp32s3-idf6-provisioning-contract.json",
+      "sha256": "e61484d539469f3c16d991f9f189e7dc303be98656cc6310d71fb26a9f8f4e74",
+      "bytes": 18439
+    },
+    {
+      "id": "source-9a8a18b8d030ab4704e8cf2a",
+      "name": "nuwax_cloud_config.h",
+      "mime": "text/plain",
+      "path": "assets/source-9a8a18b8d030ab4704e8cf2a-978cd4efd6d72fde.bin",
+      "source": "main/nuwax_provision_new/nuwax_cloud_config.h",
+      "sha256": "978cd4efd6d72fdeee4259068251c326011707182d6ba910a148b70419417546",
+      "bytes": 1271
+    },
+    {
+      "id": "source-3d237ba2eaac4e1d53a94767",
+      "name": "test-provisioning-contracts.py",
+      "mime": "text/plain",
+      "path": "assets/source-3d237ba2eaac4e1d53a94767-b53a314e023000e1.bin",
+      "source": "tools/test-provisioning-contracts.py",
+      "sha256": "b53a314e023000e180cb889968f8896a46592024672f2cc3d580b6c5644da10b",
+      "bytes": 2679
+    },
+    {
+      "id": "source-b471401e2c8a1a3c5ea0a164",
+      "name": "test-provisioning-buffer-lifecycle.py",
+      "mime": "text/plain",
+      "path": "assets/source-b471401e2c8a1a3c5ea0a164-6efe1daf400ca69c.bin",
+      "source": "tools/test-provisioning-buffer-lifecycle.py",
+      "sha256": "6efe1daf400ca69c82074e3d940d8c73e6005cc01bcf18311792da956850fce9",
+      "bytes": 7613
+    },
+    {
+      "id": "source-d9920028a505b51b88ee6314",
+      "name": "test-provision-finish.py",
+      "mime": "text/plain",
+      "path": "assets/source-d9920028a505b51b88ee6314-f6e36db307c205f4.bin",
+      "source": "tools/test-provision-finish.py",
+      "sha256": "f6e36db307c205f41b52f1986f9e2daec3a84a6ec34694f5090a4cdbf14f55ea",
+      "bytes": 15011
+    },
+    {
+      "id": "source-e5aac715060b049793050b7d",
+      "name": "emotion_display_policy.c",
+      "mime": "text/plain",
+      "path": "assets/source-e5aac715060b049793050b7d-4112d847ed00e36d.bin",
+      "source": "main/nuwax_ui_v28/emotion_display_policy.c",
+      "sha256": "4112d847ed00e36d671cf5ddb806aba4154d64d7e74c85699a7bc2898b8456b9",
+      "bytes": 16322
+    },
+    {
+      "id": "source-4e8260a15cafe36c55d9556f",
+      "name": "emotion_animation_player.c",
+      "mime": "text/plain",
+      "path": "assets/source-4e8260a15cafe36c55d9556f-9a48e755ea00dccc.bin",
+      "source": "main/nuwax_ui_v28/face/emotion_animation_player.c",
+      "sha256": "9a48e755ea00dcccdfbf48a8d0f799f0d0c0dd1ba496b7b3ee7e946abf2ddb4e",
+      "bytes": 180208
+    },
+    {
+      "id": "source-65c91e5416d559356897b9ed",
+      "name": "emotion_asset_pack.c",
+      "mime": "text/plain",
+      "path": "assets/source-65c91e5416d559356897b9ed-a3822c074d0067fa.bin",
+      "source": "main/nuwax_ui_v28/face/emotion_asset_pack.c",
+      "sha256": "a3822c074d0067fa47236b3532630280f3e7b880a6026812ddae86212bf7617c",
+      "bytes": 46372
+    },
+    {
+      "id": "source-ad7c65dccea04f66b13c919f",
+      "name": "2026-09-29-OTA菜单接管修复.md",
+      "mime": "text/plain",
+      "path": "assets/source-ad7c65dccea04f66b13c919f-dc2b666af35f4a45.bin",
+      "source": "docs/2026-09-29-OTA菜单接管修复.md",
+      "sha256": "dc2b666af35f4a45e1c6643de37ca33319056c43487278db9cc37e91c830156a",
+      "bytes": 3099
+    },
+    {
+      "id": "source-195013d45a5c9b28b40520fb",
+      "name": "nuwax_device_state.h",
+      "mime": "text/plain",
+      "path": "assets/source-195013d45a5c9b28b40520fb-2c4aa2d5c08638c9.bin",
+      "source": "main/nuwax_ui_v28/nuwax_device_state.h",
+      "sha256": "2c4aa2d5c08638c9ef7c44658449f5e2147711fb404dd63201a09eb2b3ee40b4",
+      "bytes": 5094
+    },
+    {
+      "id": "source-474913935cf9654bbf6a8406",
+      "name": "nuwax_state_bridge.h",
+      "mime": "text/plain",
+      "path": "assets/source-474913935cf9654bbf6a8406-0b90435cd3655b2b.bin",
+      "source": "main/nuwax_ui_v28/nuwax_state_bridge.h",
+      "sha256": "0b90435cd3655b2b66b43874c5f75032dd5bc136964af1171e73948b796724e6",
+      "bytes": 2099
+    },
+    {
+      "id": "source-9b39cd6513c8d766f23c9c32",
+      "name": "test-display-buffer-lease.py",
+      "mime": "text/plain",
+      "path": "assets/source-9b39cd6513c8d766f23c9c32-5481a856ad058f98.bin",
+      "source": "tools/test-display-buffer-lease.py",
+      "sha256": "5481a856ad058f98d9601f639373127561a849f4b28fa22be55d937d63473f0a",
+      "bytes": 9704
+    },
+    {
+      "id": "source-e11cce3f63fbe97bb62c0b35",
+      "name": "test-drawer-composition.py",
+      "mime": "text/plain",
+      "path": "assets/source-e11cce3f63fbe97bb62c0b35-ec3c49f5cc478322.bin",
+      "source": "tools/test-drawer-composition.py",
+      "sha256": "ec3c49f5cc4783229d4cd15d0d27b50d07f6b871c012374a2fd4659af02af932",
+      "bytes": 6767
+    },
+    {
+      "id": "source-c9b0faef7356fa8c3c77fa81",
+      "name": "test-display-pixels.py",
+      "mime": "text/plain",
+      "path": "assets/source-c9b0faef7356fa8c3c77fa81-09b6c60eafdbe12b.bin",
+      "source": "tools/test-display-pixels.py",
+      "sha256": "09b6c60eafdbe12bd2556901a715808502f0f623deffbf5c5816233d1360bfd6",
+      "bytes": 5243
+    },
+    {
+      "id": "source-7d2a0e359addeb8e0ef07ad8",
+      "name": "nuwax_ota_manifest.c",
+      "mime": "text/plain",
+      "path": "assets/source-7d2a0e359addeb8e0ef07ad8-e7749193a3f8f63b.bin",
+      "source": "main/nuwax_ota_new/nuwax_ota_manifest.c",
+      "sha256": "e7749193a3f8f63bb23ab891f28502736e56dd4b41bc5a447d6934b6bbf7078a",
+      "bytes": 17546
+    },
+    {
+      "id": "source-c2b772a95df3d0414df2a1a8",
+      "name": "README.md",
+      "mime": "text/plain",
+      "path": "assets/source-c2b772a95df3d0414df2a1a8-88a449205863fe00.bin",
+      "source": "main/nuwax_ota_new/README.md",
+      "sha256": "88a449205863fe007c1ea6e244d5a513322f79aad1424e8b0043b7aa2d487a3b",
+      "bytes": 4440
+    },
+    {
+      "id": "source-07b6fff511a0281eea9872ef",
+      "name": "2026-09-27-OTA启动身份校验优化与验证.md",
+      "mime": "text/plain",
+      "path": "assets/source-07b6fff511a0281eea9872ef-4f935d5149db2d1a.bin",
+      "source": "docs/2026-09-27-OTA启动身份校验优化与验证.md",
+      "sha256": "4f935d5149db2d1a5f72feca5516965c6acf2451d7bb464ff3d13b64a09c753c",
+      "bytes": 6644
+    },
+    {
+      "id": "source-9fcf6d3737676875c821aec1",
+      "name": "nuwax_ota_power_policy.h",
+      "mime": "text/plain",
+      "path": "assets/source-9fcf6d3737676875c821aec1-ca2ff0c68dcf61ca.bin",
+      "source": "main/nuwax_ota_new/nuwax_ota_power_policy.h",
+      "sha256": "ca2ff0c68dcf61caa910f7d8b26b63693b9b1aa85b3aa9bfc79c137330d9f19f",
+      "bytes": 2483
+    },
+    {
+      "id": "source-4626889e8fc491a17b5f2ad3",
+      "name": "nuwax_ota_device.c",
+      "mime": "text/plain",
+      "path": "assets/source-4626889e8fc491a17b5f2ad3-f230b0ad66aa905a.bin",
+      "source": "main/nuwax_ota_new/nuwax_ota_device.c",
+      "sha256": "f230b0ad66aa905ad21a04392a9f038aa8f1f1a51b0b19954d7430089f3aeee8",
+      "bytes": 72104
+    },
+    {
+      "id": "source-482aa573b390c78085d5df3a",
+      "name": "nuwax_ota_device.h",
+      "mime": "text/plain",
+      "path": "assets/source-482aa573b390c78085d5df3a-bc0f2f181bf850ee.bin",
+      "source": "main/nuwax_ota_new/nuwax_ota_device.h",
+      "sha256": "bc0f2f181bf850ee0a7972ba8f95d3386f277d0e3e48b001a3a2a53b4040b5aa",
+      "bytes": 2990
+    },
+    {
+      "id": "source-99ef4c603f999ca30ad68445",
+      "name": "test-ota-identity-cache.py",
+      "mime": "text/plain",
+      "path": "assets/source-99ef4c603f999ca30ad68445-b11cf2fec2fe3424.bin",
+      "source": "tools/test-ota-identity-cache.py",
+      "sha256": "b11cf2fec2fe3424d45bef87855e550b8845bbc504a06142eec1fe5f3f6a84d8",
+      "bytes": 21578
+    },
+    {
+      "id": "source-992ec332c5f11c47605e8539",
+      "name": "device_error_report.c",
+      "mime": "text/plain",
+      "path": "assets/source-992ec332c5f11c47605e8539-85ff8541ac333a87.bin",
+      "source": "main/device_error_report.c",
+      "sha256": "85ff8541ac333a87be8f09934d7ee1bcdcf12edf0db00a3296d31b746a2ebc4c",
+      "bytes": 43725
+    },
+    {
+      "id": "source-bc5357ee45b8c09abeef116f",
+      "name": "diagnostics.c",
+      "mime": "text/plain",
+      "path": "assets/source-bc5357ee45b8c09abeef116f-57fa2a7db230b409.bin",
+      "source": "main/diagnostics.c",
+      "sha256": "57fa2a7db230b40956e99fb9c5d3b54698f26e1ecf7d92807726c1e9b3713d3d",
+      "bytes": 5811
+    },
+    {
+      "id": "source-32a734ba496a65c8067cb809",
+      "name": "rnnt-growth-fix.cmake",
+      "mime": "text/plain",
+      "path": "assets/source-32a734ba496a65c8067cb809-47cd6770327857bc.bin",
+      "source": "tools/cmake/rnnt-growth-fix.cmake",
+      "sha256": "47cd6770327857bc74f9cdadcece22bdac650d1743b57a3f20cd6f41c4ba2b70",
+      "bytes": 1642
+    },
+    {
+      "id": "source-8cff8c3cca4351bc278311d7",
+      "name": "patch-rnnt-growth.py",
+      "mime": "text/plain",
+      "path": "assets/source-8cff8c3cca4351bc278311d7-f716bf7168102ac1.bin",
+      "source": "tools/patch-rnnt-growth.py",
+      "sha256": "f716bf7168102ac1f7807038aab6f54419b978e30c93fd2b90047586f0d6db1c",
+      "bytes": 6067
+    },
+    {
+      "id": "source-b8d3ced521d2cfbd1a1cad22",
+      "name": "test-rnnt-growth-fix.py",
+      "mime": "text/plain",
+      "path": "assets/source-b8d3ced521d2cfbd1a1cad22-76ed589e0b65e424.bin",
+      "source": "tools/test-rnnt-growth-fix.py",
+      "sha256": "76ed589e0b65e4248155740ef6c537259d185f5e3473fa399bbb0311a74375a4",
+      "bytes": 4541
+    },
+    {
+      "id": "source-43b17c4834d6218a1c079786",
+      "name": "2026-09-14-WebSocket补传串帧修复.md",
+      "mime": "text/plain",
+      "path": "assets/source-43b17c4834d6218a1c079786-1d0ff07402b90abf.bin",
+      "source": "docs/2026-09-14-WebSocket补传串帧修复.md",
+      "sha256": "1d0ff07402b90abf40c2414ed78f72df07519a0b26a9f4bb648786714d218198",
+      "bytes": 6028
+    },
+    {
+      "id": "source-a1a6da630e68dfd9aeb8de5a",
+      "name": "2026-09-16-MultiNet非法释放重启分析.md",
+      "mime": "text/plain",
+      "path": "assets/source-a1a6da630e68dfd9aeb8de5a-0d3f2fefad85b266.bin",
+      "source": "docs/2026-09-16-MultiNet非法释放重启分析.md",
+      "sha256": "0d3f2fefad85b2666a33ec7a64c11f70537097f9a414e350e7337bb378c5a1af",
+      "bytes": 14439
+    },
+    {
+      "id": "source-b710d30a05e425f332fdecbf",
+      "name": "2026-09-16-309152补传后Cache重启分析.md",
+      "mime": "text/plain",
+      "path": "assets/source-b710d30a05e425f332fdecbf-32e5227adc4a20c2.bin",
+      "source": "docs/2026-09-16-309152补传后Cache重启分析.md",
+      "sha256": "32e5227adc4a20c250b15bea0ab9f4cac7fd19ab19e8f0713e5e9c3561c23d8e",
+      "bytes": 4990
+    },
+    {
+      "id": "source-c2e95245b30466edfc3e0632",
+      "name": "audio_budget.py",
+      "mime": "text/plain",
+      "path": "assets/source-c2e95245b30466edfc3e0632-b0542b7373ddba59.bin",
+      "source": "docs/工程开发学习手册/examples/audio_budget.py",
+      "sha256": "b0542b7373ddba592f7c073abc040b4d1fc0d730bb43f491a0a3e606de8e81fe",
+      "bytes": 2034
+    },
+    {
+      "id": "source-f4127c3c2d5500fe20fd109d",
+      "name": "inspect_na_frame.py",
+      "mime": "text/plain",
+      "path": "assets/source-f4127c3c2d5500fe20fd109d-b8aa7d12bce0af66.bin",
+      "source": "docs/工程开发学习手册/examples/inspect_na_frame.py",
+      "sha256": "b8aa7d12bce0af661dbb430691f4c1d19f1e3453a0080e139072c8afeb3a9ebe",
+      "bytes": 2799
+    },
+    {
+      "id": "source-41f1fea9b339e2b4189cef05",
+      "name": "owner_epoch.py",
+      "mime": "text/plain",
+      "path": "assets/source-41f1fea9b339e2b4189cef05-cf2dcc4fc9a544a0.bin",
+      "source": "docs/工程开发学习手册/examples/owner_epoch.py",
+      "sha256": "cf2dcc4fc9a544a0617816f488f272e447946246f23e50bd2cc93b3f9afcaf3c",
+      "bytes": 1335
+    },
+    {
+      "id": "source-e06fc2880232d6fdea25a988",
+      "name": "app_shell.c",
+      "mime": "text/plain",
+      "path": "assets/source-e06fc2880232d6fdea25a988-40c4a925fa546f89.bin",
+      "source": "main/app_shell.c",
+      "sha256": "40c4a925fa546f89c68ac0cbdb5495b0fb58c461ada9c231a75e05022a55038b",
+      "bytes": 67574
+    },
+    {
+      "id": "source-238e19bacc73c03b84aa1d30",
+      "name": "nuwax_board.c",
+      "mime": "text/plain",
+      "path": "assets/source-238e19bacc73c03b84aa1d30-aa5e20f75cbb05da.bin",
+      "source": "main/board/nuwax_board.c",
+      "sha256": "aa5e20f75cbb05da1a24e2fb71839a0ea9b4a791ffb8dd8bc8c12fa7aee2bb2d",
+      "bytes": 3842
+    },
+    {
+      "id": "source-2a177e92a6242221293e2ee7",
+      "name": "session_protocol.c",
+      "mime": "text/plain",
+      "path": "assets/source-2a177e92a6242221293e2ee7-347a092b75f3cc67.bin",
+      "source": "main/session_protocol.c",
+      "sha256": "347a092b75f3cc67e2a5c1653993e195db19983986bc6d9d07e0aca03630e93f",
+      "bytes": 111629
+    },
+    {
+      "id": "source-ddb28cdc4b30efaff402a224",
+      "name": "offline_audio_voice.c",
+      "mime": "text/plain",
+      "path": "assets/source-ddb28cdc4b30efaff402a224-9e6e70ab38337e0e.bin",
+      "source": "main/offline_audio_voice.c",
+      "sha256": "9e6e70ab38337e0eee31fc9eff799cf225b22077fb47f2bdffb127678787ed70",
+      "bytes": 4344
+    },
+    {
+      "id": "source-e0214700e629a41c1bd7b550",
+      "name": "sd_dma_bulk.c",
+      "mime": "text/plain",
+      "path": "assets/source-e0214700e629a41c1bd7b550-4901e3db6e25c63a.bin",
+      "source": "main/board/sd_dma_bulk.c",
+      "sha256": "4901e3db6e25c63a64b815f2de196dc40a0d81d69687ee560ba91c3c5ea2c2ab",
+      "bytes": 6651
+    },
+    {
+      "id": "source-7a76f8608c6617d8d2bb39a6",
+      "name": "shake_detector.c",
+      "mime": "text/plain",
+      "path": "assets/source-7a76f8608c6617d8d2bb39a6-815b56ed0853d8bb.bin",
+      "source": "main/board/shake_detector.c",
+      "sha256": "815b56ed0853d8bb295f2b554e7db667ca0edf2f31625392272faf556d665390",
+      "bytes": 14129
+    },
+    {
+      "id": "source-4f32d645e5ef7e72b49b8154",
+      "name": "touch_gesture.c",
+      "mime": "text/plain",
+      "path": "assets/source-4f32d645e5ef7e72b49b8154-5e531ee17a640f5f.bin",
+      "source": "main/conversation/touch_gesture.c",
+      "sha256": "5e531ee17a640f5f16b5a2233ebdba59294bcbcaeca86db17de983092e3731de",
+      "bytes": 34268
+    },
+    {
+      "id": "source-1a12bd082bd1ac2fdc7aae7b",
+      "name": "nuwax_provision_main.c",
+      "mime": "text/plain",
+      "path": "assets/source-1a12bd082bd1ac2fdc7aae7b-de9c1742ed92bec4.bin",
+      "source": "main/nuwax_provision_new/nuwax_provision_main.c",
+      "sha256": "de9c1742ed92bec4a0f5e4bb12c3b5ed5c4e6780ae7552bacf26b5dedb73aeb1",
+      "bytes": 135479
+    },
+    {
+      "id": "source-011766a07a375ea30a7b2d5c",
+      "name": "nuwax_cloud_config.c",
+      "mime": "text/plain",
+      "path": "assets/source-011766a07a375ea30a7b2d5c-dd4c94335200dda8.bin",
+      "source": "main/nuwax_provision_new/nuwax_cloud_config.c",
+      "sha256": "dd4c94335200dda8e9ba9d802926406e714ae56f7e2cfc8c509f764df55745c4",
+      "bytes": 10099
+    },
+    {
+      "id": "source-b1aff88b252ee3b1fe4b185f",
+      "name": "nuwax_ota_transport.c",
+      "mime": "text/plain",
+      "path": "assets/source-b1aff88b252ee3b1fe4b185f-d83336bfd733f96e.bin",
+      "source": "main/nuwax_ota_new/nuwax_ota_transport.c",
+      "sha256": "d83336bfd733f96eb401e1e19318c39930994c289d4a076c82b60f364949e748",
+      "bytes": 29075
+    },
+    {
+      "id": "source-9637462b90b4c39cb4cd678a",
+      "name": "dependencies.lock",
+      "mime": "text/plain",
+      "path": "assets/source-9637462b90b4c39cb4cd678a-1c86033458215958.bin",
+      "source": "dependencies.lock",
+      "sha256": "1c860334582159588cffa7495f2b298afcd0943480bcbf5309ce5e4e3c510583",
+      "bytes": 3627
+    },
+    {
+      "id": "source-9cf650329e61b89886a2cbaa",
+      "name": "source-inventory.json",
+      "mime": "application/json",
+      "path": "assets/source-9cf650329e61b89886a2cbaa-50010b176844bbaf.bin",
+      "source": "docs/工程开发学习手册/evidence/source-inventory.json",
+      "sha256": "50010b176844bbaf47c7cd1b5e9e2d8377ca303d4add71d53e0fb1658a076fda",
+      "bytes": 78705
+    },
+    {
+      "id": "source-95f855b51ad325e25d0afa01",
+      "name": "time_sync.c",
+      "mime": "text/plain",
+      "path": "assets/source-95f855b51ad325e25d0afa01-3daaf4bde2d09ae2.bin",
+      "source": "main/time_sync.c",
+      "sha256": "3daaf4bde2d09ae222b52d9382195d5bce1bae80f20d0abd0578eb4339a181e7",
+      "bytes": 1902
+    },
+    {
+      "id": "source-71fb00f2c772fe36e20ff211",
+      "name": "mcp_server.c",
+      "mime": "text/plain",
+      "path": "assets/source-71fb00f2c772fe36e20ff211-4ec4174be2ba388a.bin",
+      "source": "main/mcp_server.c",
+      "sha256": "4ec4174be2ba388ac60af15b0328c4a682a611bbd3beb36c671c58359710b10e",
+      "bytes": 13509
+    },
+    {
+      "id": "source-79fa7ffcc3911589436d5518",
+      "name": "nuwax_provision_usb_control.c",
+      "mime": "text/plain",
+      "path": "assets/source-79fa7ffcc3911589436d5518-126204d40b483902.bin",
+      "source": "main/nuwax_provision_new/nuwax_provision_usb_control.c",
+      "sha256": "126204d40b483902bf808a257c5496923b4f49cf8a179d70906892060ad199d1",
+      "bytes": 3703
+    },
+    {
+      "id": "source-670ff5895a66768b98be5647",
+      "name": "nuwax_firmware_report.c",
+      "mime": "text/plain",
+      "path": "assets/source-670ff5895a66768b98be5647-aa0591eb601b811d.bin",
+      "source": "main/nuwax_ota_new/nuwax_firmware_report.c",
+      "sha256": "aa0591eb601b811d1f0096383a24d3a26a17c34fb25645d82413439778e5c69c",
+      "bytes": 18960
+    },
+    {
+      "id": "source-a559e8216650f55c847944c9",
+      "name": "product_ready.c",
+      "mime": "text/plain",
+      "path": "assets/source-a559e8216650f55c847944c9-600d31c94ba45557.bin",
+      "source": "main/product_ready.c",
+      "sha256": "600d31c94ba455570a72d317c9eaa1f7d8a856c872f5c3cb139ca27d83f914ad",
+      "bytes": 3534
+    },
+    {
+      "id": "source-1cc4f14d76e585e49550a951",
+      "name": "test-startup-admission-boundaries.py",
+      "mime": "text/plain",
+      "path": "assets/source-1cc4f14d76e585e49550a951-88142d8cefe7391a.bin",
+      "source": "tools/test-startup-admission-boundaries.py",
+      "sha256": "88142d8cefe7391a9733d849f7a29ad2a6c7e0d56dbda64797028a177dfc1192",
+      "bytes": 12665
+    },
+    {
+      "id": "source-e4c909bb606d8ea924b8d91b",
+      "name": "test-board-power-boundaries.py",
+      "mime": "text/plain",
+      "path": "assets/source-e4c909bb606d8ea924b8d91b-12e823890f804916.bin",
+      "source": "tools/test-board-power-boundaries.py",
+      "sha256": "12e823890f80491680ee2335479c63e2159a41d2f054fed098535cb8b7c23ca7",
+      "bytes": 17133
+    },
+    {
+      "id": "source-b2c0a7dcf697e047e38f5289",
+      "name": "wifi_manager.c",
+      "mime": "text/plain",
+      "path": "assets/source-b2c0a7dcf697e047e38f5289-5672553f6285bc4a.bin",
+      "source": "main/wifi_manager.c",
+      "sha256": "5672553f6285bc4a9dfc1c13ca90eb27497585a295f70d45d25d522f7ae4ff49",
+      "bytes": 81017
+    },
+    {
+      "id": "source-29d8967b96eb923c6a03ac90",
+      "name": "nuwax_ota_main.c",
+      "mime": "text/plain",
+      "path": "assets/source-29d8967b96eb923c6a03ac90-d86d3301ed1d39ef.bin",
+      "source": "main/nuwax_ota_new/nuwax_ota_main.c",
+      "sha256": "d86d3301ed1d39ef5ecd9b7f4e2bc3199aea7a32e03486080f4f009b45c45c7d",
+      "bytes": 48932
+    },
+    {
+      "id": "source-321c42fdb3a09ff32255192e",
+      "name": "json_resource_budget.h",
+      "mime": "text/plain",
+      "path": "assets/source-321c42fdb3a09ff32255192e-f291ddc1e2aed989.bin",
+      "source": "main/json_resource_budget.h",
+      "sha256": "f291ddc1e2aed9894f5577750bb68f710890315a1008d01c604a167d69b08437",
+      "bytes": 4217
+    },
+    {
+      "id": "source-03b50c9359b312239fb9e39e",
+      "name": "test-json-resource-budget.py",
+      "mime": "text/plain",
+      "path": "assets/source-03b50c9359b312239fb9e39e-4527c2421fd365fa.bin",
+      "source": "tools/test-json-resource-budget.py",
+      "sha256": "4527c2421fd365fa2ce6010f1be75d65d35494edd6d14f71b2151cd43b07eb65",
+      "bytes": 10308
+    },
+    {
+      "id": "source-1763bea70fc199d5c14910bc",
+      "name": "test-json-budget.py",
+      "mime": "text/plain",
+      "path": "assets/source-1763bea70fc199d5c14910bc-15f0af55d00180ce.bin",
+      "source": "tools/test-json-budget.py",
+      "sha256": "15f0af55d00180ce296fe7d71229f6d28b30c540a814f85bdce915265ea28aaa",
+      "bytes": 3691
+    },
+    {
+      "id": "source-bdb3bd6561145405cf559ad6",
+      "name": "session_dispatch.h",
+      "mime": "text/plain",
+      "path": "assets/source-bdb3bd6561145405cf559ad6-9ef3098708c041d7.bin",
+      "source": "main/conversation/session_dispatch.h",
+      "sha256": "9ef3098708c041d75ececa63095f3e9721d88ced07003bc139834c9ac475c199",
+      "bytes": 7240
+    },
+    {
+      "id": "source-8b020681e967e1bbc69541da",
+      "name": "meeting_processor.c",
+      "mime": "text/plain",
+      "path": "assets/source-8b020681e967e1bbc69541da-1f330f0b78573467.bin",
+      "source": "main/audio_modes/meeting/meeting_processor.c",
+      "sha256": "1f330f0b7857346701196fbb5cca50c27e7f53afd687c1a641850f02b950c9e9",
+      "bytes": 8414
+    },
+    {
+      "id": "source-2dfd1cfbc6b4186b1e183e71",
+      "name": "speech_confirmation.c",
+      "mime": "text/plain",
+      "path": "assets/source-2dfd1cfbc6b4186b1e183e71-9aa94f0b548f6a44.bin",
+      "source": "main/conversation/speech_confirmation.c",
+      "sha256": "9aa94f0b548f6a443e8929caaecd615b69def82af3b0d52f1cd4cce0af926364",
+      "bytes": 5220
+    },
+    {
+      "id": "source-e403f9241f99477940dde939",
+      "name": "music_playback.h",
+      "mime": "text/plain",
+      "path": "assets/source-e403f9241f99477940dde939-4a588bcdf66670fc.bin",
+      "source": "main/music_playback/music_playback.h",
+      "sha256": "4a588bcdf66670fc445015a460f2d3606a77074582114ed77ff277891009425f",
+      "bytes": 436
+    },
+    {
+      "id": "source-534c9b1cd3e7faa8ec133ea3",
+      "name": "mcp_server.h",
+      "mime": "text/plain",
+      "path": "assets/source-534c9b1cd3e7faa8ec133ea3-dc77b4dc3eab273c.bin",
+      "source": "main/mcp_server.h",
+      "sha256": "dc77b4dc3eab273c06907d0740d9b039245bc22dd27d46f24286d372dfbf8ea8",
+      "bytes": 2222
+    },
+    {
+      "id": "lesson-e717acfbcaa8313b5cb8297b",
+      "name": "b00-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-e717acfbcaa8313b5cb8297b-e717acfbcaa8313b.bin",
+      "source": "course-examples/textbooks/b00-experiments.zip",
+      "sha256": "e717acfbcaa8313b5cb8297beaf5afb7353e07fed6d91d7e5f192e348d4e6771",
+      "bytes": 12008
+    },
+    {
+      "id": "lesson-1b728653a23289c982e47502",
+      "name": "sampler.h",
+      "mime": "text/plain",
+      "path": "assets/lesson-1b728653a23289c982e47502-1b728653a23289c9.bin",
+      "source": "course-examples/textbooks/b00/labs/sampler.h",
+      "sha256": "1b728653a23289c982e475022cbd2b85dabc8e2a4a6bde533f08af9dc55e1938",
+      "bytes": 491
+    },
+    {
+      "id": "lesson-51fe26521ea4399a9655971a",
+      "name": "sampler.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-51fe26521ea4399a9655971a-51fe26521ea4399a.bin",
+      "source": "course-examples/textbooks/b00/labs/sampler.c",
+      "sha256": "51fe26521ea4399a9655971a5ea71a1d9f32174426726d59a22fb7cb14037f0b",
+      "bytes": 1267
+    },
+    {
+      "id": "lesson-0202c4b9b60899e1ccc736ba",
+      "name": "sampler_test.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-0202c4b9b60899e1ccc736ba-0202c4b9b60899e1.bin",
+      "source": "course-examples/textbooks/b00/labs/sampler_test.c",
+      "sha256": "0202c4b9b60899e1ccc736bac20bab883523190385f6f85b0e0c399514a177b8",
+      "bytes": 1042
+    },
+    {
+      "id": "lesson-e5d1625824e6f6bb5e0b2adb",
+      "name": "sampler_cli.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-e5d1625824e6f6bb5e0b2adb-e5d1625824e6f6bb.bin",
+      "source": "course-examples/textbooks/b00/labs/sampler_cli.c",
+      "sha256": "e5d1625824e6f6bb5e0b2adbb5c5b9fd759fbd362282d75e680379952c7c0e15",
+      "bytes": 666
+    },
+    {
+      "id": "lesson-7d2936398a3699b91b910e32",
+      "name": "b01-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-7d2936398a3699b91b910e32-7d2936398a3699b9.bin",
+      "source": "course-examples/textbooks/b01-experiments.zip",
+      "sha256": "7d2936398a3699b91b910e326610f34e72a41d02514f19c1df4f14e5fe1af2d5",
+      "bytes": 49465
+    },
+    {
+      "id": "lesson-970f0a9f0d82e45652d7b844",
+      "name": "b02a-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-970f0a9f0d82e45652d7b844-970f0a9f0d82e456.bin",
+      "source": "course-examples/textbooks/b02a-experiments.zip",
+      "sha256": "970f0a9f0d82e45652d7b84452c789a848af75fa0debac9108e915f70f89e237",
+      "bytes": 7932
+    },
+    {
+      "id": "lesson-83ef9604555fd184c246e61d",
+      "name": "values.cpp",
+      "mime": "text/plain",
+      "path": "assets/lesson-83ef9604555fd184c246e61d-83ef9604555fd184.bin",
+      "source": "course-examples/textbooks/b02a/labs/values.cpp",
+      "sha256": "83ef9604555fd184c246e61dc4573f4f6b767add48642a71d9107b0175d79d66",
+      "bytes": 1692
+    },
+    {
+      "id": "lesson-93ceb6045e24249f5cd482d7",
+      "name": "b03a-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-93ceb6045e24249f5cd482d7-93ceb6045e24249f.bin",
+      "source": "course-examples/textbooks/b03a-experiments.zip",
+      "sha256": "93ceb6045e24249f5cd482d725aa8aeb0879197ab8bf5687f41cc602c81d0efb",
+      "bytes": 6757
+    },
+    {
+      "id": "lesson-797301f15de150951c1f2c53",
+      "name": "Cargo.toml",
+      "mime": "text/plain",
+      "path": "assets/lesson-797301f15de150951c1f2c53-797301f15de15095.bin",
+      "source": "course-examples/textbooks/b03a/labs/course-core/Cargo.toml",
+      "sha256": "797301f15de150951c1f2c53732d64724f9921b9386f5f36def13c66d1dee511",
+      "bytes": 106
+    },
+    {
+      "id": "lesson-619d99aad48ba7fdeafa432e",
+      "name": "lib.rs",
+      "mime": "text/plain",
+      "path": "assets/lesson-619d99aad48ba7fdeafa432e-619d99aad48ba7fd.bin",
+      "source": "course-examples/textbooks/b03a/labs/course-core/src/lib.rs",
+      "sha256": "619d99aad48ba7fdeafa432e410c519f948cafa8c2e77073ade27f28c4347246",
+      "bytes": 2257
+    },
+    {
+      "id": "lesson-de4e953af4aae56fc189a1d3",
+      "name": "b04a-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-de4e953af4aae56fc189a1d3-de4e953af4aae56f.bin",
+      "source": "course-examples/textbooks/b04a-experiments.zip",
+      "sha256": "de4e953af4aae56fc189a1d3e363563d6e9613402f193495cc5260f11eb9a4a8",
+      "bytes": 7418
+    },
+    {
+      "id": "lesson-1ef8d07e474d15e6b4778e3a",
+      "name": "pyproject.toml",
+      "mime": "text/plain",
+      "path": "assets/lesson-1ef8d07e474d15e6b4778e3a-1ef8d07e474d15e6.bin",
+      "source": "course-examples/textbooks/b04a/labs/datatool/pyproject.toml",
+      "sha256": "1ef8d07e474d15e6b4778e3adf93aede5bed4f8b6153fdba639adc8ffe84fb09",
+      "bytes": 314
+    },
+    {
+      "id": "lesson-451130b7640ca05a62833a8a",
+      "name": "data.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-451130b7640ca05a62833a8a-451130b7640ca05a.bin",
+      "source": "course-examples/textbooks/b04a/labs/datatool/datatool/data.py",
+      "sha256": "451130b7640ca05a62833a8a7be61701a7bb40f58fecb63c272d71bba96c8cb8",
+      "bytes": 1443
+    },
+    {
+      "id": "lesson-b2f16bceebb4defef8a8bc48",
+      "name": "pipeline.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-b2f16bceebb4defef8a8bc48-b2f16bceebb4defe.bin",
+      "source": "course-examples/textbooks/b04a/labs/datatool/datatool/pipeline.py",
+      "sha256": "b2f16bceebb4defef8a8bc4895f58c33ec300de594bee35bcfd2ed83516925e6",
+      "bytes": 281
+    },
+    {
+      "id": "lesson-c1c495824d02e6d68814b07e",
+      "name": "cli.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-c1c495824d02e6d68814b07e-c1c495824d02e6d6.bin",
+      "source": "course-examples/textbooks/b04a/labs/datatool/datatool/cli.py",
+      "sha256": "c1c495824d02e6d68814b07e2a5f3a366cf05863e84fe39447cd659f1e567b07",
+      "bytes": 564
+    },
+    {
+      "id": "lesson-34a3295942079eb868e3816f",
+      "name": "test_data.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-34a3295942079eb868e3816f-34a3295942079eb8.bin",
+      "source": "course-examples/textbooks/b04a/labs/datatool/tests/test_data.py",
+      "sha256": "34a3295942079eb868e3816fd2900155d6d04a1811389241eb6cbddb9a148e4d",
+      "bytes": 1692
+    },
+    {
+      "id": "lesson-024c37d76f3a0250368d67b7",
+      "name": "b02-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-024c37d76f3a0250368d67b7-024c37d76f3a0250.bin",
+      "source": "course-examples/textbooks/b02-experiments.zip",
+      "sha256": "024c37d76f3a0250368d67b77e47af0a21c92f89baea926abdee12e97b8f5ad9",
+      "bytes": 36291
+    },
+    {
+      "id": "lesson-30c08e949d79e052baaeeb64",
+      "name": "driver_contract.cpp",
+      "mime": "text/plain",
+      "path": "assets/lesson-30c08e949d79e052baaeeb64-30c08e949d79e052.bin",
+      "source": "course-examples/textbooks/b02/labs/driver_contract.cpp",
+      "sha256": "30c08e949d79e052baaeeb640de264d440dee97aa246bb88131aaa8ca3f950da",
+      "bytes": 1080
+    },
+    {
+      "id": "lesson-69bf97a28157df22f1b02c5c",
+      "name": "b03-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-69bf97a28157df22f1b02c5c-69bf97a28157df22.bin",
+      "source": "course-examples/textbooks/b03-experiments.zip",
+      "sha256": "69bf97a28157df22f1b02c5c6fad54b6d4331736f1afc9375490c95eaa3f8ab0",
+      "bytes": 21220
+    },
+    {
+      "id": "lesson-c1b22a20288d8d57ca2c54e7",
+      "name": "dma_contract.rs",
+      "mime": "text/plain",
+      "path": "assets/lesson-c1b22a20288d8d57ca2c54e7-c1b22a20288d8d57.bin",
+      "source": "course-examples/textbooks/b03/labs/dma_contract.rs",
+      "sha256": "c1b22a20288d8d57ca2c54e7a64b71c5e17e58b15310cda6497c4fab46c3c098",
+      "bytes": 1029
+    },
+    {
+      "id": "lesson-b19ecaf671e41d5e178139b6",
+      "name": "b04-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-b19ecaf671e41d5e178139b6-b19ecaf671e41d5e.bin",
+      "source": "course-examples/textbooks/b04-experiments.zip",
+      "sha256": "b19ecaf671e41d5e178139b6403691e50e3c7069e7595d43b78c8eeb5c3383c1",
+      "bytes": 40490
+    },
+    {
+      "id": "lesson-cc6a0437f8a29906aff5e63f",
+      "name": "replay.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-cc6a0437f8a29906aff5e63f-cc6a0437f8a29906.bin",
+      "source": "course-examples/textbooks/b04/labs/replay.py",
+      "sha256": "cc6a0437f8a29906aff5e63f640caf69f0bf95f985922d32480151aab379e4ad",
+      "bytes": 708
+    },
+    {
+      "id": "lesson-1b4d0fd33ed55034208dbb6c",
+      "name": "b05-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-1b4d0fd33ed55034208dbb6c-1b4d0fd33ed55034.bin",
+      "source": "course-examples/textbooks/b05-experiments.zip",
+      "sha256": "1b4d0fd33ed55034208dbb6c02c89b26af86b69103634516f0c23479bf31440c",
+      "bytes": 68142
+    },
+    {
+      "id": "lesson-ac58e21b0d9de788e638d909",
+      "name": "b06-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-ac58e21b0d9de788e638d909-ac58e21b0d9de788.bin",
+      "source": "course-examples/textbooks/b06-experiments.zip",
+      "sha256": "ac58e21b0d9de788e638d90967c4ea0ff834a2ca6be805eb3589bbac14c05aa3",
+      "bytes": 45046
+    },
+    {
+      "id": "lesson-56b706b88c083c4a3a817d10",
+      "name": "README.txt",
+      "mime": "text/plain",
+      "path": "assets/lesson-56b706b88c083c4a3a817d10-56b706b88c083c4a.bin",
+      "source": "course-examples/textbooks/b06/labs/sdk_pipeline/README.txt",
+      "sha256": "56b706b88c083c4a3a817d10cd37ea8645c4c8b8ca2b1a8d238cd75c21e30cdd",
+      "bytes": 2255
+    },
+    {
+      "id": "lesson-5d820eb5db5e957e3d5ff23d",
+      "name": "b07-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-5d820eb5db5e957e3d5ff23d-5d820eb5db5e957e.bin",
+      "source": "course-examples/textbooks/b07-experiments.zip",
+      "sha256": "5d820eb5db5e957e3d5ff23d2ea6c492c4b6964e59bd6ed55ee9d6baac8432b0",
+      "bytes": 41111
+    },
+    {
+      "id": "lesson-dc58910e5465232148f32699",
+      "name": "b08-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-dc58910e5465232148f32699-dc58910e54652321.bin",
+      "source": "course-examples/textbooks/b08-experiments.zip",
+      "sha256": "dc58910e5465232148f326995ea8f523df42187c68f244eb3b9702d0189e4136",
+      "bytes": 39152
+    },
+    {
+      "id": "lesson-1640292d6f5c07682282aa3d",
+      "name": "b09-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-1640292d6f5c07682282aa3d-1640292d6f5c0768.bin",
+      "source": "course-examples/textbooks/b09-experiments.zip",
+      "sha256": "1640292d6f5c07682282aa3d1bc842eaabd6e6e26a40bbf76be57292cdff5908",
+      "bytes": 25318
+    },
+    {
+      "id": "lesson-fc4e5e1f8656fc34b36cd80e",
+      "name": "b10-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-fc4e5e1f8656fc34b36cd80e-fc4e5e1f8656fc34.bin",
+      "source": "course-examples/textbooks/b10-experiments.zip",
+      "sha256": "fc4e5e1f8656fc34b36cd80e57b7ffcd9d78962a0a1beb9b18a7e36b391156c5",
+      "bytes": 12355
+    },
+    {
+      "id": "lesson-1c9365b4c74a8fd9896ce021",
+      "name": "b11-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-1c9365b4c74a8fd9896ce021-1c9365b4c74a8fd9.bin",
+      "source": "course-examples/textbooks/b11-experiments.zip",
+      "sha256": "1c9365b4c74a8fd9896ce02192a7093dfb39f9d412eb2f737a1c250c1d5e9583",
+      "bytes": 7970
+    },
+    {
+      "id": "lesson-6abedd564b5454f7de0162f2",
+      "name": "b12-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-6abedd564b5454f7de0162f2-6abedd564b5454f7.bin",
+      "source": "course-examples/textbooks/b12-experiments.zip",
+      "sha256": "6abedd564b5454f7de0162f25201dfce8c5fee6b6ed8d308f13e28d11befc9f4",
+      "bytes": 7496
+    },
+    {
+      "id": "lesson-210c8b7ffe3b4753510e4de9",
+      "name": "release_manifest.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-210c8b7ffe3b4753510e4de9-210c8b7ffe3b4753.bin",
+      "source": "course-examples/textbooks/b12/labs/release_manifest.py",
+      "sha256": "210c8b7ffe3b4753510e4de9f05a61d4b49ea467ca413e1da712ddfd2c24ff0d",
+      "bytes": 3006
+    },
+    {
+      "id": "lesson-0a01b557c4b9110b95a29002",
+      "name": "b13-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-0a01b557c4b9110b95a29002-0a01b557c4b9110b.bin",
+      "source": "course-examples/textbooks/b13-experiments.zip",
+      "sha256": "0a01b557c4b9110b95a29002b7abf18becf7ac75419541a5ca68c039617ab8e3",
+      "bytes": 6579
+    },
+    {
+      "id": "lesson-506cbdbe2b2bacd95c2b156b",
+      "name": "benchmark_ort.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-506cbdbe2b2bacd95c2b156b-506cbdbe2b2bacd9.bin",
+      "source": "course-examples/textbooks/b13/labs/benchmark_ort.py",
+      "sha256": "506cbdbe2b2bacd95c2b156ba0a97985af275a00e40dd9219531650b4946f5c0",
+      "bytes": 4792
+    },
+    {
+      "id": "lesson-bcbdd948c477f6df5f07bd27",
+      "name": "b14-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-bcbdd948c477f6df5f07bd27-bcbdd948c477f6df.bin",
+      "source": "course-examples/textbooks/b14-experiments.zip",
+      "sha256": "bcbdd948c477f6df5f07bd278a86fdf6c99eb64ab6e4549fcb91257ae544b371",
+      "bytes": 4888
+    },
+    {
+      "id": "lesson-afe31aca542e8542909cb421",
+      "name": "b15-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-afe31aca542e8542909cb421-afe31aca542e8542.bin",
+      "source": "course-examples/textbooks/b15-experiments.zip",
+      "sha256": "afe31aca542e8542909cb421c56d4cf71960ba35198bf7d1ca1dcb17127800b6",
+      "bytes": 5126
+    },
+    {
+      "id": "lesson-0a9081d5741f6858185e58cf",
+      "name": "b16-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-0a9081d5741f6858185e58cf-0a9081d5741f6858.bin",
+      "source": "course-examples/textbooks/b16-experiments.zip",
+      "sha256": "0a9081d5741f6858185e58cf4d441928ce3cee229582af07991fdce4514929eb",
+      "bytes": 6801
+    },
+    {
+      "id": "lesson-e3a184471819ff6e54f67b95",
+      "name": "b17-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-e3a184471819ff6e54f67b95-e3a184471819ff6e.bin",
+      "source": "course-examples/textbooks/b17-experiments.zip",
+      "sha256": "e3a184471819ff6e54f67b952ba8c4050b12a5e5bc43add951e090a5771c9fe4",
+      "bytes": 5366
+    },
+    {
+      "id": "lesson-7c420a9d05601babd7799559",
+      "name": "b18-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-7c420a9d05601babd7799559-7c420a9d05601bab.bin",
+      "source": "course-examples/textbooks/b18-experiments.zip",
+      "sha256": "7c420a9d05601babd77995590521a073b853ac7c27ab8cc3c996287f9b2ce908",
+      "bytes": 12494
+    },
+    {
+      "id": "lesson-a00f8bd7bc6124d27abb796a",
+      "name": "b19-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-a00f8bd7bc6124d27abb796a-a00f8bd7bc6124d2.bin",
+      "source": "course-examples/textbooks/b19-experiments.zip",
+      "sha256": "a00f8bd7bc6124d27abb796a4836f2e85a32c97b04e5aca19fcfffff2d4a8bbd",
+      "bytes": 6814
+    },
+    {
+      "id": "lesson-4dc2c732b3acbb000a97fee2",
+      "name": "b20-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-4dc2c732b3acbb000a97fee2-4dc2c732b3acbb00.bin",
+      "source": "course-examples/textbooks/b20-experiments.zip",
+      "sha256": "4dc2c732b3acbb000a97fee28bafa4e1757d27186a6d581e8048143cb1771914",
+      "bytes": 6556
+    },
+    {
+      "id": "lesson-9fc3dbdb9d797362d5222527",
+      "name": "b21-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-9fc3dbdb9d797362d5222527-9fc3dbdb9d797362.bin",
+      "source": "course-examples/textbooks/b21-experiments.zip",
+      "sha256": "9fc3dbdb9d797362d52225272ab445f7c319df0a71cf31369eaf5d6eeb5d7d88",
+      "bytes": 6831
+    },
+    {
+      "id": "lesson-cb9f60b9c79fa452f67b4755",
+      "name": "b22-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-cb9f60b9c79fa452f67b4755-cb9f60b9c79fa452.bin",
+      "source": "course-examples/textbooks/b22-experiments.zip",
+      "sha256": "cb9f60b9c79fa452f67b4755e4b133ff52e61ee061fe1b4477efaa25b6112858",
+      "bytes": 7474
+    },
+    {
+      "id": "lesson-f1c1d620e11d39747371b678",
+      "name": "b23-experiments.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-f1c1d620e11d39747371b678-f1c1d620e11d3974.bin",
+      "source": "course-examples/textbooks/b23-experiments.zip",
+      "sha256": "f1c1d620e11d39747371b6789df2007f4a97bf36c3f4e2de2f0ee4f00725f763",
+      "bytes": 4529
+    },
+    {
+      "id": "lesson-4944581fda3618ee42db5aa2",
+      "name": "thermal_pi.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-4944581fda3618ee42db5aa2-4944581fda3618ee.bin",
+      "source": "course-examples/textbooks/b23/labs/thermal_pi.py",
+      "sha256": "4944581fda3618ee42db5aa286138194d1b79cb47edee75204d817c0bdb699b7",
+      "bytes": 4036
+    },
+    {
+      "id": "lesson-91b47a57e88f2d6b75e8fb27",
+      "name": "algorithms.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-91b47a57e88f2d6b75e8fb27-91b47a57e88f2d6b.bin",
+      "source": "course-examples/textbooks/b23/labs/algorithms.c",
+      "sha256": "91b47a57e88f2d6b75e8fb2768b8aa16ebfa20a33e53ab80f91261e2ea78f5ec",
+      "bytes": 3321
+    },
+    {
+      "id": "lesson-06cdbbd525c3f9c55b90e54d",
+      "name": "requirements.txt",
+      "mime": "text/plain",
+      "path": "assets/lesson-06cdbbd525c3f9c55b90e54d-06cdbbd525c3f9c5.bin",
+      "source": "course-examples/textbooks/projects/requirements.txt",
+      "sha256": "06cdbbd525c3f9c55b90e54d2958e0ab673f703f58eaf13dcb73add73773d9b6",
+      "bytes": 181
+    },
+    {
+      "id": "lesson-a4f6e6b8aa3b748485c8a128",
+      "name": "p01_acquisition.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-a4f6e6b8aa3b748485c8a128-a4f6e6b8aa3b7484.bin",
+      "source": "course-examples/textbooks/projects/p01_acquisition.py",
+      "sha256": "a4f6e6b8aa3b748485c8a128423f9d217b110db5de7c1da79f152e64748fdf19",
+      "bytes": 1829
+    },
+    {
+      "id": "lesson-3fc85550fbf41df76d94b7d5",
+      "name": "main.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-3fc85550fbf41df76d94b7d5-3fc85550fbf41df7.bin",
+      "source": "course-examples/textbooks/projects/p01_stm32f103/main.c",
+      "sha256": "3fc85550fbf41df76d94b7d58f6e891d6f031c3d9f3d2dde9b745faf91554b7b",
+      "bytes": 3265
+    },
+    {
+      "id": "lesson-aeb39dd3920053fc6b166f02",
+      "name": "startup.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-aeb39dd3920053fc6b166f02-aeb39dd3920053fc.bin",
+      "source": "course-examples/textbooks/projects/p01_stm32f103/startup.c",
+      "sha256": "aeb39dd3920053fc6b166f02bf6e58d3742c802d0c230095f7355005af103b56",
+      "bytes": 717
+    },
+    {
+      "id": "lesson-0ae93fbcfdd4bb3fe32e6bca",
+      "name": "linker.ld",
+      "mime": "text/plain",
+      "path": "assets/lesson-0ae93fbcfdd4bb3fe32e6bca-0ae93fbcfdd4bb3f.bin",
+      "source": "course-examples/textbooks/projects/p01_stm32f103/linker.ld",
+      "sha256": "0ae93fbcfdd4bb3fe32e6bca6dce4264d4f15a1ab2c92c6ea7b49fcd39780775",
+      "bytes": 494
+    },
+    {
+      "id": "lesson-9eced9b7c361fb58a4555936",
+      "name": "Makefile",
+      "mime": "text/plain",
+      "path": "assets/lesson-9eced9b7c361fb58a4555936-9eced9b7c361fb58.bin",
+      "source": "course-examples/textbooks/projects/p01_stm32f103/Makefile",
+      "sha256": "9eced9b7c361fb58a4555936feeff4dbf85b7daf16db1bf0d511d7b73cd603de",
+      "bytes": 382
+    },
+    {
+      "id": "lesson-59c8083100ee5eba48a222a9",
+      "name": "build-record.json",
+      "mime": "application/json",
+      "path": "assets/lesson-59c8083100ee5eba48a222a9-59c8083100ee5eba.bin",
+      "source": "course-examples/textbooks/projects/results/p01/build-record.json",
+      "sha256": "59c8083100ee5eba48a222a988ec8c60dcf805efb6fde2c82b20baa268e3bf5f",
+      "bytes": 530
+    },
+    {
+      "id": "lesson-dfde69aaf0b05772a5f1486d",
+      "name": "node.elf",
+      "mime": "text/plain",
+      "path": "assets/lesson-dfde69aaf0b05772a5f1486d-dfde69aaf0b05772.bin",
+      "source": "course-examples/textbooks/projects/results/p01/node.elf",
+      "sha256": "dfde69aaf0b05772a5f1486d292aba32f0237a353441e58bfc49a52cdf8a387e",
+      "bytes": 5876
+    },
+    {
+      "id": "lesson-d7a5c54109ae25d0143f325e",
+      "name": "node.map",
+      "mime": "text/plain",
+      "path": "assets/lesson-d7a5c54109ae25d0143f325e-d7a5c54109ae25d0.bin",
+      "source": "course-examples/textbooks/projects/results/p01/node.map",
+      "sha256": "d7a5c54109ae25d0143f325e453c63cc99355b12ef66a4107ce0236192e1fe3d",
+      "bytes": 4192
+    },
+    {
+      "id": "lesson-2d2bbbdfe9213b207d9d22b6",
+      "name": "p02_realtime.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-2d2bbbdfe9213b207d9d22b6-2d2bbbdfe9213b20.bin",
+      "source": "course-examples/textbooks/projects/p02_realtime.py",
+      "sha256": "2d2bbbdfe9213b207d9d22b66f7767c969172b3471cd7c52c8ecef48cb050adf",
+      "bytes": 1623
+    },
+    {
+      "id": "lesson-cffb226263c7d1101943246a",
+      "name": "p03_signed_update.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-cffb226263c7d1101943246a-cffb226263c7d110.bin",
+      "source": "course-examples/textbooks/projects/p03_signed_update.py",
+      "sha256": "cffb226263c7d1101943246a0f1d7359716c3fc25143fbee1b298ee53986326d",
+      "bytes": 2785
+    },
+    {
+      "id": "lesson-dac8cfaa6440e792ba818f3f",
+      "name": "p04_gateway.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-dac8cfaa6440e792ba818f3f-dac8cfaa6440e792.bin",
+      "source": "course-examples/textbooks/projects/p04_gateway.py",
+      "sha256": "dac8cfaa6440e792ba818f3f818089b4390a92297f022dc64025317df9e4fc0f",
+      "bytes": 4073
+    },
+    {
+      "id": "lesson-e285b6cefdbd07477791a6aa",
+      "name": "Makefile",
+      "mime": "text/plain",
+      "path": "assets/lesson-e285b6cefdbd07477791a6aa-e285b6cefdbd0747.bin",
+      "source": "course-examples/textbooks/b10/labs/Makefile",
+      "sha256": "e285b6cefdbd07477791a6aaaee25d9cca40da636c4b84f96261879684ba13d5",
+      "bytes": 177
+    },
+    {
+      "id": "lesson-786cd607f387ab59cf64648d",
+      "name": "btn_platform.c",
+      "mime": "text/plain",
+      "path": "assets/lesson-786cd607f387ab59cf64648d-786cd607f387ab59.bin",
+      "source": "course-examples/textbooks/b10/labs/btn_platform.c",
+      "sha256": "786cd607f387ab59cf64648d4b917d4441ba041af52eff56bfc15619e6b95ca0",
+      "bytes": 2499
+    },
+    {
+      "id": "lesson-c542abdbd755f6f6ffcc9de8",
+      "name": "p05_model_pipeline.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-c542abdbd755f6f6ffcc9de8-c542abdbd755f6f6.bin",
+      "source": "course-examples/textbooks/projects/p05_model_pipeline.py",
+      "sha256": "c542abdbd755f6f6ffcc9de8c137ad43273ee8b51a6bfdcd5a114ad5fc2d1fca",
+      "bytes": 6836
+    },
+    {
+      "id": "lesson-ea0708e60bf9713d5c122bc0",
+      "name": "report.json",
+      "mime": "application/json",
+      "path": "assets/lesson-ea0708e60bf9713d5c122bc0-ea0708e60bf9713d.bin",
+      "source": "course-examples/textbooks/projects/results/p05/report.json",
+      "sha256": "ea0708e60bf9713d5c122bc0818f34a27b773e91392c9fb31ec2e38bb9f4cda2",
+      "bytes": 1743
+    },
+    {
+      "id": "lesson-8a4220764e27d510f2d2af61",
+      "name": "data.csv",
+      "mime": "text/plain",
+      "path": "assets/lesson-8a4220764e27d510f2d2af61-8a4220764e27d510.bin",
+      "source": "course-examples/textbooks/projects/results/p05/data.csv",
+      "sha256": "8a4220764e27d510f2d2af6137984479464c672d193f186c40af642fd9ac4ca3",
+      "bytes": 37076
+    },
+    {
+      "id": "lesson-8491cb1eb026c6833e445cdd",
+      "name": "model.onnx",
+      "mime": "text/plain",
+      "path": "assets/lesson-8491cb1eb026c6833e445cdd-8491cb1eb026c683.bin",
+      "source": "course-examples/textbooks/projects/results/p05/model.onnx",
+      "sha256": "8491cb1eb026c6833e445cdd37311742b3cf77bb6c81d36d1aeb25b390424a07",
+      "bytes": 659
+    },
+    {
+      "id": "lesson-90dededa0020d2973457457b",
+      "name": "model-int8.onnx",
+      "mime": "text/plain",
+      "path": "assets/lesson-90dededa0020d2973457457b-90dededa0020d297.bin",
+      "source": "course-examples/textbooks/projects/results/p05/model-int8.onnx",
+      "sha256": "90dededa0020d2973457457be18d2658d6f16b0496c70875a858bbf844998559",
+      "bytes": 1806
+    },
+    {
+      "id": "lesson-6c457c465735a2c9176908a2",
+      "name": "evidence.png",
+      "mime": "image/png",
+      "path": "assets/lesson-6c457c465735a2c9176908a2-6c457c465735a2c9.bin",
+      "source": "course-examples/textbooks/projects/results/p05/evidence.png",
+      "sha256": "6c457c465735a2c9176908a2ff1c6e0df64d97af091fb7ad89f2b4483c5b931a",
+      "bytes": 122945
+    },
+    {
+      "id": "lesson-f5561a93bdd1bc9742c4dc94",
+      "name": "p06_data_loop.py",
+      "mime": "text/plain",
+      "path": "assets/lesson-f5561a93bdd1bc9742c4dc94-f5561a93bdd1bc97.bin",
+      "source": "course-examples/textbooks/projects/p06_data_loop.py",
+      "sha256": "f5561a93bdd1bc9742c4dc94fd3b69c72bed3d4ca24f42099494d5cb07d66fea",
+      "bytes": 1941
+    },
+    {
+      "id": "lesson-ddac7d0157484aa8d4e08202",
+      "name": "projects.zip",
+      "mime": "application/zip",
+      "path": "assets/lesson-ddac7d0157484aa8d4e08202-ddac7d0157484aa8.bin",
+      "source": "course-examples/textbooks/projects.zip",
+      "sha256": "ddac7d0157484aa8d4e08202de12e2b66dc4998fcb191e6054b0c929b447271a",
+      "bytes": 170447
+    }
+  ],
+  "warnings": []
+}
