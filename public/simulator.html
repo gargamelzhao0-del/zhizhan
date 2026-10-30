@@ -1,0 +1,435 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>知栈 TechVault · Samsung Galaxy S25 实时模拟器</title>
+    <style>
+      :root {
+        --bg: #0b0f16;
+        --panel: #131a24;
+        --panel-2: #192331;
+        --line: rgba(226, 234, 245, 0.12);
+        --text: #edf2f8;
+        --muted: #8b9bb0;
+        --accent: #38bdf8;
+        --accent-2: #2dd4bf;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at 18% 12%, rgba(45, 212, 191, 0.1), transparent 36%),
+          radial-gradient(circle at 82% 85%, rgba(56, 189, 248, 0.09), transparent 40%),
+          var(--bg);
+        color: var(--text);
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+        display: grid;
+        grid-template-columns: 350px 1fr;
+      }
+      aside {
+        background: var(--panel);
+        border-right: 1px solid var(--line);
+        padding: 18px 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        height: 100vh;
+        overflow-y: auto;
+      }
+      .brand {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--line);
+      }
+      .brand h1 {
+        margin: 0;
+        font-size: 15.5px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+      .brand span {
+        padding: 3px 8px;
+        border-radius: 999px;
+        background: rgba(56, 189, 248, 0.16);
+        color: var(--accent);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 11px;
+        font-weight: 700;
+      }
+      .group {
+        display: grid;
+        gap: 8px;
+      }
+      .group-title {
+        font-size: 11px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+      .device-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 6px;
+      }
+      button {
+        appearance: none;
+        border: 1px solid var(--line);
+        background: var(--panel-2);
+        color: var(--text);
+        border-radius: 8px;
+        padding: 8px 10px;
+        font-size: 12.5px;
+        font-weight: 600;
+        text-align: left;
+        cursor: pointer;
+        transition: border-color 140ms ease, background 140ms ease;
+      }
+      button:hover {
+        border-color: var(--accent);
+      }
+      button.active {
+        border-color: var(--accent-2);
+        background: rgba(45, 212, 191, 0.15);
+        color: #ffffff;
+      }
+      button small {
+        display: block;
+        margin-top: 2px;
+        font-size: 10.5px;
+        font-weight: 400;
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      .jump-list {
+        display: grid;
+        gap: 6px;
+      }
+      .jump-btn {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .jump-tag {
+        flex-shrink: 0;
+        padding: 2px 6px;
+        border-radius: 4px;
+        background: rgba(56, 189, 248, 0.14);
+        color: var(--accent);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 10px;
+      }
+      main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 16px;
+        height: 100vh;
+        overflow: auto;
+      }
+      .stage-bar {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        color: var(--muted);
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      }
+      /* Samsung Galaxy S25 Ultra-Slim Armor Aluminum Frame (19.5:9) */
+      .phone-shell {
+        position: relative;
+        width: 376px; /* 360px viewport + 2*8px ultra-thin bezel */
+        height: 820px; /* 780px viewport + status/gesture + bezel */
+        border-radius: 38px;
+        padding: 8px;
+        background: linear-gradient(160deg, #3a4659 0%, #1c2430 45%, #121821 100%);
+        box-shadow:
+          0 28px 75px rgba(0, 0, 0, 0.7),
+          0 0 0 1px rgba(255, 255, 255, 0.16),
+          inset 0 0 0 1.5px #0a0e14;
+        transition: width 220ms ease, height 220ms ease, border-radius 220ms ease;
+        display: flex;
+        flex-direction: column;
+      }
+      /* Samsung S25 Power & Volume Side Keys */
+      .phone-shell::before {
+        content: "";
+        position: absolute;
+        right: -3px;
+        top: 150px;
+        width: 3px;
+        height: 88px;
+        background: #2c3748;
+        border-radius: 0 3px 3px 0;
+        box-shadow: 0 115px 0 -18px #2c3748;
+      }
+      .oneui-status {
+        position: relative;
+        height: 26px;
+        padding: 0 16px;
+        background: #faf8f4;
+        color: #141b23;
+        border-radius: 30px 30px 0 0;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        font-size: 11px;
+        font-weight: 650;
+        letter-spacing: 0.02em;
+        user-select: none;
+        flex-shrink: 0;
+      }
+      /* Infinity-O Center Punch-Hole Camera */
+      .punch-hole {
+        position: absolute;
+        top: 6px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #1e293b 0%, #05070a 65%);
+        box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.25);
+      }
+      .phone-screen {
+        flex: 1;
+        width: 100%;
+        height: 100%;
+        border: 0;
+        border-radius: 0 0 30px 30px;
+        background: #faf8f4;
+        overflow: hidden;
+      }
+      .tips {
+        font-size: 11.5px;
+        line-height: 1.55;
+        color: var(--muted);
+        padding: 10px 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--line);
+      }
+      @media (max-width: 900px) {
+        body {
+          grid-template-columns: 1fr;
+        }
+        aside {
+          height: auto;
+          border-right: 0;
+          border-bottom: 1px solid var(--line);
+        }
+        main {
+          height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <aside>
+      <div class="brand">
+        <h1>知栈 · Galaxy S25 模拟器</h1>
+        <span>One UI 7 · 19.5:9</span>
+      </div>
+
+      <div class="group">
+        <div class="group-title">1. 三星 S25 视口模式（2340×1080 · 6.2"）</div>
+        <div class="device-grid" id="devices">
+          <button
+            class="active"
+            data-w="360"
+            data-h="780"
+            data-radius="38"
+            data-name="Samsung Galaxy S25 (默认标准缩放)"
+          >
+            Galaxy S25 标准
+            <small>360 × 780 px (3.0x DPR)</small>
+          </button>
+          <button
+            data-w="384"
+            data-h="832"
+            data-radius="38"
+            data-name="Samsung Galaxy S25 (紧凑缩放)"
+          >
+            Galaxy S25 紧凑
+            <small>384 × 832 px (2.8x DPR)</small>
+          </button>
+          <button
+            data-w="412"
+            data-h="892"
+            data-radius="36"
+            data-name="Galaxy S25 高密度 / S25+"
+          >
+            S25 高密度 / S25+
+            <small>412 × 892 px (2.6x DPR)</small>
+          </button>
+          <button
+            data-w="320"
+            data-h="740"
+            data-radius="32"
+            data-name="320px 大字号/分屏极限压测"
+          >
+            S25 大字/分屏压测
+            <small>320 × 740 px</small>
+          </button>
+        </div>
+      </div>
+
+      <div class="group">
+        <div class="group-title">2. 快速跳转核心亮点章节（含交互微动图）</div>
+        <div class="jump-list" id="jumps">
+          <button class="jump-btn" data-hash="#home">
+            <span>首页 · 学习空间与精选课本</span>
+            <span class="jump-tag">HOME</span>
+          </button>
+          <button class="jump-btn" data-hash="#courses">
+            <span>27 册嵌入式全栈课本书库</span>
+            <span class="jump-tag">LIBRARY</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b00-m01">
+            <span>B00-M01 程序是怎么跑起来的<small>移动端 SVG 步骤拆解卡片 + 启动内存动图</small></span>
+            <span class="jump-tag">B00</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m01">
+            <span>B05-M01 时钟树与启动<small>STM32 时钟树倍频 + Flash 等待周期 + 实时波形</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m02">
+            <span>B05-M02 GPIO 深入<small>浮空/上拉/推挽/开漏 MOS 管导通电流路径</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m03">
+            <span>B05-M03 中断与 NVIC<small>Cortex-M 硬件压栈、抢占与 6 周期咬尾中断</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m06">
+            <span>B05-M06 DMA 控制器<small>环形缓冲区双指针追逐与 HT/TC 乒乓中断</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m07">
+            <span>B05-M07 UART 串口通信<small>UART / I²C / SPI 帧波形与 16× 过采样对齐</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b06-m01">
+            <span>B06-M01 RTOS 实时内核<small>抢占调度、优先级反转事故与互斥锁优先级继承</small></span>
+            <span class="jump-tag">B06</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b01-ch6">
+            <span>B01-Ch6 寄存器位域操作<small>读-改-写掩码透视与 GPIO BSRR 原子置位清零</small></span>
+            <span class="jump-tag">B01</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b00-m02">
+            <span>B00-M02 数据在内存中的排布<small>小端序字节透视与结构体对齐空洞重排</small></span>
+            <span class="jump-tag">B00</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b07-m04">
+            <span>B07-M04 CAN 与 CAN-FD<small>双绞差分电平与多节点非破坏性逐位仲裁动图</small></span>
+            <span class="jump-tag">B07</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m04">
+            <span>B05-M04 高级定时器与电机 PWM<small>互补桥臂死区插入 (Dead-Time) 防直通炸管</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b05-m10">
+            <span>B05-M10 看门狗与低功耗<small>Run/Sleep/Stop/Standby 电流谱 + 状态机喂狗双动图</small></span>
+            <span class="jump-tag">B05</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b17-m09">
+            <span>B17-M09 PCB、EMC 与高速回流<small>参考平面最小电感回流、跨分割地弹与去耦电容</small></span>
+            <span class="jump-tag">B17</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b10-m05">
+            <span>B10-M05 Linux 设备树与驱动<small>compatible 匹配、probe 与 ioremap 映射流</small></span>
+            <span class="jump-tag">B10</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b18-m06">
+            <span>B18-M06 DMA 与 Cache 一致性<small>L1 D-Cache Clean / Invalidate 防脏数据</small></span>
+            <span class="jump-tag">B18</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b13-m05">
+            <span>B13-M05 端侧 AI 模型 INT8 量化<small>FP32→INT8 压缩、SMLAD 加速与静态 Arena</small></span>
+            <span class="jump-tag">B13</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b22-m04">
+            <span>B22-M04 安全启动与固件真实性<small>OTP 硬件信任根、ECDSA 验签与双区防回滚</small></span>
+            <span class="jump-tag">B22</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b20-m01">
+            <span>B20-M01 采样、混叠与 FFT<small>奈奎斯特频谱折叠假象、AAF 抗混叠与 Hann 窗</small></span>
+            <span class="jump-tag">B20</span>
+          </button>
+          <button class="jump-btn" data-hash="#article/course-b23-b23-m13">
+            <span>B23-M13 闭环温控综合项目<small>PI 抗积分饱和与传感器故障锁存交互仿真器</small></span>
+            <span class="jump-tag">B23</span>
+          </button>
+          <button class="jump-btn" data-hash="#settings">
+            <span>设置 · 切换浅色 / AMOLED 深色主题</span>
+            <span class="jump-tag">THEME</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="tips">
+        📱 <strong>三星 Galaxy S25 真机直连：</strong><br />
+        • 同一 Wi-Fi 下在 S25 浏览器输入：<code>http://192.168.31.10:8462</code><br />
+        • Tailscale 下输入：<code>http://100.121.171.78:8462</code><br />
+        • 已针对 S25 的 <strong>360×780 (19.5:9)</strong> 视口与居中单挖孔专门调优。
+      </div>
+    </aside>
+
+    <main>
+      <div class="stage-bar">
+        <span id="stage-label">当前设备：Samsung Galaxy S25 (360 × 780 px · 19.5:9)</span>
+        <span>·</span>
+        <a href="/" target="_blank" style="color: var(--accent); text-decoration: none">独立全屏打开 ↗</a>
+      </div>
+      <div class="phone-shell" id="shell">
+        <div class="oneui-status" id="status-bar">
+          <span>17:38</span>
+          <div class="punch-hole" title="Galaxy S25 Infinity-O 前置镜头"></div>
+          <span>5G · 100%</span>
+        </div>
+        <iframe class="phone-screen" id="frame" src="/#article/course-b05-m01" title="知栈 Galaxy S25 预览"></iframe>
+      </div>
+    </main>
+
+    <script>
+      const shell = document.getElementById("shell");
+      const frame = document.getElementById("frame");
+      const label = document.getElementById("stage-label");
+
+      document.getElementById("devices").addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-w]");
+        if (!btn) return;
+        document.querySelectorAll("#devices button").forEach((b) => b.classList.remove("active"));
+        btn.classList.add("active");
+        const w = Number(btn.dataset.w);
+        const h = Number(btn.dataset.h);
+        shell.style.width = (w + 16) + "px";
+        shell.style.height = (h + 42) + "px";
+        shell.style.borderRadius = (btn.dataset.radius || 38) + "px";
+        label.textContent = `当前设备：${btn.dataset.name} (${w} × ${h} px · 19.5:9)`;
+      });
+
+      document.getElementById("jumps").addEventListener("click", (e) => {
+        const btn = e.target.closest("button[data-hash]");
+        if (!btn) return;
+        const hash = btn.dataset.hash;
+        if (frame.contentWindow) {
+          frame.contentWindow.location.hash = hash;
+        } else {
+          frame.src = "/" + hash;
+        }
+      });
+    </script>
+  </body>
+</html>

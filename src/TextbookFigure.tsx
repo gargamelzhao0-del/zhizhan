@@ -2,6 +2,104 @@ import { ReaderMedia } from "./ReaderMedia";
 import { useId, useMemo } from "react";
 import DOMPurify from "dompurify";
 
+export interface PipelineStep {
+  title: string;
+  subtitle?: string;
+  tone: "default" | "grn" | "amb" | "cyn" | "red" | "vio";
+}
+
+function getAttr(tag: string, name: string): string {
+  const m = tag.match(new RegExp(`\\b${name}\\s*=\\s*["']([^"']*)["']`, "i"));
+  return m ? m[1] : "";
+}
+
+function stripXmlTags(s: string): string {
+  return s
+    .replace(/<[^>]+>/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Extracts structured step cards from horizontal single-row pipeline SVGs
+ * (e.g. viewBox="0 0 800 132" / "0 0 660 150") so mobile readers can read
+ * every box at crisp native font size without pinching or squinting.
+ */
+export function extractPipelineSteps(svgMarkup: string): PipelineStep[] {
+  if (!svgMarkup) return [];
+  try {
+    const cleanSvg = svgMarkup.replace(/<defs[\s\S]*?<\/defs>/gi, "");
+    const vbMatch = cleanSvg.match(/\bviewBox\s*=\s*["']([^"']+)["']/i);
+    if (vbMatch) {
+      const vb = vbMatch[1].trim().split(/[\s,]+/).map(Number);
+      if (vb.length === 4 && (vb[2] < 500 || vb[3] > 220)) return [];
+    }
+
+    const rectTags = [...cleanSvg.matchAll(/<rect\b[^>]*>/gi)].map((m) => m[0]);
+    const rects = rectTags
+      .map((tag) => ({
+        tag,
+        x: Number(getAttr(tag, "x") || 0),
+        y: Number(getAttr(tag, "y") || 0),
+        w: Number(getAttr(tag, "width") || 0),
+        h: Number(getAttr(tag, "height") || 0),
+      }))
+      .filter((r) => r.w >= 85 && r.w <= 260 && r.h >= 32 && r.h <= 95);
+
+    if (rects.length < 3 || rects.length > 6) return [];
+    const ys = rects.map((r) => r.y);
+    if (Math.max(...ys) - Math.min(...ys) > 24) return [];
+
+    const sortedRects = [...rects].sort((a, b) => a.x - b.x);
+    const texts = [
+      ...cleanSvg.matchAll(/<text\b([^>]*)>([\s\S]*?)<\/text>/gi),
+    ]
+      .map((m) => ({
+        x: Number(getAttr(m[0], "x") || 0),
+        y: Number(getAttr(m[0], "y") || 0),
+        content: stripXmlTags(m[2]),
+      }))
+      .filter((t) => t.content.length > 0);
+
+    const steps: PipelineStep[] = [];
+    for (const r of sortedRects) {
+      const inside = texts
+        .filter(
+          (t) =>
+            t.x >= r.x - 8 &&
+            t.x <= r.x + r.w + 8 &&
+            t.y >= r.y - 8 &&
+            t.y <= r.y + r.h + 16,
+        )
+        .sort((a, b) => a.y - b.y)
+        .map((t) => t.content);
+
+      if (!inside.length) return [];
+      const attrBlob = `${getAttr(r.tag, "class")} ${getAttr(r.tag, "fill")} ${getAttr(r.tag, "stroke")}`;
+      const tone: PipelineStep["tone"] =
+        attrBlob.includes("grn") || attrBlob.includes("primary")
+          ? "grn"
+          : attrBlob.includes("amb")
+            ? "amb"
+            : attrBlob.includes("cyn")
+              ? "cyn"
+              : attrBlob.includes("red")
+                ? "red"
+                : attrBlob.includes("vio")
+                  ? "vio"
+                  : "default";
+      steps.push({
+        title: inside[0],
+        subtitle: inside.slice(1).join(" · ") || undefined,
+        tone,
+      });
+    }
+    return steps;
+  } catch {
+    return [];
+  }
+}
+
 export function safeTextbookSvg(source: string, prefix: string) {
   if (source.length > 250000) return "";
   const clean = DOMPurify.sanitize(source, {
@@ -85,16 +183,31 @@ export function safeTextbookSvg(source: string, prefix: string) {
     svg.setAttribute("aria-label", "课程机制图");
   return new XMLSerializer().serializeToString(svg);
 }
+
 export function TextbookFigure({ source }: { source: string }) {
   const id = useId().replace(/[^a-zA-Z0-9]/g, "");
   const svg = useMemo(
     () => safeTextbookSvg(source, `fig-${id}-`),
     [source, id],
   );
+  const steps = useMemo(() => extractPipelineSteps(svg), [svg]);
   return svg ? (
     <figure className="textbook-figure">
       <ReaderMedia kind="figure">
         <div dangerouslySetInnerHTML={{ __html: svg }} />
+        {steps.length > 0 && (
+          <div className="figure-step-strip" aria-hidden="true">
+            {steps.map((s, idx) => (
+              <div key={idx} className={`figure-step-card tone-${s.tone}`}>
+                <span className="figure-step-num">{String(idx + 1).padStart(2, "0")}</span>
+                <div className="figure-step-copy">
+                  <strong>{s.title}</strong>
+                  {s.subtitle && <small>{s.subtitle}</small>}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </ReaderMedia>
     </figure>
   ) : (

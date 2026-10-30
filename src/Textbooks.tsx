@@ -11,6 +11,7 @@ import catalogData from "../content/textbooks/catalog.json";
 import { useLiveQuery } from "dexie-react-hooks";
 import { db } from "./db";
 import { bundledTarget } from "./bundledTargets";
+import { CHAPTER_DEMOS } from "./LearningDemo";
 import type { Article, Shelf } from "./model";
 export interface Book {
   id: string; name: string; group: string; objective: string;
@@ -261,23 +262,39 @@ export function TextbookContents({
         <h1>{book.name}</h1>
         <p>{book.objective}</p>
         <div className="textbook-book-actions">
-          <a className="button primary" href={`#original/${book.shelfId}`}>
-            阅读原版整册 <BookOpen size={17} />
-          </a>
           {first && (
             <a
-              className="button quiet"
+              className="button primary"
               href={`#article/${first}${resume ? "?resume=1" : ""}`}
             >
-              {resume ? "继续分章阅读" : "分章阅读"}
+              {resume ? "继续沉浸阅读" : "开始阅读本章"}
               <ArrowRight size={17} />
             </a>
           )}
           <a className="button quiet" href={`#article/${book.overviewId}`}>
             导读与实验资料
           </a>
+          <a className="button quiet" href={`#original/${book.shelfId}`}>
+            阅读原版整册 <BookOpen size={17} />
+          </a>
         </div>
-        <p className="textbook-reading-modes">原版整册保留手机书库的连续正文和完整目录；分章阅读可记录学习笔记。</p>
+        {book.chapters.length > 0 && (
+          <div className="textbook-progress-strip" aria-label="本册学习进度">
+            <div className="textbook-progress-track">
+              <span
+                className="textbook-progress-fill"
+                style={{
+                  width: `${Math.round((finished / book.chapters.length) * 100)}%`,
+                }}
+              />
+            </div>
+            <small>
+              已完成 {finished} / {book.chapters.length} 篇（
+              {Math.round((finished / book.chapters.length) * 100)}%）·
+              阅读器内支持随时切换全册章节、记录笔记与操作交互动图
+            </small>
+          </div>
+        )}
       </header>
       {book.reading_contract && <section className="textbook-prerequisites">
         <span>{book.reading_contract.role}</span>
@@ -329,7 +346,9 @@ export function TextbookContents({
                       ? "已读完"
                       : a?.progress
                         ? `已读 ${a.progress}%`
-                        : "图解 · 示例 · 实践"}
+                        : CHAPTER_DEMOS[c.id]?.length
+                          ? "交互动图 · 图解 · 实践"
+                          : "图解 · 示例 · 实践"}
                   </small>
                 </span>
                 {a?.progress === 100 ? (

@@ -4,9 +4,11 @@ import { ReaderDialog } from "./ReaderDialog";
 
 export function ReaderMedia({
   kind,
+  meta,
   children,
 }: {
   kind: "code" | "figure" | "table";
+  meta?: string;
   children: ReactNode;
 }) {
   const [open, setOpen] = useState(false),
@@ -45,7 +47,14 @@ export function ReaderMedia({
   return (
     <div className={`reader-media media-${kind}`}>
       <div className="media-caption">
-        <span>{label}</span>
+        <span className="media-caption-title">
+          {label}
+          {meta && (
+            <small className="media-lang-badge" aria-hidden="true">
+              {meta}
+            </small>
+          )}
+        </span>
         <div>
           {kind === "code" && (
             <button aria-label="复制完整代码" onClick={() => void copy()}>

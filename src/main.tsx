@@ -11,6 +11,7 @@ import "./chrome.css";
 import "./technical.css";
 import "./textbooks.css";
 import "./reader.css";
+import "./precision.css";
 class ErrorBoundary extends React.Component<
   { children: React.ReactNode },
   { error: string }

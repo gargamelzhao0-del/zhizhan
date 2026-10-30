@@ -244,8 +244,8 @@ export function LearningHome({
           .filter((s) => s.kind === "course")
           .sort(
             (a, b) =>
-              (["book-b00", "book-b23"].includes(a.id) ? -1 : 0) -
-              (["book-b00", "book-b23"].includes(b.id) ? -1 : 0),
+              (["course-b00", "course-b05", "course-b23", "book-b00", "book-b23"].includes(a.id) ? -1 : 0) -
+              (["course-b00", "course-b05", "course-b23", "book-b00", "book-b23"].includes(b.id) ? -1 : 0),
           )
           .slice(0, 2)
           .map((s) => (
@@ -270,7 +270,64 @@ export function LearningHome({
         <ChevronRight size={20} />
       </button>
       <div className="section-heading">
-        <h2>{recent.length ? "最近读过" : "项目实录"}</h2>
+        <h2>核心硬件机制 · 交互推演</h2>
+        <button className="text-button" onClick={() => navigate("courses")}>
+          27 册全库
+          <ChevronRight size={16} />
+        </button>
+      </div>
+      <div className="home-demo-grid" aria-label="交互原理解析直达">
+        {[
+          {
+            id: "course-b05-m01",
+            vol: "B05",
+            title: "STM32 时钟树与 PLL",
+            sub: "HSE · Flash 2WS · 72MHz 波形",
+          },
+          {
+            id: "course-b05-m02",
+            vol: "B05",
+            title: "GPIO 推挽与开漏电路",
+            sub: "P/N-MOS 通断与 I²C 线与路径",
+          },
+          {
+            id: "course-b05-m03",
+            vol: "B05",
+            title: "NVIC 压栈与咬尾中断",
+            sub: "8 寄存器硬件入栈 · 6周期切换",
+          },
+          {
+            id: "course-b05-m06",
+            vol: "B05",
+            title: "DMA 环形乒乓缓冲",
+            sub: "HT 半满 / TC 全满双指针追逐",
+          },
+          {
+            id: "course-b07-m04",
+            vol: "B07",
+            title: "CAN 总线逐位仲裁",
+            sub: "双绞差分显隐电平与无损退避",
+          },
+          {
+            id: "course-b06-m01",
+            vol: "B06",
+            title: "RTOS 优先级继承",
+            sub: "抢占调度与 Mutex 防反转机制",
+          },
+        ].map((item) => (
+          <button
+            key={item.id}
+            className="home-demo-card"
+            onClick={() => navigate(`article/${item.id}`)}
+          >
+            <span className="home-demo-vol">{item.vol}</span>
+            <strong>{item.title}</strong>
+            <small>{item.sub}</small>
+          </button>
+        ))}
+      </div>
+      <div className="section-heading">
+        <h2>{recent.length ? "最近读过" : "精选必读章节"}</h2>
         <button className="text-button" onClick={() => navigate("library")}>
           资料库
           <ChevronRight size={16} />
@@ -279,10 +336,9 @@ export function LearningHome({
       <div className="recent-list">
         {(recent.length
           ? recent
-          : articles.filter(
-              (a) =>
-                shelves.find((s) => s.id === a.shelfId)?.kind === "project",
-            )
+          : ["course-learning-path", "course-b05-m01", "course-projects"]
+              .map((id) => articles.find((a) => a.id === id))
+              .filter((a): a is Article => !!a)
         )
           .slice(0, 3)
           .map((a) => (

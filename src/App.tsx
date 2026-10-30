@@ -75,6 +75,8 @@ import {
 } from "./archive";
 import { Markdown } from "./Markdown";
 import { CourseDisclosures } from "./CourseDisclosures";
+import { CHAPTER_DEMOS, demos, LearningDemo } from "./LearningDemo";
+import { EmbeddedCalc } from "./EmbeddedCalc";
 import { Glossary, getTerm } from "./Glossary";
 import { CoursePath, hasCoursePath } from "./CoursePath";
 import { LearningHome, LibraryView, ShelfCard, CoverArt } from "./LibraryViews";
@@ -320,6 +322,9 @@ function Reading({
   const initialProgress = useRef(article.progress);
   const [preferences, setPreferences] = useState(false);
   const [details, setDetails] = useState(false);
+  const [bookToc, setBookToc] = useState(false);
+  const [calcOpen, setCalcOpen] = useState(false);
+  const [demoTab, setDemoTab] = useState(0);
   const [activeHeading, setActiveHeading] = useState(0);
   const positionSnapshot = useRef<unknown>(null);
   const [savedPosition, setSavedPosition] = useState<unknown>(null);
@@ -387,8 +392,12 @@ function Reading({
     setTocItems(Array.from(headings || [], (el) => el.textContent || ""));
     if (section) scrollToHeading(content.current, section);
   }, [article.body, section]);
+  const book = getTextbook(article.shelfId);
   const index = siblings.findIndex((a) => a.id === article.id),
+    prev = index > 0 ? siblings[index - 1] : undefined,
     next = siblings[index + 1];
+  const bookFinished = siblings.filter((a) => a.progress === 100).length;
+  const chapterDemos = CHAPTER_DEMOS[article.id] || [];
   useEffect(() => {
     void patchArticle(article.id, { lastReadAt: Date.now() });
 
@@ -645,6 +654,112 @@ function Reading({
         <article
           className={`reading-paper${article.shelfId === "handbook" ? " technical-paper" : ""}`}
         >
+          {book && siblings.length > 0 && (
+            <div className="reader-book-bar" aria-label="所属课本导航">
+              <button
+                className="reader-book-pill"
+                onClick={() => go(`shelf/${book.shelfId}`)}
+              >
+                <span className="reader-book-vol">{book.id}</span>
+                <strong>{book.name}</strong>
+              </button>
+              <div className="reader-book-meta">
+                <span className="reader-book-progress">
+                  已读 {bookFinished}/{siblings.length}
+                </span>
+                {chapterDemos.length > 0 && (
+                  <button
+                    className="reader-demo-chip"
+                    onClick={() =>
+                      document
+                        .querySelector(".chapter-demos-slot")
+                        ?.scrollIntoView({ behavior: scrollBehavior() })
+                    }
+                  >
+                    <Lightbulb size={13} />
+                    <span>交互推演</span>
+                  </button>
+                )}
+                <button
+                  className="reader-book-toc-btn"
+                  aria-expanded={calcOpen}
+                  onClick={() => setCalcOpen(true)}
+                >
+                  <Code2 size={14} />
+                  <span>计算尺</span>
+                </button>
+                <button
+                  className="reader-book-toc-btn"
+                  aria-expanded={bookToc}
+                  onClick={() => setBookToc(true)}
+                >
+                  <BookOpen size={14} />
+                  <span>
+                    全册目录 ({index >= 0 ? index + 1 : 1}/{siblings.length})
+                  </span>
+                </button>
+              </div>
+            </div>
+          )}
+          {calcOpen && (
+            <ReaderDialog
+              title="嵌入式随身工程计算尺"
+              onClose={() => setCalcOpen(false)}
+            >
+              <EmbeddedCalc />
+            </ReaderDialog>
+          )}
+          {bookToc && book && (
+            <ReaderDialog
+              title={`${book.id} · 全册章节导航`}
+              onClose={() => setBookToc(false)}
+            >
+              <div className="reader-book-chapters">
+                <div className="reader-book-summary">
+                  <span>
+                    已完成 {bookFinished} / {siblings.length} 篇
+                  </span>
+                  <a
+                    className="text-button"
+                    href={`#original/${book.shelfId}`}
+                    onClick={() => setBookToc(false)}
+                  >
+                    阅读原版整册
+                  </a>
+                </div>
+                <nav className="reader-toc" aria-label="全册章节">
+                  {siblings.map((item, idx) => (
+                    <button
+                      key={item.id}
+                      aria-current={
+                        item.id === article.id ? "location" : undefined
+                      }
+                      onClick={() => {
+                        setBookToc(false);
+                        go(`article/${item.id}`);
+                      }}
+                    >
+                      <span>
+                        {idx === 0 && item.id.endsWith("-guide")
+                          ? "导读"
+                          : String(idx).padStart(2, "0")}
+                      </span>
+                      <strong className="reader-toc-title">{item.title}</strong>
+                      <small className="reader-toc-status">
+                        {item.progress === 100
+                          ? "已读"
+                          : item.progress > 0
+                            ? `${item.progress}%`
+                            : CHAPTER_DEMOS[item.id]?.length
+                              ? "含动图"
+                              : ""}
+                      </small>
+                    </button>
+                  ))}
+                </nav>
+              </div>
+            </ReaderDialog>
+          )}
           <div className="eyebrow article-kicker">
             {shelf ? kindNames[shelf.kind] : "知识内容"} <span>/</span>{" "}
             {tocItems.length > 0 ? `${tocItems.length} 个小节` : "正文阅读"}
@@ -708,6 +823,30 @@ function Reading({
             </div>
           )}
           <CourseDisclosures container={content} body={article.body} />
+          {chapterDemos.length > 0 && (
+            <div className="chapter-demos-slot" aria-label="本章交互原理解析">
+              {chapterDemos.length > 1 && (
+                <div className="chapter-demo-tabs" role="tablist" aria-label="切换本章交互演示">
+                  {chapterDemos.map((demoKind, idx) => (
+                    <button
+                      key={demoKind}
+                      role="tab"
+                      aria-selected={Math.min(demoTab, chapterDemos.length - 1) === idx}
+                      className={Math.min(demoTab, chapterDemos.length - 1) === idx ? "active" : ""}
+                      onClick={() => setDemoTab(idx)}
+                    >
+                      <span>0{idx + 1}</span>
+                      {demos[demoKind]?.badge?.split("·")[0]?.trim() || demos[demoKind]?.title || demoKind}
+                    </button>
+                  ))}
+                </div>
+              )}
+              <LearningDemo
+                key={`${article.id}-${chapterDemos[Math.min(demoTab, chapterDemos.length - 1)]}`}
+                kind={chapterDemos[Math.min(demoTab, chapterDemos.length - 1)]}
+              />
+            </div>
+          )}
           <div ref={content}>
             <Markdown body={article.body} onAsset={onAsset} onTerm={onTerm} />
           </div>
@@ -828,17 +967,33 @@ function Reading({
               )}
             </Reveal>
           </div>
-          {next && (
-            <button
-              className="next-article"
-              onClick={() => go(`article/${next.id}`)}
-            >
-              <span>
-                <small>下一篇</small>
-                <strong>{next.title}</strong>
-              </span>
-              <ArrowRight size={22} />
-            </button>
+          {(prev || next) && (
+            <div className="chapter-pager">
+              {prev && (
+                <button
+                  className="prev-article"
+                  onClick={() => go(`article/${prev.id}`)}
+                >
+                  <ArrowLeft size={20} />
+                  <span>
+                    <small>上一篇</small>
+                    <strong>{prev.title}</strong>
+                  </span>
+                </button>
+              )}
+              {next && (
+                <button
+                  className="next-article"
+                  onClick={() => go(`article/${next.id}`)}
+                >
+                  <span>
+                    <small>下一篇</small>
+                    <strong>{next.title}</strong>
+                  </span>
+                  <ArrowRight size={22} />
+                </button>
+              )}
+            </div>
           )}
         </article>
         <aside className="reading-aside">
@@ -975,6 +1130,8 @@ export default function App() {
   const continueArticle =
     recent.find((a) => a.progress < 100) ||
     recent[0] ||
+    articles.find((a) => a.id === "course-b00-m01") ||
+    articles.find((a) => a.id === "course-learning-path") ||
     articles.find((a) => a.shelfId === "handbook" && a.order === 0) ||
     articles[0];
   const due = articles.filter(

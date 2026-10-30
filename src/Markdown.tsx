@@ -19,20 +19,153 @@ import { ReaderMedia } from "./ReaderMedia";
 import { getTerm } from "./Glossary";
 import { parseCourseBlock } from "./courseBlocks";
 import { CourseAssessment } from "./CourseAssessment";
+
 let diagramQueue = Promise.resolve();
-function CourseContent({ language, source, onAsset, onTerm }: {
-  language: string; source: string; onAsset: (id: string) => void; onTerm?: (id: string) => void;
+
+/**
+ * Infers a highlight.js common language for textbook ```text code fences
+ * without altering a single character of the code body.
+ */
+export function inferFenceLanguage(code: string): string {
+  const s = code.trim();
+  if (!s) return "text";
+  if (/^\s*\{[\s\S]*\}\s*$/.test(s) && /"\w+"\s*:/.test(s)) return "json";
+  if (
+    /\b(fn\s+\w+|let\s+mut\b|impl\b|pub\s+(struct|enum|fn|trait)|use\s+[\w:]+|Result<|Option<|#\[derive)/.test(
+      s,
+    )
+  )
+    return "rust";
+  if (
+    /\b(def\s+\w+\s*\(|import\s+[\w.]+|from\s+[\w.]+\s+import|if\s+__name__\s*==|pytest|np\.|plt\.)/.test(
+      s,
+    )
+  )
+    return "python";
+  if (
+    /\b(std::|template\s*<|constexpr\b|namespace\b|class\s+\w+|unique_ptr|shared_ptr|noexcept\b|nullptr\b)/.test(
+      s,
+    )
+  )
+    return "cpp";
+  if (
+    /(^|\n)\s*(#include\b|#define\b|#ifndef\b|typedef\s+|struct\s+\w+|volatile\s+|uint(8|16|32|64)_t\b|int(8|16|32|64)_t\b|void\s+\w+\s*\(|int\s+main\s*\(|static\s+inline\b)/.test(
+      s,
+    ) ||
+    /\b(RCC_|GPIO[A-Z]|USART\d|TIM\d|ADC\d|DMA\d|NVIC_|SCB_|FLASH_)/.test(s)
+  )
+    return "c";
+  if (
+    /(^|\n)\s*(\.syntax|\.thumb|\.global|mov\.w|ldr\b|str\b|bl\b|bx\s+lr|bpl\.n|bmi\.n|bne\.n|subs\b|push\s*\{|pop\s*\{)/i.test(
+      s,
+    )
+  )
+    return "c";
+  if (
+    /(^|\n)\s*(cmake_minimum_required|add_executable|target_link_libraries|PHONY\s*:|[A-Z0-9_]+\s*[?:]?=\s*\S+)/.test(
+      s,
+    )
+  )
+    return "makefile";
+  if (
+    /(^|\n)\s*(\$\s+\w+|#!\/bin\/(ba)?sh|sudo\s+|apt-get\s+|git\s+(init|clone|commit|status|diff)|gcc\s+-|arm-none-eabi-|cargo\s+(build|test|run)|python3?\s+-m)/.test(
+      s,
+    )
+  )
+    return "bash";
+  return "c";
+}
+
+export function upgradeMarkdownCodeFences(markdown: string): string {
+  if (!markdown.includes("```text")) return markdown;
+  return markdown.replace(
+    /```text([ \t]*\r?\n)([\s\S]*?)```/g,
+    (_full, newline: string, code: string) => {
+      const lang = inferFenceLanguage(code);
+      return `\`\`\`${lang}${newline}${code}\`\`\``;
+    },
+  );
+}
+
+export function formatCodeMeta(className?: string, rawText?: string): string | undefined {
+  const lines = rawText ? rawText.replace(/\n$/, "").split("\n").length : 0;
+  const isAsm =
+    rawText &&
+    /(^|\n)\s*(mov\.w|ldr\s+r\d|bpl\.n|bmi\.n|bne\.n|\.syntax\s+unified)/i.test(
+      rawText,
+    );
+  const match = className?.match(/language-([\w-]+)/);
+  const langKey = isAsm ? "asm" : (match?.[1] || "").toLowerCase();
+  const labelMap: Record<string, string> = {
+    c: "C",
+    cpp: "C++",
+    rust: "Rust",
+    python: "Python",
+    bash: "Shell",
+    sh: "Shell",
+    makefile: "Makefile",
+    cmake: "CMake",
+    json: "JSON",
+    yaml: "YAML",
+    asm: "ARM ASM",
+    dts: "DeviceTree",
+    ld: "Linker",
+  };
+  const badge = labelMap[langKey];
+  if (badge && lines > 1) return `${badge} · ${lines} 行`;
+  if (badge) return badge;
+  if (lines > 1) return `${lines} 行`;
+  return undefined;
+}
+
+function CourseContent({
+  language,
+  source,
+  onAsset,
+  onTerm,
+}: {
+  language: string;
+  source: string;
+  onAsset: (id: string) => void;
+  onTerm?: (id: string) => void;
 }) {
   const block = parseCourseBlock(language, source);
   if (!block) return <pre className="diagram-fallback">{source}</pre>;
-  if (block.kind === "assessment") return <CourseAssessment key={block.id} value={block} />;
-  if (block.kind === "details") return <details className="course-details"><summary>{block.title}</summary>
-    <Markdown body={block.body} onAsset={onAsset} onTerm={onTerm} /></details>;
-  return <ReaderMedia kind="table"><table><tbody>{block.rows.map((row, i) => <tr key={i}>
-    {row.map((cell,j) => { const Cell = cell.header ? "th" : "td"; return <Cell key={j} rowSpan={cell.rowSpan} colSpan={cell.colSpan}>
-      <Markdown body={cell.body} onAsset={onAsset} onTerm={onTerm} /></Cell>; })}
-  </tr>)}</tbody></table></ReaderMedia>;
+  if (block.kind === "assessment")
+    return <CourseAssessment key={block.id} value={block} />;
+  if (block.kind === "details")
+    return (
+      <details className="course-details">
+        <summary>{block.title}</summary>
+        <Markdown body={block.body} onAsset={onAsset} onTerm={onTerm} />
+      </details>
+    );
+  return (
+    <ReaderMedia kind="table">
+      <table>
+        <tbody>
+          {block.rows.map((row, i) => (
+            <tr key={i}>
+              {row.map((cell, j) => {
+                const Cell = cell.header ? "th" : "td";
+                return (
+                  <Cell key={j} rowSpan={cell.rowSpan} colSpan={cell.colSpan}>
+                    <Markdown
+                      body={cell.body}
+                      onAsset={onAsset}
+                      onTerm={onTerm}
+                    />
+                  </Cell>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </ReaderMedia>
+  );
 }
+
 function Diagram({ source }: { source: string }) {
   const [svg, setSvg] = useState(""),
     [error, setError] = useState(false);
@@ -96,6 +229,7 @@ function Diagram({ source }: { source: string }) {
     <div className="muted">正在绘制流程图…</div>
   );
 }
+
 function AssetImage({ src, alt }: { src?: string; alt?: string }) {
   const [url, setUrl] = useState("");
   useEffect(() => {
@@ -127,6 +261,15 @@ function AssetImage({ src, alt }: { src?: string; alt?: string }) {
     </span>
   );
 }
+
+function extractText(node: React.ReactNode): string {
+  if (typeof node === "string" || typeof node === "number") return String(node);
+  if (Array.isArray(node)) return node.map(extractText).join("");
+  if (isValidElement<{ children?: React.ReactNode }>(node))
+    return extractText(node.props.children);
+  return "";
+}
+
 export function Markdown({
   body,
   onAsset,
@@ -138,6 +281,7 @@ export function Markdown({
 }) {
   const callbacks = useRef({ onAsset, onTerm });
   callbacks.current = { onAsset, onTerm };
+  const enhancedBody = useMemo(() => upgradeMarkdownCodeFences(body), [body]);
   // Stable component types preserve diagram/demo state and the trigger DOM node
   // when reading progress or a modal changes in the parent.
   const components = useMemo<Components>(
@@ -210,15 +354,23 @@ export function Markdown({
         </ReaderMedia>
       ),
       pre: ({ children }) =>
-        isValidElement<{ className?: string; children?: React.ReactNode }>(children) &&
-        /language-zhizhan-(details|table|assessment)\b/.test(children.props.className || "") ? (
-          <CourseContent language={children.props.className!.match(/language-(zhizhan-[\w-]+)/)![1]}
-            source={String(children.props.children || "")}
-            onAsset={id => callbacks.current.onAsset(id)} onTerm={id => callbacks.current.onTerm?.(id)} />
-        ) :
         isValidElement<{ className?: string; children?: React.ReactNode }>(
           children,
-        ) && children.props.className?.includes("language-zhizhan-figure") ? (
+        ) &&
+        /language-zhizhan-(details|table|assessment)\b/.test(
+          children.props.className || "",
+        ) ? (
+          <CourseContent
+            language={
+              children.props.className!.match(/language-(zhizhan-[\w-]+)/)![1]
+            }
+            source={String(children.props.children || "")}
+            onAsset={(id) => callbacks.current.onAsset(id)}
+            onTerm={(id) => callbacks.current.onTerm?.(id)}
+          />
+        ) : isValidElement<{ className?: string; children?: React.ReactNode }>(
+            children,
+          ) && children.props.className?.includes("language-zhizhan-figure") ? (
           <TextbookFigure source={String(children.props.children || "")} />
         ) : isValidElement<{ className?: string; children?: React.ReactNode }>(
             children,
@@ -259,7 +411,19 @@ export function Markdown({
           ) && children.props.className?.includes("language-mermaid") ? (
           <Diagram source={String(children.props.children || "")} />
         ) : (
-          <ReaderMedia kind="code">
+          <ReaderMedia
+            kind="code"
+            meta={
+              isValidElement<{ className?: string; children?: React.ReactNode }>(
+                children,
+              )
+                ? formatCodeMeta(
+                    children.props.className,
+                    extractText(children.props.children),
+                  )
+                : undefined
+            }
+          >
             <pre>{children}</pre>
           </ReaderMedia>
         ),
@@ -271,18 +435,18 @@ export function Markdown({
       <div className="prose">
         <ReactMarkdown
           remarkPlugins={[remarkGfm]}
-          rehypePlugins={[rehypeHighlight]}
+          rehypePlugins={[[rehypeHighlight, { ignoreMissing: true }]]}
           skipHtml
           urlTransform={(url) =>
             /^(https?:|mailto:|doc:|asset:|term:|#)/.test(url) ? url : ""
           }
           components={components}
         >
-          {body}
+          {enhancedBody}
         </ReactMarkdown>
       </div>
     ),
-    [body, components],
+    [enhancedBody, components],
   );
   return rendered;
 }

@@ -33,7 +33,7 @@ export function Glossary({
       <p className="term-summary">{term.summary}</p>
       <p>{term.detail}</p>
       <section className="term-example">
-        <h3>在灵珠中</h3>
+        <h3>工程实践语境</h3>
         <p>{term.example}</p>
       </section>
       <section className="term-caution">
@@ -53,7 +53,7 @@ export function Glossary({
         阅读相关章节
         <ArrowUpRight size={16} />
       </button>
-      <small className="term-scope">工程语境 · 固件基线 7.0.113</small>
+      <small className="term-scope">嵌入式系统工程 · 核心概念速查</small>
     </div>
   );
 }
